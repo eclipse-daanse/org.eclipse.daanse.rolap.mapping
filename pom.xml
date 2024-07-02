@@ -34,5 +34,6 @@
     <module>org.eclipse.daanse.rolap.mapping.api</module>
     <module>org.eclipse.daanse.rolap.mapping.emf</module>
     <module>org.eclipse.daanse.rolap.mapping.record</module>
+    <module>org.eclipse.daanse.rolap.mapping.mondrian.jaxb</module>
   </modules>
 </project>
