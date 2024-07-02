@@ -102,8 +102,8 @@ public class ObjectFactory {
         return new NamedSet();
     }
 
-    public PrivateDimension createPrivateDimension() {
-        return new PrivateDimension();
+    public Dimension createPrivateDimension() {
+        return new Dimension();
     }
 
     public Schema createSchema() {
@@ -168,10 +168,6 @@ public class ObjectFactory {
 
     public VirtualCubeMeasure createSchemaVirtualCubeVirtualCubeMeasure() {
         return new VirtualCubeMeasure();
-    }
-
-    public SharedDimension createSharedDimension() {
-        return new SharedDimension();
     }
 
     public SQL createSQL() {

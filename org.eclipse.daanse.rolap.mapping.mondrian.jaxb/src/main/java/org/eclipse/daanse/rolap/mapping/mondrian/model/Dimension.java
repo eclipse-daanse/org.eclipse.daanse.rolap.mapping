@@ -29,7 +29,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "Dimension", propOrder = { "hierarchies" })
 @XmlRootElement(name = "Dimension")
-public class PrivateDimension extends AbstractMainElement {
+public class Dimension extends AbstractMainElement implements DimensionOrDimensionUsage{
 
     @XmlElement(name = "Hierarchy", required = true, type = Hierarchy.class)
     protected List<Hierarchy> hierarchies;

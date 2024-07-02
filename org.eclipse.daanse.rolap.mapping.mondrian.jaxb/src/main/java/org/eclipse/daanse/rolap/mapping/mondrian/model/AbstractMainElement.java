@@ -24,8 +24,8 @@ import jakarta.xml.bind.annotation.XmlType;
 
 @XmlType(name = "AbstractMainElement", propOrder = { "annotations", "name", "description", "caption" })
 @XmlSeeAlso({ Action.class, CalculatedMember.class, CalculatedMemberProperty.class, Cube.class, DimensionUsage.class,
-        DrillThroughAction.class, Hierarchy.class, Level.class, Measure.class, NamedSet.class, PrivateDimension.class,
-        Property.class, Role.class, Schema.class, SharedDimension.class, VirtualCubeDimension.class, VirtualCube.class,
+        DrillThroughAction.class, Hierarchy.class, Level.class, Measure.class, NamedSet.class, Dimension.class,
+        Property.class, Role.class, Schema.class, VirtualCubeDimension.class, VirtualCube.class,
         VirtualCubeMeasure.class, })
 public abstract class AbstractMainElement {
     @XmlElement(name = "Annotation", type = Annotation.class)

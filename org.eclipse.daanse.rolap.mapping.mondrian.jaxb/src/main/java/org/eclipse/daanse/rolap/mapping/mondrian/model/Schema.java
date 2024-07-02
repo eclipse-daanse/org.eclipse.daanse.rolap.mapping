@@ -37,8 +37,8 @@ public class Schema extends AbstractMainElement {
 
     @XmlElement(name = "Parameter", type = Parameter.class)
     protected List<Parameter> parameters;
-    @XmlElement(name = "Dimension", type = PrivateDimension.class)
-    protected List<PrivateDimension> dimensions;
+    @XmlElement(name = "Dimension", type = Dimension.class)
+    protected List<Dimension> dimensions;
     @XmlElement(name = "Cube", required = true, type = Cube.class)
     protected List<Cube> cubes;
     @XmlElement(name = "VirtualCube", type = VirtualCube.class)
@@ -65,7 +65,7 @@ public class Schema extends AbstractMainElement {
         return defaultRole;
     }
 
-    public List<PrivateDimension> dimensions() {
+    public List<Dimension> dimensions() {
         if (dimensions == null) {
             dimensions = new ArrayList<>();
         }
@@ -109,7 +109,7 @@ public class Schema extends AbstractMainElement {
         this.defaultRole = defaultRole;
     }
 
-    public void setDimensions(List<PrivateDimension> dimensions) {
+    public void setDimensions(List<Dimension> dimensions) {
         this.dimensions = dimensions;
     }
 

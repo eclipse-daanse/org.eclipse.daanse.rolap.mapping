@@ -31,8 +31,8 @@ import jakarta.xml.bind.annotation.XmlType;
 public class Cube extends AbstractMainElement {
 
     @XmlElements({ @XmlElement(name = "DimensionUsage", type = DimensionUsage.class),
-            @XmlElement(name = "Dimension", type = PrivateDimension.class) })
-    protected List<Object> dimensionUsageOrDimensions;
+            @XmlElement(name = "Dimension", type = Dimension.class) })
+    protected List<DimensionOrDimensionUsage> dimensionUsageOrDimensions;
     @XmlElement(name = "Measure", required = true, type = Measure.class)
     protected List<Measure> measures;
     @XmlElement(name = "CalculatedMember", type = CalculatedMember.class)
@@ -86,7 +86,7 @@ public class Cube extends AbstractMainElement {
         return defaultMeasure;
     }
 
-    public List<Object> dimensionUsageOrDimensions() {
+    public List<DimensionOrDimensionUsage> dimensionUsageOrDimensions() {
         if (dimensionUsageOrDimensions == null) {
             dimensionUsageOrDimensions = new ArrayList<>();
         }
@@ -149,7 +149,7 @@ public class Cube extends AbstractMainElement {
         this.defaultMeasure = value;
     }
 
-    public void setDimensionUsageOrDimensions(List<Object> dimensionUsageOrDimensions) {
+    public void setDimensionUsageOrDimensions(List<DimensionOrDimensionUsage> dimensionUsageOrDimensions) {
         this.dimensionUsageOrDimensions = dimensionUsageOrDimensions;
     }
 

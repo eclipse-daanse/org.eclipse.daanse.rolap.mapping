@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "DimensionUsage", propOrder = {})
 @XmlRootElement(name = "DimensionUsage")
-public class DimensionUsage extends AbstractMainElement {
+public class DimensionUsage extends AbstractMainElement implements DimensionOrDimensionUsage{
 
     @XmlAttribute(name = "source", required = true)
     protected String source;
