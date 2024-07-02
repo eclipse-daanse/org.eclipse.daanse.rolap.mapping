@@ -1,0 +1,33 @@
+name: Editor Config format check
+
+permissions: { }
+
+on:
+  pull_request:
+    branches: [ "main" , "dashIPCheck/requestIpLab"]
+
+jobs:
+  validate:
+    name: Validate Editor Config formatting
+    runs-on: 'ubuntu-latest'
+
+    permissions:
+      contents: read
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
+    steps:
+    - name: Checkout PR head branch
+      uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      with:
+        fetch-depth: 0
+
+    - name: Editor Config Validation against PR base commit
+      uses: super-linter/super-linter/slim@88ea3923a7e1f89dd485d079f6eb5f5e8f937589 # v6.6.0
+      env:
+        VALIDATE_ALL_CODEBASE: false
+        VALIDATE_EDITORCONFIG: true
+        DEFAULT_BRANCH: ${{ github.event.pull_request.base.sha }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VALIDATE_MARKDOWN: true

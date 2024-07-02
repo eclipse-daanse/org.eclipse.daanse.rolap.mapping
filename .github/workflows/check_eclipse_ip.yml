@@ -1,0 +1,26 @@
+name: Eclipse-Dash IP-Check
+
+on:
+  push:
+    branches: [ "main" , "dashIPCheck/requestIpLab"]
+  pull_request:
+    branches: [ "main" , "dashIPCheck/requestIpLab"]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+    - name: Set up JDK 21
+      uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+    - name: Build with Maven
+      env:
+        EXCLUDED_ARTIFACTS: 'bugsnag'
+        DASH_IPLAB_TOKEN: ${{ secrets.DASH_IPLAB_TOKEN }}
+      run: mvn -B org.eclipse.dash:license-tool-plugin:license-check -Dlicenses-check -Ddash.fail=true -Ddash.summary=DEPENDENCIES -DexcludeArtifactIds=$EXCLUDED_ARTIFACTS -Ddash.projectId=technology.daanse -Ddash.iplab.token="$DASH_IPLAB_TOKEN" -P eclipse-licenses-check --file pom.xml

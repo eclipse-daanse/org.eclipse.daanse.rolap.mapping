@@ -1,2 +1,2 @@
-# org.eclipse.daanse.rolap.mapping
-Repository for the rolap mapping
+# org.eclipse.daanse.rolap.model
+Repository for the rolap models
