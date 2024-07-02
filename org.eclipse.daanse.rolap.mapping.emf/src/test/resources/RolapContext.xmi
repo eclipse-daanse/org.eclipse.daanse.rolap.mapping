@@ -11,10 +11,10 @@
 **********************************************************************/
 -->
 <roma:RolapContext
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping">
+  xmi:version="2.0"
+  xmlns:xmi="http://www.omg.org/XMI"
+  xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping">
   <dbschemas
-      id="1"
-      name="DBSChema1"/>
+    id="1"
+    name="DBSChema1" />
 </roma:RolapContext>

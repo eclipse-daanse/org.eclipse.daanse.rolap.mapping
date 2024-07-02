@@ -16,20 +16,20 @@ import java.util.List;
 
 public interface CubeMapping extends AbstractElementMapping {
 
-	List<? extends DimensionConnectorMapping> getDimensionConnectors();
+    List<? extends DimensionConnectorMapping> getDimensionConnectors();
 
-	List<? extends CalculatedMemberMapping> getCalculatedMembers();
+    List<? extends CalculatedMemberMapping> getCalculatedMembers();
 
-	List<? extends NamedSetMapping> getNamedSets();
+    List<? extends NamedSetMapping> getNamedSets();
 
-	List<? extends KpiMapping> getKpis();
+    List<? extends KpiMapping> getKpis();
 
-	MeasureMapping getDefaultMeasure();
+    MeasureMapping getDefaultMeasure();
 
-	boolean isEnabled();
+    boolean isEnabled();
 
-	boolean isVisible();
+    boolean isVisible();
 
-	List<? extends MeasureGroupMapping> getMeasureGroups();
+    List<? extends MeasureGroupMapping> getMeasureGroups();
 
 }

@@ -16,6 +16,6 @@ import java.util.List;
 
 public interface SqlSelectQueryMapping extends RelationalQueryMapping {
 
-	List<? extends SQLMapping> getSQL();
+    List<? extends SQLMapping> getSQL();
 
 }

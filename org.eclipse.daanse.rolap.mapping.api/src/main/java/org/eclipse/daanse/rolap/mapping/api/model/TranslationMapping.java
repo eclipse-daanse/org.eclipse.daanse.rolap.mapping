@@ -16,13 +16,13 @@ import java.util.List;
 
 public interface TranslationMapping {
 
-	long getLanguage();
+    long getLanguage();
 
-	String getCaption();
+    String getCaption();
 
-	String getDescription();
+    String getDescription();
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	List<? extends AnnotationMapping> getAnnotations();
+    List<? extends AnnotationMapping> getAnnotations();
 }

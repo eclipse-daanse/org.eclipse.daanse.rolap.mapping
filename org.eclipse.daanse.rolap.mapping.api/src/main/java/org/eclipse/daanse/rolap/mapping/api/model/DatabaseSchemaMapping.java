@@ -16,10 +16,10 @@ import java.util.List;
 
 public interface DatabaseSchemaMapping {
 
-	String getId();
+    String getId();
 
-	String getName();
+    String getName();
 
-	List<? extends DatabaseTableMapping> getTables();
+    List<? extends DatabaseTableMapping> getTables();
 
 }

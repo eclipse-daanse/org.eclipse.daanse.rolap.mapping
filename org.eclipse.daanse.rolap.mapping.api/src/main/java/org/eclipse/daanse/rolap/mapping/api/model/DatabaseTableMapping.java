@@ -16,12 +16,12 @@ import java.util.List;
 
 public interface DatabaseTableMapping {
 
-	String getId();
+    String getId();
 
-	String getName();
+    String getName();
 
-	String getDescription();
+    String getDescription();
 
-	List<? extends DatabaseColumnMapping> getColumns();
+    List<? extends DatabaseColumnMapping> getColumns();
 
 }

@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationLevelPropertyMapping {
 
-	String getColumn();
+    String getColumn();
 
-	String getName();
+    String getName();
 
 }

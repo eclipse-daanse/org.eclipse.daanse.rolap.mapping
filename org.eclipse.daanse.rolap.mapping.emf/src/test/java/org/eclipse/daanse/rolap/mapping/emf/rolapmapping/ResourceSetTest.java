@@ -44,47 +44,47 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @RequireEMF
 public class ResourceSetTest {
 
-	private static String BASE_DIR = System.getProperty("basePath");
+    private static String BASE_DIR = System.getProperty("basePath");
 
-	@Test
-	public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
-			@InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-					+ EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
-			throws SQLException, InterruptedException, IOException {
-		assertThat(saResourceSet.getServices()).hasSize(1);
+    @Test
+    public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
+                    + EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
+            throws SQLException, InterruptedException, IOException {
+        assertThat(saResourceSet.getServices()).hasSize(1);
 
-		ResourceSet rs = saResourceSet.getService();
+        ResourceSet rs = saResourceSet.getService();
 
-		URI uri = URI.createURI(BASE_DIR + "/src/test/resources/RolapContext.xmi");
-		Resource resource = rs.getResource(uri, true);
-		resource.load(Map.of());
-		EObject root = resource.getContents().get(0);
-		System.out.println(root);
+        URI uri = URI.createURI(BASE_DIR + "/src/test/resources/RolapContext.xmi");
+        Resource resource = rs.getResource(uri, true);
+        resource.load(Map.of());
+        EObject root = resource.getContents().get(0);
+        System.out.println(root);
 
-	}
+    }
 
-	@TempDir
-	Path tempDir;
+    @TempDir
+    Path tempDir;
 
-	@Test
-	public void write(@InjectBundleContext BundleContext bc,
-			@InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-					+ EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
-			throws SQLException, InterruptedException, IOException {
-		assertThat(saResourceSet.getServices()).hasSize(1);
+    @Test
+    public void write(@InjectBundleContext BundleContext bc,
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
+                    + EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
+            throws SQLException, InterruptedException, IOException {
+        assertThat(saResourceSet.getServices()).hasSize(1);
 
-		ResourceSet rs = saResourceSet.getService();
+        ResourceSet rs = saResourceSet.getService();
 
-		Path file = Files.createTempFile(tempDir, "out", ".xmi");
-		URI uri = URI.createFileURI(file.toAbsolutePath().toString());
-		Resource resource = rs.createResource(uri);
-		resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-		resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-		resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-		resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
+        Path file = Files.createTempFile(tempDir, "out", ".xmi");
+        URI uri = URI.createFileURI(file.toAbsolutePath().toString());
+        Resource resource = rs.createResource(uri);
+        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
 
-		resource.save(Map.of());
-		System.out.println(Files.readString(file));
+        resource.save(Map.of());
+        System.out.println(Files.readString(file));
 
 //    Catalog c1=    EmfRolapMappingFactory.eINSTANCE.createCatalog();
 //        EmfRolapMappingFactory.eINSTANCE.createCatalog();
@@ -93,6 +93,6 @@ public class ResourceSetTest {
 //        EObject root = resource.getContents().get(0);
 //        System.out.println(root);
 
-	}
+    }
 
 }

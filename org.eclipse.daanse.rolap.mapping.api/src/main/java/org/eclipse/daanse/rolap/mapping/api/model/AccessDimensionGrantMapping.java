@@ -14,10 +14,10 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AccessDimensionGrantMapping {
 
-	String getAccess();
+    String getAccess();
 
-	void setAccess(String value);
+    void setAccess(String value);
 
-	DimensionMapping getDimension();
+    DimensionMapping getDimension();
 
 }

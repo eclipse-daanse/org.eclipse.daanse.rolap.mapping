@@ -16,12 +16,12 @@ import java.util.List;
 
 public interface AccessCubeGrantMapping {
 
-	List<? extends AccessDimensionGrantMapping> getDimensionGrants();
+    List<? extends AccessDimensionGrantMapping> getDimensionGrants();
 
-	List<? extends AccessHierarchyGrantMapping> getHierarchyGrants();
+    List<? extends AccessHierarchyGrantMapping> getHierarchyGrants();
 
-	String getAccess();
+    String getAccess();
 
-	CubeMapping getCube();
+    CubeMapping getCube();
 
 }

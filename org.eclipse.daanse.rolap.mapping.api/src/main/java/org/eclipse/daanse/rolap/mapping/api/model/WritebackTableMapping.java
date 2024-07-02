@@ -16,12 +16,12 @@ import java.util.List;
 
 public interface WritebackTableMapping {
 
-	List<? extends WritebackAttributeMapping> getWritebackAttribute();
+    List<? extends WritebackAttributeMapping> getWritebackAttribute();
 
-	List<? extends WritebackMeasureMapping> getWritebackMeasure();
+    List<? extends WritebackMeasureMapping> getWritebackMeasure();
 
-	String getName();
+    String getName();
 
-	String getSchema();
+    String getSchema();
 
 }

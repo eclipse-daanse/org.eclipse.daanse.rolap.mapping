@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface JoinQueryMapping extends QueryMapping {
 
-	JoinedQueryElementMapping getLeft();
+    JoinedQueryElementMapping getLeft();
 
-	JoinedQueryElementMapping getRight();
+    JoinedQueryElementMapping getRight();
 
 }

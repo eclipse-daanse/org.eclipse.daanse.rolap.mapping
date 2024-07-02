@@ -16,14 +16,14 @@ import java.util.List;
 
 public interface DatabaseColumnMapping {
 
-	String getId();
+    String getId();
 
-	String getName();
+    String getName();
 
-	String getType();
+    String getType();
 
-	List<String> getTypeQualifiers();
+    List<String> getTypeQualifiers();
 
-	String getDescription();
+    String getDescription();
 
 }

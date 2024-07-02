@@ -14,14 +14,14 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface ParameterMapping {
 
-	String getDefaultValue();
+    String getDefaultValue();
 
-	String getDescription();
+    String getDescription();
 
-	boolean isModifiable();
+    boolean isModifiable();
 
-	String getName();
+    String getName();
 
-	String getType();
+    String getType();
 
 }

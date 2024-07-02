@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface WritebackAttributeMapping {
 
-	String getColumn();
+    String getColumn();
 
-	DimensionMapping getDimension();
+    DimensionMapping getDimension();
 
 }

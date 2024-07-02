@@ -15,34 +15,34 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 import java.util.List;
 
 public interface HierarchyMapping extends AbstractElementMapping {
-	List<? extends LevelMapping> getLevels();
+    List<? extends LevelMapping> getLevels();
 
-	List<? extends MemberReaderParameterMapping> getMemberReaderParameters();
+    List<? extends MemberReaderParameterMapping> getMemberReaderParameters();
 
-	String getAllLevelName();
+    String getAllLevelName();
 
-	String getAllMemberCaption();
+    String getAllMemberCaption();
 
-	String getAllMemberName();
+    String getAllMemberName();
 
-	String getDefaultMember();
+    String getDefaultMember();
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	boolean isHasAll();
+    boolean isHasAll();
 
-	String getMemberReaderClass();
+    String getMemberReaderClass();
 
-	String getOrigin();
+    String getOrigin();
 
-	String getPrimaryKey();
+    String getPrimaryKey();
 
-	String getPrimaryKeyTable();
+    String getPrimaryKeyTable();
 
-	String getUniqueKeyLevelName();
+    String getUniqueKeyLevelName();
 
-	boolean isVisible();
+    boolean isVisible();
 
-	QueryMapping getQuery();
+    QueryMapping getQuery();
 
 }

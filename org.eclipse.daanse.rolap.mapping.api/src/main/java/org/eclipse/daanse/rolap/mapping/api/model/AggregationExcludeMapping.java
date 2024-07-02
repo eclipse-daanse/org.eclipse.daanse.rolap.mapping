@@ -14,10 +14,10 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationExcludeMapping {
 
-	boolean isIgnorecase();
+    boolean isIgnorecase();
 
-	String getName();
+    String getName();
 
-	String getPattern();
+    String getPattern();
 
 }

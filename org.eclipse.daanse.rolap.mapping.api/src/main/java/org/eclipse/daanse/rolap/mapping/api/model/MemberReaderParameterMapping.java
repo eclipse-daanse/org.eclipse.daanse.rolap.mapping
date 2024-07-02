@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface MemberReaderParameterMapping {
 
-	String getName();
+    String getName();
 
-	String getValue();
+    String getValue();
 
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public interface InlineTableQueryMapping extends RelationalQueryMapping {
 
-	List<? extends InlineTableColumnDefinitionMapping> getColumnDefinitions();
+    List<? extends InlineTableColumnDefinitionMapping> getColumnDefinitions();
 
-	List<? extends InlineTableRowMappingMapping> getRows();
+    List<? extends InlineTableRowMappingMapping> getRows();
 
 }

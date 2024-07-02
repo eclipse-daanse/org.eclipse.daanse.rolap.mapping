@@ -11,23 +11,23 @@
 **********************************************************************/
 -->
 <roma:RolapContext
-    xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping">
+  xmi:version="2.0"
+  xmlns:xmi="http://www.omg.org/XMI"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping">
   <dbschemas
-      name="s1">
-          <tables
-        name="t1">
+    name="s1">
+    <tables
+      name="t1">
       <columns
-          name="c1"/>
+        name="c1" />
       <columns
-          name="c2"/>
+        name="c2" />
       <columns
-          name="c3"/>
+        name="c3" />
     </tables>
   </dbschemas>
   <measures
-      xsi:type="roma:SumMeasure"
-      name="m1"/>
+    xsi:type="roma:SumMeasure"
+    name="m1" />
 </roma:RolapContext>

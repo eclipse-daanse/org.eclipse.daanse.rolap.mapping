@@ -16,26 +16,26 @@ import java.util.List;
 
 public interface MeasureMapping {
 
-	SQLExpressionMapping getMeasureExpression();
+    SQLExpressionMapping getMeasureExpression();
 
-	List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperty();
+    List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperty();
 
-	CellFormatterMapping getCellFormatter();
+    CellFormatterMapping getCellFormatter();
 
-	String getBackColor();
+    String getBackColor();
 
-	String getColumn();
+    String getColumn();
 
-	String getDatatype();
+    String getDatatype();
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	String getFormatString();
+    String getFormatString();
 
-	String getFormatter();
+    String getFormatter();
 
-	boolean isVisible();
+    boolean isVisible();
 
-	String getName();
+    String getName();
 
 }

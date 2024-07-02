@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AnnotationMapping {
 
-	String getValue();
+    String getValue();
 
-	String getName();
+    String getName();
 
 }

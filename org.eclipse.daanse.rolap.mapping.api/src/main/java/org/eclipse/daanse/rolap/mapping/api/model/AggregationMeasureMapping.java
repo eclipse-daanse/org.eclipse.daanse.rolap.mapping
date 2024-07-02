@@ -14,10 +14,10 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationMeasureMapping {
 
-	String getColumn();
+    String getColumn();
 
-	String getName();
+    String getName();
 
-	String getRollupType();
+    String getRollupType();
 
 }

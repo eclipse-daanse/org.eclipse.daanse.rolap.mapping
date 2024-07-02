@@ -16,20 +16,20 @@ import java.util.List;
 
 public interface CalculatedMemberMapping extends AbstractElementMapping {
 
-	List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperties();
+    List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperties();
 
-	CellFormatterMapping getCellFormatter();
+    CellFormatterMapping getCellFormatter();
 
-	String getFormula();
+    String getFormula();
 
-	DimensionMapping getDimension();
+    DimensionMapping getDimension();
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	String getFormatString();
+    String getFormatString();
 
-	HierarchyMapping getHierarchy();
+    HierarchyMapping getHierarchy();
 
-	String getParent();
+    String getParent();
 
 }

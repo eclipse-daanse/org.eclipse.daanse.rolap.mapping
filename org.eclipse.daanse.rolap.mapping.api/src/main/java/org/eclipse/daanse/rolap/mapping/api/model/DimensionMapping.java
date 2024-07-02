@@ -16,10 +16,10 @@ import java.util.List;
 
 public interface DimensionMapping extends AbstractElementMapping {
 
-	List<? extends HierarchyMapping> getHierarchies();
+    List<? extends HierarchyMapping> getHierarchies();
 
-	String getUsagePrefix();
+    String getUsagePrefix();
 
-	boolean isVisible();
+    boolean isVisible();
 
 }

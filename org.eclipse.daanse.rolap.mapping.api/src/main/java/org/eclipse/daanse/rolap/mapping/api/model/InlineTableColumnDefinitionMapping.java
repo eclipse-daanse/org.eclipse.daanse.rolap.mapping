@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface InlineTableColumnDefinitionMapping {
 
-	String getName();
+    String getName();
 
-	String getType();
+    String getType();
 
 }

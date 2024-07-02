@@ -36,37 +36,37 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(factory = true, ocd = EmfMappingProviderConfig.class)
 public class EmfMappingProvider implements RolapMappingProvider {
 
-	@Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" + EmfRolapMappingPackage.eNAME + ")")
-	private ResourceSet resourceSet;
+    @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" + EmfRolapMappingPackage.eNAME + ")")
+    private ResourceSet resourceSet;
 
-	private RolapContextMapping rolapContextMapping;
+    private RolapContextMapping rolapContextMapping;
 
-	@Activate
-	public void activate(EmfMappingProviderConfig config) throws IOException {
+    @Activate
+    public void activate(EmfMappingProviderConfig config) throws IOException {
 
-		URI uri = URI.createURI(config.resource_url());
+        URI uri = URI.createURI(config.resource_url());
 
-		Resource resource = resourceSet.getResource(uri, true);
-		resource.load(Map.of());
+        Resource resource = resourceSet.getResource(uri, true);
+        resource.load(Map.of());
 
-		EObject root = resource.getContents().get(0);
+        EObject root = resource.getContents().get(0);
 
-		if (root instanceof RolapContextMapping rcm) {
-			this.rolapContextMapping = rcm;
-		}
-	}
+        if (root instanceof RolapContextMapping rcm) {
+            this.rolapContextMapping = rcm;
+        }
+    }
 
-	@Deactivate
-	public void deactivate() {
-		cleanAllResources();
-	}
+    @Deactivate
+    public void deactivate() {
+        cleanAllResources();
+    }
 
-	@Override
-	public RolapContextMapping get() {
-		return rolapContextMapping;
-	}
+    @Override
+    public RolapContextMapping get() {
+        return rolapContextMapping;
+    }
 
-	private void cleanAllResources() {
-		resourceSet.getResources().forEach(Resource::unload);
-	}
+    private void cleanAllResources() {
+        resourceSet.getResources().forEach(Resource::unload);
+    }
 }

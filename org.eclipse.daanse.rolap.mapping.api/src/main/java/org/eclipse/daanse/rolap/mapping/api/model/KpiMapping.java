@@ -16,28 +16,28 @@ import java.util.List;
 
 public interface KpiMapping extends AbstractElementMapping {
 
-	List<? extends TranslationMapping> getTranslations();
+    List<? extends TranslationMapping> getTranslations();
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	String getAssociatedMeasureGroupID();
+    String getAssociatedMeasureGroupID();
 
-	String getValue();
+    String getValue();
 
-	String getGoal();
+    String getGoal();
 
-	String getStatus();
+    String getStatus();
 
-	String getTrend();
+    String getTrend();
 
-	String getWeight();
+    String getWeight();
 
-	String getTrendGraphic();
+    String getTrendGraphic();
 
-	String getStatusGraphic();
+    String getStatusGraphic();
 
-	String getCurrentTimeMember();
+    String getCurrentTimeMember();
 
-	String getParentKpiID();
+    String getParentKpiID();
 
 }

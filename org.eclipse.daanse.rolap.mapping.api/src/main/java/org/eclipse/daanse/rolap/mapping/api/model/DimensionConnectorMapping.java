@@ -14,16 +14,16 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface DimensionConnectorMapping {
 
-	String getForeignKey();
+    String getForeignKey();
 
-	LevelMapping getLevel();
+    LevelMapping getLevel();
 
-	String getUsagePrefix();
+    String getUsagePrefix();
 
-	boolean isVisible();
+    boolean isVisible();
 
-	DimensionMapping getDimension();
+    DimensionMapping getDimension();
 
-	String getOverrideDimensionName();
+    String getOverrideDimensionName();
 
 }

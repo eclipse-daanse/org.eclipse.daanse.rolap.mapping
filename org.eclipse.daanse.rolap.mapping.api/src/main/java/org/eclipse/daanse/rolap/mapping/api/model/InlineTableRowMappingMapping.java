@@ -16,6 +16,6 @@ import java.util.List;
 
 public interface InlineTableRowMappingMapping {
 
-	List<? extends InlineTableRowCellMapping> getCells();
+    List<? extends InlineTableRowCellMapping> getCells();
 
 }

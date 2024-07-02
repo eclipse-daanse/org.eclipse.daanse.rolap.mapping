@@ -16,10 +16,10 @@ import java.util.List;
 
 public interface DrillThroughActionMapping extends ActionMappingMapping {
 
-	List<? extends DrillThroughAttributeMapping> getDrillThroughAttribute();
+    List<? extends DrillThroughAttributeMapping> getDrillThroughAttribute();
 
-	List<? extends DrillThroughMeasureMapping> getDrillThroughMeasure();
+    List<? extends DrillThroughMeasureMapping> getDrillThroughMeasure();
 
-	boolean isDefault();
+    boolean isDefault();
 
 }

@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface TableQueryOptimizationHintMapping {
 
-	String getValue();
+    String getValue();
 
-	String getType();
+    String getType();
 
 }

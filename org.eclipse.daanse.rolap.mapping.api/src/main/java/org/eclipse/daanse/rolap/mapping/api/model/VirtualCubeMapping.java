@@ -16,6 +16,6 @@ import java.util.List;
 
 public interface VirtualCubeMapping extends CubeMapping {
 
-	List<? extends CubeConnectorMapping> getCubeUsages();
+    List<? extends CubeConnectorMapping> getCubeUsages();
 
 }

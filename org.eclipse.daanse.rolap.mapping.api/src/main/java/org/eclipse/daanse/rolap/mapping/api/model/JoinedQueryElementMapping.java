@@ -14,10 +14,10 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface JoinedQueryElementMapping {
 
-	String getAlias();
+    String getAlias();
 
-	String getKey();
+    String getKey();
 
-	QueryMapping getQuery();
+    QueryMapping getQuery();
 
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public interface MeasureGroupMapping {
 
-	List<? extends MeasureMapping> getMeasures();
+    List<? extends MeasureMapping> getMeasures();
 
-	String getName();
+    String getName();
 
 }

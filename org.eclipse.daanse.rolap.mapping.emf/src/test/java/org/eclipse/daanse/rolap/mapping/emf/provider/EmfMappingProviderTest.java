@@ -40,21 +40,20 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @RequireServiceComponentRuntime
 public class EmfMappingProviderTest {
 
-	private static String BASE_DIR = System.getProperty("basePath");
+    private static String BASE_DIR = System.getProperty("basePath");
 
-	@SetupMappingProviderWithTestInstance
-	@Test
-	public void loadSimpleFile(
-			@InjectService(cardinality = 1, timeout = 2000) ServiceAware<RolapMappingProvider> saRolapMappingProvider)
-			throws SQLException, InterruptedException, IOException {
-		assertThat(saRolapMappingProvider.getServices()).hasSize(1);
+    @SetupMappingProviderWithTestInstance
+    @Test
+    public void loadSimpleFile(
+            @InjectService(cardinality = 1, timeout = 2000) ServiceAware<RolapMappingProvider> saRolapMappingProvider)
+            throws SQLException, InterruptedException, IOException {
+        assertThat(saRolapMappingProvider.getServices()).hasSize(1);
 
-		RolapMappingProvider rsp = saRolapMappingProvider.getService();
+        RolapMappingProvider rsp = saRolapMappingProvider.getService();
 
-		RolapContextMapping rCtx = rsp.get();
-		rCtx.getSchemas();
+        RolapContextMapping rCtx = rsp.get();
+        rCtx.getSchemas();
 
-	}
-
+    }
 
 }

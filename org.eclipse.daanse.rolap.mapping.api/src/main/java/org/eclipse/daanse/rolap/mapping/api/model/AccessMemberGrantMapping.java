@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AccessMemberGrantMapping {
 
-	String getAccess();
+    String getAccess();
 
-	String getMember();
+    String getMember();
 
 }

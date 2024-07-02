@@ -16,18 +16,18 @@ import java.util.List;
 
 public interface AggregationTableMapping {
 
-	AggregationColumnNameMapping getAggregationFactCount();
+    AggregationColumnNameMapping getAggregationFactCount();
 
-	List<? extends AggregationColumnNameMapping> getAggregationIgnoreColumns();
+    List<? extends AggregationColumnNameMapping> getAggregationIgnoreColumns();
 
-	List<? extends AggregationForeignKeyMapping> getAggregationForeignKeys();
+    List<? extends AggregationForeignKeyMapping> getAggregationForeignKeys();
 
-	List<? extends AggregationMeasureMapping> getAggregationMeasures();
+    List<? extends AggregationMeasureMapping> getAggregationMeasures();
 
-	List<? extends AggregationLevelMapping> getAggregationLevels();
+    List<? extends AggregationLevelMapping> getAggregationLevels();
 
-	List<? extends AggregationMeasureFactCountMapping> getAggregationMeasureFactCounts();
+    List<? extends AggregationMeasureFactCountMapping> getAggregationMeasureFactCounts();
 
-	boolean isIgnorecase();
+    boolean isIgnorecase();
 
 }

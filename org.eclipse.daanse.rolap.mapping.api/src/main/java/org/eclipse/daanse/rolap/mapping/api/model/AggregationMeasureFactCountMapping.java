@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationMeasureFactCountMapping {
 
-	String getColumn();
+    String getColumn();
 
-	String getFactColumn();
+    String getFactColumn();
 
 }

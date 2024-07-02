@@ -16,8 +16,8 @@ import java.util.List;
 
 public interface SQLMapping {
 
-	List<String> getDialects();
+    List<String> getDialects();
 
-	String getStatement();
+    String getStatement();
 
 }

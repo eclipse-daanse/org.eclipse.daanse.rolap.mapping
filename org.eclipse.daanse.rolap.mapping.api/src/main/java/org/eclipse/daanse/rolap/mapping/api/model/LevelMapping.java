@@ -16,50 +16,50 @@ import java.util.List;
 
 public interface LevelMapping {
 
-	SQLExpressionMapping getKeyExpression();
+    SQLExpressionMapping getKeyExpression();
 
-	SQLExpressionMapping getNameExpression();
+    SQLExpressionMapping getNameExpression();
 
-	SQLExpressionMapping getCaptionExpression();
+    SQLExpressionMapping getCaptionExpression();
 
-	SQLExpressionMapping getOrdinalExpression();
+    SQLExpressionMapping getOrdinalExpression();
 
-	SQLExpressionMapping getParentExpression();
+    SQLExpressionMapping getParentExpression();
 
-	ParentChildLinkMapping getParentChildLink();
+    ParentChildLinkMapping getParentChildLink();
 
-	List<? extends MemberPropertyMapping> getMemberProperties();
+    List<? extends MemberPropertyMapping> getMemberProperties();
 
-	ElementFormatterMapping getMemberFormatter();
+    ElementFormatterMapping getMemberFormatter();
 
-	String getApproxRowCount();
+    String getApproxRowCount();
 
-	String getCaptionColumn();
+    String getCaptionColumn();
 
-	String getColumn();
+    String getColumn();
 
-	String getFormatter();
+    String getFormatter();
 
-	String getHideMemberIf();
+    String getHideMemberIf();
 
-	String getInternalType();
+    String getInternalType();
 
-	String getLevelType();
+    String getLevelType();
 
-	String getNameColumn();
+    String getNameColumn();
 
-	String getNullParentValue();
+    String getNullParentValue();
 
-	String getOrdinalColumn();
+    String getOrdinalColumn();
 
-	String getParentColumn();
+    String getParentColumn();
 
-	String getType();
+    String getType();
 
-	boolean isUniqueMembers();
+    boolean isUniqueMembers();
 
-	boolean isVisible();
+    boolean isVisible();
 
-	String getName();
+    String getName();
 
 }

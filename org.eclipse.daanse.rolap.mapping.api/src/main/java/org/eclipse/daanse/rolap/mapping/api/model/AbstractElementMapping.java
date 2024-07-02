@@ -16,14 +16,14 @@ import java.util.List;
 
 public interface AbstractElementMapping {
 
-	List<? extends AnnotationMapping> getAnnotations();
+    List<? extends AnnotationMapping> getAnnotations();
 
-	String getCaption();
+    String getCaption();
 
-	String getDescription();
+    String getDescription();
 
-	String getName();
+    String getName();
 
-	DocumentationMapping getDocumentation();
+    DocumentationMapping getDocumentation();
 
 }

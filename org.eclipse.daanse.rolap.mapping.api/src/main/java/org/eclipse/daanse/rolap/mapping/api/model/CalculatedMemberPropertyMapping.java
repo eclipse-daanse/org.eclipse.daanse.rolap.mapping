@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface CalculatedMemberPropertyMapping extends AbstractElementMapping {
 
-	String getExpression();
+    String getExpression();
 
-	String getValue();
+    String getValue();
 
 }

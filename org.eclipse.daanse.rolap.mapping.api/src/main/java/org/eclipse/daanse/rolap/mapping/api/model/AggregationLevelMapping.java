@@ -16,18 +16,18 @@ import java.util.List;
 
 public interface AggregationLevelMapping {
 
-	List<? extends AggregationLevelPropertyMapping> getAggregationLevelProperties();
+    List<? extends AggregationLevelPropertyMapping> getAggregationLevelProperties();
 
-	String getCaptionColumn();
+    String getCaptionColumn();
 
-	boolean isCollapsed();
+    boolean isCollapsed();
 
-	String getColumn();
+    String getColumn();
 
-	String getName();
+    String getName();
 
-	String getNameColumn();
+    String getNameColumn();
 
-	String getOrdinalColumn();
+    String getOrdinalColumn();
 
 }

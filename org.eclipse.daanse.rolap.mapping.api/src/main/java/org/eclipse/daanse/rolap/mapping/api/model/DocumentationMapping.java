@@ -14,6 +14,6 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface DocumentationMapping {
 
-	String getValue();
+    String getValue();
 
 }

@@ -14,10 +14,10 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface ParentChildLinkMapping {
 
-	TableQueryMapping getTable();
+    TableQueryMapping getTable();
 
-	String getChildColumn();
+    String getChildColumn();
 
-	String getParentColumn();
+    String getParentColumn();
 
 }

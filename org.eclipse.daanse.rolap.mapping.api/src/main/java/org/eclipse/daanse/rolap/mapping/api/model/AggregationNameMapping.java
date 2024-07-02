@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationNameMapping extends AggregationTableMapping {
 
-	String getApproxRowCount();
+    String getApproxRowCount();
 
-	String getName();
+    String getName();
 
 }

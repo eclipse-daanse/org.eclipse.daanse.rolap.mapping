@@ -16,12 +16,12 @@ import java.util.List;
 
 public interface PhysicalCubeMapping extends CubeMapping {
 
-	QueryMapping getQuery();
+    QueryMapping getQuery();
 
-	WritebackTableMapping getWritebackTable();
+    WritebackTableMapping getWritebackTable();
 
-	List<? extends ActionMappingMapping> getAction();
+    List<? extends ActionMappingMapping> getAction();
 
-	boolean isCache();
+    boolean isCache();
 
 }

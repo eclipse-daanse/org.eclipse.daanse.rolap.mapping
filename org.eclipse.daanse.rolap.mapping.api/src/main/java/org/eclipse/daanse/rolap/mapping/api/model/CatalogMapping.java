@@ -16,6 +16,6 @@ import java.util.List;
 
 public interface CatalogMapping extends AbstractElementMapping {
 
-	List<? extends SchemaMapping> getSchemas();
+    List<? extends SchemaMapping> getSchemas();
 
 }

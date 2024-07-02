@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface CubeConnectorMapping {
 
-	CubeMapping getCube();
+    CubeMapping getCube();
 
-	boolean isIgnoreUnrelatedDimensions();
+    boolean isIgnoreUnrelatedDimensions();
 
 }

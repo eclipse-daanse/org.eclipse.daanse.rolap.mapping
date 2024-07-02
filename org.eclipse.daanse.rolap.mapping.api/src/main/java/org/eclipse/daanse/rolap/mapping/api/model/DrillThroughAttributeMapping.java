@@ -14,12 +14,12 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface DrillThroughAttributeMapping {
 
-	DimensionMapping getDimension();
+    DimensionMapping getDimension();
 
-	HierarchyMapping getHierarchy();
+    HierarchyMapping getHierarchy();
 
-	LevelMapping getLevel();
+    LevelMapping getLevel();
 
-	String getProperty();
+    String getProperty();
 
 }

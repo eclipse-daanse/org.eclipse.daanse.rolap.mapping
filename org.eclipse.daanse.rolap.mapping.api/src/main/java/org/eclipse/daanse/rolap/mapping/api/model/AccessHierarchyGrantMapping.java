@@ -16,16 +16,16 @@ import java.util.List;
 
 public interface AccessHierarchyGrantMapping {
 
-	List<? extends  AccessMemberGrantMapping> getMemberGrants();
+    List<? extends AccessMemberGrantMapping> getMemberGrants();
 
-	String getAccess();
+    String getAccess();
 
-	String getBottomLevel();
+    String getBottomLevel();
 
-	String getRollupPolicy();
+    String getRollupPolicy();
 
-	String getTopLevel();
+    String getTopLevel();
 
-	HierarchyMapping getHierarchy();
+    HierarchyMapping getHierarchy();
 
 }

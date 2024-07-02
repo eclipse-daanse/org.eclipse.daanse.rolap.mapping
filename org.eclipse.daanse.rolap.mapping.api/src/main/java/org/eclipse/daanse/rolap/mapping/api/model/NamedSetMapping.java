@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface NamedSetMapping extends AbstractElementMapping {
 
-	String getDisplayFolder();
+    String getDisplayFolder();
 
-	String getFormula();
+    String getFormula();
 
 }

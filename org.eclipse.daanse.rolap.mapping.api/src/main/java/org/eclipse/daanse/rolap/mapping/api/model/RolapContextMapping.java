@@ -16,24 +16,24 @@ import java.util.List;
 
 public interface RolapContextMapping {
 
-	List<? extends CatalogMapping> getCatalogs();
+    List<? extends CatalogMapping> getCatalogs();
 
-	List<? extends SchemaMapping> getSchemas();
+    List<? extends SchemaMapping> getSchemas();
 
-	List<? extends CubeMapping> getCubes();
+    List<? extends CubeMapping> getCubes();
 
-	List<? extends DimensionMapping> getDimensions();
+    List<? extends DimensionMapping> getDimensions();
 
-	List<? extends HierarchyMapping> getHierarchies();
+    List<? extends HierarchyMapping> getHierarchies();
 
-	LevelMapping getLevels();
+    LevelMapping getLevels();
 
-	List<? extends CellFormatterMapping> getCellFormatters();
+    List<? extends CellFormatterMapping> getCellFormatters();
 
-	List<? extends ElementFormatterMapping> getElementFormatters();
+    List<? extends ElementFormatterMapping> getElementFormatters();
 
-	List<? extends DatabaseSchemaMapping> getDbschemas();
+    List<? extends DatabaseSchemaMapping> getDbschemas();
 
-	List<? extends MeasureMapping> getMeasures();
+    List<? extends MeasureMapping> getMeasures();
 
 }

@@ -16,8 +16,8 @@ import java.util.List;
 
 public interface AggregationPatternMapping extends AggregationTableMapping {
 
-	String getPattern();
+    String getPattern();
 
-	List<? extends AggregationExcludeMapping> getExcludes();
+    List<? extends AggregationExcludeMapping> getExcludes();
 
 }

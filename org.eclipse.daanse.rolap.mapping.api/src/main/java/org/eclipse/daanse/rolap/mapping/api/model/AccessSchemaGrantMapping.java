@@ -16,8 +16,8 @@ import java.util.List;
 
 public interface AccessSchemaGrantMapping {
 
-	List<? extends AccessCubeGrantMapping> getCubeGrant();
+    List<? extends AccessCubeGrantMapping> getCubeGrant();
 
-	String getAccess();
+    String getAccess();
 
 }

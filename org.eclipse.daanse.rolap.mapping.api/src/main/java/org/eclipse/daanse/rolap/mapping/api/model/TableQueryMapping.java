@@ -16,16 +16,16 @@ import java.util.List;
 
 public interface TableQueryMapping extends RelationalQueryMapping {
 
-	SQLMapping getSqlWhereExpression();
+    SQLMapping getSqlWhereExpression();
 
-	List<? extends AggregationExcludeMapping> getAggregationExcludes();
+    List<? extends AggregationExcludeMapping> getAggregationExcludes();
 
-	List<? extends TableQueryOptimizationHintMapping> getOptimizationHints();
+    List<? extends TableQueryOptimizationHintMapping> getOptimizationHints();
 
-	String getName();
+    String getName();
 
-	String getSchema();
+    String getSchema();
 
-	List<? extends AggregationTableMapping> getAggregationTables();
+    List<? extends AggregationTableMapping> getAggregationTables();
 
 }

@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface AggregationForeignKeyMapping {
 
-	String getAggregationColumn();
+    String getAggregationColumn();
 
-	String getFactColumn();
+    String getFactColumn();
 
 }

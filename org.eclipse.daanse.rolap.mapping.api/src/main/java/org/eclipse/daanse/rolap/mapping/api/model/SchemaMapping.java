@@ -16,16 +16,16 @@ import java.util.List;
 
 public interface SchemaMapping extends AbstractElementMapping {
 
-	List<? extends ParameterMapping> getParameters();
+    List<? extends ParameterMapping> getParameters();
 
-	List<? extends CubeMapping> getCubes();
+    List<? extends CubeMapping> getCubes();
 
-	List<? extends NamedSetMapping> getNamedSets();
+    List<? extends NamedSetMapping> getNamedSets();
 
-	List<? extends AccessRoleMapping> getAccessRoles();
+    List<? extends AccessRoleMapping> getAccessRoles();
 
-	AccessRoleMapping getDefaultAccessRole();
+    AccessRoleMapping getDefaultAccessRole();
 
-	String getMeasuresDimensionName();
+    String getMeasuresDimensionName();
 
 }

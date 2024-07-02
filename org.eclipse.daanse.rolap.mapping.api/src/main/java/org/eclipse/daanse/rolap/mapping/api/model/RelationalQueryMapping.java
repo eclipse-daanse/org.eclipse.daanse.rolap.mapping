@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 public interface RelationalQueryMapping extends QueryMapping {
 
-	String getAlias();
+    String getAlias();
 
-	void setAlias(String value);
+    void setAlias(String value);
 
 }
