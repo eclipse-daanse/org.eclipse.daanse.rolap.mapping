@@ -20,11 +20,11 @@ public interface AccessHierarchyGrantMapping {
 
     String getAccess();
 
-    String getBottomLevel();
+    LevelMapping getBottomLevel();
 
     String getRollupPolicy();
 
-    String getTopLevel();
+    LevelMapping getTopLevel();
 
     HierarchyMapping getHierarchy();
 

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 /*********************************************************************
 * Copyright (c) 2024 Contributors to the Eclipse Foundation.
@@ -493,11 +493,11 @@
         eType="#//AccessMemberGrant" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bottomLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupPolicy" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="topLevel" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" lowerBound="1"
         eType="#//Hierarchy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bottomLevel" eType="#//Level"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevel" eType="#//Level"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
