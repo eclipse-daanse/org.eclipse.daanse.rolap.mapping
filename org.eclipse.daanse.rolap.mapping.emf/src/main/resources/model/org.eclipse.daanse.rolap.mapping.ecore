@@ -27,8 +27,8 @@
         eType="#//Dimension" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchies" upperBound="-1"
         eType="#//Hierarchy" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="levels" eType="#//Level"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="levels" upperBound="-1"
+        eType="#//Level" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellFormatters" upperBound="-1"
         eType="#//CellFormatter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elementFormatters" upperBound="-1"
@@ -37,6 +37,8 @@
         eType="#//DatabaseSchema" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measures" upperBound="-1"
         eType="#//Measure" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="accessRoles" upperBound="-1"
+        eType="#//AccessRole" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//IDocumentation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

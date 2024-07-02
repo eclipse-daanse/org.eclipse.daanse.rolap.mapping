@@ -26,7 +26,7 @@ public interface RolapContextMapping {
 
     List<? extends HierarchyMapping> getHierarchies();
 
-    LevelMapping getLevels();
+    List<? extends LevelMapping> getLevels();
 
     List<? extends CellFormatterMapping> getCellFormatters();
 
@@ -35,5 +35,7 @@ public interface RolapContextMapping {
     List<? extends DatabaseSchemaMapping> getDbschemas();
 
     List<? extends MeasureMapping> getMeasures();
+
+    List<? extends AccessRoleMapping> getAccessRoles();
 
 }
