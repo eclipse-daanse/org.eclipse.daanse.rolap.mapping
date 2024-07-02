@@ -30,4 +30,8 @@
     <scm.repo.detail>org.eclipse.daanse.rolap.mapping</scm.repo.detail>
   </properties>
 
+  <modules>
+    <module>org.eclipse.daanse.rolap.mapping.api</module>
+    <module>org.eclipse.daanse.rolap.mapping.record</module>
+  </modules>
 </project>
