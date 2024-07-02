@@ -32,6 +32,7 @@
 
   <modules>
     <module>org.eclipse.daanse.rolap.mapping.api</module>
+    <module>org.eclipse.daanse.rolap.mapping.emf</module>
     <module>org.eclipse.daanse.rolap.mapping.record</module>
   </modules>
 </project>
