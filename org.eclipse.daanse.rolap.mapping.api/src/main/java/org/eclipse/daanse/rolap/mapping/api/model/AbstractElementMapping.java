@@ -18,7 +18,7 @@ public interface AbstractElementMapping {
 
     List<? extends AnnotationMapping> getAnnotations();
 
-    String getCaption();
+    String getId();
 
     String getDescription();
 
