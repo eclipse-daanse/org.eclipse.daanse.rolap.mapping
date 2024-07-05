@@ -56,7 +56,7 @@ public class Cube extends AbstractMainElement {
     protected Boolean visible = true;
     @XmlElements({ @XmlElement(name = "InlineTable", type = InlineTable.class),
             @XmlElement(name = "Table", type = Table.class), @XmlElement(name = "View", type = View.class) })
-    protected Object fact;
+    protected RelationOrJoin fact;
     @XmlElement(name = "Action", type = Action.class)
     protected List<Action> actions;
 
@@ -108,7 +108,7 @@ public class Cube extends AbstractMainElement {
         }
     }
 
-    public Object fact() {// relation
+    public RelationOrJoin fact() {
         return fact;
     }
 
@@ -161,7 +161,7 @@ public class Cube extends AbstractMainElement {
         this.enabled = value;
     }
 
-    public void setFact(Object fact) {
+    public void setFact(RelationOrJoin fact) {
         this.fact = fact;
     }
 

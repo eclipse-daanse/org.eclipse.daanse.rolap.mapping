@@ -1,0 +1,94 @@
+
+<!--
+/*********************************************************************
+* Copyright (c) 2024 Contributors to the Eclipse Foundation.
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+*
+* SPDX-License-Identifier: EPL-2.0
+**********************************************************************/
+-->
+<Schema name="Cube_with_role_access_all_none_custom">
+
+  <Dimension name="Dimension1">
+    <Hierarchy hasAll="false" name="Hierarchy1" primaryKey="KEY">
+      <Table name="Fact"/>
+      <Level name="Level2" column="KEY" type="String"/>
+    </Hierarchy>
+  </Dimension>
+
+  <Cube name="Cube1">
+    <Table name="Fact"/>
+    <DimensionUsage name="Dimension1" source="Dimension1" foreignKey="KEY"/>
+    <DimensionUsage name="Dimension2" source="Dimension1" foreignKey="KEY"/>
+    <Measure aggregator="sum" name="Measure1" column="VALUE"/>
+  </Cube>
+
+  <Cube name="Cube2">
+    <Table name="Fact"/>
+    <DimensionUsage name="Dimension1" source="Dimension1" foreignKey="KEY"/>
+    <Measure aggregator="sum" name="Measure1" column="VALUE"/>
+  </Cube>
+
+  <Role name="role1">
+    <SchemaGrant access="all">
+      <CubeGrant cube="Cube2" access="none"/>
+    </SchemaGrant>
+  </Role>
+  <Role name="role11">
+    <SchemaGrant access="none">
+      <CubeGrant cube="Cube1" access="all"/>
+    </SchemaGrant>
+  </Role>
+
+  <Role name="role12">
+    <SchemaGrant access="none">
+      <CubeGrant cube="Cube2" access="all"/>
+    </SchemaGrant>
+  </Role>
+
+  <Role name="role2">
+    <SchemaGrant access="all"/>
+  </Role>
+
+  <Role name="role3">
+    <SchemaGrant access="none"/>
+  </Role>
+
+  <Role name="role4">
+    <SchemaGrant access="none">
+      <CubeGrant cube="Cube1" access="all">
+        <HierarchyGrant hierarchy="[Dimension1]" access="custom"
+                      topLevel="[Dimension1].[Level2]">
+          <MemberGrant member="[Dimension1].[A]" access="all"/>
+          <MemberGrant member="[Dimension1].[B]" access="none"/>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+
+  <Role name="manager">
+    <SchemaGrant access="none">
+      <CubeGrant cube="Cube1" access="all">
+        <HierarchyGrant hierarchy="[Dimension1]" access="custom" rollupPolicy="partial" topLevel="[Dimension1].[Level2]">
+          <MemberGrant member="[Dimension1].[A]" access="all"/>
+          <MemberGrant member="[Dimension1].[B]" access="none"/>
+        </HierarchyGrant>
+        <HierarchyGrant hierarchy="[Dimension2]" access="custom" rollupPolicy="full" topLevel="[Dimension2].[Level2]" bottomLevel="[Dimension1].[Level2]">
+          <MemberGrant member="[Dimension2].[A]" access="all"/>
+          <MemberGrant member="[Dimension2].[B]" access="none"/>
+        </HierarchyGrant>
+      </CubeGrant>
+    </SchemaGrant>
+  </Role>
+
+  <Role name="role_u">
+    <Union>
+      <RoleUsage roleName="role11"/>
+      <RoleUsage roleName="role11"/>
+    </Union>
+  </Role>
+
+</Schema>

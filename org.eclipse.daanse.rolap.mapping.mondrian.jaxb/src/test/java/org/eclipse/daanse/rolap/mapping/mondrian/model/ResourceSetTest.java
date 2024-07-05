@@ -11,18 +11,22 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rolap.mapping.emf.rolapmapping;
+package org.eclipse.daanse.rolap.mapping.mondrian.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.EmfRolapMappingPackage;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
+import org.eclipse.daanse.rolap.mapping.mondrian.api.RolapMappingTransformer;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
@@ -30,8 +34,6 @@ import org.gecko.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
-import org.osgi.framework.BundleContext;
-import org.osgi.test.common.annotation.InjectBundleContext;
 import org.osgi.test.common.annotation.InjectService;
 import org.osgi.test.common.service.ServiceAware;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
@@ -46,46 +48,29 @@ public class ResourceSetTest {
 
     private static String BASE_DIR = System.getProperty("basePath");
 
-    @Test
-    public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-                    + EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
-            throws SQLException, InterruptedException, IOException {
-        assertThat(saResourceSet.getServices()).hasSize(1);
-
-        ResourceSet rs = saResourceSet.getService();
-
-        URI uri = URI.createURI(BASE_DIR + "/src/test/resources/RolapContext.xmi");
-        Resource resource = rs.getResource(uri, true);
-        resource.load(Map.of());
-        EObject root = resource.getContents().get(0);
-        System.out.println(root);
-
-    }
-
     @TempDir
     Path tempDir;
 
     @Test
-    public void write(@InjectBundleContext BundleContext bc,
+    public void write(@InjectService RolapMappingTransformer transformer,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
                     + EmfRolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
+
+        String data = Files.readString(Path.of(BASE_DIR, "src/test/resources/schema.xml"));
+        RolapContext rc = transformer.transform(new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8)));
+        assertThat(rc).isNotNull();
 
         ResourceSet rs = saResourceSet.getService();
 
         Path file = Files.createTempFile(tempDir, "out", ".xmi");
         URI uri = URI.createFileURI(file.toAbsolutePath().toString());
         Resource resource = rs.createResource(uri);
-        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(EmfRolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(rc);
 
         resource.save(Map.of());
         System.out.println(Files.readString(file));
-
 
     }
 

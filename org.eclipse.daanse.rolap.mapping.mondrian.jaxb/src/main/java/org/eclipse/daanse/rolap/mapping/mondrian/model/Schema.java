@@ -31,7 +31,7 @@ import jakarta.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = { "parameters", "dimensions", "cubes", "virtualCubes", "namedSets", "roles",
-        "documentation","measuresCaption" })
+        "documentation", "measuresCaption" })
 @XmlRootElement(name = "Schema")
 public class Schema extends AbstractMainElement {
 
