@@ -24,6 +24,9 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Annotation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
@@ -48,6 +51,7 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.Role;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Schema;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.SchemaGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Table;
+import org.eclipse.emf.common.util.EList;
 
 public class TransformTask {
 
@@ -58,6 +62,8 @@ public class TransformTask {
     private AtomicInteger counterHierarchy = new AtomicInteger();
     private AtomicInteger counterLevel = new AtomicInteger();
     private AtomicInteger counterAccessRole = new AtomicInteger();
+    private AtomicInteger counterCalculatedMember = new AtomicInteger();
+    private AtomicInteger counterCalculatedMemberProperty = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -375,8 +381,55 @@ public class TransformTask {
         pc.getAnnotations().addAll(transformAnnotations(cube.annotations()));
         pc.getMeasureGroups().add(transformMeasureGroup(cube.measures()));
         pc.getDimensionConnectors().addAll(transformDimensionConnectors(cube.dimensionUsageOrDimensions()));
+
+        pc.getCalculatedMembers().addAll(transformCalculatedMembers(cube.calculatedMembers()));
         return pc;
     }
+
+    private List<CalculatedMember> transformCalculatedMembers(
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers) {
+        return calculatedMembers.stream().map(this::transformCalculatedMember).toList();
+    }
+
+    private CalculatedMember transformCalculatedMember(org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
+        CalculatedMember cm = EmfRolapMappingFactory.eINSTANCE.createCalculatedMember();
+        cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
+        cm.getCalculatedMemberProperties().addAll(transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
+        cm.setCellFormatter(transformCellFormatter(calculatedMember.cellFormatter()));
+        cm.setFormula(calculatedMember.formula());
+        cm.setDisplayFolder(calculatedMember.displayFolder());
+        cm.setFormatString(calculatedMember.formatString());
+        cm.setParent(calculatedMember.parent());
+        cm.setVisible(calculatedMember.visible());
+        Optional<Dimension> oDim = findDimension(calculatedMember.dimension());
+        oDim.ifPresent(d -> cm.setDimension(d));
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchy(calculatedMember.hierarchy());
+        oHier.ifPresent(d -> cm.setHierarchy(d));
+        return cm;
+    }
+
+    private List<CalculatedMemberProperty> transformCalculatedMemberProperties(
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty> calculatedMemberProperties) {
+            return calculatedMemberProperties.stream().map(this::transformCalculatedMemberProperty).toList();
+    }
+
+    private CalculatedMemberProperty transformCalculatedMemberProperty(org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty) {
+        CalculatedMemberProperty cmp = EmfRolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        cmp.setId("cmp_" + counterCalculatedMemberProperty.incrementAndGet());
+        cmp.setDescription(calculatedMemberProperty.description());
+        cmp.setName(calculatedMemberProperty.name());
+        cmp.setValue(calculatedMemberProperty.value());
+        cmp.setExpression(calculatedMemberProperty.expression());
+        //TODO
+        return cmp;
+    }
+
+    private CellFormatter transformCellFormatter(org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
+        CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
+        //TODO
+        return cf;
+    }
+
 
     private List<PhysicalCube> transformPhysicalCubes(
             List<org.eclipse.daanse.rolap.mapping.mondrian.model.Cube> cubes) {
