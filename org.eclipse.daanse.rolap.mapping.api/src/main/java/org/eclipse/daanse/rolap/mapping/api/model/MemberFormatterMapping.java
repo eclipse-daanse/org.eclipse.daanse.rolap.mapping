@@ -12,16 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-public interface MemberPropertyMapping extends AbstractElementMapping {
-
-    MemberPropertyFormatterMapping getFormatter();
-
-    String getColumn();
-
-    boolean isDependsOnLevelValue();
-
-    String getType();
-
-    void setType(String value);
+public interface MemberFormatterMapping extends FormatterMapping {
 
 }

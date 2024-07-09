@@ -30,15 +30,13 @@ public interface LevelMapping {
 
     List<? extends MemberPropertyMapping> getMemberProperties();
 
-    ElementFormatterMapping getMemberFormatter();
+    MemberFormatterMapping getMemberFormatter();
 
     String getApproxRowCount();
 
     String getCaptionColumn();
 
     String getColumn();
-
-    String getFormatter();
 
     String getHideMemberIf();
 

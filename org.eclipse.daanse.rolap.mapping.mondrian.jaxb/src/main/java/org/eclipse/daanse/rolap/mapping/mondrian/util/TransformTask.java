@@ -333,7 +333,7 @@ public class TransformTask {
         l.setCaptionColumn(level.captionColumn());
 //      l.setCaptionExpression(level.captionExpression());
         l.setColumn(level.column());
-        l.setFormatter(level.formatter());
+//        l.setFormatter(level.formatter());TODO: handle in new pattern
         l.setHideMemberIf(level.hideMemberIf().getValue());
 //        l.setInternalType(level.internalType().getValue());
 //      l.setKeyExpression(level.keyExpression());

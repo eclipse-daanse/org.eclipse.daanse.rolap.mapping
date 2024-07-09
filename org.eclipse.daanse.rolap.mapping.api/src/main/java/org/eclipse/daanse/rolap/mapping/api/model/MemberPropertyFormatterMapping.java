@@ -12,5 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-public interface ElementFormatterMapping extends FormatterMapping {
+public interface MemberPropertyFormatterMapping extends FormatterMapping {
+
 }

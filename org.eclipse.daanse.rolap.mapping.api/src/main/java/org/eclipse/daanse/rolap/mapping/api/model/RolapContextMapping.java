@@ -28,9 +28,7 @@ public interface RolapContextMapping {
 
     List<? extends LevelMapping> getLevels();
 
-    List<? extends CellFormatterMapping> getCellFormatters();
-
-    List<? extends ElementFormatterMapping> getElementFormatters();
+    List<? extends FormatterMapping> getFormatters();
 
     List<? extends DatabaseSchemaMapping> getDbschemas();
 

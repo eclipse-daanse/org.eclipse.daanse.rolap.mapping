@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 /*********************************************************************
 * Copyright (c) 2024 Contributors to the Eclipse Foundation.
@@ -29,10 +28,8 @@
         eType="#//Hierarchy" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="levels" upperBound="-1"
         eType="#//Level" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cellFormatters" upperBound="-1"
-        eType="#//CellFormatter" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="elementFormatters" upperBound="-1"
-        eType="#//ElementFormatter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formatters" upperBound="-1"
+        eType="#//Formatter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
         eType="#//DatabaseSchema" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measures" upperBound="-1"
@@ -209,11 +206,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberProperties" upperBound="-1"
         eType="#//MemberProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//ElementFormatter"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//MemberFormatter"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="captionColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="internalType" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelType" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -227,12 +223,11 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyFormatter" eType="#//ElementFormatter"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//AbstractElement #//ICalculatedMember">
@@ -341,7 +336,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ref" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CellFormatter" eSuperTypes="#//Formatter #//ICellFormatter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementFormatter" eSuperTypes="#//Formatter #//IElementFormatter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -591,8 +587,6 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IDrillThroughMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DrillThroughMeasureMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IElementFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ElementFormatterMapping"
-      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping"
@@ -621,6 +615,10 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMemberProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping"
       abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMemberPropertyFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping"
+      abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMemberFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping"
+      abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMemberReaderParameter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMinMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MinMeasureMapping"
