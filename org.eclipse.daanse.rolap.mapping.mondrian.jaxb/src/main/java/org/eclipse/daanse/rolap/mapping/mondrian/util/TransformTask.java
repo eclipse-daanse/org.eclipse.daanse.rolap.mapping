@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
@@ -43,13 +41,16 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.EmfRolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Translation;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggColumnName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggExclude;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggForeignKey;
@@ -75,7 +76,6 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.Role;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Schema;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.SchemaGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Table;
-import org.eclipse.emf.common.util.EList;
 
 public class TransformTask {
 
@@ -89,6 +89,8 @@ public class TransformTask {
     private AtomicInteger counterCalculatedMember = new AtomicInteger();
     private AtomicInteger counterCalculatedMemberProperty = new AtomicInteger();
     private AtomicInteger counterCellFormatter = new AtomicInteger();
+    private AtomicInteger counterNamedSet = new AtomicInteger();
+    private AtomicInteger counterKpi = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -116,6 +118,10 @@ public class TransformTask {
 
     private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> findHierarchy(String name) {
         return rolapContext.getHierarchies().stream().filter(h -> h.getName().equals(name)).findAny();
+    }
+
+    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> findMeasure(String name) {
+        return rolapContext.getMeasures().stream().filter(m -> m.getName().equals(name)).findAny();
     }
 
     org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext transform() {
@@ -395,7 +401,6 @@ public class TransformTask {
         pc.setId("pc_" + counterPhysicalCube.incrementAndGet());
         pc.setName(cube.name());
         pc.setCache(cube.cache());
-//        pc.setDefaultMeasure(null);
         pc.setDescription(cube.description());
         pc.setEnabled(cube.enabled());
 
@@ -408,7 +413,70 @@ public class TransformTask {
         pc.getDimensionConnectors().addAll(transformDimensionConnectors(cube.dimensionUsageOrDimensions()));
 
         pc.getCalculatedMembers().addAll(transformCalculatedMembers(cube.calculatedMembers()));
+        pc.getNamedSets().addAll(transformNamedSets(cube.namedSets()));
+        pc.getKpis().addAll(transformKpis(cube.kpis()));
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(cube.defaultMeasure());
+        oMeasure.ifPresent(m -> pc.setDefaultMeasure(m));
         return pc;
+    }
+
+    private List<Kpi> transformKpis(
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Kpi> kpis) {
+        return kpis.stream().map(this::transformKpi).toList();
+    }
+
+    private Kpi transformKpi(org.eclipse.daanse.rolap.mapping.mondrian.model.Kpi kpiM) {
+        Kpi kpi = EmfRolapMappingFactory.eINSTANCE.createKpi();
+        kpi.setId("kpi_" + counterKpi.incrementAndGet());
+        kpi.setDescription(kpiM.description());
+        kpi.setName(kpiM.name());
+        kpi.getAnnotations().addAll(transformAnnotations(kpiM.annotations()));
+        kpi.getTranslations().addAll(transformTranslations(kpiM.translations()));
+        kpi.setDisplayFolder(kpiM.displayFolder());
+        kpi.setAssociatedMeasureGroupID(kpiM.associatedMeasureGroupID());
+        kpi.setValue(kpiM.value());
+        kpi.setGoal(kpiM.goal());
+        kpi.setStatus(kpiM.status());
+        kpi.setTrend(kpiM.trend());
+        kpi.setWeight(kpiM.weight());
+        kpi.setTrendGraphic(kpiM.trend());
+        kpi.setStatusGraphic(kpiM.statusGraphic());
+        kpi.setCurrentTimeMember(kpiM.currentTimeMember());
+        kpi.setParentKpiID(kpiM.parentKpiID());
+        return kpi;
+    }
+
+    private List<Translation> transformTranslations(
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Translation> translations) {
+        return translations.stream().map(this::transformTranslation).toList();
+    }
+
+    private Translation transformTranslation(org.eclipse.daanse.rolap.mapping.mondrian.model.Translation translation) {
+        Translation t = EmfRolapMappingFactory.eINSTANCE.createTranslation();
+        t.setDescription(translation.description());
+        //t.setName(translation.name());
+        t.getAnnotations().addAll(transformAnnotations(translation.annotations()));
+        t.setLanguage(translation.language());
+        t.setCaption(translation.caption());
+        t.setDisplayFolder(translation.displayFolder());
+        return t;
+    }
+
+    private List<NamedSet> transformNamedSets(
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet> namedSets) {
+        return namedSets.stream().map(this::transformNamedSet).toList();
+    }
+
+    private NamedSet transformNamedSet(org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet namedSet) {
+        NamedSet ns = EmfRolapMappingFactory.eINSTANCE.createNamedSet();
+        ns.setId("ns_" + counterNamedSet.incrementAndGet());
+        ns.setDescription(namedSet.description());
+        ns.setName(namedSet.name());
+        ns.getAnnotations().addAll(transformAnnotations(namedSet.annotations()));
+        ns.setDisplayFolder(namedSet.displayFolder());
+        ns.setFormula(namedSet.formula());
+        //TODO
+        return ns;
     }
 
     private List<CalculatedMember> transformCalculatedMembers(
@@ -443,6 +511,7 @@ public class TransformTask {
         cmp.setId("cmp_" + counterCalculatedMemberProperty.incrementAndGet());
         cmp.setDescription(calculatedMemberProperty.description());
         cmp.setName(calculatedMemberProperty.name());
+        cmp.getAnnotations().addAll(transformAnnotations(calculatedMemberProperty.annotations()));
         cmp.setValue(calculatedMemberProperty.value());
         cmp.setExpression(calculatedMemberProperty.expression());
         //TODO
@@ -452,6 +521,9 @@ public class TransformTask {
     private CellFormatter transformCellFormatter(org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
         CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
         cf.setId("cm_" + counterCellFormatter.incrementAndGet());
+        cf.setDescription(null);
+        cf.setName(null);
+        cf.getAnnotations().addAll(List.of());
         //TODO
         return cf;
     }
