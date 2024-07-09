@@ -22,8 +22,6 @@ public interface CalculatedMemberMapping extends AbstractElementMapping {
 
     String getFormula();
 
-    DimensionMapping getDimension();
-
     String getDisplayFolder();
 
     String getFormatString();

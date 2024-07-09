@@ -494,8 +494,8 @@ public class TransformTask {
         cm.setFormatString(calculatedMember.formatString());
         cm.setParent(calculatedMember.parent());
         cm.setVisible(calculatedMember.visible());
-        Optional<Dimension> oDim = findDimension(calculatedMember.dimension());
-        oDim.ifPresent(d -> cm.setDimension(d));
+        // calculatedMember.dimension() is a deprecated pattern we do not support.
+        // if hierarchy is null server must take default hierarchy of measure dimension
         Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchy(calculatedMember.hierarchy());
         oHier.ifPresent(d -> cm.setHierarchy(d));
         return cm;
