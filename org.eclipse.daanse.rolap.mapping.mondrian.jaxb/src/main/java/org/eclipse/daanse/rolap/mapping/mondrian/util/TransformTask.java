@@ -17,12 +17,24 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationLevelProperty;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationName;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Annotation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
@@ -37,6 +49,17 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggColumnName;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggExclude;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggForeignKey;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggLevel;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggLevelProperty;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggMeasure;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggName;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggPattern;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.AggTable;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionOrDimensionUsage;
@@ -44,6 +67,7 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionTypeEnum;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionUsage;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.HierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.Hint;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Level;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Measure;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.MemberGrant;
@@ -64,6 +88,7 @@ public class TransformTask {
     private AtomicInteger counterAccessRole = new AtomicInteger();
     private AtomicInteger counterCalculatedMember = new AtomicInteger();
     private AtomicInteger counterCalculatedMemberProperty = new AtomicInteger();
+    private AtomicInteger counterCellFormatter = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -426,6 +451,7 @@ public class TransformTask {
 
     private CellFormatter transformCellFormatter(org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
         CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
+        cf.setId("cm_" + counterCellFormatter.incrementAndGet());
         //TODO
         return cf;
     }
@@ -447,13 +473,140 @@ public class TransformTask {
             if (sql != null) {
                 tableQuery.setSqlWhereExpression(transformSql(sql));
             }
-//            tableQuery.getAggregationExcludes().addAll(null);
-//            tableQuery.getAggregationTables().addAll(null);
-//            tableQuery.getOptimizationHints().addAll(null);
+            tableQuery.getAggregationExcludes().addAll(transformAggregationExcludes(t.aggExcludes()));
+            tableQuery.getAggregationTables().addAll(transformAggregationTables(t.aggTables()));
+            tableQuery.getOptimizationHints().addAll(transformTableQueryOptimizationHints(t.hints()));
             return tableQuery;
         }
         return null;
 
+    }
+
+    private List<TableQueryOptimizationHint> transformTableQueryOptimizationHints(List<Hint> hints) {
+        return hints.stream().map(this::transformTableQueryOptimizationHint).toList();
+    }
+
+    private TableQueryOptimizationHint transformTableQueryOptimizationHint(Hint aggTable) {
+        TableQueryOptimizationHint h = EmfRolapMappingFactory.eINSTANCE.createTableQueryOptimizationHint();
+        h.setValue(aggTable.content());
+        h.setType(aggTable.type());
+        return h;
+    }
+
+    private List<AggregationTable> transformAggregationTables(List<AggTable> aggExcludes) {
+        return aggExcludes.stream().map(this::transformAggregationTable).toList();
+    }
+
+    private AggregationTable transformAggregationTable(AggTable aggTable) {
+        if (aggTable instanceof AggName aggName) {
+            AggregationName an = EmfRolapMappingFactory.eINSTANCE.createAggregationName();
+            an.setAggregationFactCount(transformAggregationColumnName(aggName.aggFactCount()));
+            an.getAggregationIgnoreColumns().addAll(transformAggregationColumnNames(aggName.aggIgnoreColumns()));
+            an.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggName.aggForeignKeys()));
+            an.getAggregationMeasures().addAll(transformAggregationMeasures(aggName.aggMeasures()));
+            an.getAggregationLevels().addAll(transformAggregationLevels(aggName.aggLevels()));
+            an.getAggregationMeasureFactCounts().addAll(transformAggregationMeasureFactCounts(aggName.measuresFactCounts()));
+            an.setIgnorecase(aggName.ignorecase());
+            an.setApproxRowCount(aggName.approxRowCount());
+            an.setName(aggName.name());
+            return an;
+        } if (aggTable instanceof AggPattern aggPattern) {
+            AggregationPattern ap = EmfRolapMappingFactory.eINSTANCE.createAggregationPattern();
+            ap.setAggregationFactCount(transformAggregationColumnName(aggPattern.aggFactCount()));
+            ap.getAggregationIgnoreColumns().addAll(transformAggregationColumnNames(aggPattern.aggIgnoreColumns()));
+            ap.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggPattern.aggForeignKeys()));
+            ap.getAggregationMeasures().addAll(transformAggregationMeasures(aggPattern.aggMeasures()));
+            ap.getAggregationLevels().addAll(transformAggregationLevels(aggPattern.aggLevels()));
+            ap.getAggregationMeasureFactCounts().addAll(transformAggregationMeasureFactCounts(aggPattern.measuresFactCounts()));
+            ap.setIgnorecase(aggPattern.ignorecase());
+            ap.setPattern(aggPattern.pattern());
+            ap.getExcludes().addAll(null);
+            return ap;
+        }
+        return null;
+    }
+
+    private List<AggregationMeasureFactCount> transformAggregationMeasureFactCounts(List<AggMeasureFactCount> aggMeasureFactCount) {
+        return aggMeasureFactCount.stream().map(this::transformAggregationMeasureFactCount).toList();
+    }
+
+    private AggregationMeasureFactCount transformAggregationMeasureFactCount(AggMeasureFactCount aggMeasureFactCount) {
+        AggregationMeasureFactCount amfc = EmfRolapMappingFactory.eINSTANCE.createAggregationMeasureFactCount();
+        amfc.setColumn(aggMeasureFactCount.column());
+        amfc.setFactColumn(aggMeasureFactCount.factColumn());
+        return amfc;
+    }
+
+    private List<AggregationLevel> transformAggregationLevels(List<AggLevel> aggLevels) {
+        return aggLevels.stream().map(this::transformAggregationLevel).toList();
+    }
+
+    private AggregationLevel transformAggregationLevel(AggLevel aggLevel) {
+        AggregationLevel al = EmfRolapMappingFactory.eINSTANCE.createAggregationLevel();
+        al.getAggregationLevelProperties().addAll(transformAggregationLevelProperties(aggLevel.properties()));
+        al.setCaptionColumn(aggLevel.captionColumn());
+        al.setCollapsed(aggLevel.collapsed());
+        al.setColumn(aggLevel.column());
+        al.setName(aggLevel.name());
+        al.setNameColumn(aggLevel.nameColumn());
+        al.setOrdinalColumn(aggLevel.ordinalColumn());
+        return al;
+    }
+
+    private List<AggregationLevelProperty> transformAggregationLevelProperties(List<AggLevelProperty> aggLevelProperties) {
+        return aggLevelProperties.stream().map(this::transformAggregationLevelProperty).toList();
+    }
+
+    private AggregationLevelProperty transformAggregationLevelProperty(AggLevelProperty aggLevelProperty) {
+        AggregationLevelProperty ap = EmfRolapMappingFactory.eINSTANCE.createAggregationLevelProperty();
+        ap.setColumn(aggLevelProperty.column());
+        ap.setName(aggLevelProperty.name());
+        return ap;
+    }
+
+    private List<AggregationMeasure> transformAggregationMeasures(List<AggMeasure> aggregationMeasures) {
+        return aggregationMeasures.stream().map(this::transformAggregationMeasure).toList();
+    }
+
+    private AggregationMeasure transformAggregationMeasure(AggMeasure aggMeasure) {
+        AggregationMeasure am = EmfRolapMappingFactory.eINSTANCE.createAggregationMeasure();
+        am.setColumn(aggMeasure.column());
+        am.setName(aggMeasure.name());
+        am.setRollupType(aggMeasure.rollupType());
+        return am;
+    }
+
+    private List<AggregationForeignKey> transformAggregationForeignKeys(List<AggForeignKey> aggForeignKeys) {
+        return aggForeignKeys.stream().map(this::transformAggregationForeignKey).toList();
+    }
+
+    private AggregationForeignKey transformAggregationForeignKey(AggForeignKey aggForeignKey) {
+        AggregationForeignKey afk = EmfRolapMappingFactory.eINSTANCE.createAggregationForeignKey();
+        afk.setAggregationColumn(aggForeignKey.aggColumn());
+        afk.setFactColumn(aggForeignKey.factColumn());
+        return afk;
+    }
+
+    private List<AggregationColumnName> transformAggregationColumnNames(List<AggColumnName> aggColumnNames) {
+        return aggColumnNames.stream().map(this::transformAggregationColumnName).toList();
+    }
+
+    private AggregationColumnName transformAggregationColumnName(AggColumnName aggColumnName) {
+        AggregationColumnName acn = EmfRolapMappingFactory.eINSTANCE.createAggregationColumnName();
+        acn.setColumn(aggColumnName.column());
+        return acn;
+    }
+
+    private List<AggregationExclude> transformAggregationExcludes(List<AggExclude> aggExcludes) {
+        return aggExcludes.stream().map(this::transformAggregationExclude).toList();
+    }
+
+    private AggregationExclude transformAggregationExclude(AggExclude aggExclude) {
+        AggregationExclude ae = EmfRolapMappingFactory.eINSTANCE.createAggregationExclude();
+        ae.setIgnorecase(aggExclude.ignorecase());
+        ae.setName(aggExclude.name());
+        ae.setPattern(aggExclude.pattern());
+        return ae;
     }
 
     private AccessRole transformRole(Role role) {
