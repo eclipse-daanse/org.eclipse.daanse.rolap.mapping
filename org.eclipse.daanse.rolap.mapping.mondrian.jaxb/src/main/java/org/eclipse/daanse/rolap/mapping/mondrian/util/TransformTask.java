@@ -13,10 +13,17 @@
  */
 package org.eclipse.daanse.rolap.mapping.mondrian.util;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
@@ -58,6 +65,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Translation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackTable;
@@ -93,6 +101,8 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.SchemaGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Table;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Value;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.View;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCubeDimension;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCubeMeasure;
 
 public class TransformTask {
 
@@ -153,11 +163,8 @@ public class TransformTask {
         rolapContext.getDimensions().addAll(dimensionsShared);
         List<PhysicalCube> physicalCubes = transformPhysicalCubes(mondrianSchema.cubes());
         rolapContext.getCubes().addAll(physicalCubes);
-//
-//
-//        List<VirtualCube> virtualCubes= transformVirtualCubes(schema.virtualCubes());
-//
-
+        List<VirtualCube> virtualCubes = transformVirtualCubes(mondrianSchema.virtualCubes());
+        rolapContext.getCubes().addAll(virtualCubes);
         String accessRoleName = mondrianSchema.defaultRole();
         Optional<AccessRole> oDefaultAccessRole = findAccessRole(accessRoles, accessRoleName);
         oDefaultAccessRole.ifPresent(ar -> s.setDefaultAccessRole(ar));
@@ -171,6 +178,38 @@ public class TransformTask {
         rolapContext.getSchemas().add(s);
 
         return rolapContext;
+    }
+
+    private List<VirtualCube> transformVirtualCubes(
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube> virtualCubes) {
+        return virtualCubes.stream().map(this::transformVirtualCube).toList();
+    }
+
+    private VirtualCube transformVirtualCube(org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube virtualCube) {
+        VirtualCube vc = EmfRolapMappingFactory.eINSTANCE.createVirtualCube();
+        vc.getCubeUsages().addAll(null);
+        vc.getDimensionConnectors()
+                .addAll(transformVirtualCubeDimensionConnectors(virtualCube.virtualCubeDimensions()));
+        vc.getCalculatedMembers().addAll(null);
+        vc.getNamedSets().addAll(transformNamedSets(virtualCube.namedSets()));
+        vc.getKpis().addAll(transformKpis(virtualCube.kpis()));
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(
+                virtualCube.defaultMeasure());
+        oMeasure.ifPresent(m -> vc.setDefaultMeasure(m));
+        vc.setEnabled(virtualCube.enabled());
+        vc.setVisible(virtualCube.visible());
+        vc.getMeasureGroups().addAll(transformVirtualCubeMeasureGroups(virtualCube.virtualCubeMeasures()));
+        return vc;
+    }
+
+    private List<MeasureGroup> transformVirtualCubeMeasureGroups(List<VirtualCubeMeasure> virtualCubeMeasures) {
+        return virtualCubeMeasures.stream().map(this::transformVirtualCubeMeasureGroup).toList();
+    }
+
+    private MeasureGroup transformVirtualCubeMeasureGroup(VirtualCubeMeasure virtualCubeMeasure) {
+        MeasureGroup measureGroup = EmfRolapMappingFactory.eINSTANCE.createMeasureGroup();
+        // TODO
+        return measureGroup;
     }
 
     private Optional<AccessRole> findAccessRole(List<AccessRole> accessRoles, String accessRoleName) {
@@ -281,6 +320,12 @@ public class TransformTask {
         return dim;
     }
 
+    private DimensionConnector transformVirtualCubeDimensionConnector(VirtualCubeDimension VirtualCubeDimension) {
+        DimensionConnector dc = EmfRolapMappingFactory.eINSTANCE.createDimensionConnector();
+        // TODO
+        return dc;
+    }
+
     private DimensionConnector transformDimensionConnector(DimensionOrDimensionUsage dimensionUsageOrDimensions) {
 
         DimensionConnector dc = EmfRolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -303,6 +348,11 @@ public class TransformTask {
             dc.setUsagePrefix(du.usagePrefix());
         }
         return dc;
+    }
+
+    private List<DimensionConnector> transformVirtualCubeDimensionConnectors(
+            List<VirtualCubeDimension> dimensionUsageOrDimensions) {
+        return dimensionUsageOrDimensions.stream().map(this::transformVirtualCubeDimensionConnector).toList();
     }
 
     private List<DimensionConnector> transformDimensionConnectors(
