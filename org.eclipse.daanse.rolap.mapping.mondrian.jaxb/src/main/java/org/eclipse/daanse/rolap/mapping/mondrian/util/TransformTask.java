@@ -41,6 +41,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.EmfRolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableColumnDefinition;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableRow;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableRowCell;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
@@ -48,9 +54,13 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Translation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggColumnName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggExclude;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggForeignKey;
@@ -61,6 +71,7 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.AggMeasureFactCount;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggPattern;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggTable;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.ColumnDef;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionOrDimensionUsage;
@@ -69,13 +80,19 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionUsage;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.HierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Hint;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.InlineTable;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.Join;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Level;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Measure;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.MemberGrant;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.RelationOrJoin;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Role;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.Row;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Schema;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.SchemaGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Table;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.Value;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.View;
 
 public class TransformTask {
 
@@ -407,7 +424,6 @@ public class TransformTask {
         Query query = transformQuery(cube.fact());
         pc.setQuery(query);
         pc.setVisible(cube.visible());
-//pc.setWritebackTable(c);
         pc.getAnnotations().addAll(transformAnnotations(cube.annotations()));
         pc.getMeasureGroups().add(transformMeasureGroup(cube.measures()));
         pc.getDimensionConnectors().addAll(transformDimensionConnectors(cube.dimensionUsageOrDimensions()));
@@ -415,13 +431,63 @@ public class TransformTask {
         pc.getCalculatedMembers().addAll(transformCalculatedMembers(cube.calculatedMembers()));
         pc.getNamedSets().addAll(transformNamedSets(cube.namedSets()));
         pc.getKpis().addAll(transformKpis(cube.kpis()));
-        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(cube.defaultMeasure());
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(
+                cube.defaultMeasure());
         oMeasure.ifPresent(m -> pc.setDefaultMeasure(m));
+        pc.setWritebackTable(transformWritebackTable(cube.writebackTable()));
         return pc;
     }
 
-    private List<Kpi> transformKpis(
-        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Kpi> kpis) {
+    private WritebackTable transformWritebackTable(
+            Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackTable> oWritebackTable) {
+        if (oWritebackTable.isPresent()) {
+            org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackTable writebackTable = oWritebackTable.get();
+            WritebackTable wbt = EmfRolapMappingFactory.eINSTANCE.createWritebackTable();
+            wbt.getWritebackAttribute().addAll(transformWritebackAttributes(writebackTable.columns()));
+            wbt.getWritebackMeasure().addAll(transformWritebackMeasures(writebackTable.columns()));
+            wbt.setName(writebackTable.name());
+            wbt.setSchema(writebackTable.schema());
+            return wbt;
+        }
+        return null;
+    }
+
+    private List<WritebackMeasure> transformWritebackMeasures(
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column) {
+        return column.stream()
+                .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure.class::isInstance)
+                .map(wbm -> transformWritebackMeasure(
+                        (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure) wbm))
+                .toList();
+    }
+
+    private WritebackMeasure transformWritebackMeasure(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure writebackMeasure) {
+        WritebackMeasure wbm = EmfRolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        wbm.setColumn(writebackMeasure.column());
+        wbm.setName(writebackMeasure.name());
+        return wbm;
+    }
+
+    private List<WritebackAttribute> transformWritebackAttributes(
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column) {
+        return column.stream()
+                .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute.class::isInstance)
+                .map(wba -> transformWritebackAttribute(
+                        (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute) wba))
+                .toList();
+    }
+
+    private WritebackAttribute transformWritebackAttribute(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute writebackAttribute) {
+        WritebackAttribute wba = EmfRolapMappingFactory.eINSTANCE.createWritebackAttribute();
+        wba.setColumn(writebackAttribute.column());
+        Optional<Dimension> oDim = findDimension(writebackAttribute.dimension());
+        oDim.ifPresent(d -> wba.setDimension(d));
+        return wba;
+    }
+
+    private List<Kpi> transformKpis(List<org.eclipse.daanse.rolap.mapping.mondrian.model.Kpi> kpis) {
         return kpis.stream().map(this::transformKpi).toList();
     }
 
@@ -447,14 +513,14 @@ public class TransformTask {
     }
 
     private List<Translation> transformTranslations(
-        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Translation> translations) {
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.Translation> translations) {
         return translations.stream().map(this::transformTranslation).toList();
     }
 
     private Translation transformTranslation(org.eclipse.daanse.rolap.mapping.mondrian.model.Translation translation) {
         Translation t = EmfRolapMappingFactory.eINSTANCE.createTranslation();
         t.setDescription(translation.description());
-        //t.setName(translation.name());
+        // t.setName(translation.name());
         t.getAnnotations().addAll(transformAnnotations(translation.annotations()));
         t.setLanguage(translation.language());
         t.setCaption(translation.caption());
@@ -463,7 +529,7 @@ public class TransformTask {
     }
 
     private List<NamedSet> transformNamedSets(
-        List<org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet> namedSets) {
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet> namedSets) {
         return namedSets.stream().map(this::transformNamedSet).toList();
     }
 
@@ -475,19 +541,21 @@ public class TransformTask {
         ns.getAnnotations().addAll(transformAnnotations(namedSet.annotations()));
         ns.setDisplayFolder(namedSet.displayFolder());
         ns.setFormula(namedSet.formula());
-        //TODO
+        // TODO
         return ns;
     }
 
     private List<CalculatedMember> transformCalculatedMembers(
-        List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers) {
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers) {
         return calculatedMembers.stream().map(this::transformCalculatedMember).toList();
     }
 
-    private CalculatedMember transformCalculatedMember(org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
+    private CalculatedMember transformCalculatedMember(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
         CalculatedMember cm = EmfRolapMappingFactory.eINSTANCE.createCalculatedMember();
         cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
-        cm.getCalculatedMemberProperties().addAll(transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
+        cm.getCalculatedMemberProperties()
+                .addAll(transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
         cm.setCellFormatter(transformCellFormatter(calculatedMember.cellFormatter()));
         cm.setFormula(calculatedMember.formula());
         cm.setDisplayFolder(calculatedMember.displayFolder());
@@ -496,17 +564,19 @@ public class TransformTask {
         cm.setVisible(calculatedMember.visible());
         // calculatedMember.dimension() is a deprecated pattern we do not support.
         // if hierarchy is null server must take default hierarchy of measure dimension
-        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchy(calculatedMember.hierarchy());
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchy(
+                calculatedMember.hierarchy());
         oHier.ifPresent(d -> cm.setHierarchy(d));
         return cm;
     }
 
     private List<CalculatedMemberProperty> transformCalculatedMemberProperties(
             List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty> calculatedMemberProperties) {
-            return calculatedMemberProperties.stream().map(this::transformCalculatedMemberProperty).toList();
+        return calculatedMemberProperties.stream().map(this::transformCalculatedMemberProperty).toList();
     }
 
-    private CalculatedMemberProperty transformCalculatedMemberProperty(org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty) {
+    private CalculatedMemberProperty transformCalculatedMemberProperty(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty) {
         CalculatedMemberProperty cmp = EmfRolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         cmp.setId("cmp_" + counterCalculatedMemberProperty.incrementAndGet());
         cmp.setDescription(calculatedMemberProperty.description());
@@ -514,20 +584,20 @@ public class TransformTask {
         cmp.getAnnotations().addAll(transformAnnotations(calculatedMemberProperty.annotations()));
         cmp.setValue(calculatedMemberProperty.value());
         cmp.setExpression(calculatedMemberProperty.expression());
-        //TODO
+        // TODO
         return cmp;
     }
 
-    private CellFormatter transformCellFormatter(org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
+    private CellFormatter transformCellFormatter(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
         CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
         cf.setId("cm_" + counterCellFormatter.incrementAndGet());
         cf.setDescription(null);
         cf.setName(null);
         cf.getAnnotations().addAll(List.of());
-        //TODO
+        // TODO
         return cf;
     }
-
 
     private List<PhysicalCube> transformPhysicalCubes(
             List<org.eclipse.daanse.rolap.mapping.mondrian.model.Cube> cubes) {
@@ -550,8 +620,73 @@ public class TransformTask {
             tableQuery.getOptimizationHints().addAll(transformTableQueryOptimizationHints(t.hints()));
             return tableQuery;
         }
+        if (relationOrJoin instanceof Join j) {
+            JoinQuery joinQuery = EmfRolapMappingFactory.eINSTANCE.createJoinQuery();
+            RelationOrJoin rojl = j.relations() != null && j.relations().size() > 0 ? j.relations().get(0) : null;
+            RelationOrJoin rojr = j.relations() != null && j.relations().size() > 1 ? j.relations().get(1) : null;
+            joinQuery.setLeft(transformJoinedQueryElement(j.leftAlias(), j.leftKey(), rojl));
+            joinQuery.setRight(transformJoinedQueryElement(j.rightAlias(), j.rightKey(), rojr));
+            return joinQuery;
+        }
+        if (relationOrJoin instanceof InlineTable it) {
+            InlineTableQuery inlineTableQuery = EmfRolapMappingFactory.eINSTANCE.createInlineTableQuery();
+            inlineTableQuery.getColumnDefinitions().addAll(transformInlineTableColumnDefinitions(it.columnDefs()));
+            inlineTableQuery.getRows().addAll(transformInlineTableRows(it.rows()));
+            return inlineTableQuery;
+        }
+        if (relationOrJoin instanceof View v) {
+            SqlSelectQuery sqlSelectQuery = EmfRolapMappingFactory.eINSTANCE.createSqlSelectQuery();
+            sqlSelectQuery.getSQL().addAll(transformSqls(v.sqls()));
+            return sqlSelectQuery;
+        }
         return null;
 
+    }
+
+    private List<SQL> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+        return sqls.stream().map(this::transformSql).toList();
+    }
+
+    private List<InlineTableColumnDefinition> transformInlineTableColumnDefinitions(List<ColumnDef> columnDefs) {
+        return columnDefs.stream().map(this::transformInlineTableColumnDefinition).toList();
+    }
+
+    private List<InlineTableRow> transformInlineTableRows(List<Row> rows) {
+        return rows.stream().map(this::transformInlineTableRow).toList();
+    }
+
+    private InlineTableColumnDefinition transformInlineTableColumnDefinition(ColumnDef columnDef) {
+        InlineTableColumnDefinition itcd = EmfRolapMappingFactory.eINSTANCE.createInlineTableColumnDefinition();
+        itcd.setName(columnDef.name());
+        if (columnDef.type() != null) {
+            itcd.setType(columnDef.type().getValue());
+        }
+        return itcd;
+    }
+
+    private InlineTableRow transformInlineTableRow(Row row) {
+        InlineTableRow itr = EmfRolapMappingFactory.eINSTANCE.createInlineTableRow();
+        itr.getCells().addAll(transformInlineTableRowCells(row.values()));
+        return itr;
+    }
+
+    private List<InlineTableRowCell> transformInlineTableRowCells(List<Value> values) {
+        return values.stream().map(this::transformInlineTableRowCell).toList();
+    }
+
+    private InlineTableRowCell transformInlineTableRowCell(Value value) {
+        InlineTableRowCell itrc = EmfRolapMappingFactory.eINSTANCE.createInlineTableRowCell();
+        itrc.setValue(value.content());
+        itrc.setColumnName(value.column());
+        return itrc;
+    }
+
+    private JoinedQueryElement transformJoinedQueryElement(String alias, String key, RelationOrJoin roj) {
+        JoinedQueryElement jqe = EmfRolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        jqe.setAlias(alias);
+        jqe.setKey(key);
+        jqe.setQuery(transformQuery(roj));
+        return jqe;
     }
 
     private List<TableQueryOptimizationHint> transformTableQueryOptimizationHints(List<Hint> hints) {
@@ -577,19 +712,22 @@ public class TransformTask {
             an.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggName.aggForeignKeys()));
             an.getAggregationMeasures().addAll(transformAggregationMeasures(aggName.aggMeasures()));
             an.getAggregationLevels().addAll(transformAggregationLevels(aggName.aggLevels()));
-            an.getAggregationMeasureFactCounts().addAll(transformAggregationMeasureFactCounts(aggName.measuresFactCounts()));
+            an.getAggregationMeasureFactCounts()
+                    .addAll(transformAggregationMeasureFactCounts(aggName.measuresFactCounts()));
             an.setIgnorecase(aggName.ignorecase());
             an.setApproxRowCount(aggName.approxRowCount());
             an.setName(aggName.name());
             return an;
-        } if (aggTable instanceof AggPattern aggPattern) {
+        }
+        if (aggTable instanceof AggPattern aggPattern) {
             AggregationPattern ap = EmfRolapMappingFactory.eINSTANCE.createAggregationPattern();
             ap.setAggregationFactCount(transformAggregationColumnName(aggPattern.aggFactCount()));
             ap.getAggregationIgnoreColumns().addAll(transformAggregationColumnNames(aggPattern.aggIgnoreColumns()));
             ap.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggPattern.aggForeignKeys()));
             ap.getAggregationMeasures().addAll(transformAggregationMeasures(aggPattern.aggMeasures()));
             ap.getAggregationLevels().addAll(transformAggregationLevels(aggPattern.aggLevels()));
-            ap.getAggregationMeasureFactCounts().addAll(transformAggregationMeasureFactCounts(aggPattern.measuresFactCounts()));
+            ap.getAggregationMeasureFactCounts()
+                    .addAll(transformAggregationMeasureFactCounts(aggPattern.measuresFactCounts()));
             ap.setIgnorecase(aggPattern.ignorecase());
             ap.setPattern(aggPattern.pattern());
             ap.getExcludes().addAll(null);
@@ -598,7 +736,8 @@ public class TransformTask {
         return null;
     }
 
-    private List<AggregationMeasureFactCount> transformAggregationMeasureFactCounts(List<AggMeasureFactCount> aggMeasureFactCount) {
+    private List<AggregationMeasureFactCount> transformAggregationMeasureFactCounts(
+            List<AggMeasureFactCount> aggMeasureFactCount) {
         return aggMeasureFactCount.stream().map(this::transformAggregationMeasureFactCount).toList();
     }
 
@@ -625,7 +764,8 @@ public class TransformTask {
         return al;
     }
 
-    private List<AggregationLevelProperty> transformAggregationLevelProperties(List<AggLevelProperty> aggLevelProperties) {
+    private List<AggregationLevelProperty> transformAggregationLevelProperties(
+            List<AggLevelProperty> aggLevelProperties) {
         return aggLevelProperties.stream().map(this::transformAggregationLevelProperty).toList();
     }
 

@@ -23,7 +23,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-class ColumnDef {
+public class ColumnDef {
 
     @XmlAttribute(name = "name")
     protected String name;
