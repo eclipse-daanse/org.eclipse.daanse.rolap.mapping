@@ -13,17 +13,10 @@
  */
 package org.eclipse.daanse.rolap.mapping.mondrian.util;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
@@ -45,6 +38,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.EmfRolapMappingFactory;
@@ -56,11 +50,13 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
@@ -81,10 +77,13 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.AggPattern;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggTable;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.ColumnDef;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeGrant;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeUsage;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionOrDimensionUsage;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionTypeEnum;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionUsage;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.ElementFormatter;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.ExpressionView;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.HierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Hint;
@@ -151,6 +150,65 @@ public class TransformTask {
         return rolapContext.getMeasures().stream().filter(m -> m.getName().equals(name)).findAny();
     }
 
+    private Optional<Dimension> findDimensionByCubeNameByDimensionName(String cubeName, String dimensionName) {
+        Optional<Cube> oCube = findCubeByName(cubeName);
+        if (oCube.isPresent()) {
+            return findDimensionInCube(oCube.get(), dimensionName);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Dimension> findDimensionInCube(Cube cube, String name) {
+        if (cube != null && cube.getDimensionConnectors() != null) {
+            Optional<DimensionConnector> oDimensionConnector = cube.getDimensionConnectors().stream()
+                    .filter(dc -> dc.getDimension().getName().equals(name)).findAny();
+            if (oDimensionConnector.isPresent()) {
+                return Optional.ofNullable(oDimensionConnector.get().getDimension());
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> findMeasureByCubeNameByMeasureName(
+            String cubeName, String measureName) {
+        Optional<Cube> oCube = findCubeByName(cubeName);
+        if (oCube.isPresent()) {
+            return findMeasureInCube(oCube.get(), measureName);
+        }
+        return Optional.empty();
+    }
+
+    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> findMeasureInCube(Cube cube,
+            String measureName) {
+        if (cube != null && cube.getMeasureGroups() != null) {
+            Optional<MeasureGroup> oMeasureGroup = cube.getMeasureGroups().stream()
+                    .filter(mg -> mg.getMeasures().stream().anyMatch(m -> m.getName().equals(measureName))).findAny();
+            if (oMeasureGroup.isPresent()) {
+                return oMeasureGroup.get().getMeasures().stream().filter(m -> m.getName().equals(measureName))
+                        .findAny();
+            }
+        }
+        return Optional.empty();
+    }
+
+    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> findHierarchyByUnicalName(
+            String unicalName) {
+        if (unicalName != null) {
+            String name = unicalName.replace("[", "").replace("]", "");
+            String[] arr = name.split("\\.");
+            if (arr.length > 1) {
+                Optional<Dimension> oDim = findDimension(arr[0]);
+                if (oDim.isPresent() && oDim.get().getHierarchies() != null) {
+                    return oDim.get().getHierarchies().stream().filter(h -> arr[1].equals(h.getName())).findAny();
+                } else {
+                    return findHierarchy(arr[1]);
+                }
+            }
+        }
+        return Optional.empty();
+
+    }
+
     org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext transform() {
 
         rolapContext = EmfRolapMappingFactory.eINSTANCE.createRolapContext();
@@ -187,10 +245,11 @@ public class TransformTask {
 
     private VirtualCube transformVirtualCube(org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube virtualCube) {
         VirtualCube vc = EmfRolapMappingFactory.eINSTANCE.createVirtualCube();
-        vc.getCubeUsages().addAll(null);
+        vc.setId("vc_" + counterVirtualCube.incrementAndGet());
+        vc.getCubeUsages().addAll(transformCubeConnector(virtualCube.cubeUsages()));
         vc.getDimensionConnectors()
                 .addAll(transformVirtualCubeDimensionConnectors(virtualCube.virtualCubeDimensions()));
-        vc.getCalculatedMembers().addAll(null);
+        vc.getCalculatedMembers().addAll(transformCalculatedMembers(virtualCube.calculatedMembers()));
         vc.getNamedSets().addAll(transformNamedSets(virtualCube.namedSets()));
         vc.getKpis().addAll(transformKpis(virtualCube.kpis()));
         Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(
@@ -202,13 +261,29 @@ public class TransformTask {
         return vc;
     }
 
+    private List<CubeConnector> transformCubeConnector(List<CubeUsage> cubeUsages) {
+        return cubeUsages.stream().map(this::transformCubeConnector).toList();
+    }
+
+    private CubeConnector transformCubeConnector(CubeUsage virtualCubeMeasure) {
+        CubeConnector cubeConnector = EmfRolapMappingFactory.eINSTANCE.createCubeConnector();
+        Optional<Cube> oCube = findCubeByName(virtualCubeMeasure.cubeName());
+        oCube.ifPresent(c -> cubeConnector.setCube(c));
+        cubeConnector.setIgnoreUnrelatedDimensions(virtualCubeMeasure.ignoreUnrelatedDimensions());
+        return cubeConnector;
+
+    }
+
     private List<MeasureGroup> transformVirtualCubeMeasureGroups(List<VirtualCubeMeasure> virtualCubeMeasures) {
         return virtualCubeMeasures.stream().map(this::transformVirtualCubeMeasureGroup).toList();
     }
 
     private MeasureGroup transformVirtualCubeMeasureGroup(VirtualCubeMeasure virtualCubeMeasure) {
         MeasureGroup measureGroup = EmfRolapMappingFactory.eINSTANCE.createMeasureGroup();
-        // TODO
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasureByCubeNameByMeasureName(
+                virtualCubeMeasure.cubeName(), virtualCubeMeasure.name());
+        oMeasure.ifPresent(m -> measureGroup.getMeasures().add(m));
+        measureGroup.setName(virtualCubeMeasure.name());
         return measureGroup;
     }
 
@@ -310,8 +385,8 @@ public class TransformTask {
         dim.setId("d_" + counterDimension.incrementAndGet());
         dim.setName(dimension.name());
         dim.setDescription(dimension.description());
-//        standardDimension.setUsagePrefix(sharedDimension);
-//        standardDimension.setVisible(sharedDimension.);
+        dim.setUsagePrefix(dimension.usagePrefix());
+        dim.setVisible(dimension.visible());
         dim.getAnnotations().addAll(transformAnnotations(dimension.annotations()));
         List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> hierarchies = transformHierarchies(
                 dimension.hierarchies());
@@ -320,9 +395,18 @@ public class TransformTask {
         return dim;
     }
 
-    private DimensionConnector transformVirtualCubeDimensionConnector(VirtualCubeDimension VirtualCubeDimension) {
+    private DimensionConnector transformVirtualCubeDimensionConnector(VirtualCubeDimension virtualCubeDimension) {
         DimensionConnector dc = EmfRolapMappingFactory.eINSTANCE.createDimensionConnector();
-        // TODO
+        if (virtualCubeDimension.cubeName() != null) {
+            Optional<Dimension> oDim = findDimensionByCubeNameByDimensionName(virtualCubeDimension.cubeName(),
+                    virtualCubeDimension.name());
+            oDim.ifPresent(d -> dc.setDimension(d));
+        } else {
+            Optional<Dimension> oDim = findDimension(virtualCubeDimension.name());
+            oDim.ifPresent(d -> dc.setDimension(d));
+        }
+        dc.setVisible(virtualCubeDimension.visible());
+        dc.setForeignKey(virtualCubeDimension.foreignKey());
         return dc;
     }
 
@@ -398,27 +482,44 @@ public class TransformTask {
         l.setDescription(level.description());
         l.setApproxRowCount(level.approxRowCount());
         l.setCaptionColumn(level.captionColumn());
-//      l.setCaptionExpression(level.captionExpression());
+        l.setCaptionExpression(transformSQLExpression(level.captionExpression()));
         l.setColumn(level.column());
 //        l.setFormatter(level.formatter());TODO: handle in new pattern
         l.setHideMemberIf(level.hideMemberIf().getValue());
-//        l.setInternalType(level.internalType().getValue());
-//      l.setKeyExpression(level.keyExpression());
+        if (level.internalType() != null) {
+            l.setInternalType(level.internalType().getValue());
+        }
+        l.setKeyExpression(transformSQLExpression(level.keyExpression()));
         l.setLevelType(level.levelType().getValue());
-//      l.setMemberFormatter(level.memberFormatter());
+        l.setMemberFormatter(transformMemberFormatter(level.memberFormatter()));
         l.setNameColumn(level.nameColumn());
-//      l.setNameExpression(level.nameExpression());
+        l.setNameExpression(transformSQLExpression(level.nameExpression()));
         l.setNullParentValue(level.nullParentValue());
         l.setOrdinalColumn(level.ordinalColumn());
-//      l.setOrdinalExpression(level.ordinalExpression());
+        l.setOrdinalExpression(transformSQLExpression(level.ordinalExpression()));
 //        l.setParentChildLink(level.pa);
         l.setParentColumn(level.parentColumn());
-//        l.setParentExpression(level.parentExpression());
+        l.setParentExpression(transformSQLExpression(level.parentExpression()));
         l.setTable(level.table());
         l.setType(level.type().getValue());
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
         return l;
+    }
+
+    private MemberFormatter transformMemberFormatter(ElementFormatter memberFormatter) {
+        MemberFormatter mf = EmfRolapMappingFactory.eINSTANCE.createMemberFormatter();
+        // TODO
+        return null;
+    }
+
+    private SQLExpression transformSQLExpression(ExpressionView expressionView) {
+        if (expressionView != null) {
+            SQLExpression sqlExpression = EmfRolapMappingFactory.eINSTANCE.createSQLExpression();
+            sqlExpression.getSqls().addAll(transformSqls(expressionView.sqls()));
+            return sqlExpression;
+        }
+        return null;
     }
 
     private List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level> transformLevels(List<Level> levels) {
@@ -437,7 +538,7 @@ public class TransformTask {
         };
         m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
-//        m.setCellFormatter(null);
+        m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));
         m.setColumn(measure.column());
         if (measure.datatype() != null) {
             m.setDatatype(measure.datatype().toString());
@@ -446,8 +547,16 @@ public class TransformTask {
         m.setFormatString(measure.formatString());
         m.setName(measure.name());
         m.setVisible(measure.visible());
-//        m.setMeasureExpression(transformSql(measure.measureExpression().sqls());
+        if (measure.measureExpression() != null) {
+            m.setMeasureExpression(transformSqlExpression(measure.measureExpression().sqls()));
+        }
         return m;
+    }
+
+    private SQLExpression transformSqlExpression(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+        SQLExpression sqlExpression = EmfRolapMappingFactory.eINSTANCE.createSQLExpression();
+        sqlExpression.getSqls().addAll(transformSqls(sqls));
+        return sqlExpression;
     }
 
     private MeasureGroup transformMeasureGroup(List<Measure> measures) {
@@ -570,7 +679,6 @@ public class TransformTask {
     private Translation transformTranslation(org.eclipse.daanse.rolap.mapping.mondrian.model.Translation translation) {
         Translation t = EmfRolapMappingFactory.eINSTANCE.createTranslation();
         t.setDescription(translation.description());
-        // t.setName(translation.name());
         t.getAnnotations().addAll(transformAnnotations(translation.annotations()));
         t.setLanguage(translation.language());
         t.setCaption(translation.caption());
@@ -591,7 +699,6 @@ public class TransformTask {
         ns.getAnnotations().addAll(transformAnnotations(namedSet.annotations()));
         ns.setDisplayFolder(namedSet.displayFolder());
         ns.setFormula(namedSet.formula());
-        // TODO
         return ns;
     }
 
@@ -604,17 +711,23 @@ public class TransformTask {
             org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
         CalculatedMember cm = EmfRolapMappingFactory.eINSTANCE.createCalculatedMember();
         cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
+        cm.setName(calculatedMember.name());
+        cm.setDescription(calculatedMember.description());
         cm.getCalculatedMemberProperties()
                 .addAll(transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
         cm.setCellFormatter(transformCellFormatter(calculatedMember.cellFormatter()));
         cm.setFormula(calculatedMember.formula());
+        if (calculatedMember.formulaElement() != null) {
+            cm.setFormula(calculatedMember.formulaElement().cdata());
+        }
         cm.setDisplayFolder(calculatedMember.displayFolder());
         cm.setFormatString(calculatedMember.formatString());
+
         cm.setParent(calculatedMember.parent());
         cm.setVisible(calculatedMember.visible());
         // calculatedMember.dimension() is a deprecated pattern we do not support.
         // if hierarchy is null server must take default hierarchy of measure dimension
-        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchy(
+        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchyByUnicalName(
                 calculatedMember.hierarchy());
         oHier.ifPresent(d -> cm.setHierarchy(d));
         return cm;
@@ -634,19 +747,22 @@ public class TransformTask {
         cmp.getAnnotations().addAll(transformAnnotations(calculatedMemberProperty.annotations()));
         cmp.setValue(calculatedMemberProperty.value());
         cmp.setExpression(calculatedMemberProperty.expression());
-        // TODO
         return cmp;
     }
 
     private CellFormatter transformCellFormatter(
             org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
-        CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
-        cf.setId("cm_" + counterCellFormatter.incrementAndGet());
-        cf.setDescription(null);
-        cf.setName(null);
-        cf.getAnnotations().addAll(List.of());
-        // TODO
-        return cf;
+        if (cellFormatter != null) {
+            CellFormatter cf = EmfRolapMappingFactory.eINSTANCE.createCellFormatter();
+            cf.setId("cf_" + counterCellFormatter.incrementAndGet());
+            cf.getAnnotations().addAll(List.of());
+            if (cellFormatter.className() != null) {
+                cf.setRef(cellFormatter.className());
+            }
+            rolapContext.getFormatters().add(cf);
+            return cf;
+        }
+        return null;
     }
 
     private List<PhysicalCube> transformPhysicalCubes(
@@ -680,12 +796,14 @@ public class TransformTask {
         }
         if (relationOrJoin instanceof InlineTable it) {
             InlineTableQuery inlineTableQuery = EmfRolapMappingFactory.eINSTANCE.createInlineTableQuery();
+            inlineTableQuery.setAlias(it.alias());
             inlineTableQuery.getColumnDefinitions().addAll(transformInlineTableColumnDefinitions(it.columnDefs()));
             inlineTableQuery.getRows().addAll(transformInlineTableRows(it.rows()));
             return inlineTableQuery;
         }
         if (relationOrJoin instanceof View v) {
             SqlSelectQuery sqlSelectQuery = EmfRolapMappingFactory.eINSTANCE.createSqlSelectQuery();
+            sqlSelectQuery.setAlias(v.alias());
             sqlSelectQuery.getSQL().addAll(transformSqls(v.sqls()));
             return sqlSelectQuery;
         }

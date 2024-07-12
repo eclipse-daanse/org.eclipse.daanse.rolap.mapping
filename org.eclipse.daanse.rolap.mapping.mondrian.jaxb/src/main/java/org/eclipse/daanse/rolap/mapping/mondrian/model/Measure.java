@@ -51,7 +51,7 @@ public class Measure extends AbstractMainElement {
     @XmlAttribute(name = "displayFolder")
     protected String displayFolder;
     @XmlElement(name = "CellFormatter", type = CellFormatter.class)
-    ElementFormatter cellFormatter;
+    CellFormatter cellFormatter;
     @XmlAttribute(name = "backColor")
     protected String backColor;
 
@@ -70,7 +70,7 @@ public class Measure extends AbstractMainElement {
         return this.calculatedMemberProperties;
     }
 
-    public ElementFormatter cellFormatter() {
+    public CellFormatter cellFormatter() {
         return cellFormatter;
     }
 
@@ -110,7 +110,7 @@ public class Measure extends AbstractMainElement {
         this.calculatedMemberProperties = calculatedMemberProperties;
     }
 
-    public void setCellFormatter(ElementFormatter cellFormatter) {
+    public void setCellFormatter(CellFormatter cellFormatter) {
         this.cellFormatter = cellFormatter;
     }
 
