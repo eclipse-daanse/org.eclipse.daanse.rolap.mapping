@@ -168,6 +168,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="overrideDimensionName"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension"/>
   <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension"/>
@@ -242,6 +244,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parent" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConector" eType="#//DimensionConnector"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMemberProperty" eSuperTypes="#//AbstractElement #//ICalculatedMemberProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -435,6 +438,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationMeasureFactCounts"
         upperBound="-1" eType="#//AggregationMeasureFactCount" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationName" eSuperTypes="#//AggregationTable #//IAggregationName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>

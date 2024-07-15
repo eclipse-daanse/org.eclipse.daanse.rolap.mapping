@@ -30,4 +30,6 @@ public interface AggregationTableMapping {
 
     boolean isIgnorecase();
 
+    String getId();
+
 }
