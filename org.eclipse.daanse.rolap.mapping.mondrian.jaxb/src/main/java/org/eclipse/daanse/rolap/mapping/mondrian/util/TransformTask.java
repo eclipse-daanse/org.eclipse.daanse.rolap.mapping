@@ -41,6 +41,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.EmfRolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableColumnDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
@@ -51,6 +52,9 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberPropertyFormatter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -94,6 +98,8 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.Join;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Level;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Measure;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.MemberGrant;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.Property;
+import org.eclipse.daanse.rolap.mapping.mondrian.model.PropertyTypeEnum;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.RelationOrJoin;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Role;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Row;
@@ -120,8 +126,7 @@ public class TransformTask {
     private AtomicInteger counterMemberFormatter = new AtomicInteger();
     private AtomicInteger counterNamedSet = new AtomicInteger();
     private AtomicInteger counterKpi = new AtomicInteger();
-    private AtomicInteger counterAggregationPattern = new AtomicInteger();
-    private AtomicInteger counterAggregationName = new AtomicInteger();
+    private AtomicInteger counterProperty = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -238,9 +243,20 @@ public class TransformTask {
         s.getAnnotations().addAll(transformAnnotations(mondrianSchema.annotations()));
         s.setMeasuresDimensionName(mondrianSchema.measuresCaption());
         s.getCubes().addAll(physicalCubes);
+        s.setDocumentation(transformDocumentation(mondrianSchema.documentation()));
         rolapContext.getSchemas().add(s);
 
         return rolapContext;
+    }
+
+    private Documentation transformDocumentation(
+            Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.Documentation> documentation) {
+        if (documentation.isPresent()) {
+            Documentation doc = EmfRolapMappingFactory.eINSTANCE.createDocumentation();
+            doc.setValue(documentation.get().documentation());
+            return doc;
+        }
+        return null;
     }
 
     private List<VirtualCube> transformVirtualCubes(
@@ -479,10 +495,29 @@ public class TransformTask {
         h.setQuery(transformQuery(hierarchy.relation()));
         h.setUniqueKeyLevelName(hierarchy.uniqueKeyLevelName());
         h.setVisible(hierarchy.visible());
-        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level> lvls = transformLevels(hierarchy.levels());
+        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level> lvls = transformLevels(hierarchy.levels());        
         rolapContext.getLevels().addAll(lvls);
         h.getLevels().addAll(lvls);
+        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter> mrps = transformMemberReaderParameters(hierarchy.memberReaderParameters()); 
+        h.getMemberReaderParameters().addAll(mrps);
+        
         return h;
+    }
+
+    private List<MemberReaderParameter> transformMemberReaderParameters(
+            List<org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter> memberReaderParameters) {
+        return memberReaderParameters.stream().map(this::transformtransformMemberReaderParameter).toList();
+    }
+    
+    private MemberReaderParameter transformtransformMemberReaderParameter(org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter memberReaderParameter) {
+        if (memberReaderParameter != null) {
+            MemberReaderParameter mrp = EmfRolapMappingFactory.eINSTANCE.createMemberReaderParameter();
+            mrp.setName(memberReaderParameter.name());
+            mrp.setValue(memberReaderParameter.value());
+            return mrp;
+        }
+        return null;
+        
     }
 
     private org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level transformLevel(Level level) {
@@ -516,7 +551,38 @@ public class TransformTask {
         l.setType(level.type().getValue());
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
+        l.getMemberProperties().addAll(transformMemberProperties(level.properties()));
+
         return l;
+    }
+
+    private List<MemberProperty> transformMemberProperties(List<Property> properties) {
+        return properties.stream().map(this::transformMemberProperty).toList();
+    }
+
+    private MemberProperty transformMemberProperty(Property property) {
+        if (property != null) {
+            MemberProperty mp = EmfRolapMappingFactory.eINSTANCE.createMemberProperty();
+            mp.getAnnotations().addAll(transformAnnotations(property.annotations()));
+            mp.setId("p_" + counterProperty.incrementAndGet());
+            mp.setDescription(property.description());
+            mp.setName(property.name());
+            mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
+            mp.setColumn(property.column());
+            mp.setDependsOnLevelValue(property.dependsOnLevelValue());
+            mp.setType(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue());
+
+            return mp;
+        }
+        return null;
+    }
+
+    private MemberPropertyFormatter transformMemberPropertyFormatter(String formatter) {
+        if (formatter != null) {
+            MemberPropertyFormatter mpf = EmfRolapMappingFactory.eINSTANCE.createMemberPropertyFormatter();
+            mpf.setRef(formatter);
+        }
+        return null;
     }
 
     private ParentChildLink transformParentChildLink(Closure closure) {
