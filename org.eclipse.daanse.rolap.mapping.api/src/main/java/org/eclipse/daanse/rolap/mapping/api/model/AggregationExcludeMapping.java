@@ -20,4 +20,5 @@ public interface AggregationExcludeMapping {
 
     String getPattern();
 
+    String getId();
 }

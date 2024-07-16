@@ -132,6 +132,7 @@ public class TransformTask {
     private AtomicInteger counterDimensionConnector = new AtomicInteger();
     private AtomicInteger counterAggregationName = new AtomicInteger();
     private AtomicInteger counterAggregationPattern = new AtomicInteger();
+    private AtomicInteger counterAggregationExclude = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -1157,9 +1158,11 @@ public class TransformTask {
 
     private AggregationExclude transformAggregationExclude(AggExclude aggExclude) {
         AggregationExclude ae = EmfRolapMappingFactory.eINSTANCE.createAggregationExclude();
+        ae.setId("ae_" + counterAggregationExclude.incrementAndGet());
         ae.setIgnorecase(aggExclude.ignorecase());
         ae.setName(aggExclude.name());
         ae.setPattern(aggExclude.pattern());
+        rolapContext.getAggregationExcludes().add(ae);
         return ae;
     }
 

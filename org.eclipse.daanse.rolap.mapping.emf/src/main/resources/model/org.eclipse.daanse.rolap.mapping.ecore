@@ -38,6 +38,8 @@
         eType="#//AccessRole" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationTables" upperBound="-1"
         eType="#//AggregationTable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
+        eType="#//AggregationExclude" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//IDocumentation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -390,6 +392,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationForeignKey" eSuperTypes="#//IAggregationForeignKey">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregationColumn" lowerBound="1"

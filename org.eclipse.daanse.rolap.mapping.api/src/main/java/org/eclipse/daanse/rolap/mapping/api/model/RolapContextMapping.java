@@ -37,4 +37,6 @@ public interface RolapContextMapping {
     List<? extends AccessRoleMapping> getAccessRoles();
 
     List<? extends AggregationTableMapping> getAggregationTables();
+
+    List<? extends AggregationExcludeMapping> getAggregationExcludes();
 }
