@@ -14,6 +14,8 @@
 package org.eclipse.daanse.rolap.mapping.mondrian.util;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -127,6 +129,9 @@ public class TransformTask {
     private AtomicInteger counterNamedSet = new AtomicInteger();
     private AtomicInteger counterKpi = new AtomicInteger();
     private AtomicInteger counterProperty = new AtomicInteger();
+    private AtomicInteger counterDimensionConnector = new AtomicInteger();
+    private AtomicInteger counterAggregationName = new AtomicInteger();
+    private AtomicInteger counterAggregationPattern = new AtomicInteger();
 
     private Schema mondrianSchema;
     private RolapContext rolapContext;
@@ -201,22 +206,23 @@ public class TransformTask {
         return Optional.empty();
     }
 
-    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> findHierarchyByUnicalName(
-            String unicalName) {
+    private Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> findHierarchyInDimensionConnectorByName(
+            DimensionConnector dc, String hierarchyName) {
+        if (dc != null && dc.getDimension() != null && dc.getDimension().getHierarchies() != null) {
+            return dc.getDimension().getHierarchies().stream().filter(h -> h.getName().equals(hierarchyName)).findAny();
+        }
+        return Optional.empty();
+    }
+
+    private Optional<Entry<String, String>> resolveDimensionConnectorNameHierarchyName(String unicalName) {
         if (unicalName != null) {
             String name = unicalName.replace("[", "").replace("]", "");
             String[] arr = name.split("\\.");
             if (arr.length > 1) {
-                Optional<Dimension> oDim = findDimension(arr[0]);
-                if (oDim.isPresent() && oDim.get().getHierarchies() != null) {
-                    return oDim.get().getHierarchies().stream().filter(h -> arr[1].equals(h.getName())).findAny();
-                } else {
-                    return findHierarchy(arr[1]);
-                }
+                return Optional.of(Map.entry(arr[0], arr[1]));
             }
         }
         return Optional.empty();
-
     }
 
     org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext transform() {
@@ -270,7 +276,8 @@ public class TransformTask {
         vc.getCubeUsages().addAll(transformCubeConnector(virtualCube.cubeUsages()));
         vc.getDimensionConnectors()
                 .addAll(transformVirtualCubeDimensionConnectors(virtualCube.virtualCubeDimensions()));
-        vc.getCalculatedMembers().addAll(transformCalculatedMembers(virtualCube.calculatedMembers()));
+        vc.getCalculatedMembers()
+                .addAll(transformCalculatedMembers(vc.getDimensionConnectors(), virtualCube.calculatedMembers()));
         vc.getNamedSets().addAll(transformNamedSets(virtualCube.namedSets()));
         vc.getKpis().addAll(transformKpis(virtualCube.kpis()));
         Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(
@@ -424,6 +431,7 @@ public class TransformTask {
 
     private DimensionConnector transformVirtualCubeDimensionConnector(VirtualCubeDimension virtualCubeDimension) {
         DimensionConnector dc = EmfRolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (virtualCubeDimension.cubeName() != null) {
             Optional<Dimension> oDim = findDimensionByCubeNameByDimensionName(virtualCubeDimension.cubeName(),
                     virtualCubeDimension.name());
@@ -440,7 +448,7 @@ public class TransformTask {
     private DimensionConnector transformDimensionConnector(DimensionOrDimensionUsage dimensionUsageOrDimensions) {
 
         DimensionConnector dc = EmfRolapMappingFactory.eINSTANCE.createDimensionConnector();
-
+        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (dimensionUsageOrDimensions instanceof org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension d) {
             Dimension dim = transformDimension(d);
             rolapContext.getDimensions().add(dim);
@@ -495,12 +503,13 @@ public class TransformTask {
         h.setQuery(transformQuery(hierarchy.relation()));
         h.setUniqueKeyLevelName(hierarchy.uniqueKeyLevelName());
         h.setVisible(hierarchy.visible());
-        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level> lvls = transformLevels(hierarchy.levels());        
+        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level> lvls = transformLevels(hierarchy.levels());
         rolapContext.getLevels().addAll(lvls);
         h.getLevels().addAll(lvls);
-        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter> mrps = transformMemberReaderParameters(hierarchy.memberReaderParameters()); 
+        List<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter> mrps = transformMemberReaderParameters(
+                hierarchy.memberReaderParameters());
         h.getMemberReaderParameters().addAll(mrps);
-        
+
         return h;
     }
 
@@ -508,8 +517,9 @@ public class TransformTask {
             List<org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter> memberReaderParameters) {
         return memberReaderParameters.stream().map(this::transformtransformMemberReaderParameter).toList();
     }
-    
-    private MemberReaderParameter transformtransformMemberReaderParameter(org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter memberReaderParameter) {
+
+    private MemberReaderParameter transformtransformMemberReaderParameter(
+            org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter memberReaderParameter) {
         if (memberReaderParameter != null) {
             MemberReaderParameter mrp = EmfRolapMappingFactory.eINSTANCE.createMemberReaderParameter();
             mrp.setName(memberReaderParameter.name());
@@ -517,7 +527,7 @@ public class TransformTask {
             return mrp;
         }
         return null;
-        
+
     }
 
     private org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level transformLevel(Level level) {
@@ -683,7 +693,8 @@ public class TransformTask {
         pc.getMeasureGroups().add(transformMeasureGroup(cube.measures()));
         pc.getDimensionConnectors().addAll(transformDimensionConnectors(cube.dimensionUsageOrDimensions()));
 
-        pc.getCalculatedMembers().addAll(transformCalculatedMembers(cube.calculatedMembers()));
+        pc.getCalculatedMembers()
+                .addAll(transformCalculatedMembers(pc.getDimensionConnectors(), cube.calculatedMembers()));
         pc.getNamedSets().addAll(transformNamedSets(cube.namedSets()));
         pc.getKpis().addAll(transformKpis(cube.kpis()));
         Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure> oMeasure = findMeasure(
@@ -801,12 +812,12 @@ public class TransformTask {
         return ns;
     }
 
-    private List<CalculatedMember> transformCalculatedMembers(
+    private List<CalculatedMember> transformCalculatedMembers(List<DimensionConnector> dimensionConnectors,
             List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers) {
-        return calculatedMembers.stream().map(this::transformCalculatedMember).toList();
+        return calculatedMembers.stream().map(cm -> transformCalculatedMember(dimensionConnectors, cm)).toList();
     }
 
-    private CalculatedMember transformCalculatedMember(
+    private CalculatedMember transformCalculatedMember(List<DimensionConnector> dimensionConnectors,
             org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
         CalculatedMember cm = EmfRolapMappingFactory.eINSTANCE.createCalculatedMember();
         cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
@@ -826,9 +837,18 @@ public class TransformTask {
         cm.setVisible(calculatedMember.visible());
         // calculatedMember.dimension() is a deprecated pattern we do not support.
         // if hierarchy is null server must take default hierarchy of measure dimension
-        Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchyByUnicalName(
-                calculatedMember.hierarchy());
-        oHier.ifPresent(d -> cm.setHierarchy(d));
+        Optional<Entry<String, String>> oRes = resolveDimensionConnectorNameHierarchyName(calculatedMember.hierarchy());
+        if (oRes.isPresent()) {
+            Entry<String, String> res = oRes.get();
+            Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector> oDimCon = dimensionConnectors
+                    .stream().filter(dc -> dc.getOverrideDimensionName().equals(res.getKey())).findAny();
+            if (oDimCon.isPresent()) {
+                cm.setDimensionConector(oDimCon.get());
+                Optional<org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy> oHier = findHierarchyInDimensionConnectorByName(
+                        oDimCon.get(), res.getValue());
+                oHier.ifPresent(d -> cm.setHierarchy(d));
+            }
+        }
         return cm;
     }
 
@@ -1002,7 +1022,7 @@ public class TransformTask {
     private AggregationTable transformAggregationTable(AggTable aggTable) {
         if (aggTable instanceof AggName aggName) {
             AggregationName an = EmfRolapMappingFactory.eINSTANCE.createAggregationName();
-            // an.setId("an_" + counterAggregationName.incrementAndGet());
+            an.setId("an_" + counterAggregationName.incrementAndGet());
             an.setAggregationFactCount(transformAggregationColumnName(aggName.aggFactCount()));
             an.getAggregationIgnoreColumns().addAll(transformAggregationColumnNames(aggName.aggIgnoreColumns()));
             an.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggName.aggForeignKeys()));
@@ -1018,7 +1038,7 @@ public class TransformTask {
         }
         if (aggTable instanceof AggPattern aggPattern) {
             AggregationPattern ap = EmfRolapMappingFactory.eINSTANCE.createAggregationPattern();
-            // ap.setId("ap_" + counterAggregationPattern.incrementAndGet());
+            ap.setId("ap_" + counterAggregationPattern.incrementAndGet());
             ap.setAggregationFactCount(transformAggregationColumnName(aggPattern.aggFactCount()));
             ap.getAggregationIgnoreColumns().addAll(transformAggregationColumnNames(aggPattern.aggIgnoreColumns()));
             ap.getAggregationForeignKeys().addAll(transformAggregationForeignKeys(aggPattern.aggForeignKeys()));
