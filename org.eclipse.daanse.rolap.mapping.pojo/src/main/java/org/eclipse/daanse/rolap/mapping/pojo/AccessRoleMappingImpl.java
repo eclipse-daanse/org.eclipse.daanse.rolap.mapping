@@ -18,6 +18,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
 
 public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements AccessRoleMapping {
+
     private List<? extends AccessSchemaGrantMapping> accessSchemaGrants;
 
     private List<? extends AccessRoleMapping> referencedAccessRoles;

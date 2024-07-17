@@ -17,7 +17,6 @@ import java.util.List;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 
 public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
@@ -27,7 +26,7 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
     private String access;
 
-    private CubeMapping cube;
+    private CubeMappingImpl cube;
 
 
     public List<? extends AccessDimensionGrantMapping> getDimensionGrants() {
@@ -54,11 +53,11 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
         this.access = access;
     }
 
-    public CubeMapping getCube() {
+    public CubeMappingImpl getCube() {
         return cube;
     }
 
-    public void setCube(CubeMapping cube) {
+    public void setCube(CubeMappingImpl cube) {
         this.cube = cube;
     }
 }

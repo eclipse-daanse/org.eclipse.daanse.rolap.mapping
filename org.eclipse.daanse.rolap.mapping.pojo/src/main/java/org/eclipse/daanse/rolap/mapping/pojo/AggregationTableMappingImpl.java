@@ -23,21 +23,21 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 
 public class AggregationTableMappingImpl implements AggregationTableMapping {
 
-    AggregationColumnNameMapping aggregationFactCount;
+    private AggregationColumnNameMapping aggregationFactCount;
 
-    List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns;
+    private List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns;
 
-    List<? extends AggregationForeignKeyMapping> aggregationForeignKeys;
+    private List<? extends AggregationForeignKeyMapping> aggregationForeignKeys;
 
-    List<? extends AggregationMeasureMapping> aggregationMeasures;
+    private List<? extends AggregationMeasureMapping> aggregationMeasures;
 
-    List<? extends AggregationLevelMapping> aggregationLevels;
+    private List<? extends AggregationLevelMapping> aggregationLevels;
 
-    List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts;
+    private List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts;
 
-    boolean ignorecase;
+    private boolean ignorecase;
 
-    String id;
+    private String id;
 
     public AggregationColumnNameMapping getAggregationFactCount() {
         return aggregationFactCount;

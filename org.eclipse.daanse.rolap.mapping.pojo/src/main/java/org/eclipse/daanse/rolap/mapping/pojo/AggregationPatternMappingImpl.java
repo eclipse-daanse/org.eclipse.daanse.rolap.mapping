@@ -19,9 +19,9 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
 
 public class AggregationPatternMappingImpl extends AggregationTableMappingImpl implements AggregationPatternMapping{
 
-    String pattern;
+    private String pattern;
 
-    List<? extends AggregationExcludeMapping> excludes;
+    private List<? extends AggregationExcludeMapping> excludes;
 
     public String getPattern() {
         return pattern;

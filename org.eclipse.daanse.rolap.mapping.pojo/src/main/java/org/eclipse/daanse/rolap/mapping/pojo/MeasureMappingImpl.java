@@ -17,11 +17,10 @@ import java.util.List;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 
 public class MeasureMappingImpl implements MeasureMapping {
 
-    private SQLExpressionMapping measureExpression;
+    private SQLExpressionMappingImpl measureExpression;
 
     private List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty;
 
@@ -43,11 +42,11 @@ public class MeasureMappingImpl implements MeasureMapping {
 
     private String name;
 
-    public SQLExpressionMapping getMeasureExpression() {
+    public SQLExpressionMappingImpl getMeasureExpression() {
         return measureExpression;
     }
 
-    public void setMeasureExpression(SQLExpressionMapping measureExpression) {
+    public void setMeasureExpression(SQLExpressionMappingImpl measureExpression) {
         this.measureExpression = measureExpression;
     }
 

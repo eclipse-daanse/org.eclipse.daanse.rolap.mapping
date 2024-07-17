@@ -15,11 +15,12 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 
 public abstract class AbstractElementMappingImpl implements AbstractElementMapping {
 
-    private List<? extends AnnotationMappingImpl> annotations;
+    private List<? extends AnnotationMapping> annotations;
 
     private String id;
 
@@ -29,11 +30,11 @@ public abstract class AbstractElementMappingImpl implements AbstractElementMappi
 
     private DocumentationMapping documentation;
 
-    public List<? extends AnnotationMappingImpl> getAnnotations() {
+    public List<? extends AnnotationMapping> getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(List<? extends AnnotationMappingImpl> annotations) {
+    public void setAnnotations(List<? extends AnnotationMapping> annotations) {
         this.annotations = annotations;
     }
 

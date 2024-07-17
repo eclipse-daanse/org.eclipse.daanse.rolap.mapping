@@ -12,28 +12,28 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 
-public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapping {
+public class WritebackAttributeMappingImpl implements WritebackAttributeMapping{
 
-    private String access;
+    private String column;
 
-    private DimensionMappingImpl dimension;
+    private DimensionMapping dimension;
 
-    public String getAccess() {
-        return access;
+    public String getColumn() {
+        return column;
     }
 
-    public void setAccess(String access) {
-        this.access = access;
+    public void setColumn(String column) {
+        this.column = column;
     }
 
-    public DimensionMappingImpl getDimension() {
+    public DimensionMapping getDimension() {
         return dimension;
     }
 
-    public void setDimension(DimensionMappingImpl dimension) {
+    public void setDimension(DimensionMapping dimension) {
         this.dimension = dimension;
     }
 }
