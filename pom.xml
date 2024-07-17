@@ -31,10 +31,9 @@
   </properties>
 
   <modules>
-    <module>org.eclipse.daanse.rolap.mapping.api</module>
-    <module>org.eclipse.daanse.rolap.mapping.emf</module>
-    <module>org.eclipse.daanse.rolap.mapping.record</module>
-    <module>org.eclipse.daanse.rolap.mapping.mondrian.jaxb</module>
-    <module>org.eclipse.daanse.rolap.mapping.pojo</module>
+    <module>api</module>
+    <module>emf</module>
+    <module>mondrian.jaxb</module>
+    <module>pojo</module>
   </modules>
 </project>
