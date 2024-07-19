@@ -14,7 +14,9 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-public class LevelMappingImpl {
+import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
+
+public class LevelMappingImpl implements LevelMapping {
 
     private SQLExpressionMappingImpl keyExpression;
 
@@ -59,6 +61,8 @@ public class LevelMappingImpl {
     private boolean visible;
 
     private String name;
+
+    private String id;
 
     public SQLExpressionMappingImpl getKeyExpression() {
         return keyExpression;
@@ -234,5 +238,13 @@ public class LevelMappingImpl {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

@@ -60,4 +60,5 @@ public interface LevelMapping {
 
     String getName();
 
+    String getId();
 }
