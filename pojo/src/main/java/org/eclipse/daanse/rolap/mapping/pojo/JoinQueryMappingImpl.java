@@ -13,27 +13,26 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 
 public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryMapping {
 
-    private JoinedQueryElementMapping left;
+    private JoinedQueryElementMappingImpl left;
 
-    private JoinedQueryElementMapping right;
+    private JoinedQueryElementMappingImpl right;
 
-    public JoinedQueryElementMapping getLeft() {
+    public JoinedQueryElementMappingImpl getLeft() {
         return left;
     }
 
-    public void setLeft(JoinedQueryElementMapping left) {
+    public void setLeft(JoinedQueryElementMappingImpl left) {
         this.left = left;
     }
 
-    public JoinedQueryElementMapping getRight() {
+    public JoinedQueryElementMappingImpl getRight() {
         return right;
     }
 
-    public void setRight(JoinedQueryElementMapping right) {
+    public void setRight(JoinedQueryElementMappingImpl right) {
         this.right = right;
     }
 }

@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 
 public class SchemaMappingImpl extends AbstractElementMappingImpl implements SchemaMapping {
@@ -27,7 +26,7 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
 
     private List<AccessRoleMappingImpl> accessRoles;
 
-    private AccessRoleMapping defaultAccessRole;
+    private AccessRoleMappingImpl defaultAccessRole;
 
     private String measuresDimensionName;
 
@@ -63,11 +62,11 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
         this.accessRoles = accessRoles;
     }
 
-    public AccessRoleMapping getDefaultAccessRole() {
+    public AccessRoleMappingImpl getDefaultAccessRole() {
         return defaultAccessRole;
     }
 
-    public void setDefaultAccessRole(AccessRoleMapping defaultAccessRole) {
+    public void setDefaultAccessRole(AccessRoleMappingImpl defaultAccessRole) {
         this.defaultAccessRole = defaultAccessRole;
     }
 

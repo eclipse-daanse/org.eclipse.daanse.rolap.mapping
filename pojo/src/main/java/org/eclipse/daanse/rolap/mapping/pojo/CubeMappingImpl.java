@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
 public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeMapping {
 
@@ -27,7 +26,7 @@ public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeM
 
     private List<KpiMappingImpl> kpis;
 
-    private MeasureMapping defaultMeasure;
+    private MeasureMappingImpl defaultMeasure;
 
     private boolean enabled;
 
@@ -67,11 +66,11 @@ public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeM
         this.kpis = kpis;
     }
 
-    public MeasureMapping getDefaultMeasure() {
+    public MeasureMappingImpl getDefaultMeasure() {
         return defaultMeasure;
     }
 
-    public void setDefaultMeasure(MeasureMapping defaultMeasure) {
+    public void setDefaultMeasure(MeasureMappingImpl defaultMeasure) {
         this.defaultMeasure = defaultMeasure;
     }
 

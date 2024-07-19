@@ -13,19 +13,18 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 
 public class CubeConnectorMappingImpl implements CubeConnectorMapping {
 
-    private CubeMapping cube;
+    private CubeMappingImpl cube;
 
     private boolean ignoreUnrelatedDimensions;
 
-    public CubeMapping getCube() {
+    public CubeMappingImpl getCube() {
         return cube;
     }
 
-    public void setCube(CubeMapping cube) {
+    public void setCube(CubeMappingImpl cube) {
         this.cube = cube;
     }
 

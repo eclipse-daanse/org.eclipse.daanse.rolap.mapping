@@ -13,20 +13,18 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
 public class DimensionConnectorMappingImpl implements DimensionConnectorMapping {
 
     private String foreignKey;
 
-    private LevelMapping level;
+    private LevelMappingImpl level;
 
     private String usagePrefix;
 
     private boolean visible;
 
-    private DimensionMapping dimension;
+    private DimensionMappingImpl dimension;
 
     private String overrideDimensionName;
 
@@ -38,11 +36,11 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         this.foreignKey = foreignKey;
     }
 
-    public LevelMapping getLevel() {
+    public LevelMappingImpl getLevel() {
         return level;
     }
 
-    public void setLevel(LevelMapping level) {
+    public void setLevel(LevelMappingImpl level) {
         this.level = level;
     }
 
@@ -62,11 +60,11 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         this.visible = visible;
     }
 
-    public DimensionMapping getDimension() {
+    public DimensionMappingImpl getDimension() {
         return dimension;
     }
 
-    public void setDimension(DimensionMapping dimension) {
+    public void setDimension(DimensionMappingImpl dimension) {
         this.dimension = dimension;
     }
 

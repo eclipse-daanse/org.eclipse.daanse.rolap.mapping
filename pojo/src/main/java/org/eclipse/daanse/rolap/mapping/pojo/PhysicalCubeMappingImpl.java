@@ -15,32 +15,30 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
 
 public class PhysicalCubeMappingImpl extends CubeMappingImpl implements PhysicalCubeMapping {
 
-    private QueryMapping query;
+    private QueryMappingImpl query;
 
-    private WritebackTableMapping writebackTable;
+    private WritebackTableMappingImpl writebackTable;
 
     private List<ActionMappingMappingImpl> action;
 
     private boolean cache;
 
-    public QueryMapping getQuery() {
+    public QueryMappingImpl getQuery() {
         return query;
     }
 
-    public void setQuery(QueryMapping query) {
+    public void setQuery(QueryMappingImpl query) {
         this.query = query;
     }
 
-    public WritebackTableMapping getWritebackTable() {
+    public WritebackTableMappingImpl getWritebackTable() {
         return writebackTable;
     }
 
-    public void setWritebackTable(WritebackTableMapping writebackTable) {
+    public void setWritebackTable(WritebackTableMappingImpl writebackTable) {
         this.writebackTable = writebackTable;
     }
 

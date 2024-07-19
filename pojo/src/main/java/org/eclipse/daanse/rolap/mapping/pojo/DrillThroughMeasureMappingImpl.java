@@ -13,17 +13,16 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughMeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
 public class DrillThroughMeasureMappingImpl implements DrillThroughMeasureMapping {
 
-    private MeasureMapping measure;
+    private MeasureMappingImpl measure;
 
-    public MeasureMapping getMeasure() {
+    public MeasureMappingImpl getMeasure() {
         return measure;
     }
 
-    public void setMeasure(MeasureMapping measure) {
+    public void setMeasure(MeasureMappingImpl measure) {
         this.measure = measure;
     }
 

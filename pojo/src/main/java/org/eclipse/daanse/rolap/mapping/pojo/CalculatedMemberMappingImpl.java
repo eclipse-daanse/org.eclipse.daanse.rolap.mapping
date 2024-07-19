@@ -15,15 +15,12 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 
 public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl implements CalculatedMemberMapping {
 
     private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties;
 
-    private CellFormatterMapping cellFormatter;
+    private CellFormatterMappingImpl cellFormatter;
 
     private String formula;
 
@@ -31,9 +28,9 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
 
     private String formatString;
 
-    private HierarchyMapping hierarchy;
+    private HierarchyMappingImpl hierarchy;
 
-    private DimensionConnectorMapping dimensionConector;
+    private DimensionConnectorMappingImpl dimensionConector;
 
     private String parent;
 
@@ -45,11 +42,11 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         this.calculatedMemberProperties = calculatedMemberProperties;
     }
 
-    public CellFormatterMapping getCellFormatter() {
+    public CellFormatterMappingImpl getCellFormatter() {
         return cellFormatter;
     }
 
-    public void setCellFormatter(CellFormatterMapping cellFormatter) {
+    public void setCellFormatter(CellFormatterMappingImpl cellFormatter) {
         this.cellFormatter = cellFormatter;
     }
 
@@ -77,19 +74,19 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         this.formatString = formatString;
     }
 
-    public HierarchyMapping getHierarchy() {
+    public HierarchyMappingImpl getHierarchy() {
         return hierarchy;
     }
 
-    public void setHierarchy(HierarchyMapping hierarchy) {
+    public void setHierarchy(HierarchyMappingImpl hierarchy) {
         this.hierarchy = hierarchy;
     }
 
-    public DimensionConnectorMapping getDimensionConector() {
+    public DimensionConnectorMappingImpl getDimensionConector() {
         return dimensionConector;
     }
 
-    public void setDimensionConector(DimensionConnectorMapping dimensionConector) {
+    public void setDimensionConector(DimensionConnectorMappingImpl dimensionConector) {
         this.dimensionConector = dimensionConector;
     }
 

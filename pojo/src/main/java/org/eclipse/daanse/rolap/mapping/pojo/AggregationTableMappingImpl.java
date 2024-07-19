@@ -14,12 +14,11 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 
 public class AggregationTableMappingImpl implements AggregationTableMapping {
 
-    private AggregationColumnNameMapping aggregationFactCount;
+    private AggregationColumnNameMappingImpl aggregationFactCount;
 
     private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns;
 
@@ -35,11 +34,11 @@ public class AggregationTableMappingImpl implements AggregationTableMapping {
 
     private String id;
 
-    public AggregationColumnNameMapping getAggregationFactCount() {
+    public AggregationColumnNameMappingImpl getAggregationFactCount() {
         return aggregationFactCount;
     }
 
-    public void setAggregationFactCount(AggregationColumnNameMapping aggregationFactCount) {
+    public void setAggregationFactCount(AggregationColumnNameMappingImpl aggregationFactCount) {
         this.aggregationFactCount = aggregationFactCount;
     }
 

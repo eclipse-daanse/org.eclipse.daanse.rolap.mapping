@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
 public class MeasureMappingImpl implements MeasureMapping {
@@ -23,7 +22,7 @@ public class MeasureMappingImpl implements MeasureMapping {
 
     private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty;
 
-    private CellFormatterMapping cellFormatter;
+    private CellFormatterMappingImpl cellFormatter;
 
     private String backColor;
 
@@ -59,11 +58,11 @@ public class MeasureMappingImpl implements MeasureMapping {
         this.calculatedMemberProperty = calculatedMemberProperty;
     }
 
-    public CellFormatterMapping getCellFormatter() {
+    public CellFormatterMappingImpl getCellFormatter() {
         return cellFormatter;
     }
 
-    public void setCellFormatter(CellFormatterMapping cellFormatter) {
+    public void setCellFormatter(CellFormatterMappingImpl cellFormatter) {
         this.cellFormatter = cellFormatter;
     }
 

@@ -15,8 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
 public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapping {
 
@@ -24,13 +22,13 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
 
     private String access;
 
-    private LevelMapping bottomLevel;
+    private LevelMappingImpl bottomLevel;
 
     private String rollupPolicy;
 
-    private LevelMapping topLevel;
+    private LevelMappingImpl topLevel;
 
-    private HierarchyMapping hierarchy;
+    private HierarchyMappingImpl hierarchy;
 
     public List<AccessMemberGrantMappingImpl> getMemberGrants() {
         return memberGrants;
@@ -48,11 +46,11 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.access = access;
     }
 
-    public LevelMapping getBottomLevel() {
+    public LevelMappingImpl getBottomLevel() {
         return bottomLevel;
     }
 
-    public void setBottomLevel(LevelMapping bottomLevel) {
+    public void setBottomLevel(LevelMappingImpl bottomLevel) {
         this.bottomLevel = bottomLevel;
     }
 
@@ -64,19 +62,19 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.rollupPolicy = rollupPolicy;
     }
 
-    public LevelMapping getTopLevel() {
+    public LevelMappingImpl getTopLevel() {
         return topLevel;
     }
 
-    public void setTopLevel(LevelMapping topLevel) {
+    public void setTopLevel(LevelMappingImpl topLevel) {
         this.topLevel = topLevel;
     }
 
-    public HierarchyMapping getHierarchy() {
+    public HierarchyMappingImpl getHierarchy() {
         return hierarchy;
     }
 
-    public void setHierarchy(HierarchyMapping hierarchy) {
+    public void setHierarchy(HierarchyMappingImpl hierarchy) {
         this.hierarchy = hierarchy;
     }
 }

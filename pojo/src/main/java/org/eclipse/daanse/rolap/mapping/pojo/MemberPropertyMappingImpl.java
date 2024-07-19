@@ -12,12 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 
 public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implements MemberPropertyMapping {
 
-    private MemberPropertyFormatterMapping formatter;
+    private MemberPropertyFormatterMappingImpl formatter;
 
     private String column;
 
@@ -25,11 +24,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private String type;
 
-    public MemberPropertyFormatterMapping getFormatter() {
+    public MemberPropertyFormatterMappingImpl getFormatter() {
         return formatter;
     }
 
-    public void setFormatter(MemberPropertyFormatterMapping formatter) {
+    public void setFormatter(MemberPropertyFormatterMappingImpl formatter) {
         this.formatter = formatter;
     }
 

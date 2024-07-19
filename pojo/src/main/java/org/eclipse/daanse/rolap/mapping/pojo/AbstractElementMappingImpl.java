@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 
 public abstract class AbstractElementMappingImpl implements AbstractElementMapping {
 
@@ -27,7 +26,7 @@ public abstract class AbstractElementMappingImpl implements AbstractElementMappi
 
     private String name;
 
-    private DocumentationMapping documentation;
+    private DocumentationMappingImpl documentation;
 
     public List<AnnotationMappingImpl> getAnnotations() {
         return annotations;
@@ -61,11 +60,11 @@ public abstract class AbstractElementMappingImpl implements AbstractElementMappi
         this.name = name;
     }
 
-    public DocumentationMapping getDocumentation() {
+    public DocumentationMappingImpl getDocumentation() {
         return documentation;
     }
 
-    public void setDocumentation(DocumentationMapping documentation) {
+    public void setDocumentation(DocumentationMappingImpl documentation) {
         this.documentation = documentation;
     }
 }

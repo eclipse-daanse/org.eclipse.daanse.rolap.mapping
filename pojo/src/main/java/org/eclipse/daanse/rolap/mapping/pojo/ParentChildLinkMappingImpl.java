@@ -13,21 +13,20 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 
 public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
-    private TableQueryMapping table;
+    private TableQueryMappingImpl table;
 
     private String childColumn;
 
     private String parentColumn;
 
-    public TableQueryMapping getTable() {
+    public TableQueryMappingImpl getTable() {
         return table;
     }
 
-    public void setTable(TableQueryMapping table) {
+    public void setTable(TableQueryMappingImpl table) {
         this.table = table;
     }
 

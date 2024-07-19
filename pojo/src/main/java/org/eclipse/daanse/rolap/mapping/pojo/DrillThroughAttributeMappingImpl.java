@@ -12,42 +12,39 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
 public class DrillThroughAttributeMappingImpl implements DrillThroughAttributeMapping {
 
-    private DimensionMapping dimension;
+    private DimensionMappingImpl dimension;
 
-    private HierarchyMapping hierarchy;
+    private HierarchyMappingImpl hierarchy;
 
-    private LevelMapping level;
+    private LevelMappingImpl level;
 
     private String property;
 
-    public DimensionMapping getDimension() {
+    public DimensionMappingImpl getDimension() {
         return dimension;
     }
 
-    public void setDimension(DimensionMapping dimension) {
+    public void setDimension(DimensionMappingImpl dimension) {
         this.dimension = dimension;
     }
 
-    public HierarchyMapping getHierarchy() {
+    public HierarchyMappingImpl getHierarchy() {
         return hierarchy;
     }
 
-    public void setHierarchy(HierarchyMapping hierarchy) {
+    public void setHierarchy(HierarchyMappingImpl hierarchy) {
         this.hierarchy = hierarchy;
     }
 
-    public LevelMapping getLevel() {
+    public LevelMappingImpl getLevel() {
         return level;
     }
 
-    public void setLevel(LevelMapping level) {
+    public void setLevel(LevelMappingImpl level) {
         this.level = level;
     }
 
