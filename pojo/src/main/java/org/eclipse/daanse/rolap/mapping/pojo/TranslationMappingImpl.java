@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
@@ -27,6 +28,14 @@ public class TranslationMappingImpl implements TranslationMapping {
     private String displayFolder;
 
     private List<AnnotationMappingImpl> annotations;
+
+    private TranslationMappingImpl(Builder builder) {
+        this.language = builder.language;
+        this.caption = builder.caption;
+        this.description = builder.description;
+        this.displayFolder = builder.displayFolder;
+        this.annotations = builder.annotations;
+    }
 
     public long getLanguage() {
         return language;
@@ -66,5 +75,49 @@ public class TranslationMappingImpl implements TranslationMapping {
 
     public void setAnnotations(List<AnnotationMappingImpl> annotations) {
         this.annotations = annotations;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private long language;
+        private String caption;
+        private String description;
+        private String displayFolder;
+        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+
+        private Builder() {
+        }
+
+        public Builder withLanguage(long language) {
+            this.language = language;
+            return this;
+        }
+
+        public Builder withCaption(String caption) {
+            this.caption = caption;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withDisplayFolder(String displayFolder) {
+            this.displayFolder = displayFolder;
+            return this;
+        }
+
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public TranslationMappingImpl build() {
+            return new TranslationMappingImpl(this);
+        }
     }
 }

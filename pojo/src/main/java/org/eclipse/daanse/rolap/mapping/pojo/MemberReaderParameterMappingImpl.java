@@ -20,6 +20,11 @@ public class MemberReaderParameterMappingImpl implements MemberReaderParameterMa
 
     private String value;
 
+    private MemberReaderParameterMappingImpl(Builder builder) {
+        this.name = builder.name;
+        this.value = builder.value;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,5 +39,31 @@ public class MemberReaderParameterMappingImpl implements MemberReaderParameterMa
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String name;
+        private String value;
+
+        private Builder() {
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public MemberReaderParameterMappingImpl build() {
+            return new MemberReaderParameterMappingImpl(this);
+        }
     }
 }

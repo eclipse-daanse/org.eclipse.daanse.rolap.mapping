@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
@@ -63,6 +64,32 @@ public class LevelMappingImpl implements LevelMapping {
     private String name;
 
     private String id;
+
+    private LevelMappingImpl(Builder builder) {
+        this.keyExpression = builder.keyExpression;
+        this.nameExpression = builder.nameExpression;
+        this.captionExpression = builder.captionExpression;
+        this.ordinalExpression = builder.ordinalExpression;
+        this.parentExpression = builder.parentExpression;
+        this.parentChildLink = builder.parentChildLink;
+        this.memberProperties = builder.memberProperties;
+        this.memberFormatter = builder.memberFormatter;
+        this.approxRowCount = builder.approxRowCount;
+        this.captionColumn = builder.captionColumn;
+        this.column = builder.column;
+        this.hideMemberIf = builder.hideMemberIf;
+        this.internalType = builder.internalType;
+        this.levelType = builder.levelType;
+        this.nameColumn = builder.nameColumn;
+        this.nullParentValue = builder.nullParentValue;
+        this.ordinalColumn = builder.ordinalColumn;
+        this.parentColumn = builder.parentColumn;
+        this.type = builder.type;
+        this.uniqueMembers = builder.uniqueMembers;
+        this.visible = builder.visible;
+        this.name = builder.name;
+        this.id = builder.id;
+    }
 
     public SQLExpressionMappingImpl getKeyExpression() {
         return keyExpression;
@@ -246,5 +273,157 @@ public class LevelMappingImpl implements LevelMapping {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private SQLExpressionMappingImpl keyExpression;
+        private SQLExpressionMappingImpl nameExpression;
+        private SQLExpressionMappingImpl captionExpression;
+        private SQLExpressionMappingImpl ordinalExpression;
+        private SQLExpressionMappingImpl parentExpression;
+        private ParentChildLinkMappingImpl parentChildLink;
+        private List<MemberPropertyMappingImpl> memberProperties = Collections.emptyList();
+        private MemberFormatterMappingImpl memberFormatter;
+        private String approxRowCount;
+        private String captionColumn;
+        private String column;
+        private String hideMemberIf;
+        private String internalType;
+        private String levelType;
+        private String nameColumn;
+        private String nullParentValue;
+        private String ordinalColumn;
+        private String parentColumn;
+        private String type;
+        private boolean uniqueMembers;
+        private boolean visible;
+        private String name;
+        private String id;
+
+        private Builder() {
+        }
+
+        public Builder withKeyExpression(SQLExpressionMappingImpl keyExpression) {
+            this.keyExpression = keyExpression;
+            return this;
+        }
+
+        public Builder withNameExpression(SQLExpressionMappingImpl nameExpression) {
+            this.nameExpression = nameExpression;
+            return this;
+        }
+
+        public Builder withCaptionExpression(SQLExpressionMappingImpl captionExpression) {
+            this.captionExpression = captionExpression;
+            return this;
+        }
+
+        public Builder withOrdinalExpression(SQLExpressionMappingImpl ordinalExpression) {
+            this.ordinalExpression = ordinalExpression;
+            return this;
+        }
+
+        public Builder withParentExpression(SQLExpressionMappingImpl parentExpression) {
+            this.parentExpression = parentExpression;
+            return this;
+        }
+
+        public Builder withParentChildLink(ParentChildLinkMappingImpl parentChildLink) {
+            this.parentChildLink = parentChildLink;
+            return this;
+        }
+
+        public Builder withMemberProperties(List<MemberPropertyMappingImpl> memberProperties) {
+            this.memberProperties = memberProperties;
+            return this;
+        }
+
+        public Builder withMemberFormatter(MemberFormatterMappingImpl memberFormatter) {
+            this.memberFormatter = memberFormatter;
+            return this;
+        }
+
+        public Builder withApproxRowCount(String approxRowCount) {
+            this.approxRowCount = approxRowCount;
+            return this;
+        }
+
+        public Builder withCaptionColumn(String captionColumn) {
+            this.captionColumn = captionColumn;
+            return this;
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withHideMemberIf(String hideMemberIf) {
+            this.hideMemberIf = hideMemberIf;
+            return this;
+        }
+
+        public Builder withInternalType(String internalType) {
+            this.internalType = internalType;
+            return this;
+        }
+
+        public Builder withLevelType(String levelType) {
+            this.levelType = levelType;
+            return this;
+        }
+
+        public Builder withNameColumn(String nameColumn) {
+            this.nameColumn = nameColumn;
+            return this;
+        }
+
+        public Builder withNullParentValue(String nullParentValue) {
+            this.nullParentValue = nullParentValue;
+            return this;
+        }
+
+        public Builder withOrdinalColumn(String ordinalColumn) {
+            this.ordinalColumn = ordinalColumn;
+            return this;
+        }
+
+        public Builder withParentColumn(String parentColumn) {
+            this.parentColumn = parentColumn;
+            return this;
+        }
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withUniqueMembers(boolean uniqueMembers) {
+            this.uniqueMembers = uniqueMembers;
+            return this;
+        }
+
+        public Builder withVisible(boolean visible) {
+            this.visible = visible;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public LevelMappingImpl build() {
+            return new LevelMappingImpl(this);
+        }
     }
 }

@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
@@ -29,6 +30,20 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
     private AccessRoleMappingImpl defaultAccessRole;
 
     private String measuresDimensionName;
+
+    private SchemaMappingImpl(Builder builder) {
+        this.parameters = builder.parameters;
+        this.cubes = builder.cubes;
+        this.namedSets = builder.namedSets;
+        this.accessRoles = builder.accessRoles;
+        this.defaultAccessRole = builder.defaultAccessRole;
+        this.measuresDimensionName = builder.measuresDimensionName;
+        super.setAnnotations(builder.annotations);
+        super.setId(builder.id);
+        super.setDescription(builder.description);
+        super.setName(builder.name);
+        super.setDocumentation(builder.documentation);
+    }
 
     public List<ParameterMappingImpl> getParameters() {
         return parameters;
@@ -76,5 +91,85 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
 
     public void setMeasuresDimensionName(String measuresDimensionName) {
         this.measuresDimensionName = measuresDimensionName;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<ParameterMappingImpl> parameters = Collections.emptyList();
+        private List<CubeMappingImpl> cubes = Collections.emptyList();
+        private List<NamedSetMappingImpl> namedSets = Collections.emptyList();
+        private List<AccessRoleMappingImpl> accessRoles = Collections.emptyList();
+        private AccessRoleMappingImpl defaultAccessRole;
+        private String measuresDimensionName;
+        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private String id;
+        private String description;
+        private String name;
+        private DocumentationMappingImpl documentation;
+
+        private Builder() {
+        }
+
+        public Builder withParameters(List<ParameterMappingImpl> parameters) {
+            this.parameters = parameters;
+            return this;
+        }
+
+        public Builder withCubes(List<CubeMappingImpl> cubes) {
+            this.cubes = cubes;
+            return this;
+        }
+
+        public Builder withNamedSets(List<NamedSetMappingImpl> namedSets) {
+            this.namedSets = namedSets;
+            return this;
+        }
+
+        public Builder withAccessRoles(List<AccessRoleMappingImpl> accessRoles) {
+            this.accessRoles = accessRoles;
+            return this;
+        }
+
+        public Builder withDefaultAccessRole(AccessRoleMappingImpl defaultAccessRole) {
+            this.defaultAccessRole = defaultAccessRole;
+            return this;
+        }
+
+        public Builder withMeasuresDimensionName(String measuresDimensionName) {
+            this.measuresDimensionName = measuresDimensionName;
+            return this;
+        }
+
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
+        public SchemaMappingImpl build() {
+            return new SchemaMappingImpl(this);
+        }
     }
 }

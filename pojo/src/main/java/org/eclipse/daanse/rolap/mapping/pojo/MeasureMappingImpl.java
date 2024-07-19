@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
-public class MeasureMappingImpl implements MeasureMapping {
+public abstract class MeasureMappingImpl implements MeasureMapping {
 
     private SQLExpressionMappingImpl measureExpression;
 
@@ -137,4 +137,5 @@ public class MeasureMappingImpl implements MeasureMapping {
     public void setId(String id) {
         this.id = id;
     }
+
 }

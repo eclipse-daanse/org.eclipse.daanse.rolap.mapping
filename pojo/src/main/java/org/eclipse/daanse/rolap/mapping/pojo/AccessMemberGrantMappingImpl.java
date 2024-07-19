@@ -20,6 +20,11 @@ public class AccessMemberGrantMappingImpl implements AccessMemberGrantMapping {
 
     private String member;
 
+    private AccessMemberGrantMappingImpl(Builder builder) {
+        this.access = builder.access;
+        this.member = builder.member;
+    }
+
     public String getAccess() {
         return access;
     }
@@ -34,5 +39,31 @@ public class AccessMemberGrantMappingImpl implements AccessMemberGrantMapping {
 
     public void setMember(String member) {
         this.member = member;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String access;
+        private String member;
+
+        private Builder() {
+        }
+
+        public Builder withAccess(String access) {
+            this.access = access;
+            return this;
+        }
+
+        public Builder withMember(String member) {
+            this.member = member;
+            return this;
+        }
+
+        public AccessMemberGrantMappingImpl build() {
+            return new AccessMemberGrantMappingImpl(this);
+        }
     }
 }

@@ -16,6 +16,6 @@ import java.util.function.Supplier;
 
 import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 
-public interface RolapMappingProvider extends Supplier<RolapContextMapping> {
+public interface RolapContextMappingSupplier extends Supplier<RolapContextMapping> {
 
 }

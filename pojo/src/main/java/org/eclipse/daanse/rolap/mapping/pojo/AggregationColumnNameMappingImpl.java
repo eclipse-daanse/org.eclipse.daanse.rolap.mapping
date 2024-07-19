@@ -18,11 +18,35 @@ public class AggregationColumnNameMappingImpl implements AggregationColumnNameMa
 
     private String column;
 
+    private AggregationColumnNameMappingImpl(Builder builder) {
+        this.column = builder.column;
+    }
+
     public String getColumn() {
         return column;
     }
 
     public void setColumn(String column) {
         this.column = column;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String column;
+
+        private Builder() {
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public AggregationColumnNameMappingImpl build() {
+            return new AggregationColumnNameMappingImpl(this);
+        }
     }
 }

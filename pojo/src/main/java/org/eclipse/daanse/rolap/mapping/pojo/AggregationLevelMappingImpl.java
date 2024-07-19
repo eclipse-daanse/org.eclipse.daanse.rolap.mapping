@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
@@ -31,6 +32,16 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
     private String nameColumn;
 
     private String ordinalColumn;
+
+    private AggregationLevelMappingImpl(Builder builder) {
+        this.aggregationLevelProperties = builder.aggregationLevelProperties;
+        this.captionColumn = builder.captionColumn;
+        this.collapsed = builder.collapsed;
+        this.column = builder.column;
+        this.name = builder.name;
+        this.nameColumn = builder.nameColumn;
+        this.ordinalColumn = builder.ordinalColumn;
+    }
 
     public List<AggregationLevelPropertyMappingImpl> getAggregationLevelProperties() {
         return aggregationLevelProperties;
@@ -86,5 +97,62 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     public void setOrdinalColumn(String ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = Collections.emptyList();
+        private String captionColumn;
+        private boolean collapsed;
+        private String column;
+        private String name;
+        private String nameColumn;
+        private String ordinalColumn;
+
+        private Builder() {
+        }
+
+        public Builder withAggregationLevelProperties(
+                List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties) {
+            this.aggregationLevelProperties = aggregationLevelProperties;
+            return this;
+        }
+
+        public Builder withCaptionColumn(String captionColumn) {
+            this.captionColumn = captionColumn;
+            return this;
+        }
+
+        public Builder withCollapsed(boolean collapsed) {
+            this.collapsed = collapsed;
+            return this;
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withNameColumn(String nameColumn) {
+            this.nameColumn = nameColumn;
+            return this;
+        }
+
+        public Builder withOrdinalColumn(String ordinalColumn) {
+            this.ordinalColumn = ordinalColumn;
+            return this;
+        }
+
+        public AggregationLevelMappingImpl build() {
+            return new AggregationLevelMappingImpl(this);
+        }
     }
 }

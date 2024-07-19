@@ -20,6 +20,11 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
 
     private String name;
 
+    private AggregationLevelPropertyMappingImpl(Builder builder) {
+        this.column = builder.column;
+        this.name = builder.name;
+    }
+
     public String getColumn() {
         return column;
     }
@@ -34,5 +39,31 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String column;
+        private String name;
+
+        private Builder() {
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public AggregationLevelPropertyMappingImpl build() {
+            return new AggregationLevelPropertyMappingImpl(this);
+        }
     }
 }

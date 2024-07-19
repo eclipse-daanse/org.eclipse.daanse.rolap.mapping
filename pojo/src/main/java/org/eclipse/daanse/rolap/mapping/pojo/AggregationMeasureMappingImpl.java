@@ -22,6 +22,12 @@ public class AggregationMeasureMappingImpl implements AggregationMeasureMapping 
 
     private String rollupType;
 
+    private AggregationMeasureMappingImpl(Builder builder) {
+        this.column = builder.column;
+        this.name = builder.name;
+        this.rollupType = builder.rollupType;
+    }
+
     public String getColumn() {
         return column;
     }
@@ -44,5 +50,37 @@ public class AggregationMeasureMappingImpl implements AggregationMeasureMapping 
 
     public void setRollupType(String rollupType) {
         this.rollupType = rollupType;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String column;
+        private String name;
+        private String rollupType;
+
+        private Builder() {
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withRollupType(String rollupType) {
+            this.rollupType = rollupType;
+            return this;
+        }
+
+        public AggregationMeasureMappingImpl build() {
+            return new AggregationMeasureMappingImpl(this);
+        }
     }
 }

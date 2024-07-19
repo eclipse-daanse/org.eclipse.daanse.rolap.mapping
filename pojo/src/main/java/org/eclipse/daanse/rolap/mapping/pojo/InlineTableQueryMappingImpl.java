@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
@@ -21,6 +22,12 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
     private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions;
 
     private List<InlineTableRowMappingMappingImpl> rows;
+
+    private InlineTableQueryMappingImpl(Builder builder) {
+        this.columnDefinitions = builder.columnDefinitions;
+        this.rows = builder.rows;
+        super.setAlias(builder.alias);
+    }
 
     public List<InlineTableColumnDefinitionMappingImpl> getColumnDefinitions() {
         return columnDefinitions;
@@ -36,5 +43,37 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
 
     public void setRows(List<InlineTableRowMappingMappingImpl> rows) {
         this.rows = rows;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions = Collections.emptyList();
+        private List<InlineTableRowMappingMappingImpl> rows = Collections.emptyList();
+        private String alias;
+
+        private Builder() {
+        }
+
+        public Builder withColumnDefinitions(List<InlineTableColumnDefinitionMappingImpl> columnDefinitions) {
+            this.columnDefinitions = columnDefinitions;
+            return this;
+        }
+
+        public Builder withRows(List<InlineTableRowMappingMappingImpl> rows) {
+            this.rows = rows;
+            return this;
+        }
+
+        public Builder withAlias(String alias) {
+            this.alias = alias;
+            return this;
+        }
+
+        public InlineTableQueryMappingImpl build() {
+            return new InlineTableQueryMappingImpl(this);
+        }
     }
 }

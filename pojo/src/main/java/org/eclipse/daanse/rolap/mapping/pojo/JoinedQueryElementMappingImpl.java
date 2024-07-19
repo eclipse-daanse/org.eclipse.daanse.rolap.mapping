@@ -22,6 +22,12 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
 
     private QueryMappingImpl query;
 
+    private JoinedQueryElementMappingImpl(Builder builder) {
+        this.alias = builder.alias;
+        this.key = builder.key;
+        this.query = builder.query;
+    }
+
     public String getAlias() {
         return alias;
     }
@@ -44,5 +50,37 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
 
     public void setQuery(QueryMappingImpl query) {
         this.query = query;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String alias;
+        private String key;
+        private QueryMappingImpl query;
+
+        private Builder() {
+        }
+
+        public Builder withAlias(String alias) {
+            this.alias = alias;
+            return this;
+        }
+
+        public Builder withKey(String key) {
+            this.key = key;
+            return this;
+        }
+
+        public Builder withQuery(QueryMappingImpl query) {
+            this.query = query;
+            return this;
+        }
+
+        public JoinedQueryElementMappingImpl build() {
+            return new JoinedQueryElementMappingImpl(this);
+        }
     }
 }

@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
@@ -26,6 +27,12 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
     private CubeMappingImpl cube;
 
+    private AccessCubeGrantMappingImpl(Builder builder) {
+        this.dimensionGrants = builder.dimensionGrants;
+        this.hierarchyGrants = builder.hierarchyGrants;
+        this.access = builder.access;
+        this.cube = builder.cube;
+    }
 
     public List<AccessDimensionGrantMappingImpl> getDimensionGrants() {
         return dimensionGrants;
@@ -57,5 +64,43 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
     public void setCube(CubeMappingImpl cube) {
         this.cube = cube;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<AccessDimensionGrantMappingImpl> dimensionGrants = Collections.emptyList();
+        private List<AccessHierarchyGrantMappingImpl> hierarchyGrants = Collections.emptyList();
+        private String access;
+        private CubeMappingImpl cube;
+
+        private Builder() {
+        }
+
+        public Builder withDimensionGrants(List<AccessDimensionGrantMappingImpl> dimensionGrants) {
+            this.dimensionGrants = dimensionGrants;
+            return this;
+        }
+
+        public Builder withHierarchyGrants(List<AccessHierarchyGrantMappingImpl> hierarchyGrants) {
+            this.hierarchyGrants = hierarchyGrants;
+            return this;
+        }
+
+        public Builder withAccess(String access) {
+            this.access = access;
+            return this;
+        }
+
+        public Builder withCube(CubeMappingImpl cube) {
+            this.cube = cube;
+            return this;
+        }
+
+        public AccessCubeGrantMappingImpl build() {
+            return new AccessCubeGrantMappingImpl(this);
+        }
     }
 }

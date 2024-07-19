@@ -28,6 +28,15 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
 
     private String overrideDimensionName;
 
+    private DimensionConnectorMappingImpl(Builder builder) {
+        this.foreignKey = builder.foreignKey;
+        this.level = builder.level;
+        this.usagePrefix = builder.usagePrefix;
+        this.visible = builder.visible;
+        this.dimension = builder.dimension;
+        this.overrideDimensionName = builder.overrideDimensionName;
+    }
+
     public String getForeignKey() {
         return foreignKey;
     }
@@ -74,5 +83,55 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
 
     public void setOverrideDimensionName(String overrideDimensionName) {
         this.overrideDimensionName = overrideDimensionName;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String foreignKey;
+        private LevelMappingImpl level;
+        private String usagePrefix;
+        private boolean visible;
+        private DimensionMappingImpl dimension;
+        private String overrideDimensionName;
+
+        private Builder() {
+        }
+
+        public Builder withForeignKey(String foreignKey) {
+            this.foreignKey = foreignKey;
+            return this;
+        }
+
+        public Builder withLevel(LevelMappingImpl level) {
+            this.level = level;
+            return this;
+        }
+
+        public Builder withUsagePrefix(String usagePrefix) {
+            this.usagePrefix = usagePrefix;
+            return this;
+        }
+
+        public Builder withVisible(boolean visible) {
+            this.visible = visible;
+            return this;
+        }
+
+        public Builder withDimension(DimensionMappingImpl dimension) {
+            this.dimension = dimension;
+            return this;
+        }
+
+        public Builder withOverrideDimensionName(String overrideDimensionName) {
+            this.overrideDimensionName = overrideDimensionName;
+            return this;
+        }
+
+        public DimensionConnectorMappingImpl build() {
+            return new DimensionConnectorMappingImpl(this);
+        }
     }
 }

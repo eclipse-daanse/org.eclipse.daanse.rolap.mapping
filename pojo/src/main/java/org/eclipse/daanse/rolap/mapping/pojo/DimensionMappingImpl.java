@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 
-public class DimensionMappingImpl extends AbstractElementMappingImpl implements DimensionMapping {
+public abstract class DimensionMappingImpl extends AbstractElementMappingImpl implements DimensionMapping {
 
     private List<HierarchyMappingImpl> hierarchies;
 
@@ -47,4 +47,5 @@ public class DimensionMappingImpl extends AbstractElementMappingImpl implements 
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
+
 }

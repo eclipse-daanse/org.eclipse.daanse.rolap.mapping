@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 
-public class AggregationTableMappingImpl implements AggregationTableMapping {
+public abstract class AggregationTableMappingImpl implements AggregationTableMapping {
 
     private AggregationColumnNameMappingImpl aggregationFactCount;
 
@@ -78,7 +78,8 @@ public class AggregationTableMappingImpl implements AggregationTableMapping {
         return aggregationMeasureFactCounts;
     }
 
-    public void setAggregationMeasureFactCounts(List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts) {
+    public void setAggregationMeasureFactCounts(
+            List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts) {
         this.aggregationMeasureFactCounts = aggregationMeasureFactCounts;
     }
 
@@ -97,4 +98,5 @@ public class AggregationTableMappingImpl implements AggregationTableMapping {
     public void setId(String id) {
         this.id = id;
     }
+
 }

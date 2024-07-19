@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping;
 
-public class FormatterMappingImpl extends AbstractElementMappingImpl implements FormatterMapping {
+public abstract class FormatterMappingImpl extends AbstractElementMappingImpl implements FormatterMapping {
 
     private String ref;
 
@@ -25,4 +25,5 @@ public class FormatterMappingImpl extends AbstractElementMappingImpl implements 
     public void setRef(String ref) {
         this.ref = ref;
     }
+
 }

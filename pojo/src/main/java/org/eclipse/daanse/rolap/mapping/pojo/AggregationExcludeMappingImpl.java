@@ -24,6 +24,13 @@ public class AggregationExcludeMappingImpl implements AggregationExcludeMapping 
 
     private String id;
 
+    private AggregationExcludeMappingImpl(Builder builder) {
+        this.ignorecase = builder.ignorecase;
+        this.name = builder.name;
+        this.pattern = builder.pattern;
+        this.id = builder.id;
+    }
+
     public boolean isIgnorecase() {
         return ignorecase;
     }
@@ -54,5 +61,43 @@ public class AggregationExcludeMappingImpl implements AggregationExcludeMapping 
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private boolean ignorecase;
+        private String name;
+        private String pattern;
+        private String id;
+
+        private Builder() {
+        }
+
+        public Builder withIgnorecase(boolean ignorecase) {
+            this.ignorecase = ignorecase;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withPattern(String pattern) {
+            this.pattern = pattern;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public AggregationExcludeMappingImpl build() {
+            return new AggregationExcludeMappingImpl(this);
+        }
     }
 }

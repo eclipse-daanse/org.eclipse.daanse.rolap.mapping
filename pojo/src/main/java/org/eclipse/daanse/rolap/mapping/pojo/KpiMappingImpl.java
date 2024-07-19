@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
@@ -41,6 +42,26 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
     private String currentTimeMember;
 
     private String parentKpiID;
+
+    private KpiMappingImpl(Builder builder) {
+        this.translations = builder.translations;
+        this.displayFolder = builder.displayFolder;
+        this.associatedMeasureGroupID = builder.associatedMeasureGroupID;
+        this.value = builder.value;
+        this.goal = builder.goal;
+        this.status = builder.status;
+        this.trend = builder.trend;
+        this.weight = builder.weight;
+        this.trendGraphic = builder.trendGraphic;
+        this.statusGraphic = builder.statusGraphic;
+        this.currentTimeMember = builder.currentTimeMember;
+        this.parentKpiID = builder.parentKpiID;
+        super.setAnnotations(builder.annotations);
+        super.setId(builder.id);
+        super.setDescription(builder.description);
+        super.setName(builder.name);
+        super.setDocumentation(builder.documentation);
+    }
 
     public List<TranslationMappingImpl> getTranslations() {
         return translations;
@@ -136,5 +157,121 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
 
     public void setParentKpiID(String parentKpiID) {
         this.parentKpiID = parentKpiID;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<TranslationMappingImpl> translations = Collections.emptyList();
+        private String displayFolder;
+        private String associatedMeasureGroupID;
+        private String value;
+        private String goal;
+        private String status;
+        private String trend;
+        private String weight;
+        private String trendGraphic;
+        private String statusGraphic;
+        private String currentTimeMember;
+        private String parentKpiID;
+        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private String id;
+        private String description;
+        private String name;
+        private DocumentationMappingImpl documentation;
+
+        private Builder() {
+        }
+
+        public Builder withTranslations(List<TranslationMappingImpl> translations) {
+            this.translations = translations;
+            return this;
+        }
+
+        public Builder withDisplayFolder(String displayFolder) {
+            this.displayFolder = displayFolder;
+            return this;
+        }
+
+        public Builder withAssociatedMeasureGroupID(String associatedMeasureGroupID) {
+            this.associatedMeasureGroupID = associatedMeasureGroupID;
+            return this;
+        }
+
+        public Builder withValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withGoal(String goal) {
+            this.goal = goal;
+            return this;
+        }
+
+        public Builder withStatus(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder withTrend(String trend) {
+            this.trend = trend;
+            return this;
+        }
+
+        public Builder withWeight(String weight) {
+            this.weight = weight;
+            return this;
+        }
+
+        public Builder withTrendGraphic(String trendGraphic) {
+            this.trendGraphic = trendGraphic;
+            return this;
+        }
+
+        public Builder withStatusGraphic(String statusGraphic) {
+            this.statusGraphic = statusGraphic;
+            return this;
+        }
+
+        public Builder withCurrentTimeMember(String currentTimeMember) {
+            this.currentTimeMember = currentTimeMember;
+            return this;
+        }
+
+        public Builder withParentKpiID(String parentKpiID) {
+            this.parentKpiID = parentKpiID;
+            return this;
+        }
+
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
+        public KpiMappingImpl build() {
+            return new KpiMappingImpl(this);
+        }
     }
 }

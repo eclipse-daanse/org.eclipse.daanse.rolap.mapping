@@ -12,13 +12,19 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 
-public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implements  SqlSelectQueryMapping {
+public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implements SqlSelectQueryMapping {
 
     private List<SQLMappingImpl> sql;
+
+    private SqlSelectQueryMappingImpl(Builder builder) {
+        this.sql = builder.sql;
+        super.setAlias(builder.alias);
+    }
 
     public List<SQLMappingImpl> getSQL() {
         return sql;
@@ -26,5 +32,31 @@ public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implem
 
     public void setSQL(List<SQLMappingImpl> sql) {
         this.sql = sql;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<SQLMappingImpl> sql = Collections.emptyList();
+        private String alias;
+
+        private Builder() {
+        }
+
+        public Builder withSql(List<SQLMappingImpl> sql) {
+            this.sql = sql;
+            return this;
+        }
+
+        public Builder withAlias(String alias) {
+            this.alias = alias;
+            return this;
+        }
+
+        public SqlSelectQueryMappingImpl build() {
+            return new SqlSelectQueryMappingImpl(this);
+        }
     }
 }

@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.RelationalQueryMapping;
 
-public class RelationalQueryMappingImpl extends QueryMappingImpl implements RelationalQueryMapping {
+public abstract class RelationalQueryMappingImpl extends QueryMappingImpl implements RelationalQueryMapping {
 
     private String alias;
 
@@ -25,4 +25,5 @@ public class RelationalQueryMappingImpl extends QueryMappingImpl implements Rela
     public void setAlias(String alias) {
         this.alias = alias;
     }
+
 }

@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseTableMapping;
@@ -25,6 +26,13 @@ public class DatabaseTableMappingImpl implements DatabaseTableMapping {
     private String description;
 
     private List<DatabaseColumnMappingImpl> columns;
+
+    private DatabaseTableMappingImpl(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.description = builder.description;
+        this.columns = builder.columns;
+    }
 
     public String getId() {
         return id;
@@ -56,5 +64,43 @@ public class DatabaseTableMappingImpl implements DatabaseTableMapping {
 
     public void setColumns(List<DatabaseColumnMappingImpl> columns) {
         this.columns = columns;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String id;
+        private String name;
+        private String description;
+        private List<DatabaseColumnMappingImpl> columns = Collections.emptyList();
+
+        private Builder() {
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withColumns(List<DatabaseColumnMappingImpl> columns) {
+            this.columns = columns;
+            return this;
+        }
+
+        public DatabaseTableMappingImpl build() {
+            return new DatabaseTableMappingImpl(this);
+        }
     }
 }

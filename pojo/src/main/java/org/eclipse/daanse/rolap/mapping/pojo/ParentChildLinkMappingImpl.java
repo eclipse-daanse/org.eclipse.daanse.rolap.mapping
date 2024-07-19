@@ -22,6 +22,12 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     private String parentColumn;
 
+    private ParentChildLinkMappingImpl(Builder builder) {
+        this.table = builder.table;
+        this.childColumn = builder.childColumn;
+        this.parentColumn = builder.parentColumn;
+    }
+
     public TableQueryMappingImpl getTable() {
         return table;
     }
@@ -44,5 +50,37 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     public void setParentColumn(String parentColumn) {
         this.parentColumn = parentColumn;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private TableQueryMappingImpl table;
+        private String childColumn;
+        private String parentColumn;
+
+        private Builder() {
+        }
+
+        public Builder withTable(TableQueryMappingImpl table) {
+            this.table = table;
+            return this;
+        }
+
+        public Builder withChildColumn(String childColumn) {
+            this.childColumn = childColumn;
+            return this;
+        }
+
+        public Builder withParentColumn(String parentColumn) {
+            this.parentColumn = parentColumn;
+            return this;
+        }
+
+        public ParentChildLinkMappingImpl build() {
+            return new ParentChildLinkMappingImpl(this);
+        }
     }
 }

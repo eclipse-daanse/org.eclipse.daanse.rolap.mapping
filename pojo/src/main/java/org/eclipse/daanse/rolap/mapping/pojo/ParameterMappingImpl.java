@@ -26,6 +26,14 @@ public class ParameterMappingImpl implements ParameterMapping {
 
     private String type;
 
+    private ParameterMappingImpl(Builder builder) {
+        this.defaultValue = builder.defaultValue;
+        this.description = builder.description;
+        this.modifiable = builder.modifiable;
+        this.name = builder.name;
+        this.type = builder.type;
+    }
+
     public String getDefaultValue() {
         return defaultValue;
     }
@@ -64,5 +72,49 @@ public class ParameterMappingImpl implements ParameterMapping {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String defaultValue;
+        private String description;
+        private boolean modifiable;
+        private String name;
+        private String type;
+
+        private Builder() {
+        }
+
+        public Builder withDefaultValue(String defaultValue) {
+            this.defaultValue = defaultValue;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withModifiable(boolean modifiable) {
+            this.modifiable = modifiable;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public ParameterMappingImpl build() {
+            return new ParameterMappingImpl(this);
+        }
     }
 }

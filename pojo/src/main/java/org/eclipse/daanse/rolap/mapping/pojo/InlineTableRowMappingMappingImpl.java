@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
@@ -20,11 +21,35 @@ public class InlineTableRowMappingMappingImpl implements InlineTableRowMappingMa
 
     private List<InlineTableRowCellMappingImpl> cells;
 
+    private InlineTableRowMappingMappingImpl(Builder builder) {
+        this.cells = builder.cells;
+    }
+
     public List<InlineTableRowCellMappingImpl> getCells() {
         return cells;
     }
 
     public void setCells(List<InlineTableRowCellMappingImpl> cells) {
         this.cells = cells;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<InlineTableRowCellMappingImpl> cells = Collections.emptyList();
+
+        private Builder() {
+        }
+
+        public Builder withCells(List<InlineTableRowCellMappingImpl> cells) {
+            this.cells = cells;
+            return this;
+        }
+
+        public InlineTableRowMappingMappingImpl build() {
+            return new InlineTableRowMappingMappingImpl(this);
+        }
     }
 }

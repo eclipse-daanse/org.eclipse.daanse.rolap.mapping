@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
@@ -29,6 +30,16 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
     private String schema;
 
     private List<AggregationTableMappingImpl> aggregationTables;
+
+    private TableQueryMappingImpl(Builder builder) {
+        this.sqlWhereExpression = builder.sqlWhereExpression;
+        this.aggregationExcludes = builder.aggregationExcludes;
+        this.optimizationHints = builder.optimizationHints;
+        this.name = builder.name;
+        this.schema = builder.schema;
+        this.aggregationTables = builder.aggregationTables;
+        super.setAlias(builder.alias);
+    }
 
     public SQLMappingImpl getSqlWhereExpression() {
         return sqlWhereExpression;
@@ -76,5 +87,61 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
 
     public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
         this.aggregationTables = aggregationTables;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private SQLMappingImpl sqlWhereExpression;
+        private List<AggregationExcludeMappingImpl> aggregationExcludes = Collections.emptyList();
+        private List<TableQueryOptimizationHintMappingImpl> optimizationHints = Collections.emptyList();
+        private String name;
+        private String schema;
+        private List<AggregationTableMappingImpl> aggregationTables = Collections.emptyList();
+        private String alias;
+
+        private Builder() {
+        }
+
+        public Builder withSqlWhereExpression(SQLMappingImpl sqlWhereExpression) {
+            this.sqlWhereExpression = sqlWhereExpression;
+            return this;
+        }
+
+        public Builder withAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
+            this.aggregationExcludes = aggregationExcludes;
+            return this;
+        }
+
+        public Builder withOptimizationHints(List<TableQueryOptimizationHintMappingImpl> optimizationHints) {
+            this.optimizationHints = optimizationHints;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withSchema(String schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public Builder withAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
+            this.aggregationTables = aggregationTables;
+            return this;
+        }
+
+        public Builder withAlias(String alias) {
+            this.alias = alias;
+            return this;
+        }
+
+        public TableQueryMappingImpl build() {
+            return new TableQueryMappingImpl(this);
+        }
     }
 }

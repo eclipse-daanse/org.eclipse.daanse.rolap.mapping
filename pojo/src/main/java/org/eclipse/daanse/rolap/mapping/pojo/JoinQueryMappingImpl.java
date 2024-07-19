@@ -20,6 +20,11 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
 
     private JoinedQueryElementMappingImpl right;
 
+    private JoinQueryMappingImpl(Builder builder) {
+        this.left = builder.left;
+        this.right = builder.right;
+    }
+
     public JoinedQueryElementMappingImpl getLeft() {
         return left;
     }
@@ -34,5 +39,31 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
 
     public void setRight(JoinedQueryElementMappingImpl right) {
         this.right = right;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private JoinedQueryElementMappingImpl left;
+        private JoinedQueryElementMappingImpl right;
+
+        private Builder() {
+        }
+
+        public Builder withLeft(JoinedQueryElementMappingImpl left) {
+            this.left = left;
+            return this;
+        }
+
+        public Builder withRight(JoinedQueryElementMappingImpl right) {
+            this.right = right;
+            return this;
+        }
+
+        public JoinQueryMappingImpl build() {
+            return new JoinQueryMappingImpl(this);
+        }
     }
 }

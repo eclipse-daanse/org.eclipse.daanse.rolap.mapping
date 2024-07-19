@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.emf.provider.impl;
 import java.io.IOException;
 import java.util.Map;
 
-import org.eclipse.daanse.rolap.mapping.api.RolapMappingProvider;
+import org.eclipse.daanse.rolap.mapping.api.RolapContextMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 import org.eclipse.daanse.rolap.mapping.emf.provider.Constants;
 import org.eclipse.daanse.rolap.mapping.emf.provider.EmfMappingProviderConfig;
@@ -32,9 +32,9 @@ import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.component.annotations.ServiceScope;
 import org.osgi.service.metatype.annotations.Designate;
 
-@Component(service = RolapMappingProvider.class, scope = ServiceScope.SINGLETON, configurationPid = Constants.PID_EMF_MAPPING_PROVIDER)
+@Component(service = RolapContextMappingSupplier.class, scope = ServiceScope.SINGLETON, configurationPid = Constants.PID_EMF_MAPPING_PROVIDER)
 @Designate(factory = true, ocd = EmfMappingProviderConfig.class)
-public class EmfMappingProvider implements RolapMappingProvider {
+public class EmfMappingProvider implements RolapContextMappingSupplier {
 
     @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" + EmfRolapMappingPackage.eNAME + ")")
     private ResourceSet resourceSet;
@@ -52,7 +52,7 @@ public class EmfMappingProvider implements RolapMappingProvider {
         EObject root = resource.getContents().get(0);
 
         if (root instanceof RolapContextMapping rcm) {
-            this.rolapContextMapping = rcm;
+            rolapContextMapping = rcm;
         }
     }
 

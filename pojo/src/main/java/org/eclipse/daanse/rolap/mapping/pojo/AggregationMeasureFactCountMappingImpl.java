@@ -20,6 +20,11 @@ public class AggregationMeasureFactCountMappingImpl implements AggregationMeasur
 
     private String factColumn;
 
+    private AggregationMeasureFactCountMappingImpl(Builder builder) {
+        this.column = builder.column;
+        this.factColumn = builder.factColumn;
+    }
+
     public String getColumn() {
         return column;
     }
@@ -34,5 +39,31 @@ public class AggregationMeasureFactCountMappingImpl implements AggregationMeasur
 
     public void setFactColumn(String factColumn) {
         this.factColumn = factColumn;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String column;
+        private String factColumn;
+
+        private Builder() {
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withFactColumn(String factColumn) {
+            this.factColumn = factColumn;
+            return this;
+        }
+
+        public AggregationMeasureFactCountMappingImpl build() {
+            return new AggregationMeasureFactCountMappingImpl(this);
+        }
     }
 }

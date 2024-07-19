@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import org.eclipse.daanse.rolap.mapping.api.RolapMappingProvider;
+import org.eclipse.daanse.rolap.mapping.api.RolapContextMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 import org.eclipse.daanse.rolap.mapping.emf.provider.AnnotationHelper.SetupMappingProviderWithTestInstance;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
@@ -45,14 +45,15 @@ public class EmfMappingProviderTest {
     @SetupMappingProviderWithTestInstance
     @Test
     public void loadSimpleFile(
-            @InjectService(cardinality = 1, timeout = 2000) ServiceAware<RolapMappingProvider> saRolapMappingProvider)
+            @InjectService(cardinality = 1, timeout = 2000) ServiceAware<RolapContextMappingSupplier> saRolapContextMappingSupplier)
             throws SQLException, InterruptedException, IOException {
-        assertThat(saRolapMappingProvider.getServices()).hasSize(1);
+        assertThat(saRolapContextMappingSupplier.getServices()).hasSize(1);
 
-        RolapMappingProvider rsp = saRolapMappingProvider.getService();
+        RolapContextMappingSupplier rcms = saRolapContextMappingSupplier.getService();
 
-        RolapContextMapping rCtx = rsp.get();
-        rCtx.getSchemas();
+        RolapContextMapping rCtx = rcms.get();
+
+        assertThat(rCtx).isNotNull();
 
     }
 

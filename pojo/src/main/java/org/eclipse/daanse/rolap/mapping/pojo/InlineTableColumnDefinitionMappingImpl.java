@@ -20,6 +20,11 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
 
     private String type;
 
+    private InlineTableColumnDefinitionMappingImpl(Builder builder) {
+        this.name = builder.name;
+        this.type = builder.type;
+    }
+
     public String getName() {
         return name;
     }
@@ -34,5 +39,31 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String name;
+        private String type;
+
+        private Builder() {
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public InlineTableColumnDefinitionMappingImpl build() {
+            return new InlineTableColumnDefinitionMappingImpl(this);
+        }
     }
 }

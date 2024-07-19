@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
@@ -21,6 +22,16 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
     private List<AccessSchemaGrantMappingImpl> accessSchemaGrants;
 
     private List<AccessRoleMappingImpl> referencedAccessRoles;
+
+    private AccessRoleMappingImpl(Builder builder) {
+        this.accessSchemaGrants = builder.accessSchemaGrants;
+        this.referencedAccessRoles = builder.referencedAccessRoles;
+        super.setAnnotations(builder.annotations);
+        super.setId(builder.id);
+        super.setDescription(builder.description);
+        super.setName(builder.name);
+        super.setDocumentation(builder.documentation);
+    }
 
     public List<AccessSchemaGrantMappingImpl> getAccessSchemaGrants() {
         return accessSchemaGrants;
@@ -36,5 +47,61 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
 
     public void setReferencedAccessRoles(List<AccessRoleMappingImpl> referencedAccessRoles) {
         this.referencedAccessRoles = referencedAccessRoles;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<AccessSchemaGrantMappingImpl> accessSchemaGrants = Collections.emptyList();
+        private List<AccessRoleMappingImpl> referencedAccessRoles = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private String id;
+        private String description;
+        private String name;
+        private DocumentationMappingImpl documentation;
+
+        private Builder() {
+        }
+
+        public Builder withAccessSchemaGrants(List<AccessSchemaGrantMappingImpl> accessSchemaGrants) {
+            this.accessSchemaGrants = accessSchemaGrants;
+            return this;
+        }
+
+        public Builder withReferencedAccessRoles(List<AccessRoleMappingImpl> referencedAccessRoles) {
+            this.referencedAccessRoles = referencedAccessRoles;
+            return this;
+        }
+
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
+        public AccessRoleMappingImpl build() {
+            return new AccessRoleMappingImpl(this);
+        }
     }
 }

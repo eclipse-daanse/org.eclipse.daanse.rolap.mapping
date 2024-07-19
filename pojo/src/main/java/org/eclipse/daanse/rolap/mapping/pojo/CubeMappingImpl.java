@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 
-public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeMapping {
+public abstract class CubeMappingImpl extends AbstractElementMappingImpl implements CubeMapping {
 
     private List<DimensionConnectorMappingImpl> dimensionConnectors;
 
@@ -97,4 +97,5 @@ public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeM
     public void setMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
         this.measureGroups = measureGroups;
     }
+
 }

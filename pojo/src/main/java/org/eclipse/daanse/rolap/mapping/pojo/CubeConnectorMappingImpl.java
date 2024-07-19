@@ -20,6 +20,11 @@ public class CubeConnectorMappingImpl implements CubeConnectorMapping {
 
     private boolean ignoreUnrelatedDimensions;
 
+    private CubeConnectorMappingImpl(Builder builder) {
+        this.cube = builder.cube;
+        this.ignoreUnrelatedDimensions = builder.ignoreUnrelatedDimensions;
+    }
+
     public CubeMappingImpl getCube() {
         return cube;
     }
@@ -34,5 +39,31 @@ public class CubeConnectorMappingImpl implements CubeConnectorMapping {
 
     public void setIgnoreUnrelatedDimensions(boolean ignoreUnrelatedDimensions) {
         this.ignoreUnrelatedDimensions = ignoreUnrelatedDimensions;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private CubeMappingImpl cube;
+        private boolean ignoreUnrelatedDimensions;
+
+        private Builder() {
+        }
+
+        public Builder withCube(CubeMappingImpl cube) {
+            this.cube = cube;
+            return this;
+        }
+
+        public Builder withIgnoreUnrelatedDimensions(boolean ignoreUnrelatedDimensions) {
+            this.ignoreUnrelatedDimensions = ignoreUnrelatedDimensions;
+            return this;
+        }
+
+        public CubeConnectorMappingImpl build() {
+            return new CubeConnectorMappingImpl(this);
+        }
     }
 }

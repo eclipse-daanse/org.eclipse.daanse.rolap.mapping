@@ -15,19 +15,4 @@
   xmlns:xmi="http://www.omg.org/XMI"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping">
-  <dbschemas
-    name="s1">
-    <tables
-      name="t1">
-      <columns
-        name="c1" />
-      <columns
-        name="c2" />
-      <columns
-        name="c3" />
-    </tables>
-  </dbschemas>
-  <measures
-    xsi:type="roma:SumMeasure"
-    name="m1" />
 </roma:RolapContext>

@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseColumnMapping;
@@ -27,6 +28,14 @@ public class DatabaseColumnMappingImpl implements DatabaseColumnMapping {
     private List<String> typeQualifiers;
 
     private String description;
+
+    private DatabaseColumnMappingImpl(Builder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
+        this.type = builder.type;
+        this.typeQualifiers = builder.typeQualifiers;
+        this.description = builder.description;
+    }
 
     public String getId() {
         return id;
@@ -66,5 +75,49 @@ public class DatabaseColumnMappingImpl implements DatabaseColumnMapping {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String id;
+        private String name;
+        private String type;
+        private List<String> typeQualifiers = Collections.emptyList();
+        private String description;
+
+        private Builder() {
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withType(String type) {
+            this.type = type;
+            return this;
+        }
+
+        public Builder withTypeQualifiers(List<String> typeQualifiers) {
+            this.typeQualifiers = typeQualifiers;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public DatabaseColumnMappingImpl build() {
+            return new DatabaseColumnMappingImpl(this);
+        }
     }
 }

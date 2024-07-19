@@ -14,11 +14,16 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 
-public class WritebackAttributeMappingImpl implements WritebackAttributeMapping{
+public class WritebackAttributeMappingImpl implements WritebackAttributeMapping {
 
     private String column;
 
     private DimensionMappingImpl dimension;
+
+    private WritebackAttributeMappingImpl(Builder builder) {
+        this.column = builder.column;
+        this.dimension = builder.dimension;
+    }
 
     public String getColumn() {
         return column;
@@ -34,5 +39,31 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping{
 
     public void setDimension(DimensionMappingImpl dimension) {
         this.dimension = dimension;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String column;
+        private DimensionMappingImpl dimension;
+
+        private Builder() {
+        }
+
+        public Builder withColumn(String column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withDimension(DimensionMappingImpl dimension) {
+            this.dimension = dimension;
+            return this;
+        }
+
+        public WritebackAttributeMappingImpl build() {
+            return new WritebackAttributeMappingImpl(this);
+        }
     }
 }

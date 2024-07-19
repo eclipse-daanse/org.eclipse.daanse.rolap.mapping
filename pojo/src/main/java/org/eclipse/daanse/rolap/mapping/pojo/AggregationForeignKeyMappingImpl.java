@@ -20,6 +20,11 @@ public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMa
 
     private String factColumn;
 
+    private AggregationForeignKeyMappingImpl(Builder builder) {
+        this.aggregationColumn = builder.aggregationColumn;
+        this.factColumn = builder.factColumn;
+    }
+
     public String getAggregationColumn() {
         return aggregationColumn;
     }
@@ -34,5 +39,31 @@ public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMa
 
     public void setFactColumn(String factColumn) {
         this.factColumn = factColumn;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String aggregationColumn;
+        private String factColumn;
+
+        private Builder() {
+        }
+
+        public Builder withAggregationColumn(String aggregationColumn) {
+            this.aggregationColumn = aggregationColumn;
+            return this;
+        }
+
+        public Builder withFactColumn(String factColumn) {
+            this.factColumn = factColumn;
+            return this;
+        }
+
+        public AggregationForeignKeyMappingImpl build() {
+            return new AggregationForeignKeyMappingImpl(this);
+        }
     }
 }

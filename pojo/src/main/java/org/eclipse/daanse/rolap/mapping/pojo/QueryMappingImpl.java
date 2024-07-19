@@ -14,5 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 
-public class QueryMappingImpl implements QueryMapping {
+public abstract class QueryMappingImpl implements QueryMapping {
+
 }

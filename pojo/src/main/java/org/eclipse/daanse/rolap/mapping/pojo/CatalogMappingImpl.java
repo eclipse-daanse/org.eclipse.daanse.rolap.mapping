@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
@@ -20,11 +21,70 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
 
     private List<SchemaMappingImpl> schemas;
 
+    private CatalogMappingImpl(Builder builder) {
+        this.schemas = builder.schemas;
+        super.setAnnotations(builder.annotations);
+        super.setId(builder.id);
+        super.setDescription(builder.description);
+        super.setName(builder.name);
+        super.setDocumentation(builder.documentation);
+    }
+
     public List<SchemaMappingImpl> getSchemas() {
         return schemas;
     }
 
     public void setSchemas(List<SchemaMappingImpl> schemas) {
         this.schemas = schemas;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<SchemaMappingImpl> schemas = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private String id;
+        private String description;
+        private String name;
+        private DocumentationMappingImpl documentation;
+
+        private Builder() {
+        }
+
+        public Builder withSchemas(List<SchemaMappingImpl> schemas) {
+            this.schemas = schemas;
+            return this;
+        }
+
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
+        public CatalogMappingImpl build() {
+            return new CatalogMappingImpl(this);
+        }
     }
 }

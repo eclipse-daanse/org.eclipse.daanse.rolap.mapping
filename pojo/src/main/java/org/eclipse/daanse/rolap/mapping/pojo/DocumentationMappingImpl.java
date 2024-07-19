@@ -18,6 +18,10 @@ public class DocumentationMappingImpl implements DocumentationMapping {
 
     private String value;
 
+    private DocumentationMappingImpl(Builder builder) {
+        this.value = builder.value;
+    }
+
     public DocumentationMappingImpl(String value) {
         super();
         this.value = value;
@@ -29,5 +33,25 @@ public class DocumentationMappingImpl implements DocumentationMapping {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String value;
+
+        private Builder() {
+        }
+
+        public Builder withValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public DocumentationMappingImpl build() {
+            return new DocumentationMappingImpl(this);
+        }
     }
 }

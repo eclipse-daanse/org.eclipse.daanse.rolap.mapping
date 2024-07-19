@@ -18,12 +18,36 @@ public class DrillThroughMeasureMappingImpl implements DrillThroughMeasureMappin
 
     private MeasureMappingImpl measure;
 
+    private DrillThroughMeasureMappingImpl(Builder builder) {
+        this.measure = builder.measure;
+    }
+
     public MeasureMappingImpl getMeasure() {
         return measure;
     }
 
     public void setMeasure(MeasureMappingImpl measure) {
         this.measure = measure;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private MeasureMappingImpl measure;
+
+        private Builder() {
+        }
+
+        public Builder withMeasure(MeasureMappingImpl measure) {
+            this.measure = measure;
+            return this;
+        }
+
+        public DrillThroughMeasureMappingImpl build() {
+            return new DrillThroughMeasureMappingImpl(this);
+        }
     }
 
 }

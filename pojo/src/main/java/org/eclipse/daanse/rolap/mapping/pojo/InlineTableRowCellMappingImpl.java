@@ -26,6 +26,11 @@ public class InlineTableRowCellMappingImpl implements InlineTableRowCellMapping 
 
     private String columnName;
 
+    private InlineTableRowCellMappingImpl(Builder builder) {
+        this.value = builder.value;
+        this.columnName = builder.columnName;
+    }
+
     public String getValue() {
         return value;
     }
@@ -40,5 +45,31 @@ public class InlineTableRowCellMappingImpl implements InlineTableRowCellMapping 
 
     public void setColumnName(String columnName) {
         this.columnName = columnName;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String value;
+        private String columnName;
+
+        private Builder() {
+        }
+
+        public Builder withValue(String value) {
+            this.value = value;
+            return this;
+        }
+
+        public Builder withColumnName(String columnName) {
+            this.columnName = columnName;
+            return this;
+        }
+
+        public InlineTableRowCellMappingImpl build() {
+            return new InlineTableRowCellMappingImpl(this);
+        }
     }
 }

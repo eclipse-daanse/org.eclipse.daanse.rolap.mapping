@@ -12,11 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
 
-public class WritebackTableMappingImpl implements WritebackTableMapping{
+public class WritebackTableMappingImpl implements WritebackTableMapping {
 
     private List<WritebackAttributeMappingImpl> writebackAttribute;
 
@@ -25,6 +26,13 @@ public class WritebackTableMappingImpl implements WritebackTableMapping{
     private String name;
 
     private String schema;
+
+    private WritebackTableMappingImpl(Builder builder) {
+        this.writebackAttribute = builder.writebackAttribute;
+        this.writebackMeasure = builder.writebackMeasure;
+        this.name = builder.name;
+        this.schema = builder.schema;
+    }
 
     public List<WritebackAttributeMappingImpl> getWritebackAttribute() {
         return writebackAttribute;
@@ -56,5 +64,43 @@ public class WritebackTableMappingImpl implements WritebackTableMapping{
 
     public void setSchema(String schema) {
         this.schema = schema;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<WritebackAttributeMappingImpl> writebackAttribute = Collections.emptyList();
+        private List<WritebackMeasureMappingImpl> writebackMeasure = Collections.emptyList();
+        private String name;
+        private String schema;
+
+        private Builder() {
+        }
+
+        public Builder withWritebackAttribute(List<WritebackAttributeMappingImpl> writebackAttribute) {
+            this.writebackAttribute = writebackAttribute;
+            return this;
+        }
+
+        public Builder withWritebackMeasure(List<WritebackMeasureMappingImpl> writebackMeasure) {
+            this.writebackMeasure = writebackMeasure;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder withSchema(String schema) {
+            this.schema = schema;
+            return this;
+        }
+
+        public WritebackTableMappingImpl build() {
+            return new WritebackTableMappingImpl(this);
+        }
     }
 }

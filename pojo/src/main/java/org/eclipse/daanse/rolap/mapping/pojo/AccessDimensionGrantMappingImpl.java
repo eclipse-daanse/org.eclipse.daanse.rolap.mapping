@@ -20,6 +20,11 @@ public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapp
 
     private DimensionMappingImpl dimension;
 
+    private AccessDimensionGrantMappingImpl(Builder builder) {
+        this.access = builder.access;
+        this.dimension = builder.dimension;
+    }
+
     public String getAccess() {
         return access;
     }
@@ -34,5 +39,31 @@ public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapp
 
     public void setDimension(DimensionMappingImpl dimension) {
         this.dimension = dimension;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private String access;
+        private DimensionMappingImpl dimension;
+
+        private Builder() {
+        }
+
+        public Builder withAccess(String access) {
+            this.access = access;
+            return this;
+        }
+
+        public Builder withDimension(DimensionMappingImpl dimension) {
+            this.dimension = dimension;
+            return this;
+        }
+
+        public AccessDimensionGrantMappingImpl build() {
+            return new AccessDimensionGrantMappingImpl(this);
+        }
     }
 }

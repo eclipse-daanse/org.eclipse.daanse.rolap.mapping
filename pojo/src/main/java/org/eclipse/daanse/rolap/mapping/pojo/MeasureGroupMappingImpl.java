@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
@@ -21,6 +22,11 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
     private List<MeasureMappingImpl> measures;
 
     private String name;
+
+    private MeasureGroupMappingImpl(Builder builder) {
+        this.measures = builder.measures;
+        this.name = builder.name;
+    }
 
     public List<MeasureMappingImpl> getMeasures() {
         return measures;
@@ -36,5 +42,31 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static final class Builder {
+        private List<MeasureMappingImpl> measures = Collections.emptyList();
+        private String name;
+
+        private Builder() {
+        }
+
+        public Builder withMeasures(List<MeasureMappingImpl> measures) {
+            this.measures = measures;
+            return this;
+        }
+
+        public Builder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public MeasureGroupMappingImpl build() {
+            return new MeasureGroupMappingImpl(this);
+        }
     }
 }
