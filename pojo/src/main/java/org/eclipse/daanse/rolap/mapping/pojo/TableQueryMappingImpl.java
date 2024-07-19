@@ -14,23 +14,21 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 
 public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements TableQueryMapping {
 
     private SQLMappingImpl sqlWhereExpression;
 
-    private List<? extends AggregationExcludeMapping> aggregationExcludes;
+    private List<AggregationExcludeMappingImpl> aggregationExcludes;
 
-    private List<? extends TableQueryOptimizationHintMappingImpl> optimizationHints;
+    private List<TableQueryOptimizationHintMappingImpl> optimizationHints;
 
     private String name;
 
     private String schema;
 
-    private List<? extends AggregationTableMapping> aggregationTables;
+    private List<AggregationTableMappingImpl> aggregationTables;
 
     public SQLMappingImpl getSqlWhereExpression() {
         return sqlWhereExpression;
@@ -40,19 +38,19 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         this.sqlWhereExpression = sqlWhereExpression;
     }
 
-    public List<? extends AggregationExcludeMapping> getAggregationExcludes() {
+    public List<AggregationExcludeMappingImpl> getAggregationExcludes() {
         return aggregationExcludes;
     }
 
-    public void setAggregationExcludes(List<? extends AggregationExcludeMapping> aggregationExcludes) {
+    public void setAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
         this.aggregationExcludes = aggregationExcludes;
     }
 
-    public List<? extends TableQueryOptimizationHintMappingImpl> getOptimizationHints() {
+    public List<TableQueryOptimizationHintMappingImpl> getOptimizationHints() {
         return optimizationHints;
     }
 
-    public void setOptimizationHints(List<? extends TableQueryOptimizationHintMappingImpl> optimizationHints) {
+    public void setOptimizationHints(List<TableQueryOptimizationHintMappingImpl> optimizationHints) {
         this.optimizationHints = optimizationHints;
     }
 
@@ -72,11 +70,11 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         this.schema = schema;
     }
 
-    public List<? extends AggregationTableMapping> getAggregationTables() {
+    public List<AggregationTableMappingImpl> getAggregationTables() {
         return aggregationTables;
     }
 
-    public void setAggregationTables(List<? extends AggregationTableMapping> aggregationTables) {
+    public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
         this.aggregationTables = aggregationTables;
     }
 }

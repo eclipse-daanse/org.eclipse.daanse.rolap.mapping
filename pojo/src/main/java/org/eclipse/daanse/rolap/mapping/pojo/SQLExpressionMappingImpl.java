@@ -15,17 +15,16 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
 
 public class SQLExpressionMappingImpl implements SQLExpressionMapping {
 
-    private List<? extends SQLMapping> sqls;
+    private List<SQLMappingImpl> sqls;
 
-    public List<? extends SQLMapping> getSqls() {
+    public List<SQLMappingImpl> getSqls() {
         return sqls;
     }
 
-    public void setSqls(List<? extends SQLMapping> sqls) {
+    public void setSqls(List<SQLMappingImpl> sqls) {
         this.sqls = sqls;
     }
 }

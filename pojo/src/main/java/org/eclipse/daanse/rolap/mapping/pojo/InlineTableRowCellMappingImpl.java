@@ -16,6 +16,12 @@ import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowCellMapping;
 
 public class InlineTableRowCellMappingImpl implements InlineTableRowCellMapping {
 
+    public InlineTableRowCellMappingImpl(String value, String columnName) {
+        super();
+        this.value = value;
+        this.columnName = columnName;
+    }
+
     private String value;
 
     private String columnName;

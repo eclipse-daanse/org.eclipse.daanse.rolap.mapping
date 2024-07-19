@@ -14,33 +14,31 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
 
 public class WritebackTableMappingImpl implements WritebackTableMapping{
 
-    private List<? extends WritebackAttributeMapping> writebackAttribute;
+    private List<WritebackAttributeMappingImpl> writebackAttribute;
 
-    private List<? extends WritebackMeasureMapping> writebackMeasure;
+    private List<WritebackMeasureMappingImpl> writebackMeasure;
 
     private String name;
 
     private String schema;
 
-    public List<? extends WritebackAttributeMapping> getWritebackAttribute() {
+    public List<WritebackAttributeMappingImpl> getWritebackAttribute() {
         return writebackAttribute;
     }
 
-    public void setWritebackAttribute(List<? extends WritebackAttributeMapping> writebackAttribute) {
+    public void setWritebackAttribute(List<WritebackAttributeMappingImpl> writebackAttribute) {
         this.writebackAttribute = writebackAttribute;
     }
 
-    public List<? extends WritebackMeasureMapping> getWritebackMeasure() {
+    public List<WritebackMeasureMappingImpl> getWritebackMeasure() {
         return writebackMeasure;
     }
 
-    public void setWritebackMeasure(List<? extends WritebackMeasureMapping> writebackMeasure) {
+    public void setWritebackMeasure(List<WritebackMeasureMappingImpl> writebackMeasure) {
         this.writebackMeasure = writebackMeasure;
     }
 

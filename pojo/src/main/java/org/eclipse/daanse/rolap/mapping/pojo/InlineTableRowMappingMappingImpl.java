@@ -14,18 +14,17 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowCellMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
 
 public class InlineTableRowMappingMappingImpl implements InlineTableRowMappingMapping {
 
-    private List<? extends InlineTableRowCellMapping> cells;
+    private List<InlineTableRowCellMappingImpl> cells;
 
-    public List<? extends InlineTableRowCellMapping> getCells() {
+    public List<InlineTableRowCellMappingImpl> getCells() {
         return cells;
     }
 
-    public void setCells(List<? extends InlineTableRowCellMapping> cells) {
+    public void setCells(List<InlineTableRowCellMappingImpl> cells) {
         this.cells = cells;
     }
 }

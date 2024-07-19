@@ -15,33 +15,31 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 
 public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
-    private List<? extends AccessDimensionGrantMapping> dimensionGrants;
+    private List<AccessDimensionGrantMappingImpl> dimensionGrants;
 
-    private List<? extends AccessHierarchyGrantMapping> hierarchyGrants;
+    private List<AccessHierarchyGrantMappingImpl> hierarchyGrants;
 
     private String access;
 
     private CubeMappingImpl cube;
 
 
-    public List<? extends AccessDimensionGrantMapping> getDimensionGrants() {
+    public List<AccessDimensionGrantMappingImpl> getDimensionGrants() {
         return dimensionGrants;
     }
 
-    public void setDimensionGrants(List<? extends AccessDimensionGrantMapping> dimensionGrants) {
+    public void setDimensionGrants(List<AccessDimensionGrantMappingImpl> dimensionGrants) {
         this.dimensionGrants = dimensionGrants;
     }
 
-    public List<? extends AccessHierarchyGrantMapping> getHierarchyGrants() {
+    public List<AccessHierarchyGrantMappingImpl> getHierarchyGrants() {
         return hierarchyGrants;
     }
 
-    public void setHierarchyGrants(List<? extends AccessHierarchyGrantMapping> hierarchyGrants) {
+    public void setHierarchyGrants(List<AccessHierarchyGrantMappingImpl> hierarchyGrants) {
         this.hierarchyGrants = hierarchyGrants;
     }
 

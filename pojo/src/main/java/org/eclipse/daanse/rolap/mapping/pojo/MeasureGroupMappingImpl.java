@@ -15,19 +15,18 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
 public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
-    private List<? extends MeasureMapping> measures;
+    private List<MeasureMappingImpl> measures;
 
     private String name;
 
-    public List<? extends MeasureMapping> getMeasures() {
+    public List<MeasureMappingImpl> getMeasures() {
         return measures;
     }
 
-    public void setMeasures(List<? extends MeasureMapping> measures) {
+    public void setMeasures(List<MeasureMappingImpl> measures) {
         this.measures = measures;
     }
 

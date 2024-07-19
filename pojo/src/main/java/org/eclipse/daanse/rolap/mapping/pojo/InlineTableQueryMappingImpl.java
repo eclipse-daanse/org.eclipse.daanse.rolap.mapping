@@ -14,29 +14,27 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
 
 public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl implements InlineTableQueryMapping {
 
-    private List<? extends InlineTableColumnDefinitionMapping> columnDefinitions;
+    private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions;
 
-    private List<? extends InlineTableRowMappingMapping> rows;
+    private List<InlineTableRowMappingMappingImpl> rows;
 
-    public List<? extends InlineTableColumnDefinitionMapping> getColumnDefinitions() {
+    public List<InlineTableColumnDefinitionMappingImpl> getColumnDefinitions() {
         return columnDefinitions;
     }
 
-    public void setColumnDefinitions(List<? extends InlineTableColumnDefinitionMapping> columnDefinitions) {
+    public void setColumnDefinitions(List<InlineTableColumnDefinitionMappingImpl> columnDefinitions) {
         this.columnDefinitions = columnDefinitions;
     }
 
-    public List<? extends InlineTableRowMappingMapping> getRows() {
+    public List<InlineTableRowMappingMappingImpl> getRows() {
         return rows;
     }
 
-    public void setRows(List<? extends InlineTableRowMappingMapping> rows) {
+    public void setRows(List<InlineTableRowMappingMappingImpl> rows) {
         this.rows = rows;
     }
 }

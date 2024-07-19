@@ -15,11 +15,10 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
 
 public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMapping {
 
-    private List<? extends TranslationMapping> translations;
+    private List<TranslationMappingImpl> translations;
 
     private String displayFolder;
 
@@ -43,11 +42,11 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
 
     private String parentKpiID;
 
-    public List<? extends TranslationMapping> getTranslations() {
+    public List<TranslationMappingImpl> getTranslations() {
         return translations;
     }
 
-    public void setTranslations(List<? extends TranslationMapping> translations) {
+    public void setTranslations(List<TranslationMappingImpl> translations) {
         this.translations = translations;
     }
 

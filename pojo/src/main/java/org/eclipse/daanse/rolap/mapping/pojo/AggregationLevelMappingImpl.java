@@ -15,11 +15,10 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping;
 
 public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
-    private List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties;
+    private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties;
 
     private String captionColumn;
 
@@ -33,11 +32,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     private String ordinalColumn;
 
-    public List<? extends AggregationLevelPropertyMapping> getAggregationLevelProperties() {
+    public List<AggregationLevelPropertyMappingImpl> getAggregationLevelProperties() {
         return aggregationLevelProperties;
     }
 
-    public void setAggregationLevelProperties(List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties) {
+    public void setAggregationLevelProperties(List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties) {
         this.aggregationLevelProperties = aggregationLevelProperties;
     }
 

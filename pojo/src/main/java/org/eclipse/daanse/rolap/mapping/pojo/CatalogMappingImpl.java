@@ -12,19 +12,19 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-
 import java.util.List;
+
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
 
-    private List<? extends SchemaMappingImpl> schemas;
+    private List<SchemaMappingImpl> schemas;
 
-    public List<? extends SchemaMappingImpl> getSchemas() {
+    public List<SchemaMappingImpl> getSchemas() {
         return schemas;
     }
 
-    public void setSchemas(List<? extends SchemaMappingImpl> schemas) {
+    public void setSchemas(List<SchemaMappingImpl> schemas) {
         this.schemas = schemas;
     }
 }

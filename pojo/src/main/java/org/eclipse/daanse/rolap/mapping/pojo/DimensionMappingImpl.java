@@ -15,21 +15,20 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 
 public class DimensionMappingImpl extends AbstractElementMappingImpl implements DimensionMapping {
 
-    private List<? extends HierarchyMapping> hierarchies;
+    private List<HierarchyMappingImpl> hierarchies;
 
     private String usagePrefix;
 
     private boolean visible;
 
-    public List<? extends HierarchyMapping> getHierarchies() {
+    public List<HierarchyMappingImpl> getHierarchies() {
         return hierarchies;
     }
 
-    public void setHierarchies(List<? extends HierarchyMapping> hierarchies) {
+    public void setHierarchies(List<HierarchyMappingImpl> hierarchies) {
         this.hierarchies = hierarchies;
     }
 

@@ -15,13 +15,12 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
 public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapping {
 
-    private List<? extends AccessMemberGrantMapping> memberGrants;
+    private List<AccessMemberGrantMappingImpl> memberGrants;
 
     private String access;
 
@@ -33,11 +32,11 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
 
     private HierarchyMapping hierarchy;
 
-    public List<? extends AccessMemberGrantMapping> getMemberGrants() {
+    public List<AccessMemberGrantMappingImpl> getMemberGrants() {
         return memberGrants;
     }
 
-    public void setMemberGrants(List<? extends AccessMemberGrantMapping> memberGrants) {
+    public void setMemberGrants(List<AccessMemberGrantMappingImpl> memberGrants) {
         this.memberGrants = memberGrants;
     }
 

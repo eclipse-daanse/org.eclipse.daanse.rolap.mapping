@@ -15,30 +15,28 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughMeasureMapping;
 
 public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl implements DrillThroughActionMapping {
 
-    private List<? extends DrillThroughAttributeMapping> drillThroughAttribute;
+    private List<DrillThroughAttributeMappingImpl> drillThroughAttribute;
 
-    private List<? extends DrillThroughMeasureMapping> drillThroughMeasure;
+    private List<DrillThroughMeasureMappingImpl> drillThroughMeasure;
 
     private boolean theDefault;
 
-    public List<? extends DrillThroughAttributeMapping> getDrillThroughAttribute() {
+    public List<DrillThroughAttributeMappingImpl> getDrillThroughAttribute() {
         return drillThroughAttribute;
     }
 
-    public void setDrillThroughAttribute(List<? extends DrillThroughAttributeMapping> drillThroughAttribute) {
+    public void setDrillThroughAttribute(List<DrillThroughAttributeMappingImpl> drillThroughAttribute) {
         this.drillThroughAttribute = drillThroughAttribute;
     }
 
-    public List<? extends DrillThroughMeasureMapping> getDrillThroughMeasure() {
+    public List<DrillThroughMeasureMappingImpl> getDrillThroughMeasure() {
         return drillThroughMeasure;
     }
 
-    public void setDrillThroughMeasure(List<? extends DrillThroughMeasureMapping> drillThroughMeasure) {
+    public void setDrillThroughMeasure(List<DrillThroughMeasureMappingImpl> drillThroughMeasure) {
         this.drillThroughMeasure = drillThroughMeasure;
     }
 

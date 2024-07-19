@@ -14,9 +14,14 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 
-public class DocumentationMappingImpl implements DocumentationMapping{
+public class DocumentationMappingImpl implements DocumentationMapping {
 
     private String value;
+
+    public DocumentationMappingImpl(String value) {
+        super();
+        this.value = value;
+    }
 
     public String getValue() {
         return value;

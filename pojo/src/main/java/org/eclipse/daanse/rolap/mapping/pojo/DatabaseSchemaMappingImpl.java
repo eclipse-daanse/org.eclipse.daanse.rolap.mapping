@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DatabaseTableMapping;
 
 public class DatabaseSchemaMappingImpl implements DatabaseSchemaMapping {
 
@@ -23,7 +22,7 @@ public class DatabaseSchemaMappingImpl implements DatabaseSchemaMapping {
 
     private String name;
 
-    private List<? extends DatabaseTableMapping> tables;
+    private List<DatabaseTableMappingImpl> tables;
 
     public String getId() {
         return id;
@@ -41,11 +40,11 @@ public class DatabaseSchemaMappingImpl implements DatabaseSchemaMapping {
         this.name = name;
     }
 
-    public List<? extends DatabaseTableMapping> getTables() {
+    public List<DatabaseTableMappingImpl> getTables() {
         return tables;
     }
 
-    public void setTables(List<? extends DatabaseTableMapping> tables) {
+    public void setTables(List<DatabaseTableMappingImpl> tables) {
         this.tables = tables;
     }
 }

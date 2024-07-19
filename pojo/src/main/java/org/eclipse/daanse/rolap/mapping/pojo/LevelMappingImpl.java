@@ -30,7 +30,7 @@ public class LevelMappingImpl implements LevelMapping {
 
     private ParentChildLinkMappingImpl parentChildLink;
 
-    private List<? extends MemberPropertyMappingImpl> memberProperties;
+    private List<MemberPropertyMappingImpl> memberProperties;
 
     private MemberFormatterMappingImpl memberFormatter;
 
@@ -112,11 +112,11 @@ public class LevelMappingImpl implements LevelMapping {
         this.parentChildLink = parentChildLink;
     }
 
-    public List<? extends MemberPropertyMappingImpl> getMemberProperties() {
+    public List<MemberPropertyMappingImpl> getMemberProperties() {
         return memberProperties;
     }
 
-    public void setMemberProperties(List<? extends MemberPropertyMappingImpl> memberProperties) {
+    public void setMemberProperties(List<MemberPropertyMappingImpl> memberProperties) {
         this.memberProperties = memberProperties;
     }
 

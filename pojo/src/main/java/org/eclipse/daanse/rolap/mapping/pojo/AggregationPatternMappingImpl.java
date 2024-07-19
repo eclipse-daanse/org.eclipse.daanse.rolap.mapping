@@ -14,14 +14,13 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
 
 public class AggregationPatternMappingImpl extends AggregationTableMappingImpl implements AggregationPatternMapping{
 
     private String pattern;
 
-    private List<? extends AggregationExcludeMapping> excludes;
+    private List<AggregationExcludeMappingImpl> excludes;
 
     public String getPattern() {
         return pattern;
@@ -31,11 +30,11 @@ public class AggregationPatternMappingImpl extends AggregationTableMappingImpl i
         this.pattern = pattern;
     }
 
-    public List<? extends AggregationExcludeMapping> getExcludes() {
+    public List<AggregationExcludeMappingImpl> getExcludes() {
         return excludes;
     }
 
-    public void setExcludes(List<? extends AggregationExcludeMapping> excludes) {
+    public void setExcludes(List<AggregationExcludeMappingImpl> excludes) {
         this.excludes = excludes;
     }
 }

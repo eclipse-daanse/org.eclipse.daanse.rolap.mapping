@@ -15,12 +15,11 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
 public class HierarchyMappingImpl extends AbstractElementMappingImpl implements HierarchyMapping {
-    private List<? extends LevelMapping> levels;
+    private List<LevelMappingImpl> levels;
 
-    private List<? extends MemberReaderParameterMappingImpl> memberReaderParameters;
+    private List<MemberReaderParameterMappingImpl> memberReaderParameters;
 
     private String allLevelName;
 
@@ -152,19 +151,19 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.query = query;
     }
 
-    public List<? extends LevelMapping> getLevels() {
+    public List<LevelMappingImpl> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<? extends LevelMapping> levels) {
+    public void setLevels(List<LevelMappingImpl> levels) {
         this.levels = levels;
     }
 
-    public List<? extends MemberReaderParameterMappingImpl> getMemberReaderParameters() {
+    public List<MemberReaderParameterMappingImpl> getMemberReaderParameters() {
         return memberReaderParameters;
     }
 
-    public void setMemberReaderParameters(List<? extends MemberReaderParameterMappingImpl> memberReaderParameters) {
+    public void setMemberReaderParameters(List<MemberReaderParameterMappingImpl> memberReaderParameters) {
         this.memberReaderParameters = memberReaderParameters;
     }
 }

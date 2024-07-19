@@ -14,20 +14,18 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
 public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeMapping {
 
-    private List<? extends DimensionConnectorMapping> dimensionConnectors;
+    private List<DimensionConnectorMappingImpl> dimensionConnectors;
 
-    private List<? extends CalculatedMemberMapping> calculatedMembers;
+    private List<CalculatedMemberMappingImpl> calculatedMembers;
 
-    private List<? extends NamedSetMappingImpl> namedSets;
+    private List<NamedSetMappingImpl> namedSets;
 
-    private List<? extends KpiMappingImpl> kpis;
+    private List<KpiMappingImpl> kpis;
 
     private MeasureMapping defaultMeasure;
 
@@ -35,37 +33,37 @@ public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeM
 
     private boolean visible;
 
-    private List<? extends MeasureGroupMappingImpl> measureGroups;
+    private List<MeasureGroupMappingImpl> measureGroups;
 
-    public List<? extends DimensionConnectorMapping> getDimensionConnectors() {
+    public List<DimensionConnectorMappingImpl> getDimensionConnectors() {
         return dimensionConnectors;
     }
 
-    public void setDimensionConnectors(List<? extends DimensionConnectorMapping> dimensionConnectors) {
+    public void setDimensionConnectors(List<DimensionConnectorMappingImpl> dimensionConnectors) {
         this.dimensionConnectors = dimensionConnectors;
     }
 
-    public List<? extends CalculatedMemberMapping> getCalculatedMembers() {
+    public List<CalculatedMemberMappingImpl> getCalculatedMembers() {
         return calculatedMembers;
     }
 
-    public void setCalculatedMembers(List<? extends CalculatedMemberMappingImpl> calculatedMembers) {
+    public void setCalculatedMembers(List<CalculatedMemberMappingImpl> calculatedMembers) {
         this.calculatedMembers = calculatedMembers;
     }
 
-    public List<? extends NamedSetMappingImpl> getNamedSets() {
+    public List<NamedSetMappingImpl> getNamedSets() {
         return namedSets;
     }
 
-    public void setNamedSets(List<? extends NamedSetMappingImpl> namedSets) {
+    public void setNamedSets(List<NamedSetMappingImpl> namedSets) {
         this.namedSets = namedSets;
     }
 
-    public List<? extends KpiMappingImpl> getKpis() {
+    public List<KpiMappingImpl> getKpis() {
         return kpis;
     }
 
-    public void setKpis(List<? extends KpiMappingImpl> kpis) {
+    public void setKpis(List<KpiMappingImpl> kpis) {
         this.kpis = kpis;
     }
 
@@ -93,11 +91,11 @@ public class CubeMappingImpl extends AbstractElementMappingImpl implements CubeM
         this.visible = visible;
     }
 
-    public List<? extends MeasureGroupMappingImpl> getMeasureGroups() {
+    public List<MeasureGroupMappingImpl> getMeasureGroups() {
         return measureGroups;
     }
 
-    public void setMeasureGroups(List<? extends MeasureGroupMappingImpl> measureGroups) {
+    public void setMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
         this.measureGroups = measureGroups;
     }
 }

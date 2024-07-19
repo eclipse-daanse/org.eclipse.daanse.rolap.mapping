@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
@@ -25,7 +24,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
 
     private WritebackTableMapping writebackTable;
 
-    private List<? extends ActionMappingMapping> action;
+    private List<ActionMappingMappingImpl> action;
 
     private boolean cache;
 
@@ -45,11 +44,11 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         this.writebackTable = writebackTable;
     }
 
-    public List<? extends ActionMappingMapping> getAction() {
+    public List<ActionMappingMappingImpl> getAction() {
         return action;
     }
 
-    public void setAction(List<? extends ActionMappingMapping> action) {
+    public void setAction(List<ActionMappingMappingImpl> action) {
         this.action = action;
     }
 

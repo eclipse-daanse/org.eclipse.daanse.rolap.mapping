@@ -14,18 +14,17 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 
 public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implements  SqlSelectQueryMapping {
 
-    private List<? extends SQLMapping> sql;
+    private List<SQLMappingImpl> sql;
 
-    public List<? extends SQLMapping> getSQL() {
+    public List<SQLMappingImpl> getSQL() {
         return sql;
     }
 
-    public void setSQL(List<? extends SQLMapping> sql) {
+    public void setSQL(List<SQLMappingImpl> sql) {
         this.sql = sql;
     }
 }

@@ -15,25 +15,21 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 
 public class AggregationTableMappingImpl implements AggregationTableMapping {
 
     private AggregationColumnNameMapping aggregationFactCount;
 
-    private List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns;
+    private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns;
 
-    private List<? extends AggregationForeignKeyMapping> aggregationForeignKeys;
+    private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys;
 
-    private List<? extends AggregationMeasureMapping> aggregationMeasures;
+    private List<AggregationMeasureMappingImpl> aggregationMeasures;
 
-    private List<? extends AggregationLevelMapping> aggregationLevels;
+    private List<AggregationLevelMappingImpl> aggregationLevels;
 
-    private List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts;
+    private List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts;
 
     private boolean ignorecase;
 
@@ -47,43 +43,43 @@ public class AggregationTableMappingImpl implements AggregationTableMapping {
         this.aggregationFactCount = aggregationFactCount;
     }
 
-    public List<? extends AggregationColumnNameMapping> getAggregationIgnoreColumns() {
+    public List<AggregationColumnNameMappingImpl> getAggregationIgnoreColumns() {
         return aggregationIgnoreColumns;
     }
 
-    public void setAggregationIgnoreColumns(List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns) {
+    public void setAggregationIgnoreColumns(List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns) {
         this.aggregationIgnoreColumns = aggregationIgnoreColumns;
     }
 
-    public List<? extends AggregationForeignKeyMapping> getAggregationForeignKeys() {
+    public List<AggregationForeignKeyMappingImpl> getAggregationForeignKeys() {
         return aggregationForeignKeys;
     }
 
-    public void setAggregationForeignKeys(List<? extends AggregationForeignKeyMapping> aggregationForeignKeys) {
+    public void setAggregationForeignKeys(List<AggregationForeignKeyMappingImpl> aggregationForeignKeys) {
         this.aggregationForeignKeys = aggregationForeignKeys;
     }
 
-    public List<? extends AggregationMeasureMapping> getAggregationMeasures() {
+    public List<AggregationMeasureMappingImpl> getAggregationMeasures() {
         return aggregationMeasures;
     }
 
-    public void setAggregationMeasures(List<? extends AggregationMeasureMapping> aggregationMeasures) {
+    public void setAggregationMeasures(List<AggregationMeasureMappingImpl> aggregationMeasures) {
         this.aggregationMeasures = aggregationMeasures;
     }
 
-    public List<? extends AggregationLevelMapping> getAggregationLevels() {
+    public List<AggregationLevelMappingImpl> getAggregationLevels() {
         return aggregationLevels;
     }
 
-    public void setAggregationLevels(List<? extends AggregationLevelMapping> aggregationLevels) {
+    public void setAggregationLevels(List<AggregationLevelMappingImpl> aggregationLevels) {
         this.aggregationLevels = aggregationLevels;
     }
 
-    public List<? extends AggregationMeasureFactCountMapping> getAggregationMeasureFactCounts() {
+    public List<AggregationMeasureFactCountMappingImpl> getAggregationMeasureFactCounts() {
         return aggregationMeasureFactCounts;
     }
 
-    public void setAggregationMeasureFactCounts(List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts) {
+    public void setAggregationMeasureFactCounts(List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts) {
         this.aggregationMeasureFactCounts = aggregationMeasureFactCounts;
     }
 

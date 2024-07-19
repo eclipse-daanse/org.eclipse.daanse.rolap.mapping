@@ -14,139 +14,127 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 
 public class RolapContextMappingImpl implements RolapContextMapping{
 
-    private List<? extends CatalogMapping> catalogs;
+    private List<CatalogMappingImpl> catalogs;
 
-    private List<? extends SchemaMapping> schemas;
+    private List<SchemaMappingImpl> schemas;
 
-    private List<? extends CubeMapping> cubes;
+    private List<CubeMappingImpl> cubes;
 
-    private List<? extends DimensionMapping> dimensions;
+    private List<DimensionMappingImpl> dimensions;
 
-    private List<? extends HierarchyMapping> hierarchies;
+    private List<HierarchyMappingImpl> hierarchies;
 
-    private List<? extends LevelMapping> levels;
+    private List<LevelMappingImpl> levels;
 
-    private List<? extends FormatterMapping> formatters;
+    private List<FormatterMappingImpl> formatters;
 
-    private List<? extends DatabaseSchemaMapping> dbschemas;
+    private List<DatabaseSchemaMappingImpl> dbschemas;
 
-    private List<? extends MeasureMapping> measures;
+    private List<MeasureMappingImpl> measures;
 
-    private List<? extends AccessRoleMapping> accessRoles;
+    private List<AccessRoleMappingImpl> accessRoles;
 
-    private List<? extends AggregationTableMapping> aggregationTables;
+    private List<AggregationTableMappingImpl> aggregationTables;
 
-    private List<? extends AggregationExcludeMapping> aggregationExcludes;
+    private List<AggregationExcludeMappingImpl> aggregationExcludes;
 
-    public List<? extends SchemaMapping> getSchemas() {
+    public List<SchemaMappingImpl> getSchemas() {
         return schemas;
     }
 
-    public void setSchemas(List<? extends SchemaMapping> schemas) {
+    public void setSchemas(List<SchemaMappingImpl> schemas) {
         this.schemas = schemas;
     }
 
-    public List<? extends CubeMapping> getCubes() {
+    public List<CubeMappingImpl> getCubes() {
         return cubes;
     }
 
-    public void setCubes(List<? extends CubeMapping> cubes) {
+    public void setCubes(List<CubeMappingImpl> cubes) {
         this.cubes = cubes;
     }
 
-    public List<? extends DimensionMapping> getDimensions() {
+    public List<DimensionMappingImpl> getDimensions() {
         return dimensions;
     }
 
-    public void setDimensions(List<? extends DimensionMapping> dimensions) {
+    public void setDimensions(List<DimensionMappingImpl> dimensions) {
         this.dimensions = dimensions;
     }
 
-    public List<? extends HierarchyMapping> getHierarchies() {
+    public List<HierarchyMappingImpl> getHierarchies() {
         return hierarchies;
     }
 
-    public void setHierarchies(List<? extends HierarchyMapping> hierarchies) {
+    public void setHierarchies(List<HierarchyMappingImpl> hierarchies) {
         this.hierarchies = hierarchies;
     }
 
-    public List<? extends LevelMapping> getLevels() {
+    public List<LevelMappingImpl> getLevels() {
         return levels;
     }
 
-    public void setLevels(List<? extends LevelMapping> levels) {
+    public void setLevels(List<LevelMappingImpl> levels) {
         this.levels = levels;
     }
 
-    public List<? extends FormatterMapping> getFormatters() {
+    public List<FormatterMappingImpl> getFormatters() {
         return formatters;
     }
 
-    public void setFormatters(List<? extends FormatterMapping> formatters) {
+    public void setFormatters(List<FormatterMappingImpl> formatters) {
         this.formatters = formatters;
     }
 
-    public List<? extends DatabaseSchemaMapping> getDbschemas() {
+    public List<DatabaseSchemaMappingImpl> getDbschemas() {
         return dbschemas;
     }
 
-    public void setDbschemas(List<? extends DatabaseSchemaMapping> dbschemas) {
+    public void setDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
         this.dbschemas = dbschemas;
     }
 
-    public List<? extends MeasureMapping> getMeasures() {
+    public List<MeasureMappingImpl> getMeasures() {
         return measures;
     }
 
-    public void setMeasures(List<? extends MeasureMapping> measures) {
+    public void setMeasures(List<MeasureMappingImpl> measures) {
         this.measures = measures;
     }
 
-    public List<? extends AccessRoleMapping> getAccessRoles() {
+    public List<AccessRoleMappingImpl> getAccessRoles() {
         return accessRoles;
     }
 
-    public void setAccessRoles(List<? extends AccessRoleMapping> accessRoles) {
+    public void setAccessRoles(List<AccessRoleMappingImpl> accessRoles) {
         this.accessRoles = accessRoles;
     }
 
-    public List<? extends AggregationTableMapping> getAggregationTables() {
+    public List<AggregationTableMappingImpl> getAggregationTables() {
         return aggregationTables;
     }
 
-    public void setAggregationTables(List<? extends AggregationTableMapping> aggregationTables) {
+    public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
         this.aggregationTables = aggregationTables;
     }
 
-    public List<? extends AggregationExcludeMapping> getAggregationExcludes() {
+    public List<AggregationExcludeMappingImpl> getAggregationExcludes() {
         return aggregationExcludes;
     }
 
-    public void setAggregationExcludes(List<? extends AggregationExcludeMapping> aggregationExcludes) {
+    public void setAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
         this.aggregationExcludes = aggregationExcludes;
     }
 
-    public List<? extends CatalogMapping> getCatalogs() {
+    public List<CatalogMappingImpl> getCatalogs() {
         return catalogs;
     }
 
-    public void setCatalogs(List<? extends CatalogMapping> catalogs) {
+    public void setCatalogs(List<CatalogMappingImpl> catalogs) {
         this.catalogs = catalogs;
     }
 }

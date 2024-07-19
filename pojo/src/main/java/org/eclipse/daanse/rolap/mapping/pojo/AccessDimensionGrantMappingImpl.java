@@ -13,7 +13,6 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 
 public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapping {
 

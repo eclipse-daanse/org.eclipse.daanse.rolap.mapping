@@ -14,18 +14,17 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 
 public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCubeMapping {
 
-    private List<? extends CubeConnectorMapping> cubeUsages;
+    private List<CubeConnectorMappingImpl> cubeUsages;
 
-    public List<? extends CubeConnectorMapping> getCubeUsages() {
+    public List<CubeConnectorMappingImpl> getCubeUsages() {
         return cubeUsages;
     }
 
-    public void setCubeUsages(List<? extends CubeConnectorMapping> cubeUsages) {
+    public void setCubeUsages(List<CubeConnectorMappingImpl> cubeUsages) {
         this.cubeUsages = cubeUsages;
     }
 }

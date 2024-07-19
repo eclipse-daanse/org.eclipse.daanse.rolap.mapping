@@ -14,20 +14,19 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
 
 public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
 
-    private List<? extends AccessCubeGrantMapping> cubeGrant;
+    private List<AccessCubeGrantMappingImpl> cubeGrant;
 
     private String access;
 
-    public List<? extends AccessCubeGrantMapping> getCubeGrant() {
+    public List<AccessCubeGrantMappingImpl> getCubeGrant() {
         return cubeGrant;
     }
 
-    public void setCubeGrant(List<? extends AccessCubeGrantMapping> cubeGrant) {
+    public void setCubeGrant(List<AccessCubeGrantMappingImpl> cubeGrant) {
         this.cubeGrant = cubeGrant;
     }
 

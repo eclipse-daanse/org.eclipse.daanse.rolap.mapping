@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
@@ -22,7 +21,7 @@ public class MeasureMappingImpl implements MeasureMapping {
 
     private SQLExpressionMappingImpl measureExpression;
 
-    private List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty;
+    private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty;
 
     private CellFormatterMapping cellFormatter;
 
@@ -52,11 +51,11 @@ public class MeasureMappingImpl implements MeasureMapping {
         this.measureExpression = measureExpression;
     }
 
-    public List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperty() {
+    public List<CalculatedMemberPropertyMappingImpl> getCalculatedMemberProperty() {
         return calculatedMemberProperty;
     }
 
-    public void setCalculatedMemberProperty(List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty) {
+    public void setCalculatedMemberProperty(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty) {
         this.calculatedMemberProperty = calculatedMemberProperty;
     }
 

@@ -15,14 +15,13 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 
 public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl implements CalculatedMemberMapping {
 
-    private List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties;
+    private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties;
 
     private CellFormatterMapping cellFormatter;
 
@@ -38,11 +37,11 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
 
     private String parent;
 
-    public List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperties() {
+    public List<CalculatedMemberPropertyMappingImpl> getCalculatedMemberProperties() {
         return calculatedMemberProperties;
     }
 
-    public void setCalculatedMemberProperties(List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties) {
+    public void setCalculatedMemberProperties(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
         this.calculatedMemberProperties = calculatedMemberProperties;
     }
 

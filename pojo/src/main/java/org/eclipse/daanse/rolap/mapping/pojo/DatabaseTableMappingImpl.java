@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.DatabaseColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseTableMapping;
 
 public class DatabaseTableMappingImpl implements DatabaseTableMapping {
@@ -25,7 +24,7 @@ public class DatabaseTableMappingImpl implements DatabaseTableMapping {
 
     private String description;
 
-    private List<? extends DatabaseColumnMapping> columns;
+    private List<DatabaseColumnMappingImpl> columns;
 
     public String getId() {
         return id;
@@ -51,11 +50,11 @@ public class DatabaseTableMappingImpl implements DatabaseTableMapping {
         this.description = description;
     }
 
-    public List<? extends DatabaseColumnMapping> getColumns() {
+    public List<DatabaseColumnMappingImpl> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<? extends DatabaseColumnMapping> columns) {
+    public void setColumns(List<DatabaseColumnMappingImpl> columns) {
         this.columns = columns;
     }
 }

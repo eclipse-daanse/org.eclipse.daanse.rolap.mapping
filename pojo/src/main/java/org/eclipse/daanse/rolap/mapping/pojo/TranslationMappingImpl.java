@@ -14,7 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
 
 public class TranslationMappingImpl implements TranslationMapping {
@@ -27,7 +26,7 @@ public class TranslationMappingImpl implements TranslationMapping {
 
     private String displayFolder;
 
-    private List<? extends AnnotationMapping> annotations;
+    private List<AnnotationMappingImpl> annotations;
 
     public long getLanguage() {
         return language;
@@ -61,11 +60,11 @@ public class TranslationMappingImpl implements TranslationMapping {
         this.displayFolder = displayFolder;
     }
 
-    public List<? extends AnnotationMapping> getAnnotations() {
+    public List<AnnotationMappingImpl> getAnnotations() {
         return annotations;
     }
 
-    public void setAnnotations(List<? extends AnnotationMapping> annotations) {
+    public void setAnnotations(List<AnnotationMappingImpl> annotations) {
         this.annotations = annotations;
     }
 }

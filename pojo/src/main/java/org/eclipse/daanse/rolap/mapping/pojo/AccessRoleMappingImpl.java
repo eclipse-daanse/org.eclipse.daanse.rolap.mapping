@@ -15,27 +15,26 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
 
 public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements AccessRoleMapping {
 
-    private List<? extends AccessSchemaGrantMapping> accessSchemaGrants;
+    private List<AccessSchemaGrantMappingImpl> accessSchemaGrants;
 
-    private List<? extends AccessRoleMapping> referencedAccessRoles;
+    private List<AccessRoleMappingImpl> referencedAccessRoles;
 
-    public List<? extends AccessSchemaGrantMapping> getAccessSchemaGrants() {
+    public List<AccessSchemaGrantMappingImpl> getAccessSchemaGrants() {
         return accessSchemaGrants;
     }
 
-    public void setAccessSchemaGrants(List<? extends AccessSchemaGrantMapping> accessSchemaGrants) {
+    public void setAccessSchemaGrants(List<AccessSchemaGrantMappingImpl> accessSchemaGrants) {
         this.accessSchemaGrants = accessSchemaGrants;
     }
 
-    public List<? extends AccessRoleMapping> getReferencedAccessRoles() {
+    public List<AccessRoleMappingImpl> getReferencedAccessRoles() {
         return referencedAccessRoles;
     }
 
-    public void setReferencedAccessRoles(List<? extends AccessRoleMapping> referencedAccessRoles) {
+    public void setReferencedAccessRoles(List<AccessRoleMappingImpl> referencedAccessRoles) {
         this.referencedAccessRoles = referencedAccessRoles;
     }
 }

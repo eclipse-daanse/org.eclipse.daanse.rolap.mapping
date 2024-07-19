@@ -15,54 +15,51 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 
 public class SchemaMappingImpl extends AbstractElementMappingImpl implements SchemaMapping {
 
-    private List<? extends ParameterMapping> parameters;
+    private List<ParameterMappingImpl> parameters;
 
-    private List<? extends CubeMapping> cubes;
+    private List<CubeMappingImpl> cubes;
 
-    private List<? extends NamedSetMapping> namedSets;
+    private List<NamedSetMappingImpl> namedSets;
 
-    private List<? extends AccessRoleMapping> accessRoles;
+    private List<AccessRoleMappingImpl> accessRoles;
 
     private AccessRoleMapping defaultAccessRole;
 
     private String measuresDimensionName;
 
-    public List<? extends ParameterMapping> getParameters() {
+    public List<ParameterMappingImpl> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<? extends ParameterMapping> parameters) {
+    public void setParameters(List<ParameterMappingImpl> parameters) {
         this.parameters = parameters;
     }
 
-    public List<? extends CubeMapping> getCubes() {
+    public List<CubeMappingImpl> getCubes() {
         return cubes;
     }
 
-    public void setCubes(List<? extends CubeMapping> cubes) {
+    public void setCubes(List<CubeMappingImpl> cubes) {
         this.cubes = cubes;
     }
 
-    public List<? extends NamedSetMapping> getNamedSets() {
+    public List<NamedSetMappingImpl> getNamedSets() {
         return namedSets;
     }
 
-    public void setNamedSets(List<? extends NamedSetMapping> namedSets) {
+    public void setNamedSets(List<NamedSetMappingImpl> namedSets) {
         this.namedSets = namedSets;
     }
 
-    public List<? extends AccessRoleMapping> getAccessRoles() {
+    public List<AccessRoleMappingImpl> getAccessRoles() {
         return accessRoles;
     }
 
-    public void setAccessRoles(List<? extends AccessRoleMapping> accessRoles) {
+    public void setAccessRoles(List<AccessRoleMappingImpl> accessRoles) {
         this.accessRoles = accessRoles;
     }
 
