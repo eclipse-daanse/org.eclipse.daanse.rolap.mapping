@@ -15,9 +15,9 @@ package org.eclipse.daanse.rolap.mapping.mondrian.api;
 
 import java.io.InputStream;
 
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext;
+import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 
 public interface RolapMappingTransformer {
 
-    public RolapContext transform(InputStream inputStream);
+    public RolapContextMapping transform(InputStream inputStream);
 }

@@ -39,4 +39,7 @@ public interface MeasureMapping {
     String getName();
 
     String getId();
+
+    String getType();
+
 }

@@ -21,7 +21,7 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
 
     private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions;
 
-    private List<InlineTableRowMappingMappingImpl> rows;
+    private List<InlineTableRowMappingImpl> rows;
 
     private InlineTableQueryMappingImpl(Builder builder) {
         this.columnDefinitions = builder.columnDefinitions;
@@ -37,11 +37,11 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
         this.columnDefinitions = columnDefinitions;
     }
 
-    public List<InlineTableRowMappingMappingImpl> getRows() {
+    public List<InlineTableRowMappingImpl> getRows() {
         return rows;
     }
 
-    public void setRows(List<InlineTableRowMappingMappingImpl> rows) {
+    public void setRows(List<InlineTableRowMappingImpl> rows) {
         this.rows = rows;
     }
 
@@ -51,7 +51,7 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
 
     public static final class Builder {
         private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions = Collections.emptyList();
-        private List<InlineTableRowMappingMappingImpl> rows = Collections.emptyList();
+        private List<InlineTableRowMappingImpl> rows = Collections.emptyList();
         private String alias;
 
         private Builder() {
@@ -62,7 +62,7 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
             return this;
         }
 
-        public Builder withRows(List<InlineTableRowMappingMappingImpl> rows) {
+        public Builder withRows(List<InlineTableRowMappingImpl> rows) {
             this.rows = rows;
             return this;
         }

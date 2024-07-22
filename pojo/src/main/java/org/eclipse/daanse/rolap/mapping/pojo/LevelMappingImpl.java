@@ -63,6 +63,8 @@ public class LevelMappingImpl implements LevelMapping {
 
     private String name;
 
+    private String description;
+
     private String id;
 
     private LevelMappingImpl(Builder builder) {
@@ -88,6 +90,7 @@ public class LevelMappingImpl implements LevelMapping {
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
         this.name = builder.name;
+        this.setDescription(builder.description);
         this.id = builder.id;
     }
 
@@ -279,6 +282,14 @@ public class LevelMappingImpl implements LevelMapping {
         return new Builder();
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public static final class Builder {
         private SQLExpressionMappingImpl keyExpression;
         private SQLExpressionMappingImpl nameExpression;
@@ -302,6 +313,7 @@ public class LevelMappingImpl implements LevelMapping {
         private boolean uniqueMembers;
         private boolean visible;
         private String name;
+        private String description;
         private String id;
 
         private Builder() {
@@ -414,6 +426,10 @@ public class LevelMappingImpl implements LevelMapping {
 
         public Builder withName(String name) {
             this.name = name;
+            return this;
+        }
+        public Builder withDescription(String description) {
+            this.description = description;
             return this;
         }
 

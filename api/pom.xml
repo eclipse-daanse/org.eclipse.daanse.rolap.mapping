@@ -20,4 +20,12 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.api</artifactId>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rdb.structure.api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 </project>

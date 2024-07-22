@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 
 public class RolapContextMappingImpl extends AbstractElementMappingImpl implements RolapContextMapping {
@@ -23,7 +24,7 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
 
     private List<SchemaMappingImpl> schemas;
 
-    private List<CubeMappingImpl> cubes;
+    private List<? extends CubeMappingImpl> cubes;
 
     private List<DimensionMappingImpl> dimensions;
 
@@ -33,7 +34,7 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
 
     private List<FormatterMappingImpl> formatters;
 
-    private List<DatabaseSchemaMappingImpl> dbschemas;
+    private List<DatabaseSchemaImpl> dbschemas;
 
     private List<MeasureMappingImpl> measures;
 
@@ -71,11 +72,11 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
         this.schemas = schemas;
     }
 
-    public List<CubeMappingImpl> getCubes() {
+    public List<? extends CubeMappingImpl> getCubes() {
         return cubes;
     }
 
-    public void setCubes(List<CubeMappingImpl> cubes) {
+    public void setCubes(List<? extends CubeMappingImpl> cubes) {
         this.cubes = cubes;
     }
 
@@ -111,11 +112,11 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
         this.formatters = formatters;
     }
 
-    public List<DatabaseSchemaMappingImpl> getDbschemas() {
+    public List<DatabaseSchemaImpl> getDbschemas() {
         return dbschemas;
     }
 
-    public void setDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
+    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
         this.dbschemas = dbschemas;
     }
 
@@ -171,7 +172,7 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
         private List<HierarchyMappingImpl> hierarchies = Collections.emptyList();
         private List<LevelMappingImpl> levels = Collections.emptyList();
         private List<FormatterMappingImpl> formatters = Collections.emptyList();
-        private List<DatabaseSchemaMappingImpl> dbschemas = Collections.emptyList();
+        private List<DatabaseSchemaImpl> dbschemas = Collections.emptyList();
         private List<MeasureMappingImpl> measures = Collections.emptyList();
         private List<AccessRoleMappingImpl> accessRoles = Collections.emptyList();
         private List<AggregationTableMappingImpl> aggregationTables = Collections.emptyList();
@@ -220,7 +221,7 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
             return this;
         }
 
-        public Builder withDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
+        public Builder withDbschemas(List<DatabaseSchemaImpl> dbschemas) {
             this.dbschemas = dbschemas;
             return this;
         }

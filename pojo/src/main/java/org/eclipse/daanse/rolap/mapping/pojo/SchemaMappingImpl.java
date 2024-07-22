@@ -21,7 +21,7 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
 
     private List<ParameterMappingImpl> parameters;
 
-    private List<CubeMappingImpl> cubes;
+    private List<? extends CubeMappingImpl> cubes;
 
     private List<NamedSetMappingImpl> namedSets;
 
@@ -53,11 +53,11 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
         this.parameters = parameters;
     }
 
-    public List<CubeMappingImpl> getCubes() {
+    public List<? extends CubeMappingImpl> getCubes() {
         return cubes;
     }
 
-    public void setCubes(List<CubeMappingImpl> cubes) {
+    public void setCubes(List<? extends CubeMappingImpl> cubes) {
         this.cubes = cubes;
     }
 

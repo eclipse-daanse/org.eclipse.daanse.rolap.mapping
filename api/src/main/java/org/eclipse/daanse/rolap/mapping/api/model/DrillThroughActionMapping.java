@@ -18,7 +18,7 @@ public interface DrillThroughActionMapping extends ActionMappingMapping {
 
     List<? extends DrillThroughAttributeMapping> getDrillThroughAttribute();
 
-    List<? extends DrillThroughMeasureMapping> getDrillThroughMeasure();
+    List<? extends MeasureMapping> getDrillThroughMeasure();
 
     boolean isDefault();
 

@@ -17,11 +17,11 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
 
-public class InlineTableRowMappingMappingImpl implements InlineTableRowMappingMapping {
+public class InlineTableRowMappingImpl implements InlineTableRowMappingMapping {
 
     private List<InlineTableRowCellMappingImpl> cells;
 
-    private InlineTableRowMappingMappingImpl(Builder builder) {
+    private InlineTableRowMappingImpl(Builder builder) {
         this.cells = builder.cells;
     }
 
@@ -48,8 +48,8 @@ public class InlineTableRowMappingMappingImpl implements InlineTableRowMappingMa
             return this;
         }
 
-        public InlineTableRowMappingMappingImpl build() {
-            return new InlineTableRowMappingMappingImpl(this);
+        public InlineTableRowMappingImpl build() {
+            return new InlineTableRowMappingImpl(this);
         }
     }
 }

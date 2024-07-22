@@ -22,10 +22,10 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 
@@ -53,9 +53,10 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
 
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withName("Fact").build();
 
-    private final static SumMeasureMappingImpl measure = SumMeasureMappingImpl.builder()
+    private final static MeasureMappingImpl measure = MeasureMappingImpl.builder()
             .withName("Measure-Sum")
             .withColumn("VALUE")
+            .withType("sum")
             .build();
 
     private final static MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder()

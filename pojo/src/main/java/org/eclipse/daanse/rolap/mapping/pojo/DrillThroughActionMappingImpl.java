@@ -21,7 +21,7 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
 
     private List<DrillThroughAttributeMappingImpl> drillThroughAttribute;
 
-    private List<DrillThroughMeasureMappingImpl> drillThroughMeasure;
+    private List<MeasureMappingImpl> drillThroughMeasure;
 
     private boolean theDefault;
 
@@ -44,11 +44,11 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
         this.drillThroughAttribute = drillThroughAttribute;
     }
 
-    public List<DrillThroughMeasureMappingImpl> getDrillThroughMeasure() {
+    public List<MeasureMappingImpl> getDrillThroughMeasure() {
         return drillThroughMeasure;
     }
 
-    public void setDrillThroughMeasure(List<DrillThroughMeasureMappingImpl> drillThroughMeasure) {
+    public void setDrillThroughMeasure(List<MeasureMappingImpl> drillThroughMeasure) {
         this.drillThroughMeasure = drillThroughMeasure;
     }
 
@@ -66,7 +66,7 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
 
     public static final class Builder {
         private List<DrillThroughAttributeMappingImpl> drillThroughAttribute = Collections.emptyList();
-        private List<DrillThroughMeasureMappingImpl> drillThroughMeasure = Collections.emptyList();
+        private List<MeasureMappingImpl> drillThroughMeasure = Collections.emptyList();
         private boolean theDefault;
         private List<AnnotationMappingImpl> annotations = Collections.emptyList();
         private String id;
@@ -82,7 +82,7 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
             return this;
         }
 
-        public Builder withDrillThroughMeasure(List<DrillThroughMeasureMappingImpl> drillThroughMeasure) {
+        public Builder withDrillThroughMeasure(List<MeasureMappingImpl> drillThroughMeasure) {
             this.drillThroughMeasure = drillThroughMeasure;
             return this;
         }

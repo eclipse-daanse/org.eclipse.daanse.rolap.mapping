@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
+
 public interface RolapContextMapping {
 
     List<? extends CatalogMapping> getCatalogs();
@@ -30,7 +32,7 @@ public interface RolapContextMapping {
 
     List<? extends FormatterMapping> getFormatters();
 
-    List<? extends DatabaseSchemaMapping> getDbschemas();
+    List<? extends DatabaseSchema> getDbschemas();
 
     List<? extends MeasureMapping> getMeasures();
 

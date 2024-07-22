@@ -17,6 +17,7 @@ import java.io.InputStream;
 
 import org.eclipse.daanse.rolap.mapping.mondrian.api.RolapMappingTransformer;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Schema;
+import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
@@ -34,7 +35,7 @@ public class EmfTransformer implements RolapMappingTransformer {
     }
 
     @Override
-    public org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapContext transform(InputStream inputStream) {
+    public RolapContextMappingImpl transform(InputStream inputStream) {
         try {
             Schema mondrianSchema = read(inputStream);
             TransformTask task = new TransformTask(mondrianSchema);
