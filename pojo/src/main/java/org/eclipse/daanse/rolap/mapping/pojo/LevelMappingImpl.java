@@ -55,6 +55,8 @@ public class LevelMappingImpl implements LevelMapping {
 
     private String parentColumn;
 
+    private String table;
+
     private String type;
 
     private boolean uniqueMembers;
@@ -86,6 +88,7 @@ public class LevelMappingImpl implements LevelMapping {
         this.nullParentValue = builder.nullParentValue;
         this.ordinalColumn = builder.ordinalColumn;
         this.parentColumn = builder.parentColumn;
+        this.table = builder.table;
         this.type = builder.type;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
@@ -238,6 +241,14 @@ public class LevelMappingImpl implements LevelMapping {
         this.parentColumn = parentColumn;
     }
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
     public String getType() {
         return type;
     }
@@ -309,6 +320,7 @@ public class LevelMappingImpl implements LevelMapping {
         private String nullParentValue;
         private String ordinalColumn;
         private String parentColumn;
+        private String table;
         private String type;
         private boolean uniqueMembers;
         private boolean visible;
@@ -406,6 +418,11 @@ public class LevelMappingImpl implements LevelMapping {
 
         public Builder withParentColumn(String parentColumn) {
             this.parentColumn = parentColumn;
+            return this;
+        }
+
+        public Builder withTable(String table) {
+            this.table = table;
             return this;
         }
 

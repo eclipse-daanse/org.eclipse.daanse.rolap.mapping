@@ -52,6 +52,8 @@ public interface LevelMapping {
 
     String getParentColumn();
 
+    String getTable();
+
     String getType();
 
     boolean isUniqueMembers();
