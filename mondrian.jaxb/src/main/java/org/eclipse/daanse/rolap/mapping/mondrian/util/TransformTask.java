@@ -248,7 +248,7 @@ public class TransformTask {
         SchemaMappingImpl s = SchemaMappingImpl.builder().build();
 
         List<DimensionMappingImpl> dimensionsShared = transformSharedDimensions(mondrianSchema.dimensions());
-        rolapContext.setDimensions(dimensionsShared);
+        rolapContext.getDimensions().addAll(dimensionsShared);
         List<PhysicalCubeMappingImpl> physicalCubes = transformPhysicalCubes(mondrianSchema.cubes());
         List<VirtualCubeMappingImpl> virtualCubes = transformVirtualCubes(mondrianSchema.virtualCubes());
         List<? extends CubeMappingImpl> allCubes = Stream.concat(physicalCubes.stream(), virtualCubes.stream())
@@ -447,7 +447,7 @@ public class TransformTask {
         dim.setVisible(dimension.visible());
         dim.setAnnotations(transformAnnotations(dimension.annotations()));
         List<HierarchyMappingImpl> hierarchies = transformHierarchies(dimension.hierarchies());
-        rolapContext.setHierarchies(hierarchies);
+        rolapContext.getHierarchies().addAll(hierarchies);
         dim.setHierarchies(hierarchies);
         return dim;
     }
@@ -527,7 +527,7 @@ public class TransformTask {
         h.setUniqueKeyLevelName(hierarchy.uniqueKeyLevelName());
         h.setVisible(hierarchy.visible());
         List<LevelMappingImpl> lvls = transformLevels(hierarchy.levels());
-        rolapContext.setLevels(lvls);
+        rolapContext.getLevels().addAll(lvls);
         h.setLevels(lvls);
         List<MemberReaderParameterMappingImpl> mrps = transformMemberReaderParameters(
                 hierarchy.memberReaderParameters());
@@ -684,7 +684,7 @@ public class TransformTask {
 
     private MeasureGroupMappingImpl transformMeasureGroup(List<Measure> measures) {
         List<MeasureMappingImpl> ms = transformMeasures(measures);
-        rolapContext.setMeasures(ms);
+        rolapContext.getMeasures().addAll(ms);
         MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder().build();
         measureGroup.setName("");
         measureGroup.setMeasures(ms);

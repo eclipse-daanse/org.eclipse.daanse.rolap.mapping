@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
@@ -165,19 +165,19 @@ public class RolapContextMappingImpl extends AbstractElementMappingImpl implemen
     }
 
     public static final class Builder {
-        private List<CatalogMappingImpl> catalogs = Collections.emptyList();
-        private List<SchemaMappingImpl> schemas = Collections.emptyList();
-        private List<CubeMappingImpl> cubes = Collections.emptyList();
-        private List<DimensionMappingImpl> dimensions = Collections.emptyList();
-        private List<HierarchyMappingImpl> hierarchies = Collections.emptyList();
-        private List<LevelMappingImpl> levels = Collections.emptyList();
-        private List<FormatterMappingImpl> formatters = Collections.emptyList();
-        private List<DatabaseSchemaImpl> dbschemas = Collections.emptyList();
-        private List<MeasureMappingImpl> measures = Collections.emptyList();
-        private List<AccessRoleMappingImpl> accessRoles = Collections.emptyList();
-        private List<AggregationTableMappingImpl> aggregationTables = Collections.emptyList();
-        private List<AggregationExcludeMappingImpl> aggregationExcludes = Collections.emptyList();
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<CatalogMappingImpl> catalogs = new ArrayList<>();
+        private List<SchemaMappingImpl> schemas = new ArrayList<>();
+        private List<CubeMappingImpl> cubes = new ArrayList<>();
+        private List<DimensionMappingImpl> dimensions = new ArrayList<>();
+        private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
+        private List<LevelMappingImpl> levels = new ArrayList<>();
+        private List<FormatterMappingImpl> formatters = new ArrayList<>();
+        private List<DatabaseSchemaImpl> dbschemas = new ArrayList<>();
+        private List<MeasureMappingImpl> measures = new ArrayList<>();
+        private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
+        private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
+        private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;
