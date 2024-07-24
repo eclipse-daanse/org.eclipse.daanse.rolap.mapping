@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
@@ -71,8 +71,8 @@ public class WritebackTableMappingImpl implements WritebackTableMapping {
     }
 
     public static final class Builder {
-        private List<WritebackAttributeMappingImpl> writebackAttribute = Collections.emptyList();
-        private List<WritebackMeasureMappingImpl> writebackMeasure = Collections.emptyList();
+        private List<WritebackAttributeMappingImpl> writebackAttribute = new ArrayList<>();
+        private List<WritebackMeasureMappingImpl> writebackMeasure = new ArrayList<>();
         private String name;
         private String schema;
 

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
@@ -86,7 +86,7 @@ public class TranslationMappingImpl implements TranslationMapping {
         private String caption;
         private String description;
         private String displayFolder;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
 
         private Builder() {
         }

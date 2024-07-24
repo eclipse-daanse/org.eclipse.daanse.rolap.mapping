@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
@@ -49,7 +49,7 @@ public class SQLMappingImpl implements SQLMapping {
     }
 
     public static final class Builder {
-        private List<String> dialects = Collections.emptyList();
+        private List<String> dialects = new ArrayList<>();
         private String statement;
 
         private Builder() {

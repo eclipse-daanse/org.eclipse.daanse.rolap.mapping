@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
@@ -308,7 +308,7 @@ public class LevelMappingImpl implements LevelMapping {
         private SQLExpressionMappingImpl ordinalExpression;
         private SQLExpressionMappingImpl parentExpression;
         private ParentChildLinkMappingImpl parentChildLink;
-        private List<MemberPropertyMappingImpl> memberProperties = Collections.emptyList();
+        private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
         private String approxRowCount;
         private String captionColumn;

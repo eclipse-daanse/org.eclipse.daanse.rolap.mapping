@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
@@ -80,7 +80,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         private String column;
         private boolean dependsOnLevelValue;
         private String type;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

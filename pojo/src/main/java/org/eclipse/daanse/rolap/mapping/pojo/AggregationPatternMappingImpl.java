@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
@@ -58,13 +58,13 @@ public class AggregationPatternMappingImpl extends AggregationTableMappingImpl i
 
     public static final class Builder {
         private String pattern;
-        private List<AggregationExcludeMappingImpl> excludes = Collections.emptyList();
+        private List<AggregationExcludeMappingImpl> excludes = new ArrayList<>();
         private AggregationColumnNameMappingImpl aggregationFactCount;
-        private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns = Collections.emptyList();
-        private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys = Collections.emptyList();
-        private List<AggregationMeasureMappingImpl> aggregationMeasures = Collections.emptyList();
-        private List<AggregationLevelMappingImpl> aggregationLevels = Collections.emptyList();
-        private List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts = Collections.emptyList();
+        private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns = new ArrayList<>();
+        private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys = new ArrayList<>();
+        private List<AggregationMeasureMappingImpl> aggregationMeasures = new ArrayList<>();
+        private List<AggregationLevelMappingImpl> aggregationLevels = new ArrayList<>();
+        private List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts = new ArrayList<>();
         private boolean ignorecase;
         private String id;
 

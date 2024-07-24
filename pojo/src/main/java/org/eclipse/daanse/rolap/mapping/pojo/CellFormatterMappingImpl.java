@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
@@ -34,7 +34,7 @@ public class CellFormatterMappingImpl extends FormatterMappingImpl implements Ce
 
     public static final class Builder {
         private String ref;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
@@ -49,7 +49,7 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
     }
 
     public static final class Builder {
-        private List<AccessCubeGrantMappingImpl> cubeGrant = Collections.emptyList();
+        private List<AccessCubeGrantMappingImpl> cubeGrant = new ArrayList<>();
         private String access;
 
         private Builder() {

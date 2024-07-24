@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
@@ -104,7 +104,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
     }
 
     public static final class Builder {
-        private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = Collections.emptyList();
+        private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = new ArrayList<>();
         private String captionColumn;
         private boolean collapsed;
         private String column;

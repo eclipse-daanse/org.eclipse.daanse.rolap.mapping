@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
@@ -93,7 +93,7 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
     }
 
     public static final class Builder {
-        private List<AccessMemberGrantMappingImpl> memberGrants = Collections.emptyList();
+        private List<AccessMemberGrantMappingImpl> memberGrants = new ArrayList<>();
         private String access;
         private LevelMappingImpl bottomLevel;
         private String rollupPolicy;

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
@@ -35,10 +35,10 @@ public class StandardDimensionMappingImpl extends DimensionMappingImpl implement
     }
 
     public static final class Builder {
-        private List<HierarchyMappingImpl> hierarchies = Collections.emptyList();
+        private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
         private String usagePrefix;
         private boolean visible;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

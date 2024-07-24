@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
@@ -39,7 +39,7 @@ public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implem
     }
 
     public static final class Builder {
-        private List<SQLMappingImpl> sql = Collections.emptyList();
+        private List<SQLMappingImpl> sql = new ArrayList<>();
         private String alias;
 
         private Builder() {

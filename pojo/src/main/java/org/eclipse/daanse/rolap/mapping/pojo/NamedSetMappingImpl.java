@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
@@ -56,7 +56,7 @@ public class NamedSetMappingImpl extends AbstractElementMappingImpl implements N
     public static final class Builder {
         private String displayFolder;
         private String formula;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

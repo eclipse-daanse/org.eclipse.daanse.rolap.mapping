@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
@@ -98,13 +98,13 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
     }
 
     public static final class Builder {
-        private List<ParameterMappingImpl> parameters = Collections.emptyList();
-        private List<CubeMappingImpl> cubes = Collections.emptyList();
-        private List<NamedSetMappingImpl> namedSets = Collections.emptyList();
-        private List<AccessRoleMappingImpl> accessRoles = Collections.emptyList();
+        private List<ParameterMappingImpl> parameters = new ArrayList<>();
+        private List<CubeMappingImpl> cubes = new ArrayList<>();
+        private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
+        private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
         private AccessRoleMappingImpl defaultAccessRole;
         private String measuresDimensionName;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

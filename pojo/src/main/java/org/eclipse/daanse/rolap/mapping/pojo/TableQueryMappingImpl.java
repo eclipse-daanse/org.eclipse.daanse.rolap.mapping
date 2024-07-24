@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
@@ -95,11 +95,11 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
 
     public static final class Builder {
         private SQLMappingImpl sqlWhereExpression;
-        private List<AggregationExcludeMappingImpl> aggregationExcludes = Collections.emptyList();
-        private List<TableQueryOptimizationHintMappingImpl> optimizationHints = Collections.emptyList();
+        private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
+        private List<TableQueryOptimizationHintMappingImpl> optimizationHints = new ArrayList<>();
         private String name;
         private String schema;
-        private List<AggregationTableMappingImpl> aggregationTables = Collections.emptyList();
+        private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
         private String alias;
 
         private Builder() {

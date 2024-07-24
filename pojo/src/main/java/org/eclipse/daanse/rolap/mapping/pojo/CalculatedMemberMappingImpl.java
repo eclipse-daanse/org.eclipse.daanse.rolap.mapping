@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
@@ -131,7 +131,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
     }
 
     public static final class Builder {
-        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = Collections.emptyList();
+        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String formula;
         private String displayFolder;
@@ -140,7 +140,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         private DimensionConnectorMappingImpl dimensionConector;
         private String parent;
         private boolean visible;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

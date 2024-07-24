@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
@@ -49,7 +49,7 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
     }
 
     public static final class Builder {
-        private List<MeasureMappingImpl> measures = Collections.emptyList();
+        private List<MeasureMappingImpl> measures = new ArrayList<>();
         private String name;
 
         private Builder() {

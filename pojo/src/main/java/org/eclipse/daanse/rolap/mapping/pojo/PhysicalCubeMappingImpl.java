@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -86,17 +86,17 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
     public static final class Builder {
         private QueryMappingImpl query;
         private WritebackTableMappingImpl writebackTable;
-        private List<ActionMappingMappingImpl> action = Collections.emptyList();
+        private List<ActionMappingMappingImpl> action = new ArrayList<>();
         private boolean cache;
-        private List<DimensionConnectorMappingImpl> dimensionConnectors = Collections.emptyList();
-        private List<CalculatedMemberMappingImpl> calculatedMembers = Collections.emptyList();
-        private List<NamedSetMappingImpl> namedSets = Collections.emptyList();
-        private List<KpiMappingImpl> kpis = Collections.emptyList();
+        private List<DimensionConnectorMappingImpl> dimensionConnectors = new ArrayList<>();
+        private List<CalculatedMemberMappingImpl> calculatedMembers = new ArrayList<>();
+        private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
+        private List<KpiMappingImpl> kpis = new ArrayList<>();
         private MeasureMappingImpl defaultMeasure;
         private boolean enabled;
         private boolean visible;
-        private List<MeasureGroupMappingImpl> measureGroups = Collections.emptyList();
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<MeasureGroupMappingImpl> measureGroups = new ArrayList<>();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
@@ -171,7 +171,7 @@ public class MeasureMappingImpl implements MeasureMapping {
 
     public static final class Builder {
         private SQLExpressionMappingImpl measureExpression;
-        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty = Collections.emptyList();
+        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
         private String column;

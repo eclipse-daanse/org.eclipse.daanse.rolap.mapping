@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
@@ -164,7 +164,7 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
     }
 
     public static final class Builder {
-        private List<TranslationMappingImpl> translations = Collections.emptyList();
+        private List<TranslationMappingImpl> translations = new ArrayList<>();
         private String displayFolder;
         private String associatedMeasureGroupID;
         private String value;
@@ -176,7 +176,7 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
         private String statusGraphic;
         private String currentTimeMember;
         private String parentKpiID;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

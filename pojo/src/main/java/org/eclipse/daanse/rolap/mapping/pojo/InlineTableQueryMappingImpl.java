@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
@@ -50,8 +50,8 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
     }
 
     public static final class Builder {
-        private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions = Collections.emptyList();
-        private List<InlineTableRowMappingImpl> rows = Collections.emptyList();
+        private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions = new ArrayList<>();
+        private List<InlineTableRowMappingImpl> rows = new ArrayList<>();
         private String alias;
 
         private Builder() {

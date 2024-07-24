@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
@@ -196,8 +196,8 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
     }
 
     public static final class Builder {
-        private List<LevelMappingImpl> levels = Collections.emptyList();
-        private List<MemberReaderParameterMappingImpl> memberReaderParameters = Collections.emptyList();
+        private List<LevelMappingImpl> levels = new ArrayList<>();
+        private List<MemberReaderParameterMappingImpl> memberReaderParameters = new ArrayList<>();
         private String allLevelName;
         private String allMemberCaption;
         private String allMemberName;
@@ -211,7 +211,7 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         private String uniqueKeyLevelName;
         private boolean visible;
         private QueryMappingImpl query;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
@@ -71,8 +71,8 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
     }
 
     public static final class Builder {
-        private List<AccessDimensionGrantMappingImpl> dimensionGrants = Collections.emptyList();
-        private List<AccessHierarchyGrantMappingImpl> hierarchyGrants = Collections.emptyList();
+        private List<AccessDimensionGrantMappingImpl> dimensionGrants = new ArrayList<>();
+        private List<AccessHierarchyGrantMappingImpl> hierarchyGrants = new ArrayList<>();
         private String access;
         private CubeMappingImpl cube;
 

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping;
@@ -60,11 +60,11 @@ public class AggregationNameMappingImpl extends AggregationTableMappingImpl impl
         private String approxRowCount;
         private String name;
         private AggregationColumnNameMappingImpl aggregationFactCount;
-        private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns = Collections.emptyList();
-        private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys = Collections.emptyList();
-        private List<AggregationMeasureMappingImpl> aggregationMeasures = Collections.emptyList();
-        private List<AggregationLevelMappingImpl> aggregationLevels = Collections.emptyList();
-        private List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts = Collections.emptyList();
+        private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns = new ArrayList<>();
+        private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys = new ArrayList<>();
+        private List<AggregationMeasureMappingImpl> aggregationMeasures = new ArrayList<>();
+        private List<AggregationLevelMappingImpl> aggregationLevels = new ArrayList<>();
+        private List<AggregationMeasureFactCountMappingImpl> aggregationMeasureFactCounts = new ArrayList<>();
         private boolean ignorecase;
         private String id;
 

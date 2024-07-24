@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
@@ -65,10 +65,10 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
     }
 
     public static final class Builder {
-        private List<DrillThroughAttributeMappingImpl> drillThroughAttribute = Collections.emptyList();
-        private List<MeasureMappingImpl> drillThroughMeasure = Collections.emptyList();
+        private List<DrillThroughAttributeMappingImpl> drillThroughAttribute = new ArrayList<>();
+        private List<MeasureMappingImpl> drillThroughMeasure = new ArrayList<>();
         private boolean theDefault;
-        private List<AnnotationMappingImpl> annotations = Collections.emptyList();
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;
