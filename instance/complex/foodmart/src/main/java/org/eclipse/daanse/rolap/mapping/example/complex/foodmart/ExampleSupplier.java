@@ -60,395 +60,686 @@ import org.osgi.service.component.annotations.Component;
 @Component
 public class ExampleSupplier implements RolapContextMappingSupplier {
 
-    private final static String name = "FoodMart";
+    private static final String MEMBER_ORDINAL = "MEMBER_ORDINAL";
 
-    private final static String documentation_text = "";
+    private static final String MARITAL_STATUS2 = "marital_status";
 
-    private final static DocumentationMappingImpl documentation = new DocumentationMappingImpl(documentation_text);
+    private static final String GENDER2 = "gender";
 
-    private final static TableQueryMappingImpl storeTable = TableQueryMappingImpl.builder().withName("store").build();
-    private final static TableQueryMappingImpl timeByDayTable = TableQueryMappingImpl.builder().withName("time_by_day"
+    private static final String BOOLEAN = "Boolean";
+
+    private static final String MEAT_SQFT2 = "meat_sqft";
+
+    private static final String FROZEN_SQFT2 = "frozen_sqft";
+
+    private static final String FORMAT_STRING3 = "$#,##0.00";
+
+    private static final String FORMAT_STRING2 = "FORMAT_STRING";
+
+    private static final String STRING = "String";
+
+    private static final String DISTINCT_COUNT = "distinct-count";
+
+    private static final String COUNT = "count";
+
+    private static final String SUM = "sum";
+
+    private static final String FORMAT_STRING1 = "#,###.00";
+
+    private static final String GENERIC = "generic";
+
+    private static final String TERADATA = "teradata";
+
+    private static final String MARIADB = "mariadb";
+
+    private static final String MYSQL = "mysql";
+
+    private static final String MSSQL = "mssql";
+
+    private static final String ACCESS = "access";
+
+    private static final String HIVE = "hive";
+
+    private static final String FORMAT_STRING = "#,###";
+
+    private static final String SNOWFLAKE = "snowflake";
+
+    private static final String NUODB = "nuodb";
+
+    private static final String DB2 = "db2";
+
+    private static final String LUCIDDB = "luciddb";
+
+    private static final String DERBY = "derby";
+
+    private static final String NEOVIEW = "neoview";
+
+    private static final String POSTGRES = "postgres";
+
+    private static final String HSQLDB = "hsqldb";
+
+    private static final String CURRENCY = "Currency";
+
+    private static final String STORE_STREET_ADDRESS = "store_street_address";
+
+    private static final String COFFEE_BAR = "coffee_bar";
+
+    private static final String GROCERY_SQFT2 = "grocery_sqft";
+
+    private static final String STORE_MANAGER2 = "store_manager";
+
+    private static final String H2 = "h2";
+
+    private static final String ORACLE = "oracle";
+
+    private static final String NAME2 = "Name";
+
+    private static final String CITY2 = "city";
+
+    private static final String STATE_PROVINCE2 = "state_province";
+
+    private static final String COUNTRY2 = "country";
+
+    private static final String PROMOTION_NAME2 = "promotion_name";
+
+    private static final String PROMOTION_NAME = "Promotion Name";
+
+    private static final String MEDIA_TYPE2 = "media_type";
+
+    private static final String MEDIA_TYPE = "Media Type";
+
+    private static final String WAREHOUSE_NAME2 = "warehouse_name";
+
+    private static final String WAREHOUSE_NAME = "Warehouse Name";
+
+    private static final String WAREHOUSE_CITY = "warehouse_city";
+
+    private static final String CITY = "City";
+
+    private static final String WAREHOUSE_STATE_PROVINCE = "warehouse_state_province";
+
+    private static final String STATE_PROVINCE = "State Province";
+
+    private static final String STATE = "State";
+
+    private static final String WAREHOUSE_COUNTRY = "warehouse_country";
+
+    private static final String COUNTRY = "Country";
+
+    private static final String PRODUCT_NAME2 = "product_name";
+
+    private static final String BRAND_NAME2 = "brand_name";
+
+    private static final String PRODUCT_SUBCATEGORY2 = "product_subcategory";
+
+    private static final String PRODUCT_CATEGORY2 = "product_category";
+
+    private static final String EMPLOYEE_ID = "employee_id";
+
+    private static final String ALL_EMPLOYEES = "All Employees";
+
+    private static final String GEOGRAPHY = "Geography";
+
+    private static final String DEPARTMENT_ID = "department_id";
+
+    private static final String EMPLOYEES = "Employees";
+
+    private static final String DEPARTMENT = "Department";
+
+    private static final String POSITION2 = "Position";
+
+    private static final String PAY_TYPE = "Pay Type";
+
+    private static final String YEARLY_INCOME = "Yearly Income";
+
+    private static final String ALL_MARITAL_STATUS = "All Marital Status";
+
+    private static final String MARITAL_STATUS = "Marital Status";
+
+    private static final String GENDER = "Gender";
+
+    private static final String ALL_GENDER = "All Gender";
+
+    private static final String EDUCATION_LEVEL = "Education Level";
+
+    private static final String CUSTOMERS = "Customers";
+
+    private static final String ALL_CUSTOMERS = "All Customers";
+
+    private static final String ALL_PROMOTIONS = "All Promotions";
+
+    private static final String PROMOTIONS = "Promotions";
+
+    private static final String ALL_MEDIA = "All Media";
+
+    private static final String PROMOTION_MEDIA = "Promotion Media";
+
+    private static final String PROMOTION_ID = "promotion_id";
+
+    private static final String CUSTOMER_ID = "customer_id";
+
+    private static final String BAR = "bar";
+
+    private static final String FOO = "foo";
+
+    private static final String FACT_COUNT = "FACT_COUNT";
+
+    private static final String WAREHOUSE_ID = "warehouse_id";
+
+    private static final String SALES_FACT_1997 = "sales_fact_1997";
+
+    private static final String WAREHOUSE = "Warehouse";
+
+    private static final String PRODUCT_NAME = "Product Name";
+
+    private static final String BRAND_NAME = "Brand Name";
+
+    private static final String PRODUCT_SUBCATEGORY = "Product Subcategory";
+
+    private static final String PRODUCT_CATEGORY = "Product Category";
+
+    private static final String DETAILS = "Details";
+
+    private static final String PRODUCT_ID = "product_id";
+
+    private static final String PRODUCT2 = "Product";
+
+    private static final String THE_DATE = "the_date";
+
+    private static final String TIME_ID = "time_id";
+
+    private static final String TIME = "Time";
+
+    private static final String STORE_SIZE_IN_SQFT = "Store Size in SQFT";
+
+    private static final String STORE2 = "Store";
+
+    private static final String PRODUCT_DEPARTMENT2 = "product_department";
+
+    private static final String PRODUCT_DEPARTMENT = "Product Department";
+
+    private static final String PRODUCT_FAMILY2 = "product_family";
+
+    private static final String PRODUCT_FAMILY = "Product Family";
+
+    private static final String STORE_TYPE2 = "store_type";
+
+    private static final String THE_MONTH = "the_month";
+
+    private static final String TIME_MONTHS = "TimeMonths";
+
+    private static final String MONTH_OF_YEAR = "month_of_year";
+
+    private static final String MONTH = "Month";
+
+    private static final String QUARTER2 = "quarter";
+
+    private static final String QUARTER = "Quarter";
+
+    private static final String TIME_YEARS = "TimeYears";
+
+    private static final String THE_YEAR = "the_year";
+
+    private static final String YEAR = "Year";
+
+    private static final String NUMERIC = "Numeric";
+
+    private static final String STORE_SQFT2 = "store_sqft";
+
+    private static final String STREET_ADDRESS = "Street address";
+
+    private static final String HAS_COFFEE_BAR = "Has coffee bar";
+
+    private static final String MEAT_SQFT = "Meat Sqft";
+
+    private static final String FROZEN_SQFT = "Frozen Sqft";
+
+    private static final String GROCERY_SQFT = "Grocery Sqft";
+
+    private static final String STORE_SQFT = "Store Sqft";
+
+    private static final String STORE_MANAGER = "Store Manager";
+
+    private static final String STORE_TYPE = "Store Type";
+
+    private static final String STORE_NAME2 = "store_name";
+
+    private static final String STORE_NAME = "Store Name";
+
+    private static final String IF_BLANK_NAME = "IfBlankName";
+
+    private static final String IF_PARENTS_NAME = "IfParentsName";
+
+    private static final String NEVER = "Never";
+
+    private static final String STORE_STATE2 = "store_state";
+
+    private static final String STORE_STATE = "Store State";
+
+    private static final String STORE_COUNTRY2 = "store_country";
+
+    private static final String STORE_COUNTRY = "Store Country";
+
+    private static final String STORE_RAGGED = "store_ragged";
+
+    private static final String EMPLOYEE_CLOSURE = "employee_closure";
+
+    private static final String SALARY = "salary";
+
+    private static final String STORE_CITY2 = "store_city";
+
+    private static final String STORE_CITY = "Store City";
+
+    private static final String POSITION = "position";
+
+    private static final String POSITION_ID = "position_id";
+
+    private static final String POSITION_ID2 = POSITION_ID;
+
+    private static final String STORE_ID = "store_id";
+
+    private static final String EMPLOYEE = "employee";
+
+    private static final String PRODUCT_CLASS = "product_class";
+
+    private static final String PRODUCT_CLASS_ID = "product_class_id";
+
+    private static final String PRODUCT = "product";
+
+    private static final String STORE = "store";
+
+    private static final String NAME = "FoodMart";
+
+    private static final String DOCUMENTATION_TEXT = "";
+
+    private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
+
+    private static final TableQueryMappingImpl storeTable = TableQueryMappingImpl.builder().withName(STORE).build();
+    private static final TableQueryMappingImpl timeByDayTable = TableQueryMappingImpl.builder().withName("time_by_day"
     ).build();
-    private final static TableQueryMappingImpl productTable =
-        TableQueryMappingImpl.builder().withName("product").build();
-    private final static TableQueryMappingImpl productClassTable = TableQueryMappingImpl.builder().withName(
-        "product_class").build();
-    private final static TableQueryMappingImpl employeeTable = TableQueryMappingImpl.builder().withName(
-        "employee").build();
-    private final static TableQueryMappingImpl positionTable = TableQueryMappingImpl.builder().withName(
-        "position").build();
-    private final static TableQueryMappingImpl salaryTable = TableQueryMappingImpl.builder().withName(
-        "salary").build();
-    private final static TableQueryMappingImpl employeeClosureTable = TableQueryMappingImpl.builder().withName(
-        "employee_closure").build();
-    private final static TableQueryMappingImpl storeRaggedTable = TableQueryMappingImpl.builder().withName(
-        "store_ragged").build();
+    private static final TableQueryMappingImpl productTable =
+        TableQueryMappingImpl.builder().withName(PRODUCT).build();
+    private static final TableQueryMappingImpl productClassTable = TableQueryMappingImpl.builder().withName(
+        PRODUCT_CLASS).build();
+    private static final TableQueryMappingImpl employeeTable = TableQueryMappingImpl.builder().withName(
+        EMPLOYEE).build();
+    private static final TableQueryMappingImpl positionTable = TableQueryMappingImpl.builder().withName(
+        POSITION).build();
+    private static final TableQueryMappingImpl salaryTable = TableQueryMappingImpl.builder().withName(
+        SALARY).build();
+    private static final TableQueryMappingImpl employeeClosureTable = TableQueryMappingImpl.builder().withName(
+        EMPLOYEE_CLOSURE).build();
+    private static final TableQueryMappingImpl storeRaggedTable = TableQueryMappingImpl.builder().withName(
+        STORE_RAGGED).build();
 
-    private final static JoinQueryMappingImpl join1 = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey("product_class_id")
+    private static final JoinQueryMappingImpl join1 = JoinQueryMappingImpl.builder()
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
             .withQuery(productTable).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey("product_class_id")
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
             .withQuery(productClassTable).build()).build();
-    private final static JoinQueryMappingImpl join2 = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey("store_id")
+    private static final JoinQueryMappingImpl join2 = JoinQueryMappingImpl.builder()
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID)
             .withQuery(employeeTable).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey("store_id")
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID)
             .withQuery(storeTable).build()).build();
-    private final static JoinQueryMappingImpl join3 = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey("position_id")
+    private static final JoinQueryMappingImpl join3 = JoinQueryMappingImpl.builder()
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID2)
             .withQuery(employeeTable).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey("position_id")
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID2)
             .withQuery(positionTable).build()).build();
-    private final static TableQueryMappingImpl warehouseTable =
+    private static final TableQueryMappingImpl warehouseTable =
         TableQueryMappingImpl.builder().withName("warehouse").build();
-    private final static TableQueryMappingImpl promotionTable =
+    private static final TableQueryMappingImpl promotionTable =
         TableQueryMappingImpl.builder().withName("promotion").build();
-    private final static TableQueryMappingImpl customerTable =
+    private static final TableQueryMappingImpl customerTable =
         TableQueryMappingImpl.builder().withName("customer").build();
-    private final static TableQueryMappingImpl inventoryFact1997Table =
+    private static final TableQueryMappingImpl inventoryFact1997Table =
         TableQueryMappingImpl.builder().withName("inventory_fact_1997").build();
 
-    private final static LevelMappingImpl storeCountryLevel = LevelMappingImpl.builder()
-        .withName("Store Country")
-        .withColumn("store_country")
+    private static final LevelMappingImpl storeCountryLevel = LevelMappingImpl.builder()
+        .withName(STORE_COUNTRY)
+        .withColumn(STORE_COUNTRY2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl storeCountry2Level = LevelMappingImpl.builder()
-        .withName("Store Country")
-        .withColumn("store_country")
+    private static final LevelMappingImpl storeCountry2Level = LevelMappingImpl.builder()
+        .withName(STORE_COUNTRY)
+        .withColumn(STORE_COUNTRY2)
         .withUniqueMembers(true)
-        .withHideMemberIf("Never")
+        .withHideMemberIf(NEVER)
         .build();
 
-    private final static LevelMappingImpl storeCountry1Level = LevelMappingImpl.builder()
-        .withName("Store Country")
-        .withColumn("store_country")
-        .withTable("store")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl storeStateLevel = LevelMappingImpl.builder()
-        .withName("Store State")
-        .withColumn("store_state")
+    private static final LevelMappingImpl storeCountry1Level = LevelMappingImpl.builder()
+        .withName(STORE_COUNTRY)
+        .withColumn(STORE_COUNTRY2)
+        .withTable(STORE)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl storeState2Level = LevelMappingImpl.builder()
-        .withName("Store State")
-        .withColumn("store_state")
-        .withUniqueMembers(true)
-        .withHideMemberIf("IfParentsName")
-        .build();
-
-    private final static LevelMappingImpl storeState1Level = LevelMappingImpl.builder()
-        .withName("Store State")
-        .withTable("store")
-        .withColumn("store_state")
+    private static final LevelMappingImpl storeStateLevel = LevelMappingImpl.builder()
+        .withName(STORE_STATE)
+        .withColumn(STORE_STATE2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl storeCityLevel = LevelMappingImpl.builder()
-        .withName("Store City")
-        .withColumn("store_city")
+    private static final LevelMappingImpl storeState2Level = LevelMappingImpl.builder()
+        .withName(STORE_STATE)
+        .withColumn(STORE_STATE2)
+        .withUniqueMembers(true)
+        .withHideMemberIf(IF_PARENTS_NAME)
+        .build();
+
+    private static final LevelMappingImpl storeState1Level = LevelMappingImpl.builder()
+        .withName(STORE_STATE)
+        .withTable(STORE)
+        .withColumn(STORE_STATE2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl storeCityLevel = LevelMappingImpl.builder()
+        .withName(STORE_CITY)
+        .withColumn(STORE_CITY2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl storeCity2Level = LevelMappingImpl.builder()
-        .withName("Store City")
-        .withColumn("store_city")
+    private static final LevelMappingImpl storeCity2Level = LevelMappingImpl.builder()
+        .withName(STORE_CITY)
+        .withColumn(STORE_CITY2)
         .withUniqueMembers(false)
-        .withHideMemberIf("IfBlankName")
+        .withHideMemberIf(IF_BLANK_NAME)
         .build();
 
-    private final static LevelMappingImpl storeCity1Level = LevelMappingImpl.builder()
-        .withName("Store City")
-        .withTable("store")
-        .withColumn("store_city")
+    private static final LevelMappingImpl storeCity1Level = LevelMappingImpl.builder()
+        .withName(STORE_CITY)
+        .withTable(STORE)
+        .withColumn(STORE_CITY2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl storeNameLevel = LevelMappingImpl.builder()
-        .withName("Store Name")
-        .withColumn("store_name")
+    private static final LevelMappingImpl storeNameLevel = LevelMappingImpl.builder()
+        .withName(STORE_NAME)
+        .withColumn(STORE_NAME2)
         .withUniqueMembers(true)
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName("Store Type").withColumn("store_type").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Manager").withColumn("store_manager").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Sqft").withColumn("store_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Grocery Sqft").withColumn("grocery_sqft").withType("Numeric"
+            MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Frozen Sqft").withColumn("frozen_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Meat Sqft").withColumn("meat_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Has coffee bar").withColumn("coffee_bar").withType("Boolean"
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Street address").withColumn("store_street_address").withType("String").build()
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+                STRING).build()
         ))
         .build();
 
-    private final static LevelMappingImpl storeName2Level = LevelMappingImpl.builder()
-        .withName("Store Name")
-        .withColumn("store_name")
+    private static final LevelMappingImpl storeName2Level = LevelMappingImpl.builder()
+        .withName(STORE_NAME)
+        .withColumn(STORE_NAME2)
         .withUniqueMembers(true)
-        .withHideMemberIf("Never")
+        .withHideMemberIf(NEVER)
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName("Store Type").withColumn("store_type").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Manager").withColumn("store_manager").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Sqft").withColumn("store_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Grocery Sqft").withColumn("grocery_sqft").withType("Numeric"
+            MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Frozen Sqft").withColumn("frozen_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Meat Sqft").withColumn("meat_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Has coffee bar").withColumn("coffee_bar").withType("Boolean"
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Street address").withColumn("store_street_address").withType("String").build()
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+                STRING).build()
         ))
         .build();
 
-    private final static LevelMappingImpl storeName1Level = LevelMappingImpl.builder()
-        .withName("Store Name")
-        .withTable("store")
-        .withColumn("store_name")
+    private static final LevelMappingImpl storeName1Level = LevelMappingImpl.builder()
+        .withName(STORE_NAME)
+        .withTable(STORE)
+        .withColumn(STORE_NAME2)
         .withUniqueMembers(true)
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName("Store Type").withColumn("store_type").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Manager").withColumn("store_manager").build(),
-            MemberPropertyMappingImpl.builder().withName("Store Sqft").withColumn("store_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Grocery Sqft").withColumn("grocery_sqft").withType("Numeric"
+            MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Frozen Sqft").withColumn("frozen_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Meat Sqft").withColumn("meat_sqft").withType("Numeric").build(),
-            MemberPropertyMappingImpl.builder().withName("Has coffee bar").withColumn("coffee_bar").withType("Boolean"
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName("Street address").withColumn("store_street_address").withType("String").build()
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+                STRING).build()
         ))
         .build();
 
-    private final static LevelMappingImpl storeSqftLevel = LevelMappingImpl.builder()
-        .withName("Store Sqft")
-        .withColumn("store_sqft")
+    private static final LevelMappingImpl storeSqftLevel = LevelMappingImpl.builder()
+        .withName(STORE_SQFT)
+        .withColumn(STORE_SQFT2)
         .withUniqueMembers(true)
-        .withType("Numeric")
+        .withType(NUMERIC)
         .build();
 
-    private final static LevelMappingImpl yearLevel = LevelMappingImpl.builder()
-        .withName("Year")
-        .withColumn("the_year")
+    private static final LevelMappingImpl yearLevel = LevelMappingImpl.builder()
+        .withName(YEAR)
+        .withColumn(THE_YEAR)
         .withUniqueMembers(true)
-        .withType("Numeric")
-        .withLevelType("TimeYears")
+        .withType(NUMERIC)
+        .withLevelType(TIME_YEARS)
         .build();
 
-    private final static LevelMappingImpl quarterLevel = LevelMappingImpl.builder()
-        .withName("Quarter")
-        .withColumn("quarter")
+    private static final LevelMappingImpl quarterLevel = LevelMappingImpl.builder()
+        .withName(QUARTER)
+        .withColumn(QUARTER2)
         .withUniqueMembers(false)
         .withLevelType("TimeQuarters")
         .build();
 
-    private final static LevelMappingImpl monthLevel = LevelMappingImpl.builder()
-        .withName("Month")
-        .withColumn("month_of_year")
+    private static final LevelMappingImpl monthLevel = LevelMappingImpl.builder()
+        .withName(MONTH)
+        .withColumn(MONTH_OF_YEAR)
         .withUniqueMembers(false)
-        .withType("Numeric")
-        .withLevelType("TimeMonths")
+        .withType(NUMERIC)
+        .withLevelType(TIME_MONTHS)
         .build();
 
-    private final static LevelMappingImpl month1Level = LevelMappingImpl.builder()
-        .withName("Month")
-        .withColumn("month_of_year")
-        .withNameColumn("the_month")
+    private static final LevelMappingImpl month1Level = LevelMappingImpl.builder()
+        .withName(MONTH)
+        .withColumn(MONTH_OF_YEAR)
+        .withNameColumn(THE_MONTH)
         .withUniqueMembers(false)
-        .withType("Numeric")
-        .withLevelType("TimeMonths")
+        .withType(NUMERIC)
+        .withLevelType(TIME_MONTHS)
         .build();
 
-    private final static LevelMappingImpl storeTypeLevel = LevelMappingImpl.builder()
-        .withName("Store Type")
-        .withColumn("store_type")
+    private static final LevelMappingImpl storeTypeLevel = LevelMappingImpl.builder()
+        .withName(STORE_TYPE)
+        .withColumn(STORE_TYPE2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl storeType1Level = LevelMappingImpl.builder()
-        .withName("Store Type")
-        .withTable("store")
-        .withColumn("store_type")
+    private static final LevelMappingImpl storeType1Level = LevelMappingImpl.builder()
+        .withName(STORE_TYPE)
+        .withTable(STORE)
+        .withColumn(STORE_TYPE2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl productFamilyLevel = LevelMappingImpl.builder()
-        .withName("Product Family")
-        .withTable("product_class")
-        .withColumn("product_family")
+    private static final LevelMappingImpl productFamilyLevel = LevelMappingImpl.builder()
+        .withName(PRODUCT_FAMILY)
+        .withTable(PRODUCT_CLASS)
+        .withColumn(PRODUCT_FAMILY2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl productDepartmentLevel = LevelMappingImpl.builder()
-        .withName("Product Department")
-        .withTable("product_class")
-        .withColumn("product_department")
-        .withUniqueMembers(false)
-        .build();
-
-    private final static LevelMappingImpl productCategoryLevel = LevelMappingImpl.builder()
-        .withName("Product Category")
-        .withTable("product_class")
-        .withColumn("product_category")
+    private static final LevelMappingImpl productDepartmentLevel = LevelMappingImpl.builder()
+        .withName(PRODUCT_DEPARTMENT)
+        .withTable(PRODUCT_CLASS)
+        .withColumn(PRODUCT_DEPARTMENT2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl productSubcategoryLevel = LevelMappingImpl.builder()
-        .withName("Product Subcategory")
-        .withTable("product_class")
-        .withColumn("product_subcategory")
+    private static final LevelMappingImpl productCategoryLevel = LevelMappingImpl.builder()
+        .withName(PRODUCT_CATEGORY)
+        .withTable(PRODUCT_CLASS)
+        .withColumn(PRODUCT_CATEGORY2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl brandNameLevel = LevelMappingImpl.builder()
-        .withName("Brand Name")
-        .withTable("product")
-        .withColumn("brand_name")
+    private static final LevelMappingImpl productSubcategoryLevel = LevelMappingImpl.builder()
+        .withName(PRODUCT_SUBCATEGORY)
+        .withTable(PRODUCT_CLASS)
+        .withColumn(PRODUCT_SUBCATEGORY2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl productNameLevel = LevelMappingImpl.builder()
-        .withName("Product Name")
-        .withTable("product")
-        .withColumn("product_name")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl countryLevel = LevelMappingImpl.builder()
-        .withName("Country")
-        .withColumn("warehouse_country")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl country2Level = LevelMappingImpl.builder()
-        .withName("Country")
-        .withColumn("store_country")
-        .withUniqueMembers(true)
-        .withHideMemberIf("Never")
-        .build();
-
-    private final static LevelMappingImpl stateLevel = LevelMappingImpl.builder()
-        .withName("State")
-        .withColumn("store_state")
-        .withUniqueMembers(true)
-        .withHideMemberIf("IfParentsName")
-        .build();
-
-    private final static LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
-        .withName("State Province")
-        .withColumn("warehouse_state_province")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl cityLevel = LevelMappingImpl.builder()
-        .withName("City")
-        .withColumn("warehouse_city")
+    private static final LevelMappingImpl brandNameLevel = LevelMappingImpl.builder()
+        .withName(BRAND_NAME)
+        .withTable(PRODUCT)
+        .withColumn(BRAND_NAME2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl city2Level = LevelMappingImpl.builder()
-        .withName("City")
-        .withColumn("store_city")
-        .withUniqueMembers(false)
-        .withHideMemberIf("IfBlankName")
-        .build();
-
-    private final static LevelMappingImpl warehouseNameLevel = LevelMappingImpl.builder()
-        .withName("Warehouse Name")
-        .withColumn("warehouse_name")
+    private static final LevelMappingImpl productNameLevel = LevelMappingImpl.builder()
+        .withName(PRODUCT_NAME)
+        .withTable(PRODUCT)
+        .withColumn(PRODUCT_NAME2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl mediaTypeLevel = LevelMappingImpl.builder()
-        .withName("Media Type")
-        .withColumn("media_type")
+    private static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
+        .withName(COUNTRY)
+        .withColumn(WAREHOUSE_COUNTRY)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl promotionNameLevel = LevelMappingImpl.builder()
-        .withName("Promotion Name")
-        .withColumn("promotion_name")
+    private static final LevelMappingImpl country2Level = LevelMappingImpl.builder()
+        .withName(COUNTRY)
+        .withColumn(STORE_COUNTRY2)
+        .withUniqueMembers(true)
+        .withHideMemberIf(NEVER)
+        .build();
+
+    private static final LevelMappingImpl stateLevel = LevelMappingImpl.builder()
+        .withName(STATE)
+        .withColumn(STORE_STATE2)
+        .withUniqueMembers(true)
+        .withHideMemberIf(IF_PARENTS_NAME)
+        .build();
+
+    private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
+        .withName(STATE_PROVINCE)
+        .withColumn(WAREHOUSE_STATE_PROVINCE)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl country1Level = LevelMappingImpl.builder()
-        .withName("Country")
-        .withColumn("country")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl stateProvince1Level = LevelMappingImpl.builder()
-        .withName("State Province")
-        .withColumn("state_province")
-        .withUniqueMembers(true)
-        .build();
-
-    private final static LevelMappingImpl city1Level = LevelMappingImpl.builder()
-        .withName("City")
-        .withColumn("city")
+    private static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
+        .withName(CITY)
+        .withColumn(WAREHOUSE_CITY)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl nameLevel = LevelMappingImpl.builder()
-        .withName("Name")
-        .withColumn("customer_id")
-        .withType("Numeric")
+    private static final LevelMappingImpl city2Level = LevelMappingImpl.builder()
+        .withName(CITY)
+        .withColumn(STORE_CITY2)
+        .withUniqueMembers(false)
+        .withHideMemberIf(IF_BLANK_NAME)
+        .build();
+
+    private static final LevelMappingImpl warehouseNameLevel = LevelMappingImpl.builder()
+        .withName(WAREHOUSE_NAME)
+        .withColumn(WAREHOUSE_NAME2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl mediaTypeLevel = LevelMappingImpl.builder()
+        .withName(MEDIA_TYPE)
+        .withColumn(MEDIA_TYPE2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl promotionNameLevel = LevelMappingImpl.builder()
+        .withName(PROMOTION_NAME)
+        .withColumn(PROMOTION_NAME2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl country1Level = LevelMappingImpl.builder()
+        .withName(COUNTRY)
+        .withColumn(COUNTRY2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl stateProvince1Level = LevelMappingImpl.builder()
+        .withName(STATE_PROVINCE)
+        .withColumn(STATE_PROVINCE2)
+        .withUniqueMembers(true)
+        .build();
+
+    private static final LevelMappingImpl city1Level = LevelMappingImpl.builder()
+        .withName(CITY)
+        .withColumn(CITY2)
+        .withUniqueMembers(false)
+        .build();
+
+    private static final LevelMappingImpl nameLevel = LevelMappingImpl.builder()
+        .withName(NAME2)
+        .withColumn(CUSTOMER_ID)
+        .withType(NUMERIC)
         .withUniqueMembers(true)
         .withNameExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "oracle",
-                        "h2",
-                        "hsqldb",
-                        "oracle",
-                        "postgres",
-                        "luciddb",
-                        "teradata"
+                        ORACLE,
+                        H2,
+                        HSQLDB,
+                        ORACLE,
+                        POSTGRES,
+                        LUCIDDB,
+                        TERADATA
                     ))
                     .withStatement("\"fname\" || ' ' || \"lname\"")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "hive"
+                        HIVE
                     ))
                     .withStatement("`customer`.`fullname`")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "access",
-                        "mssql"
+                        ACCESS,
+                        MSSQL
                     ))
                     .withStatement("fname + ' ' + lname")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "mysql",
-                        "mariadb"
+                        MYSQL,
+                        MARIADB
                     ))
                     .withStatement("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "derby",
-                        "neoview",
-                        "snowflake"
+                        DERBY,
+                        NEOVIEW,
+                        SNOWFLAKE
                     ))
                     .withStatement("\"customer\".\"fullname\"")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "db2"
+                        DB2
                     ))
                     .withStatement("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "generic"
+                        GENERIC
                     ))
                     .withStatement("fullname")
                     .build()
@@ -458,183 +749,183 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             .withSqls(List.of(
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "oracle",
-                        "h2",
-                        "hsqldb",
-                        "postgres",
-                        "luciddb"
+                        ORACLE,
+                        H2,
+                        HSQLDB,
+                        POSTGRES,
+                        LUCIDDB
                     ))
                     .withStatement("\"fname\" || ' ' || \"lname\"")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "access",
-                        "mssql"
+                        ACCESS,
+                        MSSQL
                     ))
                     .withStatement("fname + ' ' + lname")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "mysql",
-                        "mariadb"
+                        MYSQL,
+                        MARIADB
                     ))
                     .withStatement("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "neoview",
-                        "derby",
-                        "snowflake"
+                        NEOVIEW,
+                        DERBY,
+                        SNOWFLAKE
                     ))
                     .withStatement("\"customer\".\"fullname\"")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "db2"
+                        DB2
                     ))
                     .withStatement("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "generic"
+                        GENERIC
                     ))
                     .withStatement("fullname")
                     .build()
             ))
             .build())
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName("Gender").withColumn("gender").build(),
-            MemberPropertyMappingImpl.builder().withName("Marital Status").withColumn("marital_status").build(),
+            MemberPropertyMappingImpl.builder().withName(GENDER).withColumn(GENDER2).build(),
+            MemberPropertyMappingImpl.builder().withName(MARITAL_STATUS).withColumn(MARITAL_STATUS2).build(),
             MemberPropertyMappingImpl.builder().withName("Education").withColumn("education").build(),
-            MemberPropertyMappingImpl.builder().withName("Yearly Income").withColumn("yearly_income").build()
+            MemberPropertyMappingImpl.builder().withName(YEARLY_INCOME).withColumn("yearly_income").build()
         ))
         .build();
 
-    private final static LevelMappingImpl educationLevel = LevelMappingImpl.builder()
-        .withName("Education Level")
+    private static final LevelMappingImpl educationLevel = LevelMappingImpl.builder()
+        .withName(EDUCATION_LEVEL)
         .withColumn("education")
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl genderLevel = LevelMappingImpl.builder()
-        .withName("Gender")
-        .withColumn("gender")
+    private static final LevelMappingImpl genderLevel = LevelMappingImpl.builder()
+        .withName(GENDER)
+        .withColumn(GENDER2)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl maritalStatusLevel = LevelMappingImpl.builder()
-        .withName("Marital Status")
-        .withColumn("marital_status")
+    private static final LevelMappingImpl maritalStatusLevel = LevelMappingImpl.builder()
+        .withName(MARITAL_STATUS)
+        .withColumn(MARITAL_STATUS2)
         .withUniqueMembers(true)
         .withApproxRowCount("111")
         .build();
 
-    private final static LevelMappingImpl yearlyIncomeLevel = LevelMappingImpl.builder()
-        .withName("Yearly Income")
+    private static final LevelMappingImpl yearlyIncomeLevel = LevelMappingImpl.builder()
+        .withName(YEARLY_INCOME)
         .withColumn("yearly_income")
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl hasCoffeeBarLevel = LevelMappingImpl.builder()
-        .withName("Has coffee bar")
-        .withColumn("coffee_bar")
+    private static final LevelMappingImpl hasCoffeeBarLevel = LevelMappingImpl.builder()
+        .withName(HAS_COFFEE_BAR)
+        .withColumn(COFFEE_BAR)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl payTypeLevel = LevelMappingImpl.builder()
-        .withName("Pay Type")
+    private static final LevelMappingImpl payTypeLevel = LevelMappingImpl.builder()
+        .withName(PAY_TYPE)
         .withColumn("pay_type")
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl managementRoleLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl managementRoleLevel = LevelMappingImpl.builder()
         .withName("Management Rol")
         .withColumn("management_role")
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl positionTitleLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl positionTitleLevel = LevelMappingImpl.builder()
         .withName("Position Title")
         .withColumn("position_title")
-        .withOrdinalColumn("position_id")
+        .withOrdinalColumn(POSITION_ID2)
         .withUniqueMembers(false)
         .build();
 
-    private final static LevelMappingImpl departmentDescriptionLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl departmentDescriptionLevel = LevelMappingImpl.builder()
         .withName("Department Description")
-        .withType("Numeric")
-        .withColumn("department_id")
+        .withType(NUMERIC)
+        .withColumn(DEPARTMENT_ID)
         .withUniqueMembers(true)
         .build();
 
-    private final static LevelMappingImpl employeeIdLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl employeeIdLevel = LevelMappingImpl.builder()
         .withName("Employee Id")
-        .withType("Numeric")
-        .withColumn("employee_id")
+        .withType(NUMERIC)
+        .withColumn(EMPLOYEE_ID)
         .withParentColumn("supervisor_id")
         .withNullParentValue("0")
         .withParentChildLink(
             ParentChildLinkMappingImpl.builder()
                 .withParentColumn("supervisor_id")
-                .withChildColumn("employee_id")
+                .withChildColumn(EMPLOYEE_ID)
                 .withTable(employeeClosureTable)
                 .build())
         .withUniqueMembers(true)
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName("Marital Status").withColumn("marital_status").build(),
+            MemberPropertyMappingImpl.builder().withName(MARITAL_STATUS).withColumn(MARITAL_STATUS2).build(),
             MemberPropertyMappingImpl.builder().withName("Position Title").withColumn("position_title").build(),
-            MemberPropertyMappingImpl.builder().withName("Gender").withColumn("gender").build(),
-            MemberPropertyMappingImpl.builder().withName("Salary").withColumn("salary").build(),
-            MemberPropertyMappingImpl.builder().withName("Education Level").withColumn("education_level").build(),
+            MemberPropertyMappingImpl.builder().withName(GENDER).withColumn(GENDER2).build(),
+            MemberPropertyMappingImpl.builder().withName("Salary").withColumn(SALARY).build(),
+            MemberPropertyMappingImpl.builder().withName(EDUCATION_LEVEL).withColumn("education_level").build(),
             MemberPropertyMappingImpl.builder().withName("Management Role").withColumn("management_role").build()
         ))
         .build();
 
-    private final static CalculatedMemberMappingImpl profitCalculatedMember = CalculatedMemberMappingImpl.builder()
+    private static final CalculatedMemberMappingImpl profitCalculatedMember = CalculatedMemberMappingImpl.builder()
         .withName("Profit")
         .withFormula("[Measures].[Store Sales] - [Measures].[Store Cost]")
         .withCalculatedMemberProperties(List.of(
             CalculatedMemberPropertyMappingImpl.builder()
-                .withName("FORMAT_STRING")
-                .withValue("$#,##0.00")
+                .withName(FORMAT_STRING2)
+                .withValue(FORMAT_STRING3)
                 .build(),
             CalculatedMemberPropertyMappingImpl.builder()
-                .withName("MEMBER_ORDINAL")
+                .withName(MEMBER_ORDINAL)
                 .withValue("4")
                 .build()
         ))
         .build();
 
-    private final static CalculatedMemberMappingImpl profitLastPeriodCalculatedMember =
+    private static final CalculatedMemberMappingImpl profitLastPeriodCalculatedMember =
         CalculatedMemberMappingImpl.builder()
             .withName("Profit last Period")
             .withFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER),    Measures.[Profit])")
             .withCalculatedMemberProperties(List.of(
                 CalculatedMemberPropertyMappingImpl.builder()
-                    .withName("FORMAT_STRING")
-                    .withValue("$#,##0.00")
+                    .withName(FORMAT_STRING2)
+                    .withValue(FORMAT_STRING3)
                     .build(),
                 CalculatedMemberPropertyMappingImpl.builder()
-                    .withName("MEMBER_ORDINAL")
+                    .withName(MEMBER_ORDINAL)
                     .withValue("18")
                     .build()
             ))
             .build();
 
-    private final static CalculatedMemberMappingImpl profitLastPeriod1CalculatedMember =
+    private static final CalculatedMemberMappingImpl profitLastPeriod1CalculatedMember =
         CalculatedMemberMappingImpl.builder()
             .withName("Profit last Period")
             .withFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER),    Measures.[Profit])")
             .withVisible(false)
             .withCalculatedMemberProperties(List.of(
                 CalculatedMemberPropertyMappingImpl.builder()
-                    .withName("MEMBER_ORDINAL")
+                    .withName(MEMBER_ORDINAL)
                     .withValue("5")
                     .build()
             ))
             .build();
 
-    private final static CalculatedMemberMappingImpl profitGrowthCalculatedMember =
+    private static final CalculatedMemberMappingImpl profitGrowthCalculatedMember =
         CalculatedMemberMappingImpl.builder()
             //.withName("Profit Growth")
             .withName("Gewinn-Wachstum")
@@ -643,222 +934,222 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             //.withCaption("Gewinn-Wachstum")
             .withCalculatedMemberProperties(List.of(
                 CalculatedMemberPropertyMappingImpl.builder()
-                    .withName("FORMAT_STRING")
+                    .withName(FORMAT_STRING2)
                     .withValue("0.0%")
                     .build()
             ))
             .build();
 
-    private final static CalculatedMemberMappingImpl averageWarehouseSaleCalculatedMember =
+    private static final CalculatedMemberMappingImpl averageWarehouseSaleCalculatedMember =
         CalculatedMemberMappingImpl.builder()
             .withName("Average Warehouse Sale")
             .withFormula("[Measures].[Warehouse Sales] / [Measures].[Warehouse Cost]")
             .withCalculatedMemberProperties(List.of(
                 CalculatedMemberPropertyMappingImpl.builder()
-                    .withName("FORMAT_STRING")
-                    .withValue("$#,##0.00")
+                    .withName(FORMAT_STRING2)
+                    .withValue(FORMAT_STRING3)
                     .build()
             ))
             .build();
 
-    private final static CalculatedMemberMappingImpl employeeSalaryCalculatedMember =
+    private static final CalculatedMemberMappingImpl employeeSalaryCalculatedMember =
         CalculatedMemberMappingImpl.builder()
             .withName("Employee Salary")
-            .withFormatString("Currency")
+            .withFormatString(CURRENCY)
             .withFormula("([Employees].currentmember.datamember, [Measures].[Org Salary])")
             .build();
 
-    private final static CalculatedMemberMappingImpl avgSalaryCalculatedMember = CalculatedMemberMappingImpl.builder()
+    private static final CalculatedMemberMappingImpl avgSalaryCalculatedMember = CalculatedMemberMappingImpl.builder()
         .withName("Avg Salary")
-        .withFormatString("Currency")
+        .withFormatString(CURRENCY)
         .withFormula("[Measures].[Org Salary]/[Measures].[Number of Employees]")
         .build();
 
-    private final static CalculatedMemberMappingImpl profitPerUnitShippedCalculatedMember =
+    private static final CalculatedMemberMappingImpl profitPerUnitShippedCalculatedMember =
         CalculatedMemberMappingImpl.builder()
             .withName("Profit Per Unit Shipped")
-            .withFormatString("Currency")
+            .withFormatString(CURRENCY)
             .withFormula("[Measures].[Profit] / [Measures].[Units Shipped]")
             .build();
 
-    private final static NamedSetMappingImpl topSellersNamedSet = NamedSetMappingImpl.builder()
+    private static final NamedSetMappingImpl topSellersNamedSet = NamedSetMappingImpl.builder()
         .withName("Top Sellers")
         .withFormula("TopCount([Warehouse].[Warehouse Name].MEMBERS, 5, [Measures].[Warehouse Sales])")
         .build();
 
-    private final static HierarchyMappingImpl storeHierarchy = HierarchyMappingImpl.builder()
+    private static final HierarchyMappingImpl storeHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey("store_sqft")
+        .withPrimaryKey(STORE_SQFT2)
         .withQuery(storeTable)
         .withLevels(List.of(storeCountryLevel, storeStateLevel, storeCityLevel, storeNameLevel))
         .build();
 
-    private final static StandardDimensionMappingImpl storeDimension = StandardDimensionMappingImpl.builder()
-        .withName("Store")
+    private static final StandardDimensionMappingImpl storeDimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE2)
         .withHierarchies(List.of(storeHierarchy))
         .build();
 
-    private final static StandardDimensionMappingImpl store2Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Store")
+    private static final StandardDimensionMappingImpl store2Dimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE2)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("store_id")
+            .withPrimaryKey(STORE_ID)
             .withQuery(storeRaggedTable)
             .withLevels(List.of(storeCountry2Level, storeState2Level, storeCity2Level, storeName2Level))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl store1Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Store")
+    private static final StandardDimensionMappingImpl store1Dimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE2)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("employee_id")
+            .withPrimaryKey(EMPLOYEE_ID)
             .withQuery(join2)
             .withLevels(List.of(storeCountry1Level, storeState1Level, storeCity1Level, storeName1Level))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl storeSizeInSQFTDimension = StandardDimensionMappingImpl.builder()
-        .withName("Store Size in SQFT")
+    private static final StandardDimensionMappingImpl storeSizeInSQFTDimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE_SIZE_IN_SQFT)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("store_id")
+            .withPrimaryKey(STORE_ID)
             .withQuery(storeTable)
             .withLevels(List.of(storeSqftLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl storeTypeDimension = StandardDimensionMappingImpl.builder()
-        .withName("Store Type")
+    private static final StandardDimensionMappingImpl storeTypeDimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE_TYPE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("store_id")
+            .withPrimaryKey(STORE_ID)
             .withQuery(storeTable)
             .withLevels(List.of(storeTypeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl storeType1Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Store Type")
+    private static final StandardDimensionMappingImpl storeType1Dimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE_TYPE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withLevels(List.of(storeTypeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl storeType2Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Store Type")
+    private static final StandardDimensionMappingImpl storeType2Dimension = StandardDimensionMappingImpl.builder()
+        .withName(STORE_TYPE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKeyTable("employee")
-            .withPrimaryKey("employee_id")
+            .withPrimaryKeyTable(EMPLOYEE)
+            .withPrimaryKey(EMPLOYEE_ID)
             .withQuery(join2)
             .withLevels(List.of(storeType1Level))
             .build()))
         .build();
 
-    private final static TimeDimensionMappingImpl timeDimension = TimeDimensionMappingImpl.builder()
-        .withName("Time")
+    private static final TimeDimensionMappingImpl timeDimension = TimeDimensionMappingImpl.builder()
+        .withName(TIME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(false)
-            .withPrimaryKey("time_id")
+            .withPrimaryKey(TIME_ID)
             .withQuery(timeByDayTable)
             .withLevels(List.of(yearLevel, quarterLevel, monthLevel))
             .build()))
         .build();
 
-    private final static TimeDimensionMappingImpl time1Dimension = TimeDimensionMappingImpl.builder()
-        .withName("Time")
+    private static final TimeDimensionMappingImpl time1Dimension = TimeDimensionMappingImpl.builder()
+        .withName(TIME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(false)
-            .withPrimaryKey("the_date")
+            .withPrimaryKey(THE_DATE)
             .withQuery(timeByDayTable)
             .withLevels(List.of(yearLevel, quarterLevel, month1Level))
             .build()))
         .build();
 
-    private final static TimeDimensionMappingImpl productDimension = TimeDimensionMappingImpl.builder()
-        .withName("Product")
+    private static final TimeDimensionMappingImpl productDimension = TimeDimensionMappingImpl.builder()
+        .withName(PRODUCT2)
         .withHierarchies(List.of(
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withPrimaryKey("product_id")
+                .withPrimaryKey(PRODUCT_ID)
                 .withQuery(join1)
                 .withLevels(List.of(productFamilyLevel, productDepartmentLevel, productCategoryLevel,
                     productSubcategoryLevel, brandNameLevel, productNameLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Product Family")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(PRODUCT_FAMILY)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(productFamilyLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Product Department")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(PRODUCT_DEPARTMENT)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(productDepartmentLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Product Category")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(PRODUCT_CATEGORY)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(productCategoryLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Product Subcategory")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(PRODUCT_SUBCATEGORY)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(productSubcategoryLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Brand Name")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(BRAND_NAME)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(brandNameLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withName("Product Name")
-                .withPrimaryKey("product_id")
-                .withPrimaryKeyTable("product")
-                .withDisplayFolder("Details")
+                .withName(PRODUCT_NAME)
+                .withPrimaryKey(PRODUCT_ID)
+                .withPrimaryKeyTable(PRODUCT)
+                .withDisplayFolder(DETAILS)
                 .withQuery(join1)
                 .withLevels(List.of(productNameLevel))
                 .build()
         ))
         .build();
 
-    private final static TimeDimensionMappingImpl warehouseDimension = TimeDimensionMappingImpl.builder()
-        .withName("Warehouse")
+    private static final TimeDimensionMappingImpl warehouseDimension = TimeDimensionMappingImpl.builder()
+        .withName(WAREHOUSE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("warehouse_id")
+            .withPrimaryKey(WAREHOUSE_ID)
             .withQuery(warehouseTable)
             .withLevels(List.of(countryLevel, stateProvinceLevel, cityLevel, warehouseNameLevel))
             .build()))
         .build();
 
-    private final static TableQueryMappingImpl salesFact19972Table = TableQueryMappingImpl.builder()
-        .withName("sales_fact_1997").build();
+    private static final TableQueryMappingImpl salesFact19972Table = TableQueryMappingImpl.builder()
+        .withName(SALES_FACT_1997).build();
 
-    private final static TableQueryMappingImpl salesFact1997Table = TableQueryMappingImpl.builder()
-        .withName("sales_fact_1997")
+    private static final TableQueryMappingImpl salesFact1997Table = TableQueryMappingImpl.builder()
+        .withName(SALES_FACT_1997)
         .withAggregationExcludes(List.of(
             AggregationExcludeMappingImpl.builder().withName("agg_c_special_sales_fact_1997").build(),
             AggregationExcludeMappingImpl.builder().withName("agg_lc_100_sales_fact_1997").build(),
@@ -869,20 +1160,20 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             AggregationNameMappingImpl.builder()
                 .withName("agg_c_special_sales_fact_1997")
                 .withAggregationFactCount(
-                    AggregationColumnNameMappingImpl.builder().withColumn("FACT_COUNT").build()
+                    AggregationColumnNameMappingImpl.builder().withColumn(FACT_COUNT).build()
                 )
                 .withAggregationIgnoreColumns(List.of(
-                    AggregationColumnNameMappingImpl.builder().withColumn("foo").build(),
-                    AggregationColumnNameMappingImpl.builder().withColumn("bar").build()
+                    AggregationColumnNameMappingImpl.builder().withColumn(FOO).build(),
+                    AggregationColumnNameMappingImpl.builder().withColumn(BAR).build()
                 ))
                 .withAggregationForeignKeys(List.of(
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn("product_id").withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(PRODUCT_ID).withAggregationColumn(
                         "PRODUCT_ID").build(),
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn("customer_id").withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(CUSTOMER_ID).withAggregationColumn(
                         "CUSTOMER_ID").build(),
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn("promotion_id").withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(PROMOTION_ID).withAggregationColumn(
                         "PROMOTION_ID").build(),
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn("store_id").withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(STORE_ID).withAggregationColumn(
                         "STORE_ID").build()
                 ))
                 .withAggregationMeasures(List.of(
@@ -902,296 +1193,296 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static TableQueryMappingImpl salesFact19971Table = TableQueryMappingImpl.builder()
-        .withName("sales_fact_1997")
+    private static final TableQueryMappingImpl salesFact19971Table = TableQueryMappingImpl.builder()
+        .withName(SALES_FACT_1997)
         .withAggregationExcludes(List.of(
             AggregationExcludeMappingImpl.builder().withName("agg_pc_10_sales_fact_1997").build(),
             AggregationExcludeMappingImpl.builder().withName("agg_lc_10_sales_fact_1997").build()
         ))
         .build();
 
-    private final static StandardDimensionMappingImpl promotionMediaDimension = StandardDimensionMappingImpl.builder()
-        .withName("Promotion Media")
+    private static final StandardDimensionMappingImpl promotionMediaDimension = StandardDimensionMappingImpl.builder()
+        .withName(PROMOTION_MEDIA)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Media")
-            .withPrimaryKey("promotion_id")
-            .withDefaultMember("All Media")
+            .withAllMemberName(ALL_MEDIA)
+            .withPrimaryKey(PROMOTION_ID)
+            .withDefaultMember(ALL_MEDIA)
             .withQuery(promotionTable)
             .withLevels(List.of(mediaTypeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl promotionMedia1Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Promotion Media")
+    private static final StandardDimensionMappingImpl promotionMedia1Dimension = StandardDimensionMappingImpl.builder()
+        .withName(PROMOTION_MEDIA)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("promotion_id")
+            .withPrimaryKey(PROMOTION_ID)
             .withQuery(promotionTable)
             .withLevels(List.of(mediaTypeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl promotionsDimension = StandardDimensionMappingImpl.builder()
-        .withName("Promotions")
+    private static final StandardDimensionMappingImpl promotionsDimension = StandardDimensionMappingImpl.builder()
+        .withName(PROMOTIONS)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Media")
-            .withPrimaryKey("promotion_id")
+            .withAllMemberName(ALL_MEDIA)
+            .withPrimaryKey(PROMOTION_ID)
             .withDefaultMember("[All Promotions]")
             .withQuery(promotionTable)
             .withLevels(List.of(promotionNameLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl promotions1Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Promotions")
+    private static final StandardDimensionMappingImpl promotions1Dimension = StandardDimensionMappingImpl.builder()
+        .withName(PROMOTIONS)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Promotions")
-            .withPrimaryKey("promotion_id")
+            .withAllMemberName(ALL_PROMOTIONS)
+            .withPrimaryKey(PROMOTION_ID)
             .withQuery(promotionTable)
             .withLevels(List.of(promotionNameLevel))
             .build()))
         .build();
 
-    private final static HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
+    private static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withAllMemberName("All Customers")
-        .withPrimaryKey("customer_id")
+        .withAllMemberName(ALL_CUSTOMERS)
+        .withPrimaryKey(CUSTOMER_ID)
         .withQuery(customerTable)
         .withLevels(List.of(country1Level, stateProvince1Level, city1Level, nameLevel))
         .build();
 
-    private final static StandardDimensionMappingImpl customersDimension = StandardDimensionMappingImpl.builder()
-        .withName("Customers")
+    private static final StandardDimensionMappingImpl customersDimension = StandardDimensionMappingImpl.builder()
+        .withName(CUSTOMERS)
         .withHierarchies(List.of())
         .build();
 
-    private final static StandardDimensionMappingImpl educationLevelDimension = StandardDimensionMappingImpl.builder()
-        .withName("Education Level")
+    private static final StandardDimensionMappingImpl educationLevelDimension = StandardDimensionMappingImpl.builder()
+        .withName(EDUCATION_LEVEL)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("customer_id")
+            .withPrimaryKey(CUSTOMER_ID)
             .withQuery(customerTable)
             .withLevels(List.of(educationLevel))
             .build()))
         .build();
 
-    private final static HierarchyMappingImpl genderHierarchy = HierarchyMappingImpl.builder()
+    private static final HierarchyMappingImpl genderHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withAllMemberName("All Gender")
-        .withPrimaryKey("customer_id")
+        .withAllMemberName(ALL_GENDER)
+        .withPrimaryKey(CUSTOMER_ID)
         .withQuery(customerTable)
         .withLevels(List.of(genderLevel))
         .build();
 
-    private final static StandardDimensionMappingImpl genderDimension = StandardDimensionMappingImpl.builder()
-        .withName("Gender")
+    private static final StandardDimensionMappingImpl genderDimension = StandardDimensionMappingImpl.builder()
+        .withName(GENDER)
         .withHierarchies(List.of(genderHierarchy))
         .build();
 
-    private final static StandardDimensionMappingImpl maritalStatusDimension = StandardDimensionMappingImpl.builder()
-        .withName("Marital Status")
+    private static final StandardDimensionMappingImpl maritalStatusDimension = StandardDimensionMappingImpl.builder()
+        .withName(MARITAL_STATUS)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Marital Status")
-            .withPrimaryKey("customer_id")
+            .withAllMemberName(ALL_MARITAL_STATUS)
+            .withPrimaryKey(CUSTOMER_ID)
             .withQuery(customerTable)
             .withLevels(List.of(maritalStatusLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl yearlyIncomeDimension = StandardDimensionMappingImpl.builder()
-        .withName("Yearly Income")
+    private static final StandardDimensionMappingImpl yearlyIncomeDimension = StandardDimensionMappingImpl.builder()
+        .withName(YEARLY_INCOME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Marital Status")
-            .withPrimaryKey("customer_id")
+            .withAllMemberName(ALL_MARITAL_STATUS)
+            .withPrimaryKey(CUSTOMER_ID)
             .withQuery(customerTable)
             .withLevels(List.of(yearlyIncomeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl yearlyIncome1Dimension = StandardDimensionMappingImpl.builder()
-        .withName("Yearly Income")
+    private static final StandardDimensionMappingImpl yearlyIncome1Dimension = StandardDimensionMappingImpl.builder()
+        .withName(YEARLY_INCOME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("customer_id")
+            .withPrimaryKey(CUSTOMER_ID)
             .withQuery(customerTable)
             .withLevels(List.of(yearlyIncomeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl hasCoffeeBarDimension = StandardDimensionMappingImpl.builder()
-        .withName("Has coffee bar")
+    private static final StandardDimensionMappingImpl hasCoffeeBarDimension = StandardDimensionMappingImpl.builder()
+        .withName(HAS_COFFEE_BAR)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withLevels(List.of(hasCoffeeBarLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl payTypeDimension = StandardDimensionMappingImpl.builder()
-        .withName("Pay Type")
+    private static final StandardDimensionMappingImpl payTypeDimension = StandardDimensionMappingImpl.builder()
+        .withName(PAY_TYPE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("employee_id")
-            .withPrimaryKeyTable("employee")
+            .withPrimaryKey(EMPLOYEE_ID)
+            .withPrimaryKeyTable(EMPLOYEE)
             .withQuery(join3)
             .withLevels(List.of(payTypeLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl positionDimension = StandardDimensionMappingImpl.builder()
-        .withName("Position")
+    private static final StandardDimensionMappingImpl positionDimension = StandardDimensionMappingImpl.builder()
+        .withName(POSITION2)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("employee_id")
-            .withPrimaryKeyTable("employee")
+            .withPrimaryKey(EMPLOYEE_ID)
+            .withPrimaryKeyTable(EMPLOYEE)
             .withQuery(employeeTable)
             .withLevels(List.of(managementRoleLevel, positionTitleLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl departmentDimension = StandardDimensionMappingImpl.builder()
-        .withName("Department")
+    private static final StandardDimensionMappingImpl departmentDimension = StandardDimensionMappingImpl.builder()
+        .withName(DEPARTMENT)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("department_id")
+            .withPrimaryKey(DEPARTMENT_ID)
             .withQuery(employeeTable)
             .withLevels(List.of(departmentDescriptionLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl employeesDimension = StandardDimensionMappingImpl.builder()
-        .withName("Employees")
+    private static final StandardDimensionMappingImpl employeesDimension = StandardDimensionMappingImpl.builder()
+        .withName(EMPLOYEES)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName("All Employees")
-            .withPrimaryKey("employee_id")
+            .withAllMemberName(ALL_EMPLOYEES)
+            .withPrimaryKey(EMPLOYEE_ID)
             .withQuery(employeeTable)
             .withLevels(List.of(employeeIdLevel))
             .build()))
         .build();
 
-    private final static StandardDimensionMappingImpl geographyDimension = StandardDimensionMappingImpl.builder()
-        .withName("Geography")
+    private static final StandardDimensionMappingImpl geographyDimension = StandardDimensionMappingImpl.builder()
+        .withName(GEOGRAPHY)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey("store_id")
+            .withPrimaryKey(STORE_ID)
             .withQuery(storeRaggedTable)
             .withLevels(List.of(country2Level, stateLevel, city2Level))
             .build()))
         .build();
 
-    private final static MeasureMappingImpl unitSalesMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl unitSalesMeasure = MeasureMappingImpl.builder()
         .withName("Unit Sales")
         .withColumn("unit_sales")
         .withFormatString("Standard")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl unitSales1Measure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl unitSales1Measure = MeasureMappingImpl.builder()
         .withName("Unit Sales")
         .withColumn("unit_sales")
         .withFormatString("Standard")
-        .withType("sum")
+        .withType(SUM)
         .withCalculatedMemberProperty(List.of(
-            CalculatedMemberPropertyMappingImpl.builder().withName("MEMBER_ORDINAL").withValue("2").build()
+            CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("2").build()
         ))
         .build();
 
-    private final static MeasureMappingImpl storeCostMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl storeCostMeasure = MeasureMappingImpl.builder()
         .withName("Store Cost")
         .withColumn("store_cost")
-        .withFormatString("#,###.00")
-        .withType("sum")
+        .withFormatString(FORMAT_STRING1)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl storeCost1Measure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl storeCost1Measure = MeasureMappingImpl.builder()
         .withName("Store Cost")
         .withColumn("store_cost")
-        .withFormatString("#,###.00")
-        .withType("sum")
+        .withFormatString(FORMAT_STRING1)
+        .withType(SUM)
         .withCalculatedMemberProperty(List.of(
-            CalculatedMemberPropertyMappingImpl.builder().withName("MEMBER_ORDINAL").withValue("6").build()
+            CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("6").build()
         ))
         .build();
 
-    private final static MeasureMappingImpl storeSalesMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl storeSalesMeasure = MeasureMappingImpl.builder()
         .withName("Store Sales")
         .withColumn("store_sales")
-        .withFormatString("#,###.00")
-        .withType("sum")
+        .withFormatString(FORMAT_STRING1)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl storeSales1Measure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl storeSales1Measure = MeasureMappingImpl.builder()
         .withName("Store Sales")
         .withColumn("store_sales")
-        .withFormatString("#,###.00")
-        .withType("sum")
+        .withFormatString(FORMAT_STRING1)
+        .withType(SUM)
         .withCalculatedMemberProperty(List.of(
-            CalculatedMemberPropertyMappingImpl.builder().withName("MEMBER_ORDINAL").withValue("3").build()
+            CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("3").build()
         ))
         .build();
 
-    private final static MeasureMappingImpl salesCountMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl salesCountMeasure = MeasureMappingImpl.builder()
         .withName("Sales Count")
-        .withColumn("product_id")
-        .withFormatString("#,###")
-        .withType("sum")
+        .withColumn(PRODUCT_ID)
+        .withFormatString(FORMAT_STRING)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl salesCount1Measure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl salesCount1Measure = MeasureMappingImpl.builder()
         .withName("Sales Count")
-        .withColumn("product_id")
-        .withFormatString("#,###")
-        .withType("count")
+        .withColumn(PRODUCT_ID)
+        .withFormatString(FORMAT_STRING)
+        .withType(COUNT)
         .withCalculatedMemberProperty(List.of(
-            CalculatedMemberPropertyMappingImpl.builder().withName("MEMBER_ORDINAL").withValue("1").build()
+            CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("1").build()
         ))
         .build();
 
-    private final static MeasureMappingImpl customerCountMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl customerCountMeasure = MeasureMappingImpl.builder()
         .withName("Customer Count")
-        .withColumn("customer_id")
-        .withFormatString("#,###")
-        .withType("distinct-count")
+        .withColumn(CUSTOMER_ID)
+        .withFormatString(FORMAT_STRING)
+        .withType(DISTINCT_COUNT)
         .build();
 
-    private final static MeasureMappingImpl customerCount1Measure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl customerCount1Measure = MeasureMappingImpl.builder()
         .withName("Customer Count")
-        .withColumn("customer_id")
-        .withFormatString("#,###")
-        .withType("distinct-count")
+        .withColumn(CUSTOMER_ID)
+        .withFormatString(FORMAT_STRING)
+        .withType(DISTINCT_COUNT)
         .withCalculatedMemberProperty(List.of(
-            CalculatedMemberPropertyMappingImpl.builder().withName("MEMBER_ORDINAL").withValue("7").build()
+            CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("7").build()
         ))
         .build();
 
-    private final static MeasureMappingImpl promotionSalesMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl promotionSalesMeasure = MeasureMappingImpl.builder()
         .withName("Promotion Sales")
-        .withFormatString("#,###")
-        .withType("sum")
+        .withFormatString(FORMAT_STRING)
+        .withType(SUM)
         .withMeasureExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
                 SQLMappingImpl.builder()
-                    .withDialects(List.of("access"))
+                    .withDialects(List.of(ACCESS))
                     .withStatement("Iif(\"sales_fact_1997\".\"promotion_id\" = 0, 0, \"sales_fact_1997\"" +
                         ".\"store_sales\")")
                     .build(),
                 SQLMappingImpl.builder()
                     .withDialects(List.of(
-                        "oracle",
-                        "h2",
-                        "hsqldb",
-                        "postgres",
-                        "neoview",
-                        "derby",
-                        "luciddb",
-                        "db2",
-                        "nuodb",
-                        "snowflake"
+                        ORACLE,
+                        H2,
+                        HSQLDB,
+                        POSTGRES,
+                        NEOVIEW,
+                        DERBY,
+                        LUCIDDB,
+                        DB2,
+                        NUODB,
+                        SNOWFLAKE
                     ))
                     .withStatement("(case when \"sales_fact_1997\".\"promotion_id\" = 0 then 0 else " +
                         "\"sales_fact_1997\".\"store_sales\" end)")
@@ -1202,11 +1493,11 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
                         ".`store_sales` end)")
                     .build(),
                 SQLMappingImpl.builder()
-                    .withDialects(List.of("access"))
+                    .withDialects(List.of(ACCESS))
                     .withStatement("`sales_fact_1997`.`store_sales`")
                     .build(),
                 SQLMappingImpl.builder()
-                    .withDialects(List.of("generic"))
+                    .withDialects(List.of(GENERIC))
                     .withStatement("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997" +
                         ".store_sales end)")
                     .build()
@@ -1214,61 +1505,61 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             .build())
         .build();
 
-    private final static MeasureMappingImpl storeInvoiceMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl storeInvoiceMeasure = MeasureMappingImpl.builder()
         .withName("Store Invoice")
         .withColumn("store_invoice")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl supplyTimeMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl supplyTimeMeasure = MeasureMappingImpl.builder()
         .withName("Supply Time")
         .withColumn("supply_time")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl warehouseCostMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl warehouseCostMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Cost")
         .withColumn("warehouse_cost")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl warehouseSalesMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl warehouseSalesMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Sales")
         .withColumn("warehouse_sales")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl unitsShippedMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl unitsShippedMeasure = MeasureMappingImpl.builder()
         .withName("Units Shipped")
         .withColumn("units_shipped")
         .withFormatString("#.0")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl unitsOrderedMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl unitsOrderedMeasure = MeasureMappingImpl.builder()
         .withName("Units Ordered")
         .withColumn("units_ordered")
         .withFormatString("#.0")
-        .withType("sum")
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl warehouseProfitMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl warehouseProfitMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Profit")
-        .withType("sum")
+        .withType(SUM)
         .withMeasureExpression(
             SQLExpressionMappingImpl.builder()
                 .withSqls(List.of(
                     SQLMappingImpl.builder()
                         .withDialects(List.of(
-                            "mysql",
-                            "mariadb",
+                            MYSQL,
+                            MARIADB,
                             "infobright"
                         ))
                         .withStatement("`warehouse_sales` - `inventory_fact_1997`.`warehouse_cost`")
                         .build(),
                     SQLMappingImpl.builder()
                         .withDialects(List.of(
-                            "generic"
+                            GENERIC
                         ))
                         .withStatement("&quot;warehouse_sales&quot; - &quot;inventory_fact_1997&quot;.&quot;" +
                             "warehouse_cost&quot;")
@@ -1278,42 +1569,42 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         )
         .build();
 
-    private final static MeasureMappingImpl storeSqftMeasure = MeasureMappingImpl.builder()
-        .withName("Store Sqft")
-        .withColumn("store_sqft")
-        .withFormatString("#,###")
-        .withType("sum")
+    private static final MeasureMappingImpl storeSqftMeasure = MeasureMappingImpl.builder()
+        .withName(STORE_SQFT)
+        .withColumn(STORE_SQFT2)
+        .withFormatString(FORMAT_STRING)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl grocerySqftMeasure = MeasureMappingImpl.builder()
-        .withName("Grocery Sqft")
-        .withColumn("grocery_sqft")
-        .withFormatString("#,###")
-        .withType("sum")
+    private static final MeasureMappingImpl grocerySqftMeasure = MeasureMappingImpl.builder()
+        .withName(GROCERY_SQFT)
+        .withColumn(GROCERY_SQFT2)
+        .withFormatString(FORMAT_STRING)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl orgSalaryMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl orgSalaryMeasure = MeasureMappingImpl.builder()
         .withName("Org Salary")
         .withColumn("salary_paid")
-        .withFormatString("Currency")
-        .withType("sum")
+        .withFormatString(CURRENCY)
+        .withType(SUM)
         .build();
 
-    private final static MeasureMappingImpl countMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl countMeasure = MeasureMappingImpl.builder()
         .withName("Count")
-        .withColumn("employee_id")
+        .withColumn(EMPLOYEE_ID)
         .withFormatString("#,#")
-        .withType("count")
+        .withType(COUNT)
         .build();
 
-    private final static MeasureMappingImpl numberOfEmployeesMeasure = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl numberOfEmployeesMeasure = MeasureMappingImpl.builder()
         .withName("Number of Employees")
-        .withColumn("employee_id")
+        .withColumn(EMPLOYEE_ID)
         .withFormatString("#,#")
-        .withType("distinct-count")
+        .withType(DISTINCT_COUNT)
         .build();
 
-    private final static MeasureGroupMappingImpl salesMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl salesMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(
             unitSalesMeasure,
             storeCostMeasure,
@@ -1324,7 +1615,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static MeasureGroupMappingImpl vSalesMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl vSalesMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(
             salesCountMeasure,
             storeCostMeasure,
@@ -1333,7 +1624,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static MeasureGroupMappingImpl warehouseMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl warehouseMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(
             storeInvoiceMeasure,
             supplyTimeMeasure,
@@ -1345,7 +1636,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static MeasureGroupMappingImpl vWarehouseMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl vWarehouseMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(
             storeInvoiceMeasure,
             supplyTimeMeasure,
@@ -1357,25 +1648,25 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static MeasureGroupMappingImpl storeMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl storeMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(storeSqftMeasure, grocerySqftMeasure))
         .build();
 
-    private final static MeasureGroupMappingImpl hrMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl hrMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(orgSalaryMeasure, countMeasure, numberOfEmployeesMeasure))
         .build();
 
-    private final static MeasureGroupMappingImpl salesRaggedMeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl salesRaggedMeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(unitSalesMeasure, storeCostMeasure, storeSalesMeasure, salesCountMeasure,
             customerCountMeasure))
         .build();
 
-    private final static MeasureGroupMappingImpl sales2MeasureGroup = MeasureGroupMappingImpl.builder()
+    private static final MeasureGroupMappingImpl sales2MeasureGroup = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(salesCount1Measure, unitSales1Measure, storeSales1Measure, storeCost1Measure,
             customerCount1Measure))
         .build();
 
-    private final static PhysicalCubeMappingImpl salesCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl salesCube = PhysicalCubeMappingImpl.builder()
         .withName("Sales")
         .withQuery(salesFact1997Table)
         .withMeasureGroups(List.of(salesMeasureGroup))
@@ -1388,35 +1679,35 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             AnnotationMappingImpl.builder().withName("description.de_AT").withValue("Cube den Verkaufen").build()
         ))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store").withDimension(storeDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Size in SQFT").withDimension(storeSizeInSQFTDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Type").withDimension(storeTypeDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Time").withDimension(timeDimension).withForeignKey("time_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Product").withDimension(productDimension).withForeignKey("product_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Promotion Media").withDimension(promotionMediaDimension).withForeignKey("promotion_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Promotions").withDimension(promotionsDimension).withForeignKey("promotion_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Customers").withDimension(customersDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Education Level").withDimension(educationLevelDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Gender").withDimension(genderDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Marital Status").withDimension(maritalStatusDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Yearly Income").withDimension(yearlyIncomeDimension).withForeignKey("customer_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(storeDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMediaDimension).withForeignKey(PROMOTION_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotionsDimension).withForeignKey(PROMOTION_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(CUSTOMERS).withDimension(customersDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EDUCATION_LEVEL).withDimension(educationLevelDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(MARITAL_STATUS).withDimension(maritalStatusDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(YEARLY_INCOME).withDimension(yearlyIncomeDimension).withForeignKey(CUSTOMER_ID).build()
         ))
         .withCalculatedMembers(List.of(profitCalculatedMember, profitLastPeriodCalculatedMember,
             profitGrowthCalculatedMember))
         .build();
 
-    private final static PhysicalCubeMappingImpl warehouseCube = PhysicalCubeMappingImpl.builder()
-        .withName("Warehouse")
+    private static final PhysicalCubeMappingImpl warehouseCube = PhysicalCubeMappingImpl.builder()
+        .withName(WAREHOUSE)
         .withQuery(inventoryFact1997Table)
         .withMeasureGroups(List.of(storeMeasureGroup))
         .withDocumentation(new DocumentationMappingImpl(""))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store").withDimension(storeDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Size in SQFT").withDimension(storeSizeInSQFTDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Type").withDimension(storeTypeDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Time").withDimension(timeDimension).withForeignKey("time_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Product").withDimension(productDimension).withForeignKey("product_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Warehouse").withDimension(warehouseDimension).withForeignKey("warehouse_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(storeDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(WAREHOUSE).withDimension(warehouseDimension).withForeignKey(WAREHOUSE_ID).build()
         ))
         .withMeasureGroups(List.of(warehouseMeasureGroup))
         .withCalculatedMembers(List.of(averageWarehouseSaleCalculatedMember))
@@ -1425,117 +1716,117 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static PhysicalCubeMappingImpl storeCube = PhysicalCubeMappingImpl.builder()
-        .withName("Store")
+    private static final PhysicalCubeMappingImpl storeCube = PhysicalCubeMappingImpl.builder()
+        .withName(STORE2)
         .withQuery(storeTable)
         .withMeasureGroups(List.of(storeMeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Type").withDimension(storeType1Dimension).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store").withDimension(storeDimension).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Has coffee bar").withDimension(hasCoffeeBarDimension).build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeType1Dimension).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(storeDimension).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(HAS_COFFEE_BAR).withDimension(hasCoffeeBarDimension).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private final static PhysicalCubeMappingImpl hrCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl hrCube = PhysicalCubeMappingImpl.builder()
         .withName("HR")
         .withQuery(salaryTable)
         .withMeasureGroups(List.of(hrMeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Time").withDimension(time1Dimension).withForeignKey("pay_date").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store").withDimension(store1Dimension).withForeignKey("employee_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Pay Type").withDimension(payTypeDimension).withForeignKey("employee_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Type").withDimension(storeType2Dimension).withForeignKey("employee_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Position").withDimension(positionDimension).withForeignKey("employee_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Department").withDimension(departmentDimension).withForeignKey("department_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Employees").withDimension(employeesDimension).withForeignKey("employee_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(time1Dimension).withForeignKey("pay_date").build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(store1Dimension).withForeignKey(EMPLOYEE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PAY_TYPE).withDimension(payTypeDimension).withForeignKey(EMPLOYEE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeType2Dimension).withForeignKey(EMPLOYEE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(POSITION2).withDimension(positionDimension).withForeignKey(EMPLOYEE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(DEPARTMENT).withDimension(departmentDimension).withForeignKey(DEPARTMENT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EMPLOYEES).withDimension(employeesDimension).withForeignKey(EMPLOYEE_ID).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
         .withCalculatedMembers(List.of(employeeSalaryCalculatedMember, avgSalaryCalculatedMember))
         .build();
 
-    private final static PhysicalCubeMappingImpl salesRaggedCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl salesRaggedCube = PhysicalCubeMappingImpl.builder()
         .withName("Sales Ragged")
         .withQuery(salesFact19971Table)
         .withMeasureGroups(List.of(salesRaggedMeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store").withDimension(store2Dimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Geography").withDimension(geographyDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Size in SQFT").withDimension(storeSizeInSQFTDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Store Type").withDimension(storeTypeDimension).withForeignKey("store_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Time").withDimension(timeDimension).withForeignKey("time_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Product").withDimension(productDimension).withForeignKey("product_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Promotion Media").withDimension(promotionMedia1Dimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Promotions").withDimension(promotions1Dimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Customers").withDimension(customersDimension).withForeignKey("department_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Education Level").withDimension(educationLevelDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Gender").withDimension(genderDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Marital Status").withDimension(maritalStatusDimension).withForeignKey("customer_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Yearly Income").withDimension(yearlyIncome1Dimension).withForeignKey("customer_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(store2Dimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GEOGRAPHY).withDimension(geographyDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMedia1Dimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotions1Dimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(CUSTOMERS).withDimension(customersDimension).withForeignKey(DEPARTMENT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EDUCATION_LEVEL).withDimension(educationLevelDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(MARITAL_STATUS).withDimension(maritalStatusDimension).withForeignKey(CUSTOMER_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(YEARLY_INCOME).withDimension(yearlyIncome1Dimension).withForeignKey(CUSTOMER_ID).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private final static PhysicalCubeMappingImpl sales2Cube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl sales2Cube = PhysicalCubeMappingImpl.builder()
         .withName("Sales 2")
         .withQuery(salesFact19972Table)
         .withMeasureGroups(List.of(sales2MeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Time").withDimension(time1Dimension).withForeignKey("time_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Product").withDimension(productDimension).withForeignKey("product_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Gender").withDimension(genderDimension).withForeignKey("customer_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(time1Dimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
         .withCalculatedMembers(List.of(profitCalculatedMember, profitLastPeriod1CalculatedMember))
         .build();
 
-    private final static VirtualCubeMappingImpl warehouseAndSalesVirtualCube = VirtualCubeMappingImpl.builder()
+    private static final VirtualCubeMappingImpl warehouseAndSalesVirtualCube = VirtualCubeMappingImpl.builder()
         .withName("Warehouse and Sales")
         .withDefaultMeasure(storeSalesMeasure)
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder()
                 .withDimension(customersDimension)
-                .withOverrideDimensionName("Customers")
+                .withOverrideDimensionName(CUSTOMERS)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(educationLevelDimension)
-                .withOverrideDimensionName("Education Level")
+                .withOverrideDimensionName(EDUCATION_LEVEL)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(genderDimension)
-                .withOverrideDimensionName("Gender")
+                .withOverrideDimensionName(GENDER)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(maritalStatusDimension)
-                .withOverrideDimensionName("Marital Status")
+                .withOverrideDimensionName(MARITAL_STATUS)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(productDimension)
-                .withOverrideDimensionName("Product")
+                .withOverrideDimensionName(PRODUCT2)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(promotionMediaDimension)
-                .withOverrideDimensionName("Promotion Media")
+                .withOverrideDimensionName(PROMOTION_MEDIA)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(promotionsDimension)
-                .withOverrideDimensionName("Promotions")
+                .withOverrideDimensionName(PROMOTIONS)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(storeDimension)
-                .withOverrideDimensionName("Store")
+                .withOverrideDimensionName(STORE2)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(timeDimension)
-                .withOverrideDimensionName("Time")
+                .withOverrideDimensionName(TIME)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(yearlyIncomeDimension)
-                .withOverrideDimensionName("Yearly Income")
+                .withOverrideDimensionName(YEARLY_INCOME)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(warehouseDimension)
-                .withOverrideDimensionName("Warehouse")
+                .withOverrideDimensionName(WAREHOUSE)
                 .build()
         ))
         .withMeasureGroups(List.of(
@@ -1550,7 +1841,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static AccessRoleMappingImpl californiaManagerRole = AccessRoleMappingImpl.builder()
+    private static final AccessRoleMappingImpl californiaManagerRole = AccessRoleMappingImpl.builder()
         .withName("California manager")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
@@ -1602,7 +1893,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static AccessRoleMappingImpl noHRCubeRole = AccessRoleMappingImpl.builder()
+    private static final AccessRoleMappingImpl noHRCubeRole = AccessRoleMappingImpl.builder()
         .withName("No HR Cube")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
@@ -1617,7 +1908,7 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static AccessRoleMappingImpl administratorRole = AccessRoleMappingImpl.builder()
+    private static final AccessRoleMappingImpl administratorRole = AccessRoleMappingImpl.builder()
         .withName("Administrator")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
@@ -1626,9 +1917,10 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static SchemaMappingImpl schema = SchemaMappingImpl.builder()
-        .withName(name)
-        .withCubes(List.of(salesCube, warehouseCube, storeCube, hrCube, salesRaggedCube, warehouseAndSalesVirtualCube))
+    private static final SchemaMappingImpl schema = SchemaMappingImpl.builder()
+        .withName(NAME)
+        .withCubes(List.of(salesCube, warehouseCube, storeCube, hrCube, salesRaggedCube, sales2Cube,
+            warehouseAndSalesVirtualCube))
         .withAccessRoles(List.of(
             californiaManagerRole,
             noHRCubeRole,
@@ -1636,15 +1928,15 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private final static CatalogMappingImpl catalog = CatalogMappingImpl.builder()
-        .withName(name)
+    private static final CatalogMappingImpl catalog = CatalogMappingImpl.builder()
+        .withName(NAME)
         .withSchemas(List.of(schema))
         .build();
 
     @Override
     public RolapContextMapping get() {
         return RolapContextMappingImpl.builder()
-            .withName(name)
+            .withName(NAME)
             .withDocumentation(documentation)
             .withCatalogs(List.of(catalog))
             .build();
