@@ -55,9 +55,10 @@ import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.VirtualCubeMappingImpl;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "3")
-@Component
+@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExampleSupplier implements RolapContextMappingSupplier {
 
     private static final String MEMBER_ORDINAL = "MEMBER_ORDINAL";

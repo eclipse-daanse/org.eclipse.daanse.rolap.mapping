@@ -24,9 +24,10 @@ import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "1")
-@Component
+@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExampleSupplier implements RolapContextMappingSupplier {
 
     private final static String name = "Structure of a Mapping";

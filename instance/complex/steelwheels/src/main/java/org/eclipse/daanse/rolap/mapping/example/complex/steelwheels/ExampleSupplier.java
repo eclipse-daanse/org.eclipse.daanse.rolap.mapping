@@ -19,45 +19,24 @@ import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessSchemaGrantMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationForeignKeyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationLevelMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationMeasureMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AggregationNameMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.MemberPropertyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.VirtualCubeMappingImpl;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "4")
-@Component
+@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExampleSupplier implements RolapContextMappingSupplier {
 
     private static final String STATUS = "STATUS";

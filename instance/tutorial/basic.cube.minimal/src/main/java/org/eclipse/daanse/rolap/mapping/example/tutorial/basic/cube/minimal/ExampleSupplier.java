@@ -28,9 +28,10 @@ import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "2")
-@Component
+@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExampleSupplier implements RolapContextMappingSupplier {
 
     private final static String name = "Minimal Physical Cube";
