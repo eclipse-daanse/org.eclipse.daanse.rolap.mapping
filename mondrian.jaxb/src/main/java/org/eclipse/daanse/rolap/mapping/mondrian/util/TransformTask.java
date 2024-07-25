@@ -80,6 +80,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
@@ -105,7 +106,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
@@ -142,7 +142,7 @@ public class TransformTask {
     private AtomicInteger counterAggregationExclude = new AtomicInteger();
 
     private Schema mondrianSchema;
-    private RolapContextMappingImpl rolapContext;
+    private CatalogMappingImpl catalog;
 
     private TransformTask() {
         // none
@@ -154,26 +154,26 @@ public class TransformTask {
     }
 
     private Optional<? extends CubeMappingImpl> findCubeByName(String cubeNameAsIdent) {
-        return rolapContext.getCubes().stream().filter(c -> c.getName().equals(cubeNameAsIdent)).findAny();
+        return catalog.getCubes().stream().filter(c -> c.getName().equals(cubeNameAsIdent)).findAny();
     }
 
     private Optional<DimensionMappingImpl> findDimension(String name) {
-        return rolapContext.getDimensions().stream().filter(d -> d.getName().equals(name)).findAny();
+        return catalog.getDimensions().stream().filter(d -> d.getName().equals(name)).findAny();
     }
 
     private Optional<LevelMappingImpl> findLevel(String name) {
-        return rolapContext.getLevels().stream().filter(l -> l.getName().equals(name)).findAny();
+        return catalog.getLevels().stream().filter(l -> l.getName().equals(name)).findAny();
     }
 
     private Optional<HierarchyMappingImpl> findHierarchy(String name) {
-        return rolapContext.getHierarchies()
+        return catalog.getHierarchies()
                 .stream()
                 .filter(h -> (h.getName() != null && h.getName().equals(name)))
                 .findAny();
     }
 
     private Optional<MeasureMappingImpl> findMeasure(String name) {
-        return rolapContext.getMeasures().stream().filter(m -> m.getName().equals(name)).findAny();
+        return catalog.getMeasures().stream().filter(m -> m.getName().equals(name)).findAny();
     }
 
     private Optional<DimensionMappingImpl> findDimensionByCubeNameByDimensionName(String cubeName,
@@ -242,20 +242,20 @@ public class TransformTask {
         return Optional.empty();
     }
 
-    RolapContextMappingImpl transform() {
+    CatalogMappingImpl transform() {
 
-        rolapContext = RolapContextMappingImpl.builder().build();
+        catalog = CatalogMappingImpl.builder().build();
         SchemaMappingImpl s = SchemaMappingImpl.builder().build();
 
         List<DimensionMappingImpl> dimensionsShared = transformSharedDimensions(mondrianSchema.dimensions());
-        rolapContext.getDimensions().addAll(dimensionsShared);
+        catalog.getDimensions().addAll(dimensionsShared);
         List<PhysicalCubeMappingImpl> physicalCubes = transformPhysicalCubes(mondrianSchema.cubes());
         List<VirtualCubeMappingImpl> virtualCubes = transformVirtualCubes(mondrianSchema.virtualCubes());
         List<? extends CubeMappingImpl> allCubes = Stream.concat(physicalCubes.stream(), virtualCubes.stream())
                 .toList();
-        rolapContext.setCubes(allCubes);
+        catalog.setCubes(allCubes);
         List<AccessRoleMappingImpl> accessRoles = transformRoles(mondrianSchema.roles());
-        rolapContext.setAccessRoles(accessRoles);
+        catalog.setAccessRoles(accessRoles);
         String accessRoleName = mondrianSchema.defaultRole();
         Optional<AccessRoleMappingImpl> oDefaultAccessRole = findAccessRole(accessRoles, accessRoleName);
         oDefaultAccessRole.ifPresent(ar -> s.setDefaultAccessRole(ar));
@@ -268,9 +268,9 @@ public class TransformTask {
         s.setMeasuresDimensionName(mondrianSchema.measuresCaption());
         s.setCubes(allCubes);
         s.setDocumentation(transformDocumentation(mondrianSchema.documentation()));
-        rolapContext.setSchemas(List.of(s));
+        catalog.setSchemas(List.of(s));
 
-        return rolapContext;
+        return catalog;
     }
 
     private DocumentationMappingImpl transformDocumentation(
@@ -447,7 +447,7 @@ public class TransformTask {
         dim.setVisible(dimension.visible());
         dim.setAnnotations(transformAnnotations(dimension.annotations()));
         List<HierarchyMappingImpl> hierarchies = transformHierarchies(dimension.hierarchies());
-        rolapContext.getHierarchies().addAll(hierarchies);
+        catalog.getHierarchies().addAll(hierarchies);
         dim.setHierarchies(hierarchies);
         return dim;
     }
@@ -476,7 +476,7 @@ public class TransformTask {
 //        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (dimensionUsageOrDimensions instanceof org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension d) {
             DimensionMappingImpl dim = transformDimension(d);
-            rolapContext.getDimensions().add(dim);
+            catalog.getDimensions().add(dim);
             dc.setDimension(dim);
             dc.setForeignKey(d.foreignKey());
         } else if (dimensionUsageOrDimensions instanceof DimensionUsage du) {
@@ -527,7 +527,7 @@ public class TransformTask {
         h.setUniqueKeyLevelName(hierarchy.uniqueKeyLevelName());
         h.setVisible(hierarchy.visible());
         List<LevelMappingImpl> lvls = transformLevels(hierarchy.levels());
-        rolapContext.getLevels().addAll(lvls);
+        catalog.getLevels().addAll(lvls);
         h.setLevels(lvls);
         List<MemberReaderParameterMappingImpl> mrps = transformMemberReaderParameters(
                 hierarchy.memberReaderParameters());
@@ -636,7 +636,7 @@ public class TransformTask {
                 mf.setRef(memberFormatter.className());
             }
             mf.setId("mf_" + counterMemberFormatter.incrementAndGet());
-            rolapContext.getFormatters().add(mf);
+            catalog.getFormatters().add(mf);
             return mf;
         }
         return null;
@@ -684,7 +684,7 @@ public class TransformTask {
 
     private MeasureGroupMappingImpl transformMeasureGroup(List<Measure> measures) {
         List<MeasureMappingImpl> ms = transformMeasures(measures);
-        rolapContext.getMeasures().addAll(ms);
+        catalog.getMeasures().addAll(ms);
         MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder().build();
         measureGroup.setName("");
         measureGroup.setMeasures(ms);
@@ -909,7 +909,7 @@ public class TransformTask {
             if (cellFormatter.className() != null) {
                 cf.setRef(cellFormatter.className());
             }
-            rolapContext.getFormatters().add(cf);
+            catalog.getFormatters().add(cf);
             return cf;
         }
         return null;
@@ -1065,7 +1065,7 @@ public class TransformTask {
             an.setIgnorecase(aggName.ignorecase());
             an.setApproxRowCount(aggName.approxRowCount());
             an.setName(aggName.name());
-            rolapContext.getAggregationTables().add(an);
+            catalog.getAggregationTables().add(an);
             return an;
         }
         if (aggTable instanceof AggPattern aggPattern) {
@@ -1080,7 +1080,7 @@ public class TransformTask {
             ap.setIgnorecase(aggPattern.ignorecase());
             ap.setPattern(aggPattern.pattern());
             ap.setExcludes(transformAggregationExcludes(aggPattern.aggExcludes()));
-            rolapContext.getAggregationTables().add(ap);
+            catalog.getAggregationTables().add(ap);
             return ap;
         }
         return null;
@@ -1173,7 +1173,7 @@ public class TransformTask {
         ae.setIgnorecase(aggExclude.ignorecase());
         ae.setName(aggExclude.name());
         ae.setPattern(aggExclude.pattern());
-        rolapContext.getAggregationExcludes().add(ae);
+        catalog.getAggregationExcludes().add(ae);
         return ae;
     }
 

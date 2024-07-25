@@ -15,19 +15,130 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
 
     private List<SchemaMappingImpl> schemas;
 
+    private List<? extends CubeMappingImpl> cubes;
+
+    private List<DimensionMappingImpl> dimensions;
+
+    private List<HierarchyMappingImpl> hierarchies;
+
+    private List<LevelMappingImpl> levels;
+
+    private List<FormatterMappingImpl> formatters;
+
+    private List<DatabaseSchemaImpl> dbschemas;
+
+    private List<MeasureMappingImpl> measures;
+
+    private List<AccessRoleMappingImpl> accessRoles;
+
+    private List<AggregationTableMappingImpl> aggregationTables;
+
+    private List<AggregationExcludeMappingImpl> aggregationExcludes;
+
     private CatalogMappingImpl(Builder builder) {
         this.schemas = builder.schemas;
+        this.cubes = builder.cubes;
+        this.dimensions = builder.dimensions;
+        this.hierarchies = builder.hierarchies;
+        this.levels = builder.levels;
+        this.formatters = builder.formatters;
+        this.dbschemas = builder.dbschemas;
+        this.measures = builder.measures;
+        this.accessRoles = builder.accessRoles;
+        this.aggregationTables = builder.aggregationTables;
+        this.aggregationExcludes = builder.aggregationExcludes;
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
         super.setDocumentation(builder.documentation);
+    }
+
+    public List<? extends CubeMappingImpl> getCubes() {
+        return cubes;
+    }
+
+    public void setCubes(List<? extends CubeMappingImpl> cubes) {
+        this.cubes = cubes;
+    }
+
+    public List<DimensionMappingImpl> getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(List<DimensionMappingImpl> dimensions) {
+        this.dimensions = dimensions;
+    }
+
+    public List<HierarchyMappingImpl> getHierarchies() {
+        return hierarchies;
+    }
+
+    public void setHierarchies(List<HierarchyMappingImpl> hierarchies) {
+        this.hierarchies = hierarchies;
+    }
+
+    public List<LevelMappingImpl> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(List<LevelMappingImpl> levels) {
+        this.levels = levels;
+    }
+
+    public List<FormatterMappingImpl> getFormatters() {
+        return formatters;
+    }
+
+    public void setFormatters(List<FormatterMappingImpl> formatters) {
+        this.formatters = formatters;
+    }
+
+    public List<DatabaseSchemaImpl> getDbschemas() {
+        return dbschemas;
+    }
+
+    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+        this.dbschemas = dbschemas;
+    }
+
+    public List<MeasureMappingImpl> getMeasures() {
+        return measures;
+    }
+
+    public void setMeasures(List<MeasureMappingImpl> measures) {
+        this.measures = measures;
+    }
+
+    public List<AccessRoleMappingImpl> getAccessRoles() {
+        return accessRoles;
+    }
+
+    public void setAccessRoles(List<AccessRoleMappingImpl> accessRoles) {
+        this.accessRoles = accessRoles;
+    }
+
+    public List<AggregationTableMappingImpl> getAggregationTables() {
+        return aggregationTables;
+    }
+
+    public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
+        this.aggregationTables = aggregationTables;
+    }
+
+    public List<AggregationExcludeMappingImpl> getAggregationExcludes() {
+        return aggregationExcludes;
+    }
+
+    public void setAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
+        this.aggregationExcludes = aggregationExcludes;
     }
 
     public List<SchemaMappingImpl> getSchemas() {
@@ -44,6 +155,16 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
 
     public static final class Builder {
         private List<SchemaMappingImpl> schemas = new ArrayList<>();
+        private List<? extends CubeMappingImpl> cubes = new ArrayList<>();
+        private List<DimensionMappingImpl> dimensions = new ArrayList<>();
+        private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
+        private List<LevelMappingImpl> levels = new ArrayList<>();
+        private List<FormatterMappingImpl> formatters = new ArrayList<>();
+        private List<DatabaseSchemaImpl> dbschemas = new ArrayList<>();
+        private List<MeasureMappingImpl> measures = new ArrayList<>();
+        private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
+        private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
+        private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
@@ -55,6 +176,56 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
 
         public Builder withSchemas(List<SchemaMappingImpl> schemas) {
             this.schemas = schemas;
+            return this;
+        }
+
+        public Builder withCubes(List<? extends CubeMappingImpl> cubes) {
+            this.cubes = cubes;
+            return this;
+        }
+
+        public Builder withDimensions(List<DimensionMappingImpl> dimensions) {
+            this.dimensions = dimensions;
+            return this;
+        }
+
+        public Builder withHierarchies(List<HierarchyMappingImpl> hierarchies) {
+            this.hierarchies = hierarchies;
+            return this;
+        }
+
+        public Builder withLevels(List<LevelMappingImpl> levels) {
+            this.levels = levels;
+            return this;
+        }
+
+        public Builder withFormatters(List<FormatterMappingImpl> formatters) {
+            this.formatters = formatters;
+            return this;
+        }
+
+        public Builder withDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+            this.dbschemas = dbschemas;
+            return this;
+        }
+
+        public Builder withMeasures(List<MeasureMappingImpl> measures) {
+            this.measures = measures;
+            return this;
+        }
+
+        public Builder withAccessRoles(List<AccessRoleMappingImpl> accessRoles) {
+            this.accessRoles = accessRoles;
+            return this;
+        }
+
+        public Builder withAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
+            this.aggregationTables = aggregationTables;
+            return this;
+        }
+
+        public Builder withAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
+            this.aggregationExcludes = aggregationExcludes;
             return this;
         }
 
@@ -87,4 +258,5 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
             return new CatalogMappingImpl(this);
         }
     }
+
 }

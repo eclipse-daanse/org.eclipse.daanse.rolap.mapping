@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api;
 
 import java.util.function.Supplier;
 
-import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
-public interface RolapContextMappingSupplier extends Supplier<RolapContextMapping> {
+public interface CatalogMappingSupplier extends Supplier<CatalogMapping> {
 
 }

@@ -14,8 +14,8 @@ package org.eclipse.daanse.rolap.mapping.example.complex.foodmart;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.RolapContextMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
+import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -46,7 +46,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
@@ -58,8 +57,8 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "3")
-@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements RolapContextMappingSupplier {
+@Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
+public class ExampleSupplier implements CatalogMappingSupplier {
 
     private static final String MEMBER_ORDINAL = "MEMBER_ORDINAL";
 
@@ -1929,17 +1928,12 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
         ))
         .build();
 
-    private static final CatalogMappingImpl catalog = CatalogMappingImpl.builder()
-        .withName(NAME)
-        .withSchemas(List.of(schema))
-        .build();
-
     @Override
-    public RolapContextMapping get() {
-        return RolapContextMappingImpl.builder()
+    public CatalogMapping get() {
+        return CatalogMappingImpl.builder()
             .withName(NAME)
             .withDocumentation(documentation)
-            .withCatalogs(List.of(catalog))
+            .withSchemas(List.of(schema))
             .build();
     }
 

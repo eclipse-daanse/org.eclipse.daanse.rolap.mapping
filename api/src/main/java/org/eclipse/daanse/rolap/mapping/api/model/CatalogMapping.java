@@ -14,8 +14,30 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
+
 public interface CatalogMapping extends AbstractElementMapping {
 
     List<? extends SchemaMapping> getSchemas();
+//
+//    List<? extends CubeMapping> getCubes();
+//
+//    List<? extends DimensionMapping> getDimensions();
+//
+//    List<? extends HierarchyMapping> getHierarchies();
+//
+//    List<? extends LevelMapping> getLevels();
+//
+//    List<? extends FormatterMapping> getFormatters();
+
+    List<? extends DatabaseSchema> getDbschemas();
+//
+//    List<? extends MeasureMapping> getMeasures();
+//
+//    List<? extends AccessRoleMapping> getAccessRoles();
+//
+//    List<? extends AggregationTableMapping> getAggregationTables();
+//
+//    List<? extends AggregationExcludeMapping> getAggregationExcludes();
 
 }

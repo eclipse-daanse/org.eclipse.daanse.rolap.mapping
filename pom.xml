@@ -35,5 +35,6 @@
     <module>pojo</module>
     <module>instance</module>
     <module>mondrian.jaxb</module>
+    <module>modifier</module>
   </modules>
 </project>

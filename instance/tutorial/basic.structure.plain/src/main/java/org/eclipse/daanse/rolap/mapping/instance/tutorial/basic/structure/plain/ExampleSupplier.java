@@ -14,21 +14,19 @@ package org.eclipse.daanse.rolap.mapping.instance.tutorial.basic.structure.plain
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.RolapContextMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
+import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "1")
-@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements RolapContextMappingSupplier {
+@Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
+public class ExampleSupplier implements CatalogMappingSupplier {
 
     private final static String name = "Structure of a Mapping";
 
@@ -42,18 +40,12 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
 
             .build();
 
-    private final static CatalogMappingImpl catalog = CatalogMappingImpl.builder()
-            .withName("AnyCatalogName")
-            .withSchemas(List.of(schema))
-            .withDocumentation(new DocumentationMappingImpl("Container for Schemas"))
-            .build();
-
     @Override
-    public RolapContextMapping get() {
-        return RolapContextMappingImpl.builder()
+    public CatalogMappingImpl get() {
+        return CatalogMappingImpl.builder()
                 .withName(name)
                 .withDocumentation(new DocumentationMappingImpl(documentation_context_text))
-                .withCatalogs(List.of(catalog))
+                .withSchemas(List.of(schema))
                 .build();
     }
 

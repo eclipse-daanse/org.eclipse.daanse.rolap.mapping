@@ -14,8 +14,7 @@ package org.eclipse.daanse.rolap.mapping.example.tutorial.basic.cube.minimal;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.RolapContextMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.RolapContextMapping;
+import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -24,15 +23,14 @@ import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.RolapContextMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "2")
-@Component(service =  RolapContextMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements RolapContextMappingSupplier {
+@Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
+public class ExampleSupplier implements CatalogMappingSupplier {
 
     private final static String name = "Minimal Physical Cube";
 
@@ -76,17 +74,12 @@ public class ExampleSupplier implements RolapContextMappingSupplier {
             .withCubes(List.of(cube))
             .build();
 
-    private final static CatalogMappingImpl catalog = CatalogMappingImpl.builder()
-            .withName("AnyCatalogName")
-            .withSchemas(List.of(schema))
-            .build();
-
     @Override
-    public RolapContextMapping get() {
-        return RolapContextMappingImpl.builder()
+    public CatalogMappingImpl get() {
+        return CatalogMappingImpl.builder()
                 .withName(name)
                 .withDocumentation(documentation)
-                .withCatalogs(List.of(catalog))
+                .withSchemas(List.of(schema))
                 .build();
     }
 
