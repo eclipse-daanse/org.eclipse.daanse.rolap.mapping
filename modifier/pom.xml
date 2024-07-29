@@ -27,6 +27,11 @@
       <artifactId>org.eclipse.daanse.rolap.mapping.api</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.pojo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
 </project>

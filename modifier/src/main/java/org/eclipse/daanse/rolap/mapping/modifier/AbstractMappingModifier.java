@@ -17,7 +17,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
+import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
+import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
@@ -25,6 +28,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
@@ -32,16 +36,21 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
@@ -60,14 +69,21 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
 
 public abstract class AbstractMappingModifier implements CatalogMappingSupplier {
 
@@ -105,7 +121,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return databaseSchemas(catalog2.getDbschemas());
     }
 
-    protected List<? extends DatabaseSchema> databaseSchemas(List<? extends DatabaseSchema> dbschemas) {
+    protected List<DatabaseSchema> databaseSchemas(List<? extends DatabaseSchema> dbschemas) {
         if (dbschemas != null) {
             return dbschemas.stream().map(this::dbschema).toList();
         }
@@ -126,7 +142,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return tables(databaseSchema.getTables());
     }
 
-    protected List<? extends Table> tables(List<? extends Table> tables) {
+    protected List<Table> tables(List<? extends Table> tables) {
         if (tables != null) {
             return tables.stream().map(this::table).toList();
         }
@@ -139,10 +155,33 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends Column> columns = tableColumns(table);
             DatabaseSchema schema = tableSchema(table);
             String description = tableDescription(table);
-            return createTable(name, columns, schema, description);
+            if (table instanceof PhysicalTable) {
+                return createPhysicalTable(name, columns, schema, description);
+            }
+            if (table instanceof SystemTable) {
+                return createSystemTable(name, columns, schema, description);
+            }
+            if (table instanceof ViewTable) {
+                return createViewTable(name, columns, schema, description);
+            }
         }
         return null;
     }
+
+    protected abstract Table createViewTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description
+    );
+
+    protected abstract Table createSystemTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description
+    );
+
+    protected abstract Table createPhysicalTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description
+    );
 
     protected String tableDescription(Table table) {
         return table.getDescription();
@@ -156,7 +195,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return columns(table.getColumns());
     }
 
-    private List<? extends Column> columns(List<? extends Column> columns) {
+    protected List<Column> columns(List<? extends Column> columns) {
         if (columns != null) {
             return columns.stream().map(this::column).toList();
         }
@@ -211,11 +250,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return table.getName();
     }
 
-    protected abstract Table createTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description
-    );
-
     protected String databaseSchemaId(DatabaseSchema databaseSchema) {
         return databaseSchema.getId();
     }
@@ -226,11 +260,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id);
 
-    protected List<? extends SchemaMapping> catalogSchemas(CatalogMapping catalog2) {
+    protected List<SchemaMapping> catalogSchemas(CatalogMapping catalog2) {
         return schemas(catalog2.getSchemas());
     }
 
-    private List<? extends SchemaMapping> schemas(List<? extends SchemaMapping> schemas) {
+    protected List<SchemaMapping> schemas(List<? extends SchemaMapping> schemas) {
         if (schemas != null) {
             return schemas.stream().map(this::schema).toList();
         }
@@ -340,7 +374,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessSchemaGrants(accessRole.getAccessSchemaGrants());
     }
 
-    protected List<? extends AccessSchemaGrantMapping> accessSchemaGrants(
+    protected List<AccessSchemaGrantMapping> accessSchemaGrants(
         List<? extends AccessSchemaGrantMapping> accessSchemaGrants
     ) {
         if (accessSchemaGrants != null) {
@@ -365,7 +399,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessCubeGrants(accessSchemaGrant.getCubeGrant());
     }
 
-    protected List<? extends AccessCubeGrantMapping> accessCubeGrants(
+    protected List<AccessCubeGrantMapping> accessCubeGrants(
         List<? extends AccessCubeGrantMapping> accessCubeGrants
     ) {
         if (accessCubeGrants != null) {
@@ -397,7 +431,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessHierarchyGrants(accessCubeGrant.getHierarchyGrants());
     }
 
-    protected List<? extends AccessHierarchyGrantMapping> accessHierarchyGrants(
+    protected List<AccessHierarchyGrantMapping> accessHierarchyGrants(
         List<? extends AccessHierarchyGrantMapping> accessHierarchyGrants
     ) {
         if (accessHierarchyGrants != null) {
@@ -427,7 +461,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessMemberGrants(accessHierarchyGrant.getMemberGrants());
     }
 
-    protected List<? extends AccessMemberGrantMapping> accessMemberGrants(
+    protected List<AccessMemberGrantMapping> accessMemberGrants(
         List<? extends AccessMemberGrantMapping> accessMemberGrants
     ) {
         if (accessMemberGrants != null) {
@@ -519,12 +553,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends InlineTableColumnDefinitionMapping> columnDefinitions = inlineTableQueryColumnDefinitions(
                 itq);
             List<? extends InlineTableRowMappingMapping> rows = inlineTableQueryRows(itq);
-            return createTableQuery(alias, columnDefinitions, rows);
+            return createInlineTableQuery(alias, columnDefinitions, rows);
         }
         return null;
     }
 
-    protected abstract QueryMapping createTableQuery(
+    protected abstract QueryMapping createInlineTableQuery(
         String alias,
         List<? extends InlineTableColumnDefinitionMapping> columnDefinitions,
         List<? extends InlineTableRowMappingMapping> rows
@@ -534,7 +568,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return inlineTableRowMappings(itq.getRows());
     }
 
-    protected List<? extends InlineTableRowMappingMapping> inlineTableRowMappings(
+    protected List<InlineTableRowMappingMapping> inlineTableRowMappings(
         List<? extends InlineTableRowMappingMapping> rows
     ) {
         if (rows != null) {
@@ -557,7 +591,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return inlineTableRowCells(inlineTableRowMapping.getCells());
     }
 
-    protected List<? extends InlineTableRowCellMapping> inlineTableRowCells(
+    protected List<InlineTableRowCellMapping> inlineTableRowCells(
         List<? extends InlineTableRowCellMapping> cells
     ) {
         if (cells != null) {
@@ -595,7 +629,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return inlineTableColumnDefinitions(itq.getColumnDefinitions());
     }
 
-    protected List<? extends InlineTableColumnDefinitionMapping> inlineTableColumnDefinitions(
+    protected List<InlineTableColumnDefinitionMapping> inlineTableColumnDefinitions(
         List<? extends InlineTableColumnDefinitionMapping> columnDefinitions
     ) {
         if (columnDefinitions != null) {
@@ -689,7 +723,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return sqls(ssq.getSQL());
     }
 
-    protected List<? extends SQLMapping> sqls(List<? extends SQLMapping> sqls) {
+    protected List<SQLMapping> sqls(List<? extends SQLMapping> sqls) {
         if (sqls != null) {
             return sqls.stream().map(this::sql).toList();
         }
@@ -734,7 +768,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationTables(tableQuery.getAggregationTables());
     }
 
-    protected List<? extends AggregationTableMapping> aggregationTables(
+    protected List<AggregationTableMapping> aggregationTables(
         List<? extends AggregationTableMapping> aggregationTables
     ) {
         if (aggregationTables != null) {
@@ -761,21 +795,60 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                     aggregationTable);
             boolean ignorecase = aggregationTableIgnorecase(aggregationTable);
             String id = aggregationTableId(aggregationTable);
-            return createAggregationTable(aggregationFactCount, aggregationIgnoreColumns, aggregationForeignKeys,
-                aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id);
+            if (aggregationTable instanceof AggregationNameMapping an) {
+                String approxRowCount = aggregationNameApproxRowCount(an);
+                String name = aggregationNameName(an);
+                return createAggregationName(aggregationFactCount, aggregationIgnoreColumns, aggregationForeignKeys,
+                    aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id,
+                    approxRowCount, name);
+            }
+            if (aggregationTable instanceof AggregationPatternMapping ap) {
+                String pattern = aggregationPatternPattern(ap);
+                List<? extends AggregationExcludeMapping> excludes = aggregationPatternExcludes(ap);
+                return createAggregationPattern(aggregationFactCount, aggregationIgnoreColumns, aggregationForeignKeys,
+                    aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id, pattern,
+                    excludes);
+
+            }
         }
         return null;
     }
 
-    protected abstract AggregationTableMapping createAggregationTable(
+    protected abstract AggregationTableMapping createAggregationPattern(
         AggregationColumnNameMapping aggregationFactCount,
         List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
         List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
         List<? extends AggregationMeasureMapping> aggregationMeasures,
         List<? extends AggregationLevelMapping> aggregationLevels,
         List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-        String id
+        String id, String pattern, List<? extends AggregationExcludeMapping> excludes
     );
+
+    protected List<? extends AggregationExcludeMapping> aggregationPatternExcludes(AggregationPatternMapping ap) {
+        return ap.getExcludes();
+    }
+
+    protected String aggregationPatternPattern(AggregationPatternMapping ap) {
+        return ap.getPattern();
+    }
+
+    protected abstract AggregationTableMapping createAggregationName(
+        AggregationColumnNameMapping aggregationFactCount,
+        List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
+        List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
+        List<? extends AggregationMeasureMapping> aggregationMeasures,
+        List<? extends AggregationLevelMapping> aggregationLevels,
+        List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
+        String id, String approxRowCount, String name
+    );
+
+    protected String aggregationNameName(AggregationNameMapping an) {
+        return an.getName();
+    }
+
+    protected String aggregationNameApproxRowCount(AggregationNameMapping an) {
+        return an.getApproxRowCount();
+    }
 
     protected String aggregationTableId(AggregationTableMapping aggregationTable) {
         return aggregationTable.getId();
@@ -791,7 +864,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationMeasureFactCounts(aggregationTable.getAggregationMeasureFactCounts());
     }
 
-    protected List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts(
+    protected List<AggregationMeasureFactCountMapping> aggregationMeasureFactCounts(
         List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts
     ) {
         if (aggregationMeasureFactCounts != null) {
@@ -832,7 +905,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return AggregationLevels(aggregationTable.getAggregationLevels());
     }
 
-    protected List<? extends AggregationLevelMapping> AggregationLevels(
+    protected List<AggregationLevelMapping> AggregationLevels(
         List<? extends AggregationLevelMapping> aggregationLevels
     ) {
         if (aggregationLevels != null) {
@@ -852,7 +925,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String name = aggregationLevelName(aggregationLevel);
             String nameColumn = aggregationLevelNameColumn(aggregationLevel);
             String ordinalColumn = aggregationLevelOrdinalColumn(aggregationLevel);
-            return createAggregationLevel(aggregationLevelProperties, captionColumn, collapsed, column, name, nameColumn,
+            return createAggregationLevel(aggregationLevelProperties, captionColumn, collapsed, column, name,
+                nameColumn,
                 ordinalColumn);
         }
         return null;
@@ -864,7 +938,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationLevelProperties(aggregationLevel.getAggregationLevelProperties());
     }
 
-    protected List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties(
+    protected List<AggregationLevelPropertyMapping> aggregationLevelProperties(
         List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties
     ) {
         if (aggregationLevelProperties != null) {
@@ -929,7 +1003,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationMeasures(aggregationTable.getAggregationMeasures());
     }
 
-    protected List<? extends AggregationMeasureMapping> aggregationMeasures(
+    protected List<AggregationMeasureMapping> aggregationMeasures(
         List<? extends AggregationMeasureMapping> aggregationMeasures
     ) {
         if (aggregationMeasures != null) {
@@ -948,7 +1022,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected abstract AggregationMeasureMapping createAggregationMeasure(String column, String name, String rollupType);
+    protected abstract AggregationMeasureMapping createAggregationMeasure(
+        String column,
+        String name,
+        String rollupType
+    );
 
     protected String aggregationMeasureRollupType(AggregationMeasureMapping aggregationMeasure) {
         return aggregationMeasure.getRollupType();
@@ -968,7 +1046,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationForeignKeys(aggregationTable.getAggregationForeignKeys());
     }
 
-    protected List<? extends AggregationForeignKeyMapping> aggregationForeignKeys(
+    protected List<AggregationForeignKeyMapping> aggregationForeignKeys(
         List<? extends AggregationForeignKeyMapping> aggregationForeignKeys
     ) {
         if (aggregationForeignKeys != null) {
@@ -1005,7 +1083,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationColumnNames(aggregationTable.getAggregationIgnoreColumns());
     }
 
-    protected List<? extends AggregationColumnNameMapping> aggregationColumnNames(
+    protected List<AggregationColumnNameMapping> aggregationColumnNames(
         List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns
     ) {
         if (aggregationIgnoreColumns != null) {
@@ -1048,7 +1126,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return tableQueryOptimizationHints(tableQuery.getOptimizationHints());
     }
 
-    protected List<? extends TableQueryOptimizationHintMapping> tableQueryOptimizationHints(
+    protected List<TableQueryOptimizationHintMapping> tableQueryOptimizationHints(
         List<? extends TableQueryOptimizationHintMapping> optimizationHints
     ) {
         if (optimizationHints != null) {
@@ -1082,7 +1160,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationExcludes(tableQuery.getAggregationExcludes());
     }
 
-    protected List<? extends AggregationExcludeMapping> aggregationExcludes(
+    protected List<AggregationExcludeMapping> aggregationExcludes(
         List<? extends AggregationExcludeMapping> aggregationExcludes
     ) {
         if (aggregationExcludes != null) {
@@ -1209,7 +1287,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return memberReaderParameters(hierarchy.getMemberReaderParameters());
     }
 
-    protected List<? extends MemberReaderParameterMapping> memberReaderParameters(
+    protected List<MemberReaderParameterMapping> memberReaderParameters(
         List<? extends MemberReaderParameterMapping> memberReaderParameters
     ) {
         if (memberReaderParameters != null) {
@@ -1242,7 +1320,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return levels(hierarchy.getLevels());
     }
 
-    protected List<? extends LevelMapping> levels(List<? extends LevelMapping> levels) {
+    protected List<LevelMapping> levels(List<? extends LevelMapping> levels) {
         if (levels != null) {
             return levels.stream().map(this::level).toList();
         }
@@ -1438,7 +1516,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return memberProperties(level.getMemberProperties());
     }
 
-    protected List<? extends MemberPropertyMapping> memberProperties(
+    protected List<MemberPropertyMapping> memberProperties(
         List<? extends MemberPropertyMapping> memberProperties
     ) {
         if (memberProperties != null) {
@@ -1602,7 +1680,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessDimensionGrants(accessCubeGrant.getDimensionGrants());
     }
 
-    protected List<? extends AccessDimensionGrantMapping> accessDimensionGrants(
+    protected List<AccessDimensionGrantMapping> accessDimensionGrants(
         List<? extends AccessDimensionGrantMapping> accessDimensionGrants
     ) {
         if (accessDimensionGrants != null) {
@@ -1636,12 +1714,25 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends HierarchyMapping> hierarchies = dimensionHierarchies(dimension);
             String usagePrefix = dimensionUsagePrefix(dimension);
             boolean visible = dimensionVisible(dimension);
-            return createDimension(annotations, id, description, name, documentation, hierarchies, usagePrefix, visible);
+            if (dimension instanceof StandardDimensionMapping) {
+                return createStandardDimension(annotations, id, description, name, documentation, hierarchies,
+                    usagePrefix, visible);
+            }
+            if (dimension instanceof TimeDimensionMapping) {
+                return createTimeDimension(annotations, id, description, name, documentation, hierarchies,
+                    usagePrefix, visible);
+            }
         }
         return null;
     }
 
-    protected abstract DimensionMapping createDimension(
+    protected abstract TimeDimensionMapping createTimeDimension(
+        List<? extends AnnotationMapping> annotations, String id,
+        String description, String name, DocumentationMapping documentation,
+        List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
+    );
+
+    protected abstract StandardDimensionMapping createStandardDimension(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
         List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
@@ -1659,7 +1750,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return hierarchies(dimension.getHierarchies());
     }
 
-    protected List<? extends HierarchyMapping> hierarchies(List<? extends HierarchyMapping> hierarchies) {
+    protected List<HierarchyMapping> hierarchies(List<? extends HierarchyMapping> hierarchies) {
         if (hierarchies != null) {
             return hierarchies.stream().map(this::hierarchy).toList();
         }
@@ -1690,7 +1781,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessDimensionGrant.getAccess();
     }
 
-    protected abstract AccessDimensionGrantMapping createAccessDimensionGrant(String access, DimensionMapping dimension);
+    protected abstract AccessDimensionGrantMapping createAccessDimensionGrant(
+        String access,
+        DimensionMapping dimension
+    );
 
     protected abstract AccessCubeGrantMapping createAccessCubeGrant(
         List<? extends AccessDimensionGrantMapping> dimensionGrants,
@@ -1709,7 +1803,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessRoles(schemaMappingOriginal.getAccessRoles());
     }
 
-    protected List<? extends AccessRoleMapping> accessRoles(List<? extends AccessRoleMapping> accessRoles) {
+    protected List<AccessRoleMapping> accessRoles(List<? extends AccessRoleMapping> accessRoles) {
         if (accessRoles != null) {
             return accessRoles.stream().map(this::accessRole).toList();
         }
@@ -1720,7 +1814,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return namedSets(schemaMappingOriginal.getNamedSets());
     }
 
-    protected List<? extends NamedSetMapping> namedSets(List<? extends NamedSetMapping> namedSets) {
+    protected List<NamedSetMapping> namedSets(List<? extends NamedSetMapping> namedSets) {
         if (namedSets != null) {
             return namedSets.stream().map(this::namedSet).toList();
         }
@@ -1779,7 +1873,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return cubes(schemaMappingOriginal.getCubes());
     }
 
-    protected List<? extends CubeMapping> cubes(List<? extends CubeMapping> cubes) {
+    protected List<CubeMapping> cubes(List<? extends CubeMapping> cubes) {
         if (cubes != null) {
             return cubes.stream().map(this::cube).toList();
         }
@@ -1802,26 +1896,304 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             boolean enabled = cubeEnabled(cube);
             boolean visible = cubeVisible(cube);
             List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
-            return createCube(annotations, id, description, name, documentation, dimensionConnectors, calculatedMembers,
-                namedSets, kpis, defaultMeasure, enabled, visible, measureGroups);
+            if (cube instanceof PhysicalCubeMapping pc) {
+                QueryMapping query = physicalCubeQuery(pc);
+                WritebackTableMapping writebackTable = physicalCubeWritebackTable(pc);
+                List<? extends ActionMappingMapping> action = physicalCubeAction(pc);
+                boolean cache = physicalCubeCache(pc);
+                return createPhysicalCube(annotations, id, description, name, documentation, dimensionConnectors,
+                    calculatedMembers,
+                    namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, query, writebackTable, action,
+                    cache);
+            }
+            if (cube instanceof VirtualCubeMapping vc) {
+                List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(vc);
+                return createVirtualCube(annotations, id, description, name, documentation, dimensionConnectors,
+                    calculatedMembers,
+                    namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, cubeUsages);
+            }
         }
         return null;
     }
 
-    protected abstract CubeMapping createCube(
+    protected List<? extends CubeConnectorMapping> virtualCubeCubeUsages(VirtualCubeMapping vc) {
+        return cubeConnectors(vc.getCubeUsages());
+    }
+
+    protected List<CubeConnectorMapping> cubeConnectors(List<? extends CubeConnectorMapping> cubeUsages) {
+        if (cubeUsages != null) {
+            return cubeUsages.stream().map(this::cubeConnector).toList();
+        }
+        return List.of();
+    }
+
+    protected CubeConnectorMapping cubeConnector(CubeConnectorMapping cubeConnector) {
+        if (cubeConnector != null) {
+            CubeMapping cube = cubeConnectorCube(cubeConnector);
+            boolean ignoreUnrelatedDimensions = cubeConnectorIgnoreUnrelatedDimensions(cubeConnector);
+            return createCubeConnector(cube, ignoreUnrelatedDimensions);
+        }
+        return null;
+    }
+
+    protected abstract CubeConnectorMapping createCubeConnector(CubeMapping cube, boolean ignoreUnrelatedDimensions);
+
+    protected boolean cubeConnectorIgnoreUnrelatedDimensions(CubeConnectorMapping cubeConnector) {
+        return cubeConnector.isIgnoreUnrelatedDimensions();
+    }
+
+    protected CubeMapping cubeConnectorCube(CubeConnectorMapping cubeConnector) {
+        return cube(cubeConnector.getCube());
+    }
+
+    protected abstract VirtualCubeMapping createVirtualCube(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-        List<? extends MeasureGroupMapping> measureGroups
+        List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages
     );
+
+    protected abstract PhysicalCubeMapping createPhysicalCube(
+        List<? extends AnnotationMapping> annotations, String id,
+        String description, String name, DocumentationMapping documentation,
+        List<? extends DimensionConnectorMapping> dimensionConnectors,
+        List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
+        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+        List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
+        List<? extends ActionMappingMapping> action, boolean cache
+    );
+
+    protected boolean physicalCubeCache(PhysicalCubeMapping pc) {
+        return pc.isCache();
+    }
+
+    protected List<? extends ActionMappingMapping> physicalCubeAction(PhysicalCubeMapping pc) {
+        return actionMappings(pc.getAction());
+    }
+
+    protected List<ActionMappingMapping> actionMappings(List<? extends ActionMappingMapping> actions) {
+        if (actions != null) {
+            return actions.stream().map(this::actionMapping).toList();
+        }
+        return List.of();
+    }
+
+    protected ActionMappingMapping actionMapping(ActionMappingMapping actionMapping) {
+        if (actionMapping != null && actionMapping instanceof DrillThroughActionMapping dta) {
+            List<? extends AnnotationMapping> annotations = actionMappingAnnotations(actionMapping);
+            String id = actionMappingId(actionMapping);
+            String description = actionMappingDescription(actionMapping);
+            String name = actionMappingName(actionMapping);
+            DocumentationMapping documentation = actionMappingDocumentation(actionMapping);
+
+            List<? extends DrillThroughAttributeMapping> drillThroughAttribute =
+                drillThroughActionDrillThroughAttribute(dta);
+            List<? extends MeasureMapping> drillThroughMeasure = drillThroughActionDrillThroughMeasure(dta);
+            boolean def = drillThroughActionDefault(dta);
+            return createDrillThroughAction(annotations, id, description, name, documentation,
+                drillThroughAttribute, drillThroughMeasure, def);
+        }
+        return null;
+    }
+
+    private DocumentationMapping actionMappingDocumentation(ActionMappingMapping actionMapping) {
+        return documentation(actionMapping.getDocumentation());
+    }
+
+    private String actionMappingName(ActionMappingMapping actionMapping) {
+        return actionMapping.getName();
+    }
+
+    private String actionMappingDescription(ActionMappingMapping actionMapping) {
+        return actionMapping.getDescription();
+    }
+
+    private String actionMappingId(ActionMappingMapping actionMapping) {
+        return actionMapping.getId();
+    }
+
+    private List<? extends AnnotationMapping> actionMappingAnnotations(ActionMappingMapping actionMapping) {
+        return annotations(actionMapping.getAnnotations());
+    }
+
+    protected abstract ActionMappingMapping createDrillThroughAction(
+        List<? extends AnnotationMapping> annotations, String id,
+        String description, String name, DocumentationMapping documentation,
+        List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
+        List<? extends MeasureMapping> drillThroughMeasure, boolean def
+    );
+
+    protected boolean drillThroughActionDefault(DrillThroughActionMapping dta) {
+        return dta.isDefault();
+    }
+
+    protected List<? extends MeasureMapping> drillThroughActionDrillThroughMeasure(DrillThroughActionMapping dta) {
+        return measureMappings(dta.getDrillThroughMeasure());
+    }
+
+    protected List<MeasureMapping> measureMappings(List<? extends MeasureMapping> measures) {
+        if (measures != null) {
+            return measures.stream().map(this::measure).toList();
+        }
+        return List.of();
+    }
+
+    protected List<? extends DrillThroughAttributeMapping> drillThroughActionDrillThroughAttribute(
+        DrillThroughActionMapping dta
+    ) {
+        return drillThroughAttributes(dta.getDrillThroughAttribute());
+    }
+
+    protected List<DrillThroughAttributeMapping> drillThroughAttributes(
+        List<? extends DrillThroughAttributeMapping> drillThroughAttributes
+    ) {
+        if (drillThroughAttributes != null) {
+            return drillThroughAttributes.stream().map(this::drillThroughAttribute).toList();
+        }
+        return List.of();
+    }
+
+    protected DrillThroughAttributeMapping drillThroughAttribute(DrillThroughAttributeMapping drillThroughAttribute) {
+        if (drillThroughAttribute != null) {
+            DimensionMapping dimension = drillThroughAttributeDimension(drillThroughAttribute);
+            HierarchyMapping hierarchy = drillThroughAttributeHierarchy(drillThroughAttribute);
+            LevelMapping level = drillThroughAttributeLevel(drillThroughAttribute);
+            String property = drillThroughAttributeProperty(drillThroughAttribute);
+            return createDrillThroughAttribute(dimension, hierarchy, level, property);
+
+        }
+        return null;
+    }
+
+    private DimensionMapping drillThroughAttributeDimension(DrillThroughAttributeMapping drillThroughAttribute) {
+        return dimension(drillThroughAttribute.getDimension());
+    }
+
+    private HierarchyMapping drillThroughAttributeHierarchy(DrillThroughAttributeMapping drillThroughAttribute) {
+        return hierarchy(drillThroughAttribute.getHierarchy());
+    }
+
+    private LevelMapping drillThroughAttributeLevel(DrillThroughAttributeMapping drillThroughAttribute) {
+        return level(drillThroughAttribute.getLevel());
+    }
+
+    private String drillThroughAttributeProperty(DrillThroughAttributeMapping drillThroughAttribute) {
+        return drillThroughAttribute.getProperty();
+    }
+
+    protected abstract DrillThroughAttributeMapping createDrillThroughAttribute(
+        DimensionMapping dimension, HierarchyMapping hierarchy,
+        LevelMapping level, String property
+    );
+
+    protected WritebackTableMapping physicalCubeWritebackTable(PhysicalCubeMapping pc) {
+        return writebackTable(pc.getWritebackTable());
+    }
+
+    protected WritebackTableMapping writebackTable(WritebackTableMapping writebackTable) {
+        if (writebackTable != null) {
+            List<? extends WritebackAttributeMapping> writebackAttribute =
+                writebackTableWritebackAttribute(writebackTable);
+            List<? extends WritebackMeasureMapping> writebackMeasure = writebackTableWritebackMeasure(writebackTable);
+            String name = writebackTableName(writebackTable);
+            String schema = writebackTableSchema(writebackTable);
+            return createWritebackTable(writebackAttribute, writebackMeasure, name, schema);
+        }
+        return null;
+    }
+
+    protected List<? extends WritebackAttributeMapping> writebackTableWritebackAttribute(
+        WritebackTableMapping writebackTable
+    ) {
+        return writebackAttributes(writebackTable.getWritebackAttribute());
+    }
+
+    protected List<WritebackAttributeMapping> writebackAttributes(
+        List<? extends WritebackAttributeMapping> writebackAttributes
+    ) {
+        if (writebackAttributes != null) {
+            return writebackAttributes.stream().map(this::writebackAttribute).toList();
+        }
+        return List.of();
+    }
+
+    protected WritebackAttributeMapping writebackAttribute(WritebackAttributeMapping writebackAttribute) {
+        if (writebackAttribute != null) {
+            String column = writebackAttributeColumn(writebackAttribute);
+            DimensionMapping dimension = writebackAttributeDimension(writebackAttribute);
+            return createWritebackAttribute(column, dimension);
+        }
+        return null;
+    }
+
+    protected DimensionMapping writebackAttributeDimension(WritebackAttributeMapping writebackAttribute) {
+        return dimension(writebackAttribute.getDimension());
+    }
+
+    protected String writebackAttributeColumn(WritebackAttributeMapping writebackAttribute) {
+        return writebackAttribute.getColumn();
+    }
+
+    protected abstract WritebackAttributeMapping createWritebackAttribute(String column, DimensionMapping dimension);
+
+    protected List<? extends WritebackMeasureMapping> writebackTableWritebackMeasure(
+        WritebackTableMapping writebackTable
+    ) {
+        return writebackMeasures(writebackTable.getWritebackMeasure());
+    }
+
+    protected List<WritebackMeasureMapping> writebackMeasures(
+        List<? extends WritebackMeasureMapping> writebackMeasures
+    ) {
+        if (writebackMeasures != null) {
+            return writebackMeasures.stream().map(this::writebackMeasure).toList();
+        }
+        return List.of();
+    }
+
+    protected WritebackMeasureMapping writebackMeasure(WritebackMeasureMapping writebackMeasure) {
+        if (writebackMeasure != null) {
+            String column = writebackMeasureColumn(writebackMeasure);
+            String name = writebackMeasureName(writebackMeasure);
+            return createwritebackMeasure(column, name);
+        }
+        return null;
+    }
+
+    protected abstract WritebackMeasureMapping createwritebackMeasure(String column, String name);
+
+    private String writebackMeasureName(WritebackMeasureMapping writebackMeasure) {
+        return writebackMeasure.getName();
+    }
+
+    private String writebackMeasureColumn(WritebackMeasureMapping writebackMeasure) {
+        return writebackMeasure.getColumn();
+    }
+
+    protected String writebackTableName(WritebackTableMapping writebackTable) {
+        return writebackTable.getName();
+    }
+
+    protected String writebackTableSchema(WritebackTableMapping writebackTable) {
+        return writebackTable.getSchema();
+    }
+
+    protected abstract WritebackTableMapping createWritebackTable(
+        List<? extends WritebackAttributeMapping> writebackAttribute,
+        List<? extends WritebackMeasureMapping> writebackMeasure, String name, String schema
+    );
+
+    protected QueryMapping physicalCubeQuery(PhysicalCubeMapping pc) {
+        return query(pc.getQuery());
+    }
 
     protected List<? extends MeasureGroupMapping> getMeasureGroups(CubeMapping cube) {
         return measureGroups(cube.getMeasureGroups());
     }
 
-    protected List<? extends MeasureGroupMapping> measureGroups(List<? extends MeasureGroupMapping> measureGroups) {
+    protected List<MeasureGroupMapping> measureGroups(List<? extends MeasureGroupMapping> measureGroups) {
         if (measureGroups != null) {
             return measureGroups.stream().map(this::measureGroup).toList();
         }
@@ -1841,7 +2213,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return measures(measureGroup.getMeasures());
     }
 
-    protected List<? extends MeasureMapping> measures(List<? extends MeasureMapping> measures) {
+    protected List<MeasureMapping> measures(List<? extends MeasureMapping> measures) {
         if (measures != null) {
             return measures.stream().map(this::measure).toList();
         }
@@ -1882,7 +2254,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String name = measureName(measure);
             String id = measureId(measure);
             String type = measureType(measure);
-            return createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor, column, datatype,
+            return createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor, column,
+                datatype,
                 displayFolder, formatString, formatter, visible, name, id, type);
         }
         return null;
@@ -1895,52 +2268,52 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String formatString, String formatter, boolean visible, String name, String id, String type
     );
 
-    private String measureType(MeasureMapping measure) {
+    protected String measureType(MeasureMapping measure) {
         return measure.getType();
     }
 
-    private String measureId(MeasureMapping measure) {
+    protected String measureId(MeasureMapping measure) {
         return measure.getId();
     }
 
-    private String measureName(MeasureMapping measure) {
+    protected String measureName(MeasureMapping measure) {
         return measure.getName();
     }
 
-    private boolean measureVisible(MeasureMapping measure) {
+    protected boolean measureVisible(MeasureMapping measure) {
         return measure.isVisible();
     }
 
-    private String measureFormatter(MeasureMapping measure) {
+    protected String measureFormatter(MeasureMapping measure) {
         return measure.getFormatter();
     }
 
-    private String measureFormatString(MeasureMapping measure) {
+    protected String measureFormatString(MeasureMapping measure) {
         return measure.getFormatString();
     }
 
-    private String measureDisplayFolder(MeasureMapping measure) {
+    protected String measureDisplayFolder(MeasureMapping measure) {
         return measure.getDisplayFolder();
     }
 
-    private String measureDatatype(MeasureMapping measure) {
+    protected String measureDatatype(MeasureMapping measure) {
         return measure.getDatatype();
     }
 
-    private String measureColumn(MeasureMapping measure) {
+    protected String measureColumn(MeasureMapping measure) {
         return measure.getColumn();
 
     }
 
-    private String measureBackColor(MeasureMapping measure) {
+    protected String measureBackColor(MeasureMapping measure) {
         return measure.getBackColor();
     }
 
-    private CellFormatterMapping measureCellFormatter(MeasureMapping measure) {
+    protected CellFormatterMapping measureCellFormatter(MeasureMapping measure) {
         return cellFormatter(measure.getCellFormatter());
     }
 
-    private CellFormatterMapping cellFormatter(CellFormatterMapping cellFormatter) {
+    protected CellFormatterMapping cellFormatter(CellFormatterMapping cellFormatter) {
         if (cellFormatter != null) {
             List<? extends AnnotationMapping> annotations = cellFormatterAnnotations(cellFormatter);
             String id = cellFormatterId(cellFormatter);
@@ -1953,27 +2326,27 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private String cellFormatterRef(CellFormatterMapping cellFormatter) {
+    protected String cellFormatterRef(CellFormatterMapping cellFormatter) {
         return cellFormatter.getRef();
     }
 
-    private DocumentationMapping cellFormatterDocumentation(CellFormatterMapping cellFormatter) {
+    protected DocumentationMapping cellFormatterDocumentation(CellFormatterMapping cellFormatter) {
         return documentation(cellFormatter.getDocumentation());
     }
 
-    private String cellFormatterName(CellFormatterMapping cellFormatter) {
+    protected String cellFormatterName(CellFormatterMapping cellFormatter) {
         return cellFormatter.getName();
     }
 
-    private String cellFormatterDescription(CellFormatterMapping cellFormatter) {
+    protected String cellFormatterDescription(CellFormatterMapping cellFormatter) {
         return cellFormatter.getDescription();
     }
 
-    private String cellFormatterId(CellFormatterMapping cellFormatter) {
+    protected String cellFormatterId(CellFormatterMapping cellFormatter) {
         return cellFormatter.getId();
     }
 
-    private List<? extends AnnotationMapping> cellFormatterAnnotations(CellFormatterMapping cellFormatter) {
+    protected List<? extends AnnotationMapping> cellFormatterAnnotations(CellFormatterMapping cellFormatter) {
         return annotations(cellFormatter.getAnnotations());
     }
 
@@ -1982,11 +2355,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String description, String name, DocumentationMapping documentation, String ref
     );
 
-    private List<? extends CalculatedMemberPropertyMapping> measureCalculatedMemberProperty(MeasureMapping measure) {
+    protected List<? extends CalculatedMemberPropertyMapping> measureCalculatedMemberProperty(MeasureMapping measure) {
         return calculatedMemberProperties(measure.getCalculatedMemberProperty());
     }
 
-    private List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties(
+    protected List<CalculatedMemberPropertyMapping> calculatedMemberProperties(
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties
     ) {
         if (calculatedMemberProperties != null) {
@@ -2019,39 +2392,39 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         DocumentationMapping documentation, String expression, String value
     );
 
-    private String calculatedMemberPropertyValue(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected String calculatedMemberPropertyValue(CalculatedMemberPropertyMapping calculatedMemberProperty) {
         return calculatedMemberProperty.getValue();
     }
 
-    private String calculatedMemberPropertyExpression(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected String calculatedMemberPropertyExpression(CalculatedMemberPropertyMapping calculatedMemberProperty) {
         return calculatedMemberProperty.getExpression();
     }
 
-    private DocumentationMapping calculatedMemberPropertyDocumentation(
+    protected DocumentationMapping calculatedMemberPropertyDocumentation(
         CalculatedMemberPropertyMapping calculatedMemberProperty
     ) {
         return documentation(calculatedMemberProperty.getDocumentation());
     }
 
-    private String calculatedMemberPropertyName(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected String calculatedMemberPropertyName(CalculatedMemberPropertyMapping calculatedMemberProperty) {
         return calculatedMemberProperty.getName();
     }
 
-    private String calculatedMemberPropertyDescription(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected String calculatedMemberPropertyDescription(CalculatedMemberPropertyMapping calculatedMemberProperty) {
         return calculatedMemberProperty.getDescription();
     }
 
-    private String calculatedMemberPropertyId(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected String calculatedMemberPropertyId(CalculatedMemberPropertyMapping calculatedMemberProperty) {
         return calculatedMemberProperty.getId();
     }
 
-    private List<? extends AnnotationMapping> calculatedMemberPropertyAnnotations(
+    protected List<? extends AnnotationMapping> calculatedMemberPropertyAnnotations(
         CalculatedMemberPropertyMapping calculatedMemberProperty
     ) {
         return annotations(calculatedMemberProperty.getAnnotations());
     }
 
-    private SQLExpressionMapping measureMeasureExpression(MeasureMapping measure) {
+    protected SQLExpressionMapping measureMeasureExpression(MeasureMapping measure) {
         return sqlExpression(measure.getMeasureExpression());
     }
 
@@ -2059,7 +2432,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return kpis(cube.getKpis());
     }
 
-    protected List<? extends KpiMapping> kpis(List<? extends KpiMapping> kpis) {
+    protected List<KpiMapping> kpis(List<? extends KpiMapping> kpis) {
         if (kpis != null) {
             return kpis.stream().map(this::kpi).toList();
         }
@@ -2093,55 +2466,55 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private String kpiParentKpiID(KpiMapping kpi) {
+    protected String kpiParentKpiID(KpiMapping kpi) {
         return kpi.getParentKpiID();
     }
 
-    private String kpiCurrentTimeMember(KpiMapping kpi) {
+    protected String kpiCurrentTimeMember(KpiMapping kpi) {
         return kpi.getCurrentTimeMember();
     }
 
-    private String kpiStatusGraphic(KpiMapping kpi) {
+    protected String kpiStatusGraphic(KpiMapping kpi) {
         return kpi.getStatusGraphic();
     }
 
-    private String kpiTrendGraphic(KpiMapping kpi) {
+    protected String kpiTrendGraphic(KpiMapping kpi) {
         return kpi.getTrendGraphic();
     }
 
-    private String kpiWeight(KpiMapping kpi) {
+    protected String kpiWeight(KpiMapping kpi) {
         return kpi.getWeight();
     }
 
-    private String kpiTrend(KpiMapping kpi) {
+    protected String kpiTrend(KpiMapping kpi) {
         return kpi.getTrend();
     }
 
-    private String kpiStatus(KpiMapping kpi) {
+    protected String kpiStatus(KpiMapping kpi) {
         return kpi.getStatus();
     }
 
-    private String kpiGoal(KpiMapping kpi) {
+    protected String kpiGoal(KpiMapping kpi) {
         return kpi.getGoal();
     }
 
-    private String kpiValue(KpiMapping kpi) {
+    protected String kpiValue(KpiMapping kpi) {
         return kpi.getValue();
     }
 
-    private String kpiAssociatedMeasureGroupID(KpiMapping kpi) {
+    protected String kpiAssociatedMeasureGroupID(KpiMapping kpi) {
         return kpi.getAssociatedMeasureGroupID();
     }
 
-    private String kpiDisplayFolder(KpiMapping kpi) {
+    protected String kpiDisplayFolder(KpiMapping kpi) {
         return kpi.getDisplayFolder();
     }
 
-    private List<? extends TranslationMapping> kpiTranslations(KpiMapping kpi) {
+    protected List<? extends TranslationMapping> kpiTranslations(KpiMapping kpi) {
         return translations(kpi.getTranslations());
     }
 
-    private List<? extends TranslationMapping> translations(List<? extends TranslationMapping> translations) {
+    protected List<TranslationMapping> translations(List<? extends TranslationMapping> translations) {
         if (translations != null) {
             return translations.stream().map(this::translation).toList();
         }
@@ -2160,23 +2533,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private List<? extends AnnotationMapping> translationAnnotations(TranslationMapping translation) {
+    protected List<? extends AnnotationMapping> translationAnnotations(TranslationMapping translation) {
         return annotations(translation.getAnnotations());
     }
 
-    private String translationDisplayFolder(TranslationMapping translation) {
+    protected String translationDisplayFolder(TranslationMapping translation) {
         return translation.getDisplayFolder();
     }
 
-    private String translationDescription(TranslationMapping translation) {
+    protected String translationDescription(TranslationMapping translation) {
         return translation.getDescription();
     }
 
-    private String translationCaption(TranslationMapping translation) {
+    protected String translationCaption(TranslationMapping translation) {
         return translation.getCaption();
     }
 
-    private long translationLanguage(TranslationMapping translation) {
+    protected long translationLanguage(TranslationMapping translation) {
         return translation.getLanguage();
     }
 
@@ -2185,23 +2558,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String displayFolder, List<? extends AnnotationMapping> annotations
     );
 
-    private DocumentationMapping kpiDocumentation(KpiMapping kpi) {
+    protected DocumentationMapping kpiDocumentation(KpiMapping kpi) {
         return documentation(kpi.getDocumentation());
     }
 
-    private String kpiName(KpiMapping kpi) {
+    protected String kpiName(KpiMapping kpi) {
         return kpi.getName();
     }
 
-    private List<? extends AnnotationMapping> kpiAnnotations(KpiMapping kpi) {
+    protected List<? extends AnnotationMapping> kpiAnnotations(KpiMapping kpi) {
         return annotations(kpi.getAnnotations());
     }
 
-    private String kpiDescription(KpiMapping kpi) {
+    protected String kpiDescription(KpiMapping kpi) {
         return kpi.getDescription();
     }
 
-    private String kpiId(KpiMapping kpi) {
+    protected String kpiId(KpiMapping kpi) {
         return kpi.getId();
     }
 
@@ -2221,7 +2594,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return calculatedMembers(cube.getCalculatedMembers());
     }
 
-    protected List<? extends CalculatedMemberMapping> calculatedMembers(
+    protected List<CalculatedMemberMapping> calculatedMembers(
         List<? extends CalculatedMemberMapping> calculatedMembers
     ) {
         if (calculatedMembers != null) {
@@ -2240,7 +2613,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties =
                 calculatedMemberCalculatedMemberProperties(
-                calculatedMember);
+                    calculatedMember);
             CellFormatterMapping cellFormatter = calculatedMemberCellFormatter(calculatedMember);
             String formula = calculatedMemberFormula(calculatedMember);
             String displayFolder = calculatedMemberDisplayFolder(calculatedMember);
@@ -2264,61 +2637,61 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         HierarchyMapping hierarchy, DimensionConnectorMapping dimensionConector, String parent, boolean visible
     );
 
-    private boolean calculatedMemberVisible(CalculatedMemberMapping calculatedMember) {
+    protected boolean calculatedMemberVisible(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.isVisible();
     }
 
-    private String calculatedMemberParent(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberParent(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getParent();
     }
 
-    private DimensionConnectorMapping calculatedMemberDimensionConector(CalculatedMemberMapping calculatedMember) {
+    protected DimensionConnectorMapping calculatedMemberDimensionConector(CalculatedMemberMapping calculatedMember) {
         return dimensionConnector(calculatedMember.getDimensionConector());
     }
 
-    private HierarchyMapping calculatedMemberHierarchy(CalculatedMemberMapping calculatedMember) {
+    protected HierarchyMapping calculatedMemberHierarchy(CalculatedMemberMapping calculatedMember) {
         return hierarchy(calculatedMember.getHierarchy());
     }
 
-    private String calculatedMemberFormatString(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberFormatString(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getFormatString();
     }
 
-    private String calculatedMemberDisplayFolder(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberDisplayFolder(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getDisplayFolder();
     }
 
-    private String calculatedMemberFormula(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberFormula(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getFormula();
     }
 
-    private CellFormatterMapping calculatedMemberCellFormatter(CalculatedMemberMapping calculatedMember) {
+    protected CellFormatterMapping calculatedMemberCellFormatter(CalculatedMemberMapping calculatedMember) {
         return cellFormatter(calculatedMember.getCellFormatter());
     }
 
-    private List<? extends CalculatedMemberPropertyMapping> calculatedMemberCalculatedMemberProperties(
+    protected List<? extends CalculatedMemberPropertyMapping> calculatedMemberCalculatedMemberProperties(
         CalculatedMemberMapping calculatedMember
     ) {
         return calculatedMemberProperties(calculatedMember.getCalculatedMemberProperties());
     }
 
-    private DocumentationMapping calculatedMemberDocumentation(CalculatedMemberMapping calculatedMember) {
+    protected DocumentationMapping calculatedMemberDocumentation(CalculatedMemberMapping calculatedMember) {
         return documentation(calculatedMember.getDocumentation());
     }
 
-    private String calculatedMemberName(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberName(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getName();
     }
 
-    private String calculatedMemberDescription(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberDescription(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getDescription();
     }
 
-    private String calculatedMemberId(CalculatedMemberMapping calculatedMember) {
+    protected String calculatedMemberId(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getId();
     }
 
-    private List<? extends AnnotationMapping> calculatedMemberAnnotations(CalculatedMemberMapping calculatedMember) {
+    protected List<? extends AnnotationMapping> calculatedMemberAnnotations(CalculatedMemberMapping calculatedMember) {
         return annotations(calculatedMember.getAnnotations());
     }
 
@@ -2326,7 +2699,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return dimensionConnectors(cube.getDimensionConnectors());
     }
 
-    protected List<? extends DimensionConnectorMapping> dimensionConnectors(
+    protected List<DimensionConnectorMapping> dimensionConnectors(
         List<? extends DimensionConnectorMapping> dimensionConnectors
     ) {
         if (dimensionConnectors != null) {
@@ -2354,27 +2727,27 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName
     );
 
-    private String dimensionConnectorOverrideDimensionName(DimensionConnectorMapping dimensionConnector) {
+    protected String dimensionConnectorOverrideDimensionName(DimensionConnectorMapping dimensionConnector) {
         return dimensionConnector.getOverrideDimensionName();
     }
 
-    private DimensionMapping dimensionConnectorDimension(DimensionConnectorMapping dimensionConnector) {
+    protected DimensionMapping dimensionConnectorDimension(DimensionConnectorMapping dimensionConnector) {
         return dimension(dimensionConnector.getDimension());
     }
 
-    private boolean dimensionConnectorVisible(DimensionConnectorMapping dimensionConnector) {
+    protected boolean dimensionConnectorVisible(DimensionConnectorMapping dimensionConnector) {
         return dimensionConnector.isVisible();
     }
 
-    private String dimensionConnectorUsagePrefix(DimensionConnectorMapping dimensionConnector) {
+    protected String dimensionConnectorUsagePrefix(DimensionConnectorMapping dimensionConnector) {
         return dimensionConnector.getUsagePrefix();
     }
 
-    private LevelMapping dimensionConnectorLevel(DimensionConnectorMapping dimensionConnector) {
+    protected LevelMapping dimensionConnectorLevel(DimensionConnectorMapping dimensionConnector) {
         return level(dimensionConnector.getLevel());
     }
 
-    private String dimensionConnectorForeignKey(DimensionConnectorMapping dimensionConnector) {
+    protected String dimensionConnectorForeignKey(DimensionConnectorMapping dimensionConnector) {
         return dimensionConnector.getForeignKey();
     }
 
@@ -2424,7 +2797,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(schemaMappingOriginal.getAnnotations());
     }
 
-    protected List<? extends AnnotationMapping> annotations(List<? extends AnnotationMapping> annotations) {
+    protected List<AnnotationMapping> annotations(List<? extends AnnotationMapping> annotations) {
         if (annotations != null) {
             return annotations.stream().map(this::annotation).toList();
         }
