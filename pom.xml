@@ -33,6 +33,7 @@
   <modules>
     <module>api</module>
     <module>pojo</module>
+    <module>emf</module>
     <module>instance</module>
     <module>mondrian.jaxb</module>
     <module>modifier</module>

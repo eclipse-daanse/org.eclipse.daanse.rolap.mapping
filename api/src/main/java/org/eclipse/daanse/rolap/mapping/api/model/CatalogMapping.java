@@ -30,7 +30,7 @@ public interface CatalogMapping extends AbstractElementMapping {
 //
 //    List<? extends FormatterMapping> getFormatters();
 
-    List<? extends DatabaseSchema> getDbschemas();
+//    List<? extends DatabaseSchema> getDbschemas();
 //
 //    List<? extends MeasureMapping> getMeasures();
 //

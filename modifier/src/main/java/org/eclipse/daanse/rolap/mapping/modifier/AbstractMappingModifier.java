@@ -107,7 +107,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = catalogDocumentation(catalog2);
 
             List<? extends SchemaMapping> schemas = catalogSchemas(catalog2);
-            List<? extends DatabaseSchema> dbschemas = catalogDbschemas(catalog2);
+//            List<? extends DatabaseSchema> dbschemas = catalogDbschemas(catalog2);
+            List<? extends DatabaseSchema> dbschemas=null;
             return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
         }
         return null;
@@ -117,9 +118,9 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(catalog2.getAnnotations());
     }
 
-    protected List<? extends DatabaseSchema> catalogDbschemas(CatalogMapping catalog2) {
-        return databaseSchemas(catalog2.getDbschemas());
-    }
+//    protected List<? extends DatabaseSchema> catalogDbschemas(CatalogMapping catalog2) {
+//        return databaseSchemas(catalog2.getDbschemas());
+//    }
 
     protected List<DatabaseSchema> databaseSchemas(List<? extends DatabaseSchema> dbschemas) {
         if (dbschemas != null) {
