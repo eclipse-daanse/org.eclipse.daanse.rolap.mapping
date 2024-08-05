@@ -54,6 +54,8 @@
         eType="#//AggregationTable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
         eType="#//AggregationExclude" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbschermas" upperBound="-1"
+        eType="ecore:EClass https://www.daanse.org/spec/org.eclipse.daanse.rdb.structure#//DatabaseSchema"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"

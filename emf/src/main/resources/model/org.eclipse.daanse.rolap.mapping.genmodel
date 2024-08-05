@@ -15,6 +15,7 @@
     modelDirectory="/org.eclipse.daanse.rolap.mapping/src" modelPluginID="org.eclipse.daanse.rolap.mapping"
     modelName="org.eclipse.daanse.rolap.mapping.emf" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
+    usedGenPackages="../../../../../org.eclipse.daanse.rdb.structure.emf/src/main/resources/model/org.eclipse.daanse.rdb.structure.genmodel#//rdbstructure"
     operationReflection="true" importOrganizing="true" oSGiCompatible="true">
   <foreignModel>org.eclipse.daanse.rolap.mapping.ecore</foreignModel>
   <genPackages prefix="RolapMapping" basePackage="org.eclipse.daanse.rolap.mapping.emf"
@@ -46,6 +47,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/accessRoles"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/aggregationTables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/aggregationExcludes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/dbschermas"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Schema">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/parameters"/>
