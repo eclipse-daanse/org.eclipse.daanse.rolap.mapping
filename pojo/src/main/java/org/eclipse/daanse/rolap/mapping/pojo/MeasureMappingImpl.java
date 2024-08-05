@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 
-public class MeasureMappingImpl implements MeasureMapping {
+public class MeasureMappingImpl extends AbstractElementMappingImpl implements MeasureMapping {
 
     private SQLExpressionMappingImpl measureExpression;
 
@@ -45,6 +45,8 @@ public class MeasureMappingImpl implements MeasureMapping {
 
     private String type;
 
+
+
     private MeasureMappingImpl(Builder builder) {
         this.measureExpression = builder.measureExpression;
         this.calculatedMemberProperty = builder.calculatedMemberProperty;
@@ -59,7 +61,12 @@ public class MeasureMappingImpl implements MeasureMapping {
         this.name = builder.name;
         this.id = builder.id;
         this.type = builder.type;
+        super.setAnnotations(builder.annotations);
+        super.setDescription(builder.description);
+        super.setDocumentation(builder.documentation);
     }
+
+
 
     public SQLExpressionMappingImpl getMeasureExpression() {
         return measureExpression;
@@ -183,6 +190,9 @@ public class MeasureMappingImpl implements MeasureMapping {
         private String name;
         private String id;
         private String type;
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
+        private String description;
+        private DocumentationMappingImpl documentation;
 
         private Builder() {
         }
@@ -253,9 +263,25 @@ public class MeasureMappingImpl implements MeasureMapping {
             return this;
         }
 
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
         public MeasureMappingImpl build() {
             return new MeasureMappingImpl(this);
         }
     }
+
 
 }

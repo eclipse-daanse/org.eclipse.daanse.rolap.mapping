@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface MeasureMapping {
+public interface MeasureMapping extends AbstractElementMapping{
 
     SQLExpressionMapping getMeasureExpression();
 
@@ -35,10 +35,6 @@ public interface MeasureMapping {
     String getFormatter();
 
     boolean isVisible();
-
-    String getName();
-
-    String getId();
 
     String getType();
 
