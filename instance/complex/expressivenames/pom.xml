@@ -14,21 +14,19 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.complex</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.complex</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>foodmart</module>
-    <module>steelwheels</module>
-    <module>population</module>
-    <module>expressivenames</module>
-  </modules>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.complex.expressivenames</artifactId>
   <dependencies>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.api</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.pojo</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>
