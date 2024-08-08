@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface LevelMapping {
+public interface LevelMapping extends AbstractElementMapping{
 
     SQLExpressionMapping getKeyExpression();
 
@@ -60,7 +60,5 @@ public interface LevelMapping {
 
     boolean isVisible();
 
-    String getName();
 
-    String getId();
 }

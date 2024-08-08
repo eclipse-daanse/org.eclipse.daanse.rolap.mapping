@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 
-public class LevelMappingImpl implements LevelMapping {
+public class LevelMappingImpl extends AbstractElementMappingImpl implements LevelMapping {
 
     private SQLExpressionMappingImpl keyExpression;
 
@@ -93,8 +93,10 @@ public class LevelMappingImpl implements LevelMapping {
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
         this.name = builder.name;
-        this.setDescription(builder.description);
+        this.description = builder.description;
         this.id = builder.id;
+        super.setAnnotations(builder.annotations);
+        super.setDocumentation(builder.documentation);
     }
 
     public SQLExpressionMappingImpl getKeyExpression() {
@@ -289,16 +291,16 @@ public class LevelMappingImpl implements LevelMapping {
         this.id = id;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public static Builder builder() {
+        return new Builder();
     }
 
     public static final class Builder {
@@ -327,6 +329,8 @@ public class LevelMappingImpl implements LevelMapping {
         private String name;
         private String description;
         private String id;
+        private List<AnnotationMappingImpl> annotations = new ArrayList<>();
+        private DocumentationMappingImpl documentation;
 
         private Builder() {
         }
@@ -445,6 +449,7 @@ public class LevelMappingImpl implements LevelMapping {
             this.name = name;
             return this;
         }
+
         public Builder withDescription(String description) {
             this.description = description;
             return this;
@@ -455,8 +460,19 @@ public class LevelMappingImpl implements LevelMapping {
             return this;
         }
 
+        public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
+            this.annotations = annotations;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
         public LevelMappingImpl build() {
             return new LevelMappingImpl(this);
         }
     }
+
 }
