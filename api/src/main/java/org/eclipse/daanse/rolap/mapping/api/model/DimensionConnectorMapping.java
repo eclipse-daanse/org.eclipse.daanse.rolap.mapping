@@ -26,4 +26,6 @@ public interface DimensionConnectorMapping {
 
     String getOverrideDimensionName();
 
+    PhysicalCubeMapping getPhysicalCube();
+
 }

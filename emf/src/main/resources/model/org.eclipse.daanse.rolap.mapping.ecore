@@ -71,8 +71,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement #//ICube">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
-        eType="#//DimensionConnector" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMembers" upperBound="-1"
         eType="#//CalculatedMember" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedSets" upperBound="-1"
@@ -86,6 +84,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Measure"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube #//IPhysicalCube">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
+        eType="#//DimensionConnector" containment="true" eOpposite="#//DimensionConnector/physicalCube"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writebackTable" eType="#//WritebackTable"
@@ -95,6 +95,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cache" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualCube" eSuperTypes="#//Cube #//IVirtualCube">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
+        eType="#//DimensionConnector"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeUsages" lowerBound="1"
         upperBound="-1" eType="#//CubeConnector" containment="true"/>
   </eClassifiers>
@@ -160,6 +162,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
+        eType="#//PhysicalCube" eOpposite="#//PhysicalCube/dimensionConnectors"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension"/>
   <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension"/>

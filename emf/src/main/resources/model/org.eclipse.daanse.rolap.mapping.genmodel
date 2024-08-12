@@ -58,7 +58,6 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/defaultAccessRole"/>
     </genClasses>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Cube">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/dimensionConnectors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/calculatedMembers"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/namedSets"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/kpis"/>
@@ -68,12 +67,14 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/defaultMeasure"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/dimensionConnectors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/query"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/writebackTable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/action"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/cache"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/dimensionConnectors"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/cubeUsages"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CubeConnector">
@@ -128,6 +129,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/overrideDimensionName"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/level"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/id"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/physicalCube"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TimeDimension"/>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//StandardDimension"/>
@@ -187,7 +189,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/parent"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/visible"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/hierarchy"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/dimensionConector"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMemberProperty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMemberProperty/expression"/>

@@ -28,6 +28,8 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
 
     private String overrideDimensionName;
 
+    private PhysicalCubeMappingImpl physicalCube;
+
     private DimensionConnectorMappingImpl(Builder builder) {
         this.foreignKey = builder.foreignKey;
         this.level = builder.level;
@@ -35,7 +37,8 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         this.visible = builder.visible;
         this.dimension = builder.dimension;
         this.overrideDimensionName = builder.overrideDimensionName;
-    }
+        this.physicalCube = builder.physicalCube;
+}
 
     public String getForeignKey() {
         return foreignKey;
@@ -89,6 +92,14 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         return new Builder();
     }
 
+    public PhysicalCubeMappingImpl getPhysicalCube() {
+        return physicalCube;
+    }
+
+    public void setPhysicalCube(PhysicalCubeMappingImpl physicalCube) {
+        this.physicalCube = physicalCube;
+    }
+
     public static final class Builder {
         private String foreignKey;
         private LevelMappingImpl level;
@@ -96,6 +107,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         private boolean visible;
         private DimensionMappingImpl dimension;
         private String overrideDimensionName;
+        private PhysicalCubeMappingImpl physicalCube;
 
         private Builder() {
         }
@@ -127,6 +139,11 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
 
         public Builder withOverrideDimensionName(String overrideDimensionName) {
             this.overrideDimensionName = overrideDimensionName;
+            return this;
+        }
+
+        public Builder withPhysicalCube(PhysicalCubeMappingImpl physicalCube) {
+            this.physicalCube = physicalCube;
             return this;
         }
 
