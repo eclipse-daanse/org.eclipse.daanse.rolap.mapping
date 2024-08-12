@@ -2620,12 +2620,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String displayFolder = calculatedMemberDisplayFolder(calculatedMember);
             String formatString = calculatedMemberFormatString(calculatedMember);
             HierarchyMapping hierarchy = calculatedMemberHierarchy(calculatedMember);
-            DimensionConnectorMapping dimensionConector = calculatedMemberDimensionConector(calculatedMember);
             String parent = calculatedMemberParent(calculatedMember);
             boolean visible = calculatedMemberVisible(calculatedMember);
 
             return createCalculatedMember(annotations, id, description, name, documentation, calculatedMemberProperties,
-                cellFormatter, formula, displayFolder, formatString, hierarchy, dimensionConector, parent, visible);
+                cellFormatter, formula, displayFolder, formatString, hierarchy,  parent, visible);
         }
         return null;
     }
@@ -2635,7 +2634,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String id, String description, String name, DocumentationMapping documentation,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
         CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
-        HierarchyMapping hierarchy, DimensionConnectorMapping dimensionConector, String parent, boolean visible
+        HierarchyMapping hierarchy, String parent, boolean visible
     );
 
     protected boolean calculatedMemberVisible(CalculatedMemberMapping calculatedMember) {
@@ -2644,10 +2643,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected String calculatedMemberParent(CalculatedMemberMapping calculatedMember) {
         return calculatedMember.getParent();
-    }
-
-    protected DimensionConnectorMapping calculatedMemberDimensionConector(CalculatedMemberMapping calculatedMember) {
-        return dimensionConnector(calculatedMember.getDimensionConector());
     }
 
     protected HierarchyMapping calculatedMemberHierarchy(CalculatedMemberMapping calculatedMember) {

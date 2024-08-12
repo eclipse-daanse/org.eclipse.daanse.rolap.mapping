@@ -28,8 +28,6 @@ public interface CalculatedMemberMapping extends AbstractElementMapping {
 
     HierarchyMapping getHierarchy();
 
-    DimensionConnectorMapping getDimensionConector();
-
     String getParent();
 
     boolean isVisible();

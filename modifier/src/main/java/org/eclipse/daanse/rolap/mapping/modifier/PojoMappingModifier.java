@@ -772,7 +772,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name, DocumentationMapping documentation,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
         CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
-        HierarchyMapping hierarchy, DimensionConnectorMapping dimensionConector, String parent, boolean visible
+        HierarchyMapping hierarchy, String parent, boolean visible
     ) {
         return CalculatedMemberMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -786,7 +786,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDisplayFolder(displayFolder)
             .withFormatString(formatString)
             .withHierarchy((HierarchyMappingImpl) hierarchy)
-            .withDimensionConector((DimensionConnectorMappingImpl) dimensionConector)
             .withParent(parent)
             .withVisible(visible)
             .build();

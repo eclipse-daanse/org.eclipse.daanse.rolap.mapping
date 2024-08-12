@@ -44,7 +44,6 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         this.displayFolder = builder.displayFolder;
         this.formatString = builder.formatString;
         this.hierarchy = builder.hierarchy;
-        this.dimensionConector = builder.dimensionConector;
         this.parent = builder.parent;
         this.setVisible(builder.visible);
         super.setAnnotations(builder.annotations);
@@ -137,7 +136,6 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         private String displayFolder;
         private String formatString;
         private HierarchyMappingImpl hierarchy;
-        private DimensionConnectorMappingImpl dimensionConector;
         private String parent;
         private boolean visible;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
@@ -177,11 +175,6 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
 
         public Builder withHierarchy(HierarchyMappingImpl hierarchy) {
             this.hierarchy = hierarchy;
-            return this;
-        }
-
-        public Builder withDimensionConector(DimensionConnectorMappingImpl dimensionConector) {
-            this.dimensionConector = dimensionConector;
             return this;
         }
 
