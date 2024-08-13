@@ -37,10 +37,5 @@
       <artifactId>org.eclipse.daanse.rolap.mapping.emf</artifactId>
       <version>${project.version}</version>
     </dependency>
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.emf.model.rolapmapping</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
 </project>

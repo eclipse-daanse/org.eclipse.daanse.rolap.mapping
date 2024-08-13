@@ -16,10 +16,12 @@ package org.eclipse.daanse.rolap.mapping.modifier;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.daanse.emf.model.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.SystemTable;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
@@ -152,11 +154,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        org.eclipse.daanse.emf.model.rdbstructure.ViewTable table =
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.ViewTable table =
             RelationalDatabaseFactory.eINSTANCE.createViewTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.emf.model.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.emf.model.rdbstructure.DatabaseSchema) schema);
+        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
@@ -167,11 +169,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        org.eclipse.daanse.emf.model.rdbstructure.SystemTable table =
+        SystemTable table =
             RelationalDatabaseFactory.eINSTANCE.createSystemTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.emf.model.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.emf.model.rdbstructure.DatabaseSchema) schema);
+        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
@@ -182,11 +184,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        org.eclipse.daanse.emf.model.rdbstructure.PhysicalTable table =
+        PhysicalTable table =
             RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.emf.model.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.emf.model.rdbstructure.DatabaseSchema) schema);
+        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
@@ -196,9 +198,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String name, Table table, String type, List<String> typeQualifiers,
         String description
     ) {
-        org.eclipse.daanse.emf.model.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE.createColumn();
         column.setName(name);
-        column.setTable((org.eclipse.daanse.emf.model.rdbstructure.Table) table);
+        column.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
         column.setType(type);
         column.getTypeQualifiers().addAll(typeQualifiers);
         column.setDescription(description);
@@ -208,9 +210,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        org.eclipse.daanse.emf.model.rdbstructure.DatabaseSchema databaseSchema =
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema databaseSchema =
             RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.getTables().addAll((Collection<? extends org.eclipse.daanse.emf.model.rdbstructure.Table>) tables);
+        databaseSchema.getTables().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
         return databaseSchema;
