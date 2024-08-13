@@ -144,7 +144,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.WritebackTableMappingImpl;
 
 public class PojoMappingModifier extends AbstractMappingModifier {
 
-    protected PojoMappingModifier(CatalogMapping catalog) {
+	public PojoMappingModifier(CatalogMapping catalog) {
         super(catalog);
     }
 
