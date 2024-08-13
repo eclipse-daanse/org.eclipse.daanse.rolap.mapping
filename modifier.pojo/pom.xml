@@ -19,7 +19,7 @@
     <artifactId>org.eclipse.daanse.rolap.mapping</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.modifier</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.modifier.pojo</artifactId>
 
   <dependencies>
     <dependency>
@@ -30,6 +30,11 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.rolap.mapping.pojo</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.modifier.common</artifactId>
       <version>${project.version}</version>
     </dependency>
   </dependencies>

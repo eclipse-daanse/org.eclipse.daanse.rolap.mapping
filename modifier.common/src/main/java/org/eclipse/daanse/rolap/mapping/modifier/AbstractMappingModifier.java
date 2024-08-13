@@ -107,7 +107,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = catalogDocumentation(catalog2);
 
             List<? extends SchemaMapping> schemas = catalogSchemas(catalog2);
-//            List<? extends DatabaseSchema> dbschemas = catalogDbschemas(catalog2);
             List<? extends DatabaseSchema> dbschemas=null;
             return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
         }
@@ -117,10 +116,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected List<? extends AnnotationMapping> annotations(CatalogMapping catalog2) {
         return annotations(catalog2.getAnnotations());
     }
-
-//    protected List<? extends DatabaseSchema> catalogDbschemas(CatalogMapping catalog2) {
-//        return databaseSchemas(catalog2.getDbschemas());
-//    }
 
     protected List<DatabaseSchema> databaseSchemas(List<? extends DatabaseSchema> dbschemas) {
         if (dbschemas != null) {
@@ -1882,6 +1877,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected CubeMapping cube(CubeMapping cube) {
+        if (cube instanceof PhysicalCubeMapping pc) {
+            return physicalCube(pc);
+        }
+        if (cube instanceof VirtualCubeMapping vc) {
+            return virtualCube(vc);
+        }
+        return null;
+    }
+
+    protected VirtualCubeMapping virtualCube(VirtualCubeMapping cube) {
         if (cube != null) {
             List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
             String id = cubeId(cube);
@@ -1897,22 +1902,38 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             boolean enabled = cubeEnabled(cube);
             boolean visible = cubeVisible(cube);
             List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
-            if (cube instanceof PhysicalCubeMapping pc) {
-                QueryMapping query = physicalCubeQuery(pc);
-                WritebackTableMapping writebackTable = physicalCubeWritebackTable(pc);
-                List<? extends ActionMappingMapping> action = physicalCubeAction(pc);
-                boolean cache = physicalCubeCache(pc);
-                return createPhysicalCube(annotations, id, description, name, documentation, dimensionConnectors,
-                    calculatedMembers,
-                    namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, query, writebackTable, action,
-                    cache);
-            }
-            if (cube instanceof VirtualCubeMapping vc) {
-                List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(vc);
-                return createVirtualCube(annotations, id, description, name, documentation, dimensionConnectors,
-                    calculatedMembers,
-                    namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, cubeUsages);
-            }
+            List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(cube);
+            return createVirtualCube(annotations, id, description, name, documentation, dimensionConnectors,
+                calculatedMembers,
+                namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, cubeUsages);
+
+        }
+        return null;
+    }
+
+    protected PhysicalCubeMapping physicalCube(PhysicalCubeMapping cube) {
+        if (cube != null) {
+            List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
+            String id = cubeId(cube);
+            String description = cubeDescription(cube);
+            String name = cubeName(cube);
+            DocumentationMapping documentation = cubeDocumentation(cube);
+            List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
+            List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
+            List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
+            List<? extends KpiMapping> kpis = cubeKpis(cube);
+            MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
+            boolean enabled = cubeEnabled(cube);
+            boolean visible = cubeVisible(cube);
+            List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
+            QueryMapping query = physicalCubeQuery(cube);
+            WritebackTableMapping writebackTable = physicalCubeWritebackTable(cube);
+            List<? extends ActionMappingMapping> action = physicalCubeAction(cube);
+            boolean cache = physicalCubeCache(cube);
+            return createPhysicalCube(annotations, id, description, name, documentation, dimensionConnectors,
+                calculatedMembers,
+                namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, query, writebackTable, action,
+                cache);
         }
         return null;
     }
@@ -2712,15 +2733,21 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             boolean visible = dimensionConnectorVisible(dimensionConnector);
             DimensionMapping dimension = dimensionConnectorDimension(dimensionConnector);
             String overrideDimensionName = dimensionConnectorOverrideDimensionName(dimensionConnector);
-            return createDimensionConnector(foreignKey, level, usagePrefix, visible, dimension, overrideDimensionName);
+            PhysicalCubeMapping physicalCube = dimensionConnectorPhysicalCube(dimensionConnector);
+            return createDimensionConnector(foreignKey, level, usagePrefix, visible, dimension, overrideDimensionName, physicalCube);
         }
 
         return null;
     }
 
+    private PhysicalCubeMapping dimensionConnectorPhysicalCube(DimensionConnectorMapping dimensionConnector) {
+        return physicalCube(dimensionConnector.getPhysicalCube());
+    }
+
     protected abstract DimensionConnectorMapping createDimensionConnector(
         String foreignKey, LevelMapping level,
-        String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName
+        String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
+        PhysicalCubeMapping physicalCube
     );
 
     protected String dimensionConnectorOverrideDimensionName(DimensionConnectorMapping dimensionConnector) {

@@ -794,7 +794,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected DimensionConnectorMapping createDimensionConnector(
         String foreignKey, LevelMapping level,
-        String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName
+        String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
+        PhysicalCubeMapping physicalCube
     ) {
         return DimensionConnectorMappingImpl.builder()
             .withForeignKey(foreignKey)
@@ -803,6 +804,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withVisible(visible)
             .withDimension((DimensionMappingImpl) dimension)
             .withOverrideDimensionName(overrideDimensionName)
+            .withPhysicalCube((PhysicalCubeMappingImpl) physicalCube)
             .build();
     }
 
