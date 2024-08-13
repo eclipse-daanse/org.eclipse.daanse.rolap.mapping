@@ -484,7 +484,7 @@
         upperBound="-1" eType="#//AccessRole" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessSchemaGrant" eSuperTypes="#//IAccessSchemaGrant">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrant" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
         upperBound="-1" eType="#//AccessCubeGrant" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>

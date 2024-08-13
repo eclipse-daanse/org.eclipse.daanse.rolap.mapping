@@ -392,7 +392,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected List<? extends AccessCubeGrantMapping> accessSchemaGrantAccessCubeGrant(
         AccessSchemaGrantMapping accessSchemaGrant
     ) {
-        return accessCubeGrants(accessSchemaGrant.getCubeGrant());
+        return accessCubeGrants(accessSchemaGrant.getCubeGrants());
     }
 
     protected List<AccessCubeGrantMapping> accessCubeGrants(

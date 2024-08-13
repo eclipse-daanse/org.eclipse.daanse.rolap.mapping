@@ -28,7 +28,7 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
         this.access = builder.access;
     }
 
-    public List<AccessCubeGrantMappingImpl> getCubeGrant() {
+    public List<AccessCubeGrantMappingImpl> getCubeGrants() {
         return cubeGrant;
     }
 

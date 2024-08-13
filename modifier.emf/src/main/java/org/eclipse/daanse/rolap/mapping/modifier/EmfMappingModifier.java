@@ -709,7 +709,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String access
     ) {
         AccessSchemaGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrant.getCubeGrant().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
+        accessSchemaGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
         accessSchemaGrant.setAccess(access);
         return accessSchemaGrant;
     }
