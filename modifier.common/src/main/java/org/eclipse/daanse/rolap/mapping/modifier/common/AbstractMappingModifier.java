@@ -11,7 +11,7 @@
  *   SmartCity Jena, Stefan Bischof - initial
  *
  */
-package org.eclipse.daanse.rolap.mapping.modifier;
+package org.eclipse.daanse.rolap.mapping.modifier.common;
 
 import java.util.List;
 

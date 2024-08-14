@@ -11,7 +11,7 @@
  *   SmartCity Jena, Stefan Bischof - initial
  *
  */
-package org.eclipse.daanse.rolap.mapping.modifier;
+package org.eclipse.daanse.rolap.mapping.modifier.emf;
 
 import java.util.Collection;
 import java.util.List;
@@ -141,6 +141,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
 public class EmfMappingModifier extends AbstractMappingModifier {
 

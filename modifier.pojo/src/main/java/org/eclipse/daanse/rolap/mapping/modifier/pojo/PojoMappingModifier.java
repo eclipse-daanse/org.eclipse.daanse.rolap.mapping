@@ -11,7 +11,7 @@
  *   SmartCity Jena, Stefan Bischof - initial
  *
  */
-package org.eclipse.daanse.rolap.mapping.modifier;
+package org.eclipse.daanse.rolap.mapping.modifier.pojo;
 
 import java.util.List;
 
@@ -80,6 +80,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
+import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
