@@ -26,7 +26,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "1")
 @Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements CatalogMappingSupplier {
+public class TutorialMappingSupplier implements CatalogMappingSupplier {
 
     private final static String name = "Structure of a Mapping";
 

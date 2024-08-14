@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.example.complex.foodmart;
+package org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;
 
 import java.util.List;
 
@@ -58,7 +58,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "3")
 @Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements CatalogMappingSupplier {
+public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String MEMBER_ORDINAL = "MEMBER_ORDINAL";
 

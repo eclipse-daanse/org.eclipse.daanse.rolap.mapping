@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.example.tutorial.basic.cube.minimal;
+package org.eclipse.daanse.rolap.mapping.instance.tutorial.basic.cube.minimal;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.TUTORIAL, source = Source.POJO, number = "2")
 @Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements CatalogMappingSupplier {
+public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
 
     private final static String name = "Minimal Physical Cube";
 

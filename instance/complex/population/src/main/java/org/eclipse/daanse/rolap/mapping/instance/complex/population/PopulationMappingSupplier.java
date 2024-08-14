@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.example.complex.population;
+package org.eclipse.daanse.rolap.mapping.instance.complex.population;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "4")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements CatalogMappingSupplier {
+public class PopulationMappingSupplier implements CatalogMappingSupplier {
 
     private static final String INTEGER = "integer";
     private static final String STATE = "state";

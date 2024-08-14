@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.example.complex.steelwheels;
+package org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "4")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
-public class ExampleSupplier implements CatalogMappingSupplier {
+public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final String STATUS = "STATUS";
 
