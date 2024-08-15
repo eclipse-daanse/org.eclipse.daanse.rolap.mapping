@@ -14,11 +14,13 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
+
 public interface AccessHierarchyGrantMapping {
 
     List<? extends AccessMemberGrantMapping> getMemberGrants();
 
-    String getAccess();
+    AccessHierarchyEnum getAccess();
 
     LevelMapping getBottomLevel();
 

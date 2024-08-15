@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
+
 public interface MeasureMapping extends AbstractElementMapping{
 
     SQLExpressionMapping getMeasureExpression();
@@ -26,7 +28,7 @@ public interface MeasureMapping extends AbstractElementMapping{
 
     String getColumn();
 
-    String getDatatype();
+    MeasureDataTypeEnum getDatatype();
 
     String getDisplayFolder();
 

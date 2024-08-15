@@ -13,12 +13,13 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 
 public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumnDefinitionMapping {
 
     private String name;
 
-    private String type;
+    private TypeEnum type;
 
     private InlineTableColumnDefinitionMappingImpl(Builder builder) {
         this.name = builder.name;
@@ -33,11 +34,11 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
         this.name = name;
     }
 
-    public String getType() {
+    public TypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(TypeEnum type) {
         this.type = type;
     }
 
@@ -47,7 +48,7 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
 
     public static final class Builder {
         private String name;
-        private String type;
+        private TypeEnum type;
 
         private Builder() {
         }
@@ -57,7 +58,7 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
             return this;
         }
 
-        public Builder withType(String type) {
+        public Builder withType(TypeEnum type) {
             this.type = type;
             return this;
         }

@@ -14,13 +14,15 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
+
 public interface AccessCubeGrantMapping {
 
     List<? extends AccessDimensionGrantMapping> getDimensionGrants();
 
     List<? extends AccessHierarchyGrantMapping> getHierarchyGrants();
 
-    String getAccess();
+    AccessCubeEnum getAccess();
 
     CubeMapping getCube();
 

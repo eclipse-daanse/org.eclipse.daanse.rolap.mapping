@@ -12,10 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
+
 public interface InlineTableColumnDefinitionMapping {
 
     String getName();
 
-    String getType();
+    TypeEnum getType();
 
 }

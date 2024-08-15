@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ParameterTypeEnum;
+
 public interface ParameterMapping {
 
     String getDefaultValue();
@@ -22,6 +24,6 @@ public interface ParameterMapping {
 
     String getName();
 
-    String getType();
+    ParameterTypeEnum getType();
 
 }

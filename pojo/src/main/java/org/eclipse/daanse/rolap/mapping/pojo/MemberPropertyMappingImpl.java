@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
 
 public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implements MemberPropertyMapping {
 
@@ -25,7 +26,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private boolean dependsOnLevelValue;
 
-    private String type;
+    private PropertyTypeEnum type;
 
     private MemberPropertyMappingImpl(Builder builder) {
         this.formatter = builder.formatter;
@@ -63,11 +64,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         this.dependsOnLevelValue = dependsOnLevelValue;
     }
 
-    public String getType() {
+    public PropertyTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(PropertyTypeEnum type) {
         this.type = type;
     }
 
@@ -79,7 +80,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         private MemberPropertyFormatterMappingImpl formatter;
         private String column;
         private boolean dependsOnLevelValue;
-        private String type;
+        private PropertyTypeEnum type;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
@@ -104,7 +105,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
             return this;
         }
 
-        public Builder withType(String type) {
+        public Builder withType(PropertyTypeEnum type) {
             this.type = type;
             return this;
         }

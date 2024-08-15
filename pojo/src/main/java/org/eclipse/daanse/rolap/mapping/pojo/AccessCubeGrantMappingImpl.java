@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
 
 public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
@@ -23,7 +24,7 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
 
     private List<AccessHierarchyGrantMappingImpl> hierarchyGrants;
 
-    private String access;
+    private AccessCubeEnum access;
 
     private CubeMappingImpl cube;
 
@@ -50,11 +51,11 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
         this.hierarchyGrants = hierarchyGrants;
     }
 
-    public String getAccess() {
+    public AccessCubeEnum getAccess() {
         return access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(AccessCubeEnum access) {
         this.access = access;
     }
 
@@ -73,7 +74,7 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
     public static final class Builder {
         private List<AccessDimensionGrantMappingImpl> dimensionGrants = new ArrayList<>();
         private List<AccessHierarchyGrantMappingImpl> hierarchyGrants = new ArrayList<>();
-        private String access;
+        private AccessCubeEnum access;
         private CubeMappingImpl cube;
 
         private Builder() {
@@ -89,7 +90,7 @@ public class AccessCubeGrantMappingImpl implements AccessCubeGrantMapping {
             return this;
         }
 
-        public Builder withAccess(String access) {
+        public Builder withAccess(AccessCubeEnum access) {
             this.access = access;
             return this;
         }

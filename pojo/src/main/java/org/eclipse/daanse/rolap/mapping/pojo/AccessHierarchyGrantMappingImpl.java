@@ -16,12 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
 
 public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapping {
 
     private List<AccessMemberGrantMappingImpl> memberGrants;
 
-    private String access;
+    private AccessHierarchyEnum access;
 
     private LevelMappingImpl bottomLevel;
 
@@ -48,11 +49,11 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.memberGrants = memberGrants;
     }
 
-    public String getAccess() {
+    public AccessHierarchyEnum getAccess() {
         return access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(AccessHierarchyEnum access) {
         this.access = access;
     }
 
@@ -94,7 +95,7 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
 
     public static final class Builder {
         private List<AccessMemberGrantMappingImpl> memberGrants = new ArrayList<>();
-        private String access;
+        private AccessHierarchyEnum access;
         private LevelMappingImpl bottomLevel;
         private String rollupPolicy;
         private LevelMappingImpl topLevel;
@@ -108,7 +109,7 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
             return this;
         }
 
-        public Builder withAccess(String access) {
+        public Builder withAccess(AccessHierarchyEnum access) {
             this.access = access;
             return this;
         }

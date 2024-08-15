@@ -84,6 +84,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimensionEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchemaEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 
 public abstract class AbstractMappingModifier implements CatalogMappingSupplier {
 
@@ -383,7 +394,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (accessSchemaGrant != null) {
             List<? extends AccessCubeGrantMapping> accessCubeGrant = accessSchemaGrantAccessCubeGrant(
                 accessSchemaGrant);
-            String access = accessSchemaGrantAccess(accessSchemaGrant);
+            AccessSchemaEnum access = accessSchemaGrantAccess(accessSchemaGrant);
             return createAccessSchemaGrant(accessCubeGrant, access);
         }
         return null;
@@ -412,7 +423,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends AccessHierarchyGrantMapping> hierarchyGrants = accessCubeGrantAccessHierarchyGrant(
                 accessCubeGrant);
 
-            String access = accessCubeGrantAccess(accessCubeGrant);
+            AccessCubeEnum access = accessCubeGrantAccess(accessCubeGrant);
 
             CubeMapping cube = accessCubeGrantCube(accessCubeGrant);
 
@@ -440,7 +451,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (accessHierarchyGrant != null) {
             List<? extends AccessMemberGrantMapping> memberGrants = accessHierarchyGrantMemberGrants(
                 accessHierarchyGrant);
-            String access = accessHierarchyGrantAccess(accessHierarchyGrant);
+            AccessHierarchyEnum access = accessHierarchyGrantAccess(accessHierarchyGrant);
             LevelMapping bottomLevel = accessHierarchyGrantBottomLevel(accessHierarchyGrant);
             String rollupPolicy = accessHierarchyGrantRollupPolicy(accessHierarchyGrant);
             LevelMapping topLevel = accessHierarchyGrantTopLevel(accessHierarchyGrant);
@@ -468,7 +479,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AccessMemberGrantMapping accessMemberGrant(AccessMemberGrantMapping accessMemberGrant) {
         if (accessMemberGrant != null) {
-            String access = accessMemberGrantAccess(accessMemberGrant);
+            AccessMemberGrantEnum access = accessMemberGrantAccess(accessMemberGrant);
             String member = accessMemberGrantMember(accessMemberGrant);
             return createAccessMemberGrant(access, member);
         }
@@ -479,11 +490,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessMemberGrant.getMember();
     }
 
-    protected String accessMemberGrantAccess(AccessMemberGrantMapping accessMemberGrant) {
+    protected AccessMemberGrantEnum accessMemberGrantAccess(AccessMemberGrantMapping accessMemberGrant) {
         return accessMemberGrant.getAccess();
     }
 
-    protected abstract AccessMemberGrantMapping createAccessMemberGrant(String access, String member);
+    protected abstract AccessMemberGrantMapping createAccessMemberGrant(AccessMemberGrantEnum access, String member);
 
     protected HierarchyMapping accessHierarchyGrantHierarchy(AccessHierarchyGrantMapping accessHierarchyGrant) {
         return hierarchy(accessHierarchyGrant.getHierarchy());
@@ -639,16 +650,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     ) {
         if (inlineTableColumnDefinition != null) {
             String name = inlineTableColumnDefinitionName(inlineTableColumnDefinition);
-            String type = inlineTableColumnDefinitionType(inlineTableColumnDefinition);
+            TypeEnum type = inlineTableColumnDefinitionType(inlineTableColumnDefinition);
 
             return createInlineTableColumnDefinition(name, type);
         }
         return null;
     }
 
-    protected abstract InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, String type);
+    protected abstract InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, TypeEnum type);
 
-    protected String inlineTableColumnDefinitionType(InlineTableColumnDefinitionMapping inlineTableColumnDefinition) {
+    protected TypeEnum inlineTableColumnDefinitionType(InlineTableColumnDefinitionMapping inlineTableColumnDefinition) {
         return inlineTableColumnDefinition.getType();
     }
 
@@ -1377,15 +1388,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String approxRowCount = levelApproxRowCount(level);
             String captionColumn = levelCaptionColumn(level);
             String column = levelColumn(level);
-            String hideMemberIf = levelHideMemberIf(level);
-            String internalType = levelInternalType(level);
-            String levelType = levelLevelType(level);
+            HideMemberIfEnum hideMemberIf = levelHideMemberIf(level);
+            InternalTypeEnum internalType = levelInternalType(level);
+            LevelTypeEnum levelType = levelLevelType(level);
             String nameColumn = levelNameColumn(level);
             String nullParentValue = levelNullParentValue(level);
             String ordinalColumn = levelOrdinalColumn(level);
             String parentColumn = levelParentColumn(level);
             String table = levelTable(level);
-            String type = levelType(level);
+            TypeEnum type = levelType(level);
             boolean uniqueMembers = levelUniqueMembers(level);
             boolean visible = levelVisible(level);
             String name = levelName(level);
@@ -1414,8 +1425,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.isUniqueMembers();
     }
 
-    protected String levelType(LevelMapping level) {
-        return level.getLevelType();
+    protected TypeEnum levelType(LevelMapping level) {
+        return level.getType();
     }
 
     protected String levelTable(LevelMapping level) {
@@ -1438,15 +1449,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.getNameColumn();
     }
 
-    protected String levelLevelType(LevelMapping level) {
+    protected LevelTypeEnum levelLevelType(LevelMapping level) {
         return level.getLevelType();
     }
 
-    protected String levelInternalType(LevelMapping level) {
+    protected InternalTypeEnum levelInternalType(LevelMapping level) {
         return level.getInternalType();
     }
 
-    protected String levelHideMemberIf(LevelMapping level) {
+    protected HideMemberIfEnum levelHideMemberIf(LevelMapping level) {
         return level.getHideMemberIf();
     }
 
@@ -1532,7 +1543,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             MemberPropertyFormatterMapping formatter = memberPropertyFormatter(memberProperty);
             String column = memberPropertyId(memberProperty);
             boolean dependsOnLevelValue = memberPropertyDependsOnLevelValue(memberProperty);
-            String type = memberPropertyType(memberProperty);
+            PropertyTypeEnum type = memberPropertyType(memberProperty);
 
             return createMemberProperty(annotations, id, description, name, documentation, formatter, column,
                 dependsOnLevelValue, type);
@@ -1543,10 +1554,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
         String id, String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, String type
+        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, PropertyTypeEnum type
     );
 
-    protected String memberPropertyType(MemberPropertyMapping memberProperty) {
+    protected PropertyTypeEnum memberPropertyType(MemberPropertyMapping memberProperty) {
         return memberProperty.getType();
     }
 
@@ -1648,17 +1659,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, String hideMemberIf, String internalType,
-        String levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, String type, boolean uniqueMembers, boolean visible, String name, String id
+        String approxRowCount, String captionColumn, String column, HideMemberIfEnum hideMemberIf, InternalTypeEnum internalType,
+        LevelTypeEnum levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
+        String table, TypeEnum type, boolean uniqueMembers, boolean visible, String name, String id
     );
 
-    protected String accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
+    protected AccessHierarchyEnum accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
         return accessHierarchyGrant.getAccess();
     }
 
     protected abstract AccessHierarchyGrantMapping createAccessHierarchyGrant(
-        List<? extends AccessMemberGrantMapping> memberGrants, String access, LevelMapping bottomLevel,
+        List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchyEnum access, LevelMapping bottomLevel,
         String rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy
     );
 
@@ -1666,7 +1677,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return cube(accessCubeGrant.getCube());
     }
 
-    protected String accessCubeGrantAccess(AccessCubeGrantMapping accessCubeGrant) {
+    protected AccessCubeEnum accessCubeGrantAccess(AccessCubeGrantMapping accessCubeGrant) {
         return accessCubeGrant.getAccess();
     }
 
@@ -1687,7 +1698,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AccessDimensionGrantMapping accessDimensionGrant(AccessDimensionGrantMapping accessDimensionGrant) {
         if (accessDimensionGrant != null) {
-            String access = accessDimensionGrantAccess(accessDimensionGrant);
+            AccessDimensionEnum access = accessDimensionGrantAccess(accessDimensionGrant);
             DimensionMapping dimension = accessDimensionGrantDimension(accessDimensionGrant);
 
             return createAccessDimensionGrant(access, dimension);
@@ -1773,26 +1784,26 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(dimension.getAnnotations());
     }
 
-    protected String accessDimensionGrantAccess(AccessDimensionGrantMapping accessDimensionGrant) {
+    protected AccessDimensionEnum accessDimensionGrantAccess(AccessDimensionGrantMapping accessDimensionGrant) {
         return accessDimensionGrant.getAccess();
     }
 
     protected abstract AccessDimensionGrantMapping createAccessDimensionGrant(
-        String access,
+        AccessDimensionEnum access,
         DimensionMapping dimension
     );
 
     protected abstract AccessCubeGrantMapping createAccessCubeGrant(
         List<? extends AccessDimensionGrantMapping> dimensionGrants,
-        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, String access, CubeMapping cube
+        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCubeEnum access, CubeMapping cube
     );
 
-    protected String accessSchemaGrantAccess(AccessSchemaGrantMapping accessSchemaGrant) {
+    protected AccessSchemaEnum accessSchemaGrantAccess(AccessSchemaGrantMapping accessSchemaGrant) {
         return accessSchemaGrant.getAccess();
     }
 
     protected abstract AccessSchemaGrantMapping createAccessSchemaGrant(
-        List<? extends AccessCubeGrantMapping> accessCubeGrant, String access
+        List<? extends AccessCubeGrantMapping> accessCubeGrant, AccessSchemaEnum access
     );
 
     protected List<? extends AccessRoleMapping> schemaAccessRoles(SchemaMapping schemaMappingOriginal) {
@@ -2268,7 +2279,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             CellFormatterMapping cellFormatter = measureCellFormatter(measure);
             String backColor = measureBackColor(measure);
             String column = measureColumn(measure);
-            String datatype = measureDatatype(measure);
+            MeasureDataTypeEnum datatype = measureDatatype(measure);
             String displayFolder = measureDisplayFolder(measure);
             String formatString = measureFormatString(measure);
             String formatter = measureFormatter(measure);
@@ -2286,7 +2297,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, String datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, String column, MeasureDataTypeEnum datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, String type
     );
 
@@ -2318,7 +2329,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return measure.getDisplayFolder();
     }
 
-    protected String measureDatatype(MeasureMapping measure) {
+    protected MeasureDataTypeEnum measureDatatype(MeasureMapping measure) {
         return measure.getDatatype();
     }
 

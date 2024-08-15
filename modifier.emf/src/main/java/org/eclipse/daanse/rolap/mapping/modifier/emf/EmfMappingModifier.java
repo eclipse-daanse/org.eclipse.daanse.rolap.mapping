@@ -78,6 +78,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimensionEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchemaEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
@@ -258,9 +269,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AccessMemberGrantMapping createAccessMemberGrant(String access, String member) {
+    protected AccessMemberGrantMapping createAccessMemberGrant(AccessMemberGrantEnum access, String member) {
         AccessMemberGrant accessMemberGrant = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
-        accessMemberGrant.setAccess(access);
+        accessMemberGrant.setAccess(access.getValue());
         accessMemberGrant.setMember(member);
         return accessMemberGrant;
     }
@@ -298,11 +309,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, String type) {
+    protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, TypeEnum type) {
         InlineTableColumnDefinition inlineTableColumnDefinition =
             RolapMappingFactory.eINSTANCE.createInlineTableColumnDefinition();
         inlineTableColumnDefinition.setName(name);
-        inlineTableColumnDefinition.setType(type);
+        inlineTableColumnDefinition.setType(type.getValue());
         return inlineTableColumnDefinition;
     }
 
@@ -553,7 +564,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, String type
+        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, PropertyTypeEnum type
     ) {
         MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
@@ -595,9 +606,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, String hideMemberIf, String internalType,
-        String levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, String type, boolean uniqueMembers, boolean visible, String name, String id
+        String approxRowCount, String captionColumn, String column, HideMemberIfEnum hideMemberIf, InternalTypeEnum internalType,
+        LevelTypeEnum levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
+        String table, TypeEnum type, boolean uniqueMembers, boolean visible, String name, String id
     ) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
@@ -611,15 +622,15 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setApproxRowCount(approxRowCount);
         level.setCaptionColumn(captionColumn);
         level.setColumn(column);
-        level.setHideMemberIf(hideMemberIf);
-        level.setInternalType(internalType);
-        level.setLevelType(levelType);
+        level.setHideMemberIf(hideMemberIf.getValue());
+        level.setInternalType(internalType.getValue());
+        level.setLevelType(levelType.getValue());
         level.setNameColumn(nameColumn);
         level.setNullParentValue(nullParentValue);
         level.setOrdinalColumn(ordinalColumn);
         level.setParentColumn(parentColumn);
         level.setTable(table);
-        level.setType(type);
+        level.setType(type.getValue());
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);
@@ -630,12 +641,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AccessHierarchyGrantMapping createAccessHierarchyGrant(
-        List<? extends AccessMemberGrantMapping> memberGrants, String access, LevelMapping bottomLevel,
+        List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchyEnum access, LevelMapping bottomLevel,
         String rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy
     ) {
         AccessHierarchyGrant accessHierarchyGrant = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
         accessHierarchyGrant.getMemberGrants().addAll((Collection<? extends AccessMemberGrant>) memberGrants);
-        accessHierarchyGrant.setAccess(access);
+        accessHierarchyGrant.setAccess(access.getValue());
         accessHierarchyGrant.setBottomLevel((Level) bottomLevel);
         accessHierarchyGrant.setRollupPolicy(rollupPolicy);
         accessHierarchyGrant.setTopLevel((Level) topLevel);
@@ -682,7 +693,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AccessDimensionGrantMapping createAccessDimensionGrant(String access, DimensionMapping dimension) {
+    protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimensionEnum access, DimensionMapping dimension) {
         AccessDimensionGrant accessDimensionGrant = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
         accessDimensionGrant.setAccess(access);
         accessDimensionGrant.setDimension((Dimension) dimension);
@@ -693,12 +704,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessCubeGrantMapping createAccessCubeGrant(
         List<? extends AccessDimensionGrantMapping> dimensionGrants,
-        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, String access, CubeMapping cube
+        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCubeEnum access, CubeMapping cube
     ) {
         AccessCubeGrant accessCubeGrant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         accessCubeGrant.getDimensionGrants().addAll((Collection<? extends AccessDimensionGrant>) dimensionGrants);
         accessCubeGrant.getHierarchyGrants().addAll((Collection<? extends AccessHierarchyGrant>) hierarchyGrants);
-        accessCubeGrant.setAccess(access);
+        accessCubeGrant.setAccess(access.getValue());
         accessCubeGrant.setCube((Cube) cube);
         return accessCubeGrant;
     }
@@ -707,11 +718,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessSchemaGrantMapping createAccessSchemaGrant(
         List<? extends AccessCubeGrantMapping> accessCubeGrant,
-        String access
+        AccessSchemaEnum access
     ) {
         AccessSchemaGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
         accessSchemaGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
-        accessSchemaGrant.setAccess(access);
+        accessSchemaGrant.setAccess(access.getValue());
         return accessSchemaGrant;
     }
 
@@ -877,7 +888,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, String datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, String column, MeasureDataTypeEnum datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, String type
     ) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -886,7 +897,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setCellFormatter((CellFormatter) cellFormatter);
         measure.setBackColor(backColor);
         measure.setColumn(column);
-        measure.setDatatype(datatype);
+        measure.setDatatype(datatype.getValue());
         measure.setDisplayFolder(displayFolder);
         measure.setFormatString(formatString);
         measure.setFormatter(formatter);

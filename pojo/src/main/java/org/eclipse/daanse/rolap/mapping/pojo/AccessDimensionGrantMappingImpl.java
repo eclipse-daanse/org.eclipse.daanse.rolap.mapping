@@ -13,10 +13,11 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimensionEnum;
 
 public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapping {
 
-    private String access;
+    private AccessDimensionEnum access;
 
     private DimensionMappingImpl dimension;
 
@@ -25,11 +26,11 @@ public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapp
         this.dimension = builder.dimension;
     }
 
-    public String getAccess() {
+    public AccessDimensionEnum getAccess() {
         return access;
     }
 
-    public void setAccess(String access) {
+    public void setAccess(AccessDimensionEnum access) {
         this.access = access;
     }
 
@@ -46,13 +47,13 @@ public class AccessDimensionGrantMappingImpl implements AccessDimensionGrantMapp
     }
 
     public static final class Builder {
-        private String access;
+        private AccessDimensionEnum access;
         private DimensionMappingImpl dimension;
 
         private Builder() {
         }
 
-        public Builder withAccess(String access) {
+        public Builder withAccess(AccessDimensionEnum access) {
             this.access = access;
             return this;
         }

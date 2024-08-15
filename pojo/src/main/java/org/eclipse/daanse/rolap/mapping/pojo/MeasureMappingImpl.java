@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
 
 public class MeasureMappingImpl extends AbstractElementMappingImpl implements MeasureMapping {
 
@@ -29,7 +30,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private String column;
 
-    private String datatype;
+    private MeasureDataTypeEnum datatype;
 
     private String displayFolder;
 
@@ -108,11 +109,11 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.column = column;
     }
 
-    public String getDatatype() {
+    public MeasureDataTypeEnum getDatatype() {
         return datatype;
     }
 
-    public void setDatatype(String datatype) {
+    public void setDatatype(MeasureDataTypeEnum datatype) {
         this.datatype = datatype;
     }
 
@@ -182,7 +183,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
         private String column;
-        private String datatype;
+        private MeasureDataTypeEnum datatype;
         private String displayFolder;
         private String formatString;
         private String formatter;
@@ -223,7 +224,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
             return this;
         }
 
-        public Builder withDatatype(String datatype) {
+        public Builder withDatatype(MeasureDataTypeEnum datatype) {
             this.datatype = datatype;
             return this;
         }
