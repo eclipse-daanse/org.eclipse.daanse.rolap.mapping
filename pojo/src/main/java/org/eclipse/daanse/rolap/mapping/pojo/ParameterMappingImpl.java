@@ -13,7 +13,7 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ParameterTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 
 public class ParameterMappingImpl implements ParameterMapping {
 
@@ -25,7 +25,7 @@ public class ParameterMappingImpl implements ParameterMapping {
 
     private String name;
 
-    private ParameterTypeEnum type;
+    private DataType type;
 
     private ParameterMappingImpl(Builder builder) {
         this.defaultValue = builder.defaultValue;
@@ -67,12 +67,12 @@ public class ParameterMappingImpl implements ParameterMapping {
         this.name = name;
     }
 
-    public ParameterTypeEnum getType() {
+    public DataType getType() {
         return type;
     }
 
-    public void setType(ParameterTypeEnum type) {
-        this.type = type;
+    public void setDataType(DataType dataType) {
+        this.type = dataType;
     }
 
     public static Builder builder() {
@@ -84,7 +84,7 @@ public class ParameterMappingImpl implements ParameterMapping {
         private String description;
         private boolean modifiable;
         private String name;
-        private ParameterTypeEnum type;
+        private DataType type;
 
         private Builder() {
         }
@@ -109,7 +109,7 @@ public class ParameterMappingImpl implements ParameterMapping {
             return this;
         }
 
-        public Builder withType(ParameterTypeEnum type) {
+        public Builder withType(DataType type) {
             this.type = type;
             return this;
         }

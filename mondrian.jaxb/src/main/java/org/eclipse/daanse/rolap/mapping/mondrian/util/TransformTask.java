@@ -376,7 +376,7 @@ public class TransformTask {
         oLvl.ifPresent(l -> accessHierarchyGrant.setBottomLevel(l));
         Optional<HierarchyMappingImpl> oHier = findHierarchy(hierarchyGrant.hierarchy());
         oHier.ifPresent(h -> accessHierarchyGrant.setHierarchy(h));
-        accessHierarchyGrant.setRollupPolicy(hierarchyGrant.rollupPolicy());
+        accessHierarchyGrant.setRollupPolicyType(hierarchyGrant.rollupPolicy());
         oLvl = findLevel(prepareLevel(hierarchyGrant.topLevel()));
         oLvl.ifPresent(l -> accessHierarchyGrant.setTopLevel(l));
         accessHierarchyGrant.setMemberGrants(transformAccessMemberGrants(hierarchyGrant.memberGrants()));
@@ -581,7 +581,7 @@ public class TransformTask {
         l.setParentColumn(level.parentColumn());
         l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
 //        l.setTable(level.table());
-        l.setType(level.type().getValue());
+        l.setAggregatorType(level.type().getValue());
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
         l.setMemberProperties(transformMemberProperties(level.properties()));
@@ -603,7 +603,7 @@ public class TransformTask {
             mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
             mp.setColumn(property.column());
             mp.setDependsOnLevelValue(property.dependsOnLevelValue());
-            mp.setType(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue());
+            mp.setAggregatorType(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue());
 
             return mp;
         }
@@ -657,7 +657,7 @@ public class TransformTask {
 
     private MeasureMappingImpl transformMeasure(Measure measure) {
         MeasureMappingImpl m = MeasureMappingImpl.builder().build();
-        m.setType(measure.aggregator());
+        m.setAggregatorType(measure.aggregator());
         m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
         m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));
@@ -1007,7 +1007,7 @@ public class TransformTask {
         InlineTableColumnDefinitionMappingImpl itcd = InlineTableColumnDefinitionMappingImpl.builder().build();
         itcd.setName(columnDef.name());
         if (columnDef.type() != null) {
-            itcd.setType(columnDef.type().getValue());
+            itcd.setAggregatorType(columnDef.type().getValue());
         }
         return itcd;
     }

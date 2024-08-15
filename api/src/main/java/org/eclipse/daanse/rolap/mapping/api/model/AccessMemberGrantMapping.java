@@ -12,11 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 
 public interface AccessMemberGrantMapping {
 
-    AccessMemberGrantEnum getAccess();
+    AccessMember getAccess();
 
     String getMember();
 

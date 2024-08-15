@@ -16,17 +16,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 
 public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapping {
 
     private List<AccessMemberGrantMappingImpl> memberGrants;
 
-    private AccessHierarchyEnum access;
+    private AccessHierarchy access;
 
     private LevelMappingImpl bottomLevel;
 
-    private String rollupPolicy;
+    private RollupPolicyType rollupPolicyType;
 
     private LevelMappingImpl topLevel;
 
@@ -36,7 +37,7 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.memberGrants = builder.memberGrants;
         this.access = builder.access;
         this.bottomLevel = builder.bottomLevel;
-        this.rollupPolicy = builder.rollupPolicy;
+        this.rollupPolicyType = builder.rollupPolicyType;
         this.topLevel = builder.topLevel;
         this.hierarchy = builder.hierarchy;
     }
@@ -49,11 +50,11 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.memberGrants = memberGrants;
     }
 
-    public AccessHierarchyEnum getAccess() {
+    public AccessHierarchy getAccess() {
         return access;
     }
 
-    public void setAccess(AccessHierarchyEnum access) {
+    public void setAccess(AccessHierarchy access) {
         this.access = access;
     }
 
@@ -65,12 +66,12 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
         this.bottomLevel = bottomLevel;
     }
 
-    public String getRollupPolicy() {
-        return rollupPolicy;
+    public RollupPolicyType getRollupPolicyType() {
+        return rollupPolicyType;
     }
 
-    public void setRollupPolicy(String rollupPolicy) {
-        this.rollupPolicy = rollupPolicy;
+    public void setRollupPolicyType(RollupPolicyType rollupPolicyType) {
+        this.rollupPolicyType = rollupPolicyType;
     }
 
     public LevelMappingImpl getTopLevel() {
@@ -95,9 +96,9 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
 
     public static final class Builder {
         private List<AccessMemberGrantMappingImpl> memberGrants = new ArrayList<>();
-        private AccessHierarchyEnum access;
+        private AccessHierarchy access;
         private LevelMappingImpl bottomLevel;
-        private String rollupPolicy;
+        private RollupPolicyType rollupPolicyType;
         private LevelMappingImpl topLevel;
         private HierarchyMappingImpl hierarchy;
 
@@ -109,7 +110,7 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
             return this;
         }
 
-        public Builder withAccess(AccessHierarchyEnum access) {
+        public Builder withAccess(AccessHierarchy access) {
             this.access = access;
             return this;
         }
@@ -119,8 +120,8 @@ public class AccessHierarchyGrantMappingImpl implements AccessHierarchyGrantMapp
             return this;
         }
 
-        public Builder withRollupPolicy(String rollupPolicy) {
-            this.rollupPolicy = rollupPolicy;
+        public Builder withRollupPolicyType(RollupPolicyType rollupPolicyType) {
+            this.rollupPolicyType = rollupPolicyType;
             return this;
         }
 

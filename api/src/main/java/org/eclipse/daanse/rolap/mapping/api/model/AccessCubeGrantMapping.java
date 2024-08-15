@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 
 public interface AccessCubeGrantMapping {
 
@@ -22,7 +22,7 @@ public interface AccessCubeGrantMapping {
 
     List<? extends AccessHierarchyGrantMapping> getHierarchyGrants();
 
-    AccessCubeEnum getAccess();
+    AccessCube getAccess();
 
     CubeMapping getCube();
 

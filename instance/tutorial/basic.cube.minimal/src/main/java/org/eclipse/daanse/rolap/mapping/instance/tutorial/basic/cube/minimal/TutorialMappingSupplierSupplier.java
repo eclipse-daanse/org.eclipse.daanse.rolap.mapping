@@ -55,7 +55,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static MeasureMappingImpl measure = MeasureMappingImpl.builder()
             .withName("Measure-Sum")
             .withColumn("VALUE")
-            .withType("sum")
+            .withAggregatorType("sum")
             .build();
 
     private final static MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder()

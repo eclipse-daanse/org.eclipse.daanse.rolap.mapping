@@ -14,10 +14,9 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
 public interface LevelMapping extends AbstractElementMapping{
 
@@ -43,11 +42,9 @@ public interface LevelMapping extends AbstractElementMapping{
 
     String getColumn();
 
-    HideMemberIfEnum getHideMemberIf();
+    HideMemberIfType getHideMemberIfType();
 
-    InternalTypeEnum getInternalType();
-
-    LevelTypeEnum getLevelType();
+    LevelType getLevelType();
 
     String getNameColumn();
 
@@ -59,7 +56,7 @@ public interface LevelMapping extends AbstractElementMapping{
 
     String getTable();
 
-    TypeEnum getType();
+    DataType getDataType();
 
     boolean isUniqueMembers();
 

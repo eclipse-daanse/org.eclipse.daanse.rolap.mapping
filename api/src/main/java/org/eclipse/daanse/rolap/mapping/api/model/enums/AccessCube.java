@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,15 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum InternalTypeEnum {
-    INT("int"),
-    LONG("long"),
-    OBJECT("Object"),
-    STRING("String");
+public enum AccessCube {
+
+    ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
 
     private final String value;
 
-    InternalTypeEnum(String v) {
+    AccessCube(String v) {
         value = v;
     }
 
@@ -29,12 +27,12 @@ public enum InternalTypeEnum {
         return value;
     }
 
-    public static InternalTypeEnum fromValue(String v) {
-        for (InternalTypeEnum c: InternalTypeEnum.values()) {
+    public static AccessCube fromValue(String v) {
+        for (AccessCube c: AccessCube.values()) {
             if (c.value.equals(v)) {
                 return c;
             }
         }
-        throw new IllegalArgumentException("Illegal value '" + v + "'.  Legal values: {int, long, Object, String}");
+        throw new IllegalArgumentException(v);
     }
 }

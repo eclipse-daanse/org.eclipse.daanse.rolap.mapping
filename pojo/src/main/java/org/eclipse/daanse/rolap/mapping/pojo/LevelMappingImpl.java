@@ -16,10 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
 public class LevelMappingImpl extends AbstractElementMappingImpl implements LevelMapping {
 
@@ -45,11 +44,9 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private String column;
 
-    private HideMemberIfEnum hideMemberIf;
+    private HideMemberIfType hideMemberIfType;
 
-    private InternalTypeEnum internalType;
-
-    private LevelTypeEnum levelType;
+    private LevelType levelType;
 
     private String nameColumn;
 
@@ -61,7 +58,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private String table;
 
-    private TypeEnum type;
+    private DataType dataType;
 
     private boolean uniqueMembers;
 
@@ -85,15 +82,14 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.approxRowCount = builder.approxRowCount;
         this.captionColumn = builder.captionColumn;
         this.column = builder.column;
-        this.hideMemberIf = builder.hideMemberIf;
-        this.internalType = builder.internalType;
+        this.hideMemberIfType = builder.hideMemberIfType;
         this.levelType = builder.levelType;
         this.nameColumn = builder.nameColumn;
         this.nullParentValue = builder.nullParentValue;
         this.ordinalColumn = builder.ordinalColumn;
         this.parentColumn = builder.parentColumn;
         this.table = builder.table;
-        this.type = builder.type;
+        this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
         this.name = builder.name;
@@ -191,27 +187,19 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.column = column;
     }
 
-    public HideMemberIfEnum getHideMemberIf() {
-        return hideMemberIf;
+    public HideMemberIfType getHideMemberIfType() {
+        return hideMemberIfType;
     }
 
-    public void setHideMemberIf(HideMemberIfEnum hideMemberIf) {
-        this.hideMemberIf = hideMemberIf;
+    public void setHideMemberIfType(HideMemberIfType hideMemberIf) {
+        this.hideMemberIfType = hideMemberIf;
     }
 
-    public InternalTypeEnum getInternalType() {
-        return internalType;
-    }
-
-    public void setInternalType(InternalTypeEnum internalType) {
-        this.internalType = internalType;
-    }
-
-    public LevelTypeEnum getLevelType() {
+    public LevelType getLevelType() {
         return levelType;
     }
 
-    public void setLevelType(LevelTypeEnum levelType) {
+    public void setLevelType(LevelType levelType) {
         this.levelType = levelType;
     }
 
@@ -255,12 +243,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.table = table;
     }
 
-    public TypeEnum getType() {
-        return type;
+    public DataType getDataType() {
+        return dataType;
     }
 
-    public void setType(TypeEnum type) {
-        this.type = type;
+    public void setDataType(DataType dataType) {
+        this.dataType = dataType;
     }
 
     public boolean isUniqueMembers() {
@@ -319,15 +307,14 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private String approxRowCount;
         private String captionColumn;
         private String column;
-        private HideMemberIfEnum hideMemberIf;
-        private InternalTypeEnum internalType;
-        private LevelTypeEnum levelType;
+        private HideMemberIfType hideMemberIfType;
+        private LevelType levelType;
         private String nameColumn;
         private String nullParentValue;
         private String ordinalColumn;
         private String parentColumn;
         private String table;
-        private TypeEnum type;
+        private DataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
         private String name;
@@ -394,17 +381,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withHideMemberIf(HideMemberIfEnum hideMemberIf) {
-            this.hideMemberIf = hideMemberIf;
+        public Builder withHideMemberIfType(HideMemberIfType hideMemberIfType) {
+            this.hideMemberIfType = hideMemberIfType;
             return this;
         }
 
-        public Builder withInternalType(InternalTypeEnum internalType) {
-            this.internalType = internalType;
-            return this;
-        }
-
-        public Builder withLevelType(LevelTypeEnum levelType) {
+        public Builder withLevelType(LevelType levelType) {
             this.levelType = levelType;
             return this;
         }
@@ -434,8 +416,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withType(TypeEnum type) {
-            this.type = type;
+        public Builder withType(DataType dataType) {
+            this.dataType = dataType;
             return this;
         }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,13 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum AccessCubeEnum {
+public enum AccessDimension {
 
     ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
 
     private final String value;
 
-    AccessCubeEnum(String v) {
+    AccessDimension(String v) {
         value = v;
     }
 
@@ -27,8 +27,8 @@ public enum AccessCubeEnum {
         return value;
     }
 
-    public static AccessCubeEnum fromValue(String v) {
-        for (AccessCubeEnum c: AccessCubeEnum.values()) {
+    public static AccessDimension fromValue(String v) {
+        for (AccessDimension c: AccessDimension.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

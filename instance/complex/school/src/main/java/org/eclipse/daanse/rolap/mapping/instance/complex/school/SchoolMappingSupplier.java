@@ -599,25 +599,25 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final MeasureMappingImpl measure1 = MeasureMappingImpl.builder()
         .withName("Anzahl Schulen")
         .withColumn("anzahl_schulen")
-        .withType("sum")
+        .withAggregatorType("sum")
         .build();
 
     private static final MeasureMappingImpl measure2 = MeasureMappingImpl.builder()
         .withName("Anzahl Klassen")
         .withColumn("Anzahl Klassen")
-        .withType("sum")
+        .withAggregatorType("sum")
         .build();
 
     private static final MeasureMappingImpl measure3 = MeasureMappingImpl.builder()
         .withName("Anzahl Personen")
         .withColumn("anzahl_personen")
-        .withType("sum")
+        .withAggregatorType("sum")
         .build();
 
     private static final MeasureMappingImpl measure4 = MeasureMappingImpl.builder()
         .withName("Anzahl Schüler:innen")
         .withColumn("anzahl_schueler")
-        .withType("sum")
+        .withAggregatorType("sum")
         .build();
 
     private static final MeasureGroupMappingImpl CUBE1_MEASURE_GROUP = MeasureGroupMappingImpl.builder()

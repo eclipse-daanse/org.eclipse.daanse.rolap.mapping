@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,13 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum AccessSchemaEnum {
+public enum HideMemberIfType {
 
-    ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
+    NEVER("Never"), IF_BLANK_NAME("IfBlankName"), IF_PARENTS_NAME("IfParentsName");
 
     private final String value;
 
-    AccessSchemaEnum(String v) {
+    HideMemberIfType(String v) {
         value = v;
     }
 
@@ -27,8 +27,8 @@ public enum AccessSchemaEnum {
         return value;
     }
 
-    public static AccessSchemaEnum fromValue(String v) {
-        for (AccessSchemaEnum c: AccessSchemaEnum.values()) {
+    public static HideMemberIfType fromValue(String v) {
+        for (HideMemberIfType c: HideMemberIfType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

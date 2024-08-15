@@ -55,7 +55,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
         eType="#//AggregationExclude" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschermas" upperBound="-1"
-        eType="ecore:EClass https://www.daanse.org/spec/org.eclipse.daanse.rdb.structure#//DatabaseSchema"/>
+        eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
@@ -77,8 +77,10 @@
         eType="#//NamedSet" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="kpis" upperBound="-1" eType="#//Kpi"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroups" upperBound="-1"
         eType="#//MeasureGroup" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Measure"/>
@@ -92,7 +94,8 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="action" upperBound="-1"
         eType="#//Action" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cache" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cache" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualCube" eSuperTypes="#//Cube #//IVirtualCube">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
@@ -102,7 +105,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CubeConnector" eSuperTypes="#//ICubeConnector">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreUnrelatedDimensions"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MeasureGroup" eSuperTypes="#//IMeasureGroup">
@@ -111,6 +115,12 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//AbstractElement #//IMeasure">
+    <eOperations name="getDatatype" lowerBound="1" eType="#//DataType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
+    </eOperations>
+    <eOperations name="getAggregatorType" lowerBound="1" eType="#//MeasureAggregatorType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureExpression" eType="#//SQLExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMemberProperty"
@@ -118,12 +128,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="cellFormatter" eType="#//CellFormatter"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="datatype" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregator" eType="#//MeasureAggregator"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Kpi" eSuperTypes="#//AbstractElement #//IKpi">
     <eStructuralFeatures xsi:type="ecore:EReference" name="translations" upperBound="-1"
@@ -149,12 +160,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchies" lowerBound="1"
         upperBound="-1" eType="#//Hierarchy"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector" eSuperTypes="#//IDimensionConnector">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="foreignKey" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
         eType="#//Dimension"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="overrideDimensionName"
@@ -178,18 +191,35 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultMember" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasAll" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberReaderClass" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primaryKey" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="primaryKeyTable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
+    <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getLevelType" lowerBound="1" eType="#//LevelType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyExpression" eType="#//SQLExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nameExpression" eType="#//SQLExpression"
@@ -208,25 +238,30 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="captionColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="internalType" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="levelType" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="#//HideMemberIf"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//LevelDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nameColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ordinalColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentColumn" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="table" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
+    <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="column" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnDataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//AbstractElement #//ICalculatedMember">
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMemberProperties"
@@ -236,7 +271,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parent" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMemberProperty" eSuperTypes="#//AbstractElement #//ICalculatedMemberProperty">
@@ -266,8 +302,13 @@
         eType="#//InlineTableRow" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineTableColumnDefinition" eSuperTypes="#//IInlineTableColumnDefinition">
+    <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnDataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineTableRow" eSuperTypes="#//IInlineTableRow">
     <eStructuralFeatures xsi:type="ecore:EReference" name="cells" lowerBound="1" upperBound="-1"
@@ -337,11 +378,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter"/>
   <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
+    <eOperations name="getType" eType="#//DataType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" lowerBound="1"
+        eType="#//ColumnDataType" defaultValueLiteral="String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action #//IDrillThroughAction">
@@ -349,7 +397,8 @@
         upperBound="-1" eType="#//DrillThroughAttribute" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drillThroughMeasure" upperBound="-1"
         eType="#//Measure" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAttribute" eSuperTypes="#//IDrillThroughAttribute">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
@@ -447,34 +496,60 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // Code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionGrants" upperBound="-1"
         eType="#//AccessDimensionGrant" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchyGrants" upperBound="-1"
         eType="#//AccessHierarchyGrant" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cubeAccess" lowerBound="1"
+        eType="#//CubeAccess"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // Code here"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimensionAccess" lowerBound="1"
+        eType="#//DimensionAccess"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
         eType="#//Dimension"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant" eSuperTypes="#//IAccessHierarchyGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessHierarchy">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // Code here"/>
+      </eAnnotations>
+    </eOperations>
+    <eOperations name="getRollupPolicyType" lowerBound="1" eType="#//RollupPolicyType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; //code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberGrants" upperBound="-1"
         eType="#//AccessMemberGrant" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupPolicy" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hierarchyAccess" lowerBound="1"
+        eType="#//HierarchyAccess"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupPolicy" lowerBound="1"
+        eType="#//RollupPolicy"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" lowerBound="1"
         eType="#//Hierarchy"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="bottomLevel" eType="#//Level"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="topLevel" eType="#//Level"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessMember">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // Code here"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberAccess" lowerBound="1"
+        eType="#//MemberAccess"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="member" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessRole" eSuperTypes="#//AbstractElement #//IAccessRole">
@@ -484,10 +559,15 @@
         upperBound="-1" eType="#//AccessRole" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessSchemaGrant" eSuperTypes="#//IAccessSchemaGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessSchema">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return null; // Code here"/>
+      </eAnnotations>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
         upperBound="-1" eType="#//AccessCubeGrant" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="access" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schemaAccess" lowerBound="1"
+        eType="#//SchemaAccess"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
       abstract="true" interface="true"/>
@@ -619,4 +699,260 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IWritebackTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping"
       abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="SchemaAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eLiterals name="ALL_DIMENSIONS" value="3" literal="all_dimensions"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="CubeAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DimensionAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="HierarchyAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="HideMemberIf">
+    <eLiterals name="NEVER" literal="never"/>
+    <eLiterals name="IF_BLANK_NAME" value="1" literal="IfBlankName"/>
+    <eLiterals name="IF_PARENTS_NAME" value="2" literal="IfParentsName"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MemberAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="RollupPolicy">
+    <eLiterals name="FULL" literal="full"/>
+    <eLiterals name="PARTIAL" value="1" literal="partial"/>
+    <eLiterals name="HIDDEN" value="3" literal="hidden"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="MeasureAggregator">
+    <eLiterals name="SUM" literal="sum"/>
+    <eLiterals name="COUNT" value="1" literal="count"/>
+    <eLiterals name="MIN" value="2" literal="min"/>
+    <eLiterals name="MAX" value="3" literal="max"/>
+    <eLiterals name="AVG" value="4" literal="avg"/>
+    <eLiterals name="DICTINCT_COUNT" value="5" literal="distinct-count"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ColumnDataType">
+    <eLiterals name="AUTO" literal="auto"/>
+    <eLiterals name="STRING" value="1" literal=" String"/>
+    <eLiterals name="NUMERIC" value="2" literal="Numeric"/>
+    <eLiterals name="INTEGER" value="3" literal="Integer"/>
+    <eLiterals name="BOOLEAN" value="4" literal="Boolean"/>
+    <eLiterals name="DATE" value="5" literal="Date"/>
+    <eLiterals name="TIME" value="6" literal="Time"/>
+    <eLiterals name="TIMESTAMP" value="7" literal="Timestamp"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LevelDefinition">
+    <eLiterals name="REGULAR" literal="Regular">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that the level is not related to time."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_YEARS" literal="TimeYears">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to years."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_HALF_YEARS" literal="TimeHalfYears">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to half years"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_QUARTERS" literal="TimeQuarters">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to quarters"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_MONTHS" literal="TimeMonths">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to months"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_WEEKS" literal="TimeWeeks">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to weeks"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_DAYS" literal="TimeDays">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to days"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_HOURS" literal="TimeHours">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to hours"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_MINUTES" literal="TimeMinutes">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to minutes"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_SECONDS" literal="TimeSeconds">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level refers to seconds"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME_UNDEFINED" literal="TimeUndefined">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is an unspecified time period"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="NULL" literal="Null">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the null member"/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_CONTINENT" literal="GeographicContinent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object Continent."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_REGION" literal="GeographicRegion">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object Region."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_COUNTRY" literal="GeographicCountry">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object Country."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_STATE_OR_PROVINCE" literal="GeographicProvince">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical objects State or Province."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_COUNTY" literal="GeographicCounty">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object County."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_CITY" literal="GeographicCity">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object City."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_POSTALCODE" literal="GeographicPostalCode">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object PostalCode."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="GEO_POINT" literal="GeographicPoint">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds the geographical object Point."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ORG_UNIT" literal="OrganisationUnit">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds a OrganisationUnit."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BOM_RESOURCE" literal="BomResource">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level holds a Bom Resource."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="QUANTITATIVE" literal="Quantitative">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a QUANTITATIVE."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ACCOUNT" literal="Account">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Account."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOMER" literal="Customer">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Customer."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOMER_GROUP" literal="CustomerGroup">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a CustomerGroup."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOMER_HOUSEHOLD" literal="CustomerHouseHold">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a CustomerGroup."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PRODUCT" literal="Product">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Product."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PRODUCT_GROUP" literal="ProductGroup">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a ProductGroup."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SCENARIO" literal="Scenario">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Scenario."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="UTILITY" literal="Utility">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Utility."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PERSON" literal="Person">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Person."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="COMPANY" literal="Company">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Company."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CURRENCY_SOURCE" literal="CurrencySource">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a CurrencySource."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CURRENCY_DESTINATION" literal="CurrencyDestination">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a CurrencyDestination."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CHANNEL" literal="Channel">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Channel."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="REPRESENTATIVE" literal="Representative">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Representative."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PROMOTION" literal="Promotion">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Indicates that a level is a Promotion."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessSchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="DataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.DataType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="HideMemberIfType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="MeasureAggregatorType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType"/>
 </ecore:EPackage>

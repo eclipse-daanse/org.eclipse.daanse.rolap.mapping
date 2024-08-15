@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,13 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum AccessMemberGrantEnum {
+public enum AccessMember {
 
     ALL("all"), NONE("none");
 
     private final String value;
 
-    AccessMemberGrantEnum(String v) {
+    AccessMember(String v) {
         value = v;
     }
 
@@ -27,8 +27,8 @@ public enum AccessMemberGrantEnum {
         return value;
     }
 
-    public static AccessMemberGrantEnum fromValue(String v) {
-        for (AccessMemberGrantEnum c : AccessMemberGrantEnum.values()) {
+    public static AccessMember fromValue(String v) {
+        for (AccessMember c : AccessMember.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

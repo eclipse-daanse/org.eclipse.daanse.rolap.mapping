@@ -12,13 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimensionEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 
 public interface AccessDimensionGrantMapping {
 
-    AccessDimensionEnum getAccess();
-
-    void setAccess(AccessDimensionEnum value);
+    AccessDimension getAccess();
 
     DimensionMapping getDimension();
 

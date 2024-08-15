@@ -463,14 +463,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withAggregatorType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withAggregatorType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withAggregatorType(
                 STRING).build()
         ))
         .build();
@@ -483,14 +483,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withAggregatorType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withAggregatorType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withAggregatorType(
                 STRING).build()
         ))
         .build();
@@ -503,14 +503,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withAggregatorType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withAggregatorType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withAggregatorType(BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withAggregatorType(
                 STRING).build()
         ))
         .build();
@@ -519,14 +519,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_SQFT)
         .withColumn(STORE_SQFT2)
         .withUniqueMembers(true)
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .build();
 
     private static final LevelMappingImpl yearLevel = LevelMappingImpl.builder()
         .withName(YEAR)
         .withColumn(THE_YEAR)
         .withUniqueMembers(true)
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withLevelType(TIME_YEARS)
         .build();
 
@@ -541,7 +541,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(MONTH)
         .withColumn(MONTH_OF_YEAR)
         .withUniqueMembers(false)
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withLevelType(TIME_MONTHS)
         .build();
 
@@ -550,7 +550,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(MONTH_OF_YEAR)
         .withNameColumn(THE_MONTH)
         .withUniqueMembers(false)
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withLevelType(TIME_MONTHS)
         .build();
 
@@ -687,7 +687,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl nameLevel = LevelMappingImpl.builder()
         .withName(NAME2)
         .withColumn(CUSTOMER_ID)
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withUniqueMembers(true)
         .withNameExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
@@ -853,14 +853,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final LevelMappingImpl departmentDescriptionLevel = LevelMappingImpl.builder()
         .withName("Department Description")
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withColumn(DEPARTMENT_ID)
         .withUniqueMembers(true)
         .build();
 
     private static final LevelMappingImpl employeeIdLevel = LevelMappingImpl.builder()
         .withName("Employee Id")
-        .withType(NUMERIC)
+        .withAggregatorType(NUMERIC)
         .withColumn(EMPLOYEE_ID)
         .withParentColumn("supervisor_id")
         .withNullParentValue("0")
@@ -1379,14 +1379,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Unit Sales")
         .withColumn("unit_sales")
         .withFormatString("Standard")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl unitSales1Measure = MeasureMappingImpl.builder()
         .withName("Unit Sales")
         .withColumn("unit_sales")
         .withFormatString("Standard")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("2").build()
         ))
@@ -1396,14 +1396,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Store Cost")
         .withColumn("store_cost")
         .withFormatString(FORMAT_STRING1)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl storeCost1Measure = MeasureMappingImpl.builder()
         .withName("Store Cost")
         .withColumn("store_cost")
         .withFormatString(FORMAT_STRING1)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("6").build()
         ))
@@ -1413,14 +1413,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Store Sales")
         .withColumn("store_sales")
         .withFormatString(FORMAT_STRING1)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl storeSales1Measure = MeasureMappingImpl.builder()
         .withName("Store Sales")
         .withColumn("store_sales")
         .withFormatString(FORMAT_STRING1)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("3").build()
         ))
@@ -1430,14 +1430,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Sales Count")
         .withColumn(PRODUCT_ID)
         .withFormatString(FORMAT_STRING)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl salesCount1Measure = MeasureMappingImpl.builder()
         .withName("Sales Count")
         .withColumn(PRODUCT_ID)
         .withFormatString(FORMAT_STRING)
-        .withType(COUNT)
+        .withAggregatorType(COUNT)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("1").build()
         ))
@@ -1447,14 +1447,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Customer Count")
         .withColumn(CUSTOMER_ID)
         .withFormatString(FORMAT_STRING)
-        .withType(DISTINCT_COUNT)
+        .withAggregatorType(DISTINCT_COUNT)
         .build();
 
     private static final MeasureMappingImpl customerCount1Measure = MeasureMappingImpl.builder()
         .withName("Customer Count")
         .withColumn(CUSTOMER_ID)
         .withFormatString(FORMAT_STRING)
-        .withType(DISTINCT_COUNT)
+        .withAggregatorType(DISTINCT_COUNT)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("7").build()
         ))
@@ -1463,7 +1463,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final MeasureMappingImpl promotionSalesMeasure = MeasureMappingImpl.builder()
         .withName("Promotion Sales")
         .withFormatString(FORMAT_STRING)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .withMeasureExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
                 SQLMappingImpl.builder()
@@ -1508,44 +1508,44 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final MeasureMappingImpl storeInvoiceMeasure = MeasureMappingImpl.builder()
         .withName("Store Invoice")
         .withColumn("store_invoice")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl supplyTimeMeasure = MeasureMappingImpl.builder()
         .withName("Supply Time")
         .withColumn("supply_time")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl warehouseCostMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Cost")
         .withColumn("warehouse_cost")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl warehouseSalesMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Sales")
         .withColumn("warehouse_sales")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl unitsShippedMeasure = MeasureMappingImpl.builder()
         .withName("Units Shipped")
         .withColumn("units_shipped")
         .withFormatString("#.0")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl unitsOrderedMeasure = MeasureMappingImpl.builder()
         .withName("Units Ordered")
         .withColumn("units_ordered")
         .withFormatString("#.0")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl warehouseProfitMeasure = MeasureMappingImpl.builder()
         .withName("Warehouse Profit")
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .withMeasureExpression(
             SQLExpressionMappingImpl.builder()
                 .withSqls(List.of(
@@ -1573,35 +1573,35 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_SQFT)
         .withColumn(STORE_SQFT2)
         .withFormatString(FORMAT_STRING)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl grocerySqftMeasure = MeasureMappingImpl.builder()
         .withName(GROCERY_SQFT)
         .withColumn(GROCERY_SQFT2)
         .withFormatString(FORMAT_STRING)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl orgSalaryMeasure = MeasureMappingImpl.builder()
         .withName("Org Salary")
         .withColumn("salary_paid")
         .withFormatString(CURRENCY)
-        .withType(SUM)
+        .withAggregatorType(SUM)
         .build();
 
     private static final MeasureMappingImpl countMeasure = MeasureMappingImpl.builder()
         .withName("Count")
         .withColumn(EMPLOYEE_ID)
         .withFormatString("#,#")
-        .withType(COUNT)
+        .withAggregatorType(COUNT)
         .build();
 
     private static final MeasureMappingImpl numberOfEmployeesMeasure = MeasureMappingImpl.builder()
         .withName("Number of Employees")
         .withColumn(EMPLOYEE_ID)
         .withFormatString("#,#")
-        .withType(DISTINCT_COUNT)
+        .withAggregatorType(DISTINCT_COUNT)
         .build();
 
     private static final MeasureGroupMappingImpl salesMeasureGroup = MeasureGroupMappingImpl.builder()

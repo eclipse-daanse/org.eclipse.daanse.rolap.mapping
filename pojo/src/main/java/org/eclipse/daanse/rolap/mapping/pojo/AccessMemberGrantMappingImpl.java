@@ -13,11 +13,11 @@
 package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 
 public class AccessMemberGrantMappingImpl implements AccessMemberGrantMapping {
 
-    private AccessMemberGrantEnum access;
+    private AccessMember access;
 
     private String member;
 
@@ -26,11 +26,11 @@ public class AccessMemberGrantMappingImpl implements AccessMemberGrantMapping {
         this.member = builder.member;
     }
 
-    public AccessMemberGrantEnum getAccess() {
+    public AccessMember getAccess() {
         return access;
     }
 
-    public void setAccess(AccessMemberGrantEnum access) {
+    public void setAccess(AccessMember access) {
         this.access = access;
     }
 
@@ -47,13 +47,13 @@ public class AccessMemberGrantMappingImpl implements AccessMemberGrantMapping {
     }
 
     public static final class Builder {
-        private AccessMemberGrantEnum access;
+        private AccessMember access;
         private String member;
 
         private Builder() {
         }
 
-        public Builder withAccess(AccessMemberGrantEnum access) {
+        public Builder withAccess(AccessMember access) {
             this.access = access;
             return this;
         }

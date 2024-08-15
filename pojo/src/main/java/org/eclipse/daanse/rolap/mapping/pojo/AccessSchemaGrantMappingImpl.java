@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchemaEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
 
 public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
 
     private List<AccessCubeGrantMappingImpl> cubeGrant;
 
-    private AccessSchemaEnum access;
+    private AccessSchema access;
 
     private AccessSchemaGrantMappingImpl(Builder builder) {
         this.cubeGrant = builder.cubeGrant;
@@ -37,11 +37,11 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
         this.cubeGrant = cubeGrant;
     }
 
-    public AccessSchemaEnum getAccess() {
+    public AccessSchema getAccess() {
         return access;
     }
 
-    public void setAccess(AccessSchemaEnum access) {
+    public void setAccess(AccessSchema access) {
         this.access = access;
     }
 
@@ -51,7 +51,7 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
 
     public static final class Builder {
         private List<AccessCubeGrantMappingImpl> cubeGrant = new ArrayList<>();
-        private AccessSchemaEnum access;
+        private AccessSchema access;
 
         private Builder() {
         }
@@ -61,7 +61,7 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
             return this;
         }
 
-        public Builder withAccess(AccessSchemaEnum access) {
+        public Builder withAccess(AccessSchema access) {
             this.access = access;
             return this;
         }

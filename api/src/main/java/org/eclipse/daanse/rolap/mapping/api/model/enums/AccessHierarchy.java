@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,13 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum HideMemberIfEnum {
+public enum AccessHierarchy {
 
-    NEVER("Never"), IF_BLANK_NAME("IfBlankName"), IF_PARENTS_NAME("IfParentsName");
+    ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
 
     private final String value;
 
-    HideMemberIfEnum(String v) {
+    AccessHierarchy(String v) {
         value = v;
     }
 
@@ -27,8 +27,8 @@ public enum HideMemberIfEnum {
         return value;
     }
 
-    public static HideMemberIfEnum fromValue(String v) {
-        for (HideMemberIfEnum c: HideMemberIfEnum.values()) {
+    public static AccessHierarchy fromValue(String v) {
+        for (AccessHierarchy c: AccessHierarchy.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

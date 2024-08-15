@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,19 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum TypeEnum {
+public enum AccessSchema {
 
-    STRING("String"),
-    NUMERIC("Numeric"),
-    INTEGER("Integer"),
-    BOOLEAN("Boolean"),
-    DATE("Date"),
-    TIME("Time"),
-    TIMESTAMP("Timestamp");
+    ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
 
     private final String value;
 
-    TypeEnum(String v) {
+    AccessSchema(String v) {
         value = v;
     }
 
@@ -33,8 +27,8 @@ public enum TypeEnum {
         return value;
     }
 
-    public static TypeEnum fromValue(String v) {
-        for (TypeEnum c : TypeEnum.values()) {
+    public static AccessSchema fromValue(String v) {
+        for (AccessSchema c: AccessSchema.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

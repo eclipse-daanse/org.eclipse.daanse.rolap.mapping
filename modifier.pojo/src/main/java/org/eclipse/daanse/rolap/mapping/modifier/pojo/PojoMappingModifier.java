@@ -80,17 +80,16 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimensionEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchemaEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
@@ -265,7 +264,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AccessMemberGrantMapping createAccessMemberGrant(AccessMemberGrantEnum access, String member) {
+    protected AccessMemberGrantMapping createAccessMemberGrant(AccessMember access, String member) {
         return AccessMemberGrantMappingImpl.builder()
             .withAccess(access)
             .withMember(member)
@@ -305,7 +304,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, TypeEnum type) {
+    protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, DataType type) {
         return InlineTableColumnDefinitionMappingImpl.builder()
             .withName(name)
             .withType(type)
@@ -505,7 +504,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, PropertyTypeEnum type
+        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType type
     ) {
         return MemberPropertyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -516,7 +515,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withFormatter((MemberPropertyFormatterMappingImpl) formatter)
             .withColumn(column)
             .withDependsOnLevelValue(dependsOnLevelValue)
-            .withType(type)
+            .withDataType(type)
             .build();
     }
 
@@ -547,9 +546,9 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, HideMemberIfEnum hideMemberIf, InternalTypeEnum internalType,
-        LevelTypeEnum levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, TypeEnum type, boolean uniqueMembers, boolean visible, String name, String id
+        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
+        LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
+        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id
     ) {
         return LevelMappingImpl.builder()
             .withKeyExpression((SQLExpressionMappingImpl) keyExpression)
@@ -563,8 +562,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withApproxRowCount(approxRowCount)
             .withCaptionColumn(captionColumn)
             .withColumn(column)
-            .withHideMemberIf(hideMemberIf)
-            .withInternalType(internalType)
+            .withHideMemberIfType(hideMemberIf)
             .withLevelType(levelType)
             .withNameColumn(nameColumn)
             .withNullParentValue(nullParentValue)
@@ -582,14 +580,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AccessHierarchyGrantMapping createAccessHierarchyGrant(
-        List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchyEnum access, LevelMapping bottomLevel,
-        String rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy
+        List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchy access, LevelMapping bottomLevel,
+        RollupPolicyType rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy
     ) {
         return AccessHierarchyGrantMappingImpl.builder()
             .withMemberGrants((List<AccessMemberGrantMappingImpl>) memberGrants)
             .withAccess(access)
             .withBottomLevel((LevelMappingImpl) bottomLevel)
-            .withRollupPolicy(rollupPolicy)
+            .withRollupPolicyType(rollupPolicy)
             .withTopLevel((LevelMappingImpl) topLevel)
             .withHierarchy((HierarchyMappingImpl) hierarchy)
             .build();
@@ -615,7 +613,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimensionEnum access, DimensionMapping dimension) {
+    protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimension access, DimensionMapping dimension) {
         return AccessDimensionGrantMappingImpl.builder()
             .withAccess(access)
             .withDimension((DimensionMappingImpl) dimension)
@@ -626,7 +624,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessCubeGrantMapping createAccessCubeGrant(
         List<? extends AccessDimensionGrantMapping> dimensionGrants,
-        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCubeEnum access, CubeMapping cube
+        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCube access, CubeMapping cube
     ) {
         return AccessCubeGrantMappingImpl.builder()
             .withDimensionGrants((List<AccessDimensionGrantMappingImpl>) dimensionGrants)
@@ -640,7 +638,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessSchemaGrantMapping createAccessSchemaGrant(
         List<? extends AccessCubeGrantMapping> accessCubeGrant,
-        AccessSchemaEnum access
+        AccessSchema access
     ) {
         return AccessSchemaGrantMappingImpl.builder()
             .withCubeGrant((List<AccessCubeGrantMappingImpl>) accessCubeGrant)
@@ -679,8 +677,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, MeasureDataTypeEnum datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, String type
+        CellFormatterMapping cellFormatter, String backColor, String column, DataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     ) {
         return MeasureMappingImpl.builder()
             .withMeasureExpression((SQLExpressionMappingImpl) measureExpression)
@@ -695,7 +693,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withVisible(visible)
             .withName(name)
             .withId(id)
-            .withType(type)
+            .withAggregatorType(type)
             .build();
     }
 

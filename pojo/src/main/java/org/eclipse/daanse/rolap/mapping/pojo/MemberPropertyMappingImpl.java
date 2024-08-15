@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 
 public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implements MemberPropertyMapping {
 
@@ -26,13 +26,13 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private boolean dependsOnLevelValue;
 
-    private PropertyTypeEnum type;
+    private DataType dataType;
 
     private MemberPropertyMappingImpl(Builder builder) {
         this.formatter = builder.formatter;
         this.column = builder.column;
         this.dependsOnLevelValue = builder.dependsOnLevelValue;
-        this.type = builder.type;
+        this.dataType = builder.dataType;
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
@@ -64,12 +64,12 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         this.dependsOnLevelValue = dependsOnLevelValue;
     }
 
-    public PropertyTypeEnum getType() {
-        return type;
+    public DataType getDataType() {
+        return dataType;
     }
 
-    public void setType(PropertyTypeEnum type) {
-        this.type = type;
+    public void setDataType(DataType type) {
+        this.dataType = type;
     }
 
     public static Builder builder() {
@@ -80,7 +80,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         private MemberPropertyFormatterMappingImpl formatter;
         private String column;
         private boolean dependsOnLevelValue;
-        private PropertyTypeEnum type;
+        private DataType dataType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
@@ -105,8 +105,8 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
             return this;
         }
 
-        public Builder withType(PropertyTypeEnum type) {
-            this.type = type;
+        public Builder withDataType(DataType dataType) {
+            this.dataType = dataType;
             return this;
         }
 

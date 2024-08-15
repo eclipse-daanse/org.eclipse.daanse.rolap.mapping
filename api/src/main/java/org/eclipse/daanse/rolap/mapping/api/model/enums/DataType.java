@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2024 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made
  * available under the terms of the Eclipse Public License 2.0
@@ -13,13 +13,19 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum MeasureDataTypeEnum {
+public enum DataType {
 
-    STRING("String"), NUMERIC("Numeric"), INTEGER("Integer");
+    STRING("String"),
+    NUMERIC("Numeric"),
+    INTEGER("Integer"),
+    BOOLEAN("Boolean"),
+    DATE("Date"),
+    TIME("Time"),
+    TIMESTAMP("Timestamp");
 
     private final String value;
 
-    MeasureDataTypeEnum(String v) {
+    DataType(String v) {
         value = v;
     }
 
@@ -27,8 +33,8 @@ public enum MeasureDataTypeEnum {
         return value;
     }
 
-    public static MeasureDataTypeEnum fromValue(String v) {
-        for (MeasureDataTypeEnum c : MeasureDataTypeEnum.values()) {
+    public static DataType fromValue(String v) {
+        for (DataType c : DataType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

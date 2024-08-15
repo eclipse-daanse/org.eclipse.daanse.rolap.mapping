@@ -16,7 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public class MeasureMappingImpl extends AbstractElementMappingImpl implements MeasureMapping {
 
@@ -30,7 +31,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private String column;
 
-    private MeasureDataTypeEnum datatype;
+    private DataType datatype;
 
     private String displayFolder;
 
@@ -44,7 +45,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private String id;
 
-    private String type;
+    private MeasureAggregatorType aggregatorType;
 
 
 
@@ -61,7 +62,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.visible = builder.visible;
         this.name = builder.name;
         this.id = builder.id;
-        this.type = builder.type;
+        this.aggregatorType = builder.aggregatorType;
         super.setAnnotations(builder.annotations);
         super.setDescription(builder.description);
         super.setDocumentation(builder.documentation);
@@ -109,11 +110,11 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.column = column;
     }
 
-    public MeasureDataTypeEnum getDatatype() {
+    public DataType getDatatype() {
         return datatype;
     }
 
-    public void setDatatype(MeasureDataTypeEnum datatype) {
+    public void setDatatype(DataType datatype) {
         this.datatype = datatype;
     }
 
@@ -165,12 +166,12 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.id = id;
     }
 
-    public String getType() {
-        return type;
+    public MeasureAggregatorType getAggregatorType() {
+        return aggregatorType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAggregatorType(MeasureAggregatorType type) {
+        this.aggregatorType = type;
     }
 
     public static Builder builder() {
@@ -183,14 +184,14 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
         private String column;
-        private MeasureDataTypeEnum datatype;
+        private DataType datatype;
         private String displayFolder;
         private String formatString;
         private String formatter;
         private boolean visible;
         private String name;
         private String id;
-        private String type;
+        private MeasureAggregatorType aggregatorType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String description;
         private DocumentationMappingImpl documentation;
@@ -224,7 +225,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
             return this;
         }
 
-        public Builder withDatatype(MeasureDataTypeEnum datatype) {
+        public Builder withDatatype(DataType datatype) {
             this.datatype = datatype;
             return this;
         }
@@ -259,8 +260,8 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
             return this;
         }
 
-        public Builder withType(String type) {
-            this.type = type;
+        public Builder withAggregatorType(MeasureAggregatorType type) {
+            this.aggregatorType = type;
             return this;
         }
 

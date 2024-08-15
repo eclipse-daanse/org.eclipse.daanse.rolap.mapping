@@ -14,7 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public interface MeasureMapping extends AbstractElementMapping{
 
@@ -28,7 +29,7 @@ public interface MeasureMapping extends AbstractElementMapping{
 
     String getColumn();
 
-    MeasureDataTypeEnum getDatatype();
+    DataType getDatatype();
 
     String getDisplayFolder();
 
@@ -38,6 +39,6 @@ public interface MeasureMapping extends AbstractElementMapping{
 
     boolean isVisible();
 
-    String getType();
+    MeasureAggregatorType getAggregatorType();
 
 }

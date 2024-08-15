@@ -14,17 +14,18 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 
 public interface AccessHierarchyGrantMapping {
 
     List<? extends AccessMemberGrantMapping> getMemberGrants();
 
-    AccessHierarchyEnum getAccess();
+    AccessHierarchy getAccess();
 
     LevelMapping getBottomLevel();
 
-    String getRollupPolicy();
+    RollupPolicyType getRollupPolicyType();
 
     LevelMapping getTopLevel();
 
