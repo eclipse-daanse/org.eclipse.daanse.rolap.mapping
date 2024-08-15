@@ -35,7 +35,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
 
     private String parent;
 
-    private boolean visible = true;
+    private boolean visible;
 
     private CalculatedMemberMappingImpl(Builder builder) {
         this.calculatedMemberProperties = builder.calculatedMemberProperties;
@@ -137,7 +137,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         private String formatString;
         private HierarchyMappingImpl hierarchy;
         private String parent;
-        private boolean visible = true;
+        private boolean visible;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;

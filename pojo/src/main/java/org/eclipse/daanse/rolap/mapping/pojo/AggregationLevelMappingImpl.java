@@ -23,7 +23,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     private String captionColumn;
 
-    private boolean collapsed = true;
+    private boolean collapsed;
 
     private String column;
 
@@ -106,7 +106,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
     public static final class Builder {
         private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = new ArrayList<>();
         private String captionColumn;
-        private boolean collapsed = true;
+        private boolean collapsed;
         private String column;
         private String name;
         private String nameColumn;

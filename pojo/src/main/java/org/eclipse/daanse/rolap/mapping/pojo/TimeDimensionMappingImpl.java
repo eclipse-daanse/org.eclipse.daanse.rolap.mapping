@@ -37,7 +37,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
     public static final class Builder {
         private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
         private String usagePrefix;
-        private boolean visible = true;
+        private boolean visible;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;

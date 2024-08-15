@@ -87,14 +87,14 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         private QueryMappingImpl query;
         private WritebackTableMappingImpl writebackTable;
         private List<ActionMappingMappingImpl> action = new ArrayList<>();
-        private boolean cache = true;
+        private boolean cache;
         private List<DimensionConnectorMappingImpl> dimensionConnectors = new ArrayList<>();
         private List<CalculatedMemberMappingImpl> calculatedMembers = new ArrayList<>();
         private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<KpiMappingImpl> kpis = new ArrayList<>();
         private MeasureMappingImpl defaultMeasure;
-        private boolean enabled = true;
-        private boolean visible = true;
+        private boolean enabled;
+        private boolean visible;
         private List<MeasureGroupMappingImpl> measureGroups = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;

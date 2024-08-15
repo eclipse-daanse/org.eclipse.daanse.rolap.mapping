@@ -38,7 +38,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private String formatter;
 
-    private boolean visible = true;
+    private boolean visible;
 
     private String name;
 
@@ -187,7 +187,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         private String displayFolder;
         private String formatString;
         private String formatter;
-        private boolean visible = true;
+        private boolean visible;
         private String name;
         private String id;
         private String type;

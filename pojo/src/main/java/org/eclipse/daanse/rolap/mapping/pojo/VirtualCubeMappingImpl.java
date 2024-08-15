@@ -57,8 +57,8 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<KpiMappingImpl> kpis = new ArrayList<>();
         private MeasureMappingImpl defaultMeasure;
-        private boolean enabled = true;
-        private boolean visible = true;
+        private boolean enabled;
+        private boolean visible;
         private List<MeasureGroupMappingImpl> measureGroups = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
