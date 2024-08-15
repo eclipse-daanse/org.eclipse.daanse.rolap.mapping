@@ -16,14 +16,6 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCubeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchyEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMemberGrantEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchemaEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyTypeEnum;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -74,6 +66,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String GENDER2 = "gender";
 
+    private static final String BOOLEAN = "Boolean";
+
     private static final String MEAT_SQFT2 = "meat_sqft";
 
     private static final String FROZEN_SQFT2 = "frozen_sqft";
@@ -81,6 +75,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final String FORMAT_STRING3 = "$#,##0.00";
 
     private static final String FORMAT_STRING2 = "FORMAT_STRING";
+
+    private static final String STRING = "String";
 
     private static final String DISTINCT_COUNT = "distinct-count";
 
@@ -270,6 +266,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String THE_MONTH = "the_month";
 
+    private static final String TIME_MONTHS = "TimeMonths";
+
     private static final String MONTH_OF_YEAR = "month_of_year";
 
     private static final String MONTH = "Month";
@@ -278,9 +276,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String QUARTER = "Quarter";
 
+    private static final String TIME_YEARS = "TimeYears";
+
     private static final String THE_YEAR = "the_year";
 
     private static final String YEAR = "Year";
+
+    private static final String NUMERIC = "Numeric";
 
     private static final String STORE_SQFT2 = "store_sqft";
 
@@ -303,6 +305,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final String STORE_NAME2 = "store_name";
 
     private static final String STORE_NAME = "Store Name";
+
+    private static final String IF_BLANK_NAME = "IfBlankName";
+
+    private static final String IF_PARENTS_NAME = "IfParentsName";
+
+    private static final String NEVER = "Never";
 
     private static final String STORE_STATE2 = "store_state";
 
@@ -398,7 +406,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_COUNTRY)
         .withColumn(STORE_COUNTRY2)
         .withUniqueMembers(true)
-        .withHideMemberIf(HideMemberIfEnum.NEVER)
+        .withHideMemberIf(NEVER)
         .build();
 
     private static final LevelMappingImpl storeCountry1Level = LevelMappingImpl.builder()
@@ -418,7 +426,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_STATE)
         .withColumn(STORE_STATE2)
         .withUniqueMembers(true)
-        .withHideMemberIf(HideMemberIfEnum.IF_PARENTS_NAME)
+        .withHideMemberIf(IF_PARENTS_NAME)
         .build();
 
     private static final LevelMappingImpl storeState1Level = LevelMappingImpl.builder()
@@ -438,7 +446,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_CITY)
         .withColumn(STORE_CITY2)
         .withUniqueMembers(false)
-        .withHideMemberIf(HideMemberIfEnum.IF_BLANK_NAME)
+        .withHideMemberIf(IF_BLANK_NAME)
         .build();
 
     private static final LevelMappingImpl storeCity1Level = LevelMappingImpl.builder()
@@ -455,15 +463,15 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(PropertyTypeEnum.NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(PropertyTypeEnum.BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
             MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
-                PropertyTypeEnum.STRING).build()
+                STRING).build()
         ))
         .build();
 
@@ -471,19 +479,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_NAME)
         .withColumn(STORE_NAME2)
         .withUniqueMembers(true)
-        .withHideMemberIf(HideMemberIfEnum.NEVER)
+        .withHideMemberIf(NEVER)
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(PropertyTypeEnum.NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(PropertyTypeEnum.BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
             MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
-                PropertyTypeEnum.STRING).build()
+                STRING).build()
         ))
         .build();
 
@@ -495,15 +503,15 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(STORE_TYPE).withColumn(STORE_TYPE2).build(),
             MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER2).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(PropertyTypeEnum.NUMERIC
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT2).withType(NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(PropertyTypeEnum.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(PropertyTypeEnum.BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT2).withType(NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(HAS_COFFEE_BAR).withColumn(COFFEE_BAR).withType(BOOLEAN
             ).build(),
             MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withType(
-                PropertyTypeEnum.STRING).build()
+                STRING).build()
         ))
         .build();
 
@@ -511,30 +519,30 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(STORE_SQFT)
         .withColumn(STORE_SQFT2)
         .withUniqueMembers(true)
-        .withType(TypeEnum.NUMERIC)
+        .withType(NUMERIC)
         .build();
 
     private static final LevelMappingImpl yearLevel = LevelMappingImpl.builder()
         .withName(YEAR)
         .withColumn(THE_YEAR)
         .withUniqueMembers(true)
-        .withType(TypeEnum.NUMERIC)
-        .withLevelType(LevelTypeEnum.TIME_YEARS)
+        .withType(NUMERIC)
+        .withLevelType(TIME_YEARS)
         .build();
 
     private static final LevelMappingImpl quarterLevel = LevelMappingImpl.builder()
         .withName(QUARTER)
         .withColumn(QUARTER2)
         .withUniqueMembers(false)
-        .withLevelType(LevelTypeEnum.TIME_QUARTERS)
+        .withLevelType("TimeQuarters")
         .build();
 
     private static final LevelMappingImpl monthLevel = LevelMappingImpl.builder()
         .withName(MONTH)
         .withColumn(MONTH_OF_YEAR)
         .withUniqueMembers(false)
-        .withType(TypeEnum.NUMERIC)
-        .withLevelType(LevelTypeEnum.TIME_MONTHS)
+        .withType(NUMERIC)
+        .withLevelType(TIME_MONTHS)
         .build();
 
     private static final LevelMappingImpl month1Level = LevelMappingImpl.builder()
@@ -542,8 +550,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(MONTH_OF_YEAR)
         .withNameColumn(THE_MONTH)
         .withUniqueMembers(false)
-        .withType(TypeEnum.NUMERIC)
-        .withLevelType(LevelTypeEnum.TIME_MONTHS)
+        .withType(NUMERIC)
+        .withLevelType(TIME_MONTHS)
         .build();
 
     private static final LevelMappingImpl storeTypeLevel = LevelMappingImpl.builder()
@@ -611,14 +619,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(COUNTRY)
         .withColumn(STORE_COUNTRY2)
         .withUniqueMembers(true)
-        .withHideMemberIf(HideMemberIfEnum.NEVER)
+        .withHideMemberIf(NEVER)
         .build();
 
     private static final LevelMappingImpl stateLevel = LevelMappingImpl.builder()
         .withName(STATE)
         .withColumn(STORE_STATE2)
         .withUniqueMembers(true)
-        .withHideMemberIf(HideMemberIfEnum.IF_PARENTS_NAME)
+        .withHideMemberIf(IF_PARENTS_NAME)
         .build();
 
     private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
@@ -637,7 +645,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(CITY)
         .withColumn(STORE_CITY2)
         .withUniqueMembers(false)
-        .withHideMemberIf(HideMemberIfEnum.IF_BLANK_NAME)
+        .withHideMemberIf(IF_BLANK_NAME)
         .build();
 
     private static final LevelMappingImpl warehouseNameLevel = LevelMappingImpl.builder()
@@ -679,7 +687,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl nameLevel = LevelMappingImpl.builder()
         .withName(NAME2)
         .withColumn(CUSTOMER_ID)
-        .withType(TypeEnum.NUMERIC)
+        .withType(NUMERIC)
         .withUniqueMembers(true)
         .withNameExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
@@ -845,14 +853,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final LevelMappingImpl departmentDescriptionLevel = LevelMappingImpl.builder()
         .withName("Department Description")
-        .withType(TypeEnum.NUMERIC)
+        .withType(NUMERIC)
         .withColumn(DEPARTMENT_ID)
         .withUniqueMembers(true)
         .build();
 
     private static final LevelMappingImpl employeeIdLevel = LevelMappingImpl.builder()
         .withName("Employee Id")
-        .withType(TypeEnum.NUMERIC)
+        .withType(NUMERIC)
         .withColumn(EMPLOYEE_ID)
         .withParentColumn("supervisor_id")
         .withNullParentValue("0")
@@ -1837,46 +1845,46 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("California manager")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchemaEnum.NONE)
+                .withAccess("none")
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
                         .withCube(salesCube)
-                        .withAccess(AccessCubeEnum.ALL)
+                        .withAccess("all")
                         .withHierarchyGrants(List.of(
                             AccessHierarchyGrantMappingImpl.builder()
                                 .withHierarchy(storeHierarchy)
-                                .withAccess(AccessHierarchyEnum.CUSTOM)
+                                .withAccess("custom")
                                 .withTopLevel(storeCountryLevel)
                                 .withMemberGrants(List.of(
                                     AccessMemberGrantMappingImpl.builder()
                                         .withMember("[Store].[USA].[CA]")
-                                        .withAccess(AccessMemberGrantEnum.ALL)
+                                        .withAccess("all")
                                         .build(),
                                     AccessMemberGrantMappingImpl.builder()
                                         .withMember("[Store].[USA].[CA].[Los Angeles]")
-                                        .withAccess(AccessMemberGrantEnum.NONE)
+                                        .withAccess("none")
                                         .build()
                                 ))
                                 .build(),
                             AccessHierarchyGrantMappingImpl.builder()
                                 .withHierarchy(customersHierarchy)
-                                .withAccess(AccessHierarchyEnum.CUSTOM)
+                                .withAccess("custom")
                                 .withTopLevel(stateProvinceLevel)
                                 .withBottomLevel(cityLevel)
                                 .withMemberGrants(List.of(
                                     AccessMemberGrantMappingImpl.builder()
                                         .withMember("[Customers].[USA].[CA]")
-                                        .withAccess(AccessMemberGrantEnum.ALL)
+                                        .withAccess("all")
                                         .build(),
                                     AccessMemberGrantMappingImpl.builder()
                                         .withMember("[Customers].[USA].[CA].[Los Angeles]")
-                                        .withAccess(AccessMemberGrantEnum.NONE)
+                                        .withAccess("none")
                                         .build()
                                 ))
                                 .build(),
                             AccessHierarchyGrantMappingImpl.builder()
                                 .withHierarchy(genderHierarchy)
-                                .withAccess(AccessHierarchyEnum.NONE)
+                                .withAccess("none")
                                 .build()
                         ))
                         .build()
@@ -1889,11 +1897,11 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("No HR Cube")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchemaEnum.ALL)
+                .withAccess("all")
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
                         .withCube(hrCube)
-                        .withAccess(AccessCubeEnum.NONE)
+                        .withAccess("none")
                         .build()
                 ))
                 .build()
@@ -1904,7 +1912,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Administrator")
         .withAccessSchemaGrants(List.of(
             AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchemaEnum.ALL)
+                .withAccess("all")
                 .build()
         ))
         .build();
