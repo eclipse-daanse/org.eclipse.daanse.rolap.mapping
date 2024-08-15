@@ -22,62 +22,53 @@ public enum LevelType {
     REGULAR("Regular"),
 
     /**
-     * Indicates that a level refers to years. It must be used in a dimension whose
-     * type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to years.
      */
     TIME_YEARS("TimeYears"),
 
     /**
-     * Indicates that a level refers to half years. It must be used in a dimension
-     * whose type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to half years.
      */
     TIME_HALF_YEARS("TimeHalfYears"),
 
     /**
-     * Indicates that a level refers to quarters. It must be used in a dimension
-     * whose type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to quarters.
      */
     TIME_QUARTERS("TimeQuarters"),
 
     /**
-     * Indicates that a level refers to months. It must be used in a dimension whose
-     * type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to months.
      */
     TIME_MONTHS("TimeMonths"),
 
     /**
-     * Indicates that a level refers to weeks. It must be used in a dimension whose
-     * type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to weeks.
      */
     TIME_WEEKS("TimeWeeks"),
 
     /**
-     * Indicates that a level refers to days. It must be used in a dimension whose
-     * type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to days.
      */
     TIME_DAYS("TimeDays"),
 
     /**
-     * Indicates that a level refers to hours. It must be used in a dimension whose
-     * type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to hours.
+
      */
     TIME_HOURS("TimeHours"),
 
     /**
-     * Indicates that a level refers to minutes. It must be used in a dimension
-     * whose type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to minutes.
      */
     TIME_MINUTES("TimeMinutes"),
 
     /**
-     * Indicates that a level refers to seconds. It must be used in a dimension
-     * whose type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level refers to seconds.
      */
     TIME_SECONDS("TimeSeconds"),
 
     /**
-     * Indicates that a level is an unspecified time period. It must be used in a
-     * dimension whose type is {@link DimensionType#TIME_DIMENSION}.
+     * Indicates that a level is an unspecified time period.
      */
     TIME_UNDEFINED("TimeUndefined"),
 
