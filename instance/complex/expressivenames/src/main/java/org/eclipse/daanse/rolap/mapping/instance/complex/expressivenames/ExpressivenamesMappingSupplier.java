@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -38,8 +39,6 @@ import org.osgi.service.component.annotations.ServiceScope;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "4")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
-
-    private static final String INTEGER = "integer";
 
     private static final String D3H3L3_TABLE = "D3H3L3Table";
 
@@ -132,7 +131,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn("D2H1L1_NAME")
         .withOrdinalColumn("D2H1L1_Ordinal")
         .withDescription("Level 1 Hierarchy 1 Dimension 2")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("D2H1L1Table")
         .build();
 
@@ -143,7 +142,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn("D2H2L1_NAME")
         .withOrdinalColumn("D2H2L1_Ordinal")
         .withDescription("Level 2 Hierarchy 2 Dimension 2")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .build();
 
     private static final LevelMappingImpl LEVEL222 = LevelMappingImpl
@@ -153,7 +152,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn("D2H2L2_NAME")
         .withOrdinalColumn("D2H2L2_Ordinal")
         .withDescription("Level 2 Dimension 3")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .build();
 
     private static final LevelMappingImpl LEVEL31 = LevelMappingImpl
@@ -171,7 +170,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withColumn(D_3_H_2_L_1)
         .withNameColumn("D3H2L1_NAME")
         .withOrdinalColumn("D3H2L1_Ordinal")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("D3H2L1Table")
         .withDescription("Level 1 Hierarchy2 Dimension 3")
         .build();
@@ -182,7 +181,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withColumn(D_3_H_2_L_2)
         .withNameColumn("D3H2L2_NAME")
         .withOrdinalColumn("D3H2L2_Ordinal")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable(D3H2L2_TABLE)
         .withDescription("Level 2 Hierarchy2 Dimension 3")
         .build();
@@ -193,7 +192,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withColumn(D_3_H_3_L_1)
         .withNameColumn("D3H3L1_NAME")
         .withOrdinalColumn("D3H3L1_Ordinal")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("D3H3L1Table")
         .withDescription("Level 1 Hierarchy3 Dimension 3")
         .build();
@@ -204,7 +203,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withColumn(D_3_H_3_L_2)
         .withNameColumn("D3H3L2_NAME")
         .withOrdinalColumn("D3H3L2_Ordinal")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("D3H3L2Table")
         .withDescription("Level 2 Hierarchy3 Dimension 3")
         .build();
@@ -215,7 +214,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withColumn(D_3_H_3_L_3)
         .withNameColumn("D3H3L3_NAME")
         .withOrdinalColumn("D3H3L3_Ordinal")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable(D3H3L3_TABLE)
         .withDescription("Level 3 Hierarchy3 Dimension 3")
         .build();

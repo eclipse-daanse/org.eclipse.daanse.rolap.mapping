@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -37,7 +38,6 @@ import org.osgi.service.component.annotations.ServiceScope;
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class PopulationMappingSupplier implements CatalogMappingSupplier {
 
-    private static final String INTEGER = "integer";
     private static final String STATE = "state";
     private static final String GENDER = "Gender";
     private static final String GENDER_ID = "gender_id";
@@ -93,7 +93,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withName("Continent")
         .withColumn("id")
         .withNameColumn("name")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("continent")
         .withDescription("Continent")
         .build();
@@ -103,7 +103,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withName("Country")
         .withColumn("id")
         .withNameColumn("name")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable("country")
         .withDescription("Country")
         .build();
@@ -113,7 +113,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withName("State")
         .withColumn("id")
         .withNameColumn("name")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withTable(STATE)
         .withDescription("State")
         .build();
@@ -123,7 +123,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withName(GENDER)
         .withColumn(GENDER_ID)
         .withNameColumn("name")
-        .withType(INTEGER)
+        .withType(TypeEnum.INTEGER)
         .withDescription(GENDER)
         .build();
 

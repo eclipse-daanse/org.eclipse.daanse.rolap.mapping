@@ -16,6 +16,9 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelTypeEnum;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.TypeEnum;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -42,12 +45,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final String PRODUCT = "Product";
 
-    private static final String REGULAR = "Regular";
-
-    private static final String NEVER = "Never";
-
-    private static final String STRING = "String";
-
     private static final String CUSTOMERNUMBER = "CUSTOMERNUMBER";
 
     private static final String PRODUCTS = "products";
@@ -72,114 +69,114 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
             .withName("Territory")
             .withColumn("TERRITORY")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
             .withName("Country")
             .withColumn("COUNTRY")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
             .withName("State Province")
             .withColumn("CITY")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
             .withName("City")
             .withColumn("STATE")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl customerLevel = LevelMappingImpl.builder()
             .withName("Customer")
             .withColumn("CUSTOMERNAME")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl lineLevel = LevelMappingImpl.builder()
             .withName("Line")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTLINE")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl vendorLevel = LevelMappingImpl.builder()
             .withName("Vendor")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTVENDOR")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl productLevel = LevelMappingImpl.builder()
             .withName(PRODUCT)
             .withTable(PRODUCTS)
             .withColumn("PRODUCTNAME")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl yearsLevel = LevelMappingImpl.builder()
             .withName("Years")
             .withColumn("YEAR_ID")
-            .withType("Integer")
+            .withType(TypeEnum.INTEGER)
             .withUniqueMembers(true)
-            .withLevelType("TimeYears")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.TIME_YEARS)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl quartersLevel = LevelMappingImpl.builder()
             .withName("Quarters")
             .withColumn("QTR_NAME")
             .withOrdinalColumn("QTR_ID")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(false)
-            .withLevelType("TimeQuarters")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.TIME_QUARTERS)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl monthsLevel = LevelMappingImpl.builder()
             .withName("Months")
             .withColumn("MONTH_NAME")
             .withOrdinalColumn("MONTH_ID")
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(false)
-            .withLevelType("TimeMonths")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.TIME_MONTHS)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final LevelMappingImpl typeLevel = LevelMappingImpl.builder()
             .withName("Type")
             .withColumn(STATUS)
-            .withType(STRING)
+            .withType(TypeEnum.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelTypeEnum.REGULAR)
+            .withHideMemberIf(HideMemberIfEnum.NEVER)
             .build();
 
     private static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
