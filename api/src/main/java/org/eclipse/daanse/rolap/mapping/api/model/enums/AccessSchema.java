@@ -29,7 +29,7 @@ public enum AccessSchema {
 
     public static AccessSchema fromValue(String v) {
         for (AccessSchema c: AccessSchema.values()) {
-            if (c.value.equals(v)) {
+            if (c.value.equalsIgnoreCase(v)) {
                 return c;
             }
         }

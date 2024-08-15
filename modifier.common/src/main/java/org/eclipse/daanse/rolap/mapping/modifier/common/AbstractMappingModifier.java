@@ -1653,7 +1653,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf, 
+        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
         LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
         String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id
     );

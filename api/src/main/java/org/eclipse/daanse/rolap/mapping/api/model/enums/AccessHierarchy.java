@@ -29,7 +29,7 @@ public enum AccessHierarchy {
 
     public static AccessHierarchy fromValue(String v) {
         for (AccessHierarchy c: AccessHierarchy.values()) {
-            if (c.value.equals(v)) {
+            if (c.value.equalsIgnoreCase(v)) {
                 return c;
             }
         }

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -599,25 +600,25 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final MeasureMappingImpl measure1 = MeasureMappingImpl.builder()
         .withName("Anzahl Schulen")
         .withColumn("anzahl_schulen")
-        .withAggregatorType("sum")
+        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure2 = MeasureMappingImpl.builder()
         .withName("Anzahl Klassen")
         .withColumn("Anzahl Klassen")
-        .withAggregatorType("sum")
+        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure3 = MeasureMappingImpl.builder()
         .withName("Anzahl Personen")
         .withColumn("anzahl_personen")
-        .withAggregatorType("sum")
+        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure4 = MeasureMappingImpl.builder()
         .withName("Anzahl Schüler:innen")
         .withColumn("anzahl_schueler")
-        .withAggregatorType("sum")
+        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureGroupMappingImpl CUBE1_MEASURE_GROUP = MeasureGroupMappingImpl.builder()

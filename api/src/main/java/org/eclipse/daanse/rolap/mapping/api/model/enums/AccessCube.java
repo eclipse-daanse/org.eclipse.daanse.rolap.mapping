@@ -29,7 +29,7 @@ public enum AccessCube {
 
     public static AccessCube fromValue(String v) {
         for (AccessCube c: AccessCube.values()) {
-            if (c.value.equals(v)) {
+            if (c.value.equalsIgnoreCase(v)) {
                 return c;
             }
         }

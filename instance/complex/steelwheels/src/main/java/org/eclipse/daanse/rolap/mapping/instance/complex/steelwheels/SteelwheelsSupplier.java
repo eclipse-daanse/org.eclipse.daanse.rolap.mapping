@@ -16,6 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -42,12 +46,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final String PRODUCT = "Product";
 
-    private static final String REGULAR = "Regular";
-
-    private static final String NEVER = "Never";
-
-    private static final String STRING = "String";
-
     private static final String CUSTOMERNUMBER = "CUSTOMERNUMBER";
 
     private static final String PRODUCTS = "products";
@@ -72,114 +70,114 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
             .withName("Territory")
             .withColumn("TERRITORY")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
             .withName("Country")
             .withColumn("COUNTRY")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
             .withName("State Province")
             .withColumn("CITY")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
             .withName("City")
             .withColumn("STATE")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl customerLevel = LevelMappingImpl.builder()
             .withName("Customer")
             .withColumn("CUSTOMERNAME")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl lineLevel = LevelMappingImpl.builder()
             .withName("Line")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTLINE")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl vendorLevel = LevelMappingImpl.builder()
             .withName("Vendor")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTVENDOR")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(false)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl productLevel = LevelMappingImpl.builder()
             .withName(PRODUCT)
             .withTable(PRODUCTS)
             .withColumn("PRODUCTNAME")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl yearsLevel = LevelMappingImpl.builder()
             .withName("Years")
             .withColumn("YEAR_ID")
-            .withAggregatorType("Integer")
+            .withType(DataType.INTEGER)
             .withUniqueMembers(true)
-            .withLevelType("TimeYears")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.TIME_YEARS)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl quartersLevel = LevelMappingImpl.builder()
             .withName("Quarters")
             .withColumn("QTR_NAME")
             .withOrdinalColumn("QTR_ID")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(false)
-            .withLevelType("TimeQuarters")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.TIME_QUARTERS)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl monthsLevel = LevelMappingImpl.builder()
             .withName("Months")
             .withColumn("MONTH_NAME")
             .withOrdinalColumn("MONTH_ID")
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(false)
-            .withLevelType("TimeMonths")
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.TIME_MONTHS)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final LevelMappingImpl typeLevel = LevelMappingImpl.builder()
             .withName("Type")
             .withColumn(STATUS)
-            .withAggregatorType(STRING)
+            .withType(DataType.STRING)
             .withUniqueMembers(true)
-            .withLevelType(REGULAR)
-            .withHideMemberIf(NEVER)
+            .withLevelType(LevelType.REGULAR)
+            .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
     private static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
@@ -252,14 +250,14 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Quantity")
             .withColumn("QUANTITYORDERED")
             .withFormatString("#,###")
-            .withAggregatorType("sum")
+            .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
     private static final MeasureMappingImpl salesMeasure = MeasureMappingImpl.builder()
             .withName("Sales")
             .withColumn("TOTALPRICE")
             .withFormatString("#,###")
-            .withAggregatorType("sum")
+            .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
     private static final MeasureGroupMappingImpl steelWheelsSalesMeasureGroup = MeasureGroupMappingImpl.builder()

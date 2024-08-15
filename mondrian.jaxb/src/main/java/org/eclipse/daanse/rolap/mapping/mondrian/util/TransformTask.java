@@ -20,6 +20,16 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggColumnName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggExclude;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggForeignKey;
@@ -343,7 +353,7 @@ public class TransformTask {
 
     private AccessCubeGrantMappingImpl transformAccessCubeGrant(CubeGrant cubeGrant) {
         AccessCubeGrantMappingImpl accessCubeGrant = AccessCubeGrantMappingImpl.builder().build();
-        accessCubeGrant.setAccess(cubeGrant.access());
+        accessCubeGrant.setAccess(cubeGrant.access() != null ? AccessCube.fromValue(cubeGrant.access()) : null);
         String cubeNameAsIdent = cubeGrant.cube();
         Optional<? extends CubeMappingImpl> oCcube = findCubeByName(cubeNameAsIdent);
         oCcube.ifPresent(c -> accessCubeGrant.setCube(c));
@@ -358,7 +368,7 @@ public class TransformTask {
 
     private AccessDimensionGrantMappingImpl transformAccessDimensionGrant(DimensionGrant dimensionGrant) {
         AccessDimensionGrantMappingImpl accessDimensionGrant = AccessDimensionGrantMappingImpl.builder().build();
-        accessDimensionGrant.setAccess(dimensionGrant.access().toString());
+        accessDimensionGrant.setAccess(dimensionGrant.access() != null ? AccessDimension.fromValue(dimensionGrant.access().toString()) : null);
         Optional<DimensionMappingImpl> oDim = findDimension(dimensionGrant.dimension());
         oDim.ifPresent(d -> accessDimensionGrant.setDimension(d));
         return accessDimensionGrant;
@@ -371,12 +381,12 @@ public class TransformTask {
 
     private AccessHierarchyGrantMappingImpl transformAccessHierarchyGrant(HierarchyGrant hierarchyGrant) {
         AccessHierarchyGrantMappingImpl accessHierarchyGrant = AccessHierarchyGrantMappingImpl.builder().build();
-        accessHierarchyGrant.setAccess(hierarchyGrant.access() != null ? hierarchyGrant.access().toString() : null);
+        accessHierarchyGrant.setAccess(hierarchyGrant.access() != null ? AccessHierarchy.fromValue(hierarchyGrant.access().toString()) : null);
         Optional<LevelMappingImpl> oLvl = findLevel(prepareLevel(hierarchyGrant.bottomLevel()));
         oLvl.ifPresent(l -> accessHierarchyGrant.setBottomLevel(l));
         Optional<HierarchyMappingImpl> oHier = findHierarchy(hierarchyGrant.hierarchy());
         oHier.ifPresent(h -> accessHierarchyGrant.setHierarchy(h));
-        accessHierarchyGrant.setRollupPolicyType(hierarchyGrant.rollupPolicy());
+        accessHierarchyGrant.setRollupPolicyType(RollupPolicyType.fromValue(hierarchyGrant.rollupPolicy()));
         oLvl = findLevel(prepareLevel(hierarchyGrant.topLevel()));
         oLvl.ifPresent(l -> accessHierarchyGrant.setTopLevel(l));
         accessHierarchyGrant.setMemberGrants(transformAccessMemberGrants(hierarchyGrant.memberGrants()));
@@ -397,7 +407,7 @@ public class TransformTask {
 
     private AccessMemberGrantMappingImpl transformAccessMemberGrant(MemberGrant memberGrant) {
         AccessMemberGrantMappingImpl accessMemberGrant = AccessMemberGrantMappingImpl.builder().build();
-        accessMemberGrant.setAccess(memberGrant.access() != null ? memberGrant.access().toString() : null);
+        accessMemberGrant.setAccess(memberGrant.access() != null ? AccessMember.valueOf(memberGrant.access().toString()) : null);
         accessMemberGrant.setMember(memberGrant.member());
         return accessMemberGrant;
 
@@ -409,7 +419,7 @@ public class TransformTask {
 
     private AccessSchemaGrantMappingImpl transformAccessSchemaGrant(SchemaGrant schemaGrant) {
         AccessSchemaGrantMappingImpl accessSchemaGrant = AccessSchemaGrantMappingImpl.builder().build();
-        accessSchemaGrant.setAccess(schemaGrant.access() != null ? schemaGrant.access().toString() : null);
+        accessSchemaGrant.setAccess(schemaGrant.access() != null ? AccessSchema.fromValue(schemaGrant.access().toString()) : null);
         accessSchemaGrant.setCubeGrant(transformAccessCubeGrants(schemaGrant.cubeGrants()));
         return accessSchemaGrant;
     }
@@ -563,12 +573,12 @@ public class TransformTask {
         l.setCaptionColumn(level.captionColumn());
         l.setCaptionExpression(transformSQLExpressionOfExpressionView(level.captionExpression()));
         l.setColumn(level.column());
-        l.setHideMemberIf(level.hideMemberIf().getValue());
+        l.setHideMemberIfType(HideMemberIfType.fromValue(level.hideMemberIf().getValue()));
         if (level.internalType() != null) {
-            l.setInternalType(level.internalType().getValue());
+            l.setDataType(DataType.fromValue(level.internalType().getValue()));
         }
         l.setKeyExpression(transformSQLExpressionOfExpressionView(level.keyExpression()));
-        l.setLevelType(level.levelType().getValue());
+        l.setLevelType(LevelType.fromValue(level.levelType().getValue()));
         l.setMemberFormatter(transformMemberFormatter(level.memberFormatter()));
         l.setNameColumn(level.nameColumn());
         l.setNameExpression(transformSQLExpressionOfExpressionView(level.nameExpression()));
@@ -581,7 +591,7 @@ public class TransformTask {
         l.setParentColumn(level.parentColumn());
         l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
 //        l.setTable(level.table());
-        l.setAggregatorType(level.type().getValue());
+        l.setDataType(DataType.fromValue(level.type().getValue()));
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
         l.setMemberProperties(transformMemberProperties(level.properties()));
@@ -603,7 +613,7 @@ public class TransformTask {
             mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
             mp.setColumn(property.column());
             mp.setDependsOnLevelValue(property.dependsOnLevelValue());
-            mp.setAggregatorType(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue());
+            mp.setDataType(DataType.fromValue(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue()));
 
             return mp;
         }
@@ -657,13 +667,13 @@ public class TransformTask {
 
     private MeasureMappingImpl transformMeasure(Measure measure) {
         MeasureMappingImpl m = MeasureMappingImpl.builder().build();
-        m.setAggregatorType(measure.aggregator());
+        m.setAggregatorType(MeasureAggregatorType.fromValue(measure.aggregator()));
         m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
         m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));
         m.setColumn(measure.column());
         if (measure.datatype() != null) {
-            m.setDatatype(measure.datatype().toString());
+            m.setDatatype(DataType.fromValue(measure.datatype().toString()));
         }
         m.setDisplayFolder(measure.displayFolder());
         m.setFormatString(measure.formatString());
@@ -1007,7 +1017,7 @@ public class TransformTask {
         InlineTableColumnDefinitionMappingImpl itcd = InlineTableColumnDefinitionMappingImpl.builder().build();
         itcd.setName(columnDef.name());
         if (columnDef.type() != null) {
-            itcd.setAggregatorType(columnDef.type().getValue());
+            itcd.setDataType(DataType.fromValue(columnDef.type().getValue()));
         }
         return itcd;
     }
