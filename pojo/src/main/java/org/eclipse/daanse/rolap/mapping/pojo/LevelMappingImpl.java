@@ -192,6 +192,9 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public HideMemberIfEnum getHideMemberIf() {
+        if (hideMemberIf == null) {
+            return HideMemberIfEnum.NEVER;
+        }
         return hideMemberIf;
     }
 
@@ -208,7 +211,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public LevelTypeEnum getLevelType() {
-        return levelType;
+        if (levelType == null) {
+            return LevelTypeEnum.REGULAR;
+        } else {
+            return levelType;
+        }
     }
 
     public void setLevelType(LevelTypeEnum levelType) {
@@ -256,7 +263,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public TypeEnum getType() {
-        return type;
+        return type != null ? type : TypeEnum.STRING;
     }
 
     public void setType(TypeEnum type) {

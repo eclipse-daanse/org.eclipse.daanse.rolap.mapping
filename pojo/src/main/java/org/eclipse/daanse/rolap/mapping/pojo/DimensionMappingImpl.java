@@ -22,7 +22,7 @@ public abstract class DimensionMappingImpl extends AbstractElementMappingImpl im
 
     private String usagePrefix;
 
-    private boolean visible;
+    private boolean visible = true;
 
     public List<HierarchyMappingImpl> getHierarchies() {
         return hierarchies;

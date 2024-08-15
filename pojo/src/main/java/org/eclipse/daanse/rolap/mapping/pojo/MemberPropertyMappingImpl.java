@@ -65,7 +65,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
     }
 
     public PropertyTypeEnum getType() {
-        return type;
+        if (type == null) {
+            return PropertyTypeEnum.STRING;
+        } else {
+            return type;
+        }
     }
 
     public void setType(PropertyTypeEnum type) {

@@ -35,7 +35,11 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
     }
 
     public TypeEnum getType() {
-        return type;
+        if (type == null) {
+            return TypeEnum.STRING;
+        } else {
+            return type;
+        }
     }
 
     public void setType(TypeEnum type) {

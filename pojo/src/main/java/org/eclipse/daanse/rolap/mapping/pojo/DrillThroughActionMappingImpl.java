@@ -23,7 +23,7 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
 
     private List<MeasureMappingImpl> drillThroughMeasure;
 
-    private boolean theDefault;
+    private boolean theDefault; //false
 
     private DrillThroughActionMappingImpl(Builder builder) {
         this.drillThroughAttribute = builder.drillThroughAttribute;

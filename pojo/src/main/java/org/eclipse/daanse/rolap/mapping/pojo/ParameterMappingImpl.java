@@ -21,7 +21,7 @@ public class ParameterMappingImpl implements ParameterMapping {
 
     private String description;
 
-    private boolean modifiable;
+    private boolean modifiable; //false by default
 
     private String name;
 
@@ -82,7 +82,7 @@ public class ParameterMappingImpl implements ParameterMapping {
     public static final class Builder {
         private String defaultValue;
         private String description;
-        private boolean modifiable;
+        private boolean modifiable = true;
         private String name;
         private ParameterTypeEnum type;
 

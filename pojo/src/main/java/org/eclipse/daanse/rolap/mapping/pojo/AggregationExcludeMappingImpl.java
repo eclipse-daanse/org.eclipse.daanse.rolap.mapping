@@ -16,7 +16,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 
 public class AggregationExcludeMappingImpl implements AggregationExcludeMapping {
 
-    private boolean ignorecase;
+    private boolean ignorecase = true;
 
     private String name;
 
@@ -68,7 +68,7 @@ public class AggregationExcludeMappingImpl implements AggregationExcludeMapping 
     }
 
     public static final class Builder {
-        private boolean ignorecase;
+        private boolean ignorecase = true;
         private String name;
         private String pattern;
         private String id;

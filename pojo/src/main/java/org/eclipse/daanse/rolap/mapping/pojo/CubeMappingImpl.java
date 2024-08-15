@@ -30,7 +30,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
 
     private boolean enabled;
 
-    private boolean visible;
+    private boolean visible = true;
 
     private List<MeasureGroupMappingImpl> measureGroups;
 
