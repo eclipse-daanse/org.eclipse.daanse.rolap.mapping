@@ -83,12 +83,11 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.PropertyType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
@@ -111,14 +110,19 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableColumnDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableRow;
@@ -127,8 +131,11 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberPropertyFormatter;
@@ -139,9 +146,11 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -162,14 +171,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createViewTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description
-    ) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.ViewTable table =
-            RelationalDatabaseFactory.eINSTANCE.createViewTable();
+    protected Table createViewTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+            String description) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.ViewTable table = RelationalDatabaseFactory.eINSTANCE
+                .createViewTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.getColumns()
+                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
         table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
@@ -177,14 +185,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createSystemTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description
-    ) {
-        SystemTable table =
-            RelationalDatabaseFactory.eINSTANCE.createSystemTable();
+    protected Table createSystemTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+            String description) {
+        SystemTable table = RelationalDatabaseFactory.eINSTANCE.createSystemTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.getColumns()
+                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
         table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
@@ -192,25 +198,22 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createPhysicalTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description
-    ) {
-        PhysicalTable table =
-            RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+    protected Table createPhysicalTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+            String description) {
+        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         table.setName(name);
-        table.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
+        table.getColumns()
+                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
         table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
 
     @Override
-    protected Column createColumn(
-        String name, Table table, String type, List<String> typeQualifiers,
-        String description
-    ) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+    protected Column createColumn(String name, Table table, String type, List<String> typeQualifiers,
+            String description) {
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE
+                .createColumn();
         column.setName(name);
         column.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
         column.setType(type);
@@ -222,9 +225,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema databaseSchema =
-            RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.getTables().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table>) tables);
+        org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE
+                .createDatabaseSchema();
+        databaseSchema.getTables()
+                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
         return databaseSchema;
@@ -232,11 +236,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected CatalogMapping createCatalog(
-        List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
-        List<? extends DatabaseSchema> dbschemas
-    ) {
+    protected CatalogMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
+            String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
+            List<? extends DatabaseSchema> dbschemas) {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         catalog.setId(id);
@@ -244,19 +246,18 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         catalog.setName(name);
         catalog.setDocumentation((Documentation) documentation);
         catalog.getSchemas().addAll((Collection<? extends Schema>) schemas);
-        //??
-        catalog.getDbschermas().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
+        // ??
+        catalog.getDbschermas().addAll(
+                (Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
         return catalog;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AccessRoleMapping createAccessRole(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends AccessSchemaGrantMapping> accessSchemaGrants,
-        List<? extends AccessRoleMapping> referencedAccessRoles
-    ) {
+    protected AccessRoleMapping createAccessRole(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends AccessSchemaGrantMapping> accessSchemaGrants,
+            List<? extends AccessRoleMapping> referencedAccessRoles) {
         AccessRole accessRole = RolapMappingFactory.eINSTANCE.createAccessRole();
         accessRole.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         accessRole.setId(id);
@@ -270,22 +271,21 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AccessMemberGrantMapping createAccessMemberGrant(AccessMember access, String member) {
-        AccessMember accessMemberGrant = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
-        accessMemberGrant.setAccess(access.getValue());
+        AccessMemberGrant accessMemberGrant = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
+        accessMemberGrant.setMemberAccess(toEmf(access));
         accessMemberGrant.setMember(member);
         return accessMemberGrant;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createInlineTableQuery(
-        String alias,
-        List<? extends InlineTableColumnDefinitionMapping> columnDefinitions,
-        List<? extends InlineTableRowMappingMapping> rows
-    ) {
+    protected QueryMapping createInlineTableQuery(String alias,
+            List<? extends InlineTableColumnDefinitionMapping> columnDefinitions,
+            List<? extends InlineTableRowMappingMapping> rows) {
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
         inlineTableQuery.setAlias(alias);
-        inlineTableQuery.getColumnDefinitions().addAll((Collection<? extends InlineTableColumnDefinition>) columnDefinitions);
+        inlineTableQuery.getColumnDefinitions()
+                .addAll((Collection<? extends InlineTableColumnDefinition>) columnDefinitions);
         inlineTableQuery.getRows().addAll((Collection<? extends InlineTableRow>) rows);
         return inlineTableQuery;
     }
@@ -301,8 +301,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected InlineTableRowMappingMapping createInlineTableRowMapping(
-        List<? extends InlineTableRowCellMapping> cells
-    ) {
+            List<? extends InlineTableRowCellMapping> cells) {
         InlineTableRow inlineTableRow = RolapMappingFactory.eINSTANCE.createInlineTableRow();
         inlineTableRow.getCells().addAll((Collection<? extends InlineTableRowCell>) cells);
         return inlineTableRow;
@@ -310,10 +309,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, DataType type) {
-        InlineTableColumnDefinition inlineTableColumnDefinition =
-            RolapMappingFactory.eINSTANCE.createInlineTableColumnDefinition();
+        InlineTableColumnDefinition inlineTableColumnDefinition = RolapMappingFactory.eINSTANCE
+                .createInlineTableColumnDefinition();
         inlineTableColumnDefinition.setName(name);
-        inlineTableColumnDefinition.setType(type.getValue());
+        inlineTableColumnDefinition.setType(toEmf(type));
         return inlineTableColumnDefinition;
     }
 
@@ -345,12 +344,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected TableQueryMapping createTableQuery(
-        String alias, SQLMapping sqlWhereExpression,
-        List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, String name, String schema,
-        List<? extends AggregationTableMapping> aggregationTables
-    ) {
+    protected TableQueryMapping createTableQuery(String alias, SQLMapping sqlWhereExpression,
+            List<? extends AggregationExcludeMapping> aggregationExcludes,
+            List<? extends TableQueryOptimizationHintMapping> optimizationHints, String name, String schema,
+            List<? extends AggregationTableMapping> aggregationTables) {
         TableQuery tableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
         tableQuery.setAlias(schema);
         tableQuery.setSqlWhereExpression((SQL) sqlWhereExpression);
@@ -364,22 +361,24 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AggregationTableMapping createAggregationPattern(
-        AggregationColumnNameMapping aggregationFactCount,
-        List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
-        List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
-        List<? extends AggregationMeasureMapping> aggregationMeasures,
-        List<? extends AggregationLevelMapping> aggregationLevels,
-        List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-        String id, String pattern, List<? extends AggregationExcludeMapping> excludes
-    ) {
+    protected AggregationTableMapping createAggregationPattern(AggregationColumnNameMapping aggregationFactCount,
+            List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
+            List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
+            List<? extends AggregationMeasureMapping> aggregationMeasures,
+            List<? extends AggregationLevelMapping> aggregationLevels,
+            List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
+            String id, String pattern, List<? extends AggregationExcludeMapping> excludes) {
         AggregationPattern aggregationPattern = RolapMappingFactory.eINSTANCE.createAggregationPattern();
         aggregationPattern.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
-        aggregationPattern.getAggregationIgnoreColumns().addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
-        aggregationPattern.getAggregationForeignKeys().addAll((Collection<? extends AggregationForeignKey>) aggregationForeignKeys);
-        aggregationPattern.getAggregationMeasures().addAll((Collection<? extends AggregationMeasure>) aggregationMeasures);
+        aggregationPattern.getAggregationIgnoreColumns()
+                .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
+        aggregationPattern.getAggregationForeignKeys()
+                .addAll((Collection<? extends AggregationForeignKey>) aggregationForeignKeys);
+        aggregationPattern.getAggregationMeasures()
+                .addAll((Collection<? extends AggregationMeasure>) aggregationMeasures);
         aggregationPattern.getAggregationLevels().addAll((Collection<? extends AggregationLevel>) aggregationLevels);
-        aggregationPattern.getAggregationMeasureFactCounts().addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
+        aggregationPattern.getAggregationMeasureFactCounts()
+                .addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
         aggregationPattern.setIgnorecase(ignorecase);
         aggregationPattern.setId(id);
         aggregationPattern.setPattern(pattern);
@@ -389,22 +388,23 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AggregationTableMapping createAggregationName(
-        AggregationColumnNameMapping aggregationFactCount,
-        List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
-        List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
-        List<? extends AggregationMeasureMapping> aggregationMeasures,
-        List<? extends AggregationLevelMapping> aggregationLevels,
-        List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-        String id, String approxRowCount, String name
-    ) {
+    protected AggregationTableMapping createAggregationName(AggregationColumnNameMapping aggregationFactCount,
+            List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
+            List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
+            List<? extends AggregationMeasureMapping> aggregationMeasures,
+            List<? extends AggregationLevelMapping> aggregationLevels,
+            List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
+            String id, String approxRowCount, String name) {
         AggregationName aggregationName = RolapMappingFactory.eINSTANCE.createAggregationName();
         aggregationName.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
-        aggregationName.getAggregationIgnoreColumns().addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
-        aggregationName.getAggregationForeignKeys().addAll((Collection<? extends AggregationForeignKey>) aggregationForeignKeys);
+        aggregationName.getAggregationIgnoreColumns()
+                .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
+        aggregationName.getAggregationForeignKeys()
+                .addAll((Collection<? extends AggregationForeignKey>) aggregationForeignKeys);
         aggregationName.getAggregationMeasures().addAll((Collection<? extends AggregationMeasure>) aggregationMeasures);
         aggregationName.getAggregationLevels().addAll((Collection<? extends AggregationLevel>) aggregationLevels);
-        aggregationName.getAggregationMeasureFactCounts().addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
+        aggregationName.getAggregationMeasureFactCounts()
+                .addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
         aggregationName.setIgnorecase(ignorecase);
         aggregationName.setId(id);
         aggregationName.setApproxRowCount(approxRowCount);
@@ -414,8 +414,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(String column, String factColumn) {
-        AggregationMeasureFactCount aggregationMeasureFactCount =
-            RolapMappingFactory.eINSTANCE.createAggregationMeasureFactCount();
+        AggregationMeasureFactCount aggregationMeasureFactCount = RolapMappingFactory.eINSTANCE
+                .createAggregationMeasureFactCount();
         aggregationMeasureFactCount.setColumn(column);
         aggregationMeasureFactCount.setFactColumn(factColumn);
         return aggregationMeasureFactCount;
@@ -423,8 +423,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationLevelPropertyMapping createAggregationLevelProperty(String column, String name) {
-        AggregationLevelProperty aggregationLevelProperty =
-            RolapMappingFactory.eINSTANCE.createAggregationLevelProperty();
+        AggregationLevelProperty aggregationLevelProperty = RolapMappingFactory.eINSTANCE
+                .createAggregationLevelProperty();
         aggregationLevelProperty.setColumn(column);
         aggregationLevelProperty.setName(name);
         return aggregationLevelProperty;
@@ -433,11 +433,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AggregationLevelMapping createAggregationLevel(
-        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, String captionColumn,
-        boolean collapsed, String column, String name, String nameColumn, String ordinalColumn
-    ) {
+            List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, String captionColumn,
+            boolean collapsed, String column, String name, String nameColumn, String ordinalColumn) {
         AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
-        aggregationLevel.getAggregationLevelProperties().addAll((Collection<? extends AggregationLevelProperty>) aggregationLevelProperties);
+        aggregationLevel.getAggregationLevelProperties()
+                .addAll((Collection<? extends AggregationLevelProperty>) aggregationLevelProperties);
         aggregationLevel.setCaptionColumn(captionColumn);
         aggregationLevel.setCollapsed(collapsed);
         aggregationLevel.setColumn(column);
@@ -473,18 +473,16 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected TableQueryOptimizationHintMapping createTableQueryOptimizationHint(String value, String type) {
-        TableQueryOptimizationHint tableQueryOptimizationHint =
-            RolapMappingFactory.eINSTANCE.createTableQueryOptimizationHint();
+        TableQueryOptimizationHint tableQueryOptimizationHint = RolapMappingFactory.eINSTANCE
+                .createTableQueryOptimizationHint();
         tableQueryOptimizationHint.setValue(value);
         tableQueryOptimizationHint.setType(type);
         return tableQueryOptimizationHint;
     }
 
     @Override
-    protected AggregationExcludeMapping createAggregationExclude(
-        boolean ignorecase, String name, String pattern,
-        String id
-    ) {
+    protected AggregationExcludeMapping createAggregationExclude(boolean ignorecase, String name, String pattern,
+            String id) {
         AggregationExclude aggregationExclude = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude.setIgnorecase(ignorecase);
         aggregationExclude.setName(name);
@@ -511,14 +509,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected HierarchyMapping createHierarchy(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
-        List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
-        String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-        String memberReaderClass, String origin, String primaryKey, String primaryKeyTable,
-        String uniqueKeyLevelName, boolean visible, QueryMapping query
-    ) {
+    protected HierarchyMapping createHierarchy(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
+            List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
+            String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
+            String memberReaderClass, String origin, String primaryKey, String primaryKeyTable,
+            String uniqueKeyLevelName, boolean visible, QueryMapping query) {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         hierarchy.setId(id);
@@ -526,7 +522,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         hierarchy.setName(name);
         hierarchy.setDocumentation((Documentation) documentation);
         hierarchy.getLevels().addAll((Collection<? extends Level>) levels);
-        hierarchy.getMemberReaderParameters().addAll((Collection<? extends MemberReaderParameter>) memberReaderParameters);
+        hierarchy.getMemberReaderParameters()
+                .addAll((Collection<? extends MemberReaderParameter>) memberReaderParameters);
         hierarchy.setAllLevelName(allLevelName);
         hierarchy.setAllMemberCaption(allMemberCaption);
         hierarchy.setAllMemberName(allMemberName);
@@ -545,10 +542,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MemberFormatterMapping createMemberFormatter(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String ref
-    ) {
+    protected MemberFormatterMapping createMemberFormatter(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation, String ref) {
         MemberFormatter memberFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
         memberFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberFormatter.setId(id);
@@ -561,11 +556,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MemberPropertyMapping createMemberProperty(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, PropertyType type
-    ) {
+    protected MemberPropertyMapping createMemberProperty(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType dataType) {
         MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberProperty.setId(id);
@@ -575,15 +568,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         memberProperty.setFormatter((MemberPropertyFormatter) formatter);
         memberProperty.setColumn(column);
         memberProperty.setDependsOnLevelValue(dependsOnLevelValue);
-        memberProperty.setType(type);
+        memberProperty.setPropertyType(toEmf(dataType));
         return memberProperty;
     }
 
     @Override
-    protected ParentChildLinkMapping createParentChildLink(
-        TableQueryMapping table, String childColumn,
-        String parentColumn
-    ) {
+    protected ParentChildLinkMapping createParentChildLink(TableQueryMapping table, String childColumn,
+            String parentColumn) {
         ParentChildLink parentChildLink = RolapMappingFactory.eINSTANCE.createParentChildLink();
         parentChildLink.setTable((TableQuery) table);
         parentChildLink.setChildColumn(childColumn);
@@ -601,15 +592,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected LevelMapping createLevel(
-        SQLExpressionMapping keyExpression, SQLExpressionMapping nameExpression,
-        SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
-        SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
-        List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf, InternalType internalType,
-        LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id
-    ) {
+    protected LevelMapping createLevel(SQLExpressionMapping keyExpression, SQLExpressionMapping nameExpression,
+            SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
+            SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
+            List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
+            String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
+            LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
+            String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
         level.setNameExpression((SQLExpression) nameExpression);
@@ -622,15 +611,14 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setApproxRowCount(approxRowCount);
         level.setCaptionColumn(captionColumn);
         level.setColumn(column);
-        level.setHideMemberIf(hideMemberIf.getValue());
-        level.setInternalType(internalType.getValue());
-        level.setLevelType(levelType.getValue());
+        level.setHideMemberIf(toEmf(hideMemberIf));
+        level.setType(toEmf(levelType));
         level.setNameColumn(nameColumn);
         level.setNullParentValue(nullParentValue);
         level.setOrdinalColumn(ordinalColumn);
         level.setParentColumn(parentColumn);
         level.setTable(table);
-        level.setType(type.getValue());
+        level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);
@@ -641,14 +629,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AccessHierarchyGrantMapping createAccessHierarchyGrant(
-        List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchy access, LevelMapping bottomLevel,
-        String rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy
-    ) {
+            List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchy access, LevelMapping bottomLevel,
+            RollupPolicyType rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy) {
         AccessHierarchyGrant accessHierarchyGrant = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
-        accessHierarchyGrant.getMemberGrants().addAll((Collection<? extends AccessMember>) memberGrants);
-        accessHierarchyGrant.setAccess(access.getValue());
+        accessHierarchyGrant.getMemberGrants().addAll((Collection<? extends AccessMemberGrant>) memberGrants);
+        accessHierarchyGrant.setHierarchyAccess(toEmf(access));
         accessHierarchyGrant.setBottomLevel((Level) bottomLevel);
-        accessHierarchyGrant.setRollupPolicy(rollupPolicy);
+        accessHierarchyGrant.setRollupPolicy(toEmf(rollupPolicy));
         accessHierarchyGrant.setTopLevel((Level) topLevel);
         accessHierarchyGrant.setHierarchy((Hierarchy) hierarchy);
         return accessHierarchyGrant;
@@ -656,11 +643,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected TimeDimensionMapping createTimeDimension(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
-    ) {
+    protected TimeDimensionMapping createTimeDimension(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
         TimeDimension timeDimension = RolapMappingFactory.eINSTANCE.createTimeDimension();
         timeDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         timeDimension.setId(id);
@@ -675,11 +660,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected StandardDimensionMapping createStandardDimension(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
-    ) {
+    protected StandardDimensionMapping createStandardDimension(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
         StandardDimension standardDimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         standardDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         standardDimension.setId(id);
@@ -693,45 +676,45 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimension access, DimensionMapping dimension) {
+    protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimension access,
+            DimensionMapping dimension) {
         AccessDimensionGrant accessDimensionGrant = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
-        accessDimensionGrant.setAccess(access);
+        accessDimensionGrant.setDimensionAccess(toEmf(access));
         accessDimensionGrant.setDimension((Dimension) dimension);
         return accessDimensionGrant;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AccessCubeGrantMapping createAccessCubeGrant(
-        List<? extends AccessDimensionGrantMapping> dimensionGrants,
-        List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCube access, CubeMapping cube
-    ) {
+    protected AccessCubeGrantMapping createAccessCubeGrant(List<? extends AccessDimensionGrantMapping> dimensionGrants,
+            List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCube access, CubeMapping cube) {
         AccessCubeGrant accessCubeGrant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         accessCubeGrant.getDimensionGrants().addAll((Collection<? extends AccessDimensionGrant>) dimensionGrants);
         accessCubeGrant.getHierarchyGrants().addAll((Collection<? extends AccessHierarchyGrant>) hierarchyGrants);
-        accessCubeGrant.setAccess(access.getValue());
+        accessCubeGrant.setCubeAccess(toEmf(access));
         accessCubeGrant.setCube((Cube) cube);
         return accessCubeGrant;
     }
 
+    private CubeAccess toEmf(AccessCube access) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
-    protected AccessSchemaGrantMapping createAccessSchemaGrant(
-        List<? extends AccessCubeGrantMapping> accessCubeGrant,
-        AccessSchema access
-    ) {
+    protected AccessSchemaGrantMapping createAccessSchemaGrant(List<? extends AccessCubeGrantMapping> accessCubeGrant,
+            AccessSchema access) {
         AccessSchemaGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
         accessSchemaGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
-        accessSchemaGrant.setAccess(access.getValue());
+        accessSchemaGrant.setSchemaAccess(toEmf(access));
         return accessSchemaGrant;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected NamedSetMapping createNamedSet(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String displayFolder, String formula
-    ) {
+    protected NamedSetMapping createNamedSet(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation, String displayFolder, String formula) {
         NamedSet namedSet = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         namedSet.setId(id);
@@ -753,14 +736,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected VirtualCubeMapping createVirtualCube(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends DimensionConnectorMapping> dimensionConnectors,
-        List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-        List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages
-    ) {
+    protected VirtualCubeMapping createVirtualCube(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends DimensionConnectorMapping> dimensionConnectors,
+            List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
+            List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+            List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages) {
         VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
         virtualCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         virtualCube.setId(id);
@@ -781,15 +762,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected PhysicalCubeMapping createPhysicalCube(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends DimensionConnectorMapping> dimensionConnectors,
-        List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-        List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
-        List<? extends ActionMappingMapping> action, boolean cache
-    ) {
+    protected PhysicalCubeMapping createPhysicalCube(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends DimensionConnectorMapping> dimensionConnectors,
+            List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
+            List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+            List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
+            List<? extends ActionMappingMapping> action, boolean cache) {
         PhysicalCube physicalCube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         physicalCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         physicalCube.setId(id);
@@ -813,12 +792,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected ActionMappingMapping createDrillThroughAction(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
-        List<? extends MeasureMapping> drillThroughMeasure, boolean def
-    ) {
+    protected ActionMappingMapping createDrillThroughAction(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
+            List<? extends MeasureMapping> drillThroughMeasure, boolean def) {
         DrillThroughAction action = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
         action.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         action.setId(id);
@@ -832,10 +809,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected DrillThroughAttributeMapping createDrillThroughAttribute(
-        DimensionMapping dimension,
-        HierarchyMapping hierarchy, LevelMapping level, String property
-    ) {
+    protected DrillThroughAttributeMapping createDrillThroughAttribute(DimensionMapping dimension,
+            HierarchyMapping hierarchy, LevelMapping level, String property) {
         DrillThroughAttribute drillThroughAttribute = RolapMappingFactory.eINSTANCE.createDrillThroughAttribute();
         drillThroughAttribute.setDimension((Dimension) dimension);
         drillThroughAttribute.setHierarchy((Hierarchy) hierarchy);
@@ -862,10 +837,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected WritebackTableMapping createWritebackTable(
-        List<? extends WritebackAttributeMapping> writebackAttribute,
-        List<? extends WritebackMeasureMapping> writebackMeasure, String name, String schema
-    ) {
+    protected WritebackTableMapping createWritebackTable(List<? extends WritebackAttributeMapping> writebackAttribute,
+            List<? extends WritebackMeasureMapping> writebackMeasure, String name, String schema) {
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
         writebackTable.getWritebackAttribute().addAll((Collection<? extends WritebackAttribute>) writebackAttribute);
         writebackTable.getWritebackMeasure().addAll((Collection<? extends WritebackMeasure>) writebackMeasure);
@@ -885,35 +858,33 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MeasureMapping createMeasure(
-        SQLExpressionMapping measureExpression,
-        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, MeasureDataType datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, String type
-    ) {
+    protected MeasureMapping createMeasure(SQLExpressionMapping measureExpression,
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, String column, DataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
+            MeasureAggregatorType type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setMeasureExpression((SQLExpression) measureExpression);
-        measure.getCalculatedMemberProperty().addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperty);
+        measure.getCalculatedMemberProperty()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperty);
         measure.setCellFormatter((CellFormatter) cellFormatter);
         measure.setBackColor(backColor);
         measure.setColumn(column);
-        measure.setDatatype(datatype.getValue());
+        measure.setDataType(toEmf(datatype));
         measure.setDisplayFolder(displayFolder);
         measure.setFormatString(formatString);
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
         measure.setId(id);
-        measure.setType(type);
+        measure.setAggregator(toEmf(type));
         return measure;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected CellFormatterMapping createCellFormatter(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String ref
-    ) {
+    protected CellFormatterMapping createCellFormatter(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation, String ref) {
         CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
         cellFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         cellFormatter.setId(id);
@@ -927,11 +898,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected CalculatedMemberPropertyMapping createCalculatedMemberProperty(
-        List<? extends AnnotationMapping> annotations, String id, String description, String name,
-        DocumentationMapping documentation, String expression, String value
-    ) {
-        CalculatedMemberProperty calculatedMemberProperty =
-            RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+            List<? extends AnnotationMapping> annotations, String id, String description, String name,
+            DocumentationMapping documentation, String expression, String value) {
+        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE
+                .createCalculatedMemberProperty();
         calculatedMemberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         calculatedMemberProperty.setId(id);
         calculatedMemberProperty.setDescription(description);
@@ -944,10 +914,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected TranslationMapping createTranslation(
-        long language, String caption, String description,
-        String displayFolder, List<? extends AnnotationMapping> annotations
-    ) {
+    protected TranslationMapping createTranslation(long language, String caption, String description,
+            String displayFolder, List<? extends AnnotationMapping> annotations) {
         Translation translation = RolapMappingFactory.eINSTANCE.createTranslation();
         translation.setLanguage(language);
         translation.setCaption(caption);
@@ -959,13 +927,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected KpiMapping createKpi(
-        List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends TranslationMapping> translations,
-        String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
-        String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
-        String parentKpiID
-    ) {
+    protected KpiMapping createKpi(List<? extends AnnotationMapping> annotations, String id, String description,
+            String name, DocumentationMapping documentation, List<? extends TranslationMapping> translations,
+            String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
+            String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
+            String parentKpiID) {
         Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
         kpi.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         kpi.setId(id);
@@ -989,20 +955,19 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected CalculatedMemberMapping createCalculatedMember(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
-        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
-        CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
-        HierarchyMapping hierarchy, String parent, boolean visible
-    ) {
+    protected CalculatedMemberMapping createCalculatedMember(List<? extends AnnotationMapping> annotations, String id,
+            String description, String name, DocumentationMapping documentation,
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
+            HierarchyMapping hierarchy, String parent, boolean visible) {
         CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         calculatedMember.setId(id);
         calculatedMember.setDescription(description);
         calculatedMember.setName(name);
         calculatedMember.setDocumentation((Documentation) documentation);
-        calculatedMember.getCalculatedMemberProperties().addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        calculatedMember.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         calculatedMember.setCellFormatter((CellFormatter) cellFormatter);
         calculatedMember.setFormula(formula);
         calculatedMember.setDisplayFolder(displayFolder);
@@ -1014,11 +979,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected DimensionConnectorMapping createDimensionConnector(
-        String foreignKey, LevelMapping level,
-        String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
-        PhysicalCubeMapping physicalCube
-    ) {
+    protected DimensionConnectorMapping createDimensionConnector(String foreignKey, LevelMapping level,
+            String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
+            PhysicalCubeMapping physicalCube) {
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setForeignKey(foreignKey);
         dimensionConnector.setLevel((Level) level);
@@ -1047,13 +1010,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SchemaMapping createSchema(
-        List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
-        List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
-        List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
-        String measuresDimensionName
-    ) {
+    protected SchemaMapping createSchema(List<? extends AnnotationMapping> annotations, String id, String description,
+            String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
+            List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
+            List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
+            String measuresDimensionName) {
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
         schema.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         schema.setId(id);
@@ -1069,4 +1030,39 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return schema;
     }
 
+    private MemberAccess toEmf(AccessMember access) {
+        return null;
+    }
+
+    private LevelDefinition toEmf(LevelType levelType) {
+        return null;
+    }
+
+    private HideMemberIf toEmf(HideMemberIfType hideMemberIf) {
+        return null;
+    }
+
+    private DimensionAccess toEmf(AccessDimension access) {
+        return null;
+    }
+
+    private SchemaAccess toEmf(AccessSchema access) {
+        return null;
+    }
+
+    private MeasureAggregator toEmf(MeasureAggregatorType type) {
+        return null;
+    }
+
+    private ColumnDataType toEmf(DataType datatype) {
+        return null;
+    }
+
+    private RollupPolicy toEmf(RollupPolicyType rollupPolicy) {
+        return null;
+    }
+
+    private HierarchyAccess toEmf(AccessHierarchy access) {
+        return null;
+    }
 }
