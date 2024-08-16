@@ -188,7 +188,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         private String displayFolder;
         private String formatString;
         private String formatter;
-        private boolean visible;
+        private boolean visible = true;
         private String name;
         private String id;
         private MeasureAggregatorType aggregatorType;

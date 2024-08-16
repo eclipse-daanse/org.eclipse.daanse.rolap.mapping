@@ -22,7 +22,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
 
     private String usagePrefix;
 
-    private boolean visible;
+    private boolean visible = true;
 
     private DimensionMappingImpl dimension;
 
@@ -104,7 +104,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         private String foreignKey;
         private LevelMappingImpl level;
         private String usagePrefix;
-        private boolean visible;
+        private boolean visible = true;
         private DimensionMappingImpl dimension;
         private String overrideDimensionName;
         private PhysicalCubeMappingImpl physicalCube;

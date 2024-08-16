@@ -35,7 +35,11 @@ public class InlineTableColumnDefinitionMappingImpl implements InlineTableColumn
     }
 
     public DataType getDataType() {
-        return type;
+        if (type == null) {
+            return DataType.STRING;
+        } else {
+            return type;
+        }
     }
 
     public void setDataType(DataType type) {

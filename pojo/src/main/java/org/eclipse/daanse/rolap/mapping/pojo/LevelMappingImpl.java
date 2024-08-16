@@ -188,6 +188,9 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public HideMemberIfType getHideMemberIfType() {
+        if (hideMemberIfType == null) {
+            return HideMemberIfType.NEVER;
+        }
         return hideMemberIfType;
     }
 
@@ -196,7 +199,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public LevelType getLevelType() {
-        return levelType;
+        if (levelType == null) {
+            return LevelType.REGULAR;
+        } else {
+            return levelType;
+        }
     }
 
     public void setLevelType(LevelType levelType) {
@@ -244,7 +251,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public DataType getDataType() {
-        return dataType;
+        return this.dataType != null ? this.dataType : DataType.STRING;
     }
 
     public void setDataType(DataType dataType) {

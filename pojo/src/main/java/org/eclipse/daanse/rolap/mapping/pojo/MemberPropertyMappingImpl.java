@@ -65,7 +65,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
     }
 
     public DataType getDataType() {
-        return dataType;
+        if (dataType == null) {
+            return DataType.STRING;
+        } else {
+            return dataType;
+        }
     }
 
     public void setDataType(DataType type) {
