@@ -138,7 +138,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String COUNTRY2 = "country";
 
-    private static final String PROMOTION_NAME2 = "promotion_name";
+    private static final String TABLE_COLUMN_PROMOTION_NAME = "promotion_name";
 
     private static final String PROMOTION_NAME = "Promotion Name";
 
@@ -212,7 +212,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String PROMOTION_MEDIA = "Promotion Media";
 
-    private static final String PROMOTION_ID = "promotion_id";
+    private static final String TABLE_COLUMN_PROMOTION_ID = "promotion_id";
 
     private static final String CUSTOMER_ID = "customer_id";
 
@@ -375,7 +375,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withQuery(QUERY_TABLE_POSITION).build()).build();
     private static final TableQueryMappingImpl warehouseTable =
         TableQueryMappingImpl.builder().withName("warehouse").build();
-    private static final TableQueryMappingImpl promotionTable =
+    private static final TableQueryMappingImpl QUERY_TABLE_PROMOTION =
         TableQueryMappingImpl.builder().withName("promotion").build();
     private static final TableQueryMappingImpl customerTable =
         TableQueryMappingImpl.builder().withName("customer").build();
@@ -646,9 +646,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withUniqueMembers(true)
         .build();
 
-    private static final LevelMappingImpl promotionNameLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl LEVEL_PROMOTION_NAME = LevelMappingImpl.builder()
         .withName(PROMOTION_NAME)
-        .withColumn(PROMOTION_NAME2)
+        .withColumn(TABLE_COLUMN_PROMOTION_NAME)
         .withUniqueMembers(true)
         .build();
 
@@ -1158,7 +1158,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                         "PRODUCT_ID").build(),
                     AggregationForeignKeyMappingImpl.builder().withFactColumn(CUSTOMER_ID).withAggregationColumn(
                         "CUSTOMER_ID").build(),
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn(PROMOTION_ID).withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(TABLE_COLUMN_PROMOTION_ID).withAggregationColumn(
                         "PROMOTION_ID").build(),
                     AggregationForeignKeyMappingImpl.builder().withFactColumn(STORE_ID).withAggregationColumn(
                         "STORE_ID").build()
@@ -1193,9 +1193,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName(ALL_MEDIA)
-            .withPrimaryKey(PROMOTION_ID)
+            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
             .withDefaultMember(ALL_MEDIA)
-            .withQuery(promotionTable)
+            .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(mediaTypeLevel))
             .build()))
         .build();
@@ -1204,8 +1204,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(PROMOTION_MEDIA)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey(PROMOTION_ID)
-            .withQuery(promotionTable)
+            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
+            .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(mediaTypeLevel))
             .build()))
         .build();
@@ -1214,11 +1214,11 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(PROMOTIONS)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllMemberName(ALL_MEDIA)
-            .withPrimaryKey(PROMOTION_ID)
+            .withAllMemberName(ALL_PROMOTIONS)
+            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
             .withDefaultMember("[All Promotions]")
-            .withQuery(promotionTable)
-            .withLevels(List.of(promotionNameLevel))
+            .withQuery(QUERY_TABLE_PROMOTION)
+            .withLevels(List.of(LEVEL_PROMOTION_NAME))
             .build()))
         .build();
 
@@ -1227,9 +1227,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName(ALL_PROMOTIONS)
-            .withPrimaryKey(PROMOTION_ID)
-            .withQuery(promotionTable)
-            .withLevels(List.of(promotionNameLevel))
+            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
+            .withQuery(QUERY_TABLE_PROMOTION)
+            .withLevels(List.of(LEVEL_PROMOTION_NAME))
             .build()))
         .build();
 
@@ -1671,8 +1671,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMediaDimension).withForeignKey(PROMOTION_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotionsDimension).withForeignKey(PROMOTION_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMediaDimension).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotionsDimension).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(CUSTOMERS).withDimension(customersDimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EDUCATION_LEVEL).withDimension(educationLevelDimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build(),
