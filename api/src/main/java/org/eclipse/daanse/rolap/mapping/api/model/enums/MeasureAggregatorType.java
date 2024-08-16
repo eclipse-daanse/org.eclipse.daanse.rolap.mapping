@@ -15,25 +15,25 @@ package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
 public enum MeasureAggregatorType {
 
-	SUM("sum"), COUNT("count"), MIN("min"), MAX("max"), AVG("avg"), DICTINCT_COUNT("distinct_count");
+    SUM("sum"), COUNT("count"), MIN("min"), MAX("max"), AVG("avg"), DICTINCT_COUNT("distinct-count");
 
-	private final String value;
+    private final String value;
 
-	MeasureAggregatorType(String v) {
-		value = v;
-	}
+    MeasureAggregatorType(String v) {
+        value = v;
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public static MeasureAggregatorType fromValue(String v) {
-		for (MeasureAggregatorType c : MeasureAggregatorType.values()) {
-			if (c.value.equals(v)) {
-				return c;
-			}
-		}
-		throw new IllegalArgumentException(v);
-	}
+    public static MeasureAggregatorType fromValue(String v) {
+        for (MeasureAggregatorType c : MeasureAggregatorType.values()) {
+            if (c.value.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
+    }
 
 }
