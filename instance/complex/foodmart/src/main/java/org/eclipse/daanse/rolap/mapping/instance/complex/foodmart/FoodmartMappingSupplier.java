@@ -238,7 +238,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String DETAILS = "Details";
 
-    private static final String PRODUCT_ID = "product_id";
+    private static final String COLUMN_PRODUCT_ID = "product_id";
 
     private static final String PRODUCT2 = "Product";
 
@@ -320,17 +320,17 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String POSITION_ID = "position_id";
 
-    private static final String POSITION_ID2 = POSITION_ID;
+    private static final String TABLE_COLUMN_POSITION_ID2 = POSITION_ID;
 
     private static final String STORE_ID = "store_id";
 
     private static final String EMPLOYEE = "employee";
 
-    private static final String PRODUCT_CLASS = "product_class";
+    private static final String TABLE_PRODUCT_CLASS = "product_class";
 
     private static final String PRODUCT_CLASS_ID = "product_class_id";
 
-    private static final String PRODUCT = "product";
+    private static final String TABLE_PRODUCT = "product";
 
     private static final String STORE = "store";
 
@@ -340,16 +340,16 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
-    private static final TableQueryMappingImpl storeTable = TableQueryMappingImpl.builder().withName(STORE).build();
+    private static final TableQueryMappingImpl QUERY_TABLE_STORE = TableQueryMappingImpl.builder().withName(STORE).build();
     private static final TableQueryMappingImpl timeByDayTable = TableQueryMappingImpl.builder().withName("time_by_day"
     ).build();
-    private static final TableQueryMappingImpl productTable =
-        TableQueryMappingImpl.builder().withName(PRODUCT).build();
-    private static final TableQueryMappingImpl productClassTable = TableQueryMappingImpl.builder().withName(
-        PRODUCT_CLASS).build();
-    private static final TableQueryMappingImpl employeeTable = TableQueryMappingImpl.builder().withName(
+    private static final TableQueryMappingImpl QUERY_TABLE_PRODUCT =
+        TableQueryMappingImpl.builder().withName(TABLE_PRODUCT).build();
+    private static final TableQueryMappingImpl QUERY_TABLE_PRODUCT_CLASS = TableQueryMappingImpl.builder().withName(
+        TABLE_PRODUCT_CLASS).build();
+    private static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE = TableQueryMappingImpl.builder().withName(
         EMPLOYEE).build();
-    private static final TableQueryMappingImpl positionTable = TableQueryMappingImpl.builder().withName(
+    private static final TableQueryMappingImpl QUERY_TABLE_POSITION = TableQueryMappingImpl.builder().withName(
         POSITION).build();
     private static final TableQueryMappingImpl salaryTable = TableQueryMappingImpl.builder().withName(
         SALARY).build();
@@ -358,21 +358,21 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final TableQueryMappingImpl storeRaggedTable = TableQueryMappingImpl.builder().withName(
         STORE_RAGGED).build();
 
-    private static final JoinQueryMappingImpl join1 = JoinQueryMappingImpl.builder()
+    private static final JoinQueryMappingImpl JOIN_PRODUCT_PRODUCT_CLASS = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
-            .withQuery(productTable).build())
+            .withQuery(QUERY_TABLE_PRODUCT).build())
         .withRight(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
-            .withQuery(productClassTable).build()).build();
-    private static final JoinQueryMappingImpl join2 = JoinQueryMappingImpl.builder()
+            .withQuery(QUERY_TABLE_PRODUCT_CLASS).build()).build();
+    private static final JoinQueryMappingImpl JOIN_EMPLOYEE_STORE = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID)
-            .withQuery(employeeTable).build())
+            .withQuery(QUERY_TABLE_EMPLOYEE).build())
         .withRight(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID)
-            .withQuery(storeTable).build()).build();
-    private static final JoinQueryMappingImpl join3 = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID2)
-            .withQuery(employeeTable).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID2)
-            .withQuery(positionTable).build()).build();
+            .withQuery(QUERY_TABLE_STORE).build()).build();
+    private static final JoinQueryMappingImpl JOIN_EMPLOYEE_POSITION = JoinQueryMappingImpl.builder()
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_POSITION_ID2)
+            .withQuery(QUERY_TABLE_EMPLOYEE).build())
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_POSITION_ID2)
+            .withQuery(QUERY_TABLE_POSITION).build()).build();
     private static final TableQueryMappingImpl warehouseTable =
         TableQueryMappingImpl.builder().withName("warehouse").build();
     private static final TableQueryMappingImpl promotionTable =
@@ -555,42 +555,42 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final LevelMappingImpl productFamilyLevel = LevelMappingImpl.builder()
         .withName(PRODUCT_FAMILY)
-        .withTable(PRODUCT_CLASS)
+        .withTable(TABLE_PRODUCT_CLASS)
         .withColumn(PRODUCT_FAMILY2)
         .withUniqueMembers(true)
         .build();
 
     private static final LevelMappingImpl productDepartmentLevel = LevelMappingImpl.builder()
         .withName(PRODUCT_DEPARTMENT)
-        .withTable(PRODUCT_CLASS)
+        .withTable(TABLE_PRODUCT_CLASS)
         .withColumn(PRODUCT_DEPARTMENT2)
         .withUniqueMembers(false)
         .build();
 
     private static final LevelMappingImpl productCategoryLevel = LevelMappingImpl.builder()
         .withName(PRODUCT_CATEGORY)
-        .withTable(PRODUCT_CLASS)
+        .withTable(TABLE_PRODUCT_CLASS)
         .withColumn(PRODUCT_CATEGORY2)
         .withUniqueMembers(false)
         .build();
 
     private static final LevelMappingImpl productSubcategoryLevel = LevelMappingImpl.builder()
         .withName(PRODUCT_SUBCATEGORY)
-        .withTable(PRODUCT_CLASS)
+        .withTable(TABLE_PRODUCT_CLASS)
         .withColumn(PRODUCT_SUBCATEGORY2)
         .withUniqueMembers(false)
         .build();
 
     private static final LevelMappingImpl brandNameLevel = LevelMappingImpl.builder()
         .withName(BRAND_NAME)
-        .withTable(PRODUCT)
+        .withTable(TABLE_PRODUCT)
         .withColumn(BRAND_NAME2)
         .withUniqueMembers(false)
         .build();
 
     private static final LevelMappingImpl productNameLevel = LevelMappingImpl.builder()
         .withName(PRODUCT_NAME)
-        .withTable(PRODUCT)
+        .withTable(TABLE_PRODUCT)
         .withColumn(PRODUCT_NAME2)
         .withUniqueMembers(true)
         .build();
@@ -833,7 +833,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl positionTitleLevel = LevelMappingImpl.builder()
         .withName("Position Title")
         .withColumn("position_title")
-        .withOrdinalColumn(POSITION_ID2)
+        .withOrdinalColumn(TABLE_COLUMN_POSITION_ID2)
         .withUniqueMembers(false)
         .build();
 
@@ -966,7 +966,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final HierarchyMappingImpl storeHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withPrimaryKey(STORE_SQFT2)
-        .withQuery(storeTable)
+        .withQuery(QUERY_TABLE_STORE)
         .withLevels(List.of(storeCountryLevel, storeStateLevel, storeCityLevel, storeNameLevel))
         .build();
 
@@ -990,7 +990,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(EMPLOYEE_ID)
-            .withQuery(join2)
+            .withQuery(JOIN_EMPLOYEE_STORE)
             .withLevels(List.of(storeCountry1Level, storeState1Level, storeCity1Level, storeName1Level))
             .build()))
         .build();
@@ -1000,7 +1000,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(STORE_ID)
-            .withQuery(storeTable)
+            .withQuery(QUERY_TABLE_STORE)
             .withLevels(List.of(storeSqftLevel))
             .build()))
         .build();
@@ -1010,7 +1010,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(STORE_ID)
-            .withQuery(storeTable)
+            .withQuery(QUERY_TABLE_STORE)
             .withLevels(List.of(storeTypeLevel))
             .build()))
         .build();
@@ -1029,7 +1029,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withPrimaryKeyTable(EMPLOYEE)
             .withPrimaryKey(EMPLOYEE_ID)
-            .withQuery(join2)
+            .withQuery(JOIN_EMPLOYEE_STORE)
             .withLevels(List.of(storeType1Level))
             .build()))
         .build();
@@ -1059,63 +1059,64 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withPrimaryKey(PRODUCT_ID)
-                .withQuery(join1)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productFamilyLevel, productDepartmentLevel, productCategoryLevel,
                     productSubcategoryLevel, brandNameLevel, productNameLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_FAMILY)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productFamilyLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_DEPARTMENT)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productDepartmentLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_CATEGORY)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productCategoryLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_SUBCATEGORY)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productSubcategoryLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(BRAND_NAME)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(brandNameLevel))
                 .build(),
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_NAME)
-                .withPrimaryKey(PRODUCT_ID)
-                .withPrimaryKeyTable(PRODUCT)
+                .withPrimaryKey(COLUMN_PRODUCT_ID)
+                .withPrimaryKeyTable(TABLE_PRODUCT)
                 .withDisplayFolder(DETAILS)
-                .withQuery(join1)
+                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
                 .withLevels(List.of(productNameLevel))
                 .build()
         ))
@@ -1153,7 +1154,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     AggregationColumnNameMappingImpl.builder().withColumn(BAR).build()
                 ))
                 .withAggregationForeignKeys(List.of(
-                    AggregationForeignKeyMappingImpl.builder().withFactColumn(PRODUCT_ID).withAggregationColumn(
+                    AggregationForeignKeyMappingImpl.builder().withFactColumn(COLUMN_PRODUCT_ID).withAggregationColumn(
                         "PRODUCT_ID").build(),
                     AggregationForeignKeyMappingImpl.builder().withFactColumn(CUSTOMER_ID).withAggregationColumn(
                         "CUSTOMER_ID").build(),
@@ -1314,7 +1315,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withPrimaryKey(EMPLOYEE_ID)
             .withPrimaryKeyTable(EMPLOYEE)
-            .withQuery(join3)
+            .withQuery(JOIN_EMPLOYEE_POSITION)
             .withLevels(List.of(payTypeLevel))
             .build()))
         .build();
@@ -1325,7 +1326,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withPrimaryKey(EMPLOYEE_ID)
             .withPrimaryKeyTable(EMPLOYEE)
-            .withQuery(employeeTable)
+            .withQuery(QUERY_TABLE_EMPLOYEE)
             .withLevels(List.of(managementRoleLevel, positionTitleLevel))
             .build()))
         .build();
@@ -1335,7 +1336,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(DEPARTMENT_ID)
-            .withQuery(employeeTable)
+            .withQuery(QUERY_TABLE_EMPLOYEE)
             .withLevels(List.of(departmentDescriptionLevel))
             .build()))
         .build();
@@ -1346,7 +1347,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withAllMemberName(ALL_EMPLOYEES)
             .withPrimaryKey(EMPLOYEE_ID)
-            .withQuery(employeeTable)
+            .withQuery(QUERY_TABLE_EMPLOYEE)
             .withLevels(List.of(employeeIdLevel))
             .build()))
         .build();
@@ -1414,14 +1415,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final MeasureMappingImpl salesCountMeasure = MeasureMappingImpl.builder()
         .withName("Sales Count")
-        .withColumn(PRODUCT_ID)
+        .withColumn(COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl salesCount1Measure = MeasureMappingImpl.builder()
         .withName("Sales Count")
-        .withColumn(PRODUCT_ID)
+        .withColumn(COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING)
         .withAggregatorType(MeasureAggregatorType.COUNT)
         .withCalculatedMemberProperty(List.of(
@@ -1652,7 +1653,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             customerCount1Measure))
         .build();
 
-    private static final PhysicalCubeMappingImpl salesCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_SALES = PhysicalCubeMappingImpl.builder()
         .withName("Sales")
         .withQuery(salesFact1997Table)
         .withMeasureGroups(List.of(salesMeasureGroup))
@@ -1669,7 +1670,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMediaDimension).withForeignKey(PROMOTION_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotionsDimension).withForeignKey(PROMOTION_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(CUSTOMERS).withDimension(customersDimension).withForeignKey(CUSTOMER_ID).build(),
@@ -1682,7 +1683,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             profitGrowthCalculatedMember))
         .build();
 
-    private static final PhysicalCubeMappingImpl warehouseCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_WAREHOUSE = PhysicalCubeMappingImpl.builder()
         .withName(WAREHOUSE)
         .withQuery(inventoryFact1997Table)
         .withMeasureGroups(List.of(storeMeasureGroup))
@@ -1692,7 +1693,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(WAREHOUSE).withDimension(warehouseDimension).withForeignKey(WAREHOUSE_ID).build()
         ))
         .withMeasureGroups(List.of(warehouseMeasureGroup))
@@ -1702,9 +1703,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final PhysicalCubeMappingImpl storeCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_STORE = PhysicalCubeMappingImpl.builder()
         .withName(STORE2)
-        .withQuery(storeTable)
+        .withQuery(QUERY_TABLE_STORE)
         .withMeasureGroups(List.of(storeMeasureGroup))
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeType1Dimension).build(),
@@ -1714,7 +1715,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private static final PhysicalCubeMappingImpl hrCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_HR = PhysicalCubeMappingImpl.builder()
         .withName("HR")
         .withQuery(salaryTable)
         .withMeasureGroups(List.of(hrMeasureGroup))
@@ -1731,7 +1732,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMembers(List.of(employeeSalaryCalculatedMember, avgSalaryCalculatedMember))
         .build();
 
-    private static final PhysicalCubeMappingImpl salesRaggedCube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_SALES_RAGGED = PhysicalCubeMappingImpl.builder()
         .withName("Sales Ragged")
         .withQuery(salesFact19971Table)
         .withMeasureGroups(List.of(salesRaggedMeasureGroup))
@@ -1741,7 +1742,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMedia1Dimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotions1Dimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(CUSTOMERS).withDimension(customersDimension).withForeignKey(DEPARTMENT_ID).build(),
@@ -1753,20 +1754,20 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private static final PhysicalCubeMappingImpl sales2Cube = PhysicalCubeMappingImpl.builder()
+    private static final PhysicalCubeMappingImpl CUBE_SALES_2 = PhysicalCubeMappingImpl.builder()
         .withName("Sales 2")
         .withQuery(salesFact19972Table)
         .withMeasureGroups(List.of(sales2MeasureGroup))
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(time1Dimension).withForeignKey(TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(PRODUCT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
         .withCalculatedMembers(List.of(profitCalculatedMember, profitLastPeriod1CalculatedMember))
         .build();
 
-    private static final VirtualCubeMappingImpl warehouseAndSalesVirtualCube = VirtualCubeMappingImpl.builder()
+    private static final VirtualCubeMappingImpl CUBE_VIRTIAL_WAREHOUSE_AND_SALES = VirtualCubeMappingImpl.builder()
         .withName("Warehouse and Sales")
         .withDefaultMeasure(storeSalesMeasure)
         .withDimensionConnectors(List.of(
@@ -1834,7 +1835,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withAccess(AccessSchema.NONE)
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
-                        .withCube(salesCube)
+                        .withCube(CUBE_SALES)
                         .withAccess(AccessCube.ALL)
                         .withHierarchyGrants(List.of(
                             AccessHierarchyGrantMappingImpl.builder()
@@ -1886,7 +1887,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withAccess(AccessSchema.ALL)
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
-                        .withCube(hrCube)
+                        .withCube(CUBE_HR)
                         .withAccess(AccessCube.NONE)
                         .build()
                 ))
@@ -1903,10 +1904,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final SchemaMappingImpl schema = SchemaMappingImpl.builder()
+    private static final SchemaMappingImpl SCHEMA = SchemaMappingImpl.builder()
         .withName(NAME)
-        .withCubes(List.of(salesCube, warehouseCube, storeCube, hrCube, salesRaggedCube, sales2Cube,
-            warehouseAndSalesVirtualCube))
+        .withCubes(List.of(CUBE_SALES, CUBE_WAREHOUSE, CUBE_STORE, CUBE_HR, CUBE_SALES_RAGGED, CUBE_SALES_2,
+            CUBE_VIRTIAL_WAREHOUSE_AND_SALES))
         .withAccessRoles(List.of(
             californiaManagerRole,
             noHRCubeRole,
@@ -1919,7 +1920,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         return CatalogMappingImpl.builder()
             .withName(NAME)
             .withDocumentation(documentation)
-            .withSchemas(List.of(schema))
+            .withSchemas(List.of(SCHEMA))
             .build();
     }
 
