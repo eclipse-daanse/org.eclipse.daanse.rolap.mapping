@@ -523,7 +523,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withLevelType(LevelType.TIME_QUARTERS)
         .build();
 
-    private static final LevelMappingImpl monthLevel = LevelMappingImpl.builder()
+    private static final LevelMappingImpl LEVEL_MONTH = LevelMappingImpl.builder()
         .withName(MONTH)
         .withColumn(MONTH_OF_YEAR)
         .withUniqueMembers(false)
@@ -531,7 +531,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withLevelType(LevelType.TIME_MONTHS)
         .build();
 
-    private static final LevelMappingImpl month1Level = LevelMappingImpl.builder()
+    private static final LevelMappingImpl LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR = LevelMappingImpl.builder()
         .withName(MONTH)
         .withColumn(MONTH_OF_YEAR)
         .withNameColumn(THE_MONTH)
@@ -867,7 +867,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final CalculatedMemberMappingImpl profitCalculatedMember = CalculatedMemberMappingImpl.builder()
+    private static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT = CalculatedMemberMappingImpl.builder()
         .withName("Profit")
         .withFormula("[Measures].[Store Sales] - [Measures].[Store Cost]")
         .withCalculatedMemberProperties(List.of(
@@ -1034,23 +1034,23 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final TimeDimensionMappingImpl timeDimension = TimeDimensionMappingImpl.builder()
+    private static final TimeDimensionMappingImpl DIMENSION_TIME_DEFAULT = TimeDimensionMappingImpl.builder()
         .withName(TIME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(false)
             .withPrimaryKey(TIME_ID)
             .withQuery(timeByDayTable)
-            .withLevels(List.of(yearLevel, quarterLevel, monthLevel))
+            .withLevels(List.of(yearLevel, quarterLevel, LEVEL_MONTH))
             .build()))
         .build();
 
-    private static final TimeDimensionMappingImpl time1Dimension = TimeDimensionMappingImpl.builder()
+    private static final TimeDimensionMappingImpl DIMENSION_TIME_HR = TimeDimensionMappingImpl.builder()
         .withName(TIME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(false)
             .withPrimaryKey(THE_DATE)
             .withQuery(timeByDayTable)
-            .withLevels(List.of(yearLevel, quarterLevel, month1Level))
+            .withLevels(List.of(yearLevel, quarterLevel, LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR))
             .build()))
         .build();
 
@@ -1669,7 +1669,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(storeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(DIMENSION_TIME_DEFAULT).withForeignKey(TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMediaDimension).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotionsDimension).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
@@ -1679,7 +1679,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(MARITAL_STATUS).withDimension(maritalStatusDimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(YEARLY_INCOME).withDimension(yearlyIncomeDimension).withForeignKey(CUSTOMER_ID).build()
         ))
-        .withCalculatedMembers(List.of(profitCalculatedMember, profitLastPeriodCalculatedMember,
+        .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT, profitLastPeriodCalculatedMember,
             profitGrowthCalculatedMember))
         .build();
 
@@ -1692,7 +1692,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(storeDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(DIMENSION_TIME_DEFAULT).withForeignKey(TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(WAREHOUSE).withDimension(warehouseDimension).withForeignKey(WAREHOUSE_ID).build()
         ))
@@ -1720,7 +1720,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withQuery(salaryTable)
         .withMeasureGroups(List.of(hrMeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(time1Dimension).withForeignKey("pay_date").build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(DIMENSION_TIME_HR).withForeignKey("pay_date").build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE2).withDimension(store1Dimension).withForeignKey(EMPLOYEE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PAY_TYPE).withDimension(payTypeDimension).withForeignKey(EMPLOYEE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeType2Dimension).withForeignKey(EMPLOYEE_ID).build(),
@@ -1741,7 +1741,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GEOGRAPHY).withDimension(geographyDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_SIZE_IN_SQFT).withDimension(storeSizeInSQFTDimension).withForeignKey(STORE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(STORE_TYPE).withDimension(storeTypeDimension).withForeignKey(STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(timeDimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(DIMENSION_TIME_DEFAULT).withForeignKey(TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTION_MEDIA).withDimension(promotionMedia1Dimension).withForeignKey(CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PROMOTIONS).withDimension(promotions1Dimension).withForeignKey(CUSTOMER_ID).build(),
@@ -1759,12 +1759,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withQuery(salesFact19972Table)
         .withMeasureGroups(List.of(sales2MeasureGroup))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(time1Dimension).withForeignKey(TIME_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(TIME).withDimension(DIMENSION_TIME_DEFAULT).withForeignKey(TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(PRODUCT2).withDimension(productDimension).withForeignKey(COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GENDER).withDimension(genderDimension).withForeignKey(CUSTOMER_ID).build()
         ))
         .withDocumentation(new DocumentationMappingImpl(""))
-        .withCalculatedMembers(List.of(profitCalculatedMember, profitLastPeriod1CalculatedMember))
+        .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT, profitLastPeriod1CalculatedMember))
         .build();
 
     private static final VirtualCubeMappingImpl CUBE_VIRTIAL_WAREHOUSE_AND_SALES = VirtualCubeMappingImpl.builder()
@@ -1804,7 +1804,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withOverrideDimensionName(STORE2)
                 .build(),
             DimensionConnectorMappingImpl.builder()
-                .withDimension(timeDimension)
+                .withDimension(DIMENSION_TIME_DEFAULT)
                 .withOverrideDimensionName(TIME)
                 .build(),
             DimensionConnectorMappingImpl.builder()
@@ -1821,7 +1821,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             vWarehouseMeasureGroup
         ))
         .withCalculatedMembers(List.of(
-            profitCalculatedMember,
+            CALCULATED_MEMBER_PROFIT,
             profitGrowthCalculatedMember,
             averageWarehouseSaleCalculatedMember,
             profitPerUnitShippedCalculatedMember
