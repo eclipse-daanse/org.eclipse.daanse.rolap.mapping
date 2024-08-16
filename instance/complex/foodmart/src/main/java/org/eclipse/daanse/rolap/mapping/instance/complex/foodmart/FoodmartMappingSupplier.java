@@ -1054,7 +1054,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final TimeDimensionMappingImpl productDimension = TimeDimensionMappingImpl.builder()
+    private static final StandardDimensionMappingImpl productDimension = StandardDimensionMappingImpl.builder()
         .withName(PRODUCT2)
         .withHierarchies(List.of(
             HierarchyMappingImpl.builder()
@@ -1121,7 +1121,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final TimeDimensionMappingImpl warehouseDimension = TimeDimensionMappingImpl.builder()
+    private static final StandardDimensionMappingImpl warehouseDimension = StandardDimensionMappingImpl.builder()
         .withName(WAREHOUSE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
