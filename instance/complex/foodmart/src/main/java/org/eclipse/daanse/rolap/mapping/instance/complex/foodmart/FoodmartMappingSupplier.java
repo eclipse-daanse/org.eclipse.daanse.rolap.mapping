@@ -210,7 +210,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String ALL_CUSTOMERS = "All Customers";
 
-    private static final String ALL_PROMOTIONS = "All Media";
+    private static final String ALL_PROMOTIONS = "All Promotions";
 
     private static final String NAME_DIMENSION_PROMOTIONS = "Promotions";
 
@@ -1242,7 +1242,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withAllMemberName(ALL_PROMOTIONS)
             .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
-            .withDefaultMember("All Promotions")
+            .withDefaultMember(ALL_PROMOTIONS)
             .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(LEVEL_PROMOTION_NAME))
             .build()))
