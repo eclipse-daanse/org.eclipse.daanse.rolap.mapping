@@ -41,13 +41,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private boolean visible;
 
-    private String name;
-
-    private String id;
-
     private MeasureAggregatorType aggregatorType;
-
-
 
     private MeasureMappingImpl(Builder builder) {
         this.measureExpression = builder.measureExpression;
@@ -60,15 +54,13 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.formatString = builder.formatString;
         this.formatter = builder.formatter;
         this.visible = builder.visible;
-        this.name = builder.name;
-        this.id = builder.id;
         this.aggregatorType = builder.aggregatorType;
+        super.setName(builder.name);
+        super.setId(builder.id);
         super.setAnnotations(builder.annotations);
         super.setDescription(builder.description);
         super.setDocumentation(builder.documentation);
     }
-
-
 
     public SQLExpressionMappingImpl getMeasureExpression() {
         return measureExpression;
@@ -148,22 +140,6 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public MeasureAggregatorType getAggregatorType() {

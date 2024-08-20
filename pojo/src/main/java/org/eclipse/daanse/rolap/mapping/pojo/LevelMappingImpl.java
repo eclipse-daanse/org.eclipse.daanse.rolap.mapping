@@ -64,11 +64,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private boolean visible;
 
-    private String name;
-
-    private String description;
-
-    private String id;
 
     private LevelMappingImpl(Builder builder) {
         this.keyExpression = builder.keyExpression;
@@ -92,9 +87,9 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
-        this.name = builder.name;
-        this.description = builder.description;
-        this.id = builder.id;
+        super.setName(builder.name);
+        super.setDescription(builder.description);
+        super.setId(builder.id);
         super.setAnnotations(builder.annotations);
         super.setDocumentation(builder.documentation);
     }
@@ -272,30 +267,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     public void setVisible(boolean visible) {
         this.visible = visible;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public static Builder builder() {
