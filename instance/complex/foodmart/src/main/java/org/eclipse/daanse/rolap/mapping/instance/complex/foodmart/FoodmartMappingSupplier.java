@@ -1457,7 +1457,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName("Sales Count")
         .withColumn(TABLE_COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
+        .withAggregatorType(MeasureAggregatorType.COUNT)
         .build();
 
     private static final MeasureMappingImpl MEASURE_SALES_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
