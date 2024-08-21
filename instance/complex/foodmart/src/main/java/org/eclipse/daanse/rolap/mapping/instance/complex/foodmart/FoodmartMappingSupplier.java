@@ -833,6 +833,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl LEVEL_PAY_TYPE = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_PAY_TYPE)
         .withColumn("pay_type")
+        .withTable(TABLE_NAME_POSITION)
         .withUniqueMembers(true)
         .build();
 
