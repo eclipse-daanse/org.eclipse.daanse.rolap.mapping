@@ -938,8 +938,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_GROWINN =
         CalculatedMemberMappingImpl.builder()
-            //.withName("Profit Growth")
-            .withName("Gewinn-Wachstum")
+            .withName("Profit Growth")
+//            .withName("Gewinn-Wachstum")
             .withFormula("([Measures].[Profit] - [Measures].[Profit last Period]) / [Measures].[Profit last Period]")
             .withVisible(true)
             //.withCaption("Gewinn-Wachstum")
@@ -1839,7 +1839,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder()
                 .withDimension(DIMENSION_PRODUCT)
                 .withOverrideDimensionName(NAME_DIMENSION_PRODUCT)
-                .withPhysicalCube(CUBE_SALES)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(DIMENSION_PROMOTION_MEDIA)
@@ -1854,12 +1853,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder()
                 .withDimension(DIMENSION_STORE_WITH_QUERY_STORE)
                 .withOverrideDimensionName(NAME_DIMENSION_STORE)
-                .withPhysicalCube(CUBE_SALES)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(DIMENSION_TIME)
                 .withOverrideDimensionName(NAME_DIMENSION_TIME)
-                .withPhysicalCube(CUBE_SALES)
                 .build(),
             DimensionConnectorMappingImpl.builder()
                 .withDimension(DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME)
