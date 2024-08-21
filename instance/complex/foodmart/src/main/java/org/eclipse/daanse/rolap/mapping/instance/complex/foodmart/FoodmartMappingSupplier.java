@@ -1643,16 +1643,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_VIRTUAL_CUBE_SALES =
-        MeasureGroupMappingImpl.builder()
-            .withMeasures(List.of(
-                MEASURE_SALES_COUNT,
-                MEASURE_STORE_COST,
-                MEASURE_STORE_SALES,
-                MEASURE_UNIT_SALES
-            ))
-            .build();
-
     private static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_WAREHOUSE = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(
             MEASURE_STORE_INVOICE,
@@ -1665,16 +1655,27 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE =
+    private static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE_AND_SALES =
         MeasureGroupMappingImpl.builder()
             .withMeasures(List.of(
-                MEASURE_STORE_INVOICE,
-                MEASURE_SUPPLY_TIME,
-                MEASURE_UNITS_ORDERED,
-                MEASURE_UNITS_SHIPPED,
-                MEASURE_WAREHOUSE_COST,
-                MEASURE_WAREHOUSE_PROFIT,
-                MEASURE_WAREHOUSE_SALES
+                    // TODO use the MeasureUsage and CalculatedMemberusage
+                    MEASURE_SALES_COUNT,
+                    MEASURE_STORE_COST,
+                    MEASURE_STORE_SALES,
+                    MEASURE_UNIT_SALES,
+                    //  <VirtualCubeMeasure cubeName="Sales" name="[Measures].[Profit]"/>
+                    //  <VirtualCubeMeasure cubeName="Sales" name="[Measures].[Profit Growth]"/>
+                    MEASURE_STORE_INVOICE,
+                    MEASURE_SUPPLY_TIME,
+                    MEASURE_UNITS_ORDERED,
+                    MEASURE_UNITS_SHIPPED,
+                    MEASURE_WAREHOUSE_COST,
+                    MEASURE_WAREHOUSE_PROFIT,
+                    MEASURE_WAREHOUSE_SALES
+                    //  <VirtualCubeMeasure cubeName="Warehouse" name="[Measures].[Average Warehouse Sale]"/>
+                    //  CALCULATED_MEMBER_PROFIT,
+                    //  CALCULATED_MEMBER_PROFIT_GROWINN,
+                    //  CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE,
             ))
             .build();
 
@@ -1870,13 +1871,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .build()
         ))
         .withMeasureGroups(List.of(
-            MEASURE_GROUP_FOR_VIRTUAL_CUBE_SALES,
-            MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE
+            MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE_AND_SALES
         ))
         .withCalculatedMembers(List.of(
-            CALCULATED_MEMBER_PROFIT,
-            CALCULATED_MEMBER_PROFIT_GROWINN,
-            CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE,
             profitPerUnitShippedCalculatedMember
         ))
         .build();
