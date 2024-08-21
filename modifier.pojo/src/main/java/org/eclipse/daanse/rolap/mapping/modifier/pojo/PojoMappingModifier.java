@@ -1057,4 +1057,19 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .build();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MemberPropertyFormatterMapping createMemberPropertyFormatter(
+            List<? extends AnnotationMapping> annotations, String id, String description, String name,
+            DocumentationMapping documentation, String ref) {
+        return MemberPropertyFormatterMappingImpl.builder()
+                .withAnnotations((List<AnnotationMappingImpl>) annotations)
+                .withId(id)
+                .withDescription(description)
+                .withName(name)
+                .withDocumentation((DocumentationMappingImpl) documentation)
+                .withRef(ref)
+                .build();
+    }
+
 }

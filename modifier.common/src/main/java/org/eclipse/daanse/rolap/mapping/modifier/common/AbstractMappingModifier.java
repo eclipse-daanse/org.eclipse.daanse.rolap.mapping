@@ -13,7 +13,9 @@
  */
 package org.eclipse.daanse.rolap.mapping.modifier.common;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
@@ -51,6 +53,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
@@ -99,6 +102,26 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CatalogMapping catalog;
 
+    private Map<CubeMapping, CubeMapping> cubeMap = new HashMap<>();
+
+    private Map<DimensionMapping, DimensionMapping> dimensionMap = new HashMap<>();
+
+    private Map<HierarchyMapping, HierarchyMapping> hierarchyMap = new HashMap<>();
+
+    private Map<LevelMapping, LevelMapping> levelMap = new HashMap<>();
+
+    private Map<FormatterMapping, FormatterMapping> formatterMap = new HashMap<>();
+
+    private Map<DatabaseSchema, DatabaseSchema> dbSchemaMap = new HashMap<>();
+
+    private Map<MeasureMapping, MeasureMapping> measureMap = new HashMap<>();
+
+    private Map<AccessRoleMapping, AccessRoleMapping> accessRoleMap = new HashMap<>();
+
+    private Map<AggregationTableMapping, AggregationTableMapping> aggregationTableMap = new HashMap<>();
+
+    private Map<AggregationExcludeMapping, AggregationExcludeMapping> aggregationExcludeMap = new HashMap<>();
+
     protected AbstractMappingModifier(CatalogMapping catalog) {
         super();
         this.catalog = catalog;
@@ -117,7 +140,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = catalogDocumentation(catalog2);
 
             List<? extends SchemaMapping> schemas = catalogSchemas(catalog2);
-            List<? extends DatabaseSchema> dbschemas=null;
+            List<? extends DatabaseSchema> dbschemas = null;
             return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
         }
         return null;
@@ -136,10 +159,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected DatabaseSchema dbschema(DatabaseSchema databaseSchema) {
         if (databaseSchema != null) {
-            List<? extends Table> tables = databaseSchemaTables(databaseSchema);
-            String name = databaseSchemaName(databaseSchema);
-            String id = databaseSchemaId(databaseSchema);
-            return createDatabaseSchema(tables, name, id);
+            if (!dbSchemaMap.containsKey(databaseSchema)) {
+                List<? extends Table> tables = databaseSchemaTables(databaseSchema);
+                String name = databaseSchemaName(databaseSchema);
+                String id = databaseSchemaId(databaseSchema);
+                DatabaseSchema ds = createDatabaseSchema(tables, name, id);
+                dbSchemaMap.put(databaseSchema, ds);
+                return ds;
+            } else {
+                return dbSchemaMap.get(databaseSchema);
+            }
         }
         return null;
     }
@@ -331,16 +360,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AccessRoleMapping accessRole(AccessRoleMapping accessRole) {
         if (accessRole != null) {
-            List<? extends AnnotationMapping> annotations = accessRoleAnnotations(accessRole);
-            String id = accessRoleId(accessRole);
-            String description = accessRoleDescription(accessRole);
-            String name = accessRoleName(accessRole);
-            DocumentationMapping documentation = accessRoleDocumentation(accessRole);
+            if (!accessRoleMap.containsKey(accessRole)) {
+                List<? extends AnnotationMapping> annotations = accessRoleAnnotations(accessRole);
+                String id = accessRoleId(accessRole);
+                String description = accessRoleDescription(accessRole);
+                String name = accessRoleName(accessRole);
+                DocumentationMapping documentation = accessRoleDocumentation(accessRole);
 
-            List<? extends AccessSchemaGrantMapping> accessSchemaGrants = accessRoleAccessSchemaGrants(accessRole);
-            List<? extends AccessRoleMapping> referencedAccessRoles = accessRoleReferencedAccessRoles(accessRole);
-            return createAccessRole(annotations, id, description, name, documentation, accessSchemaGrants,
-                referencedAccessRoles);
+                List<? extends AccessSchemaGrantMapping> accessSchemaGrants = accessRoleAccessSchemaGrants(accessRole);
+                List<? extends AccessRoleMapping> referencedAccessRoles = accessRoleReferencedAccessRoles(accessRole);
+                AccessRoleMapping ar = createAccessRole(annotations, id, description, name, documentation,
+                    accessSchemaGrants,
+                    referencedAccessRoles);
+                accessRoleMap.put(accessRole, ar);
+                return ar;
+            } else {
+                return accessRoleMap.get(accessRole);
+            }
         }
         return null;
     }
@@ -501,32 +537,40 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected HierarchyMapping hierarchy(HierarchyMapping hierarchy) {
         if (hierarchy != null) {
-            List<? extends AnnotationMapping> annotations = hierarchyAnnotations(hierarchy);
-            String id = hierarchyId(hierarchy);
-            String description = hierarchyDescription(hierarchy);
-            String name = hierarchyName(hierarchy);
-            DocumentationMapping documentation = hierarchyDocumentation(hierarchy);
+            if (!hierarchyMap.containsKey(hierarchy)) {
+                List<? extends AnnotationMapping> annotations = hierarchyAnnotations(hierarchy);
+                String id = hierarchyId(hierarchy);
+                String description = hierarchyDescription(hierarchy);
+                String name = hierarchyName(hierarchy);
+                DocumentationMapping documentation = hierarchyDocumentation(hierarchy);
 
-            List<? extends LevelMapping> levels = hierarchyLevels(hierarchy);
-            List<? extends MemberReaderParameterMapping> memberReaderParameters = hierarchyMemberReaderParameters(
-                hierarchy);
-            String allLevelName = hierarchyAllLevelName(hierarchy);
-            String allMemberCaption = hierarchyAllMemberCaption(hierarchy);
-            String allMemberName = hierarchyAllMemberName(hierarchy);
-            String defaultMember = hierarchyDefaultMember(hierarchy);
-            String displayFolder = hierarchyDisplayFolder(hierarchy);
-            boolean hasAll = hierarchyHasAll(hierarchy);
-            String memberReaderClass = hierarchyMemberReaderClass(hierarchy);
-            String origin = hierarchyOrigin(hierarchy);
-            String primaryKey = hierarchyPrimaryKey(hierarchy);
-            String primaryKeyTable = hierarchyPrimaryKeyTable(hierarchy);
-            String uniqueKeyLevelName = hierarchyUniqueKeyLevelName(hierarchy);
-            boolean visible = hierarchyVisible(hierarchy);
-            QueryMapping query = hierarchyQuery(hierarchy);
+                List<? extends LevelMapping> levels = hierarchyLevels(hierarchy);
+                List<? extends MemberReaderParameterMapping> memberReaderParameters = hierarchyMemberReaderParameters(
+                    hierarchy);
+                String allLevelName = hierarchyAllLevelName(hierarchy);
+                String allMemberCaption = hierarchyAllMemberCaption(hierarchy);
+                String allMemberName = hierarchyAllMemberName(hierarchy);
+                String defaultMember = hierarchyDefaultMember(hierarchy);
+                String displayFolder = hierarchyDisplayFolder(hierarchy);
+                boolean hasAll = hierarchyHasAll(hierarchy);
+                String memberReaderClass = hierarchyMemberReaderClass(hierarchy);
+                String origin = hierarchyOrigin(hierarchy);
+                String primaryKey = hierarchyPrimaryKey(hierarchy);
+                String primaryKeyTable = hierarchyPrimaryKeyTable(hierarchy);
+                String uniqueKeyLevelName = hierarchyUniqueKeyLevelName(hierarchy);
+                boolean visible = hierarchyVisible(hierarchy);
+                QueryMapping query = hierarchyQuery(hierarchy);
 
-            return createHierarchy(annotations, id, description, name, documentation, levels, memberReaderParameters,
-                allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
-                memberReaderClass, origin, primaryKey, primaryKeyTable, uniqueKeyLevelName, visible, query);
+                HierarchyMapping h = createHierarchy(annotations, id, description, name, documentation, levels,
+                    memberReaderParameters,
+                    allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
+                    memberReaderClass, origin, primaryKey, primaryKeyTable, uniqueKeyLevelName, visible, query);
+                hierarchyMap.put(hierarchy, h);
+                return h;
+            } else {
+                return hierarchyMap.get(hierarchy);
+            }
+
         }
         return null;
     }
@@ -785,36 +829,47 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationTableMapping aggregationTable(AggregationTableMapping aggregationTable) {
         if (aggregationTable != null) {
-            AggregationColumnNameMapping aggregationFactCount = aggregationTableAggregationFactCount(aggregationTable);
-            List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns =
-                aggregationTableAggregationIgnoreColumns(
+            if (!aggregationTableMap.containsKey(aggregationTable)) {
+                AggregationColumnNameMapping aggregationFactCount =
+                    aggregationTableAggregationFactCount(aggregationTable);
+                List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns =
+                    aggregationTableAggregationIgnoreColumns(
+                        aggregationTable);
+                List<? extends AggregationForeignKeyMapping> aggregationForeignKeys =
+                    aggregationTableAggregationForeignKeys(
+                        aggregationTable);
+                List<? extends AggregationMeasureMapping> aggregationMeasures = aggregationTableAggregationMeasures(
                     aggregationTable);
-            List<? extends AggregationForeignKeyMapping> aggregationForeignKeys =
-                aggregationTableAggregationForeignKeys(
+                List<? extends AggregationLevelMapping> aggregationLevels = aggregationTableAggregationLevels(
                     aggregationTable);
-            List<? extends AggregationMeasureMapping> aggregationMeasures = aggregationTableAggregationMeasures(
-                aggregationTable);
-            List<? extends AggregationLevelMapping> aggregationLevels = aggregationTableAggregationLevels(
-                aggregationTable);
-            List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts =
-                aggregationTableAggregationMeasureFactCounts(
-                    aggregationTable);
-            boolean ignorecase = aggregationTableIgnorecase(aggregationTable);
-            String id = aggregationTableId(aggregationTable);
-            if (aggregationTable instanceof AggregationNameMapping an) {
-                String approxRowCount = aggregationNameApproxRowCount(an);
-                String name = aggregationNameName(an);
-                return createAggregationName(aggregationFactCount, aggregationIgnoreColumns, aggregationForeignKeys,
-                    aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id,
-                    approxRowCount, name);
-            }
-            if (aggregationTable instanceof AggregationPatternMapping ap) {
-                String pattern = aggregationPatternPattern(ap);
-                List<? extends AggregationExcludeMapping> excludes = aggregationPatternExcludes(ap);
-                return createAggregationPattern(aggregationFactCount, aggregationIgnoreColumns, aggregationForeignKeys,
-                    aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id, pattern,
-                    excludes);
+                List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts =
+                    aggregationTableAggregationMeasureFactCounts(
+                        aggregationTable);
+                boolean ignorecase = aggregationTableIgnorecase(aggregationTable);
+                String id = aggregationTableId(aggregationTable);
+                if (aggregationTable instanceof AggregationNameMapping an) {
+                    String approxRowCount = aggregationNameApproxRowCount(an);
+                    String name = aggregationNameName(an);
+                    AggregationTableMapping at = createAggregationName(aggregationFactCount, aggregationIgnoreColumns
+                        , aggregationForeignKeys,
+                        aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id,
+                        approxRowCount, name);
+                    aggregationTableMap.put(aggregationTable, at);
+                    return at;
+                }
+                if (aggregationTable instanceof AggregationPatternMapping ap) {
+                    String pattern = aggregationPatternPattern(ap);
+                    List<? extends AggregationExcludeMapping> excludes = aggregationPatternExcludes(ap);
+                    AggregationTableMapping at = createAggregationPattern(aggregationFactCount,
+                        aggregationIgnoreColumns, aggregationForeignKeys,
+                        aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id, pattern,
+                        excludes);
+                    aggregationTableMap.put(aggregationTable, at);
+                    return at;
 
+                }
+            } else {
+                return aggregationTableMap.get(aggregationTable);
             }
         }
         return null;
@@ -1177,11 +1232,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationExcludeMapping aggregationExclude(AggregationExcludeMapping aggregationExclude) {
         if (aggregationExclude != null) {
-            boolean ignorecase = aggregationExcludeIgnorecase(aggregationExclude);
-            String name = aggregationExcludeName(aggregationExclude);
-            String pattern = aggregationExcludePattern(aggregationExclude);
-            String id = aggregationExcludeId(aggregationExclude);
-            return createAggregationExclude(ignorecase, name, pattern, id);
+            if (!aggregationExcludeMap.containsKey(aggregationExclude)) {
+                boolean ignorecase = aggregationExcludeIgnorecase(aggregationExclude);
+                String name = aggregationExcludeName(aggregationExclude);
+                String pattern = aggregationExcludePattern(aggregationExclude);
+                String id = aggregationExcludeId(aggregationExclude);
+                AggregationExcludeMapping ae = createAggregationExclude(ignorecase, name, pattern, id);
+                aggregationExcludeMap.put(aggregationExclude, ae);
+                return ae;
+            } else {
+                return aggregationExcludeMap.get(aggregationExclude);
+            }
         }
         return null;
     }
@@ -1376,33 +1437,38 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected LevelMapping level(LevelMapping level) {
         if (level != null) {
-            SQLExpressionMapping keyExpression = levelKeyExpression(level);
-            SQLExpressionMapping nameExpression = levelNameExpression(level);
-            SQLExpressionMapping captionExpression = levelCaptionExpression(level);
-            SQLExpressionMapping ordinalExpression = levelOrdinalExpression(level);
-            SQLExpressionMapping parentExpression = levelParentExpression(level);
-            ParentChildLinkMapping parentChildLink = levelParentChildLink(level);
-            List<? extends MemberPropertyMapping> memberProperties = levelMemberProperties(level);
-            MemberFormatterMapping memberFormatter = levelMemberFormatter(level);
-            String approxRowCount = levelApproxRowCount(level);
-            String captionColumn = levelCaptionColumn(level);
-            String column = levelColumn(level);
-            HideMemberIfType hideMemberIf = levelHideMemberIf(level);
-            LevelType levelType = levelLevelType(level);
-            String nameColumn = levelNameColumn(level);
-            String nullParentValue = levelNullParentValue(level);
-            String ordinalColumn = levelOrdinalColumn(level);
-            String parentColumn = levelParentColumn(level);
-            String table = levelTable(level);
-            DataType type = levelType(level);
-            boolean uniqueMembers = levelUniqueMembers(level);
-            boolean visible = levelVisible(level);
-            String name = levelName(level);
-            String id = levelId(level);
-            return createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression, parentExpression,
-                parentChildLink, memberProperties, memberFormatter, approxRowCount, captionColumn, column,
-                hideMemberIf,  levelType, nameColumn, nullParentValue, ordinalColumn, parentColumn,
-                table, type, uniqueMembers, visible, name, id);
+            if (!levelMap.containsKey(level)) {
+                SQLExpressionMapping keyExpression = levelKeyExpression(level);
+                SQLExpressionMapping nameExpression = levelNameExpression(level);
+                SQLExpressionMapping captionExpression = levelCaptionExpression(level);
+                SQLExpressionMapping ordinalExpression = levelOrdinalExpression(level);
+                SQLExpressionMapping parentExpression = levelParentExpression(level);
+                ParentChildLinkMapping parentChildLink = levelParentChildLink(level);
+                List<? extends MemberPropertyMapping> memberProperties = levelMemberProperties(level);
+                MemberFormatterMapping memberFormatter = levelMemberFormatter(level);
+                String approxRowCount = levelApproxRowCount(level);
+                String captionColumn = levelCaptionColumn(level);
+                String column = levelColumn(level);
+                HideMemberIfType hideMemberIf = levelHideMemberIf(level);
+                LevelType levelType = levelLevelType(level);
+                String nameColumn = levelNameColumn(level);
+                String nullParentValue = levelNullParentValue(level);
+                String ordinalColumn = levelOrdinalColumn(level);
+                String parentColumn = levelParentColumn(level);
+                String table = levelTable(level);
+                DataType type = levelType(level);
+                boolean uniqueMembers = levelUniqueMembers(level);
+                boolean visible = levelVisible(level);
+                String name = levelName(level);
+                String id = levelId(level);
+                LevelMapping l = createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
+                    parentExpression, parentChildLink, memberProperties, memberFormatter, approxRowCount,
+                    captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
+                    parentColumn, table, type, uniqueMembers, visible, name, id);
+                return l;
+            } else {
+                return levelMap.get(level);
+            }
         }
         return null;
     }
@@ -1473,13 +1539,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected MemberFormatterMapping memberFormatter(MemberFormatterMapping memberFormatter) {
         if (memberFormatter != null) {
-            List<? extends AnnotationMapping> annotations = memberFormatterAnnotations(memberFormatter);
-            String id = memberFormatterId(memberFormatter);
-            String description = memberFormatterDescription(memberFormatter);
-            String name = memberFormatterName(memberFormatter);
-            DocumentationMapping documentation = memberFormatterDocumentation(memberFormatter);
-            String ref = memberFormatterRef(memberFormatter);
-            return createMemberFormatter(annotations, id, description, name, documentation, ref);
+            if (!formatterMap.containsKey(memberFormatter)) {
+                List<? extends AnnotationMapping> annotations = memberFormatterAnnotations(memberFormatter);
+                String id = memberFormatterId(memberFormatter);
+                String description = memberFormatterDescription(memberFormatter);
+                String name = memberFormatterName(memberFormatter);
+                DocumentationMapping documentation = memberFormatterDocumentation(memberFormatter);
+                String ref = memberFormatterRef(memberFormatter);
+                MemberFormatterMapping mf = createMemberFormatter(annotations, id, description, name, documentation,
+                    ref);
+                formatterMap.put(memberFormatter, mf);
+                return mf;
+            } else {
+                return (MemberFormatterMapping) formatterMap.get(memberFormatter);
+            }
         }
         return null;
     }
@@ -1560,7 +1633,62 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected MemberPropertyFormatterMapping memberPropertyFormatter(MemberPropertyMapping memberProperty) {
-        return memberProperty.getFormatter();
+        return memberPropertyFormatter(memberProperty.getFormatter());
+    }
+
+    private MemberPropertyFormatterMapping memberPropertyFormatter(MemberPropertyFormatterMapping memberPropertyFormatter) {
+        if (memberPropertyFormatter != null) {
+            if (!formatterMap.containsKey(memberPropertyFormatter)) {
+                List<? extends AnnotationMapping> annotations =
+                    memberPropertyFormatterAnnotations(memberPropertyFormatter);
+                String id = memberPropertyFormatterId(memberPropertyFormatter);
+                String description = memberPropertyFormatterDescription(memberPropertyFormatter);
+                String name = memberPropertyFormatterName(memberPropertyFormatter);
+                DocumentationMapping documentation = memberPropertyFormatterDocumentation(memberPropertyFormatter);
+                String ref = memberPropertyFormatterRef(memberPropertyFormatter);
+                MemberPropertyFormatterMapping mf = createMemberPropertyFormatter(annotations, id, description, name,
+                    documentation,
+                    ref);
+                formatterMap.put(memberPropertyFormatter, mf);
+                return mf;
+            } else {
+                return (MemberPropertyFormatterMapping) formatterMap.get(memberPropertyFormatter);
+            }
+        }
+        return null;
+    }
+
+    protected abstract MemberPropertyFormatterMapping createMemberPropertyFormatter(
+        List<? extends AnnotationMapping> annotations, String id, String description, String name,
+        DocumentationMapping documentation, String ref
+    );
+
+    private String memberPropertyFormatterRef(MemberPropertyFormatterMapping memberPropertyFormatter) {
+        return memberPropertyFormatter.getRef();
+    }
+
+    private DocumentationMapping memberPropertyFormatterDocumentation(
+        MemberPropertyFormatterMapping memberPropertyFormatter
+    ) {
+        return documentation(memberPropertyFormatter.getDocumentation());
+    }
+
+    private String memberPropertyFormatterName(MemberPropertyFormatterMapping memberPropertyFormatter) {
+        return memberPropertyFormatter.getName();
+    }
+
+    private String memberPropertyFormatterDescription(MemberPropertyFormatterMapping memberPropertyFormatter) {
+        return memberPropertyFormatter.getDescription();
+    }
+
+    private String memberPropertyFormatterId(MemberPropertyFormatterMapping memberPropertyFormatter) {
+        return memberPropertyFormatter.getId();
+    }
+
+    private List<? extends AnnotationMapping> memberPropertyFormatterAnnotations(
+        MemberPropertyFormatterMapping memberPropertyFormatter
+    ) {
+        return annotations(memberPropertyFormatter.getAnnotations());
     }
 
     protected DocumentationMapping memberPropertyDocumentation(MemberPropertyMapping memberProperty) {
@@ -1705,26 +1833,33 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected DimensionMapping dimension(DimensionMapping dimension) {
+        DimensionMapping dm = null;
         if (dimension != null) {
-            List<? extends AnnotationMapping> annotations = dimensionAnnotations(dimension);
-            String id = dimensionId(dimension);
-            String description = dimensionDescription(dimension);
-            String name = dimensionName(dimension);
-            DocumentationMapping documentation = dimensionDocumentation(dimension);
+            if (!dimensionMap.containsKey(dimension)) {
+                List<? extends AnnotationMapping> annotations = dimensionAnnotations(dimension);
+                String id = dimensionId(dimension);
+                String description = dimensionDescription(dimension);
+                String name = dimensionName(dimension);
+                DocumentationMapping documentation = dimensionDocumentation(dimension);
 
-            List<? extends HierarchyMapping> hierarchies = dimensionHierarchies(dimension);
-            String usagePrefix = dimensionUsagePrefix(dimension);
-            boolean visible = dimensionVisible(dimension);
-            if (dimension instanceof StandardDimensionMapping) {
-                return createStandardDimension(annotations, id, description, name, documentation, hierarchies,
-                    usagePrefix, visible);
-            }
-            if (dimension instanceof TimeDimensionMapping) {
-                return createTimeDimension(annotations, id, description, name, documentation, hierarchies,
-                    usagePrefix, visible);
+                List<? extends HierarchyMapping> hierarchies = dimensionHierarchies(dimension);
+                String usagePrefix = dimensionUsagePrefix(dimension);
+                boolean visible = dimensionVisible(dimension);
+                if (dimension instanceof StandardDimensionMapping) {
+                    dm = createStandardDimension(annotations, id, description, name, documentation, hierarchies,
+                        usagePrefix, visible);
+                    dimensionMap.put(dimension, dm);
+                }
+                if (dimension instanceof TimeDimensionMapping) {
+                    dm = createTimeDimension(annotations, id, description, name, documentation, hierarchies,
+                        usagePrefix, visible);
+                    dimensionMap.put(dimension, dm);
+                }
+            } else {
+                return dimensionMap.get(dimension);
             }
         }
-        return null;
+        return dm;
     }
 
     protected abstract TimeDimensionMapping createTimeDimension(
@@ -1893,24 +2028,30 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected VirtualCubeMapping virtualCube(VirtualCubeMapping cube) {
         if (cube != null) {
-            List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
-            String id = cubeId(cube);
-            String description = cubeDescription(cube);
-            String name = cubeName(cube);
-            DocumentationMapping documentation = cubeDocumentation(cube);
+            if (!cubeMap.containsKey(cube)) {
+                List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
+                String id = cubeId(cube);
+                String description = cubeDescription(cube);
+                String name = cubeName(cube);
+                DocumentationMapping documentation = cubeDocumentation(cube);
 
-            List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
-            List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
-            List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
-            List<? extends KpiMapping> kpis = cubeKpis(cube);
-            MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
-            boolean enabled = cubeEnabled(cube);
-            boolean visible = cubeVisible(cube);
-            List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
-            List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(cube);
-            return createVirtualCube(annotations, id, description, name, documentation, dimensionConnectors,
-                calculatedMembers,
-                namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, cubeUsages);
+                List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
+                List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
+                List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
+                List<? extends KpiMapping> kpis = cubeKpis(cube);
+                MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
+                boolean enabled = cubeEnabled(cube);
+                boolean visible = cubeVisible(cube);
+                List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
+                List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(cube);
+                VirtualCubeMapping vc = createVirtualCube(annotations, id, description, name, documentation,
+                    dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
+                    measureGroups, cubeUsages);
+                cubeMap.put(cube, vc);
+                return vc;
+            } else {
+                return (VirtualCubeMapping) cubeMap.get(cube);
+            }
 
         }
         return null;
@@ -1918,27 +2059,33 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected PhysicalCubeMapping physicalCube(PhysicalCubeMapping cube) {
         if (cube != null) {
-            List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
-            String id = cubeId(cube);
-            String description = cubeDescription(cube);
-            String name = cubeName(cube);
-            DocumentationMapping documentation = cubeDocumentation(cube);
-            List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
-            List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
-            List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
-            List<? extends KpiMapping> kpis = cubeKpis(cube);
-            MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
-            boolean enabled = cubeEnabled(cube);
-            boolean visible = cubeVisible(cube);
-            List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
-            QueryMapping query = physicalCubeQuery(cube);
-            WritebackTableMapping writebackTable = physicalCubeWritebackTable(cube);
-            List<? extends ActionMappingMapping> action = physicalCubeAction(cube);
-            boolean cache = physicalCubeCache(cube);
-            return createPhysicalCube(annotations, id, description, name, documentation, dimensionConnectors,
-                calculatedMembers,
-                namedSets, kpis, defaultMeasure, enabled, visible, measureGroups, query, writebackTable, action,
-                cache);
+            if (!cubeMap.containsKey(cube)) {
+                List<? extends AnnotationMapping> annotations = cubeAnnotations(cube);
+                String id = cubeId(cube);
+                String description = cubeDescription(cube);
+                String name = cubeName(cube);
+                DocumentationMapping documentation = cubeDocumentation(cube);
+                List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
+                List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
+                List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
+                List<? extends KpiMapping> kpis = cubeKpis(cube);
+                MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
+                boolean enabled = cubeEnabled(cube);
+                boolean visible = cubeVisible(cube);
+                List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
+                QueryMapping query = physicalCubeQuery(cube);
+                WritebackTableMapping writebackTable = physicalCubeWritebackTable(cube);
+                List<? extends ActionMappingMapping> action = physicalCubeAction(cube);
+                boolean cache = physicalCubeCache(cube);
+                PhysicalCubeMapping pc = createPhysicalCube(annotations, id, description, name, documentation,
+                    dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
+                    measureGroups, query, writebackTable, action, cache);
+                cubeMap.put(cube, pc);
+                return pc;
+            } else {
+                return (PhysicalCubeMapping) cubeMap.get(cube);
+            }
+
         }
         return null;
     }
@@ -2267,23 +2414,29 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected MeasureMapping measure(MeasureMapping measure) {
         if (measure != null) {
-            SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
-            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty = measureCalculatedMemberProperty(
-                measure);
-            CellFormatterMapping cellFormatter = measureCellFormatter(measure);
-            String backColor = measureBackColor(measure);
-            String column = measureColumn(measure);
-            DataType datatype = measureDatatype(measure);
-            String displayFolder = measureDisplayFolder(measure);
-            String formatString = measureFormatString(measure);
-            String formatter = measureFormatter(measure);
-            boolean visible = measureVisible(measure);
-            String name = measureName(measure);
-            String id = measureId(measure);
-            MeasureAggregatorType aggregatorType = aggregatorType(measure);
-            return createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor, column,
-                datatype,
-                displayFolder, formatString, formatter, visible, name, id, aggregatorType);
+            if (!measureMap.containsKey(measure)) {
+                SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
+                List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
+                    measureCalculatedMemberProperty(
+                        measure);
+                CellFormatterMapping cellFormatter = measureCellFormatter(measure);
+                String backColor = measureBackColor(measure);
+                String column = measureColumn(measure);
+                DataType datatype = measureDatatype(measure);
+                String displayFolder = measureDisplayFolder(measure);
+                String formatString = measureFormatString(measure);
+                String formatter = measureFormatter(measure);
+                boolean visible = measureVisible(measure);
+                String name = measureName(measure);
+                String id = measureId(measure);
+                MeasureAggregatorType aggregatorType = aggregatorType(measure);
+                MeasureMapping m = createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
+                    column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
+                measureMap.put(measure, m);
+                return m;
+            } else {
+                return measureMap.get(measure);
+            }
         }
         return null;
     }
@@ -2342,13 +2495,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CellFormatterMapping cellFormatter(CellFormatterMapping cellFormatter) {
         if (cellFormatter != null) {
-            List<? extends AnnotationMapping> annotations = cellFormatterAnnotations(cellFormatter);
-            String id = cellFormatterId(cellFormatter);
-            String description = cellFormatterDescription(cellFormatter);
-            String name = cellFormatterName(cellFormatter);
-            DocumentationMapping documentation = cellFormatterDocumentation(cellFormatter);
-            String ref = cellFormatterRef(cellFormatter);
-            return createCellFormatter(annotations, id, description, name, documentation, ref);
+            if (!formatterMap.containsKey(cellFormatter)) {
+                List<? extends AnnotationMapping> annotations = cellFormatterAnnotations(cellFormatter);
+                String id = cellFormatterId(cellFormatter);
+                String description = cellFormatterDescription(cellFormatter);
+                String name = cellFormatterName(cellFormatter);
+                DocumentationMapping documentation = cellFormatterDocumentation(cellFormatter);
+                String ref = cellFormatterRef(cellFormatter);
+                CellFormatterMapping cf = createCellFormatter(annotations, id, description, name, documentation, ref);
+                formatterMap.put(cellFormatter, cf);
+                return cf;
+            } else {
+                return (CellFormatterMapping) formatterMap.get(cellFormatter);
+            }
         }
         return null;
     }
@@ -2650,7 +2809,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             boolean visible = calculatedMemberVisible(calculatedMember);
 
             return createCalculatedMember(annotations, id, description, name, documentation, calculatedMemberProperties,
-                cellFormatter, formula, displayFolder, formatString, hierarchy,  parent, visible);
+                cellFormatter, formula, displayFolder, formatString, hierarchy, parent, visible);
         }
         return null;
     }
@@ -2739,7 +2898,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DimensionMapping dimension = dimensionConnectorDimension(dimensionConnector);
             String overrideDimensionName = dimensionConnectorOverrideDimensionName(dimensionConnector);
             PhysicalCubeMapping physicalCube = dimensionConnectorPhysicalCube(dimensionConnector);
-            return createDimensionConnector(foreignKey, level, usagePrefix, visible, dimension, overrideDimensionName, physicalCube);
+            return createDimensionConnector(foreignKey, level, usagePrefix, visible, dimension, overrideDimensionName
+                , physicalCube);
         }
 
         return null;

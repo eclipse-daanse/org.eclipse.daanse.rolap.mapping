@@ -1065,4 +1065,19 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     private HierarchyAccess toEmf(AccessHierarchy access) {
         return null;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MemberPropertyFormatterMapping createMemberPropertyFormatter(
+            List<? extends AnnotationMapping> annotations, String id, String description, String name,
+            DocumentationMapping documentation, String ref) {
+        MemberPropertyFormatter memberPropertyFormatter = RolapMappingFactory.eINSTANCE.createMemberPropertyFormatter();
+        memberPropertyFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
+        memberPropertyFormatter.setId(id);
+        memberPropertyFormatter.setDescription(description);
+        memberPropertyFormatter.setName(name);
+        memberPropertyFormatter.setDocumentation((Documentation) documentation);
+        memberPropertyFormatter.setRef(ref);
+        return memberPropertyFormatter;
+    }
 }
