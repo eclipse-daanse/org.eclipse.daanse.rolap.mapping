@@ -122,6 +122,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     private Map<AggregationExcludeMapping, AggregationExcludeMapping> aggregationExcludeMap = new HashMap<>();
 
+    private Map<QueryMapping, QueryMapping> queryMap = new HashMap<>();
+
     protected AbstractMappingModifier(CatalogMapping catalog) {
         super();
         this.catalog = catalog;
@@ -580,21 +582,30 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected QueryMapping query(QueryMapping query) {
+        QueryMapping q = null;
         if (query != null) {
-            if (query instanceof TableQueryMapping tq) {
-                return tableQuery(tq);
-            }
-            if (query instanceof SqlSelectQueryMapping ssq) {
-                return sqlSelectQuery(ssq);
-            }
-            if (query instanceof JoinQueryMapping jq) {
-                return joinQuery(jq);
-            }
-            if (query instanceof InlineTableQueryMapping itq) {
-                return inlineTableQuery(itq);
+            if (!queryMap.containsKey(query)) {
+                if (query instanceof TableQueryMapping tq) {
+                    q = tableQuery(tq);
+                    queryMap.put(query, q);
+                }
+                if (query instanceof SqlSelectQueryMapping ssq) {
+                    q = sqlSelectQuery(ssq);
+                    queryMap.put(query, q);
+                }
+                if (query instanceof JoinQueryMapping jq) {
+                    q = joinQuery(jq);
+                    queryMap.put(query, q);
+                }
+                if (query instanceof InlineTableQueryMapping itq) {
+                    q = inlineTableQuery(itq);
+                    queryMap.put(query, q);
+                }
+            } else {
+                return queryMap.get(query);
             }
         }
-        return null;
+        return q;
     }
 
     protected QueryMapping inlineTableQuery(InlineTableQueryMapping itq) {

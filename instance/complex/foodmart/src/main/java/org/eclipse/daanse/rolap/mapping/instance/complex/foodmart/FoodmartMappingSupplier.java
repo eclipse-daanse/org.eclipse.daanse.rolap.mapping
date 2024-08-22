@@ -1283,7 +1283,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final StandardDimensionMappingImpl DIMENSION_CUSTOMERS = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_CUSTOMERS)
-        .withHierarchies(List.of())
+        .withHierarchies(List.of(customersHierarchy))
         .build();
 
     private static final StandardDimensionMappingImpl DIMENSION_EDUCATION_LEVEL = StandardDimensionMappingImpl.builder()
