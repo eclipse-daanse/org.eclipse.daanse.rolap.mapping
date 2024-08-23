@@ -284,6 +284,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String TABLE_COLUMN_THE_YEAR = "the_year";
 
+    private static final String TABLE_COLUMN_WEEK_OF_YEAR = "week_of_year";
+
+    private static final String TABLE_COLUMN_DAY_OF_MONTH = "day_of_month";
+
     private static final String YEAR = "Year";
 
     private static final String TABLE_COLUMN_STORE_SQFT = "store_sqft";
@@ -527,6 +531,22 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withType(DataType.NUMERIC)
         .withLevelType(LevelType.TIME_YEARS)
         .build();
+
+    private static final LevelMappingImpl LEVEL_WEEK = LevelMappingImpl.builder()
+            .withName("Week")
+            .withColumn(TABLE_COLUMN_WEEK_OF_YEAR)
+            .withType(DataType.NUMERIC)
+            .withUniqueMembers(false)
+            .withLevelType(LevelType.TIME_WEEKS)
+            .build();
+
+    private static final LevelMappingImpl LEVEL_DAY = LevelMappingImpl.builder()
+            .withName("Day")
+            .withColumn(TABLE_COLUMN_DAY_OF_MONTH)
+            .withType(DataType.NUMERIC)
+            .withUniqueMembers(false)
+            .withLevelType(LevelType.TIME_DAYS)
+            .build();
 
     private static final LevelMappingImpl LEVEL_QUARTER = LevelMappingImpl.builder()
         .withName(QUARTER)
@@ -991,7 +1011,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final HierarchyMappingImpl storeHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_STORE_SQFT)
+        .withPrimaryKey(TABLE_COLUMN_STORE_ID)
         .withQuery(QUERY_TABLE_STORE)
         .withLevels(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_CYTY_UNIQUE_MEMBERS_TRUE, LEVEL_STORE_CYTY,
             LEVEL_STORE_NAME_WITHOUT_TABLE))
@@ -1021,6 +1041,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withPrimaryKey(TABLE_COLUMN_EMPLOYEE_ID)
+                .withPrimaryKeyTable(EMPLOYEE)
                 .withQuery(JOIN_EMPLOYEE_STORE)
                 .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_TABLE, LEVEL_STORE_CYTY_WITH_TABLE,
                     LEVEL_STORE_CYTY_WITH_TABLE_COLUMN_STORE_CITY, LEVEL_STORE_NAME_WITH_TABLE))
@@ -1077,7 +1098,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withPrimaryKey(TABLE_COLUMN_TIME_ID)
             .withQuery(QUERY_TABLE_TIME_BY_DAY)
             .withLevels(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH))
-            .build()))
+            .build(), HierarchyMappingImpl.builder()
+            .withHasAll(true)
+            .withPrimaryKey(TABLE_COLUMN_TIME_ID)
+            .withName("Weekly")
+            .withQuery(QUERY_TABLE_TIME_BY_DAY)
+            .withLevels(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY))
+            .build()
+            ))
         .build();
 
     private static final TimeDimensionMappingImpl DIMENSION_TIME_HR = TimeDimensionMappingImpl.builder()
