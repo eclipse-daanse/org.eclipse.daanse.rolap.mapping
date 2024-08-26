@@ -1619,7 +1619,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = memberPropertyDocumentation(memberProperty);
 
             MemberPropertyFormatterMapping formatter = memberPropertyFormatter(memberProperty);
-            String column = memberPropertyId(memberProperty);
+            String column = memberPropertyColumn(memberProperty);
             boolean dependsOnLevelValue = memberPropertyDependsOnLevelValue(memberProperty);
             DataType type = memberDataType(memberProperty);
 
@@ -1629,7 +1629,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected abstract MemberPropertyMapping createMemberProperty(
+    private String memberPropertyColumn(MemberPropertyMapping memberProperty) {
+		return memberProperty.getColumn();
+	}
+
+	protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
         String id, String description, String name, DocumentationMapping documentation,
         MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType type
