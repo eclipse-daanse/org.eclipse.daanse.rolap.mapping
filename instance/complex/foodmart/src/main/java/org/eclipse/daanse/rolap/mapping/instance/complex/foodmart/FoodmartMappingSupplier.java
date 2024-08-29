@@ -1059,15 +1059,17 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .build()))
             .build();
 
+    public static final HierarchyMappingImpl HIERARCHY_STORE_TYPE = HierarchyMappingImpl.builder()
+        .withHasAll(true)
+        .withPrimaryKey(TABLE_COLUMN_STORE_ID)
+        .withQuery(QUERY_TABLE_STORE)
+        .withLevels(List.of(LEVEL_STORE_TYPE_WITHOUT_TABLE))
+        .build();
+
     public static final StandardDimensionMappingImpl DIMENSION_STORE_TYPE_WITH_QUERY_STORE =
         StandardDimensionMappingImpl.builder()
             .withName(NAME_DIMENSION_STORE_TYPE)
-            .withHierarchies(List.of(HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withPrimaryKey(TABLE_COLUMN_STORE_ID)
-                .withQuery(QUERY_TABLE_STORE)
-                .withLevels(List.of(LEVEL_STORE_TYPE_WITHOUT_TABLE))
-                .build()))
+            .withHierarchies(List.of(HIERARCHY_STORE_TYPE))
             .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_STORE_TYPE_WITHOUT_QUERY =
@@ -1091,21 +1093,24 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .build()))
             .build();
 
-    public static final TimeDimensionMappingImpl DIMENSION_TIME = TimeDimensionMappingImpl.builder()
-        .withName(NAME_DIMENSION_TIME)
-        .withHierarchies(List.of(HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl HIERARCHY_TIME1 = HierarchyMappingImpl.builder()
             .withHasAll(false)
             .withPrimaryKey(TABLE_COLUMN_TIME_ID)
             .withQuery(QUERY_TABLE_TIME_BY_DAY)
             .withLevels(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH))
-            .build(), HierarchyMappingImpl.builder()
+            .build();
+
+    public static final HierarchyMappingImpl HIERARCHY_TIME2 = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(TABLE_COLUMN_TIME_ID)
             .withName("Weekly")
             .withQuery(QUERY_TABLE_TIME_BY_DAY)
             .withLevels(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY))
-            .build()
-            ))
+            .build();
+
+    public static final TimeDimensionMappingImpl DIMENSION_TIME = TimeDimensionMappingImpl.builder()
+        .withName(NAME_DIMENSION_TIME)
+        .withHierarchies(List.of(HIERARCHY_TIME1, HIERARCHY_TIME2))
         .build();
 
     public static final TimeDimensionMappingImpl DIMENSION_TIME_HR = TimeDimensionMappingImpl.builder()
@@ -1118,17 +1123,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
+    public static final HierarchyMappingImpl HIERARCHY_PRODUCT1 = HierarchyMappingImpl.builder()
+            .withHasAll(true)
+            .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
+            .withPrimaryKeyTable(TABLE_PRODUCT)
+            .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
+            .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
+                LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
+            .build();
+
     public static final StandardDimensionMappingImpl DIMENSION_PRODUCT = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_PRODUCT)
         .withHierarchies(List.of(
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
-                    LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
-                .build(),
+            HIERARCHY_PRODUCT1,
             HierarchyMappingImpl.builder()
                 .withHasAll(true)
                 .withName(PRODUCT_FAMILY)
@@ -1255,16 +1262,18 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             ))
             .build();
 
-    public static final StandardDimensionMappingImpl DIMENSION_PROMOTION_MEDIA = StandardDimensionMappingImpl.builder()
-        .withName(NAME_DIMENSION_PROMOTION_MEDIA)
-        .withHierarchies(List.of(HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl HIERARCHY_PROMOTION_MEDIA = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName(ALL_MEDIA)
             .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
             .withDefaultMember(ALL_MEDIA)
             .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(LEVEL_MEDIA_TYPE))
-            .build()))
+            .build();
+
+    public static final StandardDimensionMappingImpl DIMENSION_PROMOTION_MEDIA = StandardDimensionMappingImpl.builder()
+        .withName(NAME_DIMENSION_PROMOTION_MEDIA)
+        .withHierarchies(List.of(HIERARCHY_PROMOTION_MEDIA))
         .build();
 
     public static final StandardDimensionMappingImpl promotionMedia1Dimension = StandardDimensionMappingImpl.builder()
@@ -1314,17 +1323,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(customersHierarchy))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_EDUCATION_LEVEL = StandardDimensionMappingImpl.builder()
-        .withName(NAME_DIMENSION_EDUCATION_LEVEL)
-        .withHierarchies(List.of(HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl HIERARCHY_EDUCATION_LEVEL = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
             .withQuery(QUERY_TABLE_CUSTOMER)
             .withLevels(List.of(LEVEL_EDUCATION))
-            .build()))
+            .build();
+
+    public static final StandardDimensionMappingImpl DIMENSION_EDUCATION_LEVEL = StandardDimensionMappingImpl.builder()
+        .withName(NAME_DIMENSION_EDUCATION_LEVEL)
+        .withHierarchies(List.of(HIERARCHY_EDUCATION_LEVEL))
         .build();
 
-    private static final HierarchyMappingImpl genderHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl genderHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withAllMemberName(ALL_GENDER)
         .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
@@ -1332,12 +1343,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL_GENDER))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_GENDER = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_GENDER = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_GENDER)
         .withHierarchies(List.of(genderHierarchy))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_MARITAL_STATUS = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_MARITAL_STATUS = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_MARITAL_STATUS)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1348,7 +1359,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME =
+    public static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME =
         StandardDimensionMappingImpl.builder()
             .withName(NAME_DIMENSION_YEARLY_INCOME)
             .withHierarchies(List.of(HierarchyMappingImpl.builder()
@@ -1360,7 +1371,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .build()))
             .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_YEARLY_INCOME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1370,7 +1381,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_HAS_COFFEE_BAR = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_HAS_COFFEE_BAR = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_HAS_COFFEE_BAR)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1378,7 +1389,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_PAY_TYPE = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_PAY_TYPE = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_PAY_TYPE)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1389,7 +1400,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_POSITION = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_POSITION = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_POSITION)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1400,7 +1411,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_DEPARTMENT = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_DEPARTMENT = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_DEPARTMENT)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1410,7 +1421,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_EMPLOYEES = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_EMPLOYEES = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_EMPLOYEES)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1421,7 +1432,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    private static final StandardDimensionMappingImpl DIMENSION_GEOGRAPHY = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl DIMENSION_GEOGRAPHY = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_GEOGRAPHY)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
@@ -1726,7 +1737,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             MEASURE_CUSTOMER_COUNT_WITH_PROPERTY))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_SALES = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_SALES = PhysicalCubeMappingImpl.builder()
         .withName("Sales")
         .withQuery(TABLE_QUERY_FACT_SALES_1997_WITH_AGG_EXCLUSED)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_SALES))
@@ -1757,7 +1768,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             CALCULATED_MEMBER_PROFIT_GROWINN))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_WAREHOUSE = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_WAREHOUSE = PhysicalCubeMappingImpl.builder()
         .withName(NAME_CUBE_WAREHOUSE)
         .withQuery(QUERY_TABLE_inventoryFact1997)
         .withDocumentation(new DocumentationMappingImpl(""))
@@ -1776,7 +1787,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_STORE = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_STORE = PhysicalCubeMappingImpl.builder()
         .withName(NAME_CUBE_STORE)
         .withQuery(QUERY_TABLE_STORE)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_STORE))
@@ -1788,7 +1799,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_HR = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_HR = PhysicalCubeMappingImpl.builder()
         .withName("HR")
         .withQuery(QUERY_TABLE_SALARY)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_HR))
@@ -1805,7 +1816,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_EMPLOEE_SALARY, CALCULATED_MEMBER_AVG_SALARY))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_SALES_RAGGED = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_SALES_RAGGED = PhysicalCubeMappingImpl.builder()
         .withName("Sales Ragged")
         .withQuery(TABLE_QUERY_FACT_SALES_1997_WITH_AGG_EXCLUSED_FOR_CUBE_SALES_RAGGED)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED))
@@ -1827,7 +1838,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withDocumentation(new DocumentationMappingImpl(""))
         .build();
 
-    private static final PhysicalCubeMappingImpl CUBE_SALES_2 = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl CUBE_SALES_2 = PhysicalCubeMappingImpl.builder()
         .withName("Sales 2")
         .withQuery(TABLE_QUERY_FACT_SALES_1997)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_SALES2))
@@ -1841,7 +1852,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2))
         .build();
 
-    private static final VirtualCubeMappingImpl CUBE_VIRTIAL_WAREHOUSE_AND_SALES = VirtualCubeMappingImpl.builder()
+    public static final VirtualCubeMappingImpl CUBE_VIRTIAL_WAREHOUSE_AND_SALES = VirtualCubeMappingImpl.builder()
         .withName("Warehouse and Sales")
         .withDefaultMeasure(MEASURE_STORE_SALES)
         .withDimensionConnectors(List.of(
