@@ -1630,10 +1630,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     private String memberPropertyColumn(MemberPropertyMapping memberProperty) {
-		return memberProperty.getColumn();
-	}
+        return memberProperty.getColumn();
+    }
 
-	protected abstract MemberPropertyMapping createMemberProperty(
+    protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
         String id, String description, String name, DocumentationMapping documentation,
         MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType type
@@ -3038,4 +3038,48 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AccessRoleMapping defaultAccessRole, String measuresDimensionName
     );
 
+
+    protected CubeMapping look (CubeMapping c) {
+        return cubeMap.get(c);
+    }
+
+    protected DimensionMapping look (DimensionMapping d) {
+        return dimensionMap.get(d);
+    }
+
+    protected HierarchyMapping look (HierarchyMapping h) {
+        return hierarchyMap.get(h);
+    }
+
+    protected LevelMapping look (LevelMapping l) {
+        return levelMap.get(l);
+    }
+
+    protected FormatterMapping look (FormatterMapping f) {
+        return formatterMap.get(f);
+    }
+
+    protected DatabaseSchema look (DatabaseSchema d) {
+        return dbSchemaMap.get(d);
+    }
+
+    protected MeasureMapping look (MeasureMapping m) {
+        return measureMap.get(m);
+    }
+
+    protected AccessRoleMapping look (AccessRoleMapping r) {
+        return accessRoleMap.get(r);
+    }
+
+    protected AggregationTableMapping look (AggregationTableMapping at) {
+        return aggregationTableMap.get(at);
+    }
+
+    protected AggregationExcludeMapping look (AggregationExcludeMapping ae) {
+        return aggregationExcludeMap.get(ae);
+    }
+
+    protected QueryMapping look (QueryMapping q) {
+        return queryMap.get(q);
+    }
 }
