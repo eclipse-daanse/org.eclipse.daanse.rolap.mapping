@@ -882,6 +882,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withType(DataType.NUMERIC)
         .withColumn(TABLE_COLUMN_EMPLOYEE_ID)
         .withParentColumn("supervisor_id")
+        .withNameColumn("full_name")
         .withNullParentValue("0")
         .withParentChildLink(
             ParentChildLinkMappingImpl.builder()
