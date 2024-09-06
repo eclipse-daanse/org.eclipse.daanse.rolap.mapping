@@ -241,7 +241,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withLevels(List.of(typeLevel))
             .build();
 
-    private static final TimeDimensionMappingImpl orderStatusDimension = TimeDimensionMappingImpl.builder()
+    private static final StandardDimensionMappingImpl orderStatusDimension = StandardDimensionMappingImpl.builder()
             .withName("Order Status")
             .withHierarchies(List.of(orderStatusHierarchy))
             .build();
