@@ -1536,7 +1536,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final MeasureMappingImpl MEASURE_PROMOTION_SALES = MeasureMappingImpl.builder()
         .withName("Promotion Sales")
-        .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
+        .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .withMeasureExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
