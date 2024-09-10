@@ -14,12 +14,16 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface MeasureGroupMapping {
+public interface MemberMapping extends AbstractElementMapping {
 
-    List<? extends MeasureMapping> getMeasures();
+    String getDisplayFolder();
 
-    String getName();
+    String getFormatString();
 
-    PhysicalCubeMapping getPhysicalCube();
+    boolean isVisible();
+
+    CellFormatterMapping getCellFormatter();
+
+    List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperties();
 
 }

@@ -12,24 +12,14 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import java.util.List;
-
-public interface CalculatedMemberMapping extends AbstractElementMapping {
-
-    List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperties();
-
-    CellFormatterMapping getCellFormatter();
+public interface CalculatedMemberMapping extends MemberMapping {
 
     String getFormula();
-
-    String getDisplayFolder();
-
-    String getFormatString();
 
     HierarchyMapping getHierarchy();
 
     String getParent();
 
-    boolean isVisible();
+    PhysicalCubeMapping getPhysicalCube();
 
 }

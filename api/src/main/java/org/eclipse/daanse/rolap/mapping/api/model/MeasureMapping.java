@@ -12,18 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import java.util.List;
-
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
-public interface MeasureMapping extends AbstractElementMapping{
+public interface MeasureMapping extends MemberMapping{
 
     SQLExpressionMapping getMeasureExpression();
-
-    List<? extends CalculatedMemberPropertyMapping> getCalculatedMemberProperty();
-
-    CellFormatterMapping getCellFormatter();
 
     String getBackColor();
 
@@ -31,14 +25,7 @@ public interface MeasureMapping extends AbstractElementMapping{
 
     DataType getDatatype();
 
-    String getDisplayFolder();
-
-    String getFormatString();
-
-    String getFormatter();
-
-    boolean isVisible();
-
     MeasureAggregatorType getAggregatorType();
 
+    MeasureGroupMapping getMeasureGroup();
 }

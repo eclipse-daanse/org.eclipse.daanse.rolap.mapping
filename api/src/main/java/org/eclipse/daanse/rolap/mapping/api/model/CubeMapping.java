@@ -30,6 +30,4 @@ public interface CubeMapping extends AbstractElementMapping {
 
     boolean isVisible();
 
-    List<? extends MeasureGroupMapping> getMeasureGroups();
-
 }

@@ -18,4 +18,8 @@ public interface VirtualCubeMapping extends CubeMapping {
 
     List<? extends CubeConnectorMapping> getCubeUsages();
 
+    List<? extends MeasureMapping> getReferencedMeasureMappings();
+
+    List<? extends CalculatedMemberMapping> getReferencedCalculatedMembers();
+
 }

@@ -24,4 +24,6 @@ public interface PhysicalCubeMapping extends CubeMapping {
 
     boolean isCache();
 
+    List<? extends MeasureGroupMapping> getMeasureGroups();
+
 }
