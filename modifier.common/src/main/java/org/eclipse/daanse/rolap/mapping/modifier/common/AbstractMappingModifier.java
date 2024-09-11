@@ -114,8 +114,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     private Map<DatabaseSchema, DatabaseSchema> dbSchemaMap = new HashMap<>();
 
-    private Map<MeasureMapping, MeasureMapping> measureMap = new HashMap<>();
-
     private Map<AccessRoleMapping, AccessRoleMapping> accessRoleMap = new HashMap<>();
 
     private Map<AggregationTableMapping, AggregationTableMapping> aggregationTableMap = new HashMap<>();
@@ -1472,11 +1470,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean visible = levelVisible(level);
                 String name = levelName(level);
                 String id = levelId(level);
-                LevelMapping l = createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
+                return createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
                     parentExpression, parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
                     parentColumn, table, type, uniqueMembers, visible, name, id);
-                return l;
             } else {
                 return levelMap.get(level);
             }
@@ -2057,11 +2054,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
                 boolean enabled = cubeEnabled(cube);
                 boolean visible = cubeVisible(cube);
-                List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
+                List<? extends MeasureMapping> referencedMeasures = virtualCubeReferencedMeasures(cube);
+                List<? extends CalculatedMemberMapping> referencedCalculatedMembers =
+                    virtualCubeReferencedCalculatedMembers(cube);
                 List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(cube);
                 VirtualCubeMapping vc = createVirtualCube(annotations, id, description, name, documentation,
                     dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
-                    measureGroups, cubeUsages);
+                    referencedMeasures, referencedCalculatedMembers, cubeUsages);
                 cubeMap.put(cube, vc);
                 return vc;
             } else {
@@ -2070,6 +2069,14 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
         }
         return null;
+    }
+
+    private List<? extends CalculatedMemberMapping> virtualCubeReferencedCalculatedMembers(VirtualCubeMapping cube) {
+        return calculatedMembers(cube.getReferencedCalculatedMembers());
+    }
+
+    private List<? extends MeasureMapping> virtualCubeReferencedMeasures(VirtualCubeMapping cube) {
+        return measures(cube.getReferencedMeasures());
     }
 
     protected PhysicalCubeMapping physicalCube(PhysicalCubeMapping cube) {
@@ -2136,12 +2143,21 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract VirtualCubeMapping createVirtualCube(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        List<? extends AnnotationMapping> annotations,
+        String id,
+        String description,
+        String name,
+        DocumentationMapping documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
-        List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-        List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages
+        List<? extends CalculatedMemberMapping> calculatedMembers,
+        List<? extends NamedSetMapping> namedSets,
+        List<? extends KpiMapping> kpis,
+        MeasureMapping defaultMeasure,
+        boolean enabled,
+        boolean visible,
+        List<? extends MeasureMapping> referencedMeasures,
+        List<? extends CalculatedMemberMapping> referencedCalculatedMembers,
+        List<? extends CubeConnectorMapping> cubeUsages
     );
 
     protected abstract PhysicalCubeMapping createPhysicalCube(
@@ -2378,7 +2394,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return query(pc.getQuery());
     }
 
-    protected List<? extends MeasureGroupMapping> getMeasureGroups(CubeMapping cube) {
+    protected List<? extends MeasureGroupMapping> getMeasureGroups(PhysicalCubeMapping cube) {
         return measureGroups(cube.getMeasureGroups());
     }
 
@@ -2429,29 +2445,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected MeasureMapping measure(MeasureMapping measure) {
         if (measure != null) {
-            if (!measureMap.containsKey(measure)) {
-                SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
-                List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
-                    measureCalculatedMemberProperty(
-                        measure);
-                CellFormatterMapping cellFormatter = measureCellFormatter(measure);
-                String backColor = measureBackColor(measure);
-                String column = measureColumn(measure);
-                DataType datatype = measureDatatype(measure);
-                String displayFolder = measureDisplayFolder(measure);
-                String formatString = measureFormatString(measure);
-                String formatter = measureFormatter(measure);
-                boolean visible = measureVisible(measure);
-                String name = measureName(measure);
-                String id = measureId(measure);
-                MeasureAggregatorType aggregatorType = aggregatorType(measure);
-                MeasureMapping m = createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
-                    column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
-                measureMap.put(measure, m);
-                return m;
-            } else {
-                return measureMap.get(measure);
-            }
+            SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
+                measureCalculatedMemberProperty(
+                    measure);
+            CellFormatterMapping cellFormatter = measureCellFormatter(measure);
+            String backColor = measureBackColor(measure);
+            String column = measureColumn(measure);
+            DataType datatype = measureDatatype(measure);
+            String displayFolder = measureDisplayFolder(measure);
+            String formatString = measureFormatString(measure);
+            String formatter = measureFormatter(measure);
+            boolean visible = measureVisible(measure);
+            String name = measureName(measure);
+            String id = measureId(measure);
+            MeasureAggregatorType aggregatorType = aggregatorType(measure);
+            return createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
+                column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
         }
         return null;
     }
@@ -2557,7 +2567,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     );
 
     protected List<? extends CalculatedMemberPropertyMapping> measureCalculatedMemberProperty(MeasureMapping measure) {
-        return calculatedMemberProperties(measure.getCalculatedMemberProperty());
+        return calculatedMemberProperties(measure.getCalculatedMemberProperties());
     }
 
     protected List<CalculatedMemberPropertyMapping> calculatedMemberProperties(
@@ -3038,48 +3048,43 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AccessRoleMapping defaultAccessRole, String measuresDimensionName
     );
 
-
-    protected CubeMapping look (CubeMapping c) {
+    protected CubeMapping look(CubeMapping c) {
         return cubeMap.get(c);
     }
 
-    protected DimensionMapping look (DimensionMapping d) {
+    protected DimensionMapping look(DimensionMapping d) {
         return dimensionMap.get(d);
     }
 
-    protected HierarchyMapping look (HierarchyMapping h) {
+    protected HierarchyMapping look(HierarchyMapping h) {
         return hierarchyMap.get(h);
     }
 
-    protected LevelMapping look (LevelMapping l) {
+    protected LevelMapping look(LevelMapping l) {
         return levelMap.get(l);
     }
 
-    protected FormatterMapping look (FormatterMapping f) {
+    protected FormatterMapping look(FormatterMapping f) {
         return formatterMap.get(f);
     }
 
-    protected DatabaseSchema look (DatabaseSchema d) {
+    protected DatabaseSchema look(DatabaseSchema d) {
         return dbSchemaMap.get(d);
     }
 
-    protected MeasureMapping look (MeasureMapping m) {
-        return measureMap.get(m);
-    }
-
-    protected AccessRoleMapping look (AccessRoleMapping r) {
+    protected AccessRoleMapping look(AccessRoleMapping r) {
         return accessRoleMap.get(r);
     }
 
-    protected AggregationTableMapping look (AggregationTableMapping at) {
+    protected AggregationTableMapping look(AggregationTableMapping at) {
         return aggregationTableMap.get(at);
     }
 
-    protected AggregationExcludeMapping look (AggregationExcludeMapping ae) {
+    protected AggregationExcludeMapping look(AggregationExcludeMapping ae) {
         return aggregationExcludeMap.get(ae);
     }
 
-    protected QueryMapping look (QueryMapping q) {
+    protected QueryMapping look(QueryMapping q) {
         return queryMap.get(q);
     }
 }

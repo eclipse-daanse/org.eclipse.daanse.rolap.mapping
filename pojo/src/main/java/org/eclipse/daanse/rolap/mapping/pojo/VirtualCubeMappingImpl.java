@@ -15,14 +15,20 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 
 public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCubeMapping {
 
     private List<CubeConnectorMappingImpl> cubeUsages;
+    private List<? extends MeasureMapping> referencedMeasures;
+    private List<? extends CalculatedMemberMapping> referencedCalculatedMembers;
 
     private VirtualCubeMappingImpl(Builder builder) {
         this.cubeUsages = builder.cubeUsages;
+        this.referencedMeasures = builder.referencedMeasures;
+        this.referencedCalculatedMembers = builder.referencedCalculatedMembers;
         super.setDimensionConnectors(builder.dimensionConnectors);
         super.setCalculatedMembers(builder.calculatedMembers);
         super.setNamedSets(builder.namedSets);
@@ -30,7 +36,6 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         super.setDefaultMeasure(builder.defaultMeasure);
         super.setEnabled(builder.enabled);
         super.setVisible(builder.visible);
-        super.setMeasureGroups(builder.measureGroups);
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
@@ -38,12 +43,31 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         super.setDocumentation(builder.documentation);
     }
 
+    @Override
     public List<CubeConnectorMappingImpl> getCubeUsages() {
         return cubeUsages;
     }
 
     public void setCubeUsages(List<CubeConnectorMappingImpl> cubeUsages) {
         this.cubeUsages = cubeUsages;
+    }
+
+    @Override
+    public List<? extends MeasureMapping> getReferencedMeasures() {
+        return referencedMeasures;
+    }
+
+    public void setReferencedMeasures(List<MeasureMappingImpl> referencedMeasures) {
+        this.referencedMeasures = referencedMeasures;
+    }
+
+    @Override
+    public List<? extends CalculatedMemberMapping> getReferencedCalculatedMembers() {
+        return referencedCalculatedMembers;
+    }
+
+    public void setReferencedCalculatedMembers(List<CalculatedMemberMappingImpl> referencedCalculatedMembers) {
+        this.referencedCalculatedMembers = referencedCalculatedMembers;
     }
 
     public static Builder builder() {
@@ -59,12 +83,13 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         private MeasureMappingImpl defaultMeasure;
         private boolean enabled = true;
         private boolean visible = true;
-        private List<MeasureGroupMappingImpl> measureGroups = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
+        private List<? extends MeasureMapping> referencedMeasures;
+        private List<? extends CalculatedMemberMapping> referencedCalculatedMembers;
 
         private Builder() {
         }
@@ -109,11 +134,6 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
             return this;
         }
 
-        public Builder withMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
-            this.measureGroups = measureGroups;
-            return this;
-        }
-
         public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
             this.annotations = annotations;
             return this;
@@ -136,6 +156,16 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
 
         public Builder withDocumentation(DocumentationMappingImpl documentation) {
             this.documentation = documentation;
+            return this;
+        }
+
+        public Builder withReferencedMeasures(List<? extends MeasureMapping> referencedMeasures) {
+            this.referencedMeasures = referencedMeasures;
+            return this;
+        }
+
+        public Builder withReferencedCalculatedMembers(List<? extends CalculatedMemberMapping> referencedCalculatedMembers) {
+            this.referencedCalculatedMembers = referencedCalculatedMembers;
             return this;
         }
 

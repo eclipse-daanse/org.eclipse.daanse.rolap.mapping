@@ -16,59 +16,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
-public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl implements CalculatedMemberMapping {
-
-    private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties;
-
-    private CellFormatterMappingImpl cellFormatter;
+public class CalculatedMemberMappingImpl extends MemberMappingImpl implements CalculatedMemberMapping {
 
     private String formula;
-
-    private String displayFolder;
-
-    private String formatString;
-
     private HierarchyMappingImpl hierarchy;
-
-    private DimensionConnectorMappingImpl dimensionConector;
 
     private String parent;
 
-    private boolean visible = true;
+    private PhysicalCubeMapping physicalCube;
 
     private CalculatedMemberMappingImpl(Builder builder) {
-        this.calculatedMemberProperties = builder.calculatedMemberProperties;
-        this.cellFormatter = builder.cellFormatter;
         this.formula = builder.formula;
-        this.displayFolder = builder.displayFolder;
-        this.formatString = builder.formatString;
         this.hierarchy = builder.hierarchy;
         this.parent = builder.parent;
+        this.physicalCube = builder.physicalCube;
         this.setVisible(builder.visible);
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
         super.setDocumentation(builder.documentation);
+        super.setDisplayFolder(builder.displayFolder);
+        super.setFormatString(builder.formatString);
+        super.setVisible(builder.visible);
+        super.setCellFormatter(builder.cellFormatter);
+        super.setCalculatedMemberProperties(builder.calculatedMemberProperties);
     }
 
-    public List<CalculatedMemberPropertyMappingImpl> getCalculatedMemberProperties() {
-        return calculatedMemberProperties;
-    }
-
-    public void setCalculatedMemberProperties(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
-        this.calculatedMemberProperties = calculatedMemberProperties;
-    }
-
-    public CellFormatterMappingImpl getCellFormatter() {
-        return cellFormatter;
-    }
-
-    public void setCellFormatter(CellFormatterMappingImpl cellFormatter) {
-        this.cellFormatter = cellFormatter;
-    }
-
+    @Override
     public String getFormula() {
         return formula;
     }
@@ -77,22 +54,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         this.formula = formula;
     }
 
-    public String getDisplayFolder() {
-        return displayFolder;
-    }
-
-    public void setDisplayFolder(String displayFolder) {
-        this.displayFolder = displayFolder;
-    }
-
-    public String getFormatString() {
-        return formatString;
-    }
-
-    public void setFormatString(String formatString) {
-        this.formatString = formatString;
-    }
-
+    @Override
     public HierarchyMappingImpl getHierarchy() {
         return hierarchy;
     }
@@ -101,14 +63,7 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         this.hierarchy = hierarchy;
     }
 
-    public DimensionConnectorMappingImpl getDimensionConector() {
-        return dimensionConector;
-    }
-
-    public void setDimensionConector(DimensionConnectorMappingImpl dimensionConector) {
-        this.dimensionConector = dimensionConector;
-    }
-
+    @Override
     public String getParent() {
         return parent;
     }
@@ -121,15 +76,17 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         return new Builder();
     }
 
-    public boolean isVisible() {
-        return visible;
+    @Override
+    public PhysicalCubeMapping getPhysicalCube() {
+        return physicalCube;
     }
 
-    public void setVisible(boolean visible) {
-        this.visible = visible;
+    public void setPhysicalCube(PhysicalCubeMapping physicalCube) {
+        this.physicalCube = physicalCube;
     }
 
     public static final class Builder {
+
         private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String formula;
@@ -143,12 +100,14 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
+        private PhysicalCubeMapping physicalCube;
 
         private Builder() {
         }
 
         public Builder withCalculatedMemberProperties(
-                List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
+            List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties
+        ) {
             this.calculatedMemberProperties = calculatedMemberProperties;
             return this;
         }
@@ -213,8 +172,14 @@ public class CalculatedMemberMappingImpl extends AbstractElementMappingImpl impl
             return this;
         }
 
+        public Builder withPhysicalCube(PhysicalCubeMapping physicalCube) {
+            this.physicalCube = physicalCube;
+            return this;
+        }
+
         public CalculatedMemberMappingImpl build() {
             return new CalculatedMemberMappingImpl(this);
         }
     }
+
 }

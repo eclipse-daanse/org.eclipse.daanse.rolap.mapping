@@ -15,17 +15,14 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
-public class MeasureMappingImpl extends AbstractElementMappingImpl implements MeasureMapping {
+public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapping {
 
     private SQLExpressionMappingImpl measureExpression;
-
-    private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty;
-
-    private CellFormatterMappingImpl cellFormatter;
 
     private String backColor;
 
@@ -33,33 +30,31 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     private DataType datatype;
 
-    private String displayFolder;
-
-    private String formatString;
-
     private String formatter;
-
-    private boolean visible;
 
     private MeasureAggregatorType aggregatorType;
 
+    private MeasureGroupMapping measureGroup;
+
     private MeasureMappingImpl(Builder builder) {
         this.measureExpression = builder.measureExpression;
-        this.calculatedMemberProperty = builder.calculatedMemberProperty;
-        this.cellFormatter = builder.cellFormatter;
         this.backColor = builder.backColor;
         this.column = builder.column;
         this.datatype = builder.datatype;
-        this.displayFolder = builder.displayFolder;
-        this.formatString = builder.formatString;
         this.formatter = builder.formatter;
-        this.visible = builder.visible;
         this.aggregatorType = builder.aggregatorType;
+        this.measureGroup = builder.measureGroup;
         super.setName(builder.name);
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
         super.setDescription(builder.description);
         super.setDocumentation(builder.documentation);
+        super.setDisplayFolder(builder.displayFolder);
+        super.setFormatString(builder.formatString);
+        super.setVisible(builder.visible);
+        super.setCellFormatter(builder.cellFormatter);
+        super.setCalculatedMemberProperties(builder.calculatedMemberProperties);
+
     }
 
     public SQLExpressionMappingImpl getMeasureExpression() {
@@ -68,22 +63,6 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
 
     public void setMeasureExpression(SQLExpressionMappingImpl measureExpression) {
         this.measureExpression = measureExpression;
-    }
-
-    public List<CalculatedMemberPropertyMappingImpl> getCalculatedMemberProperty() {
-        return calculatedMemberProperty;
-    }
-
-    public void setCalculatedMemberProperty(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty) {
-        this.calculatedMemberProperty = calculatedMemberProperty;
-    }
-
-    public CellFormatterMappingImpl getCellFormatter() {
-        return cellFormatter;
-    }
-
-    public void setCellFormatter(CellFormatterMappingImpl cellFormatter) {
-        this.cellFormatter = cellFormatter;
     }
 
     public String getBackColor() {
@@ -110,36 +89,12 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.datatype = datatype;
     }
 
-    public String getDisplayFolder() {
-        return displayFolder;
-    }
-
-    public void setDisplayFolder(String displayFolder) {
-        this.displayFolder = displayFolder;
-    }
-
-    public String getFormatString() {
-        return formatString;
-    }
-
-    public void setFormatString(String formatString) {
-        this.formatString = formatString;
-    }
-
     public String getFormatter() {
         return formatter;
     }
 
     public void setFormatter(String formatter) {
         this.formatter = formatter;
-    }
-
-    public boolean isVisible() {
-        return visible;
-    }
-
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 
     public MeasureAggregatorType getAggregatorType() {
@@ -150,13 +105,18 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         this.aggregatorType = type;
     }
 
+    public MeasureGroupMapping getMeasureGroup() {
+        return measureGroup;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
     public static final class Builder {
+
         private SQLExpressionMappingImpl measureExpression;
-        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty = new ArrayList<>();
+        private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
         private String column;
@@ -171,6 +131,7 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String description;
         private DocumentationMappingImpl documentation;
+        private MeasureGroupMapping measureGroup;
 
         private Builder() {
         }
@@ -181,8 +142,9 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
         }
 
         public Builder withCalculatedMemberProperty(
-                List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperty) {
-            this.calculatedMemberProperty = calculatedMemberProperty;
+            List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties
+        ) {
+            this.calculatedMemberProperties = calculatedMemberProperties;
             return this;
         }
 
@@ -256,10 +218,18 @@ public class MeasureMappingImpl extends AbstractElementMappingImpl implements Me
             return this;
         }
 
+        public Builder withMeasureGroup(MeasureGroupMappingImpl measureGroup) {
+            this.measureGroup = measureGroup;
+            return this;
+        }
+
+        public Builder withCalculatedMemberProperties(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
+            this.calculatedMemberProperties = calculatedMemberProperties;
+            return this;
+        }
+
         public MeasureMappingImpl build() {
             return new MeasureMappingImpl(this);
         }
     }
-
-
 }

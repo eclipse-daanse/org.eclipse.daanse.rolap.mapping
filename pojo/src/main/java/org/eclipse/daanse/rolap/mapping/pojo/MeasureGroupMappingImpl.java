@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
 public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
@@ -23,11 +24,15 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
     private String name;
 
+    private PhysicalCubeMapping physicalCube;
+
     private MeasureGroupMappingImpl(Builder builder) {
         this.measures = builder.measures;
         this.name = builder.name;
+        this.physicalCube = builder.physicalCube;
     }
 
+    @Override
     public List<MeasureMappingImpl> getMeasures() {
         return measures;
     }
@@ -36,12 +41,22 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
         this.measures = measures;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public PhysicalCubeMapping getPhysicalCube() {
+        return physicalCube;
+    }
+
+    public void setPhysicalCube(PhysicalCubeMapping physicalCube) {
+        this.physicalCube = physicalCube;
     }
 
     public static Builder builder() {
@@ -51,6 +66,7 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
     public static final class Builder {
         private List<MeasureMappingImpl> measures = new ArrayList<>();
         private String name;
+        private PhysicalCubeMapping physicalCube;
 
         private Builder() {
         }
@@ -62,6 +78,11 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
         public Builder withName(String name) {
             this.name = name;
+            return this;
+        }
+
+        public Builder withPhysicalCube(PhysicalCubeMapping physicalCube) {
+            this.physicalCube = physicalCube;
             return this;
         }
 

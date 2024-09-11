@@ -689,7 +689,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDatatype(datatype)
             .withDisplayFolder(displayFolder)
             .withFormatString(formatString)
-            .withFormatter(formatter)
             .withVisible(visible)
             .withName(name)
             .withId(id)
@@ -941,7 +940,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-        List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages
+        List<? extends MeasureMapping> referencedMeasures, List<? extends CalculatedMemberMapping> referencedCalculatedMembers,
+        List<? extends CubeConnectorMapping> cubeUsages
     ) {
         return VirtualCubeMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -956,7 +956,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDefaultMeasure((MeasureMappingImpl) defaultMeasure)
             .withEnabled(enabled)
             .withVisible(visible)
-            .withMeasureGroups((List<MeasureGroupMappingImpl>) measureGroups)
+            .withReferencedMeasures(referencedMeasures)
+            .withReferencedCalculatedMembers(referencedCalculatedMembers)
             .withCubeUsages((List<CubeConnectorMappingImpl>) cubeUsages)
             .build();
     }

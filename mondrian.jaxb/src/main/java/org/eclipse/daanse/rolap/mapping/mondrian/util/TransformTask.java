@@ -20,6 +20,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
@@ -146,7 +149,6 @@ public class TransformTask {
     private AtomicInteger counterNamedSet = new AtomicInteger();
     private AtomicInteger counterKpi = new AtomicInteger();
     private AtomicInteger counterProperty = new AtomicInteger();
-    private AtomicInteger counterDimensionConnector = new AtomicInteger();
     private AtomicInteger counterAggregationName = new AtomicInteger();
     private AtomicInteger counterAggregationPattern = new AtomicInteger();
     private AtomicInteger counterAggregationExclude = new AtomicInteger();
@@ -177,17 +179,19 @@ public class TransformTask {
 
     private Optional<HierarchyMappingImpl> findHierarchy(String name) {
         return catalog.getHierarchies()
-                .stream()
-                .filter(h -> (h.getName() != null && h.getName().equals(name)))
-                .findAny();
+            .stream()
+            .filter(h -> (h.getName() != null && h.getName().equals(name)))
+            .findAny();
     }
 
     private Optional<MeasureMappingImpl> findMeasure(String name) {
         return catalog.getMeasures().stream().filter(m -> m.getName().equals(name)).findAny();
     }
 
-    private Optional<DimensionMappingImpl> findDimensionByCubeNameByDimensionName(String cubeName,
-            String dimensionName) {
+    private Optional<DimensionMappingImpl> findDimensionByCubeNameByDimensionName(
+        String cubeName,
+        String dimensionName
+    ) {
         Optional<? extends CubeMappingImpl> oCube = findCubeByName(cubeName);
         if (oCube.isPresent()) {
             return findDimensionInCube(oCube.get(), dimensionName);
@@ -198,9 +202,9 @@ public class TransformTask {
     private Optional<DimensionMappingImpl> findDimensionInCube(CubeMappingImpl cube, String name) {
         if (cube != null && cube.getDimensionConnectors() != null) {
             Optional<DimensionConnectorMappingImpl> oDimensionConnector = cube.getDimensionConnectors()
-                    .stream()
-                    .filter(dc -> dc.getDimension().getName().equals(name))
-                    .findAny();
+                .stream()
+                .filter(dc -> dc.getDimension().getName().equals(name))
+                .findAny();
             if (oDimensionConnector.isPresent()) {
                 return Optional.ofNullable(oDimensionConnector.get().getDimension());
             }
@@ -208,33 +212,10 @@ public class TransformTask {
         return Optional.empty();
     }
 
-    private Optional<MeasureMappingImpl> findMeasureByCubeNameByMeasureName(String cubeName, String measureName) {
-        Optional<? extends CubeMappingImpl> oCube = findCubeByName(cubeName);
-        if (oCube.isPresent()) {
-            return findMeasureInCube(oCube.get(), measureName);
-        }
-        return Optional.empty();
-    }
-
-    private Optional<MeasureMappingImpl> findMeasureInCube(CubeMappingImpl cube, String measureName) {
-        if (cube != null && cube.getMeasureGroups() != null) {
-            Optional<MeasureGroupMappingImpl> oMeasureGroup = cube.getMeasureGroups()
-                    .stream()
-                    .filter(mg -> mg.getMeasures().stream().anyMatch(m -> m.getName().equals(measureName)))
-                    .findAny();
-            if (oMeasureGroup.isPresent()) {
-                return oMeasureGroup.get()
-                        .getMeasures()
-                        .stream()
-                        .filter(m -> m.getName().equals(measureName))
-                        .findAny();
-            }
-        }
-        return Optional.empty();
-    }
-
-    private Optional<HierarchyMappingImpl> findHierarchyInDimensionConnectorByName(DimensionConnectorMappingImpl dc,
-            String hierarchyName) {
+    private Optional<HierarchyMappingImpl> findHierarchyInDimensionConnectorByName(
+        DimensionConnectorMappingImpl dc,
+        String hierarchyName
+    ) {
         if (dc != null && dc.getDimension() != null && dc.getDimension().getHierarchies() != null) {
             return dc.getDimension().getHierarchies().stream().filter(h -> h.getName().equals(hierarchyName)).findAny();
         }
@@ -262,7 +243,7 @@ public class TransformTask {
         List<PhysicalCubeMappingImpl> physicalCubes = transformPhysicalCubes(mondrianSchema.cubes());
         List<VirtualCubeMappingImpl> virtualCubes = transformVirtualCubes(mondrianSchema.virtualCubes());
         List<? extends CubeMappingImpl> allCubes = Stream.concat(physicalCubes.stream(), virtualCubes.stream())
-                .toList();
+            .toList();
         catalog.setCubes(allCubes);
         List<AccessRoleMappingImpl> accessRoles = transformRoles(mondrianSchema.roles());
         catalog.setAccessRoles(accessRoles);
@@ -284,7 +265,8 @@ public class TransformTask {
     }
 
     private DocumentationMappingImpl transformDocumentation(
-            Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.Documentation> documentation) {
+        Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.Documentation> documentation
+    ) {
         if (documentation.isPresent()) {
             return new DocumentationMappingImpl(documentation.get().documentation());
         }
@@ -292,12 +274,14 @@ public class TransformTask {
     }
 
     private List<VirtualCubeMappingImpl> transformVirtualCubes(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube> virtualCubes) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube> virtualCubes
+    ) {
         return virtualCubes.stream().map(this::transformVirtualCube).toList();
     }
 
     private VirtualCubeMappingImpl transformVirtualCube(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube virtualCube) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube virtualCube
+    ) {
         VirtualCubeMappingImpl vc = VirtualCubeMappingImpl.builder().build();
         vc.setId("vc_" + counterVirtualCube.incrementAndGet());
         vc.setName(virtualCube.name());
@@ -305,15 +289,79 @@ public class TransformTask {
         vc.setCubeUsages(transformCubeConnector(virtualCube.cubeUsages()));
         vc.setDimensionConnectors(transformVirtualCubeDimensionConnectors(virtualCube.virtualCubeDimensions()));
         vc.setCalculatedMembers(
-                transformCalculatedMembers(vc.getDimensionConnectors(), virtualCube.calculatedMembers()));
+            transformCalculatedMembers(null, vc.getDimensionConnectors(), virtualCube.calculatedMembers()));
         vc.setNamedSets(transformNamedSets(virtualCube.namedSets()));
         vc.setKpis(transformKpis(virtualCube.kpis()));
         Optional<MeasureMappingImpl> oMeasure = findMeasure(virtualCube.defaultMeasure());
         oMeasure.ifPresent(m -> vc.setDefaultMeasure(m));
         vc.setEnabled(virtualCube.enabled());
         vc.setVisible(virtualCube.visible());
-        vc.setMeasureGroups(transformVirtualCubeMeasureGroups(virtualCube.virtualCubeMeasures()));
+        vc.setReferencedMeasures(transformReferencedMeasures(virtualCube.virtualCubeMeasures()));
+        vc.setReferencedCalculatedMembers(transformReferencedCalculatedMembers(virtualCube.virtualCubeMeasures()));
         return vc;
+    }
+
+    private List<CalculatedMemberMappingImpl> transformReferencedCalculatedMembers(
+        List<VirtualCubeMeasure> virtualCubeMeasures
+    ) {
+        if (virtualCubeMeasures != null) {
+            return virtualCubeMeasures.stream().map(this::transformReferencedCalculatedMember).toList();
+        }
+        return List.of();
+    }
+
+    private CalculatedMemberMappingImpl transformReferencedCalculatedMember(VirtualCubeMeasure virtualCubeMeasure) {
+        if (virtualCubeMeasure != null && virtualCubeMeasure.cubeName() != null) {
+            Optional<? extends CubeMappingImpl> oCube = findCubeByName(virtualCubeMeasure.cubeName());
+            if (oCube.isPresent()) {
+                CubeMappingImpl c = oCube.get();
+                if (c instanceof PhysicalCubeMapping pc && pc.getCalculatedMembers() != null) {
+                    Optional<? extends CalculatedMemberMapping> oM =
+                        pc.getCalculatedMembers().stream().filter(m -> m.getName().equals(getMeasureName(virtualCubeMeasure.name()))).findAny();
+                    if (oM.isPresent()) {
+                        return (CalculatedMemberMappingImpl) oM.get();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private List<MeasureMappingImpl> transformReferencedMeasures(List<VirtualCubeMeasure> virtualCubeMeasures) {
+        if (virtualCubeMeasures != null) {
+            return virtualCubeMeasures.stream().map(this::transformReferencedMeasure).toList();
+        }
+        return List.of();
+    }
+
+    private MeasureMappingImpl transformReferencedMeasure(VirtualCubeMeasure virtualCubeMeasure) {
+        if (virtualCubeMeasure != null && virtualCubeMeasure.cubeName() != null) {
+            Optional<? extends CubeMappingImpl> oCube = findCubeByName(virtualCubeMeasure.cubeName());
+            if (oCube.isPresent()) {
+                CubeMappingImpl c = oCube.get();
+                if (c instanceof PhysicalCubeMapping pc && pc.getMeasureGroups() != null) {
+                    List<? extends MeasureMapping> mList =
+                        pc.getMeasureGroups().stream().flatMap(mg -> mg.getMeasures().stream()).toList();
+                    Optional<? extends MeasureMapping> oM =
+                        mList.stream().filter(m -> m.getName().equals(getMeasureName(virtualCubeMeasure.name()))).findAny();
+                    if (oM.isPresent()) {
+                        return (MeasureMappingImpl) oM.get();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private String getMeasureName(String name) {
+        if (name != null) {
+            String n = name.replace("[", "").replace("]", "");
+            String[] arr = n.split("\\.");
+            if (arr.length > 1) {
+                return arr[1];
+            }
+        }
+        return null;
     }
 
     private List<CubeConnectorMappingImpl> transformCubeConnector(List<CubeUsage> cubeUsages) {
@@ -332,22 +380,10 @@ public class TransformTask {
 
     }
 
-    private List<MeasureGroupMappingImpl> transformVirtualCubeMeasureGroups(
-            List<VirtualCubeMeasure> virtualCubeMeasures) {
-        return virtualCubeMeasures.stream().map(this::transformVirtualCubeMeasureGroup).toList();
-    }
-
-    private MeasureGroupMappingImpl transformVirtualCubeMeasureGroup(VirtualCubeMeasure virtualCubeMeasure) {
-        MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder().build();
-        Optional<MeasureMappingImpl> oMeasure = findMeasureByCubeNameByMeasureName(virtualCubeMeasure.cubeName(),
-                virtualCubeMeasure.name());
-        oMeasure.ifPresent(m -> measureGroup.getMeasures().add(m));
-        measureGroup.setName(virtualCubeMeasure.name());
-        return measureGroup;
-    }
-
-    private Optional<AccessRoleMappingImpl> findAccessRole(List<AccessRoleMappingImpl> accessRoles,
-            String accessRoleName) {
+    private Optional<AccessRoleMappingImpl> findAccessRole(
+        List<AccessRoleMappingImpl> accessRoles,
+        String accessRoleName
+    ) {
         return accessRoles.stream().filter(ar -> ar.getName().equals(accessRoleName)).findAny();
     }
 
@@ -368,7 +404,8 @@ public class TransformTask {
 
     private AccessDimensionGrantMappingImpl transformAccessDimensionGrant(DimensionGrant dimensionGrant) {
         AccessDimensionGrantMappingImpl accessDimensionGrant = AccessDimensionGrantMappingImpl.builder().build();
-        accessDimensionGrant.setAccess(dimensionGrant.access() != null ? AccessDimension.fromValue(dimensionGrant.access().toString()) : null);
+        accessDimensionGrant.setAccess(dimensionGrant.access() != null ?
+            AccessDimension.fromValue(dimensionGrant.access().toString()) : null);
         Optional<DimensionMappingImpl> oDim = findDimension(dimensionGrant.dimension());
         oDim.ifPresent(d -> accessDimensionGrant.setDimension(d));
         return accessDimensionGrant;
@@ -381,7 +418,8 @@ public class TransformTask {
 
     private AccessHierarchyGrantMappingImpl transformAccessHierarchyGrant(HierarchyGrant hierarchyGrant) {
         AccessHierarchyGrantMappingImpl accessHierarchyGrant = AccessHierarchyGrantMappingImpl.builder().build();
-        accessHierarchyGrant.setAccess(hierarchyGrant.access() != null ? AccessHierarchy.fromValue(hierarchyGrant.access().toString()) : null);
+        accessHierarchyGrant.setAccess(hierarchyGrant.access() != null ?
+            AccessHierarchy.fromValue(hierarchyGrant.access().toString()) : null);
         Optional<LevelMappingImpl> oLvl = findLevel(prepareLevel(hierarchyGrant.bottomLevel()));
         oLvl.ifPresent(l -> accessHierarchyGrant.setBottomLevel(l));
         Optional<HierarchyMappingImpl> oHier = findHierarchy(hierarchyGrant.hierarchy());
@@ -407,7 +445,8 @@ public class TransformTask {
 
     private AccessMemberGrantMappingImpl transformAccessMemberGrant(MemberGrant memberGrant) {
         AccessMemberGrantMappingImpl accessMemberGrant = AccessMemberGrantMappingImpl.builder().build();
-        accessMemberGrant.setAccess(memberGrant.access() != null ? AccessMember.valueOf(memberGrant.access().toString()) : null);
+        accessMemberGrant.setAccess(memberGrant.access() != null ?
+            AccessMember.valueOf(memberGrant.access().toString()) : null);
         accessMemberGrant.setMember(memberGrant.member());
         return accessMemberGrant;
 
@@ -419,7 +458,8 @@ public class TransformTask {
 
     private AccessSchemaGrantMappingImpl transformAccessSchemaGrant(SchemaGrant schemaGrant) {
         AccessSchemaGrantMappingImpl accessSchemaGrant = AccessSchemaGrantMappingImpl.builder().build();
-        accessSchemaGrant.setAccess(schemaGrant.access() != null ? AccessSchema.fromValue(schemaGrant.access().toString()) : null);
+        accessSchemaGrant.setAccess(schemaGrant.access() != null ?
+            AccessSchema.fromValue(schemaGrant.access().toString()) : null);
         accessSchemaGrant.setCubeGrant(transformAccessCubeGrants(schemaGrant.cubeGrants()));
         return accessSchemaGrant;
     }
@@ -429,7 +469,8 @@ public class TransformTask {
     }
 
     private AnnotationMappingImpl transformAnnotation(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.Annotation annotation) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.Annotation annotation
+    ) {
         AnnotationMappingImpl a = AnnotationMappingImpl.builder().build();
         a.setName(annotation.name());
         a.setValue(annotation.content());
@@ -437,12 +478,14 @@ public class TransformTask {
     }
 
     private List<AnnotationMappingImpl> transformAnnotations(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.Annotation> annotations) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Annotation> annotations
+    ) {
         return annotations.stream().map(this::transformAnnotation).toList();
     }
 
     private DimensionMappingImpl transformDimension(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension dimension) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension dimension
+    ) {
 
         DimensionMappingImpl dim = null;
         if (DimensionTypeEnum.TIME_DIMENSION.equals(dimension.type())) {
@@ -463,12 +506,13 @@ public class TransformTask {
     }
 
     private DimensionConnectorMappingImpl transformVirtualCubeDimensionConnector(
-            VirtualCubeDimension virtualCubeDimension) {
+        VirtualCubeDimension virtualCubeDimension
+    ) {
         DimensionConnectorMappingImpl dc = DimensionConnectorMappingImpl.builder().build();
 //        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (virtualCubeDimension.cubeName() != null) {
             Optional<DimensionMappingImpl> oDim = findDimensionByCubeNameByDimensionName(
-                    virtualCubeDimension.cubeName(), virtualCubeDimension.name());
+                virtualCubeDimension.cubeName(), virtualCubeDimension.name());
             oDim.ifPresent(d -> dc.setDimension(d));
         } else {
             Optional<DimensionMappingImpl> oDim = findDimension(virtualCubeDimension.name());
@@ -480,7 +524,8 @@ public class TransformTask {
     }
 
     private DimensionConnectorMappingImpl transformDimensionConnector(
-            DimensionOrDimensionUsage dimensionUsageOrDimensions) {
+        DimensionOrDimensionUsage dimensionUsageOrDimensions
+    ) {
 
         DimensionConnectorMappingImpl dc = DimensionConnectorMappingImpl.builder().build();
 //        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
@@ -505,12 +550,14 @@ public class TransformTask {
     }
 
     private List<DimensionConnectorMappingImpl> transformVirtualCubeDimensionConnectors(
-            List<VirtualCubeDimension> dimensionUsageOrDimensions) {
+        List<VirtualCubeDimension> dimensionUsageOrDimensions
+    ) {
         return dimensionUsageOrDimensions.stream().map(this::transformVirtualCubeDimensionConnector).toList();
     }
 
     private List<DimensionConnectorMappingImpl> transformDimensionConnectors(
-            List<DimensionOrDimensionUsage> dimensionUsageOrDimensions) {
+        List<DimensionOrDimensionUsage> dimensionUsageOrDimensions
+    ) {
         return dimensionUsageOrDimensions.stream().map(this::transformDimensionConnector).toList();
     }
 
@@ -540,19 +587,21 @@ public class TransformTask {
         catalog.getLevels().addAll(lvls);
         h.setLevels(lvls);
         List<MemberReaderParameterMappingImpl> mrps = transformMemberReaderParameters(
-                hierarchy.memberReaderParameters());
+            hierarchy.memberReaderParameters());
         h.setMemberReaderParameters(mrps);
 
         return h;
     }
 
     private List<MemberReaderParameterMappingImpl> transformMemberReaderParameters(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter> memberReaderParameters) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter> memberReaderParameters
+    ) {
         return memberReaderParameters.stream().map(this::transformtransformMemberReaderParameter).toList();
     }
 
     private MemberReaderParameterMappingImpl transformtransformMemberReaderParameter(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter memberReaderParameter) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.MemberReaderParameter memberReaderParameter
+    ) {
         if (memberReaderParameter != null) {
             MemberReaderParameterMappingImpl mrp = MemberReaderParameterMappingImpl.builder().build();
             mrp.setName(memberReaderParameter.name());
@@ -613,7 +662,8 @@ public class TransformTask {
             mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
             mp.setColumn(property.column());
             mp.setDependsOnLevelValue(property.dependsOnLevelValue());
-            mp.setDataType(DataType.fromValue(property.type() != null ? property.type().getValue() : PropertyTypeEnum.STRING.getValue()));
+            mp.setDataType(DataType.fromValue(property.type() != null ? property.type().getValue() :
+                PropertyTypeEnum.STRING.getValue()));
 
             return mp;
         }
@@ -686,18 +736,20 @@ public class TransformTask {
     }
 
     private SQLExpressionMappingImpl transformSqlExpression(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls
+    ) {
         SQLExpressionMappingImpl sqlExpression = SQLExpressionMappingImpl.builder().build();
         sqlExpression.setSqls(transformSqls(sqls));
         return sqlExpression;
     }
 
-    private MeasureGroupMappingImpl transformMeasureGroup(List<Measure> measures) {
+    private MeasureGroupMappingImpl transformMeasureGroup(PhysicalCubeMappingImpl pc, List<Measure> measures) {
         List<MeasureMappingImpl> ms = transformMeasures(measures);
         catalog.getMeasures().addAll(ms);
         MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder().build();
         measureGroup.setName("");
         measureGroup.setMeasures(ms);
+        measureGroup.setPhysicalCube(pc);
         return measureGroup;
     }
 
@@ -717,10 +769,10 @@ public class TransformTask {
         pc.setQuery(query);
         pc.setVisible(cube.visible());
         pc.setAnnotations(transformAnnotations(cube.annotations()));
-        pc.setMeasureGroups(List.of(transformMeasureGroup(cube.measures())));
+        pc.setMeasureGroups(List.of(transformMeasureGroup(pc, cube.measures())));
         pc.setDimensionConnectors(transformDimensionConnectors(cube.dimensionUsageOrDimensions()));
 
-        pc.setCalculatedMembers(transformCalculatedMembers(pc.getDimensionConnectors(), cube.calculatedMembers()));
+        pc.setCalculatedMembers(transformCalculatedMembers(pc, pc.getDimensionConnectors(), cube.calculatedMembers()));
         pc.setNamedSets(transformNamedSets(cube.namedSets()));
         pc.setKpis(transformKpis(cube.kpis()));
         Optional<MeasureMappingImpl> oMeasure = findMeasure(cube.defaultMeasure());
@@ -729,8 +781,10 @@ public class TransformTask {
         return pc;
     }
 
-    private WritebackTableMappingImpl transformWritebackTable(List<DimensionConnectorMappingImpl> dimensionConnectors,
-            Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackTable> oWritebackTable) {
+    private WritebackTableMappingImpl transformWritebackTable(
+        List<DimensionConnectorMappingImpl> dimensionConnectors,
+        Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackTable> oWritebackTable
+    ) {
         if (oWritebackTable.isPresent()) {
             org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackTable writebackTable = oWritebackTable.get();
             WritebackTableMappingImpl wbt = WritebackTableMappingImpl.builder().build();
@@ -744,16 +798,18 @@ public class TransformTask {
     }
 
     private List<WritebackMeasureMappingImpl> transformWritebackMeasures(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column
+    ) {
         return column.stream()
-                .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure.class::isInstance)
-                .map(wbm -> transformWritebackMeasure(
-                        (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure) wbm))
-                .toList();
+            .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure.class::isInstance)
+            .map(wbm -> transformWritebackMeasure(
+                (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure) wbm))
+            .toList();
     }
 
     private WritebackMeasureMappingImpl transformWritebackMeasure(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure writebackMeasure) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure writebackMeasure
+    ) {
         WritebackMeasureMappingImpl wbm = WritebackMeasureMappingImpl.builder().build();
         wbm.setColumn(writebackMeasure.column());
         wbm.setName(writebackMeasure.name());
@@ -761,24 +817,26 @@ public class TransformTask {
     }
 
     private List<WritebackAttributeMappingImpl> transformWritebackAttributes(
-            List<DimensionConnectorMappingImpl> dimensionConnectors,
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column) {
+        List<DimensionConnectorMappingImpl> dimensionConnectors,
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackColumn> column
+    ) {
         return column.stream()
-                .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute.class::isInstance)
-                .map(wba -> transformWritebackAttribute(dimensionConnectors,
-                        (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute) wba))
-                .toList();
+            .filter(org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute.class::isInstance)
+            .map(wba -> transformWritebackAttribute(dimensionConnectors,
+                (org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute) wba))
+            .toList();
     }
 
     private WritebackAttributeMappingImpl transformWritebackAttribute(
-            List<DimensionConnectorMappingImpl> dimensionConnectors,
-            org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute writebackAttribute) {
+        List<DimensionConnectorMappingImpl> dimensionConnectors,
+        org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute writebackAttribute
+    ) {
         WritebackAttributeMappingImpl wba = WritebackAttributeMappingImpl.builder().build();
         wba.setColumn(writebackAttribute.column());
         if (dimensionConnectors != null) {
             Optional<DimensionConnectorMappingImpl> oDimC = dimensionConnectors.stream()
-                    .filter(dc -> dc.getOverrideDimensionName().equals(writebackAttribute.dimension()))
-                    .findAny();
+                .filter(dc -> dc.getOverrideDimensionName().equals(writebackAttribute.dimension()))
+                .findAny();
             oDimC.ifPresent(d -> wba.setDimension(d.getDimension()));
         }
         return wba;
@@ -813,7 +871,8 @@ public class TransformTask {
     }
 
     private List<TranslationMappingImpl> transformTranslations(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.Translation> translations) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Translation> translations
+    ) {
         if (translations != null) {
             return translations.stream().map(this::transformTranslation).toList();
         }
@@ -821,7 +880,8 @@ public class TransformTask {
     }
 
     private TranslationMappingImpl transformTranslation(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.Translation translation) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.Translation translation
+    ) {
         TranslationMappingImpl t = TranslationMappingImpl.builder().build();
         t.setDescription(translation.description());
         t.setAnnotations(transformAnnotations(translation.annotations()));
@@ -832,7 +892,8 @@ public class TransformTask {
     }
 
     private List<NamedSetMappingImpl> transformNamedSets(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet> namedSets) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet> namedSets
+    ) {
         return namedSets.stream().map(this::transformNamedSet).toList();
     }
 
@@ -851,20 +912,24 @@ public class TransformTask {
     }
 
     private List<CalculatedMemberMappingImpl> transformCalculatedMembers(
-            List<DimensionConnectorMappingImpl> dimensionConnectors,
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers) {
-        return calculatedMembers.stream().map(cm -> transformCalculatedMember(dimensionConnectors, cm)).toList();
+        PhysicalCubeMappingImpl pc,
+        List<DimensionConnectorMappingImpl> dimensionConnectors,
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember> calculatedMembers
+    ) {
+        return calculatedMembers.stream().map(cm -> transformCalculatedMember(pc, dimensionConnectors, cm)).toList();
     }
 
     private CalculatedMemberMappingImpl transformCalculatedMember(
-            List<DimensionConnectorMappingImpl> dimensionConnectors,
-            org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember) {
+        PhysicalCubeMappingImpl pc,
+        List<DimensionConnectorMappingImpl> dimensionConnectors,
+        org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember
+    ) {
         CalculatedMemberMappingImpl cm = CalculatedMemberMappingImpl.builder().build();
         cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
         cm.setName(calculatedMember.name());
         cm.setDescription(calculatedMember.description());
         cm.setCalculatedMemberProperties(
-                transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
+            transformCalculatedMemberProperties(calculatedMember.calculatedMemberProperties()));
         cm.setCellFormatter(transformCellFormatter(calculatedMember.cellFormatter()));
         cm.setFormula(calculatedMember.formula());
         if (calculatedMember.formulaElement() != null) {
@@ -881,25 +946,27 @@ public class TransformTask {
         if (oRes.isPresent()) {
             Entry<String, String> res = oRes.get();
             Optional<DimensionConnectorMappingImpl> oDimCon = dimensionConnectors.stream()
-                    .filter(dc -> dc.getOverrideDimensionName().equals(res.getKey()))
-                    .findAny();
+                .filter(dc -> dc.getOverrideDimensionName().equals(res.getKey()))
+                .findAny();
             if (oDimCon.isPresent()) {
-                cm.setDimensionConector(oDimCon.get());
                 Optional<HierarchyMappingImpl> oHier = findHierarchyInDimensionConnectorByName(oDimCon.get(),
-                        res.getValue());
+                    res.getValue());
                 oHier.ifPresent(d -> cm.setHierarchy(d));
             }
         }
+        cm.setPhysicalCube(pc);
         return cm;
     }
 
     private List<CalculatedMemberPropertyMappingImpl> transformCalculatedMemberProperties(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty> calculatedMemberProperties) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty> calculatedMemberProperties
+    ) {
         return calculatedMemberProperties.stream().map(this::transformCalculatedMemberProperty).toList();
     }
 
     private CalculatedMemberPropertyMappingImpl transformCalculatedMemberProperty(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty
+    ) {
         CalculatedMemberPropertyMappingImpl cmp = CalculatedMemberPropertyMappingImpl.builder().build();
         cmp.setId("cmp_" + counterCalculatedMemberProperty.incrementAndGet());
         cmp.setDescription(calculatedMemberProperty.description());
@@ -911,7 +978,8 @@ public class TransformTask {
     }
 
     private CellFormatterMappingImpl transformCellFormatter(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.CellFormatter cellFormatter
+    ) {
         if (cellFormatter != null) {
             CellFormatterMappingImpl cf = CellFormatterMappingImpl.builder().build();
             cf.setId("cf_" + counterCellFormatter.incrementAndGet());
@@ -926,12 +994,14 @@ public class TransformTask {
     }
 
     private List<PhysicalCubeMappingImpl> transformPhysicalCubes(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.Cube> cubes) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Cube> cubes
+    ) {
         return cubes.stream().map(this::transformPhysicalCube).toList();
     }
 
     private QueryMappingImpl transformQuery(
-            org.eclipse.daanse.rolap.mapping.mondrian.model.RelationOrJoin relationOrJoin) {
+        org.eclipse.daanse.rolap.mapping.mondrian.model.RelationOrJoin relationOrJoin
+    ) {
 
         if (relationOrJoin instanceof Table t) {
             return transformTableQuery(t);
@@ -1005,7 +1075,8 @@ public class TransformTask {
     }
 
     private List<InlineTableColumnDefinitionMappingImpl> transformInlineTableColumnDefinitions(
-            List<ColumnDef> columnDefs) {
+        List<ColumnDef> columnDefs
+    ) {
         return columnDefs.stream().map(this::transformInlineTableColumnDefinition).toList();
     }
 
@@ -1097,7 +1168,8 @@ public class TransformTask {
     }
 
     private List<AggregationMeasureFactCountMappingImpl> transformAggregationMeasureFactCounts(
-            List<AggMeasureFactCount> aggMeasureFactCount) {
+        List<AggMeasureFactCount> aggMeasureFactCount
+    ) {
         if (aggMeasureFactCount != null) {
             return aggMeasureFactCount.stream().map(this::transformAggregationMeasureFactCount).toList();
         }
@@ -1105,7 +1177,8 @@ public class TransformTask {
     }
 
     private AggregationMeasureFactCountMappingImpl transformAggregationMeasureFactCount(
-            AggMeasureFactCount aggMeasureFactCount) {
+        AggMeasureFactCount aggMeasureFactCount
+    ) {
         AggregationMeasureFactCountMappingImpl amfc = AggregationMeasureFactCountMappingImpl.builder().build();
         amfc.setColumn(aggMeasureFactCount.column());
         amfc.setFactColumn(aggMeasureFactCount.factColumn());
@@ -1129,7 +1202,8 @@ public class TransformTask {
     }
 
     private List<AggregationLevelPropertyMappingImpl> transformAggregationLevelProperties(
-            List<AggLevelProperty> aggLevelProperties) {
+        List<AggLevelProperty> aggLevelProperties
+    ) {
         return aggLevelProperties.stream().map(this::transformAggregationLevelProperty).toList();
     }
 
@@ -1203,17 +1277,16 @@ public class TransformTask {
     }
 
     private List<DimensionMappingImpl> transformSharedDimensions(
-            List<org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension> sharedDimensions) {
+        List<org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension> sharedDimensions
+    ) {
         return sharedDimensions.stream().map(this::transformDimension).toList();
     }
 
     private SQLMappingImpl transformSql(org.eclipse.daanse.rolap.mapping.mondrian.model.SQL sql) {
-        SQLMappingImpl s = SQLMappingImpl.builder()
-                .withStatement(sql.content())
-                .withDialects(List.of(sql.dialect()))
-                .build();
-
-        return s;
+        return SQLMappingImpl.builder()
+            .withStatement(sql.content())
+            .withDialects(List.of(sql.dialect()))
+            .build();
     }
 
 }

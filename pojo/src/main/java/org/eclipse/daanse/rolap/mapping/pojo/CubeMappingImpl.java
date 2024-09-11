@@ -32,8 +32,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
 
     private boolean visible = true;
 
-    private List<MeasureGroupMappingImpl> measureGroups;
-
+    @Override
     public List<DimensionConnectorMappingImpl> getDimensionConnectors() {
         return dimensionConnectors;
     }
@@ -42,6 +41,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.dimensionConnectors = dimensionConnectors;
     }
 
+    @Override
     public List<CalculatedMemberMappingImpl> getCalculatedMembers() {
         return calculatedMembers;
     }
@@ -50,6 +50,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.calculatedMembers = calculatedMembers;
     }
 
+    @Override
     public List<NamedSetMappingImpl> getNamedSets() {
         return namedSets;
     }
@@ -58,6 +59,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.namedSets = namedSets;
     }
 
+    @Override
     public List<KpiMappingImpl> getKpis() {
         return kpis;
     }
@@ -66,6 +68,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.kpis = kpis;
     }
 
+    @Override
     public MeasureMappingImpl getDefaultMeasure() {
         return defaultMeasure;
     }
@@ -74,6 +77,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.defaultMeasure = defaultMeasure;
     }
 
+    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -82,6 +86,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
         this.enabled = enabled;
     }
 
+    @Override
     public boolean isVisible() {
         return visible;
     }
@@ -89,13 +94,4 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
-
-    public List<MeasureGroupMappingImpl> getMeasureGroups() {
-        return measureGroups;
-    }
-
-    public void setMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
-        this.measureGroups = measureGroups;
-    }
-
 }

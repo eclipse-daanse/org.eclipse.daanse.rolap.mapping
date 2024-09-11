@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
 public class PhysicalCubeMappingImpl extends CubeMappingImpl implements PhysicalCubeMapping {
@@ -27,11 +28,14 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
 
     private boolean cache;
 
+    private List<MeasureGroupMappingImpl> measureGroups;
+
     private PhysicalCubeMappingImpl(Builder builder) {
         this.query = builder.query;
         this.writebackTable = builder.writebackTable;
         this.action = builder.action;
         this.cache = builder.cache;
+        this.measureGroups = builder.measureGroups;
         super.setDimensionConnectors(builder.dimensionConnectors);
         super.setCalculatedMembers(builder.calculatedMembers);
         super.setNamedSets(builder.namedSets);
@@ -39,7 +43,6 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         super.setDefaultMeasure(builder.defaultMeasure);
         super.setEnabled(builder.enabled);
         super.setVisible(builder.visible);
-        super.setMeasureGroups(builder.measureGroups);
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
@@ -47,6 +50,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         super.setDocumentation(builder.documentation);
     }
 
+    @Override
     public QueryMappingImpl getQuery() {
         return query;
     }
@@ -55,6 +59,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         this.query = query;
     }
 
+    @Override
     public WritebackTableMappingImpl getWritebackTable() {
         return writebackTable;
     }
@@ -63,6 +68,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         this.writebackTable = writebackTable;
     }
 
+    @Override
     public List<ActionMappingMappingImpl> getAction() {
         return action;
     }
@@ -71,12 +77,22 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         this.action = action;
     }
 
+    @Override
     public boolean isCache() {
         return cache;
     }
 
     public void setCache(boolean cache) {
         this.cache = cache;
+    }
+
+    @Override
+    public List<MeasureGroupMappingImpl> getMeasureGroups() {
+        return measureGroups;
+    }
+
+    public void setMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
+        this.measureGroups = measureGroups;
     }
 
     public static Builder builder() {

@@ -741,7 +741,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends DimensionConnectorMapping> dimensionConnectors,
             List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
             List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
-            List<? extends MeasureGroupMapping> measureGroups, List<? extends CubeConnectorMapping> cubeUsages) {
+            List<? extends MeasureMapping> referencedMeasures, List<? extends CalculatedMemberMapping> referencedCalculatedMembers,
+            List<? extends CubeConnectorMapping> cubeUsages) {
         VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
         virtualCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         virtualCube.setId(id);
@@ -755,7 +756,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         virtualCube.setDefaultMeasure((Measure) defaultMeasure);
         virtualCube.setEnabled(enabled);
         virtualCube.setVisible(visible);
-        virtualCube.getMeasureGroups().addAll((Collection<? extends MeasureGroup>) measureGroups);
+        virtualCube.getReferencedMeasures().addAll((Collection<? extends Measure>) referencedMeasures);
+        virtualCube.getReferencedCalculatedMembers().addAll((Collection<? extends CalculatedMember>) referencedCalculatedMembers);
         virtualCube.getCubeUsages().addAll((Collection<? extends CubeConnector>) cubeUsages);
         return virtualCube;
     }
@@ -859,14 +861,14 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected MeasureMapping createMeasure(SQLExpressionMapping measureExpression,
-            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, String column, DataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
             MeasureAggregatorType type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setMeasureExpression((SQLExpression) measureExpression);
-        measure.getCalculatedMemberProperty()
-                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperty);
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
         measure.setBackColor(backColor);
         measure.setColumn(column);

@@ -28,4 +28,6 @@ public interface MeasureMapping extends MemberMapping{
     MeasureAggregatorType getAggregatorType();
 
     MeasureGroupMapping getMeasureGroup();
+
+    String getFormatter();
 }

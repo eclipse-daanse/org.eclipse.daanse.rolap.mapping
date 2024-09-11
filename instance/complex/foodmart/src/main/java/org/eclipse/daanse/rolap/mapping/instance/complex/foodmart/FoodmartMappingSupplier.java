@@ -68,6 +68,24 @@ import org.osgi.service.component.annotations.ServiceScope;
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
+    private static final String SALES_COUNT = "Sales Count";
+
+    private static final String FORMAT_STANDARD = "Standard";
+
+    private static final String CUSTOMER_COUNT = "Customer Count";
+
+    private static final String TABLE_COLUMN_STORE_SALES = "store_sales";
+
+    private static final String STORE_SALES = "Store Sales";
+
+    private static final String TABLE_COLUMN_UNIT_SALES = "unit_sales";
+
+    private static final String UNIT_SALES = "Unit Sales";
+
+    private static final String TABLE_COLUMN_STORE_COST = "store_cost";
+
+    private static final String STORE_COST = "Store Cost";
+
     private static final String MEMBER_ORDINAL = "MEMBER_ORDINAL";
 
     private static final String TABLE_COLUMN_MARITAL_STATUS = "marital_status";
@@ -533,20 +551,20 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final LevelMappingImpl LEVEL_WEEK = LevelMappingImpl.builder()
-            .withName("Week")
-            .withColumn(TABLE_COLUMN_WEEK_OF_YEAR)
-            .withType(DataType.NUMERIC)
-            .withUniqueMembers(false)
-            .withLevelType(LevelType.TIME_WEEKS)
-            .build();
+        .withName("Week")
+        .withColumn(TABLE_COLUMN_WEEK_OF_YEAR)
+        .withType(DataType.NUMERIC)
+        .withUniqueMembers(false)
+        .withLevelType(LevelType.TIME_WEEKS)
+        .build();
 
     public static final LevelMappingImpl LEVEL_DAY = LevelMappingImpl.builder()
-            .withName("Day")
-            .withColumn(TABLE_COLUMN_DAY_OF_MONTH)
-            .withType(DataType.NUMERIC)
-            .withUniqueMembers(false)
-            .withLevelType(LevelType.TIME_DAYS)
-            .build();
+        .withName("Day")
+        .withColumn(TABLE_COLUMN_DAY_OF_MONTH)
+        .withType(DataType.NUMERIC)
+        .withUniqueMembers(false)
+        .withLevelType(LevelType.TIME_DAYS)
+        .build();
 
     public static final LevelMappingImpl LEVEL_QUARTER = LevelMappingImpl.builder()
         .withName(QUARTER)
@@ -910,23 +928,25 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withValue(FORMAT_STRING_CURRENCY)
                 .build()
         ))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
         .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_WITH_ORDER =
         CalculatedMemberMappingImpl.builder()
-        .withName("Profit")
-        .withFormula("[Measures].[Store Sales] - [Measures].[Store Cost]")
-        .withCalculatedMemberProperties(List.of(
-            CalculatedMemberPropertyMappingImpl.builder()
-                .withName(FORMAT_STRING)
-                .withValue(FORMAT_STRING_CURRENCY)
-                .build(),
-            CalculatedMemberPropertyMappingImpl.builder()
-                .withName(MEMBER_ORDINAL)
-                .withValue("4")
-                .build()
-        ))
-        .build();
+            .withName("Profit")
+            .withFormula("[Measures].[Store Sales] - [Measures].[Store Cost]")
+            .withCalculatedMemberProperties(List.of(
+                CalculatedMemberPropertyMappingImpl.builder()
+                    .withName(FORMAT_STRING)
+                    .withValue(FORMAT_STRING_CURRENCY)
+                    .build(),
+                CalculatedMemberPropertyMappingImpl.builder()
+                    .withName(MEMBER_ORDINAL)
+                    .withValue("4")
+                    .build()
+            ))
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
+            .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_LAST_PERIOD =
         CalculatedMemberMappingImpl.builder()
@@ -942,6 +962,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("18")
                     .build()
             ))
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2 =
@@ -955,9 +976,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("5")
                     .build()
             ))
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
             .build();
 
-    public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_GROWINN =
+    public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_GROWTH =
         CalculatedMemberMappingImpl.builder()
             .withName("Profit Growth")
 //            .withName("Gewinn-Wachstum")
@@ -970,6 +992,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("0.0%")
                     .build()
             ))
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE =
@@ -982,6 +1005,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue(FORMAT_STRING_CURRENCY)
                     .build()
             ))
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_WAREHOUSE)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_EMPLOEE_SALARY =
@@ -989,6 +1013,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName("Employee Salary")
             .withFormatString(CURRENCY)
             .withFormula("([Employees].currentmember.datamember, [Measures].[Org Salary])")
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_AVG_SALARY =
@@ -996,6 +1021,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName("Avg Salary")
             .withFormatString(CURRENCY)
             .withFormula("[Measures].[Org Salary]/[Measures].[Number of Employees]")
+            .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
             .build();
 
     public static final CalculatedMemberMappingImpl profitPerUnitShippedCalculatedMember =
@@ -1097,19 +1123,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build();
 
     public static final HierarchyMappingImpl HIERARCHY_TIME1 = HierarchyMappingImpl.builder()
-            .withHasAll(false)
-            .withPrimaryKey(TABLE_COLUMN_TIME_ID)
-            .withQuery(QUERY_TABLE_TIME_BY_DAY)
-            .withLevels(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH))
-            .build();
+        .withHasAll(false)
+        .withPrimaryKey(TABLE_COLUMN_TIME_ID)
+        .withQuery(QUERY_TABLE_TIME_BY_DAY)
+        .withLevels(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH))
+        .build();
 
     public static final HierarchyMappingImpl HIERARCHY_TIME2 = HierarchyMappingImpl.builder()
-            .withHasAll(true)
-            .withPrimaryKey(TABLE_COLUMN_TIME_ID)
-            .withName("Weekly")
-            .withQuery(QUERY_TABLE_TIME_BY_DAY)
-            .withLevels(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY))
-            .build();
+        .withHasAll(true)
+        .withPrimaryKey(TABLE_COLUMN_TIME_ID)
+        .withName("Weekly")
+        .withQuery(QUERY_TABLE_TIME_BY_DAY)
+        .withLevels(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY))
+        .build();
 
     public static final TimeDimensionMappingImpl DIMENSION_TIME = TimeDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_TIME)
@@ -1127,13 +1153,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final HierarchyMappingImpl HIERARCHY_PRODUCT1 = HierarchyMappingImpl.builder()
-            .withHasAll(true)
-            .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-            .withPrimaryKeyTable(TABLE_PRODUCT)
-            .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-            .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
-                LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
-            .build();
+        .withHasAll(true)
+        .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
+        .withPrimaryKeyTable(TABLE_PRODUCT)
+        .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
+        .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
+            LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
+        .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_PRODUCT = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_PRODUCT)
@@ -1266,13 +1292,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build();
 
     public static final HierarchyMappingImpl HIERARCHY_PROMOTION_MEDIA = HierarchyMappingImpl.builder()
-            .withHasAll(true)
-            .withAllMemberName(ALL_MEDIA)
-            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
-            .withDefaultMember(ALL_MEDIA)
-            .withQuery(QUERY_TABLE_PROMOTION)
-            .withLevels(List.of(LEVEL_MEDIA_TYPE))
-            .build();
+        .withHasAll(true)
+        .withAllMemberName(ALL_MEDIA)
+        .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
+        .withDefaultMember(ALL_MEDIA)
+        .withQuery(QUERY_TABLE_PROMOTION)
+        .withLevels(List.of(LEVEL_MEDIA_TYPE))
+        .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_PROMOTION_MEDIA = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_PROMOTION_MEDIA)
@@ -1327,11 +1353,11 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final HierarchyMappingImpl HIERARCHY_EDUCATION_LEVEL = HierarchyMappingImpl.builder()
-            .withHasAll(true)
-            .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
-            .withQuery(QUERY_TABLE_CUSTOMER)
-            .withLevels(List.of(LEVEL_EDUCATION))
-            .build();
+        .withHasAll(true)
+        .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+        .withQuery(QUERY_TABLE_CUSTOMER)
+        .withLevels(List.of(LEVEL_EDUCATION))
+        .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_EDUCATION_LEVEL = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_EDUCATION_LEVEL)
@@ -1427,12 +1453,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final HierarchyMappingImpl HIERARCHY_EMPLOYEES = HierarchyMappingImpl.builder()
-            .withHasAll(true)
-            .withAllMemberName(ALL_EMPLOYEES)
-            .withPrimaryKey(TABLE_COLUMN_EMPLOYEE_ID)
-            .withQuery(QUERY_TABLE_EMPLOYEE)
-            .withLevels(List.of(LEVEL_EMPLOYEE_ID))
-            .build();
+        .withHasAll(true)
+        .withAllMemberName(ALL_EMPLOYEES)
+        .withPrimaryKey(TABLE_COLUMN_EMPLOYEE_ID)
+        .withQuery(QUERY_TABLE_EMPLOYEE)
+        .withLevels(List.of(LEVEL_EMPLOYEE_ID))
+        .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_EMPLOYEES = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_EMPLOYEES)
@@ -1450,16 +1476,23 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNIT_SALES = MeasureMappingImpl.builder()
-        .withName("Unit Sales")
-        .withColumn("unit_sales")
-        .withFormatString("Standard")
+        .withName(UNIT_SALES)
+        .withColumn(TABLE_COLUMN_UNIT_SALES)
+        .withFormatString(FORMAT_STANDARD)
+        .withAggregatorType(MeasureAggregatorType.SUM)
+        .build();
+
+    public static final MeasureMappingImpl MEASURE_UNIT_SALES_RAGGED = MeasureMappingImpl.builder()
+        .withName(UNIT_SALES)
+        .withColumn(TABLE_COLUMN_UNIT_SALES)
+        .withFormatString(FORMAT_STANDARD)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNIT_SALES_MEMBER_ORDINAL = MeasureMappingImpl.builder()
-        .withName("Unit Sales")
-        .withColumn("unit_sales")
-        .withFormatString("Standard")
+        .withName(UNIT_SALES)
+        .withColumn(TABLE_COLUMN_UNIT_SALES)
+        .withFormatString(FORMAT_STANDARD)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("2").build()
@@ -1467,15 +1500,22 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_COST = MeasureMappingImpl.builder()
-        .withName("Store Cost")
-        .withColumn("store_cost")
+        .withName(STORE_COST)
+        .withColumn(TABLE_COLUMN_STORE_COST)
+        .withFormatString(FORMAT_STRING_WITH_COMMMA)
+        .withAggregatorType(MeasureAggregatorType.SUM)
+        .build();
+
+    public static final MeasureMappingImpl MEASURE_STORE_COST_RAGGED = MeasureMappingImpl.builder()
+        .withName(STORE_COST)
+        .withColumn(TABLE_COLUMN_STORE_COST)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_COST_WITH_PROPERTY = MeasureMappingImpl.builder()
-        .withName("Store Cost")
-        .withColumn("store_cost")
+        .withName(STORE_COST)
+        .withColumn(TABLE_COLUMN_STORE_COST)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
@@ -1484,15 +1524,22 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SALES = MeasureMappingImpl.builder()
-        .withName("Store Sales")
-        .withColumn("store_sales")
+        .withName(STORE_SALES)
+        .withColumn(TABLE_COLUMN_STORE_SALES)
+        .withFormatString(FORMAT_STRING_WITH_COMMMA)
+        .withAggregatorType(MeasureAggregatorType.SUM)
+        .build();
+
+    public static final MeasureMappingImpl MEASURE_STORE_SALES_RAGGED = MeasureMappingImpl.builder()
+        .withName(STORE_SALES)
+        .withColumn(TABLE_COLUMN_STORE_SALES)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SALES_WITH_PROPERTY = MeasureMappingImpl.builder()
-        .withName("Store Sales")
-        .withColumn("store_sales")
+        .withName(STORE_SALES)
+        .withColumn(TABLE_COLUMN_STORE_SALES)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
@@ -1501,14 +1548,21 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final MeasureMappingImpl MEASURE_SALES_COUNT = MeasureMappingImpl.builder()
-        .withName("Sales Count")
+        .withName(SALES_COUNT)
+        .withColumn(TABLE_COLUMN_PRODUCT_ID)
+        .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
+        .withAggregatorType(MeasureAggregatorType.COUNT)
+        .build();
+
+    public static final MeasureMappingImpl MEASURE_SALES_COUNT_RAGGED = MeasureMappingImpl.builder()
+        .withName(SALES_COUNT)
         .withColumn(TABLE_COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.COUNT)
         .build();
 
     public static final MeasureMappingImpl MEASURE_SALES_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
-        .withName("Sales Count")
+        .withName(SALES_COUNT)
         .withColumn(TABLE_COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.COUNT)
@@ -1518,14 +1572,21 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT = MeasureMappingImpl.builder()
-        .withName("Customer Count")
+        .withName(CUSTOMER_COUNT)
+        .withColumn(TABLE_COLUMN_CUSTOMER_ID)
+        .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
+        .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
+        .build();
+
+    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_RAGGED = MeasureMappingImpl.builder()
+        .withName(CUSTOMER_COUNT)
         .withColumn(TABLE_COLUMN_CUSTOMER_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
         .build();
 
     public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
-        .withName("Customer Count")
+        .withName(CUSTOMER_COUNT)
         .withColumn(TABLE_COLUMN_CUSTOMER_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
@@ -1687,6 +1748,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             MEASURE_CUSTOMER_COUNT,
             MEASURE_PROMOTION_SALES
         ))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_WAREHOUSE = MeasureGroupMappingImpl.builder()
@@ -1699,49 +1761,31 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             MEASURE_UNITS_ORDERED,
             MEASURE_WAREHOUSE_PROFIT
         ))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_WAREHOUSE)
         .build();
-
-    public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE_AND_SALES =
-        MeasureGroupMappingImpl.builder()
-            .withMeasures(List.of(
-                    // TODO use the MeasureUsage and CalculatedMemberusage
-                    MEASURE_SALES_COUNT,
-                    MEASURE_STORE_COST,
-                    MEASURE_STORE_SALES,
-                    MEASURE_UNIT_SALES,
-                    //  <VirtualCubeMeasure cubeName="Sales" name="[Measures].[Profit]"/>
-                    //  <VirtualCubeMeasure cubeName="Sales" name="[Measures].[Profit Growth]"/>
-                    MEASURE_STORE_INVOICE,
-                    MEASURE_SUPPLY_TIME,
-                    MEASURE_UNITS_ORDERED,
-                    MEASURE_UNITS_SHIPPED,
-                    MEASURE_WAREHOUSE_COST,
-                    MEASURE_WAREHOUSE_PROFIT,
-                    MEASURE_WAREHOUSE_SALES
-                    //  <VirtualCubeMeasure cubeName="Warehouse" name="[Measures].[Average Warehouse Sale]"/>
-                    //  CALCULATED_MEMBER_PROFIT,
-                    //  CALCULATED_MEMBER_PROFIT_GROWINN,
-                    //  CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE,
-            ))
-            .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_STORE = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_STORE_SQFT, MEASURE_GROCERY_SQFT))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_STORE)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_HR = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_ORG_SALARY, MEASURE_COUNT, MEASURE_NUMBER_OF_EMPLOYEES))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES_RAGGED = MeasureGroupMappingImpl.builder()
-        .withMeasures(List.of(MEASURE_UNIT_SALES, MEASURE_STORE_COST, MEASURE_STORE_SALES, MEASURE_SALES_COUNT,
-            MEASURE_CUSTOMER_COUNT))
+        .withMeasures(List.of(MEASURE_UNIT_SALES_RAGGED, MEASURE_STORE_COST_RAGGED, MEASURE_STORE_SALES_RAGGED,
+            MEASURE_SALES_COUNT_RAGGED,
+            MEASURE_CUSTOMER_COUNT_RAGGED))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES2 = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_SALES_COUNT_WITH_PROPERTY, MEASURE_UNIT_SALES_MEMBER_ORDINAL,
             MEASURE_STORE_SALES_WITH_PROPERTY, MEASURE_STORE_COST_WITH_PROPERTY,
             MEASURE_CUSTOMER_COUNT_WITH_PROPERTY))
+        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
         .build();
 
     public static final PhysicalCubeMappingImpl CUBE_SALES = PhysicalCubeMappingImpl.builder()
@@ -1772,7 +1816,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build()
         ))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT, CALCULATED_MEMBER_PROFIT_LAST_PERIOD,
-            CALCULATED_MEMBER_PROFIT_GROWINN))
+            CALCULATED_MEMBER_PROFIT_GROWTH))
         .build();
 
     public static final PhysicalCubeMappingImpl CUBE_WAREHOUSE = PhysicalCubeMappingImpl.builder()
@@ -1916,8 +1960,23 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withPhysicalCube(CUBE_WAREHOUSE)
                 .build()
         ))
-        .withMeasureGroups(List.of(
-            MEASURE_GROUP_FOR_VIRTUAL_CUBE_WAREHOUSE_AND_SALES
+        .withReferencedMeasures(List.of(
+            MEASURE_SALES_COUNT,
+            MEASURE_STORE_COST,
+            MEASURE_STORE_SALES,
+            MEASURE_UNIT_SALES,
+            MEASURE_STORE_INVOICE,
+            MEASURE_SUPPLY_TIME,
+            MEASURE_UNITS_ORDERED,
+            MEASURE_UNITS_SHIPPED,
+            MEASURE_WAREHOUSE_COST,
+            MEASURE_WAREHOUSE_PROFIT,
+            MEASURE_WAREHOUSE_SALES
+        ))
+        .withReferencedCalculatedMembers(List.of(
+            CALCULATED_MEMBER_PROFIT,
+            CALCULATED_MEMBER_PROFIT_GROWTH,
+            CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE
         ))
         .withCalculatedMembers(List.of(
             profitPerUnitShippedCalculatedMember
