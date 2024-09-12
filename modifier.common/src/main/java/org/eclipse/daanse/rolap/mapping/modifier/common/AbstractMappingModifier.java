@@ -97,6 +97,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
+import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 
@@ -115,6 +116,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     private Map<FormatterMapping, FormatterMapping> formatterMap = new HashMap<>();
 
     private Map<DatabaseSchema, DatabaseSchema> dbSchemaMap = new HashMap<>();
+
+    private Map<MeasureMapping, MeasureMapping> measureMap = new HashMap<>();
+
+    private Map<CalculatedMemberMapping, CalculatedMemberMapping> calculatedMemberMap = new HashMap<>();
 
     private Map<AccessRoleMapping, AccessRoleMapping> accessRoleMap = new HashMap<>();
 
@@ -2107,6 +2112,9 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 for (MeasureGroupMapping mg : measureGroups) {
                     ((MeasureGroupMappingImpl) mg).setPhysicalCube(pc);
                 }
+                for (CalculatedMemberMapping cm : calculatedMembers) {
+                    ((CalculatedMemberMappingImpl) cm).setPhysicalCube(pc);
+                }
                 cubeMap.put(cube, pc);
                 return pc;
             } else {
@@ -2454,23 +2462,29 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected MeasureMapping measure(MeasureMapping measure) {
         if (measure != null) {
-            SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
-            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
-                measureCalculatedMemberProperty(
-                    measure);
-            CellFormatterMapping cellFormatter = measureCellFormatter(measure);
-            String backColor = measureBackColor(measure);
-            String column = measureColumn(measure);
-            DataType datatype = measureDatatype(measure);
-            String displayFolder = measureDisplayFolder(measure);
-            String formatString = measureFormatString(measure);
-            String formatter = measureFormatter(measure);
-            boolean visible = measureVisible(measure);
-            String name = measureName(measure);
-            String id = measureId(measure);
-            MeasureAggregatorType aggregatorType = aggregatorType(measure);
-            return createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
-                column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
+            if (!measureMap.containsKey(measure)) {
+                SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
+                List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
+                    measureCalculatedMemberProperty(
+                        measure);
+                CellFormatterMapping cellFormatter = measureCellFormatter(measure);
+                String backColor = measureBackColor(measure);
+                String column = measureColumn(measure);
+                DataType datatype = measureDatatype(measure);
+                String displayFolder = measureDisplayFolder(measure);
+                String formatString = measureFormatString(measure);
+                String formatter = measureFormatter(measure);
+                boolean visible = measureVisible(measure);
+                String name = measureName(measure);
+                String id = measureId(measure);
+                MeasureAggregatorType aggregatorType = aggregatorType(measure);
+                MeasureMapping m = createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
+                    column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
+                measureMap.put(measure, m);
+                return m;
+            } else {
+                return measureMap.get(measure);
+            }
         }
         return null;
     }
@@ -2825,25 +2839,32 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CalculatedMemberMapping calculatedMember(CalculatedMemberMapping calculatedMember) {
         if (calculatedMember != null) {
-            List<? extends AnnotationMapping> annotations = calculatedMemberAnnotations(calculatedMember);
-            String id = calculatedMemberId(calculatedMember);
-            String description = calculatedMemberDescription(calculatedMember);
-            String name = calculatedMemberName(calculatedMember);
-            DocumentationMapping documentation = calculatedMemberDocumentation(calculatedMember);
+            if (!calculatedMemberMap.containsKey(calculatedMember)) {
+                List<? extends AnnotationMapping> annotations = calculatedMemberAnnotations(calculatedMember);
+                String id = calculatedMemberId(calculatedMember);
+                String description = calculatedMemberDescription(calculatedMember);
+                String name = calculatedMemberName(calculatedMember);
+                DocumentationMapping documentation = calculatedMemberDocumentation(calculatedMember);
 
-            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties =
-                calculatedMemberCalculatedMemberProperties(
-                    calculatedMember);
-            CellFormatterMapping cellFormatter = calculatedMemberCellFormatter(calculatedMember);
-            String formula = calculatedMemberFormula(calculatedMember);
-            String displayFolder = calculatedMemberDisplayFolder(calculatedMember);
-            String formatString = calculatedMemberFormatString(calculatedMember);
-            HierarchyMapping hierarchy = calculatedMemberHierarchy(calculatedMember);
-            String parent = calculatedMemberParent(calculatedMember);
-            boolean visible = calculatedMemberVisible(calculatedMember);
+                List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties =
+                    calculatedMemberCalculatedMemberProperties(
+                        calculatedMember);
+                CellFormatterMapping cellFormatter = calculatedMemberCellFormatter(calculatedMember);
+                String formula = calculatedMemberFormula(calculatedMember);
+                String displayFolder = calculatedMemberDisplayFolder(calculatedMember);
+                String formatString = calculatedMemberFormatString(calculatedMember);
+                HierarchyMapping hierarchy = calculatedMemberHierarchy(calculatedMember);
+                String parent = calculatedMemberParent(calculatedMember);
+                boolean visible = calculatedMemberVisible(calculatedMember);
 
-            return createCalculatedMember(annotations, id, description, name, documentation, calculatedMemberProperties,
-                cellFormatter, formula, displayFolder, formatString, hierarchy, parent, visible);
+                CalculatedMemberMapping cm = createCalculatedMember(annotations, id, description, name, documentation
+                    , calculatedMemberProperties,
+                    cellFormatter, formula, displayFolder, formatString, hierarchy, parent, visible);
+                calculatedMemberMap.put(calculatedMember, cm);
+                return cm;
+            } else {
+                return calculatedMemberMap.get(calculatedMember);
+            }
         }
         return null;
     }
