@@ -109,6 +109,10 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         return measureGroup;
     }
 
+    public void setMeasureGroup(MeasureGroupMapping measureGroup) {
+        this.measureGroup = measureGroup;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
