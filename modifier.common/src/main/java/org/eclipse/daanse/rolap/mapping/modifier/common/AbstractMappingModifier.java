@@ -97,6 +97,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
+import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 
 public abstract class AbstractMappingModifier implements CatalogMappingSupplier {
 
@@ -2094,7 +2096,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
                 boolean enabled = cubeEnabled(cube);
                 boolean visible = cubeVisible(cube);
-                List<? extends MeasureGroupMapping> measureGroups = getMeasureGroups(cube);
+                List<? extends MeasureGroupMapping> measureGroups = physicalCubeMeasureGroups(cube);
                 QueryMapping query = physicalCubeQuery(cube);
                 WritebackTableMapping writebackTable = physicalCubeWritebackTable(cube);
                 List<? extends ActionMappingMapping> action = physicalCubeAction(cube);
@@ -2102,6 +2104,9 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 PhysicalCubeMapping pc = createPhysicalCube(annotations, id, description, name, documentation,
                     dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
                     measureGroups, query, writebackTable, action, cache);
+                for (MeasureGroupMapping mg : measureGroups) {
+                    ((MeasureGroupMappingImpl) mg).setPhysicalCube(pc);
+                }
                 cubeMap.put(cube, pc);
                 return pc;
             } else {
@@ -2394,7 +2399,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return query(pc.getQuery());
     }
 
-    protected List<? extends MeasureGroupMapping> getMeasureGroups(PhysicalCubeMapping cube) {
+    protected List<? extends MeasureGroupMapping> physicalCubeMeasureGroups(PhysicalCubeMapping cube) {
         return measureGroups(cube.getMeasureGroups());
     }
 
@@ -2409,7 +2414,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (measureGroup != null) {
             List<? extends MeasureMapping> measures = measureGroupMeasures(measureGroup);
             String name = measureGroupName(measureGroup);
-            return createMeasureGroup(measures, name);
+            MeasureGroupMapping mg = createMeasureGroup(measures, name);
+            for (MeasureMapping m : measures) {
+                ((MeasureMappingImpl) m).setMeasureGroup(mg);
+            }
+            return mg;
         }
         return null;
     }
