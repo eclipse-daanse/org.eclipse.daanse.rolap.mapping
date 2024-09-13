@@ -31,13 +31,13 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
     private List<MeasureGroupMappingImpl> measureGroups;
 
     private PhysicalCubeMappingImpl(Builder builder) {
-        this.query = builder.query;
-        this.writebackTable = builder.writebackTable;
-        this.action = builder.action;
-        this.cache = builder.cache;
-        this.measureGroups = builder.measureGroups;
+        setQuery(builder.query);
+        setWritebackTable(builder.writebackTable);
+        setAction(builder.action);
+        setCache(builder.cache);
+        setMeasureGroups(builder.measureGroups);
         super.setDimensionConnectors(builder.dimensionConnectors);
-        super.setCalculatedMembers(builder.calculatedMembers);
+        setCalculatedMembers(builder.calculatedMembers);
         super.setNamedSets(builder.namedSets);
         super.setKpis(builder.kpis);
         super.setDefaultMeasure(builder.defaultMeasure);
@@ -93,10 +93,21 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
 
     public void setMeasureGroups(List<MeasureGroupMappingImpl> measureGroups) {
         this.measureGroups = measureGroups;
+        for (MeasureGroupMappingImpl mg : measureGroups) {
+            mg.setPhysicalCube(this);
+        }
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    @Override
+    public void setCalculatedMembers(List<CalculatedMemberMappingImpl> calculatedMembers) {
+        for (CalculatedMemberMappingImpl cm : calculatedMembers) {
+            cm.setPhysicalCube(this);
+        }
+        super.setCalculatedMembers(calculatedMembers);
     }
 
     public static final class Builder {

@@ -928,7 +928,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withValue(FORMAT_STRING_CURRENCY)
                 .build()
         ))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
         .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_WITH_ORDER =
@@ -945,7 +944,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("4")
                     .build()
             ))
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_LAST_PERIOD =
@@ -962,7 +960,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("18")
                     .build()
             ))
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2 =
@@ -976,7 +973,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("5")
                     .build()
             ))
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_PROFIT_GROWTH =
@@ -992,7 +988,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue("0.0%")
                     .build()
             ))
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE =
@@ -1005,7 +1000,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withValue(FORMAT_STRING_CURRENCY)
                     .build()
             ))
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_WAREHOUSE)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_EMPLOEE_SALARY =
@@ -1013,7 +1007,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName("Employee Salary")
             .withFormatString(CURRENCY)
             .withFormula("([Employees].currentmember.datamember, [Measures].[Org Salary])")
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
             .build();
 
     public static final CalculatedMemberMappingImpl CALCULATED_MEMBER_AVG_SALARY =
@@ -1021,7 +1014,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName("Avg Salary")
             .withFormatString(CURRENCY)
             .withFormula("[Measures].[Org Salary]/[Measures].[Number of Employees]")
-            .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
             .build();
 
     public static final CalculatedMemberMappingImpl profitPerUnitShippedCalculatedMember =
@@ -1480,7 +1472,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_UNIT_SALES)
         .withFormatString(FORMAT_STANDARD)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNIT_SALES_RAGGED = MeasureMappingImpl.builder()
@@ -1488,7 +1479,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_UNIT_SALES)
         .withFormatString(FORMAT_STANDARD)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNIT_SALES_MEMBER_ORDINAL = MeasureMappingImpl.builder()
@@ -1499,7 +1489,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("2").build()
         ))
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES2)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_COST = MeasureMappingImpl.builder()
@@ -1507,7 +1496,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_STORE_COST)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_COST_RAGGED = MeasureMappingImpl.builder()
@@ -1515,7 +1503,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_STORE_COST)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_COST_WITH_PROPERTY = MeasureMappingImpl.builder()
@@ -1526,7 +1513,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("6").build()
         ))
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES2)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SALES = MeasureMappingImpl.builder()
@@ -1534,7 +1520,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_STORE_SALES)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SALES_RAGGED = MeasureMappingImpl.builder()
@@ -1542,7 +1527,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_STORE_SALES)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SALES_WITH_PROPERTY = MeasureMappingImpl.builder()
@@ -1553,7 +1537,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("3").build()
         ))
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES2)
         .build();
 
     public static final MeasureMappingImpl MEASURE_SALES_COUNT = MeasureMappingImpl.builder()
@@ -1561,7 +1544,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_SALES_COUNT_RAGGED = MeasureMappingImpl.builder()
@@ -1569,7 +1551,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_PRODUCT_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureMappingImpl MEASURE_SALES_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
@@ -1580,7 +1561,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("1").build()
         ))
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES2)
         .build();
 
     public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT = MeasureMappingImpl.builder()
@@ -1588,7 +1568,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_CUSTOMER_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_RAGGED = MeasureMappingImpl.builder()
@@ -1596,7 +1575,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_CUSTOMER_ID)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
@@ -1607,7 +1585,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("7").build()
         ))
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES2)
         .build();
 
     public static final MeasureMappingImpl MEASURE_PROMOTION_SALES = MeasureMappingImpl.builder()
@@ -1653,35 +1630,30 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .build()
             ))
             .build())
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_SALES)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_INVOICE = MeasureMappingImpl.builder()
         .withName("Store Invoice")
         .withColumn("store_invoice")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_SUPPLY_TIME = MeasureMappingImpl.builder()
         .withName("Supply Time")
         .withColumn("supply_time")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_WAREHOUSE_COST = MeasureMappingImpl.builder()
         .withName("Warehouse Cost")
         .withColumn("warehouse_cost")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_WAREHOUSE_SALES = MeasureMappingImpl.builder()
         .withName("Warehouse Sales")
         .withColumn("warehouse_sales")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNITS_SHIPPED = MeasureMappingImpl.builder()
@@ -1689,7 +1661,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn("units_shipped")
         .withFormatString("#.0")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_UNITS_ORDERED = MeasureMappingImpl.builder()
@@ -1697,7 +1668,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn("units_ordered")
         .withFormatString("#.0")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_WAREHOUSE_PROFIT = MeasureMappingImpl.builder()
@@ -1724,7 +1694,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 ))
                 .build()
         )
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_SQFT = MeasureMappingImpl.builder()
@@ -1732,7 +1701,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_STORE_SQFT)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_STORE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_GROCERY_SQFT = MeasureMappingImpl.builder()
@@ -1740,7 +1708,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_GROCERY_SQFT)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_STORE)
         .build();
 
     public static final MeasureMappingImpl MEASURE_ORG_SALARY = MeasureMappingImpl.builder()
@@ -1748,7 +1715,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn("salary_paid")
         .withFormatString(CURRENCY)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_HR)
         .build();
 
     public static final MeasureMappingImpl MEASURE_COUNT = MeasureMappingImpl.builder()
@@ -1756,7 +1722,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_EMPLOYEE_ID)
         .withFormatString("#,#")
         .withAggregatorType(MeasureAggregatorType.COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_HR)
         .build();
 
     public static final MeasureMappingImpl MEASURE_NUMBER_OF_EMPLOYEES = MeasureMappingImpl.builder()
@@ -1764,7 +1729,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(TABLE_COLUMN_EMPLOYEE_ID)
         .withFormatString("#,#")
         .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
-        .withMeasureGroup(FoodmartMappingSupplier.MEASURE_GROUP_FOR_CUBE_HR)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES = MeasureGroupMappingImpl.builder()
@@ -1776,7 +1740,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             MEASURE_CUSTOMER_COUNT,
             MEASURE_PROMOTION_SALES
         ))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_WAREHOUSE = MeasureGroupMappingImpl.builder()
@@ -1789,31 +1752,26 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             MEASURE_UNITS_ORDERED,
             MEASURE_WAREHOUSE_PROFIT
         ))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_WAREHOUSE)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_STORE = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_STORE_SQFT, MEASURE_GROCERY_SQFT))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_STORE)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_HR = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_ORG_SALARY, MEASURE_COUNT, MEASURE_NUMBER_OF_EMPLOYEES))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_HR)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES_RAGGED = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_UNIT_SALES_RAGGED, MEASURE_STORE_COST_RAGGED, MEASURE_STORE_SALES_RAGGED,
             MEASURE_SALES_COUNT_RAGGED,
             MEASURE_CUSTOMER_COUNT_RAGGED))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_RAGGED)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES2 = MeasureGroupMappingImpl.builder()
         .withMeasures(List.of(MEASURE_SALES_COUNT_WITH_PROPERTY, MEASURE_UNIT_SALES_MEMBER_ORDINAL,
             MEASURE_STORE_SALES_WITH_PROPERTY, MEASURE_STORE_COST_WITH_PROPERTY,
             MEASURE_CUSTOMER_COUNT_WITH_PROPERTY))
-        .withPhysicalCube(FoodmartMappingSupplier.CUBE_SALES_2)
         .build();
 
     public static final PhysicalCubeMappingImpl CUBE_SALES = PhysicalCubeMappingImpl.builder()
@@ -2097,66 +2055,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             administratorRole
         ))
         .build();
-
-    static {
-        MEASURE_GROUP_FOR_CUBE_SALES.setPhysicalCube(CUBE_SALES);
-
-        MEASURE_UNIT_SALES.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-        MEASURE_STORE_COST.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-        MEASURE_STORE_SALES.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-        MEASURE_SALES_COUNT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-        MEASURE_CUSTOMER_COUNT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-        MEASURE_PROMOTION_SALES.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES);
-
-        CALCULATED_MEMBER_PROFIT.setPhysicalCube(CUBE_SALES);
-        CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setPhysicalCube(CUBE_SALES);
-        CALCULATED_MEMBER_PROFIT_GROWTH.setPhysicalCube(CUBE_SALES);
-
-        MEASURE_GROUP_FOR_CUBE_WAREHOUSE.setPhysicalCube(CUBE_WAREHOUSE);
-
-        MEASURE_STORE_INVOICE.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_SUPPLY_TIME.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_WAREHOUSE_COST.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_WAREHOUSE_SALES.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_UNITS_SHIPPED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_UNITS_ORDERED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-        MEASURE_WAREHOUSE_PROFIT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_WAREHOUSE);
-
-        CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setPhysicalCube(CUBE_WAREHOUSE);
-
-        MEASURE_GROUP_FOR_CUBE_STORE.setPhysicalCube(CUBE_STORE);
-
-        MEASURE_STORE_SQFT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_STORE);
-        MEASURE_GROCERY_SQFT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_STORE);
-
-        MEASURE_GROUP_FOR_CUBE_HR.setPhysicalCube(CUBE_HR);
-
-        MEASURE_ORG_SALARY.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_HR);
-        MEASURE_COUNT.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_HR);
-        MEASURE_NUMBER_OF_EMPLOYEES.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_HR);
-
-        CALCULATED_MEMBER_EMPLOEE_SALARY.setPhysicalCube(CUBE_HR);
-        CALCULATED_MEMBER_AVG_SALARY.setPhysicalCube(CUBE_HR);
-
-        MEASURE_GROUP_FOR_CUBE_SALES_RAGGED.setPhysicalCube(CUBE_SALES_RAGGED);
-
-        MEASURE_UNIT_SALES_RAGGED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED);
-        MEASURE_STORE_COST_RAGGED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED);
-        MEASURE_STORE_SALES_RAGGED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED);
-        MEASURE_SALES_COUNT_RAGGED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED);
-        MEASURE_CUSTOMER_COUNT_RAGGED.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES_RAGGED);
-
-        MEASURE_GROUP_FOR_CUBE_SALES2.setPhysicalCube(CUBE_SALES_2);
-
-        MEASURE_SALES_COUNT_WITH_PROPERTY.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES2);
-        MEASURE_UNIT_SALES_MEMBER_ORDINAL.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES2);
-        MEASURE_STORE_SALES_WITH_PROPERTY.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES2);
-        MEASURE_STORE_COST_WITH_PROPERTY.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES2);
-        MEASURE_CUSTOMER_COUNT_WITH_PROPERTY.setMeasureGroup(MEASURE_GROUP_FOR_CUBE_SALES2);
-
-        CALCULATED_MEMBER_PROFIT_WITH_ORDER.setPhysicalCube(CUBE_SALES_2);
-        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.setPhysicalCube(CUBE_SALES_2);
-    }
 
     @Override
     public CatalogMapping get() {

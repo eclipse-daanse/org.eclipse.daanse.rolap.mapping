@@ -27,9 +27,9 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
     private PhysicalCubeMapping physicalCube;
 
     private MeasureGroupMappingImpl(Builder builder) {
-        this.measures = builder.measures;
-        this.name = builder.name;
-        this.physicalCube = builder.physicalCube;
+        setMeasures(builder.measures);
+        setName(builder.name);
+        setPhysicalCube(builder.physicalCube);
     }
 
     @Override
@@ -39,6 +39,9 @@ public class MeasureGroupMappingImpl implements MeasureGroupMapping {
 
     public void setMeasures(List<MeasureMappingImpl> measures) {
         this.measures = measures;
+        for (MeasureMappingImpl m : measures) {
+            m.setMeasureGroup(this);
+        }
     }
 
     @Override
