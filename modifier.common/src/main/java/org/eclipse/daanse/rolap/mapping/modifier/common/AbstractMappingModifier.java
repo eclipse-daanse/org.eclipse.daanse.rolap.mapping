@@ -3117,4 +3117,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected QueryMapping look(QueryMapping q) {
         return queryMap.get(q);
     }
+
+    protected MeasureMapping look(MeasureMapping m) {
+        return measureMap.get(m);
+    }
+
+    protected CalculatedMemberMapping look(CalculatedMemberMapping cm) {
+        return calculatedMemberMap.get(cm);
+    }
 }
