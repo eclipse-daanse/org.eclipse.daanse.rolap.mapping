@@ -88,8 +88,8 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
-        private List<? extends MeasureMapping> referencedMeasures;
-        private List<? extends CalculatedMemberMapping> referencedCalculatedMembers;
+        private List<? extends MeasureMapping> referencedMeasures = new ArrayList<>();
+        private List<? extends CalculatedMemberMapping> referencedCalculatedMembers = new ArrayList<>();
 
         private Builder() {
         }
