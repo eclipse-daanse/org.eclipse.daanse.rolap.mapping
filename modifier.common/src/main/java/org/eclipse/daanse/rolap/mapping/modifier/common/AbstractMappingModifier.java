@@ -66,6 +66,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
@@ -2058,7 +2059,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
                 List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
                 List<? extends KpiMapping> kpis = cubeKpis(cube);
-                MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
+                MemberMapping defaultMeasure = cubeDefaultMeasure(cube);
                 boolean enabled = cubeEnabled(cube);
                 boolean visible = cubeVisible(cube);
                 List<? extends MeasureMapping> referencedMeasures = virtualCubeReferencedMeasures(cube);
@@ -2098,7 +2099,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
                 List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
                 List<? extends KpiMapping> kpis = cubeKpis(cube);
-                MeasureMapping defaultMeasure = cubeDefaultMeasure(cube);
+                MemberMapping defaultMeasure = cubeDefaultMeasure(cube);
                 boolean enabled = cubeEnabled(cube);
                 boolean visible = cubeVisible(cube);
                 List<? extends MeasureGroupMapping> measureGroups = physicalCubeMeasureGroups(cube);
@@ -2165,7 +2166,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends CalculatedMemberMapping> calculatedMembers,
         List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis,
-        MeasureMapping defaultMeasure,
+        MemberMapping defaultMeasure,
         boolean enabled,
         boolean visible,
         List<? extends MeasureMapping> referencedMeasures,
@@ -2178,7 +2179,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String description, String name, DocumentationMapping documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+        List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
         List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
         List<? extends ActionMappingMapping> action, boolean cache
     );
@@ -2456,8 +2457,18 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return cube.isEnabled();
     }
 
-    protected MeasureMapping cubeDefaultMeasure(CubeMapping cube) {
-        return measure(cube.getDefaultMeasure());
+    protected MemberMapping cubeDefaultMeasure(CubeMapping cube) {
+        return member(cube.getDefaultMeasure());
+    }
+
+    private MemberMapping member(MemberMapping member) {
+        if (member instanceof MeasureMapping m) {
+            return measure(m);
+        }
+        if (member instanceof CalculatedMemberMapping cm) {
+            return calculatedMember(cm);
+        }
+        return null;
     }
 
     protected MeasureMapping measure(MeasureMapping measure) {

@@ -26,7 +26,7 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
 
     private List<KpiMappingImpl> kpis;
 
-    private MeasureMappingImpl defaultMeasure;
+    private MemberMappingImpl defaultMeasure;
 
     private boolean enabled;
 
@@ -69,11 +69,11 @@ public abstract class CubeMappingImpl extends AbstractElementMappingImpl impleme
     }
 
     @Override
-    public MeasureMappingImpl getDefaultMeasure() {
+    public MemberMappingImpl getDefaultMeasure() {
         return defaultMeasure;
     }
 
-    public void setDefaultMeasure(MeasureMappingImpl defaultMeasure) {
+    public void setDefaultMeasure(MemberMappingImpl defaultMeasure) {
         this.defaultMeasure = defaultMeasure;
     }
 

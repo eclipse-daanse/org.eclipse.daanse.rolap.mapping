@@ -79,7 +79,7 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Measure"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Member"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube #//IPhysicalCube">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"

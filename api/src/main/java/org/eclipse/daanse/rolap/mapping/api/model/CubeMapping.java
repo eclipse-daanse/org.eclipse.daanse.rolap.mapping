@@ -24,7 +24,7 @@ public interface CubeMapping extends AbstractElementMapping {
 
     List<? extends KpiMapping> getKpis();
 
-    MeasureMapping getDefaultMeasure();
+    MemberMapping getDefaultMeasure();
 
     boolean isEnabled();
 

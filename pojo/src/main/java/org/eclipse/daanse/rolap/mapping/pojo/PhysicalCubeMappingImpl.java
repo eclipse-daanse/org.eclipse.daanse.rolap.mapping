@@ -14,8 +14,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
 public class PhysicalCubeMappingImpl extends CubeMappingImpl implements PhysicalCubeMapping {
@@ -119,7 +117,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         private List<CalculatedMemberMappingImpl> calculatedMembers = new ArrayList<>();
         private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<KpiMappingImpl> kpis = new ArrayList<>();
-        private MeasureMappingImpl defaultMeasure;
+        private MemberMappingImpl defaultMeasure;
         private boolean enabled = true;
         private boolean visible = true;
         private List<MeasureGroupMappingImpl> measureGroups = new ArrayList<>();
@@ -172,7 +170,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
             return this;
         }
 
-        public Builder withDefaultMeasure(MeasureMappingImpl defaultMeasure) {
+        public Builder withDefaultMeasure(MemberMappingImpl defaultMeasure) {
             this.defaultMeasure = defaultMeasure;
             return this;
         }

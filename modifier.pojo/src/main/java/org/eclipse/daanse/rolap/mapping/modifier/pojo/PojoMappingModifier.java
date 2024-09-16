@@ -60,6 +60,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
@@ -939,7 +940,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name, DocumentationMapping documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+        List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
         List<? extends MeasureMapping> referencedMeasures, List<? extends CalculatedMemberMapping> referencedCalculatedMembers,
         List<? extends CubeConnectorMapping> cubeUsages
     ) {
@@ -969,7 +970,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name, DocumentationMapping documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
-        List<? extends KpiMapping> kpis, MeasureMapping defaultMeasure, boolean enabled, boolean visible,
+        List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
         List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
         List<? extends ActionMappingMapping> action, boolean cache
     ) {

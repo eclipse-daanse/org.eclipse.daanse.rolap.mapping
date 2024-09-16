@@ -80,7 +80,7 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
         private List<CalculatedMemberMappingImpl> calculatedMembers = new ArrayList<>();
         private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<KpiMappingImpl> kpis = new ArrayList<>();
-        private MeasureMappingImpl defaultMeasure;
+        private MemberMappingImpl defaultMeasure;
         private boolean enabled = true;
         private boolean visible = true;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
@@ -119,7 +119,7 @@ public class VirtualCubeMappingImpl extends CubeMappingImpl implements VirtualCu
             return this;
         }
 
-        public Builder withDefaultMeasure(MeasureMappingImpl defaultMeasure) {
+        public Builder withDefaultMeasure(MemberMappingImpl defaultMeasure) {
             this.defaultMeasure = defaultMeasure;
             return this;
         }
