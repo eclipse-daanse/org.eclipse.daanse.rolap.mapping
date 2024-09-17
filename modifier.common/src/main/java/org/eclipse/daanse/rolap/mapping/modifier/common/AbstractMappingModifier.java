@@ -2079,11 +2079,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private List<? extends CalculatedMemberMapping> virtualCubeReferencedCalculatedMembers(VirtualCubeMapping cube) {
+    protected List<? extends CalculatedMemberMapping> virtualCubeReferencedCalculatedMembers(VirtualCubeMapping cube) {
         return calculatedMembers(cube.getReferencedCalculatedMembers());
     }
 
-    private List<? extends MeasureMapping> virtualCubeReferencedMeasures(VirtualCubeMapping cube) {
+    protected List<? extends MeasureMapping> virtualCubeReferencedMeasures(VirtualCubeMapping cube) {
         return measures(cube.getReferencedMeasures());
     }
 
@@ -2217,23 +2217,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private DocumentationMapping actionMappingDocumentation(ActionMappingMapping actionMapping) {
+    protected DocumentationMapping actionMappingDocumentation(ActionMappingMapping actionMapping) {
         return documentation(actionMapping.getDocumentation());
     }
 
-    private String actionMappingName(ActionMappingMapping actionMapping) {
+    protected String actionMappingName(ActionMappingMapping actionMapping) {
         return actionMapping.getName();
     }
 
-    private String actionMappingDescription(ActionMappingMapping actionMapping) {
+    protected String actionMappingDescription(ActionMappingMapping actionMapping) {
         return actionMapping.getDescription();
     }
 
-    private String actionMappingId(ActionMappingMapping actionMapping) {
+    protected String actionMappingId(ActionMappingMapping actionMapping) {
         return actionMapping.getId();
     }
 
-    private List<? extends AnnotationMapping> actionMappingAnnotations(ActionMappingMapping actionMapping) {
+    protected List<? extends AnnotationMapping> actionMappingAnnotations(ActionMappingMapping actionMapping) {
         return annotations(actionMapping.getAnnotations());
     }
 
@@ -2286,19 +2286,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private DimensionMapping drillThroughAttributeDimension(DrillThroughAttributeMapping drillThroughAttribute) {
+    protected DimensionMapping drillThroughAttributeDimension(DrillThroughAttributeMapping drillThroughAttribute) {
         return dimension(drillThroughAttribute.getDimension());
     }
 
-    private HierarchyMapping drillThroughAttributeHierarchy(DrillThroughAttributeMapping drillThroughAttribute) {
+    protected HierarchyMapping drillThroughAttributeHierarchy(DrillThroughAttributeMapping drillThroughAttribute) {
         return hierarchy(drillThroughAttribute.getHierarchy());
     }
 
-    private LevelMapping drillThroughAttributeLevel(DrillThroughAttributeMapping drillThroughAttribute) {
+    protected LevelMapping drillThroughAttributeLevel(DrillThroughAttributeMapping drillThroughAttribute) {
         return level(drillThroughAttribute.getLevel());
     }
 
-    private String drillThroughAttributeProperty(DrillThroughAttributeMapping drillThroughAttribute) {
+    protected String drillThroughAttributeProperty(DrillThroughAttributeMapping drillThroughAttribute) {
         return drillThroughAttribute.getProperty();
     }
 
@@ -2383,11 +2383,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract WritebackMeasureMapping createwritebackMeasure(String column, String name);
 
-    private String writebackMeasureName(WritebackMeasureMapping writebackMeasure) {
+    protected String writebackMeasureName(WritebackMeasureMapping writebackMeasure) {
         return writebackMeasure.getName();
     }
 
-    private String writebackMeasureColumn(WritebackMeasureMapping writebackMeasure) {
+    protected String writebackMeasureColumn(WritebackMeasureMapping writebackMeasure) {
         return writebackMeasure.getColumn();
     }
 
@@ -2461,7 +2461,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return member(cube.getDefaultMeasure());
     }
 
-    private MemberMapping member(MemberMapping member) {
+    protected MemberMapping member(MemberMapping member) {
         if (member instanceof MeasureMapping m) {
             return measure(m);
         }
@@ -2971,7 +2971,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private PhysicalCubeMapping dimensionConnectorPhysicalCube(DimensionConnectorMapping dimensionConnector) {
+    protected PhysicalCubeMapping dimensionConnectorPhysicalCube(DimensionConnectorMapping dimensionConnector) {
         return physicalCube(dimensionConnector.getPhysicalCube());
     }
 

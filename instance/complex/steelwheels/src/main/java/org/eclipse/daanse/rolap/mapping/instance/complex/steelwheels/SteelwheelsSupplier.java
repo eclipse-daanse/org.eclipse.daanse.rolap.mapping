@@ -52,6 +52,8 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final String NAME = "SteelWheels";
 
+    private static final String CUBE_NAME = "SteelWheelsSales";
+
     private static final String DOCUMENTATION_TEXT = "";
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
@@ -87,7 +89,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
             .withName("State Province")
-            .withColumn("CITY")
+            .withColumn("STATE")
             .withType(DataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
@@ -96,7 +98,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
             .withName("City")
-            .withColumn("STATE")
+            .withColumn("CITY")
             .withType(DataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
@@ -182,7 +184,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllLevelName("All Markets")
+            .withAllMemberName("All Markets")
             .withPrimaryKey(CUSTOMERNUMBER)
             .withQuery(customerWTerTable)
             .withLevels(List.of(territoryLevel, countryLevel, stateProvinceLevel, cityLevel))
@@ -195,7 +197,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllLevelName("All Customers")
+            .withAllMemberName("All Customers")
             .withPrimaryKey(CUSTOMERNUMBER)
             .withQuery(customerWTerTable)
             .withLevels(List.of(customerLevel))
@@ -209,7 +211,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     private static final HierarchyMappingImpl productHierarchy = HierarchyMappingImpl.builder()
             .withName("")
             .withHasAll(true)
-            .withAllLevelName("All Products")
+            .withAllMemberName("All Products")
             .withPrimaryKey("PRODUCTCODE")
             .withPrimaryKeyTable(PRODUCTS)
             .withQuery(productsTable)
@@ -223,7 +225,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final HierarchyMappingImpl timeHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllLevelName("All Years")
+            .withAllMemberName("All Years")
             .withPrimaryKey("TIME_ID")
             .withQuery(timeTable)
             .withLevels(List.of(yearsLevel, quartersLevel, monthsLevel))
@@ -236,7 +238,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final HierarchyMappingImpl orderStatusHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withAllLevelName("All Status Types")
+            .withAllMemberName("All Status Types")
             .withPrimaryKey(STATUS)
             .withLevels(List.of(typeLevel))
             .build();
@@ -265,7 +267,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .build();
 
     private static final PhysicalCubeMappingImpl steelWheelsSalesCube = PhysicalCubeMappingImpl.builder()
-            .withName(NAME)
+            .withName(CUBE_NAME)
             .withQuery(orderfactTable)
             .withMeasureGroups(List.of(steelWheelsSalesMeasureGroup))
             .withDocumentation(new DocumentationMappingImpl(""))

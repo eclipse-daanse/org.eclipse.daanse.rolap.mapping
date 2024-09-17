@@ -866,6 +866,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(NAME_DIMENSION_HAS_COFFEE_BAR)
         .withColumn(TABLE_COLUMN_COFFEE_BAR)
         .withUniqueMembers(true)
+        .withType(DataType.BOOLEAN)
         .build();
 
     public static final LevelMappingImpl LEVEL_PAY_TYPE = LevelMappingImpl.builder()
