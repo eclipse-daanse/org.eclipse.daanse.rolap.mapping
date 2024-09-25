@@ -58,18 +58,18 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
-    private static final TableQueryMappingImpl orderfactTable = TableQueryMappingImpl.builder()
+    public static final TableQueryMappingImpl orderfactTable = TableQueryMappingImpl.builder()
             .withName("orderfact")
             .build();
-    private static final TableQueryMappingImpl customerWTerTable = TableQueryMappingImpl.builder()
+    public static final TableQueryMappingImpl customerWTerTable = TableQueryMappingImpl.builder()
             .withName("customer_w_ter")
             .build();
-    private static final TableQueryMappingImpl productsTable = TableQueryMappingImpl.builder()
+    public static final TableQueryMappingImpl productsTable = TableQueryMappingImpl.builder()
             .withName(PRODUCTS)
             .build();
-    private static final TableQueryMappingImpl timeTable = TableQueryMappingImpl.builder().withName("time").build();
+    public static final TableQueryMappingImpl timeTable = TableQueryMappingImpl.builder().withName("time").build();
 
-    private static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
             .withName("Territory")
             .withColumn("TERRITORY")
             .withType(DataType.STRING)
@@ -78,7 +78,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
             .withName("Country")
             .withColumn("COUNTRY")
             .withType(DataType.STRING)
@@ -87,7 +87,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
             .withName("State Province")
             .withColumn("STATE")
             .withType(DataType.STRING)
@@ -96,7 +96,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
             .withName("City")
             .withColumn("CITY")
             .withType(DataType.STRING)
@@ -105,7 +105,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl customerLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl customerLevel = LevelMappingImpl.builder()
             .withName("Customer")
             .withColumn("CUSTOMERNAME")
             .withType(DataType.STRING)
@@ -114,7 +114,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl lineLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl lineLevel = LevelMappingImpl.builder()
             .withName("Line")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTLINE")
@@ -124,7 +124,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl vendorLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl vendorLevel = LevelMappingImpl.builder()
             .withName("Vendor")
             .withTable(PRODUCTS)
             .withColumn("PRODUCTVENDOR")
@@ -134,7 +134,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl productLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl productLevel = LevelMappingImpl.builder()
             .withName(PRODUCT)
             .withTable(PRODUCTS)
             .withColumn("PRODUCTNAME")
@@ -144,7 +144,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl yearsLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl yearsLevel = LevelMappingImpl.builder()
             .withName("Years")
             .withColumn("YEAR_ID")
             .withType(DataType.INTEGER)
@@ -153,7 +153,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl quartersLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl quartersLevel = LevelMappingImpl.builder()
             .withName("Quarters")
             .withColumn("QTR_NAME")
             .withOrdinalColumn("QTR_ID")
@@ -163,7 +163,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl monthsLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl monthsLevel = LevelMappingImpl.builder()
             .withName("Months")
             .withColumn("MONTH_NAME")
             .withOrdinalColumn("MONTH_ID")
@@ -173,7 +173,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final LevelMappingImpl typeLevel = LevelMappingImpl.builder()
+    public static final LevelMappingImpl typeLevel = LevelMappingImpl.builder()
             .withName("Type")
             .withColumn(STATUS)
             .withType(DataType.STRING)
@@ -182,7 +182,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    private static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Markets")
             .withPrimaryKey(CUSTOMERNUMBER)
@@ -190,12 +190,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withLevels(List.of(territoryLevel, countryLevel, stateProvinceLevel, cityLevel))
             .build();
 
-    private static final StandardDimensionMappingImpl marketsDimension = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl marketsDimension = StandardDimensionMappingImpl.builder()
             .withName("Markets")
             .withHierarchies(List.of(marketsHierarchy))
             .build();
 
-    private static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Customers")
             .withPrimaryKey(CUSTOMERNUMBER)
@@ -203,12 +203,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withLevels(List.of(customerLevel))
             .build();
 
-    private static final StandardDimensionMappingImpl customersDimension = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl customersDimension = StandardDimensionMappingImpl.builder()
             .withName("Customers")
             .withHierarchies(List.of(customersHierarchy))
             .build();
 
-    private static final HierarchyMappingImpl productHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl productHierarchy = HierarchyMappingImpl.builder()
             .withName("")
             .withHasAll(true)
             .withAllMemberName("All Products")
@@ -218,12 +218,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withLevels(List.of(lineLevel, vendorLevel, productLevel))
             .build();
 
-    private static final StandardDimensionMappingImpl productDimension = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl productDimension = StandardDimensionMappingImpl.builder()
             .withName(PRODUCT)
             .withHierarchies(List.of(productHierarchy))
             .build();
 
-    private static final HierarchyMappingImpl timeHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl timeHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Years")
             .withPrimaryKey("TIME_ID")
@@ -231,42 +231,42 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withLevels(List.of(yearsLevel, quartersLevel, monthsLevel))
             .build();
 
-    private static final TimeDimensionMappingImpl timeDimension = TimeDimensionMappingImpl.builder()
+    public static final TimeDimensionMappingImpl timeDimension = TimeDimensionMappingImpl.builder()
             .withName("Time")
             .withHierarchies(List.of(timeHierarchy))
             .build();
 
-    private static final HierarchyMappingImpl orderStatusHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl orderStatusHierarchy = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Status Types")
             .withPrimaryKey(STATUS)
             .withLevels(List.of(typeLevel))
             .build();
 
-    private static final StandardDimensionMappingImpl orderStatusDimension = StandardDimensionMappingImpl.builder()
+    public static final StandardDimensionMappingImpl orderStatusDimension = StandardDimensionMappingImpl.builder()
             .withName("Order Status")
             .withHierarchies(List.of(orderStatusHierarchy))
             .build();
 
-    private static final MeasureMappingImpl quantityMeasure = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl quantityMeasure = MeasureMappingImpl.builder()
             .withName("Quantity")
             .withColumn("QUANTITYORDERED")
             .withFormatString("#,###")
             .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
-    private static final MeasureMappingImpl salesMeasure = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl salesMeasure = MeasureMappingImpl.builder()
             .withName("Sales")
             .withColumn("TOTALPRICE")
             .withFormatString("#,###")
             .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
-    private static final MeasureGroupMappingImpl steelWheelsSalesMeasureGroup = MeasureGroupMappingImpl.builder()
+    public static final MeasureGroupMappingImpl steelWheelsSalesMeasureGroup = MeasureGroupMappingImpl.builder()
             .withMeasures(List.of(quantityMeasure, salesMeasure))
             .build();
 
-    private static final PhysicalCubeMappingImpl steelWheelsSalesCube = PhysicalCubeMappingImpl.builder()
+    public static final PhysicalCubeMappingImpl steelWheelsSalesCube = PhysicalCubeMappingImpl.builder()
             .withName(CUBE_NAME)
             .withQuery(orderfactTable)
             .withMeasureGroups(List.of(steelWheelsSalesMeasureGroup))
@@ -299,7 +299,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                             .build()))
             .build();
 
-    private static final SchemaMappingImpl schema = SchemaMappingImpl.builder()
+    public static final SchemaMappingImpl schema = SchemaMappingImpl.builder()
             .withName(NAME)
             .withCubes(List.of(steelWheelsSalesCube))
             .build();
