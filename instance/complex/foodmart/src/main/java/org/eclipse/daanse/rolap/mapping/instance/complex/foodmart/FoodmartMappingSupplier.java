@@ -436,7 +436,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withUniqueMembers(true)
         .build();
 
-    public static final LevelMappingImpl LEVEL_STORE_CYTY_UNIQUE_MEMBERS_TRUE = LevelMappingImpl.builder()
+    public static final LevelMappingImpl LEVEL_STORE_STATE_UNIQUE_MEMBERS_TRUE = LevelMappingImpl.builder()
         .withName(STORE_STATE)
         .withColumn(TABLE_COLUMN_STORE_STATE)
         .withUniqueMembers(true)
@@ -1033,7 +1033,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withPrimaryKey(TABLE_COLUMN_STORE_ID)
         .withQuery(QUERY_TABLE_STORE)
-        .withLevels(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_CYTY_UNIQUE_MEMBERS_TRUE, LEVEL_STORE_CYTY,
+        .withLevels(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_STATE_UNIQUE_MEMBERS_TRUE, LEVEL_STORE_CYTY,
             LEVEL_STORE_NAME_WITHOUT_TABLE))
         .build();
 
@@ -1382,18 +1382,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(NAME_DIMENSION_MARITAL_STATUS)
         .withHierarchies(List.of(HIERARCHY_MARITAL_STATUS))
         .build();
-
-    public static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME =
-        StandardDimensionMappingImpl.builder()
-            .withName(NAME_DIMENSION_YEARLY_INCOME)
-            .withHierarchies(List.of(HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withAllMemberName(ALL_MARITAL_STATUS)
-                .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
-                .withQuery(QUERY_TABLE_CUSTOMER)
-                .withLevels(List.of(LEVEL_YEARLY_INCOME))
-                .build()))
-            .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_YEARLY_INCOME = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_YEARLY_INCOME)
@@ -1800,7 +1788,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_EDUCATION_LEVEL).withDimension(DIMENSION_EDUCATION_LEVEL).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_GENDER).withDimension(DIMENSION_GENDER).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_MARITAL_STATUS).withDimension(DIMENSION_MARITAL_STATUS).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build()
         ))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT, CALCULATED_MEMBER_PROFIT_LAST_PERIOD,
             CALCULATED_MEMBER_PROFIT_GROWTH))
@@ -1937,7 +1925,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 .withOverrideDimensionName(NAME_DIMENSION_TIME)
                 .build(),
             DimensionConnectorMappingImpl.builder()
-                .withDimension(DIMENSION_YEARLY_INCOME_WITH_ALL_MEMBER_NAME)
+                .withDimension(DIMENSION_YEARLY_INCOME)
                 .withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME)
                 .withPhysicalCube(CUBE_SALES)
                 .build(),
