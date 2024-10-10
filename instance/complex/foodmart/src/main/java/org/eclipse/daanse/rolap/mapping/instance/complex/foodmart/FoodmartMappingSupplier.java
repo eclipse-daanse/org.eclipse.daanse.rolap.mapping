@@ -732,7 +732,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                         DIALECT_ORACLE,
                         DIALECT_H2,
                         DIALECT_HSQLDB,
-                        DIALECT_ORACLE,
                         DIALECT_POSTGRES,
                         DIALECT_LUCIDDB,
                         DIALECT_TERADATA
@@ -1043,29 +1042,33 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(storeHierarchy))
             .build();
 
+    public static final HierarchyMappingImpl STORE_HIERARCHY_STORE_RAGGED_CUBE = HierarchyMappingImpl.builder()
+            .withHasAll(true)
+            .withPrimaryKey(TABLE_COLUMN_STORE_ID)
+            .withQuery(QUERY_TABLE_STORE_RAGGED)
+            .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_NEVER, LEVEL_STORE_CYTY_IF_PARENTS_NAME,
+                LEVEL_STORE_CYTY_IF_BLANK_NAME, LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER))
+            .build();
+
     public static final StandardDimensionMappingImpl DIMENSION_STORE_WITH_QUERY_STORE_RAGGED =
         StandardDimensionMappingImpl.builder()
             .withName(NAME_DIMENSION_STORE)
-            .withHierarchies(List.of(HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withPrimaryKey(TABLE_COLUMN_STORE_ID)
-                .withQuery(QUERY_TABLE_STORE_RAGGED)
-                .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_NEVER, LEVEL_STORE_CYTY_IF_PARENTS_NAME,
-                    LEVEL_STORE_CYTY_IF_BLANK_NAME, LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER))
-                .build()))
+            .withHierarchies(List.of(STORE_HIERARCHY_STORE_RAGGED_CUBE))
+            .build();
+
+    public static final HierarchyMappingImpl STORE_HIERARCHY_FOR_HR_CUBE = HierarchyMappingImpl.builder()
+            .withHasAll(true)
+            .withPrimaryKey(TABLE_COLUMN_EMPLOYEE_ID)
+            .withPrimaryKeyTable(EMPLOYEE)
+            .withQuery(JOIN_EMPLOYEE_STORE)
+            .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_TABLE, LEVEL_STORE_CYTY_WITH_TABLE,
+                LEVEL_STORE_CYTY_WITH_TABLE_COLUMN_STORE_CITY, LEVEL_STORE_NAME_WITH_TABLE))
             .build();
 
     public static final StandardDimensionMappingImpl DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE =
         StandardDimensionMappingImpl.builder()
             .withName(NAME_DIMENSION_STORE)
-            .withHierarchies(List.of(HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withPrimaryKey(TABLE_COLUMN_EMPLOYEE_ID)
-                .withPrimaryKeyTable(EMPLOYEE)
-                .withQuery(JOIN_EMPLOYEE_STORE)
-                .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_TABLE, LEVEL_STORE_CYTY_WITH_TABLE,
-                    LEVEL_STORE_CYTY_WITH_TABLE_COLUMN_STORE_CITY, LEVEL_STORE_NAME_WITH_TABLE))
-                .build()))
+            .withHierarchies(List.of(STORE_HIERARCHY_FOR_HR_CUBE))
             .build();
 
     public static final HierarchyMappingImpl HIERARCHY_STORE_SIZE_IN_SQFT = HierarchyMappingImpl.builder()
@@ -1302,6 +1305,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(NAME_DIMENSION_PROMOTION_MEDIA)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
+            .withAllMemberName("All Media")
             .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
             .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(LEVEL_MEDIA_TYPE))
@@ -1854,9 +1858,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_TIME).withDimension(DIMENSION_TIME).withForeignKey(TABLE_COLUMN_TIME_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT).withForeignKey(TABLE_COLUMN_PRODUCT_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTION_MEDIA).withDimension(promotionMedia1Dimension).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTIONS).withDimension(promotions1Dimension).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_CUSTOMERS).withDimension(DIMENSION_CUSTOMERS).withForeignKey(TABLE_COLUMN_DEPARTMENT_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTIONS).withDimension(promotions1Dimension).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_CUSTOMERS).withDimension(DIMENSION_CUSTOMERS).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_EDUCATION_LEVEL).withDimension(DIMENSION_EDUCATION_LEVEL).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
+
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_GENDER).withDimension(DIMENSION_GENDER).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_MARITAL_STATUS).withDimension(DIMENSION_MARITAL_STATUS).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build()
