@@ -1148,7 +1148,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    public static final HierarchyMappingImpl HIERARCHY_PRODUCT1 = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl HIERARCHY_PRODUCT = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
         .withPrimaryKeyTable(TABLE_PRODUCT)
@@ -1160,61 +1160,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final StandardDimensionMappingImpl DIMENSION_PRODUCT = StandardDimensionMappingImpl.builder()
         .withName(NAME_DIMENSION_PRODUCT)
         .withHierarchies(List.of(
-            HIERARCHY_PRODUCT1,
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(PRODUCT_FAMILY)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_productFamily))
-                .build(),
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(PRODUCT_DEPARTMENT)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_productDepartment))
-                .build(),
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(PRODUCT_CATEGORY)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_productCategory))
-                .build(),
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(PRODUCT_SUBCATEGORY)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_productSubcategory))
-                .build(),
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(BRAND_NAME)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_brandName))
-                .build(),
-            HierarchyMappingImpl.builder()
-                .withHasAll(true)
-                .withName(PRODUCT_NAME)
-                .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-                .withPrimaryKeyTable(TABLE_PRODUCT)
-                .withDisplayFolder(DETAILS)
-                .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
-                .withLevels(List.of(LEVEL_PRODUCT_NAME))
-                .build()
+            HIERARCHY_PRODUCT
         ))
         .build();
 
