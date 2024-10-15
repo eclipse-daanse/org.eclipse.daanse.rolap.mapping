@@ -723,7 +723,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl LEVEL_NAME = LevelMappingImpl.builder()
         .withName(NAME)
         .withColumn(TABLE_COLUMN_CUSTOMER_ID)
-        //.withType(DataType.NUMERIC)
+        .withType(DataType.NUMERIC)
         .withUniqueMembers(true)
         .withNameExpression(SQLExpressionMappingImpl.builder()
             .withSqls(List.of(
