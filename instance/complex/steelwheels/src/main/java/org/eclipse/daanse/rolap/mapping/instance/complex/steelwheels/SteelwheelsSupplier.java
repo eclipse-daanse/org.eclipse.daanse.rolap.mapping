@@ -209,7 +209,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .build();
 
     public static final HierarchyMappingImpl productHierarchy = HierarchyMappingImpl.builder()
-            .withName("")
             .withHasAll(true)
             .withAllMemberName("All Products")
             .withPrimaryKey("PRODUCTCODE")
