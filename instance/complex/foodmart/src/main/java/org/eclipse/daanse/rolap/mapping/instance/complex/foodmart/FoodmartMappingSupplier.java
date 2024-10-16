@@ -383,6 +383,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         TABLE_PRODUCT_CLASS).build();
     public static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE = TableQueryMappingImpl.builder().withName(
         EMPLOYEE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_DEPARTMENT = TableQueryMappingImpl.builder().withName(
+        "department").build();
     public static final TableQueryMappingImpl QUERY_TABLE_POSITION = TableQueryMappingImpl.builder().withName(
         TABLE_NAME_POSITION).build();
     public static final TableQueryMappingImpl QUERY_TABLE_SALARY = TableQueryMappingImpl.builder().withName(
@@ -876,7 +878,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final LevelMappingImpl LEVEL_MANAGEMENT_ROLE = LevelMappingImpl.builder()
-        .withName("Management Rol")
+        .withName("Management Role")
         .withColumn("management_role")
         .withUniqueMembers(true)
         .build();
@@ -1378,7 +1380,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(TABLE_COLUMN_DEPARTMENT_ID)
-            .withQuery(QUERY_TABLE_EMPLOYEE)
+            .withQuery(QUERY_TABLE_DEPARTMENT)
             .withLevels(List.of(LEVEL_DEPARTAMENT_DESCRIPTION))
             .build()))
         .build();

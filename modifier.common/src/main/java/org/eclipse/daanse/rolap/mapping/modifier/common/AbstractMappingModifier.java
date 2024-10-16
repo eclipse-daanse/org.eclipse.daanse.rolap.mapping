@@ -106,6 +106,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CatalogMapping catalog;
 
+    protected CatalogMapping modifiedCatalog = null;
+
     private Map<CubeMapping, CubeMapping> cubeMap = new HashMap<>();
 
     private Map<DimensionMapping, DimensionMapping> dimensionMap = new HashMap<>();
@@ -136,7 +138,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     public CatalogMapping get() {
-        return modifyCatalog(catalog);
+        if (modifiedCatalog == null) {
+            modifiedCatalog = modifyCatalog(catalog);
+        }
+        return modifiedCatalog;
     }
 
     protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
