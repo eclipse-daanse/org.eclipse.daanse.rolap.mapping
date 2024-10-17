@@ -108,6 +108,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationMeasureFactCountMappingI
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationPatternMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
@@ -353,6 +354,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withOptimizationHints((List<TableQueryOptimizationHintMappingImpl>) optimizationHints)
             .withName(name)
             .withSchema(schema)
+            .withAggregationTables((List<AggregationTableMappingImpl>) aggregationTables)
             .build();
     }
 
