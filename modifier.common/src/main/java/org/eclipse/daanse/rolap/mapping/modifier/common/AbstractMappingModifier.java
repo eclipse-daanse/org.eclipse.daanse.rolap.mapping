@@ -1483,15 +1483,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean visible = levelVisible(level);
                 String name = levelName(level);
                 String id = levelId(level);
+                String description = levelDescription(level);
                 return createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
                     parentExpression, parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
-                    parentColumn, table, type, uniqueMembers, visible, name, id);
+                    parentColumn, table, type, uniqueMembers, visible, name, id, description);
             } else {
                 return levelMap.get(level);
             }
         }
         return null;
+    }
+
+    private String levelDescription(LevelMapping level) {
+        return level.getDescription();
     }
 
     protected String levelId(LevelMapping level) {
@@ -1808,7 +1813,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
         LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id
+        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
