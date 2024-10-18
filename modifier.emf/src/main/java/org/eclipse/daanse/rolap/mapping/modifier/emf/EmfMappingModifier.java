@@ -599,7 +599,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
             LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-            String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id) {
+            String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
         level.setNameExpression((SQLExpression) nameExpression);
@@ -624,6 +624,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setVisible(visible);
         level.setName(name);
         level.setId(id);
+        level.setDescription(description);
         return level;
     }
 
