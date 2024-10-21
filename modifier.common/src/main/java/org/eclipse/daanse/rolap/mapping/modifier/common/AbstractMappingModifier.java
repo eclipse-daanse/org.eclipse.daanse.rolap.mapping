@@ -17,9 +17,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
+import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
 import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.Row;
+import org.eclipse.daanse.rdb.structure.api.model.RowValue;
+import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
+import org.eclipse.daanse.rdb.structure.api.model.SqlView;
 import org.eclipse.daanse.rdb.structure.api.model.SystemTable;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.api.model.ViewTable;
@@ -212,9 +218,114 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             if (table instanceof ViewTable) {
                 return createViewTable(name, columns, schema, description);
             }
+            if (table instanceof InlineTable it) {
+                List<? extends Row> rows = inlineTableRows(it);
+                return createInlineTable(name, columns, schema, description, rows);
+            }
+            if (table instanceof SqlView sv) {
+                List<? extends SqlStatement> sqlStatements = sqlViewSqlStatements(sv);
+                return createSqlView(name, columns, schema, description, sqlStatements);
+            }
         }
         return null;
     }
+
+    protected List<? extends SqlStatement> sqlViewSqlStatements(SqlView sv) {
+        if (sv != null) {
+            return sqlStatements(sv.getSqlStatements());
+        }
+        return List.of();
+    }
+
+    protected List<? extends SqlStatement> sqlStatements(List<? extends SqlStatement> sqlStatements) {
+        if (sqlStatements != null) {
+            return sqlStatements.stream().map(this::sqlStatement).toList();
+        }
+        return List.of();
+    }
+
+    protected SqlStatement sqlStatement(SqlStatement sqlStatement) {
+        if (sqlStatement != null) {
+            List<String> dialects = sqlStatementDdialects(sqlStatement);
+            String sql = sqlStatementSql(sqlStatement);
+            return createSqlStatement(dialects, sql);
+        }
+        return null;
+    }
+
+    protected List<String> sqlStatementDdialects(SqlStatement sqlStatement) {
+        return dialects(sqlStatement.getDialects());
+    }
+
+    protected String sqlStatementSql(SqlStatement sqlStatement) {
+        return sqlStatement.getSql();
+    }
+
+    protected abstract SqlStatement createSqlStatement(List<String> dialects, String sql);
+
+    protected abstract Table createSqlView(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends SqlStatement> sqlStatements
+    );
+
+    protected abstract Table createInlineTable(
+        String name, List<? extends Column> columns, DatabaseSchema schema,
+        String description, List<? extends Row> rows
+    );
+
+    protected List<? extends Row> inlineTableRows(InlineTable it) {
+        if (it != null) {
+            return rows(it.getRows());
+        }
+        return List.of();
+    }
+
+    protected List<? extends Row> rows(List<? extends Row> rows) {
+        if (rows != null) {
+            return rows.stream().map(this::row).toList();
+        }
+        return List.of();
+    }
+
+    protected Row row(Row r) {
+        if (r != null) {
+            List<? extends RowValue> rowValues = rowRowValue(r);
+            return createRow(rowValues);
+        }
+        return null;
+    }
+
+    protected List<? extends RowValue> rowRowValue(Row r) {
+        return rowValue(r.getRowValues());
+    }
+
+    protected List<? extends RowValue> rowValue(List<? extends RowValue> rowValues) {
+        if (rowValues != null) {
+            return rowValues.stream().map(this::rowValue).toList();
+        }
+        return List.of();
+    }
+
+    protected RowValue rowValue(RowValue rowValue) {
+        if (rowValue != null) {
+            Column column = rowValueColumn(rowValue);
+            String value = rowValueValue(rowValue);
+            return createRowValue(column, value);
+        }
+        return null;
+    }
+
+    protected abstract RowValue createRowValue(Column column, String value);
+
+    protected String rowValueValue(RowValue rowValue) {
+        return rowValue.getValue();
+    }
+
+    protected Column rowValueColumn(RowValue rowValue) {
+        return column(rowValue.getColumn());
+    }
+
+    protected abstract Row createRow(List<? extends RowValue> rowValues);
 
     protected abstract Table createViewTable(
         String name, List<? extends Column> columns, DatabaseSchema schema,
