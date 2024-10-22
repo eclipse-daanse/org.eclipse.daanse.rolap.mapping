@@ -17,9 +17,12 @@ import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
+import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
+import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.api.model.Row;
 import org.eclipse.daanse.rdb.structure.api.model.RowValue;
 import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
+import org.eclipse.daanse.rdb.structure.api.model.SqlView;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rdb.structure.pojo.AbstractTable;
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
@@ -174,7 +177,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, Table table, String type, List<String> typeQualifiers,
         String description
     ) {
-        ColumnImpl column = new ColumnImpl();
+        ColumnImpl column = ColumnImpl.builder().build();
         column.setName(name);
         column.setTable(table);
         column.setType(type);
@@ -185,11 +188,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createPhysicalTable(
+    protected PhysicalTable createPhysicalTable(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        PhysicalTableImpl physicalTableImpl = new PhysicalTableImpl();
+        PhysicalTableImpl physicalTableImpl = PhysicalTableImpl.builder().build();
         physicalTableImpl.setName(name);
         physicalTableImpl.setColumns((List<ColumnImpl>) columns);
         physicalTableImpl.setSchema((DatabaseSchemaImpl) schema);
@@ -203,7 +206,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        SystemTableImpl systemTableImpl = new SystemTableImpl();
+        SystemTableImpl systemTableImpl = SystemTableImpl.builder().build();
         systemTableImpl.setName(name);
         systemTableImpl.setColumns((List<ColumnImpl>) columns);
         systemTableImpl.setSchema((DatabaseSchemaImpl) schema);
@@ -217,7 +220,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     ) {
-        ViewTableImpl viewTableImpl = new ViewTableImpl();
+        ViewTableImpl viewTableImpl = ViewTableImpl.builder().build();
         viewTableImpl.setName(name);
         viewTableImpl.setColumns((List<ColumnImpl>) columns);
         viewTableImpl.setSchema((DatabaseSchemaImpl) schema);
@@ -229,7 +232,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        DatabaseSchemaImpl databaseSchema = new DatabaseSchemaImpl();
+        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder().build();
         databaseSchema.setTables((List<AbstractTable>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
@@ -285,13 +288,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected QueryMapping createInlineTableQuery(
         String alias,
-        List<? extends InlineTableColumnDefinitionMapping> columnDefinitions,
-        List<? extends InlineTableRowMappingMapping> rows
+        InlineTable table
     ) {
         return InlineTableQueryMappingImpl.builder()
             .withAlias(alias)
-            .withColumnDefinitions((List<InlineTableColumnDefinitionMappingImpl>) columnDefinitions)
-            .withRows((List<InlineTableRowMappingImpl>) rows)
+            .withTable((InlineTableImpl) table)
             .build();
     }
 
@@ -340,10 +341,10 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createSqlSelectQuery(String alias, List<? extends SQLMapping> sqls) {
+    protected QueryMapping createSqlSelectQuery(String alias, SqlView sql) {
         return SqlSelectQueryMappingImpl.builder()
             .withAlias(alias)
-            .withSql((List<SQLMappingImpl>) sqls)
+            .withSql((SqlViewImpl) sql)
             .build();
     }
 
@@ -352,7 +353,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected TableQueryMapping createTableQuery(
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, String name, String schema,
+        List<? extends TableQueryOptimizationHintMapping> optimizationHints, PhysicalTable table,
         List<? extends AggregationTableMapping> aggregationTables
     ) {
         return TableQueryMappingImpl.builder()
@@ -360,8 +361,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withSqlWhereExpression((SQLMappingImpl) sqlWhereExpression)
             .withAggregationExcludes((List<AggregationExcludeMappingImpl>) aggregationExcludes)
             .withOptimizationHints((List<TableQueryOptimizationHintMappingImpl>) optimizationHints)
-            .withName(name)
-            .withSchema(schema)
+            .withTable((PhysicalTableImpl) table)
             .withAggregationTables((List<AggregationTableMappingImpl>) aggregationTables)
             .build();
     }
@@ -1087,7 +1087,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
-        SqlStatementImpl sqlStatement = new SqlStatementImpl();
+        SqlStatementImpl sqlStatement = SqlStatementImpl.builder().build();
         sqlStatement.setDialects(dialects);
         sqlStatement.setSql(sql);
         return sqlStatement;
@@ -1095,11 +1095,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createSqlView(
+    protected SqlView createSqlView(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends SqlStatement> sqlStatements
     ) {
-        SqlViewImpl sqlView = new SqlViewImpl();
+        SqlViewImpl sqlView = SqlViewImpl.builder().build();
         sqlView.setName(name);
         sqlView.setColumns((List<ColumnImpl>) columns);
         sqlView.setSchema((DatabaseSchemaImpl) schema);
@@ -1110,11 +1110,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createInlineTable(
+    protected InlineTable createInlineTable(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends Row> rows
     ) {
-        InlineTableImpl inlineTable = new InlineTableImpl();
+        InlineTableImpl inlineTable = InlineTableImpl.builder().build();
         inlineTable.setName(name);
         inlineTable.setColumns((List<ColumnImpl>) columns);
         inlineTable.setSchema((DatabaseSchemaImpl) schema);
@@ -1125,7 +1125,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected RowValue createRowValue(Column column, String value) {
-        RowValueImpl rowValue = new RowValueImpl();
+        RowValueImpl rowValue = RowValueImpl.builder().build();
         rowValue.setColumn(column);
         rowValue.setValue(value);
         return rowValue;
@@ -1133,7 +1133,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected Row createRow(List<? extends RowValue> rowValues) {
-        RowImpl row = new RowImpl();
+        RowImpl row = RowImpl.builder().build();
         row.setRowValues(rowValues);
         return row;
     }

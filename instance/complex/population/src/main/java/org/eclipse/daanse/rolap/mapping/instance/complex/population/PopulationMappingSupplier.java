@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.population;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
@@ -45,14 +47,23 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
     private static final String GEOGRAPHICAL = "Geographical";
 
     private static final String POPULATION = "Population";
+    
+    public static final PhysicalTableImpl POPULATION_TABLE = ((Builder) PhysicalTableImpl.builder().withName("population")).build();
+    public static final PhysicalTableImpl YEAR_TABLE = ((Builder) PhysicalTableImpl.builder().withName("year")).build();
+    public static final PhysicalTableImpl COUNTRY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("country")).build();
+    public static final PhysicalTableImpl CONTENT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("continent")).build();
+    public static final PhysicalTableImpl STATE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STATE)).build();
+    public static final PhysicalTableImpl GENDER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("gender")).build();
+    public static final PhysicalTableImpl AGE_GROUPS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ageGroups")).build();
+    
     private static final TableQueryMappingImpl TABLE_FACT =
-        TableQueryMappingImpl.builder().withName("population").build();
-    private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withName("year").build();
-    private static final TableQueryMappingImpl TABLE22 = TableQueryMappingImpl.builder().withName("country").build();
-    private static final TableQueryMappingImpl TABLE23 = TableQueryMappingImpl.builder().withName("continent").build();
-    private static final TableQueryMappingImpl TABLE21 = TableQueryMappingImpl.builder().withName(STATE).build();
-    private static final TableQueryMappingImpl TABLE3 = TableQueryMappingImpl.builder().withName("gender").build();
-    private static final TableQueryMappingImpl TABLE4 = TableQueryMappingImpl.builder().withName("ageGroups").build();
+        TableQueryMappingImpl.builder().withTable(POPULATION_TABLE).build();
+    private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withTable(YEAR_TABLE).build();
+    private static final TableQueryMappingImpl TABLE22 = TableQueryMappingImpl.builder().withTable(COUNTRY_TABLE).build();
+    private static final TableQueryMappingImpl TABLE23 = TableQueryMappingImpl.builder().withTable(CONTENT_TABLE).build();
+    private static final TableQueryMappingImpl TABLE21 = TableQueryMappingImpl.builder().withTable(STATE_TABLE).build();
+    private static final TableQueryMappingImpl TABLE3 = TableQueryMappingImpl.builder().withTable(GENDER_TABLE).build();
+    private static final TableQueryMappingImpl TABLE4 = TableQueryMappingImpl.builder().withTable(AGE_GROUPS_TABLE).build();
 
     private static final String DOCUMENTATION_TEXT = "";
 

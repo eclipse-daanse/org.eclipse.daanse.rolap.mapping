@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -58,16 +60,21 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
+    public static final PhysicalTableImpl ORDER_FACT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("orderfact")).build();
+    public static final PhysicalTableImpl CUSTOMER_W_TER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer_w_ter")).build();
+    public static final PhysicalTableImpl PRODUCTS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(PRODUCTS)).build();
+    public static final PhysicalTableImpl TIME_TABLE = ((Builder) PhysicalTableImpl.builder().withName("time")).build();
+
     public static final TableQueryMappingImpl orderfactTable = TableQueryMappingImpl.builder()
-            .withName("orderfact")
+            .withTable(ORDER_FACT_TABLE)
             .build();
     public static final TableQueryMappingImpl customerWTerTable = TableQueryMappingImpl.builder()
-            .withName("customer_w_ter")
+            .withTable(CUSTOMER_W_TER_TABLE)
             .build();
     public static final TableQueryMappingImpl productsTable = TableQueryMappingImpl.builder()
-            .withName(PRODUCTS)
+            .withTable(PRODUCTS_TABLE)
             .build();
-    public static final TableQueryMappingImpl timeTable = TableQueryMappingImpl.builder().withName("time").build();
+    public static final TableQueryMappingImpl timeTable = TableQueryMappingImpl.builder().withTable(TIME_TABLE).build();
 
     public static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
             .withName("Territory")

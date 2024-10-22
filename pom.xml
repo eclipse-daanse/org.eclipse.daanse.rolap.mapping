@@ -32,12 +32,12 @@
 
   <modules>
     <module>api</module>
-    <module>emf</module>
+    <!--module>emf</module-->
     <module>pojo</module>
     <module>instance</module>
     <module>mondrian.jaxb</module>
     <module>modifier.common</module>
     <module>modifier.pojo</module>
-    <module>modifier.emf</module>
+    <!--module>modifier.emf</module-->
   </modules>
 </project>

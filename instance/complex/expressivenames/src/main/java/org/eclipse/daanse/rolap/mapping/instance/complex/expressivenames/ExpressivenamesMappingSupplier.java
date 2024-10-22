@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.expressivenames;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
@@ -41,9 +43,9 @@ import org.osgi.service.component.annotations.ServiceScope;
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
 
-    private static final String D3H3L3_TABLE = "D3H3L3Table";
+    private static final String D3H3L3_TABLE_NAME = "D3H3L3Table";
 
-    private static final String D3H2L2_TABLE = "D3H2L2Table";
+    private static final String D3H2L2_TABLE_NAME = "D3H2L2Table";
 
     private static final String SCHEMA_NAME = "ExpressiveNames";
 
@@ -69,19 +71,30 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
-    private static final TableQueryMappingImpl CUBE_1_TABLE_FACT = TableQueryMappingImpl.builder().withName(
-        "Cube1Fact").build();
-    private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withName("D1H1L1Table").build();
-    private static final TableQueryMappingImpl TABLE2 = TableQueryMappingImpl.builder().withName("D2H1L1Table").build();
-    private static final TableQueryMappingImpl TABLE3 = TableQueryMappingImpl.builder().withName("D2H2L2Table").build();
-    private static final TableQueryMappingImpl TABLE4 = TableQueryMappingImpl.builder().withName("D3H1L1Table").build();
+    public static final PhysicalTableImpl CUBE_1_TABLE_FACT = ((Builder) PhysicalTableImpl.builder().withName("Cube1Fact")).build();
+    public static final PhysicalTableImpl D1H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D1H1L1Table")).build();
+    public static final PhysicalTableImpl D2H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H1L1Table")).build();
+    public static final PhysicalTableImpl D2H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H2L2Table")).build();
+    public static final PhysicalTableImpl D3H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H1L1Table")).build();
+    public static final PhysicalTableImpl D3H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H2L2_TABLE_NAME)).build();
+    public static final PhysicalTableImpl D3H2L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H2L1Table")).build();
+    public static final PhysicalTableImpl D3H3L3_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H3L3_TABLE_NAME)).build();
+    public static final PhysicalTableImpl D3H3L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L2Table")).build();
+    public static final PhysicalTableImpl D3H3L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L1Table")).build();
+    
+    private static final TableQueryMappingImpl CUBE_1_TABLE_FACT_QUERY = TableQueryMappingImpl.builder().withTable(
+        CUBE_1_TABLE_FACT).build();
+    private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withTable(D1H1L1_TABLE).build();
+    private static final TableQueryMappingImpl TABLE2 = TableQueryMappingImpl.builder().withTable(D2H1L1_TABLE).build();
+    private static final TableQueryMappingImpl TABLE3 = TableQueryMappingImpl.builder().withTable(D2H2L2_TABLE).build();
+    private static final TableQueryMappingImpl TABLE4 = TableQueryMappingImpl.builder().withTable(D3H1L1_TABLE).build();
     private static final TableQueryMappingImpl TABLE5_1 =
-        TableQueryMappingImpl.builder().withName(D3H2L2_TABLE).build();
+        TableQueryMappingImpl.builder().withTable(D3H2L2_TABLE).build();
     private static final TableQueryMappingImpl TABLE5_2 =
-        TableQueryMappingImpl.builder().withName("D3H2L1Table").build();
-    private static final TableQueryMappingImpl TABLE6 = TableQueryMappingImpl.builder().withName(D3H3L3_TABLE).build();
-    private static final TableQueryMappingImpl TABLE7 = TableQueryMappingImpl.builder().withName("D3H3L2Table").build();
-    private static final TableQueryMappingImpl TABLE8 = TableQueryMappingImpl.builder().withName("D3H3L1Table").build();
+        TableQueryMappingImpl.builder().withTable(D3H2L1_TABLE).build();
+    private static final TableQueryMappingImpl TABLE6 = TableQueryMappingImpl.builder().withTable(D3H3L3_TABLE).build();
+    private static final TableQueryMappingImpl TABLE7 = TableQueryMappingImpl.builder().withTable(D3H3L2_TABLE).build();
+    private static final TableQueryMappingImpl TABLE8 = TableQueryMappingImpl.builder().withTable(D3H3L1_TABLE).build();
 
     private static final JoinQueryMappingImpl JOIN1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
@@ -183,7 +196,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn("D3H2L2_NAME")
         .withOrdinalColumn("D3H2L2_Ordinal")
         .withType(DataType.INTEGER)
-        .withTable(D3H2L2_TABLE)
+        .withTable(D3H2L2_TABLE_NAME)
         .withDescription("Level 2 Hierarchy2 Dimension 3")
         .build();
 
@@ -216,7 +229,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn("D3H3L3_NAME")
         .withOrdinalColumn("D3H3L3_Ordinal")
         .withType(DataType.INTEGER)
-        .withTable(D3H3L3_TABLE)
+        .withTable(D3H3L3_TABLE_NAME)
         .withDescription("Level 3 Hierarchy3 Dimension 3")
         .build();
 
@@ -266,7 +279,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName("D3H2")
         .withPrimaryKey(D_3_H_2_L_2)
-        .withPrimaryKeyTable(D3H2L2_TABLE)
+        .withPrimaryKeyTable(D3H2L2_TABLE_NAME)
         .withDescription("Hierarchy 2 Dimension 3")
         .withQuery(JOIN0)
         .withLevels(List.of(LEVEL321, LEVEL322))
@@ -277,7 +290,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName("D3H3")
         .withPrimaryKey(D_3_H_3_L_3)
-        .withPrimaryKeyTable(D3H3L3_TABLE)
+        .withPrimaryKeyTable(D3H3L3_TABLE_NAME)
         .withDescription("Hierarchy 1 Dimension 3")
         .withQuery(JOIN)
         .withLevels(List.of(LEVEL331, LEVEL332, LEVEL333))
@@ -342,7 +355,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withName(CUBE_1_NAME)
         .withDescription("Test Cube")
-        .withQuery(CUBE_1_TABLE_FACT)
+        .withQuery(CUBE_1_TABLE_FACT_QUERY)
         .withDimensionConnectors(List.of(
             DIMENSION_USAGE_1,
             DIMENSION_USAGE_2,

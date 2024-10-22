@@ -20,6 +20,9 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -634,12 +637,10 @@ public class TransformTask {
         l.setNullParentValue(level.nullParentValue());
         l.setOrdinalColumn(level.ordinalColumn());
         l.setOrdinalExpression(transformSQLExpressionOfExpressionView(level.ordinalExpression()));
-        TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().build();
-        tableQuery.setName(level.table());
         l.setParentChildLink(transformParentChildLink(level.closure()));
         l.setParentColumn(level.parentColumn());
         l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
-//        l.setTable(level.table());
+        l.setTable(level.table());
         l.setDataType(DataType.fromValue(level.type().getValue()));
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
@@ -1010,7 +1011,7 @@ public class TransformTask {
             return transformJoinQuery(j);
         }
         if (relationOrJoin instanceof InlineTable it) {
-            return transformInlineTable(it);
+            return transformInlineTableQuery(it);
         }
         if (relationOrJoin instanceof View v) {
             return transformSqlSelectQuery(v);
@@ -1023,24 +1024,38 @@ public class TransformTask {
         if (v != null) {
             SqlSelectQueryMappingImpl sqlSelectQuery = SqlSelectQueryMappingImpl.builder().build();
             sqlSelectQuery.setAlias(v.alias());
-            sqlSelectQuery.setSQL(transformSqls(v.sqls()));
+            sqlSelectQuery.setSql(transformSqls(v));
             return sqlSelectQuery;
         }
         return null;
     }
 
-    private InlineTableQueryMappingImpl transformInlineTable(InlineTable it) {
+    private InlineTableQueryMappingImpl transformInlineTableQuery(InlineTable it) {
         if (it != null) {
             InlineTableQueryMappingImpl inlineTableQuery = InlineTableQueryMappingImpl.builder().build();
             inlineTableQuery.setAlias(it.alias());
-            inlineTableQuery.setColumnDefinitions(transformInlineTableColumnDefinitions(it.columnDefs()));
-            inlineTableQuery.setRows(transformInlineTableRows(it.rows()));
+            inlineTableQuery.setTable(transformInlineTable(it));
             return inlineTableQuery;
         }
         return null;
     }
 
-    private JoinQueryMappingImpl transformJoinQuery(Join j) {
+    private InlineTableImpl transformInlineTable(InlineTable it) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private PhysicalTableImpl transformPhysicalTable(Table t) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    private SqlViewImpl transformSqls(View v) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+	private JoinQueryMappingImpl transformJoinQuery(Join j) {
         if (j != null) {
             JoinQueryMappingImpl joinQuery = JoinQueryMappingImpl.builder().build();
             RelationOrJoin rojl = j.relations() != null && j.relations().size() > 0 ? j.relations().get(0) : null;
@@ -1056,8 +1071,7 @@ public class TransformTask {
         if (t != null) {
             TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().build();
             tableQuery.setAlias(t.alias());
-            tableQuery.setName(t.name());
-            tableQuery.setSchema(t.schema());
+            tableQuery.setTable(transformPhysicalTable(t));
             SQL sql = t.sql();
             if (sql != null) {
                 tableQuery.setSqlWhereExpression(transformSql(sql));
@@ -1070,7 +1084,7 @@ public class TransformTask {
         return null;
     }
 
-    private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+	private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
         return sqls.stream().map(this::transformSql).toList();
     }
 
