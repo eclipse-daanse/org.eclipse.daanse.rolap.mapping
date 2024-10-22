@@ -12,37 +12,24 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
 
 public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl implements InlineTableQueryMapping {
 
-    private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions;
-
-    private List<InlineTableRowMappingImpl> rows;
+    private InlineTableImpl table;
 
     private InlineTableQueryMappingImpl(Builder builder) {
-        this.columnDefinitions = builder.columnDefinitions;
-        this.rows = builder.rows;
+        this.table = builder.table;
         super.setAlias(builder.alias);
     }
 
-    public List<InlineTableColumnDefinitionMappingImpl> getColumnDefinitions() {
-        return columnDefinitions;
+    public InlineTableImpl getTable() {
+        return table;
     }
 
-    public void setColumnDefinitions(List<InlineTableColumnDefinitionMappingImpl> columnDefinitions) {
-        this.columnDefinitions = columnDefinitions;
-    }
-
-    public List<InlineTableRowMappingImpl> getRows() {
-        return rows;
-    }
-
-    public void setRows(List<InlineTableRowMappingImpl> rows) {
-        this.rows = rows;
+    public void setTable(InlineTableImpl table) {
+        this.table = table;
     }
 
     public static Builder builder() {
@@ -50,20 +37,14 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
     }
 
     public static final class Builder {
-        private List<InlineTableColumnDefinitionMappingImpl> columnDefinitions = new ArrayList<>();
-        private List<InlineTableRowMappingImpl> rows = new ArrayList<>();
+        private InlineTableImpl table;
         private String alias;
 
         private Builder() {
         }
 
-        public Builder withColumnDefinitions(List<InlineTableColumnDefinitionMappingImpl> columnDefinitions) {
-            this.columnDefinitions = columnDefinitions;
-            return this;
-        }
-
-        public Builder withRows(List<InlineTableRowMappingImpl> rows) {
-            this.rows = rows;
+        public Builder withTable(InlineTableImpl table) {
+            this.table = table;
             return this;
         }
 

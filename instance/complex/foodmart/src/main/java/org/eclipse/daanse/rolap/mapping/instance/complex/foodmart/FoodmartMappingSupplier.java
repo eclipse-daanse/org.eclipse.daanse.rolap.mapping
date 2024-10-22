@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
@@ -372,27 +374,41 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
+    public static final PhysicalTableImpl STORE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_STORE)).build();
+    public static final PhysicalTableImpl TIME_BY_DAY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("time_by_day")).build();
+    public static final PhysicalTableImpl PRODUCT_TABLE =  ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT)).build();
+    public static final PhysicalTableImpl PRODUCT_CLASS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT_CLASS)).build();
+    public static final PhysicalTableImpl EMPLOYEE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EMPLOYEE)).build();
+    public static final PhysicalTableImpl DEPARTAMENT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("department")).build();
+    public static final PhysicalTableImpl POSITION_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_NAME_POSITION)).build();
+    public static final PhysicalTableImpl SALARY_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SALARY)).build();
+    public static final PhysicalTableImpl EMPLOYEE_CLOSURE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EMPLOYEE_CLOSURE)).build();
+    public static final PhysicalTableImpl STORE_RAGGED_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STORE_RAGGED)).build();
+    public static final PhysicalTableImpl WAREHOUSE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("warehouse")).build();
+    public static final PhysicalTableImpl PROMOTION_TABLE = ((Builder) PhysicalTableImpl.builder().withName("promotion")).build();
+    public static final PhysicalTableImpl CUSTOMER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer")).build();
+    public static final PhysicalTableImpl INVENTORY_FACKT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName("inventory_fact_1997")).build();
+    public static final PhysicalTableImpl SALES_FACT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SALES_FACT_1997)).build();
+
     public static final TableQueryMappingImpl QUERY_TABLE_STORE =
-        TableQueryMappingImpl.builder().withName(TABLE_STORE).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_TIME_BY_DAY = TableQueryMappingImpl.builder().withName(
-        "time_by_day"
-    ).build();
+        TableQueryMappingImpl.builder().withTable(STORE_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_TIME_BY_DAY = TableQueryMappingImpl.builder().withTable(TIME_BY_DAY_TABLE).build();
     public static final TableQueryMappingImpl QUERY_TABLE_PRODUCT =
-        TableQueryMappingImpl.builder().withName(TABLE_PRODUCT).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_PRODUCT_CLASS = TableQueryMappingImpl.builder().withName(
-        TABLE_PRODUCT_CLASS).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE = TableQueryMappingImpl.builder().withName(
-        EMPLOYEE).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_DEPARTMENT = TableQueryMappingImpl.builder().withName(
-        "department").build();
-    public static final TableQueryMappingImpl QUERY_TABLE_POSITION = TableQueryMappingImpl.builder().withName(
-        TABLE_NAME_POSITION).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_SALARY = TableQueryMappingImpl.builder().withName(
-        SALARY).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE_CLOSURE = TableQueryMappingImpl.builder().withName(
-        EMPLOYEE_CLOSURE).build();
-    public static final TableQueryMappingImpl QUERY_TABLE_STORE_RAGGED = TableQueryMappingImpl.builder().withName(
-        STORE_RAGGED).build();
+        TableQueryMappingImpl.builder().withTable(PRODUCT_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_PRODUCT_CLASS = TableQueryMappingImpl.builder().withTable(
+        PRODUCT_CLASS_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE = TableQueryMappingImpl.builder().withTable(
+        EMPLOYEE_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_DEPARTMENT = TableQueryMappingImpl.builder().withTable(
+        DEPARTAMENT_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_POSITION = TableQueryMappingImpl.builder().withTable(
+        POSITION_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_SALARY = TableQueryMappingImpl.builder().withTable(
+        SALARY_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_EMPLOYEE_CLOSURE = TableQueryMappingImpl.builder().withTable(
+        EMPLOYEE_CLOSURE_TABLE).build();
+    public static final TableQueryMappingImpl QUERY_TABLE_STORE_RAGGED = TableQueryMappingImpl.builder().withTable(
+        STORE_RAGGED_TABLE).build();
 
     public static final JoinQueryMappingImpl JOIN_PRODUCT_PRODUCT_CLASS = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
@@ -410,13 +426,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withRight(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_POSITION_ID)
             .withQuery(QUERY_TABLE_POSITION).build()).build();
     public static final TableQueryMappingImpl warehouseTable =
-        TableQueryMappingImpl.builder().withName("warehouse").build();
+        TableQueryMappingImpl.builder().withTable(WAREHOUSE_TABLE).build();
     public static final TableQueryMappingImpl QUERY_TABLE_PROMOTION =
-        TableQueryMappingImpl.builder().withName("promotion").build();
+        TableQueryMappingImpl.builder().withTable(PROMOTION_TABLE).build();
     public static final TableQueryMappingImpl QUERY_TABLE_CUSTOMER =
-        TableQueryMappingImpl.builder().withName("customer").build();
+        TableQueryMappingImpl.builder().withTable(CUSTOMER_TABLE).build();
     public static final TableQueryMappingImpl QUERY_TABLE_inventoryFact1997 =
-        TableQueryMappingImpl.builder().withName("inventory_fact_1997").build();
+        TableQueryMappingImpl.builder().withTable(INVENTORY_FACKT_1997_TABLE).build();
 
     public static final LevelMappingImpl LEVEL_STORE_COUNTRY = LevelMappingImpl.builder()
         .withName(STORE_COUNTRY)
@@ -1178,11 +1194,11 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .build();
 
     public static final TableQueryMappingImpl TABLE_QUERY_FACT_SALES_1997 = TableQueryMappingImpl.builder()
-        .withName(SALES_FACT_1997).build();
+        .withTable(SALES_FACT_1997_TABLE).build();
 
     public static final TableQueryMappingImpl TABLE_QUERY_FACT_SALES_1997_WITH_AGG_EXCLUSED =
         TableQueryMappingImpl.builder()
-            .withName(SALES_FACT_1997)
+            .withTable(SALES_FACT_1997_TABLE)
             .withAggregationExcludes(List.of(
                 AggregationExcludeMappingImpl.builder().withName("agg_c_special_sales_fact_1997").build(),
                 AggregationExcludeMappingImpl.builder().withName("agg_lc_100_sales_fact_1997").build(),
@@ -1228,7 +1244,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final TableQueryMappingImpl TABLE_QUERY_FACT_SALES_1997_WITH_AGG_EXCLUSED_FOR_CUBE_SALES_RAGGED =
         TableQueryMappingImpl.builder()
-            .withName(SALES_FACT_1997)
+            .withTable(SALES_FACT_1997_TABLE)
             .withAggregationExcludes(List.of(
                 AggregationExcludeMappingImpl.builder().withName("agg_pc_10_sales_fact_1997").build(),
                 AggregationExcludeMappingImpl.builder().withName("agg_lc_10_sales_fact_1997").build()
