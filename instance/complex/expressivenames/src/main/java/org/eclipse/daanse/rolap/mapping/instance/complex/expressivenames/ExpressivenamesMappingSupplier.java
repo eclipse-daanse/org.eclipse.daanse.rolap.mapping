@@ -81,7 +81,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalTableImpl D3H3L3_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H3L3_TABLE_NAME)).build();
     public static final PhysicalTableImpl D3H3L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L2Table")).build();
     public static final PhysicalTableImpl D3H3L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L1Table")).build();
-    
+
     private static final TableQueryMappingImpl CUBE_1_TABLE_FACT_QUERY = TableQueryMappingImpl.builder().withTable(
         CUBE_1_TABLE_FACT).build();
     private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withTable(D1H1L1_TABLE).build();

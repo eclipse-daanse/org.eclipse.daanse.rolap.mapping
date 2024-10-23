@@ -20,8 +20,14 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
+import org.eclipse.daanse.rdb.structure.api.model.RowValue;
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
+import org.eclipse.daanse.rdb.structure.pojo.RowImpl;
+import org.eclipse.daanse.rdb.structure.pojo.RowValueImpl;
 import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
@@ -1041,13 +1047,47 @@ public class TransformTask {
     }
 
     private InlineTableImpl transformInlineTable(InlineTable it) {
-        // TODO Auto-generated method stub
-        return null;
+        //TODO
+        List<org.eclipse.daanse.rdb.structure.api.model.Row> rows = transformRows(it.rows());
+        InlineTableImpl inlineTable = InlineTableImpl.builder()
+            .withRows(rows)
+            .build();
+        return inlineTable;
+    }
+
+    private List<org.eclipse.daanse.rdb.structure.api.model.Row> transformRows(List<Row> rows) {
+        if (rows != null) {
+            rows.stream().map(r -> transformRow(r));
+        }
+        return List.of();
+    }
+
+    private org.eclipse.daanse.rdb.structure.api.model.Row transformRow(Row r) {
+        List<RowValue> rowValues = transformRowValues(r.values());
+        return RowImpl.builder().withRowValues(rowValues).build();
+    }
+
+    private List<RowValue> transformRowValues(List<Value> values) {
+        if (values != null) {
+            values.stream().map(v -> transformValue(v));
+        }
+        return List.of();
+    }
+
+    private RowValue transformValue(Value v) {
+        ColumnImpl column = ColumnImpl.builder().withName(v.column()).build();
+        return RowValueImpl.builder().withColumn(column).withValue(v.content()).build();
     }
 
     private PhysicalTableImpl transformPhysicalTable(Table t) {
-        // TODO Auto-generated method stub
-        return null;
+        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder()
+            .withName(t.schema())
+            .build();
+        PhysicalTableImpl table = ((Builder) PhysicalTableImpl.builder()
+            .withName(t.name())
+            .withsSchema(databaseSchema))
+            .build();
+        return table;
     }
 
     private SqlViewImpl transformSqls(View v) {
@@ -1055,7 +1095,7 @@ public class TransformTask {
         return null;
     }
 
-	private JoinQueryMappingImpl transformJoinQuery(Join j) {
+    private JoinQueryMappingImpl transformJoinQuery(Join j) {
         if (j != null) {
             JoinQueryMappingImpl joinQuery = JoinQueryMappingImpl.builder().build();
             RelationOrJoin rojl = j.relations() != null && j.relations().size() > 0 ? j.relations().get(0) : null;
@@ -1084,7 +1124,7 @@ public class TransformTask {
         return null;
     }
 
-	private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+    private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
         return sqls.stream().map(this::transformSql).toList();
     }
 

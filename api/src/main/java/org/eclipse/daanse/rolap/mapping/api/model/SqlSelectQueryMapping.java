@@ -16,6 +16,6 @@ import org.eclipse.daanse.rdb.structure.api.model.SqlView;
 
 public interface SqlSelectQueryMapping extends RelationalQueryMapping {
 
-	SqlView getSql();
+    SqlView getSql();
 
 }

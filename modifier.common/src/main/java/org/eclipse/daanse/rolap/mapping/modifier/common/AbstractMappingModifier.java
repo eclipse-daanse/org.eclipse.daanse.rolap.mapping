@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
@@ -153,7 +152,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
         if (catalog2 != null) {
-        	List<? extends DatabaseSchema> dbschemas = catalogDatabaseSchemas(catalog2);
+            List<? extends DatabaseSchema> dbschemas = catalogDatabaseSchemas(catalog2);
             List<? extends AnnotationMapping> annotations = annotations(catalog2);
             String id = catalogId(catalog2);
             String description = catalogDescription(catalog2);
@@ -167,10 +166,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     private List<? extends DatabaseSchema> catalogDatabaseSchemas(CatalogMapping catalog2) {
-    	return databaseSchemas(catalog2.getDbschemas());
-	}
+        return databaseSchemas(catalog2.getDbschemas());
+    }
 
-	protected List<? extends AnnotationMapping> annotations(CatalogMapping catalog2) {
+    protected List<? extends AnnotationMapping> annotations(CatalogMapping catalog2) {
         return annotations(catalog2.getAnnotations());
     }
 
@@ -215,7 +214,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DatabaseSchema schema = tableSchema(table);
             String description = tableDescription(table);
             if (table instanceof PhysicalTable pt) {
-            	return physicalTable(pt);
+                return physicalTable(pt);
             }
             if (table instanceof SystemTable) {
                 return createSystemTable(name, columns, schema, description);
@@ -234,15 +233,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private PhysicalTable physicalTable(PhysicalTable table) {
+    private PhysicalTable physicalTable(Table table) {
         String name = tableName(table);
         List<? extends Column> columns = tableColumns(table);
         DatabaseSchema schema = tableSchema(table);
         String description = tableDescription(table);
         return createPhysicalTable(name, columns, schema, description);
-	}
+    }
 
-	protected SqlView sqlView(SqlView table) {
+    protected SqlView sqlView(SqlView table) {
         if (table != null) {
             String name = tableName(table);
             List<? extends Column> columns = tableColumns(table);
@@ -253,19 +252,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         }
         return null;
     }
-    
+
     protected InlineTable inlineTable(InlineTable table) {
-    	if (table != null) {
+        if (table != null) {
             String name = tableName(table);
             List<? extends Column> columns = tableColumns(table);
             DatabaseSchema schema = tableSchema(table);
             String description = tableDescription(table);
             List<? extends Row> rows = inlineTableRows(table);
             return createInlineTable(name, columns, schema, description, rows);
-    	}
-    	return null;
+        }
+        return null;
     }
-    
+
     protected List<? extends SqlStatement> sqlViewSqlStatements(SqlView sv) {
         if (sv != null) {
             return sqlStatements(sv.getSqlStatements());
@@ -776,10 +775,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     private InlineTable inlineTableInlineTable(InlineTableQueryMapping itq) {
-		return inlineTable(itq.getTable());
-	}
+        return inlineTable(itq.getTable());
+    }
 
-	protected abstract QueryMapping createInlineTableQuery(
+    protected abstract QueryMapping createInlineTableQuery(
         String alias,
         InlineTable table
     );
@@ -927,10 +926,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     private SqlView sqlSelectQuerySqlView(SqlSelectQueryMapping ssq) {
-		return sqlView(ssq.getSql());
-	}
+        return sqlView(ssq.getSql());
+    }
 
-	protected abstract QueryMapping createSqlSelectQuery(String alias, SqlView sql);
+    protected abstract QueryMapping createSqlSelectQuery(String alias, SqlView sql);
 
     protected List<SQLMapping> sqls(List<? extends SQLMapping> sqls) {
         if (sqls != null) {
@@ -953,7 +952,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends TableQueryOptimizationHintMapping> optimizationHints = tableQueryOptimizationHints(
                 tableQuery);
 
-            PhysicalTable table = tableTable(tableQuery);
+            Table table = tableTable(tableQuery);
 
             List<? extends AggregationTableMapping> aggregationTables = tableQueryAggregationTables(tableQuery);
 
@@ -964,14 +963,14 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     }
 
-    protected PhysicalTable tableTable(TableQueryMapping tableQuery) {
-		return physicalTable(tableQuery.getTable());
-	}
+    protected Table tableTable(TableQueryMapping tableQuery) {
+        return table(tableQuery.getTable());
+    }
 
-	protected abstract TableQueryMapping createTableQuery(
+    protected abstract TableQueryMapping createTableQuery(
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, PhysicalTable table,
+        List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
         List<? extends AggregationTableMapping> aggregationTables
     );
 

@@ -47,7 +47,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
     private static final String GEOGRAPHICAL = "Geographical";
 
     private static final String POPULATION = "Population";
-    
+
     public static final PhysicalTableImpl POPULATION_TABLE = ((Builder) PhysicalTableImpl.builder().withName("population")).build();
     public static final PhysicalTableImpl YEAR_TABLE = ((Builder) PhysicalTableImpl.builder().withName("year")).build();
     public static final PhysicalTableImpl COUNTRY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("country")).build();
@@ -55,7 +55,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalTableImpl STATE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STATE)).build();
     public static final PhysicalTableImpl GENDER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("gender")).build();
     public static final PhysicalTableImpl AGE_GROUPS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ageGroups")).build();
-    
+
     private static final TableQueryMappingImpl TABLE_FACT =
         TableQueryMappingImpl.builder().withTable(POPULATION_TABLE).build();
     private static final TableQueryMappingImpl TABLE1 = TableQueryMappingImpl.builder().withTable(YEAR_TABLE).build();
