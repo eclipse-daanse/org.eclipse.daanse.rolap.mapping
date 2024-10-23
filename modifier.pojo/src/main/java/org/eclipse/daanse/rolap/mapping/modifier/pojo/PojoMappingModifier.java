@@ -353,7 +353,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected TableQueryMapping createTableQuery(
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, PhysicalTable table,
+        List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
         List<? extends AggregationTableMapping> aggregationTables
     ) {
         return TableQueryMappingImpl.builder()

@@ -54,7 +54,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static DocumentationMappingImpl documentation = new DocumentationMappingImpl(documentation_text);
 
     private final static PhysicalTableImpl factTable = ((Builder) PhysicalTableImpl.builder().withName(name)).build();
-    
+
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withTable(factTable).build();
 
     private final static MeasureMappingImpl measure = MeasureMappingImpl.builder()
