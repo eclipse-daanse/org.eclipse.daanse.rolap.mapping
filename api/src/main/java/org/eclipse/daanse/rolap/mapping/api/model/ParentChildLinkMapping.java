@@ -12,12 +12,14 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+
 public interface ParentChildLinkMapping {
 
     TableQueryMapping getTable();
 
-    String getChildColumn();
+    Column getChildColumn();
 
-    String getParentColumn();
+    Column getParentColumn();
 
 }

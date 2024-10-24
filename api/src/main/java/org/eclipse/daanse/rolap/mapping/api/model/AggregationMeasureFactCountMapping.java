@@ -12,10 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+
 public interface AggregationMeasureFactCountMapping {
 
-    String getColumn();
+    Column getColumn();
 
-    String getFactColumn();
+    Column getFactColumn();
 
 }

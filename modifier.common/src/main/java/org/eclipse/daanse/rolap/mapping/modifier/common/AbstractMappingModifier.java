@@ -17,7 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
@@ -152,6 +151,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
         if (catalog2 != null) {
+            List<? extends DatabaseSchema> dbschemas = catalogDatabaseSchemas(catalog2);
             List<? extends AnnotationMapping> annotations = annotations(catalog2);
             String id = catalogId(catalog2);
             String description = catalogDescription(catalog2);
@@ -159,10 +159,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = catalogDocumentation(catalog2);
 
             List<? extends SchemaMapping> schemas = catalogSchemas(catalog2);
-            List<? extends DatabaseSchema> dbschemas = null;
             return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
         }
         return null;
+    }
+
+    private List<? extends DatabaseSchema> catalogDatabaseSchemas(CatalogMapping catalog2) {
+        return databaseSchemas(catalog2.getDbschemas());
     }
 
     protected List<? extends AnnotationMapping> annotations(CatalogMapping catalog2) {
@@ -209,8 +212,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends Column> columns = tableColumns(table);
             DatabaseSchema schema = tableSchema(table);
             String description = tableDescription(table);
-            if (table instanceof PhysicalTable) {
-                return createPhysicalTable(name, columns, schema, description);
+            if (table instanceof PhysicalTable pt) {
+                return physicalTable(pt);
             }
             if (table instanceof SystemTable) {
                 return createSystemTable(name, columns, schema, description);
@@ -219,13 +222,44 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 return createViewTable(name, columns, schema, description);
             }
             if (table instanceof InlineTable it) {
-                List<? extends Row> rows = inlineTableRows(it);
-                return createInlineTable(name, columns, schema, description, rows);
+                return inlineTable(it);
             }
             if (table instanceof SqlView sv) {
                 List<? extends SqlStatement> sqlStatements = sqlViewSqlStatements(sv);
                 return createSqlView(name, columns, schema, description, sqlStatements);
             }
+        }
+        return null;
+    }
+
+    private PhysicalTable physicalTable(Table table) {
+        String name = tableName(table);
+        List<? extends Column> columns = tableColumns(table);
+        DatabaseSchema schema = tableSchema(table);
+        String description = tableDescription(table);
+        return createPhysicalTable(name, columns, schema, description);
+    }
+
+    protected SqlView sqlView(SqlView table) {
+        if (table != null) {
+            String name = tableName(table);
+            List<? extends Column> columns = tableColumns(table);
+            DatabaseSchema schema = tableSchema(table);
+            String description = tableDescription(table);
+            List<? extends SqlStatement> sqlStatements = sqlViewSqlStatements(table);
+            return createSqlView(name, columns, schema, description, sqlStatements);
+        }
+        return null;
+    }
+
+    protected InlineTable inlineTable(InlineTable table) {
+        if (table != null) {
+            String name = tableName(table);
+            List<? extends Column> columns = tableColumns(table);
+            DatabaseSchema schema = tableSchema(table);
+            String description = tableDescription(table);
+            List<? extends Row> rows = inlineTableRows(table);
+            return createInlineTable(name, columns, schema, description, rows);
         }
         return null;
     }
@@ -263,12 +297,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract SqlStatement createSqlStatement(List<String> dialects, String sql);
 
-    protected abstract Table createSqlView(
+    protected abstract SqlView createSqlView(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends SqlStatement> sqlStatements
     );
 
-    protected abstract Table createInlineTable(
+    protected abstract InlineTable createInlineTable(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description, List<? extends Row> rows
     );
@@ -337,7 +371,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String description
     );
 
-    protected abstract Table createPhysicalTable(
+    protected abstract PhysicalTable createPhysicalTable(
         String name, List<? extends Column> columns, DatabaseSchema schema,
         String description
     );
@@ -679,8 +713,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean hasAll = hierarchyHasAll(hierarchy);
                 String memberReaderClass = hierarchyMemberReaderClass(hierarchy);
                 String origin = hierarchyOrigin(hierarchy);
-                String primaryKey = hierarchyPrimaryKey(hierarchy);
-                String primaryKeyTable = hierarchyPrimaryKeyTable(hierarchy);
+                Column primaryKey = hierarchyPrimaryKey(hierarchy);
+                Table primaryKeyTable = hierarchyPrimaryKeyTable(hierarchy);
                 String uniqueKeyLevelName = hierarchyUniqueKeyLevelName(hierarchy);
                 boolean visible = hierarchyVisible(hierarchy);
                 QueryMapping query = hierarchyQuery(hierarchy);
@@ -733,23 +767,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected QueryMapping inlineTableQuery(InlineTableQueryMapping itq) {
         if (itq != null) {
             String alias = inlineTableQueryAlias(itq);
-            List<? extends InlineTableColumnDefinitionMapping> columnDefinitions = inlineTableQueryColumnDefinitions(
-                itq);
-            List<? extends InlineTableRowMappingMapping> rows = inlineTableQueryRows(itq);
-            return createInlineTableQuery(alias, columnDefinitions, rows);
+            InlineTable table = inlineTableInlineTable(itq);
+            return createInlineTableQuery(alias, table);
         }
         return null;
     }
 
+    private InlineTable inlineTableInlineTable(InlineTableQueryMapping itq) {
+        return inlineTable(itq.getTable());
+    }
+
     protected abstract QueryMapping createInlineTableQuery(
         String alias,
-        List<? extends InlineTableColumnDefinitionMapping> columnDefinitions,
-        List<? extends InlineTableRowMappingMapping> rows
+        InlineTable table
     );
-
-    protected List<? extends InlineTableRowMappingMapping> inlineTableQueryRows(InlineTableQueryMapping itq) {
-        return inlineTableRowMappings(itq.getRows());
-    }
 
     protected List<InlineTableRowMappingMapping> inlineTableRowMappings(
         List<? extends InlineTableRowMappingMapping> rows
@@ -805,12 +836,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract InlineTableRowMappingMapping createInlineTableRowMapping(
         List<? extends InlineTableRowCellMapping> cells
     );
-
-    protected List<? extends InlineTableColumnDefinitionMapping> inlineTableQueryColumnDefinitions(
-        InlineTableQueryMapping itq
-    ) {
-        return inlineTableColumnDefinitions(itq.getColumnDefinitions());
-    }
 
     protected List<InlineTableColumnDefinitionMapping> inlineTableColumnDefinitions(
         List<? extends InlineTableColumnDefinitionMapping> columnDefinitions
@@ -893,18 +918,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected QueryMapping sqlSelectQuery(SqlSelectQueryMapping ssq) {
         if (ssq != null) {
             String alias = sqlSelectQueryAlias(ssq);
-            List<? extends SQLMapping> sqls = sqlSelectQuerySqls(ssq);
-
-            return createSqlSelectQuery(alias, sqls);
+            SqlView sql = sqlSelectQuerySqlView(ssq);
+            return createSqlSelectQuery(alias, sql);
         }
         return null;
     }
 
-    protected abstract QueryMapping createSqlSelectQuery(String alias, List<? extends SQLMapping> sqls);
-
-    protected List<? extends SQLMapping> sqlSelectQuerySqls(SqlSelectQueryMapping ssq) {
-        return sqls(ssq.getSQL());
+    private SqlView sqlSelectQuerySqlView(SqlSelectQueryMapping ssq) {
+        return sqlView(ssq.getSql());
     }
+
+    protected abstract QueryMapping createSqlSelectQuery(String alias, SqlView sql);
 
     protected List<SQLMapping> sqls(List<? extends SQLMapping> sqls) {
         if (sqls != null) {
@@ -927,23 +951,25 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends TableQueryOptimizationHintMapping> optimizationHints = tableQueryOptimizationHints(
                 tableQuery);
 
-            String name = tableQueryName(tableQuery);
-
-            String schema = tableQuerySchema(tableQuery);
+            Table table = tableTable(tableQuery);
 
             List<? extends AggregationTableMapping> aggregationTables = tableQueryAggregationTables(tableQuery);
 
-            return createTableQuery(alias, sqlWhereExpression, aggregationExcludes, optimizationHints, name, schema,
+            return createTableQuery(alias, sqlWhereExpression, aggregationExcludes, optimizationHints, table,
                 aggregationTables);
         }
         return null;
 
     }
 
+    protected Table tableTable(TableQueryMapping tableQuery) {
+        return table(tableQuery.getTable());
+    }
+
     protected abstract TableQueryMapping createTableQuery(
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, String name, String schema,
+        List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
         List<? extends AggregationTableMapping> aggregationTables
     );
 
@@ -1071,26 +1097,26 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AggregationMeasureFactCountMapping aggregationMeasureFactCount
     ) {
         if (aggregationMeasureFactCount != null) {
-            String column = aggregationMeasureFactCountColumn(aggregationMeasureFactCount);
-            String factColumn = aggregationMeasureFactCountFactColumn(aggregationMeasureFactCount);
+        	Column column = aggregationMeasureFactCountColumn(aggregationMeasureFactCount);
+        	Column factColumn = aggregationMeasureFactCountFactColumn(aggregationMeasureFactCount);
             return createAggregationMeasureFactCount(column, factColumn);
         }
         return null;
     }
 
     protected abstract AggregationMeasureFactCountMapping createAggregationMeasureFactCount(
-        String column,
-        String factColumn
+        Column column,
+        Column factColumn
     );
 
-    protected String aggregationMeasureFactCountFactColumn(
+    protected Column aggregationMeasureFactCountFactColumn(
         AggregationMeasureFactCountMapping aggregationMeasureFactCount
     ) {
-        return aggregationMeasureFactCount.getFactColumn();
+        return column(aggregationMeasureFactCount.getFactColumn());
     }
 
-    protected String aggregationMeasureFactCountColumn(AggregationMeasureFactCountMapping aggregationMeasureFactCount) {
-        return aggregationMeasureFactCount.getColumn();
+    protected Column aggregationMeasureFactCountColumn(AggregationMeasureFactCountMapping aggregationMeasureFactCount) {
+        return column(aggregationMeasureFactCount.getColumn());
     }
 
     protected List<? extends AggregationLevelMapping> aggregationTableAggregationLevels(
@@ -1113,12 +1139,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties =
                 aggregationLevelAggregationLevelProperties(
                     aggregationLevel);
-            String captionColumn = aggregationLevelCaptionColumn(aggregationLevel);
+            Column captionColumn = aggregationLevelCaptionColumn(aggregationLevel);
             boolean collapsed = aggregationLevelCollapsed(aggregationLevel);
-            String column = aggregationLevelColumn(aggregationLevel);
+            Column column = aggregationLevelColumn(aggregationLevel);
             String name = aggregationLevelName(aggregationLevel);
-            String nameColumn = aggregationLevelNameColumn(aggregationLevel);
-            String ordinalColumn = aggregationLevelOrdinalColumn(aggregationLevel);
+            Column nameColumn = aggregationLevelNameColumn(aggregationLevel);
+            Column ordinalColumn = aggregationLevelOrdinalColumn(aggregationLevel);
             return createAggregationLevel(aggregationLevelProperties, captionColumn, collapsed, column, name,
                 nameColumn,
                 ordinalColumn);
@@ -1145,28 +1171,28 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AggregationLevelPropertyMapping aggregationLevelProperty
     ) {
         if (aggregationLevelProperty != null) {
-            String column = aggregationLevelPropertyColumn(aggregationLevelProperty);
+            Column column = aggregationLevelPropertyColumn(aggregationLevelProperty);
             String name = aggregationLevelPropertyName(aggregationLevelProperty);
             return createAggregationLevelProperty(column, name);
         }
         return null;
     }
 
-    protected abstract AggregationLevelPropertyMapping createAggregationLevelProperty(String column, String name);
+    protected abstract AggregationLevelPropertyMapping createAggregationLevelProperty(Column column, String name);
 
     protected String aggregationLevelPropertyName(AggregationLevelPropertyMapping aggregationLevelProperty) {
         return aggregationLevelProperty.getName();
     }
 
-    protected String aggregationLevelPropertyColumn(AggregationLevelPropertyMapping aggregationLevelProperty) {
-        return aggregationLevelProperty.getColumn();
+    protected Column aggregationLevelPropertyColumn(AggregationLevelPropertyMapping aggregationLevelProperty) {
+        return column(aggregationLevelProperty.getColumn());
     }
 
-    protected String aggregationLevelOrdinalColumn(AggregationLevelMapping aggregationLevel) {
-        return aggregationLevel.getOrdinalColumn();
+    protected Column aggregationLevelOrdinalColumn(AggregationLevelMapping aggregationLevel) {
+        return column(aggregationLevel.getOrdinalColumn());
     }
 
-    protected String aggregationLevelNameColumn(AggregationLevelMapping aggregationLevel) {
+    protected Column aggregationLevelNameColumn(AggregationLevelMapping aggregationLevel) {
         return aggregationLevel.getNameColumn();
     }
 
@@ -1174,7 +1200,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationLevel.getName();
     }
 
-    protected String aggregationLevelColumn(AggregationLevelMapping aggregationLevel) {
+    protected Column aggregationLevelColumn(AggregationLevelMapping aggregationLevel) {
         return aggregationLevel.getColumn();
     }
 
@@ -1182,13 +1208,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationLevel.isCollapsed();
     }
 
-    protected String aggregationLevelCaptionColumn(AggregationLevelMapping aggregationLevel) {
-        return aggregationLevel.getCaptionColumn();
+    protected Column aggregationLevelCaptionColumn(AggregationLevelMapping aggregationLevel) {
+        return column(aggregationLevel.getCaptionColumn());
     }
 
     protected abstract AggregationLevelMapping createAggregationLevel(
-        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, String captionColumn,
-        boolean collapsed, String column, String name, String nameColumn, String ordinalColumn
+        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, Column captionColumn,
+        boolean collapsed, Column column, String name, Column nameColumn, Column ordinalColumn
     );
 
     protected List<? extends AggregationMeasureMapping> aggregationTableAggregationMeasures(
@@ -1208,7 +1234,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationMeasureMapping aggregationMeasure(AggregationMeasureMapping aggregationMeasure) {
         if (aggregationMeasure != null) {
-            String column = aggregationMeasureColumn(aggregationMeasure);
+            Column column = aggregationMeasureColumn(aggregationMeasure);
             String name = aggregationMeasureName(aggregationMeasure);
             String rollupType = aggregationMeasureRollupType(aggregationMeasure);
             return createAggregationMeasure(column, name, rollupType);
@@ -1217,7 +1243,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract AggregationMeasureMapping createAggregationMeasure(
-        String column,
+        Column column,
         String name,
         String rollupType
     );
@@ -1230,8 +1256,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationMeasure.getName();
     }
 
-    protected String aggregationMeasureColumn(AggregationMeasureMapping aggregationMeasure) {
-        return aggregationMeasure.getColumn();
+    protected Column aggregationMeasureColumn(AggregationMeasureMapping aggregationMeasure) {
+        return column(aggregationMeasure.getColumn());
     }
 
     protected List<? extends AggregationForeignKeyMapping> aggregationTableAggregationForeignKeys(
@@ -1251,24 +1277,24 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationForeignKeyMapping aggregationForeignKey(AggregationForeignKeyMapping aggregationForeignKey) {
         if (aggregationForeignKey != null) {
-            String aggregationColumn = aggregationForeignKeyAggregationColumn(aggregationForeignKey);
-            String factColumn = aggregationForeignKeyFactColumn(aggregationForeignKey);
+        	Column aggregationColumn = aggregationForeignKeyAggregationColumn(aggregationForeignKey);
+            Column factColumn = aggregationForeignKeyFactColumn(aggregationForeignKey);
             return createAggregationForeignKey(aggregationColumn, factColumn);
         }
         return null;
     }
 
-    protected String aggregationForeignKeyFactColumn(AggregationForeignKeyMapping aggregationForeignKey) {
-        return aggregationForeignKey.getFactColumn();
+    protected Column aggregationForeignKeyFactColumn(AggregationForeignKeyMapping aggregationForeignKey) {
+        return column(aggregationForeignKey.getFactColumn());
     }
 
-    protected String aggregationForeignKeyAggregationColumn(AggregationForeignKeyMapping aggregationForeignKey) {
-        return aggregationForeignKey.getAggregationColumn();
+    protected Column aggregationForeignKeyAggregationColumn(AggregationForeignKeyMapping aggregationForeignKey) {
+        return column(aggregationForeignKey.getAggregationColumn());
     }
 
     protected abstract AggregationForeignKeyMapping createAggregationForeignKey(
-        String aggregationColumn,
-        String factColumn
+        Column aggregationColumn,
+        Column factColumn
     );
 
     protected List<? extends AggregationColumnNameMapping> aggregationTableAggregationIgnoreColumns(
@@ -1294,24 +1320,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationColumnNameMapping aggregationColumnName(AggregationColumnNameMapping aggregationColumnName) {
         if (aggregationColumnName != null) {
-            String column = aggregationColumnNameColumn(aggregationColumnName);
+        	Column column = aggregationColumnNameColumn(aggregationColumnName);
             return createAggregationColumn(column);
         }
         return null;
     }
 
-    protected String aggregationColumnNameColumn(AggregationColumnNameMapping aggregationColumnName) {
-        return aggregationColumnName.getColumn();
+    protected Column aggregationColumnNameColumn(AggregationColumnNameMapping aggregationColumnName) {
+        return column(aggregationColumnName.getColumn());
     }
 
-    protected abstract AggregationColumnNameMapping createAggregationColumn(String column);
+    protected abstract AggregationColumnNameMapping createAggregationColumn(Column column);
 
-    protected String tableQuerySchema(TableQueryMapping tableQuery) {
-        return tableQuery.getSchema();
-    }
-
-    protected String tableQueryName(TableQueryMapping tableQuery) {
-        return tableQuery.getName();
+    protected Table tableQueryTable(TableQueryMapping tableQuery) {
+        return table(tableQuery.getTable());
     }
 
     protected List<? extends TableQueryOptimizationHintMapping> tableQueryOptimizationHints(
@@ -1443,12 +1465,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return hierarchy.getUniqueKeyLevelName();
     }
 
-    protected String hierarchyPrimaryKeyTable(HierarchyMapping hierarchy) {
+    protected Table hierarchyPrimaryKeyTable(HierarchyMapping hierarchy) {
         return hierarchy.getPrimaryKeyTable();
     }
 
-    protected String hierarchyPrimaryKey(HierarchyMapping hierarchy) {
-        return hierarchy.getPrimaryKey();
+    protected Column hierarchyPrimaryKey(HierarchyMapping hierarchy) {
+        return column(hierarchy.getPrimaryKey());
     }
 
     protected String hierarchyOrigin(HierarchyMapping hierarchy) {
@@ -1552,7 +1574,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-        String memberReaderClass, String origin, String primaryKey, String primaryKeyTable,
+        String memberReaderClass, String origin, Column primaryKey, Table primaryKeyTable,
         String uniqueKeyLevelName, boolean visible, QueryMapping query
     );
 
@@ -1580,15 +1602,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 List<? extends MemberPropertyMapping> memberProperties = levelMemberProperties(level);
                 MemberFormatterMapping memberFormatter = levelMemberFormatter(level);
                 String approxRowCount = levelApproxRowCount(level);
-                String captionColumn = levelCaptionColumn(level);
-                String column = levelColumn(level);
+                Column captionColumn = levelCaptionColumn(level);
+                Column column = levelColumn(level);
                 HideMemberIfType hideMemberIf = levelHideMemberIf(level);
                 LevelType levelType = levelLevelType(level);
-                String nameColumn = levelNameColumn(level);
+                Column nameColumn = levelNameColumn(level);
                 String nullParentValue = levelNullParentValue(level);
-                String ordinalColumn = levelOrdinalColumn(level);
-                String parentColumn = levelParentColumn(level);
-                String table = levelTable(level);
+                Column ordinalColumn = levelOrdinalColumn(level);
+                Column parentColumn = levelParentColumn(level);
+                Table table = levelTable(level);
                 DataType type = levelType(level);
                 boolean uniqueMembers = levelUniqueMembers(level);
                 boolean visible = levelVisible(level);
@@ -1630,24 +1652,24 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.getDataType();
     }
 
-    protected String levelTable(LevelMapping level) {
+    protected Table levelTable(LevelMapping level) {
         return level.getTable();
     }
 
-    protected String levelParentColumn(LevelMapping level) {
-        return level.getParentColumn();
+    protected Column levelParentColumn(LevelMapping level) {
+        return column(level.getParentColumn());
     }
 
-    protected String levelOrdinalColumn(LevelMapping level) {
-        return level.getOrdinalColumn();
+    protected Column levelOrdinalColumn(LevelMapping level) {
+        return column(level.getOrdinalColumn());
     }
 
     protected String levelNullParentValue(LevelMapping level) {
         return level.getNullParentValue();
     }
 
-    protected String levelNameColumn(LevelMapping level) {
-        return level.getNameColumn();
+    protected Column levelNameColumn(LevelMapping level) {
+        return column(level.getNameColumn());
     }
 
     protected LevelType levelLevelType(LevelMapping level) {
@@ -1658,12 +1680,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.getHideMemberIfType();
     }
 
-    protected String levelColumn(LevelMapping level) {
-        return level.getColumn();
+    protected Column levelColumn(LevelMapping level) {
+        return column(level.getColumn());
     }
 
-    protected String levelCaptionColumn(LevelMapping level) {
-        return level.getCaptionColumn();
+    protected Column levelCaptionColumn(LevelMapping level) {
+        return column(level.getCaptionColumn());
     }
 
     protected String levelApproxRowCount(LevelMapping level) {
@@ -1745,7 +1767,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             DocumentationMapping documentation = memberPropertyDocumentation(memberProperty);
 
             MemberPropertyFormatterMapping formatter = memberPropertyFormatter(memberProperty);
-            String column = memberPropertyColumn(memberProperty);
+            Column column = memberPropertyColumn(memberProperty);
             boolean dependsOnLevelValue = memberPropertyDependsOnLevelValue(memberProperty);
             DataType type = memberDataType(memberProperty);
 
@@ -1755,14 +1777,14 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private String memberPropertyColumn(MemberPropertyMapping memberProperty) {
-        return memberProperty.getColumn();
+    private Column memberPropertyColumn(MemberPropertyMapping memberProperty) {
+        return column(memberProperty.getColumn());
     }
 
     protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
         String id, String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType type
+        MemberPropertyFormatterMapping formatter, Column column, boolean dependsOnLevelValue, DataType type
     );
 
     protected DataType memberDataType(MemberPropertyMapping memberProperty) {
@@ -1859,19 +1881,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected ParentChildLinkMapping parentChildLink(ParentChildLinkMapping parentChildLink) {
         if (parentChildLink != null) {
             TableQueryMapping table = parentChildLinkTable(parentChildLink);
-            String childColumn = parentChildLinkChildColumn(parentChildLink);
-            String parentColumn = parentChildLinkParentColumn(parentChildLink);
+            Column childColumn = parentChildLinkChildColumn(parentChildLink);
+            Column parentColumn = parentChildLinkParentColumn(parentChildLink);
             return createParentChildLink(table, childColumn, parentColumn);
         }
         return null;
     }
 
-    protected String parentChildLinkParentColumn(ParentChildLinkMapping parentChildLink) {
-        return parentChildLink.getParentColumn();
+    protected Column parentChildLinkParentColumn(ParentChildLinkMapping parentChildLink) {
+        return column(parentChildLink.getParentColumn());
     }
 
-    protected String parentChildLinkChildColumn(ParentChildLinkMapping parentChildLink) {
-        return parentChildLink.getChildColumn();
+    protected Column parentChildLinkChildColumn(ParentChildLinkMapping parentChildLink) {
+        return column(parentChildLink.getChildColumn());
     }
 
     protected TableQueryMapping parentChildLinkTable(ParentChildLinkMapping parentChildLink) {
@@ -1879,8 +1901,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract ParentChildLinkMapping createParentChildLink(
-        TableQueryMapping table, String childColumn,
-        String parentColumn
+        TableQueryMapping table, Column childColumn,
+        Column parentColumn
     );
 
     protected SQLExpressionMapping levelParentExpression(LevelMapping level) {
@@ -1922,9 +1944,9 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
-        LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        String approxRowCount, Column captionColumn, Column column, HideMemberIfType hideMemberIf,
+        LevelType levelType, Column nameColumn, String nullParentValue, Column ordinalColumn, Column parentColumn,
+        Table table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
@@ -2461,7 +2483,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected WritebackAttributeMapping writebackAttribute(WritebackAttributeMapping writebackAttribute) {
         if (writebackAttribute != null) {
-            String column = writebackAttributeColumn(writebackAttribute);
+        	Column column = writebackAttributeColumn(writebackAttribute);
             DimensionMapping dimension = writebackAttributeDimension(writebackAttribute);
             return createWritebackAttribute(column, dimension);
         }
@@ -2472,11 +2494,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return dimension(writebackAttribute.getDimension());
     }
 
-    protected String writebackAttributeColumn(WritebackAttributeMapping writebackAttribute) {
-        return writebackAttribute.getColumn();
+    protected Column writebackAttributeColumn(WritebackAttributeMapping writebackAttribute) {
+        return column(writebackAttribute.getColumn());
     }
 
-    protected abstract WritebackAttributeMapping createWritebackAttribute(String column, DimensionMapping dimension);
+    protected abstract WritebackAttributeMapping createWritebackAttribute(Column column, DimensionMapping dimension);
 
     protected List<? extends WritebackMeasureMapping> writebackTableWritebackMeasure(
         WritebackTableMapping writebackTable
@@ -2495,21 +2517,21 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected WritebackMeasureMapping writebackMeasure(WritebackMeasureMapping writebackMeasure) {
         if (writebackMeasure != null) {
-            String column = writebackMeasureColumn(writebackMeasure);
+        	Column column = writebackMeasureColumn(writebackMeasure);
             String name = writebackMeasureName(writebackMeasure);
             return createwritebackMeasure(column, name);
         }
         return null;
     }
 
-    protected abstract WritebackMeasureMapping createwritebackMeasure(String column, String name);
+    protected abstract WritebackMeasureMapping createwritebackMeasure(Column column, String name);
 
     protected String writebackMeasureName(WritebackMeasureMapping writebackMeasure) {
         return writebackMeasure.getName();
     }
 
-    protected String writebackMeasureColumn(WritebackMeasureMapping writebackMeasure) {
-        return writebackMeasure.getColumn();
+    protected Column writebackMeasureColumn(WritebackMeasureMapping writebackMeasure) {
+        return column(writebackMeasure.getColumn());
     }
 
     protected String writebackTableName(WritebackTableMapping writebackTable) {
@@ -2601,7 +2623,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                         measure);
                 CellFormatterMapping cellFormatter = measureCellFormatter(measure);
                 String backColor = measureBackColor(measure);
-                String column = measureColumn(measure);
+                Column column = measureColumn(measure);
                 DataType datatype = measureDatatype(measure);
                 String displayFolder = measureDisplayFolder(measure);
                 String formatString = measureFormatString(measure);
@@ -2624,7 +2646,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, DataType datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, Column column, DataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     );
 
@@ -2660,8 +2682,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return measure.getDatatype();
     }
 
-    protected String measureColumn(MeasureMapping measure) {
-        return measure.getColumn();
+    protected Column measureColumn(MeasureMapping measure) {
+        return column(measure.getColumn());
 
     }
 
@@ -3078,7 +3100,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected DimensionConnectorMapping dimensionConnector(DimensionConnectorMapping dimensionConnector) {
         if (dimensionConnector != null) {
-            String foreignKey = dimensionConnectorForeignKey(dimensionConnector);
+        	Column foreignKey = dimensionConnectorForeignKey(dimensionConnector);
             LevelMapping level = dimensionConnectorLevel(dimensionConnector);
             String usagePrefix = dimensionConnectorUsagePrefix(dimensionConnector);
             boolean visible = dimensionConnectorVisible(dimensionConnector);
@@ -3097,7 +3119,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract DimensionConnectorMapping createDimensionConnector(
-        String foreignKey, LevelMapping level,
+        Column foreignKey, LevelMapping level,
         String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
         PhysicalCubeMapping physicalCube
     );
@@ -3122,8 +3144,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level(dimensionConnector.getLevel());
     }
 
-    protected String dimensionConnectorForeignKey(DimensionConnectorMapping dimensionConnector) {
-        return dimensionConnector.getForeignKey();
+    protected Column dimensionConnectorForeignKey(DimensionConnectorMapping dimensionConnector) {
+        return column(dimensionConnector.getForeignKey());
     }
 
     protected DocumentationMapping cubeDocumentation(CubeMapping cube) {

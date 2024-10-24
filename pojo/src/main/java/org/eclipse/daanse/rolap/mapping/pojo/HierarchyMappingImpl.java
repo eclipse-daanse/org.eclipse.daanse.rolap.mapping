@@ -15,6 +15,8 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 
 public class HierarchyMappingImpl extends AbstractElementMappingImpl implements HierarchyMapping {
@@ -38,9 +40,9 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
 
     private String origin;
 
-    private String primaryKey;
+    private Column primaryKey;
 
-    private String primaryKeyTable;
+    private Table primaryKeyTable;
 
     private String uniqueKeyLevelName;
 
@@ -135,19 +137,19 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.origin = origin;
     }
 
-    public String getPrimaryKey() {
+    public Column getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(String primaryKey) {
+    public void setPrimaryKey(Column primaryKey) {
         this.primaryKey = primaryKey;
     }
 
-    public String getPrimaryKeyTable() {
+    public Table getPrimaryKeyTable() {
         return primaryKeyTable;
     }
 
-    public void setPrimaryKeyTable(String primaryKeyTable) {
+    public void setPrimaryKeyTable(Table primaryKeyTable) {
         this.primaryKeyTable = primaryKeyTable;
     }
 
@@ -206,8 +208,8 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         private boolean hasAll;
         private String memberReaderClass;
         private String origin;
-        private String primaryKey;
-        private String primaryKeyTable;
+        private Column primaryKey;
+        private Table primaryKeyTable;
         private String uniqueKeyLevelName;
         private boolean visible;
         private QueryMappingImpl query;
@@ -270,12 +272,12 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
             return this;
         }
 
-        public Builder withPrimaryKey(String primaryKey) {
+        public Builder withPrimaryKey(Column primaryKey) {
             this.primaryKey = primaryKey;
             return this;
         }
 
-        public Builder withPrimaryKeyTable(String primaryKeyTable) {
+        public Builder withPrimaryKeyTable(Table primaryKeyTable) {
             this.primaryKeyTable = primaryKeyTable;
             return this;
         }

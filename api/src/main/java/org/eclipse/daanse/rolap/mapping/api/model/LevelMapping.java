@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -38,23 +40,23 @@ public interface LevelMapping extends AbstractElementMapping{
 
     String getApproxRowCount();
 
-    String getCaptionColumn();
+    Column getCaptionColumn();
 
-    String getColumn();
+    Column getColumn();
 
     HideMemberIfType getHideMemberIfType();
 
     LevelType getLevelType();
 
-    String getNameColumn();
+    Column getNameColumn();
 
     String getNullParentValue();
 
-    String getOrdinalColumn();
+    Column getOrdinalColumn();
 
-    String getParentColumn();
+    Column getParentColumn();
 
-    String getTable();
+    Table getTable();
 
     DataType getDataType();
 

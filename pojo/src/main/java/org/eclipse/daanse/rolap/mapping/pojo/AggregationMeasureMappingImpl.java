@@ -12,11 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureMapping;
 
 public class AggregationMeasureMappingImpl implements AggregationMeasureMapping {
 
-    private String column;
+    private Column column;
 
     private String name;
 
@@ -28,11 +29,11 @@ public class AggregationMeasureMappingImpl implements AggregationMeasureMapping 
         this.rollupType = builder.rollupType;
     }
 
-    public String getColumn() {
+    public Column getColumn() {
         return column;
     }
 
-    public void setColumn(String column) {
+    public void setColumn(Column column) {
         this.column = column;
     }
 
@@ -57,14 +58,14 @@ public class AggregationMeasureMappingImpl implements AggregationMeasureMapping 
     }
 
     public static final class Builder {
-        private String column;
+        private Column column;
         private String name;
         private String rollupType;
 
         private Builder() {
         }
 
-        public Builder withColumn(String column) {
+        public Builder withColumn(Column column) {
             this.column = column;
             return this;
         }

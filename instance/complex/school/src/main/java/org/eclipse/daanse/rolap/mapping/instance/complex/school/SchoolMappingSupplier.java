@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.school;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -91,78 +93,100 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final String DOCUMENTATION_TEXT = "";
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
+    public static final PhysicalTableImpl SCHULE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHULE)).build();
+    public static final PhysicalTableImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ganztags_art")).build();
+    public static final PhysicalTableImpl TRAEGER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("traeger")).build();
+    public static final PhysicalTableImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_ART)).build();
+    public static final PhysicalTableImpl TRAEGER_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_KATEGORIE)).build();
+    public static final PhysicalTableImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schule_art")).build();
+    public static final PhysicalTableImpl SCHUL_JAHR_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHUL_JAHR)).build();
+    public static final PhysicalTableImpl ALTERS_GRUPPE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("alters_gruppe")).build();
+    public static final PhysicalTableImpl SCHEDULE_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_kategorie")).build();
+    public static final PhysicalTableImpl GESCHLECHT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("geschlecht")).build();
+    public static final PhysicalTableImpl EINSCHULUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EINSCHULUNG2)).build();
+    public static final PhysicalTableImpl KLASSEN_WIEDERHOLUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName("klassen_wiederholung")).build();
+    public static final PhysicalTableImpl SCHUL_ABSCHLUSS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_abschluss")).build();
+    public static final PhysicalTableImpl MIGRATIONS_HINTERGRUND_TABLE = ((Builder) PhysicalTableImpl.builder().withName(MIGRATIONS_HINTERGRUND)).build();
+    public static final PhysicalTableImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(WOHNORT_LANDKREIS)).build();
+    public static final PhysicalTableImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(FOERDERUNG_ART)).build();
+    public static final PhysicalTableImpl PERSONAL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("personal_art")).build();
+    public static final PhysicalTableImpl BUNDESLAND_TABLE = ((Builder) PhysicalTableImpl.builder().withName("bundesland")).build();
+    public static final PhysicalTableImpl SONDERPAED_FOERDERBEDART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("sonderpaed_foerderbedarf")).build();
+    public static final PhysicalTableImpl FACT_SCHULEN_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schulen")).build();
+    public static final PhysicalTableImpl FACT_PERSONAM_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_personal")).build();
+    public static final PhysicalTableImpl FACT_SCHUELER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schueler")).build();
 
-    private static final TableQueryMappingImpl SCHEDULE_TABLE =
-        TableQueryMappingImpl.builder().withName(SCHULE).build();
-    private static final TableQueryMappingImpl GANZTAGS_ART_TABLE = TableQueryMappingImpl.builder().withName(
-        "ganztags_art").build();
-    private static final TableQueryMappingImpl TRAEGER_TABLE =
-        TableQueryMappingImpl.builder().withName("traeger").build();
-    private static final TableQueryMappingImpl TRAEGER_ART_TABLE =
-        TableQueryMappingImpl.builder().withName(TRAEGER_ART).build();
-    private static final TableQueryMappingImpl TRAEGER_KATEGORIE_TABLE =
-        TableQueryMappingImpl.builder().withName(TRAEGER_KATEGORIE).build();
-    private static final TableQueryMappingImpl SCHEDULE_ART_TABLE = TableQueryMappingImpl.builder().withName(
-        "schule_art").build();
-    private static final TableQueryMappingImpl SCHEDULE_KATEGORIE_TABLE = TableQueryMappingImpl.builder().withName(
-        "schul_kategorie").build();
-    private static final TableQueryMappingImpl SCHUL_JAHT_TABLE =
-        TableQueryMappingImpl.builder().withName(SCHUL_JAHR).build();
-    private static final TableQueryMappingImpl ALTERS_GRUPPE_TABLE = TableQueryMappingImpl.builder().withName(
-        "alters_gruppe").build();
-    private static final TableQueryMappingImpl GESCHLECHT_TABLE = TableQueryMappingImpl.builder().withName(
-        "geschlecht").build();
-    private static final TableQueryMappingImpl PERSONAL_ART_TABLE = TableQueryMappingImpl.builder().withName(
-        "personal_art").build();
-    private static final TableQueryMappingImpl EINSCHULUNG_TABLE =
-        TableQueryMappingImpl.builder().withName(EINSCHULUNG2).build();
-    private static final TableQueryMappingImpl KLASSEN_WIEDERHOLUNG_TABLE = TableQueryMappingImpl.builder().withName(
-        "klassen_wiederholung").build();
-    private static final TableQueryMappingImpl SCHUL_ABSCHLUSS_TABLE = TableQueryMappingImpl.builder().withName(
-        "schul_abschluss").build();
-    private static final TableQueryMappingImpl MIGRATIONS_HINTERGRUND_TABLE =
-        TableQueryMappingImpl.builder().withName(MIGRATIONS_HINTERGRUND).build();
-    private static final TableQueryMappingImpl WOHNORT_LANDKREIS_TABLE =
-        TableQueryMappingImpl.builder().withName(WOHNORT_LANDKREIS).build();
-    private static final TableQueryMappingImpl BUNDESLAND_TABLE = TableQueryMappingImpl.builder().withName(
-        "bundesland").build();
-    private static final TableQueryMappingImpl FOERDERUNG_ART_TABLE =
-        TableQueryMappingImpl.builder().withName(FOERDERUNG_ART).build();
-    private static final TableQueryMappingImpl SONDERPAED_FOERDERBEDART_TABLE =
-        TableQueryMappingImpl.builder().withName("sonderpaed_foerderbedarf").build();
-    private static final TableQueryMappingImpl FACT_SCHULEN_TABLE = TableQueryMappingImpl.builder().withName(
-        "fact_schulen").build();
-    private static final TableQueryMappingImpl FACT_PERSONAM_TABLE = TableQueryMappingImpl.builder().withName(
-        "fact_personal").build();
-    private static final TableQueryMappingImpl FACT_SCHUELER_TABLE = TableQueryMappingImpl.builder().withName(
-        "fact_schueler").build();
+    private static final TableQueryMappingImpl SCHEDULE_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(SCHULE_TABLE).build();
+    private static final TableQueryMappingImpl GANZTAGS_ART_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        GANZTAGS_ART_TABLE).build();
+    private static final TableQueryMappingImpl TRAEGER_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(TRAEGER_TABLE).build();
+    private static final TableQueryMappingImpl TRAEGER_ART_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(TRAEGER_ART_TABLE).build();
+    private static final TableQueryMappingImpl TRAEGER_KATEGORIE_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(TRAEGER_KATEGORIE_TABLE).build();
+    private static final TableQueryMappingImpl SCHEDULE_ART_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        SCHEDULE_ART_TABLE).build();
+    private static final TableQueryMappingImpl SCHEDULE_KATEGORIE_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        SCHEDULE_KATEGORIE_TABLE).build();
+    private static final TableQueryMappingImpl SCHUL_JAHT_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(SCHUL_JAHR_TABLE).build();
+    private static final TableQueryMappingImpl ALTERS_GRUPPE_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        ALTERS_GRUPPE_TABLE).build();
+    private static final TableQueryMappingImpl GESCHLECHT_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        GESCHLECHT_TABLE).build();
+    private static final TableQueryMappingImpl PERSONAL_ART_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        PERSONAL_ART_TABLE).build();
+    private static final TableQueryMappingImpl EINSCHULUNG_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(EINSCHULUNG_TABLE).build();
+    private static final TableQueryMappingImpl KLASSEN_WIEDERHOLUNG_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        KLASSEN_WIEDERHOLUNG_TABLE).build();
+    private static final TableQueryMappingImpl SCHUL_ABSCHLUSS_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        SCHUL_ABSCHLUSS_TABLE).build();
+    private static final TableQueryMappingImpl MIGRATIONS_HINTERGRUND_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(MIGRATIONS_HINTERGRUND_TABLE).build();
+    private static final TableQueryMappingImpl WOHNORT_LANDKREIS_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(WOHNORT_LANDKREIS_TABLE).build();
+    private static final TableQueryMappingImpl BUNDESLAND_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        BUNDESLAND_TABLE).build();
+    private static final TableQueryMappingImpl FOERDERUNG_ART_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(FOERDERUNG_ART_TABLE).build();
+    private static final TableQueryMappingImpl SONDERPAED_FOERDERBEDART_TABLE_QUERY =
+        TableQueryMappingImpl.builder().withTable(SONDERPAED_FOERDERBEDART_TABLE).build();
+    private static final TableQueryMappingImpl FACT_SCHULEN_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        FACT_SCHULEN_TABLE).build();
+    private static final TableQueryMappingImpl FACT_PERSONAM_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        FACT_PERSONAM_TABLE).build();
+    private static final TableQueryMappingImpl FACT_SCHUELER_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
+        FACT_SCHUELER_TABLE).build();
 
     private static final JoinQueryMappingImpl JOIN1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("ganztags_art_id")
-            .withQuery(SCHEDULE_TABLE)
+            .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
-            .withQuery(GANZTAGS_ART_TABLE)
+            .withQuery(GANZTAGS_ART_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN2_1_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("traeger_kat_id")
-            .withQuery(TRAEGER_ART_TABLE)
+            .withQuery(TRAEGER_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
-            .withQuery(TRAEGER_KATEGORIE_TABLE)
+            .withQuery(TRAEGER_KATEGORIE_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN2_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("traeger_id")
-            .withQuery(TRAEGER_TABLE)
+            .withQuery(TRAEGER_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
@@ -173,7 +197,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final JoinQueryMappingImpl JOIN2 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("traeger_art_id")
-            .withQuery(SCHEDULE_TABLE)
+            .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
@@ -184,18 +208,18 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final JoinQueryMappingImpl JOIN3_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("schul_kategorie_id")
-            .withQuery(SCHEDULE_ART_TABLE)
+            .withQuery(SCHEDULE_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
-            .withQuery(SCHEDULE_KATEGORIE_TABLE)
+            .withQuery(SCHEDULE_KATEGORIE_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN3 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("schul_art_id")
-            .withQuery(SCHEDULE_TABLE)
+            .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
@@ -206,22 +230,22 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final JoinQueryMappingImpl JOIN4 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("bundesland_id")
-            .withQuery(WOHNORT_LANDKREIS_TABLE)
+            .withQuery(WOHNORT_LANDKREIS_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
-            .withQuery(BUNDESLAND_TABLE)
+            .withQuery(BUNDESLAND_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN5 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
             .withKey("sp_foerderbedarf_id")
-            .withQuery(FOERDERUNG_ART_TABLE)
+            .withQuery(FOERDERUNG_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
             .withKey("id")
-            .withQuery(SONDERPAED_FOERDERBEDART_TABLE)
+            .withQuery(SONDERPAED_FOERDERBEDART_TABLE_QUERY)
             .build())
         .build();
 
@@ -428,7 +452,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schuljahre")
         .withPrimaryKey("id")
         .withPrimaryKeyTable(SCHUL_JAHR)
-        .withQuery(SCHUL_JAHT_TABLE)
+        .withQuery(SCHUL_JAHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL10))
         .build();
 
@@ -439,7 +463,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Altersgruppen")
         .withPrimaryKey("id")
         .withPrimaryKeyTable("alters_gruppe")
-        .withQuery(ALTERS_GRUPPE_TABLE)
+        .withQuery(ALTERS_GRUPPE_TABLE_QUERY)
         .withLevels(List.of(LEVEL11))
         .build();
 
@@ -450,7 +474,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName(GESCHLECHT)
         .withPrimaryKey("id")
         .withPrimaryKeyTable("geschlecht")
-        .withQuery(GESCHLECHT_TABLE)
+        .withQuery(GESCHLECHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL12))
         .build();
 
@@ -461,7 +485,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Berufsgruppen")
         .withPrimaryKey("id")
         .withPrimaryKeyTable("personal_art")
-        .withQuery(PERSONAL_ART_TABLE)
+        .withQuery(PERSONAL_ART_TABLE_QUERY)
         .withLevels(List.of(LEVEL13))
         .build();
 
@@ -472,7 +496,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName(EINSCHULUNG)
         .withPrimaryKey("id")
         .withPrimaryKeyTable(EINSCHULUNG2)
-        .withQuery(EINSCHULUNG_TABLE)
+        .withQuery(EINSCHULUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL14))
         .build();
 
@@ -483,7 +507,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName(KLASSENWIEDERHOLUNG)
         .withPrimaryKey("id")
         .withPrimaryKeyTable("klassen_wiederholung")
-        .withQuery(KLASSEN_WIEDERHOLUNG_TABLE)
+        .withQuery(KLASSEN_WIEDERHOLUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL15))
         .build();
 
@@ -494,7 +518,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulabschlüsse")
         .withPrimaryKey("id")
         .withPrimaryKeyTable("schul_abschluss")
-        .withQuery(SCHUL_ABSCHLUSS_TABLE)
+        .withQuery(SCHUL_ABSCHLUSS_TABLE_QUERY)
         .withLevels(List.of(LEVEL16))
         .build();
 
@@ -505,7 +529,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName(MIGRATIONSHINTERGRUND)
         .withPrimaryKey("id")
         .withPrimaryKeyTable(MIGRATIONS_HINTERGRUND)
-        .withQuery(MIGRATIONS_HINTERGRUND_TABLE)
+        .withQuery(MIGRATIONS_HINTERGRUND_TABLE_QUERY)
         .withLevels(List.of(LEVEL17))
         .build();
 
@@ -643,7 +667,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final PhysicalCubeMappingImpl CUBE1 = PhysicalCubeMappingImpl
         .builder()
         .withName("Schulen in Jena (Institutionen)")
-        .withQuery(FACT_SCHULEN_TABLE)
+        .withQuery(FACT_SCHULEN_TABLE_QUERY)
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build()
@@ -654,7 +678,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final PhysicalCubeMappingImpl CUBE2 = PhysicalCubeMappingImpl
         .builder()
         .withName("Pädagogisches Personal an Jenaer Schulen")
-        .withQuery(FACT_PERSONAM_TABLE)
+        .withQuery(FACT_PERSONAM_TABLE_QUERY)
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build(),
@@ -668,7 +692,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final PhysicalCubeMappingImpl CUBE3 = PhysicalCubeMappingImpl
         .builder()
         .withName("Schüler:innen an Jenaer Schulen")
-        .withQuery(FACT_SCHUELER_TABLE)
+        .withQuery(FACT_SCHUELER_TABLE_QUERY)
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build(),

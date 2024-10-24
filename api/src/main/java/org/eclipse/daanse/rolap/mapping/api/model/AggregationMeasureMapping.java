@@ -12,9 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+
 public interface AggregationMeasureMapping {
 
-    String getColumn();
+    Column getColumn();
 
     String getName();
 

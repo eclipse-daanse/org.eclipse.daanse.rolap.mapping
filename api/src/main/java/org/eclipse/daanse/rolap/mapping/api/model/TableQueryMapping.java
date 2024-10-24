@@ -14,6 +14,9 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.api.model.Table;
+
 public interface TableQueryMapping extends RelationalQueryMapping {
 
     SQLMapping getSqlWhereExpression();
@@ -22,9 +25,7 @@ public interface TableQueryMapping extends RelationalQueryMapping {
 
     List<? extends TableQueryOptimizationHintMapping> getOptimizationHints();
 
-    String getName();
-
-    String getSchema();
+    Table getTable();
 
     List<? extends AggregationTableMapping> getAggregationTables();
 

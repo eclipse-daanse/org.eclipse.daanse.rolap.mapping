@@ -15,6 +15,8 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
+import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
@@ -40,23 +42,23 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private String approxRowCount;
 
-    private String captionColumn;
+    private Column captionColumn;
 
-    private String column;
+    private Column column;
 
     private HideMemberIfType hideMemberIfType;
 
     private LevelType levelType;
 
-    private String nameColumn;
+    private Column nameColumn;
 
     private String nullParentValue;
 
-    private String ordinalColumn;
+    private Column ordinalColumn;
 
-    private String parentColumn;
+    private Column parentColumn;
 
-    private String table;
+    private Table table;
 
     private DataType dataType;
 
@@ -166,19 +168,19 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.approxRowCount = approxRowCount;
     }
 
-    public String getCaptionColumn() {
+    public Column getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(String captionColumn) {
+    public void setCaptionColumn(Column captionColumn) {
         this.captionColumn = captionColumn;
     }
 
-    public String getColumn() {
+    public Column getColumn() {
         return column;
     }
 
-    public void setColumn(String column) {
+    public void setColumn(Column column) {
         this.column = column;
     }
 
@@ -205,11 +207,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.levelType = levelType;
     }
 
-    public String getNameColumn() {
+    public Column getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(String nameColumn) {
+    public void setNameColumn(Column nameColumn) {
         this.nameColumn = nameColumn;
     }
 
@@ -221,27 +223,27 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.nullParentValue = nullParentValue;
     }
 
-    public String getOrdinalColumn() {
+    public Column getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(String ordinalColumn) {
+    public void setOrdinalColumn(Column ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
-    public String getParentColumn() {
+    public Column getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(String parentColumn) {
+    public void setParentColumn(Column parentColumn) {
         this.parentColumn = parentColumn;
     }
 
-    public String getTable() {
+    public Table getTable() {
         return table;
     }
 
-    public void setTable(String table) {
+    public void setTable(Table table) {
         this.table = table;
     }
 
@@ -283,15 +285,15 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
         private String approxRowCount;
-        private String captionColumn;
-        private String column;
+        private Column captionColumn;
+        private Column column;
         private HideMemberIfType hideMemberIfType;
         private LevelType levelType;
-        private String nameColumn;
+        private Column nameColumn;
         private String nullParentValue;
-        private String ordinalColumn;
-        private String parentColumn;
-        private String table;
+        private Column ordinalColumn;
+        private Column parentColumn;
+        private Table table;
         private DataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
@@ -349,12 +351,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withCaptionColumn(String captionColumn) {
+        public Builder withCaptionColumn(Column captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
 
-        public Builder withColumn(String column) {
+        public Builder withColumn(Column column) {
             this.column = column;
             return this;
         }
@@ -369,7 +371,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withNameColumn(String nameColumn) {
+        public Builder withNameColumn(Column nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
@@ -379,17 +381,17 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withOrdinalColumn(String ordinalColumn) {
+        public Builder withOrdinalColumn(Column ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }
 
-        public Builder withParentColumn(String parentColumn) {
+        public Builder withParentColumn(Column parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }
 
-        public Builder withTable(String table) {
+        public Builder withTable(Table table) {
             this.table = table;
             return this;
         }

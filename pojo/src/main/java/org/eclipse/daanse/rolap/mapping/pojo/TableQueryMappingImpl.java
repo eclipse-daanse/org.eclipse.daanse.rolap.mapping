@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 
 public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements TableQueryMapping {
@@ -25,9 +26,7 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
 
     private List<TableQueryOptimizationHintMappingImpl> optimizationHints;
 
-    private String name;
-
-    private String schema;
+    private PhysicalTableImpl table;
 
     private List<AggregationTableMappingImpl> aggregationTables;
 
@@ -35,8 +34,7 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         this.sqlWhereExpression = builder.sqlWhereExpression;
         this.aggregationExcludes = builder.aggregationExcludes;
         this.optimizationHints = builder.optimizationHints;
-        this.name = builder.name;
-        this.schema = builder.schema;
+        this.table = builder.table;
         this.aggregationTables = builder.aggregationTables;
         super.setAlias(builder.alias);
     }
@@ -65,20 +63,12 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         this.optimizationHints = optimizationHints;
     }
 
-    public String getName() {
-        return name;
+    public PhysicalTableImpl getTable() {
+        return table;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSchema() {
-        return schema;
-    }
-
-    public void setSchema(String schema) {
-        this.schema = schema;
+    public void setTable(PhysicalTableImpl table) {
+        this.table = table;
     }
 
     public List<AggregationTableMappingImpl> getAggregationTables() {
@@ -97,8 +87,7 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         private SQLMappingImpl sqlWhereExpression;
         private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
         private List<TableQueryOptimizationHintMappingImpl> optimizationHints = new ArrayList<>();
-        private String name;
-        private String schema;
+        private PhysicalTableImpl table;
         private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
         private String alias;
 
@@ -120,13 +109,8 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
             return this;
         }
 
-        public Builder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public Builder withSchema(String schema) {
-            this.schema = schema;
+        public Builder withTable(PhysicalTableImpl table) {
+            this.table = table;
             return this;
         }
 

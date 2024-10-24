@@ -12,12 +12,10 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import java.util.List;
+import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
 
 public interface InlineTableQueryMapping extends RelationalQueryMapping {
 
-    List<? extends InlineTableColumnDefinitionMapping> getColumnDefinitions();
-
-    List<? extends InlineTableRowMappingMapping> getRows();
+    InlineTable getTable();
 
 }

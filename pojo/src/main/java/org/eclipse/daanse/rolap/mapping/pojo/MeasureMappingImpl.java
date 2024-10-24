@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
@@ -26,7 +27,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
     private String backColor;
 
-    private String column;
+    private Column column;
 
     private DataType datatype;
 
@@ -73,11 +74,11 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.backColor = backColor;
     }
 
-    public String getColumn() {
+    public Column getColumn() {
         return column;
     }
 
-    public void setColumn(String column) {
+    public void setColumn(Column column) {
         this.column = column;
     }
 
@@ -123,7 +124,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
-        private String column;
+        private Column column;
         private DataType datatype;
         private String displayFolder;
         private String formatString;
@@ -162,7 +163,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withColumn(String column) {
+        public Builder withColumn(Column column) {
             this.column = column;
             return this;
         }
