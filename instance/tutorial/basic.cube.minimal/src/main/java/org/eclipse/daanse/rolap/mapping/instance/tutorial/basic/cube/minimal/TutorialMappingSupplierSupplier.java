@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.instance.tutorial.basic.cube.minimal;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -53,13 +54,14 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
 
     private final static DocumentationMappingImpl documentation = new DocumentationMappingImpl(documentation_text);
 
-    private final static PhysicalTableImpl factTable = ((Builder) PhysicalTableImpl.builder().withName(name)).build();
+    private final static ColumnImpl VALUE_COLUMN = ColumnImpl.builder().withName("VALUE").withType("INTEGER").build();
+    private final static PhysicalTableImpl factTable = ((Builder) PhysicalTableImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
 
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withTable(factTable).build();
 
     private final static MeasureMappingImpl measure = MeasureMappingImpl.builder()
             .withName("Measure-Sum")
-            .withColumn("VALUE")
+            .withColumn(VALUE_COLUMN)
             .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 

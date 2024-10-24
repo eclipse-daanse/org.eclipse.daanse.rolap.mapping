@@ -12,13 +12,14 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 
 public interface MemberPropertyMapping extends AbstractElementMapping {
 
     MemberPropertyFormatterMapping getFormatter();
 
-    String getColumn();
+    Column getColumn();
 
     boolean isDependsOnLevelValue();
 
