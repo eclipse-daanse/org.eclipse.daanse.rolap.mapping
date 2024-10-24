@@ -12,15 +12,16 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 
 public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     private TableQueryMappingImpl table;
 
-    private String childColumn;
+    private Column childColumn;
 
-    private String parentColumn;
+    private Column parentColumn;
 
     private ParentChildLinkMappingImpl(Builder builder) {
         this.table = builder.table;
@@ -36,19 +37,19 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
         this.table = table;
     }
 
-    public String getChildColumn() {
+    public Column getChildColumn() {
         return childColumn;
     }
 
-    public void setChildColumn(String childColumn) {
+    public void setChildColumn(Column childColumn) {
         this.childColumn = childColumn;
     }
 
-    public String getParentColumn() {
+    public Column getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(String parentColumn) {
+    public void setParentColumn(Column parentColumn) {
         this.parentColumn = parentColumn;
     }
 
@@ -58,8 +59,8 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     public static final class Builder {
         private TableQueryMappingImpl table;
-        private String childColumn;
-        private String parentColumn;
+        private Column childColumn;
+        private Column parentColumn;
 
         private Builder() {
         }
@@ -69,12 +70,12 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
             return this;
         }
 
-        public Builder withChildColumn(String childColumn) {
+        public Builder withChildColumn(Column childColumn) {
             this.childColumn = childColumn;
             return this;
         }
 
-        public Builder withParentColumn(String parentColumn) {
+        public Builder withParentColumn(Column parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }

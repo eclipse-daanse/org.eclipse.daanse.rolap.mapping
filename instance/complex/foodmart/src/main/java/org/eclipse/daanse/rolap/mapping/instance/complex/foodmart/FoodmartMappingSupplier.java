@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -374,10 +375,51 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
-    public static final PhysicalTableImpl STORE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_STORE)).build();
+    //store_id,store_type,region_id,store_name,store_number,store_street_address,store_city,store_state,store_postal_code,store_country,store_manager,store_phone,store_fax,first_opened_date,last_remodel_date,store_sqft,grocery_sqft,frozen_sqft,meat_sqft,coffee_bar,video_store,salad_bar,prepared_food,florist
+    //INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),TIMESTAMP,TIMESTAMP,INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,SMALLINT,SMALLINT,SMALLINT,SMALLINT
+    public static final ColumnImpl STORE_ID_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_TYPE_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STREET_ADDRESS_COLUMN_IN_STORE = ColumnImpl.builder().withName(STORE_STREET_ADDRESS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_NAME_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_COUNTRY_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withType("INTEGER").build();
+    public static final ColumnImpl STORE_MANAGER_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_CITY_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_STATE_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SQFT).withType("INTEGER").build();
+    public static final ColumnImpl GROCERY_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_GROCERY_SQFT).withType("INTEGER").build();
+    public static final ColumnImpl FROZEN_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withType("INTEGER").build();
+    public static final ColumnImpl MEAT_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withType("INTEGER").build();
+    public static final ColumnImpl COFFEE_BAR_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withType("SMALLINT").build();
+
+    public static final PhysicalTableImpl STORE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_STORE)
+            .withColumns(List.of(STORE_ID_COLUMN_IN_STORE))).build();
+    
+    //time_id,the_date,the_day,the_month,the_year,day_of_month,week_of_year,month_of_year,quarter,fiscal_period
+    //INTEGER,TIMESTAMP,VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,INTEGER,SMALLINT,VARCHAR(30),VARCHAR(30)
+    public static final ColumnImpl TIME_ID_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_TIME_ID).withType("INTEGER").build();
+    public static final ColumnImpl THE_MONTH_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_THE_MONTH).withType("SMALLINT").build();
+    public static final ColumnImpl THE_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_THE_YEAR).withType("SMALLINT").build();
+    public static final ColumnImpl DAY_OF_MONTH_COLUMN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_DAY_OF_MONTH).withType("SMALLINT").build();
+    public static final ColumnImpl WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_WEEK_OF_YEAR).withType("INTEGER").build();
+    public static final ColumnImpl MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_MONTH_OF_YEAR).withType("SMALLINT").build();
+    public static final ColumnImpl QUARTER_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_QUARTER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl TIME_BY_DAY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("time_by_day")).build();
+    
+    //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
+    //INTEGER,INTEGER,VARCHAR(60),VARCHAR(60),BIGINT,DECIMAL(10.4),REAL,REAL,SMALLINT,SMALLINT,SMALLINT,SMALLINT,REAL,REAL,REAL
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl BRAND_NAME_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_BRAND_NAME).withType("VARCHAR").withTypeQualifiers(List.of("60")).build();
+    public static final ColumnImpl PRODUCT_NAME_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_NAME).withType("VARCHAR").withTypeQualifiers(List.of("60")).build();
     public static final PhysicalTableImpl PRODUCT_TABLE =  ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT)).build();
+    
+    //product_class_id,product_subcategory,product_category,product_department,product_family
+    //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
+    public static final ColumnImpl PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_SUBCATEGORY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl PRODUCT_CLASS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT_CLASS)).build();
+    
     public static final PhysicalTableImpl EMPLOYEE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EMPLOYEE)).build();
     public static final PhysicalTableImpl DEPARTAMENT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("department")).build();
     public static final PhysicalTableImpl POSITION_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_NAME_POSITION)).build();
@@ -385,10 +427,57 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalTableImpl EMPLOYEE_CLOSURE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EMPLOYEE_CLOSURE)).build();
     public static final PhysicalTableImpl STORE_RAGGED_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STORE_RAGGED)).build();
     public static final PhysicalTableImpl WAREHOUSE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("warehouse")).build();
+
+    //promotion_id,promotion_district_id,promotion_name,media_type,cost,start_date,end_date
+    //INTEGER,INTEGER,VARCHAR(30),VARCHAR(30),DECIMAL(10.4),TIMESTAMP,TIMESTAMP
+    public static final ColumnImpl PROMOTION_ID_COLUMN_IN_PROMOTION = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withType("INTEGER").build();
+    public static final ColumnImpl PROMOTION_NAME_COLUMN_IN_PROMOTION = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_NAME).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl MEDIA_TYPE_COLUMN_IN_PROMOTION = ColumnImpl.builder().withName(TABLE_COLUMN_MEDIA_TYPE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl PROMOTION_TABLE = ((Builder) PhysicalTableImpl.builder().withName("promotion")).build();
+
+    //customer_id,account_num,lname,fname,mi,address1,address2,address3,address4,city,state_province,postal_code,country,customer_region_id,phone1,phone2,birthdate,marital_status,yearly_income,gender,total_children,num_children_at_home,education,date_accnt_opened,member_card,occupation,houseowner,num_cars_owned,fullname
+    //INTEGER,BIGINT,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(60)
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl CITY_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_CITY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STATE_PROVINCE_COLUMN_INCUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl COUNTRY_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl MARITAL_STATUS_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("early_income").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl GENDER_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_GENDER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl EDUCATION_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("education").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    
     public static final PhysicalTableImpl CUSTOMER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer")).build();
-    public static final PhysicalTableImpl INVENTORY_FACKT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName("inventory_fact_1997")).build();
-    public static final PhysicalTableImpl SALES_FACT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SALES_FACT_1997)).build();
+
+    //product_id,time_id,warehouse_id,store_id,units_ordered,units_shipped,warehouse_sales,warehouse_cost,supply_time,store_invoice
+    //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),SMALLINT,DECIMAL(10.4)
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl TIME_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_TIME_ID).withType("INTEGER").build();
+    public static final ColumnImpl WAREHOUSE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final PhysicalTableImpl INVENTORY_FACKT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName("inventory_fact_1997")
+            .withColumns(List.of(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997))).build();
+
+    //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
+    //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl TIME_ID_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_TIME_ID).withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl PROMOTION_ID_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withTypeQualifiers(List.of("10", "4")).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withTypeQualifiers(List.of("10", "4")).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withTypeQualifiers(List.of("10", "4")).build();
+    public static final PhysicalTableImpl SALES_FACT_1997_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SALES_FACT_1997)
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_SALES_FACT_1997,
+                    TIME_ID_COLUMN_IN_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997,
+                    PROMOTION_ID_COLUMN_IN_SALES_FACT_1997,
+                    STORE_ID_COLUMN_IN_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_SALES_FACT_1997
+                    ))).build();
 
     public static final TableQueryMappingImpl QUERY_TABLE_STORE =
         TableQueryMappingImpl.builder().withTable(STORE_TABLE).build();
@@ -436,7 +525,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_COUNTRY = LevelMappingImpl.builder()
         .withName(STORE_COUNTRY)
-        .withColumn(TABLE_COLUMN_STORE_COUNTRY)
+        .withColumn(STORE_COUNTRY_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .build();
 
@@ -456,7 +545,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_STATE_UNIQUE_MEMBERS_TRUE = LevelMappingImpl.builder()
         .withName(STORE_STATE)
-        .withColumn(TABLE_COLUMN_STORE_STATE)
+        .withColumn(STORE_STATE_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .build();
 
@@ -469,14 +558,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_CYTY_WITH_TABLE = LevelMappingImpl.builder()
         .withName(STORE_STATE)
-        .withTable(TABLE_STORE)
+        .withTable(STORE_TABLE)
         .withColumn(TABLE_COLUMN_STORE_STATE)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_STORE_CYTY = LevelMappingImpl.builder()
         .withName(STORE_CITY)
-        .withColumn(TABLE_COLUMN_STORE_CITY)
+        .withColumn(STORE_CITY_COLUMN_IN_STORE)
         .withUniqueMembers(false)
         .build();
 
@@ -496,19 +585,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_NAME_WITHOUT_TABLE = LevelMappingImpl.builder()
         .withName(STORE_NAME)
-        .withColumn(TABLE_COLUMN_STORE_NAME)
+        .withColumn(STORE_NAME_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_STORE_TYPE).withColumn(TABLE_COLUMN_STORE_TYPE).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(TABLE_COLUMN_STORE_MANAGER).build(),
-            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(TABLE_COLUMN_STORE_SQFT).withDataType(DataType.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(TABLE_COLUMN_GROCERY_SQFT).withDataType(DataType.NUMERIC
+            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_STORE_TYPE).withColumn(STORE_TYPE_COLUMN_IN_STORE).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_MANAGER).withColumn(STORE_MANAGER_COLUMN_IN_STORE).build(),
+            MemberPropertyMappingImpl.builder().withName(STORE_SQFT).withColumn(STORE_SQFT_COLUMN_IN_STORE).withDataType(DataType.NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(GROCERY_SQFT).withColumn(GROCERY_SQFT_COLUMN_IN_STORE).withDataType(DataType.NUMERIC
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(TABLE_COLUMN_FROZEN_SQFT).withDataType(DataType.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(TABLE_COLUMN_MEAT_SQFT).withDataType(DataType.NUMERIC).build(),
-            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_HAS_COFFEE_BAR).withColumn(TABLE_COLUMN_COFFEE_BAR).withDataType(DataType.BOOLEAN
+            MemberPropertyMappingImpl.builder().withName(FROZEN_SQFT).withColumn(FROZEN_SQFT_COLUMN_IN_STORE).withDataType(DataType.NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(MEAT_SQFT).withColumn(MEAT_SQFT_COLUMN_IN_STORE).withDataType(DataType.NUMERIC).build(),
+            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_HAS_COFFEE_BAR).withColumn(COFFEE_BAR_COLUMN_IN_STORE).withDataType(DataType.BOOLEAN
             ).build(),
-            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STORE_STREET_ADDRESS).withDataType(
+            MemberPropertyMappingImpl.builder().withName(STREET_ADDRESS).withColumn(STREET_ADDRESS_COLUMN_IN_STORE).withDataType(
                 DataType.STRING).build()
         ))
         .build();
@@ -555,14 +644,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_SQFT = LevelMappingImpl.builder()
         .withName(STORE_SQFT)
-        .withColumn(TABLE_COLUMN_STORE_SQFT)
+        .withColumn(STORE_SQFT_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .withType(DataType.NUMERIC)
         .build();
 
     public static final LevelMappingImpl LEVEL_YEAR = LevelMappingImpl.builder()
         .withName(YEAR)
-        .withColumn(TABLE_COLUMN_THE_YEAR)
+        .withColumn(THE_YEAR_COLUMN_IN_TIME_BY_DAY)
         .withUniqueMembers(true)
         .withType(DataType.NUMERIC)
         .withLevelType(LevelType.TIME_YEARS)
@@ -570,7 +659,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_WEEK = LevelMappingImpl.builder()
         .withName("Week")
-        .withColumn(TABLE_COLUMN_WEEK_OF_YEAR)
+        .withColumn(WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY)
         .withType(DataType.NUMERIC)
         .withUniqueMembers(false)
         .withLevelType(LevelType.TIME_WEEKS)
@@ -578,7 +667,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_DAY = LevelMappingImpl.builder()
         .withName("Day")
-        .withColumn(TABLE_COLUMN_DAY_OF_MONTH)
+        .withColumn(DAY_OF_MONTH_COLUMN_TIME_BY_DAY)
         .withType(DataType.NUMERIC)
         .withUniqueMembers(false)
         .withLevelType(LevelType.TIME_DAYS)
@@ -586,14 +675,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_QUARTER = LevelMappingImpl.builder()
         .withName(QUARTER)
-        .withColumn(TABLE_COLUMN_QUARTER)
+        .withColumn(QUARTER_COLUMN_IN_TIME_BY_DAY)
         .withUniqueMembers(false)
         .withLevelType(LevelType.TIME_QUARTERS)
         .build();
 
     public static final LevelMappingImpl LEVEL_MONTH = LevelMappingImpl.builder()
         .withName(MONTH)
-        .withColumn(TABLE_COLUMN_MONTH_OF_YEAR)
+        .withColumn(MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY)
         .withUniqueMembers(false)
         .withType(DataType.NUMERIC)
         .withLevelType(LevelType.TIME_MONTHS)
@@ -610,7 +699,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_TYPE_WITHOUT_TABLE = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_STORE_TYPE)
-        .withColumn(TABLE_COLUMN_STORE_TYPE)
+        .withColumn(STORE_TYPE_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .build();
 
@@ -623,43 +712,43 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_productFamily = LevelMappingImpl.builder()
         .withName(PRODUCT_FAMILY)
-        .withTable(TABLE_PRODUCT_CLASS)
-        .withColumn(TABLE_COLUMN_PRODUCT_FAMILY)
+        .withTable(PRODUCT_CLASS_TABLE)
+        .withColumn(PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_productDepartment = LevelMappingImpl.builder()
         .withName(PRODUCT_DEPARTMENT)
-        .withTable(TABLE_PRODUCT_CLASS)
-        .withColumn(TABLE_COLUMN_PRODUCT_DEPARTMENT)
+        .withTable(PRODUCT_CLASS_TABLE)
+        .withColumn(PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_productCategory = LevelMappingImpl.builder()
         .withName(PRODUCT_CATEGORY)
-        .withTable(TABLE_PRODUCT_CLASS)
-        .withColumn(TABLE_COLUMN_PRODUCT_CATEGORY)
+        .withTable(PRODUCT_CLASS_TABLE)
+        .withColumn(PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_productSubcategory = LevelMappingImpl.builder()
         .withName(PRODUCT_SUBCATEGORY)
-        .withTable(TABLE_PRODUCT_CLASS)
-        .withColumn(TABLE_COLUMN_PRODUCT_SUBCATEGORY)
+        .withTable(PRODUCT_CLASS_TABLE)
+        .withColumn(PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_brandName = LevelMappingImpl.builder()
         .withName(BRAND_NAME)
-        .withTable(TABLE_PRODUCT)
-        .withColumn(TABLE_COLUMN_BRAND_NAME)
+        .withTable(PRODUCT_TABLE)
+        .withColumn(BRAND_NAME_COLUMN_IN_PRODUCT)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_PRODUCT_NAME = LevelMappingImpl.builder()
         .withName(PRODUCT_NAME)
-        .withTable(TABLE_PRODUCT)
-        .withColumn(TABLE_COLUMN_PRODUCT_NAME)
+        .withTable(PRODUCT_TABLE)
+        .withColumn(PRODUCT_NAME_COLUMN_IN_PRODUCT)
         .withUniqueMembers(true)
         .build();
 
@@ -710,37 +799,37 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_MEDIA_TYPE = LevelMappingImpl.builder()
         .withName(MEDIA_TYPE)
-        .withColumn(TABLE_COLUMN_MEDIA_TYPE)
+        .withColumn(MEDIA_TYPE_COLUMN_IN_PROMOTION)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_PROMOTION_NAME = LevelMappingImpl.builder()
         .withName(PROMOTION_NAME)
-        .withColumn(TABLE_COLUMN_PROMOTION_NAME)
+        .withColumn(PROMOTION_NAME_COLUMN_IN_PROMOTION)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY = LevelMappingImpl.builder()
         .withName(COUNTRY)
-        .withColumn(TABLE_COLUMN_COUNTRY)
+        .withColumn(COUNTRY_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE = LevelMappingImpl.builder()
         .withName(STATE_PROVINCE)
-        .withColumn(TABLE_COLUMN_STATE_PROVINCE)
+        .withColumn(STATE_PROVINCE_COLUMN_INCUSTOMER)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_CITY_TABLE_COLUMN_CITY = LevelMappingImpl.builder()
         .withName(CITY)
-        .withColumn(TABLE_COLUMN_CITY)
+        .withColumn(CITY_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_NAME = LevelMappingImpl.builder()
         .withName(NAME)
-        .withColumn(TABLE_COLUMN_CUSTOMER_ID)
+        .withColumn(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withType(DataType.NUMERIC)
         .withUniqueMembers(true)
         .withNameExpression(SQLExpressionMappingImpl.builder()
@@ -847,35 +936,35 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             ))
             .build())
         .withMemberProperties(List.of(
-            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_GENDER).withColumn(TABLE_COLUMN_GENDER).build(),
-            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_MARITAL_STATUS).withColumn(TABLE_COLUMN_MARITAL_STATUS).build(),
-            MemberPropertyMappingImpl.builder().withName("Education").withColumn("education").build(),
-            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_YEARLY_INCOME).withColumn("yearly_income").build()
+            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_GENDER).withColumn(GENDER_COLUMN_IN_CUSTOMER).build(),
+            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_MARITAL_STATUS).withColumn(MARITAL_STATUS_COLUMN_IN_CUSTOMER).build(),
+            MemberPropertyMappingImpl.builder().withName("Education").withColumn(EDUCATION_COLUMN_IN_CUSTOMER).build(),
+            MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_YEARLY_INCOME).withColumn(YEARLY_INCOME_COLUMN_IN_CUSTOMER).build()
         ))
         .build();
 
     public static final LevelMappingImpl LEVEL_EDUCATION = LevelMappingImpl.builder()
         .withName(NAME_LEVEL_EDUCATION_LEVEL)
-        .withColumn("education")
+        .withColumn(EDUCATION_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_GENDER = LevelMappingImpl.builder()
         .withName(NAME_LEVEL_GENDER)
-        .withColumn(TABLE_COLUMN_GENDER)
+        .withColumn(GENDER_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_MARITAL_STATUS = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_MARITAL_STATUS)
-        .withColumn(TABLE_COLUMN_MARITAL_STATUS)
+        .withColumn(MARITAL_STATUS_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .withApproxRowCount("111")
         .build();
 
     public static final LevelMappingImpl LEVEL_YEARLY_INCOME = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_YEARLY_INCOME)
-        .withColumn("yearly_income")
+        .withColumn(YEARLY_INCOME_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .build();
 
@@ -1048,7 +1137,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl storeHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_STORE_ID)
+        .withPrimaryKey(STORE_ID_COLUMN_IN_STORE)
         .withQuery(QUERY_TABLE_STORE)
         .withLevels(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_STATE_UNIQUE_MEMBERS_TRUE, LEVEL_STORE_CYTY,
             LEVEL_STORE_NAME_WITHOUT_TABLE))
@@ -1091,7 +1180,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl HIERARCHY_STORE_SIZE_IN_SQFT = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_STORE_ID)
+        .withPrimaryKey(STORE_ID_COLUMN_IN_STORE)
         .withQuery(QUERY_TABLE_STORE)
         .withLevels(List.of(LEVEL_STORE_SQFT))
         .build();
@@ -1104,7 +1193,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl HIERARCHY_STORE_TYPE = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_STORE_ID)
+        .withPrimaryKey(STORE_ID_COLUMN_IN_STORE)
         .withQuery(QUERY_TABLE_STORE)
         .withLevels(List.of(LEVEL_STORE_TYPE_WITHOUT_TABLE))
         .build();
@@ -1138,14 +1227,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl HIERARCHY_TIME1 = HierarchyMappingImpl.builder()
         .withHasAll(false)
-        .withPrimaryKey(TABLE_COLUMN_TIME_ID)
+        .withPrimaryKey(TIME_ID_COLUMN_IN_TIME_BY_DAY)
         .withQuery(QUERY_TABLE_TIME_BY_DAY)
         .withLevels(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH))
         .build();
 
     public static final HierarchyMappingImpl HIERARCHY_TIME2 = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_TIME_ID)
+        .withPrimaryKey(TIME_ID_COLUMN_IN_TIME_BY_DAY)
         .withName("Weekly")
         .withQuery(QUERY_TABLE_TIME_BY_DAY)
         .withLevels(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY))
@@ -1168,8 +1257,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl HIERARCHY_PRODUCT = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_PRODUCT_ID)
-        .withPrimaryKeyTable(TABLE_PRODUCT)
+        .withPrimaryKey(PRODUCT_ID_COLUMN_IN_PRODUCT)
+        .withPrimaryKeyTable(PRODUCT_TABLE)
         .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
         .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
             LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
@@ -1254,7 +1343,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl HIERARCHY_PROMOTION_MEDIA = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withAllMemberName(ALL_MEDIA)
-        .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
+        .withPrimaryKey(PROMOTION_ID_COLUMN_IN_PROMOTION)
         .withDefaultMember(ALL_MEDIA)
         .withQuery(QUERY_TABLE_PROMOTION)
         .withLevels(List.of(LEVEL_MEDIA_TYPE))
@@ -1281,7 +1370,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName(ALL_PROMOTIONS)
-            .withPrimaryKey(TABLE_COLUMN_PROMOTION_ID)
+            .withPrimaryKey(PROMOTION_ID_COLUMN_IN_PROMOTION)
             .withDefaultMember(ALL_PROMOTIONS)
             .withQuery(QUERY_TABLE_PROMOTION)
             .withLevels(List.of(LEVEL_PROMOTION_NAME))
@@ -1302,7 +1391,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withAllMemberName(ALL_CUSTOMERS)
-        .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+        .withPrimaryKey(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withQuery(QUERY_TABLE_CUSTOMER)
         .withLevels(List.of(LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY, LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE,
             LEVEL_CITY_TABLE_COLUMN_CITY, LEVEL_NAME))
@@ -1315,7 +1404,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final HierarchyMappingImpl HIERARCHY_EDUCATION_LEVEL = HierarchyMappingImpl.builder()
         .withHasAll(true)
-        .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+        .withPrimaryKey(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withQuery(QUERY_TABLE_CUSTOMER)
         .withLevels(List.of(LEVEL_EDUCATION))
         .build();
@@ -1328,7 +1417,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl genderHierarchy = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withAllMemberName(ALL_GENDER)
-        .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+        .withPrimaryKey(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withQuery(QUERY_TABLE_CUSTOMER)
         .withLevels(List.of(LEVEL_GENDER))
         .build();
@@ -1341,7 +1430,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl HIERARCHY_MARITAL_STATUS = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withAllMemberName(ALL_MARITAL_STATUS)
-        .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+        .withPrimaryKey(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withQuery(QUERY_TABLE_CUSTOMER)
         .withLevels(List.of(LEVEL_MARITAL_STATUS))
         .build();
@@ -1355,7 +1444,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withName(NAME_DIMENSION_YEARLY_INCOME)
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
-            .withPrimaryKey(TABLE_COLUMN_CUSTOMER_ID)
+            .withPrimaryKey(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
             .withQuery(QUERY_TABLE_CUSTOMER)
             .withLevels(List.of(LEVEL_YEARLY_INCOME))
             .build()))
@@ -1745,18 +1834,30 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             AnnotationMappingImpl.builder().withName("description.de_AT").withValue("Cube den Verkaufen").build()
         ))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_SIZE_IN_SQFT).withDimension(DIMENSION_STORE_SIZE_IN_SQFT).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_TYPE).withDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_TIME).withDimension(DIMENSION_TIME).withForeignKey(TABLE_COLUMN_TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT).withForeignKey(TABLE_COLUMN_PRODUCT_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTION_MEDIA).withDimension(DIMENSION_PROMOTION_MEDIA).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTIONS).withDimension(DIMENSION_PROMOTIONS).withForeignKey(TABLE_COLUMN_PROMOTION_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_CUSTOMERS).withDimension(DIMENSION_CUSTOMERS).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_EDUCATION_LEVEL).withDimension(DIMENSION_EDUCATION_LEVEL).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_GENDER).withDimension(DIMENSION_GENDER).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_MARITAL_STATUS).withDimension(DIMENSION_MARITAL_STATUS).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME).withForeignKey(TABLE_COLUMN_CUSTOMER_ID).build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE)
+            .withForeignKey(STORE_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_SIZE_IN_SQFT).withDimension(DIMENSION_STORE_SIZE_IN_SQFT)
+            .withForeignKey(STORE_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_TYPE).withDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE)
+            .withForeignKey(STORE_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_TIME).withDimension(DIMENSION_TIME)
+            .withForeignKey(TIME_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT)
+            .withForeignKey(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTION_MEDIA).withDimension(DIMENSION_PROMOTION_MEDIA)
+            .withForeignKey(PROMOTION_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PROMOTIONS).withDimension(DIMENSION_PROMOTIONS)
+            .withForeignKey(PROMOTION_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_CUSTOMERS).withDimension(DIMENSION_CUSTOMERS)
+            .withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_EDUCATION_LEVEL).withDimension(DIMENSION_EDUCATION_LEVEL)
+            .withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_GENDER).withDimension(DIMENSION_GENDER)
+            .withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_MARITAL_STATUS).withDimension(DIMENSION_MARITAL_STATUS)
+            .withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME)
+            .withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build()
         ))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT, CALCULATED_MEMBER_PROFIT_LAST_PERIOD,
             CALCULATED_MEMBER_PROFIT_GROWTH))
@@ -1767,12 +1868,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withQuery(QUERY_TABLE_inventoryFact1997)
         .withDocumentation(new DocumentationMappingImpl(""))
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_SIZE_IN_SQFT).withDimension(DIMENSION_STORE_SIZE_IN_SQFT).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_TYPE).withDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE).withForeignKey(TABLE_COLUMN_STORE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_TIME).withDimension(DIMENSION_TIME).withForeignKey(TABLE_COLUMN_TIME_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT).withForeignKey(TABLE_COLUMN_PRODUCT_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_WAREHOUSE).withDimension(DIMENSION_WAREHOUSE).withForeignKey(TABLE_COLUMN_WAREHOUSE_ID).build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE).withForeignKey(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_SIZE_IN_SQFT).withDimension(DIMENSION_STORE_SIZE_IN_SQFT).withForeignKey(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_TYPE).withDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE).withForeignKey(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_TIME).withDimension(DIMENSION_TIME).withForeignKey(TIME_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT).withForeignKey(PRODUCT_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_WAREHOUSE).withDimension(DIMENSION_WAREHOUSE).withForeignKey(WAREHOUSE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build()
         ))
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_WAREHOUSE))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE))

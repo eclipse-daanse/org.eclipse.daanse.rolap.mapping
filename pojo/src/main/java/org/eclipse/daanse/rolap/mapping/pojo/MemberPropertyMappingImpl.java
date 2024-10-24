@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 
@@ -22,7 +23,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private MemberPropertyFormatterMappingImpl formatter;
 
-    private String column;
+    private Column column;
 
     private boolean dependsOnLevelValue;
 
@@ -48,11 +49,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         this.formatter = formatter;
     }
 
-    public String getColumn() {
+    public Column getColumn() {
         return column;
     }
 
-    public void setColumn(String column) {
+    public void setColumn(Column column) {
         this.column = column;
     }
 
@@ -82,7 +83,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     public static final class Builder {
         private MemberPropertyFormatterMappingImpl formatter;
-        private String column;
+        private Column column;
         private boolean dependsOnLevelValue;
         private DataType dataType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
@@ -99,7 +100,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
             return this;
         }
 
-        public Builder withColumn(String column) {
+        public Builder withColumn(Column column) {
             this.column = column;
             return this;
         }

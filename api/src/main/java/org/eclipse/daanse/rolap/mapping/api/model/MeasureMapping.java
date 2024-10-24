@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
@@ -21,7 +22,7 @@ public interface MeasureMapping extends MemberMapping{
 
     String getBackColor();
 
-    String getColumn();
+    Column getColumn();
 
     DataType getDatatype();
 

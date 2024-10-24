@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.expressivenames;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -71,16 +72,73 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
-    public static final PhysicalTableImpl CUBE_1_TABLE_FACT = ((Builder) PhysicalTableImpl.builder().withName("Cube1Fact")).build();
-    public static final PhysicalTableImpl D1H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D1H1L1Table")).build();
-    public static final PhysicalTableImpl D2H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H1L1Table")).build();
-    public static final PhysicalTableImpl D2H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H2L2Table")).build();
-    public static final PhysicalTableImpl D3H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H1L1Table")).build();
-    public static final PhysicalTableImpl D3H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H2L2_TABLE_NAME)).build();
-    public static final PhysicalTableImpl D3H2L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H2L1Table")).build();
-    public static final PhysicalTableImpl D3H3L3_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H3L3_TABLE_NAME)).build();
-    public static final PhysicalTableImpl D3H3L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L2Table")).build();
-    public static final PhysicalTableImpl D3H3L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L1Table")).build();
+    public static final ColumnImpl D1_COLUMN = ColumnImpl.builder().withName("D1").withType("VARCHAR").build();
+    public static final ColumnImpl D2_COLUMN = ColumnImpl.builder().withName("D2").withType("VARCHAR").build();
+    public static final ColumnImpl D3_COLUMN = ColumnImpl.builder().withName("D3").withType("VARCHAR").build();
+    public static final ColumnImpl M1_COLUMN = ColumnImpl.builder().withName("M1").withType("INTEGER").build();
+    public static final PhysicalTableImpl CUBE_1_TABLE_FACT = ((Builder) PhysicalTableImpl.builder().withName("Cube1Fact")
+            .withColumns(List.of(D1_COLUMN, D2_COLUMN, D3_COLUMN, M1_COLUMN))).build();
+
+    public static final ColumnImpl D1H1L1_COLUMN = ColumnImpl.builder().withName(D_1_H_1_L_1).withType("VARCHAR").build();
+    public static final ColumnImpl D1H1L1_NAME_COLUMN = ColumnImpl.builder().withName("D1H1L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D1H1L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D1H1L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D1H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D1H1L1Table")
+            .withColumns(List.of(D1H1L1_COLUMN, D1H1L1_NAME_COLUMN, D1H1L1_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D2H1L1_COLUMN = ColumnImpl.builder().withName(D_2_H_1_L_1).withType("VARCHAR").build();
+    public static final ColumnImpl D2H1L1_NAME_COLUMN = ColumnImpl.builder().withName("D2H1L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D2H1L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D2H1L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D2H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H1L1Table")
+            .withColumns(List.of(D2H1L1_COLUMN, D2H1L1_NAME_COLUMN, D2H1L1_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D2H2L2_COLUMN = ColumnImpl.builder().withName(D_2_H_2_L_2).withType("VARCHAR").build();
+    public static final ColumnImpl D2H2L1_COLUMN = ColumnImpl.builder().withName("D2H2L1").withType("VARCHAR").build();
+    public static final ColumnImpl D2H2L2_NAME_COLUMN = ColumnImpl.builder().withName("D2H2L2_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D2H2L1_NAME_COLUMN = ColumnImpl.builder().withName("D2H2L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D2H2L2_ORDINAL_COLUMN = ColumnImpl.builder().withName("D2H2L2_Ordinal").withType("VARCHAR").build();
+    public static final ColumnImpl D2H2L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D2H2L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D2H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D2H2L2Table")
+            .withColumns(List.of(D2H2L2_COLUMN, D2H2L2_NAME_COLUMN, D2H2L1_NAME_COLUMN, D2H2L2_ORDINAL_COLUMN, D2H2L1_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D3H1L1_COLUMN = ColumnImpl.builder().withName(D_3_H_1_L_1).withType("VARCHAR").build();
+    public static final ColumnImpl D3H1L1_NAME_COLUMN = ColumnImpl.builder().withName("D3H1L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H1L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H1L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H1L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H1L1Table")
+            .withColumns(List.of(D3H1L1_COLUMN, D3H1L1_NAME_COLUMN, D3H1L1_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D3H2L2_COLUMN = ColumnImpl.builder().withName(D_3_H_2_L_2).withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L2_ID_COLUMN = ColumnImpl.builder().withName("D3H2L2_id").withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L2_NAME_COLUMN = ColumnImpl.builder().withName("D3H2L2_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L2_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H2L2_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H2L2_TABLE_NAME)
+            .withColumns(List.of(D3H2L2_COLUMN, D3H2L2_ID_COLUMN, D3H2L2_NAME_COLUMN, D3H2L2_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D3H2L1_COLUMN = ColumnImpl.builder().withName(D_3_H_2_L_1).withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L1_NAME_COLUMN = ColumnImpl.builder().withName("D3H2L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H2L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H2L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H2L1Table")
+            .withColumns(List.of(D3H2L1_COLUMN, D3H2L1_NAME_COLUMN, D3H2L1_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D3H3L3_COLUMN = ColumnImpl.builder().withName(D_3_H_3_L_3).withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L2_ID_COLUMN = ColumnImpl.builder().withName("D3H3L2_id").withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L3_NAME_COLUMN = ColumnImpl.builder().withName("D3H3L3_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L3_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H3L3_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H3L3_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H3L3_TABLE_NAME)
+            .withColumns(List.of(D3H3L3_COLUMN, D3H3L2_ID_COLUMN, D3H3L3_NAME_COLUMN, D3H3L3_ORDINAL_COLUMN))).build();
+
+    public static final ColumnImpl D3H3L2_COLUMN = ColumnImpl.builder().withName(D_3_H_3_L_2).withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L1_ID_COLUMN = ColumnImpl.builder().withName("D3H3L1_id").withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L2_NAME_COLUMN = ColumnImpl.builder().withName("D3H3L2_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L2_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H3L2_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H3L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L2Table")
+            .withColumns(List.of(D3H3L2_COLUMN, D3H3L1_ID_COLUMN, D3H3L2_NAME_COLUMN, D3H3L2_ORDINAL_COLUMN))).build();
+
+    //D3H3L1,D3H3L1_NAME,D3H3L1_Ordinal
+    public static final ColumnImpl D3H3L1_COLUMN = ColumnImpl.builder().withName(D_3_H_3_L_1).withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L1_NAME_COLUMN = ColumnImpl.builder().withName("D3H3L1_NAME").withType("VARCHAR").build();
+    public static final ColumnImpl D3H3L1_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H3L1_Ordinal").withType("VARCHAR").build();
+    public static final PhysicalTableImpl D3H3L1_TABLE = ((Builder) PhysicalTableImpl.builder().withName("D3H3L1Table")
+            .withColumns(List.of(D3H3L1_COLUMN, D3H3L1_NAME_COLUMN, D3H3L1_ORDINAL_COLUMN))).build();
 
     private static final TableQueryMappingImpl CUBE_1_TABLE_FACT_QUERY = TableQueryMappingImpl.builder().withTable(
         CUBE_1_TABLE_FACT).build();
@@ -132,29 +190,29 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl LEVEL1 = LevelMappingImpl
         .builder()
         .withName(D_1_H_1_L_1)
-        .withColumn(D_1_H_1_L_1)
-        .withOrdinalColumn("D1H1L1_Ordinal")
-        .withNameColumn("D1H1L1_NAME")
+        .withColumn(D1H1L1_COLUMN)
+        .withOrdinalColumn(D1H1L1_ORDINAL_COLUMN)
+        .withNameColumn(D1H1L1_NAME_COLUMN)
         .withDescription("Level 1 Dimension 1 Hierarchy1")
         .build();
 
     private static final LevelMappingImpl LEVEL21 = LevelMappingImpl
         .builder()
         .withName(D_2_H_1_L_1)
-        .withColumn(D_2_H_1_L_1)
-        .withNameColumn("D2H1L1_NAME")
-        .withOrdinalColumn("D2H1L1_Ordinal")
+        .withColumn(D2H1L1_COLUMN)
+        .withNameColumn(D2H1L1_NAME_COLUMN)
+        .withOrdinalColumn(D2H1L1_ORDINAL_COLUMN)
         .withDescription("Level 1 Hierarchy 1 Dimension 2")
         .withType(DataType.INTEGER)
-        .withTable("D2H1L1Table")
+        .withTable(D2H1L1_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL221 = LevelMappingImpl
         .builder()
         .withName("D2H2L1")
-        .withColumn("D2H2L1")
-        .withNameColumn("D2H2L1_NAME")
-        .withOrdinalColumn("D2H2L1_Ordinal")
+        .withColumn(D2H2L1_COLUMN)
+        .withNameColumn(D2H2L1_NAME_COLUMN)
+        .withOrdinalColumn(D2H2L1_ORDINAL_COLUMN)
         .withDescription("Level 2 Hierarchy 2 Dimension 2")
         .withType(DataType.INTEGER)
         .build();
@@ -162,9 +220,9 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl LEVEL222 = LevelMappingImpl
         .builder()
         .withName(D_2_H_2_L_2)
-        .withColumn(D_2_H_2_L_2)
-        .withNameColumn("D2H2L2_NAME")
-        .withOrdinalColumn("D2H2L2_Ordinal")
+        .withColumn(D2H2L2_COLUMN)
+        .withNameColumn(D2H2L2_NAME_COLUMN)
+        .withOrdinalColumn(D2H2L2_ORDINAL_COLUMN)
         .withDescription("Level 2 Dimension 3")
         .withType(DataType.INTEGER)
         .build();
@@ -172,64 +230,64 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl LEVEL31 = LevelMappingImpl
         .builder()
         .withName(D_3_H_1_L_1)
-        .withColumn(D_3_H_1_L_1)
-        .withNameColumn("D3H1L1_NAME")
-        .withOrdinalColumn("D3H1L1_Ordinal")
+        .withColumn(D3H1L1_COLUMN)
+        .withNameColumn(D3H1L1_NAME_COLUMN)
+        .withOrdinalColumn(D3H1L1_ORDINAL_COLUMN)
         .withDescription("Level 1 Hierarchy1 Dimension 3")
         .build();
 
     private static final LevelMappingImpl LEVEL321 = LevelMappingImpl
         .builder()
         .withName(D_3_H_2_L_1)
-        .withColumn(D_3_H_2_L_1)
-        .withNameColumn("D3H2L1_NAME")
-        .withOrdinalColumn("D3H2L1_Ordinal")
+        .withColumn(D3H2L1_COLUMN)
+        .withNameColumn(D3H2L1_NAME_COLUMN)
+        .withOrdinalColumn(D3H2L1_ORDINAL_COLUMN)
         .withType(DataType.INTEGER)
-        .withTable("D3H2L1Table")
+        .withTable(D3H2L1_TABLE)
         .withDescription("Level 1 Hierarchy2 Dimension 3")
         .build();
 
     private static final LevelMappingImpl LEVEL322 = LevelMappingImpl
         .builder()
         .withName(D_3_H_2_L_2)
-        .withColumn(D_3_H_2_L_2)
-        .withNameColumn("D3H2L2_NAME")
-        .withOrdinalColumn("D3H2L2_Ordinal")
+        .withColumn(D3H2L2_COLUMN)
+        .withNameColumn(D3H2L2_NAME_COLUMN)
+        .withOrdinalColumn(D3H2L2_ORDINAL_COLUMN)
         .withType(DataType.INTEGER)
-        .withTable(D3H2L2_TABLE_NAME)
+        .withTable(D3H2L2_TABLE)
         .withDescription("Level 2 Hierarchy2 Dimension 3")
         .build();
 
     private static final LevelMappingImpl LEVEL331 = LevelMappingImpl
         .builder()
         .withName(D_3_H_3_L_1)
-        .withColumn(D_3_H_3_L_1)
-        .withNameColumn("D3H3L1_NAME")
-        .withOrdinalColumn("D3H3L1_Ordinal")
+        .withColumn(D3H3L1_COLUMN)
+        .withNameColumn(D3H3L1_NAME_COLUMN)
+        .withOrdinalColumn(D3H3L1_ORDINAL_COLUMN)
         .withType(DataType.INTEGER)
-        .withTable("D3H3L1Table")
+        .withTable(D3H3L1_TABLE)
         .withDescription("Level 1 Hierarchy3 Dimension 3")
         .build();
 
     private static final LevelMappingImpl LEVEL332 = LevelMappingImpl
         .builder()
         .withName(D_3_H_3_L_2)
-        .withColumn(D_3_H_3_L_2)
-        .withNameColumn("D3H3L2_NAME")
-        .withOrdinalColumn("D3H3L2_Ordinal")
+        .withColumn(D3H3L2_COLUMN)
+        .withNameColumn(D3H3L2_NAME_COLUMN)
+        .withOrdinalColumn(D3H3L2_ORDINAL_COLUMN)
         .withType(DataType.INTEGER)
-        .withTable("D3H3L2Table")
+        .withTable(D3H3L2_TABLE)
         .withDescription("Level 2 Hierarchy3 Dimension 3")
         .build();
 
     private static final LevelMappingImpl LEVEL333 = LevelMappingImpl
         .builder()
         .withName(D_3_H_3_L_3)
-        .withColumn(D_3_H_3_L_3)
-        .withNameColumn("D3H3L3_NAME")
-        .withOrdinalColumn("D3H3L3_Ordinal")
+        .withColumn(D3H3L3_COLUMN)
+        .withNameColumn(D3H3L3_NAME_COLUMN)
+        .withOrdinalColumn(D3H3L3_ORDINAL_COLUMN)
         .withType(DataType.INTEGER)
-        .withTable(D3H3L3_TABLE_NAME)
+        .withTable(D3H3L3_TABLE)
         .withDescription("Level 3 Hierarchy3 Dimension 3")
         .build();
 
@@ -237,7 +295,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(true)
         .withName("D1H1")
-        .withPrimaryKey(D_1_H_1_L_1)
+        .withPrimaryKey(D1H1L1_COLUMN)
         .withDescription("Hierarchy 1 Dimension 1")
         .withQuery(TABLE1)
         .withLevels(List.of(LEVEL1))
@@ -247,7 +305,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(true)
         .withName("D2H1")
-        .withPrimaryKey(D_2_H_1_L_1)
+        .withPrimaryKey(D2H1L1_COLUMN)
         .withDescription("Hierarchy 1 Dimension 2")
         .withQuery(TABLE2)
         .withLevels(List.of(LEVEL21))
@@ -258,7 +316,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName("D2H2")
         .withDescription("Hierarchy 2 Dimension 2")
-        .withPrimaryKey(D_2_H_2_L_2)
+        .withPrimaryKey(D2H2L2_COLUMN)
         .withDescription("Hierarchy 2 Dimension 2")
         .withQuery(TABLE3)
         .withLevels(List.of(LEVEL221, LEVEL222))
@@ -268,7 +326,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(true)
         .withName("D3H1")
-        .withPrimaryKey(D_3_H_1_L_1)
+        .withPrimaryKey(D3H1L1_COLUMN)
         .withDescription("Hierarchy 1 Dimension 3")
         .withQuery(TABLE4)
         .withLevels(List.of(LEVEL31))
@@ -278,8 +336,8 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(true)
         .withName("D3H2")
-        .withPrimaryKey(D_3_H_2_L_2)
-        .withPrimaryKeyTable(D3H2L2_TABLE_NAME)
+        .withPrimaryKey(D3H2L2_COLUMN)
+        .withPrimaryKeyTable(D3H2L2_TABLE)
         .withDescription("Hierarchy 2 Dimension 3")
         .withQuery(JOIN0)
         .withLevels(List.of(LEVEL321, LEVEL322))
@@ -289,8 +347,8 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(true)
         .withName("D3H3")
-        .withPrimaryKey(D_3_H_3_L_3)
-        .withPrimaryKeyTable(D3H3L3_TABLE_NAME)
+        .withPrimaryKey(D3H3L3_COLUMN)
+        .withPrimaryKeyTable(D3H3L3_TABLE)
         .withDescription("Hierarchy 1 Dimension 3")
         .withQuery(JOIN)
         .withLevels(List.of(LEVEL331, LEVEL332, LEVEL333))
@@ -322,27 +380,27 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withOverrideDimensionName(DIMENSION_1)
         .withDimension(DIMENSION_SCHEMA1)
-        .withForeignKey("D1")
+        .withForeignKey(D1_COLUMN)
         .build();
 
     private static final DimensionConnectorMappingImpl DIMENSION_USAGE_2 = DimensionConnectorMappingImpl
         .builder()
         .withOverrideDimensionName(DIMENSION_2)
         .withDimension(DIMENSION_SCHEMA2)
-        .withForeignKey("D2")
+        .withForeignKey(D2_COLUMN)
         .build();
 
     private static final DimensionConnectorMappingImpl DIMENSION_USAGE_3 = DimensionConnectorMappingImpl
         .builder()
         .withOverrideDimensionName(DIMENSION_3)
         .withDimension(DIMENSION_SCHEMA3)
-        .withForeignKey("D3")
+        .withForeignKey(D3_COLUMN)
         .build();
 
     private static final MeasureMappingImpl MEASURE_1_1 = MeasureMappingImpl
         .builder()
         .withName("Measure1")
-        .withColumn("M1")
+        .withColumn(M1_COLUMN)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .withFormatString("Standard")
         .build();
