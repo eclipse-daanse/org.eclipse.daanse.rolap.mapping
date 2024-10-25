@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.school;
 
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -93,28 +94,192 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final String DOCUMENTATION_TEXT = "";
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
+
+    //id,schul_nummer,schul_name,traeger_id,schul_art_id,ganztags_art_id
+    //INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
+    public static final ColumnImpl ID_COLUMN_IN_SCHULE_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_NAME_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NAME).withType("VARCHAR").build();
+    public static final ColumnImpl SCHUL_NUMMER_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NUMMER).withType("INTEGER").build();
     public static final PhysicalTableImpl SCHULE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHULE)).build();
+
+    //id,schul_umfang
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_GANZTAGS_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_UMFANG_IN_GANZTAGS_ART = ColumnImpl.builder().withName("schul_umfang").withType("VARCHAR").build();
     public static final PhysicalTableImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ganztags_art")).build();
-    public static final PhysicalTableImpl TRAEGER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("traeger")).build();
-    public static final PhysicalTableImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_ART)).build();
-    public static final PhysicalTableImpl TRAEGER_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_KATEGORIE)).build();
+
+    //id,traeger_name,traeger_art_id
+    //INTEGER,VARCHAR,INTEGER
+    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("traeger_name").withType("VARCHAR").build();
+    public static final PhysicalTableImpl TRAEGER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("traeger")
+            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_TABLE, TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE))).build();
+
+    //id,traeger_art,traeger_kat_id
+    //INTEGER,VARCHAR,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl TRAEGER_ART_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName(TRAEGER_ART).withType("VARCHAR").build();
+    public static final PhysicalTableImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_ART)
+            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_ART, TRAEGER_ART_COLUMN_IN_TRAEGER_ART))).build();
+
+    //id,traeger_kategorie
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_KATEGORIE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE = ColumnImpl.builder().withName(TRAEGER_KATEGORIE).withType("VARCHAR").build();
+    public static final PhysicalTableImpl TRAEGER_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_KATEGORIE)
+            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_KATEGORIE, TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE))).build();
+
+    //id,schulart_name,schul_kategorie_id
+    //INTEGER,VARCHAR,INTEGER
     public static final PhysicalTableImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schule_art")).build();
-    public static final PhysicalTableImpl SCHUL_JAHR_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHUL_JAHR)).build();
-    public static final PhysicalTableImpl ALTERS_GRUPPE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("alters_gruppe")).build();
-    public static final PhysicalTableImpl SCHEDULE_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_kategorie")).build();
-    public static final PhysicalTableImpl GESCHLECHT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("geschlecht")).build();
-    public static final PhysicalTableImpl EINSCHULUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EINSCHULUNG2)).build();
-    public static final PhysicalTableImpl KLASSEN_WIEDERHOLUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName("klassen_wiederholung")).build();
-    public static final PhysicalTableImpl SCHUL_ABSCHLUSS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_abschluss")).build();
-    public static final PhysicalTableImpl MIGRATIONS_HINTERGRUND_TABLE = ((Builder) PhysicalTableImpl.builder().withName(MIGRATIONS_HINTERGRUND)).build();
-    public static final PhysicalTableImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(WOHNORT_LANDKREIS)).build();
-    public static final PhysicalTableImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(FOERDERUNG_ART)).build();
-    public static final PhysicalTableImpl PERSONAL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("personal_art")).build();
-    public static final PhysicalTableImpl BUNDESLAND_TABLE = ((Builder) PhysicalTableImpl.builder().withName("bundesland")).build();
-    public static final PhysicalTableImpl SONDERPAED_FOERDERBEDART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("sonderpaed_foerderbedarf")).build();
-    public static final PhysicalTableImpl FACT_SCHULEN_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schulen")).build();
-    public static final PhysicalTableImpl FACT_PERSONAM_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_personal")).build();
-    public static final PhysicalTableImpl FACT_SCHUELER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schueler")).build();
+
+    //"id","schul_jahr","order"
+    //"INTEGER","VARCHAR","INTEGER"
+    public static final ColumnImpl ID_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName(SCHUL_JAHR).withType("VARCHAR").build();
+    public static final ColumnImpl ORDER_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName("order").withType("INTEGER").build();
+    public static final PhysicalTableImpl SCHUL_JAHR_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHUL_JAHR)
+            .withColumns(List.of(ID_COLUMN_IN_SCHUL_JAHR, SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR, ORDER_COLUMN_IN_SCHUL_JAHR))).build();
+
+    //id,altersgruppe
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_ALTERS_GRUPPE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE = ColumnImpl.builder().withName("altersgruppe").withType("INTEGER").build();
+    public static final PhysicalTableImpl ALTERS_GRUPPE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("alters_gruppe")
+            .withColumns(List.of(ID_COLUMN_IN_ALTERS_GRUPPE, ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE))).build();
+
+    //id,kuerzel,bezeichnung
+    //INTEGER,VARCHAR,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_GESCHLECHT = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_GESCHLECHT = ColumnImpl.builder().withName(BEZEICHNUNG).withType("INTEGER").build();
+    public static final PhysicalTableImpl GESCHLECHT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("geschlecht")
+            .withColumns(List.of(ID_COLUMN_IN_GESCHLECHT, BEZEICHNUNG_COLUMN_IN_GESCHLECHT))).build();
+
+    public static final ColumnImpl ID_COLUMN_IN_EINSCHULUNG = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl EINSCHULUNG_COLUMN_IN_EINSCHULUNG = ColumnImpl.builder().withName(EINSCHULUNG2).withType("VARCHAR").build();
+    public static final PhysicalTableImpl EINSCHULUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EINSCHULUNG2)
+            .withColumns(List.of(ID_COLUMN_IN_EINSCHULUNG, EINSCHULUNG_COLUMN_IN_EINSCHULUNG))).build();
+
+    //id,klassenwiederholung
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnImpl.builder().withName("klassenwiederholung").withType("INTEGER").build();
+    public static final PhysicalTableImpl KLASSEN_WIEDERHOLUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName("klassen_wiederholung")
+            .withColumns(List.of(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG, KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG))).build();
+
+    //id,schulabschluss
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnImpl.builder().withName("schulabschluss").withType("VARCHAR").build();
+    public static final PhysicalTableImpl SCHUL_ABSCHLUSS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_abschluss")
+            .withColumns(List.of(ID_COLUMN_IN_SCHUL_ABSCHLUSS, SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS))).build();
+
+    //id,migrations_hintergrund
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnImpl.builder().withName(MIGRATIONS_HINTERGRUND).withType("VARCHAR").build();
+    public static final PhysicalTableImpl MIGRATIONS_HINTERGRUND_TABLE = ((Builder) PhysicalTableImpl.builder().withName(MIGRATIONS_HINTERGRUND)
+            .withColumns(List.of(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND, MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND))).build();
+
+    //id,kuerzel,bezeichnung,bundesland_id
+    //INTEGER,VARCHAR,VARCHAR,INTEGER
+    public static final ColumnImpl ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final PhysicalTableImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(WOHNORT_LANDKREIS)
+            .withColumns(List.of(ID_COLUMN_IN_WOHNORT_LANDKREIS, BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS))).build();
+
+    //id,schulart_name,schul_kategorie_id
+    //INTEGER,VARCHAR,INTEGER
+    public static final ColumnImpl ID_COLUMN_IN_SCHUL_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHULART_NAME_COLUMN_IN_SCHUL_ART = ColumnImpl.builder().withName("schulart_name").withType("VARCHAR").build();
+    public static final PhysicalTableImpl SCHUL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_art")
+            .withColumns(List.of(ID_COLUMN_IN_SCHUL_ART, SCHULART_NAME_COLUMN_IN_SCHUL_ART))).build();
+
+    //id,schul_kategorie_name
+    //INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_SCHUL_KATEGORIE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE = ColumnImpl.builder().withName("schul_kategorie_name").withType("VARCHAR").build();
+    public static final PhysicalTableImpl SCHUL_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_kategorie")
+            .withColumns(List.of(ID_COLUMN_IN_SCHUL_KATEGORIE, SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE))).build();
+
+    //id,foerderung_art,sp_foerderbedarf_id
+    //INTEGER,VARCHAR,INTEGER,
+    public static final ColumnImpl ID_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName(FOERDERUNG_ART).withType("VARCHAR").build();
+    public static final PhysicalTableImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(FOERDERUNG_ART)
+            .withColumns(List.of(ID_COLUMN_IN_FOERDERUNG_ART, FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART))).build();
+
+    //id,bezeichnung,,,,,,,,,,,,,,,,,id,bezeichnung
+    //INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_PERSONAL_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_PERSONAL_ART = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final PhysicalTableImpl PERSONAL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("personal_art")
+            .withColumns(List.of(ID_COLUMN_IN_PERSONAL_ART, BEZEICHNUNG_COLUMN_IN_PERSONAL_ART))).build();
+
+    //id,kuerzel,bezeichnung
+    //INTEGER,VARCHAR,VARCHAR
+    public static final ColumnImpl ID_COLUMN_IN_BUNDESLAND = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_BUNDESLAND = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final PhysicalTableImpl BUNDESLAND_TABLE = ((Builder) PhysicalTableImpl.builder().withName("bundesland")
+            .withColumns(List.of(ID_COLUMN_IN_BUNDESLAND, BEZEICHNUNG_COLUMN_IN_BUNDESLAND))).build();
+
+    public static final ColumnImpl ID_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnImpl.builder().withName("sonderpaed_bedarf").withType("VARCHAR").build();
+    public static final PhysicalTableImpl SONDERPAED_FOERDERBEDART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("sonderpaed_foerderbedarf")
+            .withColumns(List.of(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART, SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART))).build();
+
+    //schule_id,schul_jahr_id,anzahl_schulen,anzahl_klassen
+    //INTEGER,INTEGER,INTEGER,INTEGER
+    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_SCHULEN = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final PhysicalTableImpl FACT_SCHULEN_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schulen")
+            .withColumns(List.of(SCHULE_ID_COLUMN_IN_FACT_SCHULEN, SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN))).build();
+
+    //schule_id,schul_jahr_id,alters_gruppe_id,geschlecht_id,personal_art_id,anzahl_personen
+    //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
+    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final ColumnImpl ALTERS_GROUP_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("alters_gruppe_id").withType("INTEGER").build();
+    public static final ColumnImpl GESCHLECHT_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
+    public static final ColumnImpl PERSONAL_ART_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("personal_art_id").withType("INTEGER").build();
+    public static final ColumnImpl ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("anzahl_personen").withType("INTEGER").build();
+    public static final PhysicalTableImpl FACT_PERSONAM_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_personal")
+            .withColumns(List.of(
+                SCHULE_ID_COLUMN_IN_FACT_PERSONAL,
+                SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL,
+                ALTERS_GROUP_ID_COLUMN_IN_FACT_PERSONAL,
+                GESCHLECHT_ID_COLUMN_IN_FACT_PERSONAL,
+                PERSONAL_ART_ID_COLUMN_IN_FACT_PERSONAL,
+                ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL
+            ))).build();
+
+    //schule_id,schul_jahr_id,geschlecht_id,wohn_lk_id,einschulung_id,schul_abschluss_id,klassen_wdh,migrations_hg_id,foerder_art_id,anzahl_schueler
+    //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
+    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final ColumnImpl GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
+    public static final ColumnImpl WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("wohn_lk_id").withType("INTEGER").build();
+    public static final ColumnImpl EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("einschulung_id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("schul_abschluss_id").withType("INTEGER").build();
+    public static final ColumnImpl KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("klassen_wdh").withType("INTEGER").build();
+    public static final ColumnImpl MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("migrations_hg_id").withType("INTEGER").build();
+    public static final ColumnImpl FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("foerder_art_id").withType("INTEGER").build();
+    public static final ColumnImpl ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("anzahl_schueler").withType("INTEGER").build();
+    public static final ColumnImpl ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("anzahl_schulen").withType("INTEGER").build();
+    public static final PhysicalTableImpl FACT_SCHUELER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schueler")
+            .withColumns(List.of(
+                SCHULE_ID_COLUMN_IN_FACT_SCHUELER,
+                SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER,
+                GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER,
+                WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER,
+                EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER,
+                SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER,
+                KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER,
+                MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER,
+                FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER,
+                ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER,
+                ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER
+                ))).build();
 
     private static final TableQueryMappingImpl SCHEDULE_TABLE_QUERY =
         TableQueryMappingImpl.builder().withTable(SCHULE_TABLE).build();
@@ -129,7 +294,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final TableQueryMappingImpl SCHEDULE_ART_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
         SCHEDULE_ART_TABLE).build();
     private static final TableQueryMappingImpl SCHEDULE_KATEGORIE_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
-        SCHEDULE_KATEGORIE_TABLE).build();
+        SCHUL_KATEGORIE_TABLE).build();
     private static final TableQueryMappingImpl SCHUL_JAHT_TABLE_QUERY =
         TableQueryMappingImpl.builder().withTable(SCHUL_JAHR_TABLE).build();
     private static final TableQueryMappingImpl ALTERS_GRUPPE_TABLE_QUERY = TableQueryMappingImpl.builder().withTable(
@@ -252,165 +417,165 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final LevelMappingImpl LEVEL1 = LevelMappingImpl
         .builder()
         .withName("Art des Ganztagsangebots")
-        .withColumn("id")
-        .withNameColumn("schul_umfang")
-        .withTable("ganztags_art")
+        .withColumn(ID_COLUMN_IN_GANZTAGS_ART)
+        .withNameColumn(SCHUL_UMFANG_IN_GANZTAGS_ART)
+        .withTable(GANZTAGS_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL2 = LevelMappingImpl
         .builder()
         .withName(SCHULE2)
-        .withColumn("id")
-        .withNameColumn(SCHUL_NAME)
-        .withOrdinalColumn(SCHUL_NUMMER)
-        .withTable(SCHULE)
+        .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
+        .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
+        .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
+        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL3 = LevelMappingImpl
         .builder()
         .withName("Schulträger-Kategorie")
-        .withColumn("id")
-        .withNameColumn(TRAEGER_KATEGORIE)
-        .withTable(TRAEGER_KATEGORIE)
+        .withColumn(ID_COLUMN_IN_TRAEGER_KATEGORIE)
+        .withNameColumn(TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE)
+        .withTable(TRAEGER_KATEGORIE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL4 = LevelMappingImpl
         .builder()
         .withName("Schulträger-Art")
-        .withColumn("id")
-        .withNameColumn(TRAEGER_ART)
-        .withTable(TRAEGER_ART)
+        .withColumn(ID_COLUMN_IN_TRAEGER_ART)
+        .withNameColumn(TRAEGER_ART_COLUMN_IN_TRAEGER_ART)
+        .withTable(TRAEGER_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL5 = LevelMappingImpl
         .builder()
         .withName("Schulträger")
-        .withColumn("id")
-        .withNameColumn("traeger_name")
-        .withTable("traeger")
+        .withColumn(ID_COLUMN_IN_TRAEGER_TABLE)
+        .withNameColumn(TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE)
+        .withTable(TRAEGER_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL6 = LevelMappingImpl
         .builder()
         .withName(SCHULE2)
-        .withColumn("id")
-        .withNameColumn(SCHUL_NAME)
-        .withOrdinalColumn(SCHUL_NUMMER)
-        .withTable(SCHULE)
+        .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
+        .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
+        .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
+        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL7 = LevelMappingImpl
         .builder()
         .withName("Schulkategorie")
-        .withColumn("id")
-        .withNameColumn("schul_kategorie_name")
-        .withTable("schul_kategorie")
+        .withColumn(ID_COLUMN_IN_SCHUL_KATEGORIE)
+        .withNameColumn(SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE)
+        .withTable(SCHUL_KATEGORIE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL8 = LevelMappingImpl
         .builder()
         .withName("Schulart")
-        .withColumn("id")
-        .withNameColumn("schulart_name")
-        .withTable("schul_art")
+        .withColumn(ID_COLUMN_IN_SCHUL_ART)
+        .withNameColumn(SCHULART_NAME_COLUMN_IN_SCHUL_ART)
+        .withTable(SCHUL_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL9 = LevelMappingImpl
         .builder()
         .withName(SCHULE2)
-        .withColumn("id")
-        .withNameColumn(SCHUL_NAME)
-        .withOrdinalColumn(SCHUL_NUMMER)
-        .withTable(SCHULE)
+        .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
+        .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
+        .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
+        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL10 = LevelMappingImpl
         .builder()
         .withName(SCHULJAHR)
-        .withColumn("id")
-        .withNameColumn(SCHUL_JAHR)
-        .withOrdinalColumn("order")
+        .withColumn(ID_COLUMN_IN_SCHUL_JAHR)
+        .withNameColumn(SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR)
+        .withOrdinalColumn(ORDER_COLUMN_IN_SCHUL_JAHR)
         .build();
 
     private static final LevelMappingImpl LEVEL11 = LevelMappingImpl
         .builder()
         .withName("Altersgruppe")
-        .withColumn("id")
-        .withNameColumn("altersgruppe")
+        .withColumn(ID_COLUMN_IN_ALTERS_GRUPPE)
+        .withNameColumn(ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE)
         .build();
 
     private static final LevelMappingImpl LEVEL12 = LevelMappingImpl
         .builder()
         .withName(GESCHLECHT)
-        .withColumn("id")
-        .withNameColumn(BEZEICHNUNG)
+        .withColumn(ID_COLUMN_IN_GESCHLECHT)
+        .withNameColumn(BEZEICHNUNG_COLUMN_IN_GESCHLECHT)
         .build();
 
     private static final LevelMappingImpl LEVEL13 = LevelMappingImpl
         .builder()
         .withName("Berufsgruppe")
-        .withColumn("id")
-        .withNameColumn(BEZEICHNUNG)
+        .withColumn(ID_COLUMN_IN_PERSONAL_ART)
+        .withNameColumn(BEZEICHNUNG_COLUMN_IN_PERSONAL_ART)
         .build();
 
     private static final LevelMappingImpl LEVEL14 = LevelMappingImpl
         .builder()
         .withName(EINSCHULUNG)
-        .withColumn("id")
-        .withNameColumn(EINSCHULUNG2)
+        .withColumn(ID_COLUMN_IN_EINSCHULUNG)
+        .withNameColumn(EINSCHULUNG_COLUMN_IN_EINSCHULUNG)
         .build();
 
     private static final LevelMappingImpl LEVEL15 = LevelMappingImpl
         .builder()
         .withName(KLASSENWIEDERHOLUNG)
-        .withColumn("id")
-        .withNameColumn("klassenwiederholung")
+        .withColumn(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG)
+        .withNameColumn(KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG)
         .build();
 
     private static final LevelMappingImpl LEVEL16 = LevelMappingImpl
         .builder()
         .withName("Schulabschlüsse")
-        .withColumn("id")
-        .withNameColumn("schulabschluss")
+        .withColumn(ID_COLUMN_IN_SCHUL_ABSCHLUSS)
+        .withNameColumn(SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS)
         .build();
 
     private static final LevelMappingImpl LEVEL17 = LevelMappingImpl
         .builder()
         .withName(MIGRATIONSHINTERGRUND)
-        .withColumn("id")
-        .withNameColumn(MIGRATIONS_HINTERGRUND)
+        .withColumn(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND)
+        .withNameColumn(MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND)
         .build();
 
     private static final LevelMappingImpl LEVEL18 = LevelMappingImpl
         .builder()
         .withName("Bundesland")
-        .withColumn("id")
-        .withNameColumn(BEZEICHNUNG)
-        .withTable("bundesland")
+        .withColumn(ID_COLUMN_IN_BUNDESLAND)
+        .withNameColumn(BEZEICHNUNG_COLUMN_IN_BUNDESLAND)
+        .withTable(BUNDESLAND_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL19 = LevelMappingImpl
         .builder()
         .withName(WOHNLANDKREIS)
-        .withColumn("id")
-        .withNameColumn(BEZEICHNUNG)
-        .withTable(WOHNORT_LANDKREIS)
+        .withColumn(ID_COLUMN_IN_WOHNORT_LANDKREIS)
+        .withNameColumn(BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS)
+        .withTable(WOHNORT_LANDKREIS_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL20 = LevelMappingImpl
         .builder()
         .withName("Förderbedarf")
-        .withColumn("id")
-        .withNameColumn("sonderpaed_bedarf")
-        .withTable("sonderpaed_foerderbedarf")
+        .withColumn(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART)
+        .withNameColumn(SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART)
+        .withTable(SONDERPAED_FOERDERBEDART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL21 = LevelMappingImpl
         .builder()
         .withName("Art der Förderung")
-        .withColumn("id")
-        .withNameColumn(FOERDERUNG_ART)
-        .withTable(FOERDERUNG_ART)
+        .withColumn(ID_COLUMN_IN_FOERDERUNG_ART)
+        .withNameColumn(FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART)
+        .withTable(FOERDERUNG_ART_TABLE)
         .build();
 
     private static final HierarchyMappingImpl HIERARCHY1 = HierarchyMappingImpl
@@ -418,8 +583,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Ganztagsangebot")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(SCHULE)
+        .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
+        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN1)
         .withLevels(List.of(LEVEL1, LEVEL2))
         .build();
@@ -429,8 +594,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Trägerschaft")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(SCHULE)
+        .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
+        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN2)
         .withLevels(List.of(LEVEL3, LEVEL4, LEVEL5, LEVEL6))
         .build();
@@ -440,8 +605,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Art")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(SCHULE)
+        .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
+        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN3)
         .withLevels(List.of(LEVEL7, LEVEL8, LEVEL9))
         .build();
@@ -450,8 +615,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withHasAll(false)
         .withName("Schuljahre")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(SCHUL_JAHR)
+        .withPrimaryKey(ID_COLUMN_IN_SCHUL_JAHR)
+        .withPrimaryKeyTable(SCHUL_JAHR_TABLE)
         .withQuery(SCHUL_JAHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL10))
         .build();
@@ -461,8 +626,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName("Alle Altersgruppen")
         .withName("Altersgruppen")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable("alters_gruppe")
+        .withPrimaryKey(ID_COLUMN_IN_ALTERS_GRUPPE)
+        .withPrimaryKeyTable(ALTERS_GRUPPE_TABLE)
         .withQuery(ALTERS_GRUPPE_TABLE_QUERY)
         .withLevels(List.of(LEVEL11))
         .build();
@@ -472,8 +637,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName("Alle Geschlechter")
         .withName(GESCHLECHT)
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable("geschlecht")
+        .withPrimaryKey(ID_COLUMN_IN_GESCHLECHT)
+        .withPrimaryKeyTable(GESCHLECHT_TABLE)
         .withQuery(GESCHLECHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL12))
         .build();
@@ -483,8 +648,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName("Alle Berufsgruppen")
         .withName("Berufsgruppen")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable("personal_art")
+        .withPrimaryKey(ID_COLUMN_IN_PERSONAL_ART)
+        .withPrimaryKeyTable(PERSONAL_ART_TABLE)
         .withQuery(PERSONAL_ART_TABLE_QUERY)
         .withLevels(List.of(LEVEL13))
         .build();
@@ -494,8 +659,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(GESAMT)
         .withName(EINSCHULUNG)
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(EINSCHULUNG2)
+        .withPrimaryKey(ID_COLUMN_IN_EINSCHULUNG)
+        .withPrimaryKeyTable(EINSCHULUNG_TABLE)
         .withQuery(EINSCHULUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL14))
         .build();
@@ -505,8 +670,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(GESAMT)
         .withName(KLASSENWIEDERHOLUNG)
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable("klassen_wiederholung")
+        .withPrimaryKey(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG)
+        .withPrimaryKeyTable(KLASSEN_WIEDERHOLUNG_TABLE)
         .withQuery(KLASSEN_WIEDERHOLUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL15))
         .build();
@@ -516,8 +681,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(GESAMT)
         .withName("Schulabschlüsse")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable("schul_abschluss")
+        .withPrimaryKey(ID_COLUMN_IN_SCHUL_ABSCHLUSS)
+        .withPrimaryKeyTable(SCHUL_ABSCHLUSS_TABLE)
         .withQuery(SCHUL_ABSCHLUSS_TABLE_QUERY)
         .withLevels(List.of(LEVEL16))
         .build();
@@ -527,8 +692,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(GESAMT)
         .withName(MIGRATIONSHINTERGRUND)
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(MIGRATIONS_HINTERGRUND)
+        .withPrimaryKey(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND)
+        .withPrimaryKeyTable(MIGRATIONS_HINTERGRUND_TABLE)
         .withQuery(MIGRATIONS_HINTERGRUND_TABLE_QUERY)
         .withLevels(List.of(LEVEL17))
         .build();
@@ -538,8 +703,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName("Alle Wohnlandkreise")
         .withName(WOHNLANDKREIS)
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(WOHNORT_LANDKREIS)
+        .withPrimaryKey(ID_COLUMN_IN_WOHNORT_LANDKREIS)
+        .withPrimaryKeyTable(WOHNORT_LANDKREIS_TABLE)
         .withQuery(JOIN4)
         .withLevels(List.of(LEVEL18, LEVEL19))
         .build();
@@ -549,8 +714,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withAllMemberName(GESAMT)
         .withName("Sonderpädagogische Förderung")
-        .withPrimaryKey("id")
-        .withPrimaryKeyTable(FOERDERUNG_ART)
+        .withPrimaryKey(ID_COLUMN_IN_FOERDERUNG_ART)
+        .withPrimaryKeyTable(FOERDERUNG_ART_TABLE)
         .withQuery(JOIN5)
         .withLevels(List.of(LEVEL20, LEVEL21))
         .build();
@@ -623,25 +788,25 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     private static final MeasureMappingImpl measure1 = MeasureMappingImpl.builder()
         .withName("Anzahl Schulen")
-        .withColumn("anzahl_schulen")
+        .withColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure2 = MeasureMappingImpl.builder()
         .withName("Anzahl Klassen")
-        .withColumn("Anzahl Klassen")
+        .withColumn(KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure3 = MeasureMappingImpl.builder()
         .withName("Anzahl Personen")
-        .withColumn("anzahl_personen")
+        .withColumn(ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureMappingImpl measure4 = MeasureMappingImpl.builder()
         .withName("Anzahl Schüler:innen")
-        .withColumn("anzahl_schueler")
+        .withColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER)
         .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
@@ -669,8 +834,8 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulen in Jena (Institutionen)")
         .withQuery(FACT_SCHULEN_TABLE_QUERY)
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID_COLUMN_IN_FACT_SCHULEN).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN).build()
         ))
         .withMeasureGroups(List.of(CUBE1_MEASURE_GROUP))
         .build();
@@ -680,11 +845,11 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Pädagogisches Personal an Jenaer Schulen")
         .withQuery(FACT_PERSONAM_TABLE_QUERY)
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Altersgruppe").withDimension(ALTERSGRUPPEN_PERSONAL_DIMENSION).withForeignKey("alters_gruppe_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GESCHLECHT).withDimension(GESCHLECHT_DIMENSION).withForeignKey("geschlecht_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Berufsgruppe").withDimension(Berufsgruppen_Personal_DIMENSION).withForeignKey("personal_art_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID_COLUMN_IN_FACT_PERSONAL).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Altersgruppe").withDimension(ALTERSGRUPPEN_PERSONAL_DIMENSION).withForeignKey(ALTERS_GROUP_ID_COLUMN_IN_FACT_PERSONAL).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GESCHLECHT).withDimension(GESCHLECHT_DIMENSION).withForeignKey(GESCHLECHT_ID_COLUMN_IN_FACT_PERSONAL).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Berufsgruppe").withDimension(Berufsgruppen_Personal_DIMENSION).withForeignKey(PERSONAL_ART_ID_COLUMN_IN_FACT_PERSONAL).build()
         ))
         .withMeasureGroups(List.of(CUBE2_MEASURE_GROUP))
         .build();
@@ -694,15 +859,16 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schüler:innen an Jenaer Schulen")
         .withQuery(FACT_SCHUELER_TABLE_QUERY)
         .withDimensionConnectors(List.of(
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID).build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GESCHLECHT).withDimension(GESCHLECHT_DIMENSION).withForeignKey("geschlecht_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(WOHNLANDKREIS).withDimension(Wohnlandkreis_DIMENSION).withForeignKey("wohn_lk_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EINSCHULUNG).withDimension(Einschulungen_DIMENSION).withForeignKey("einschulung_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Schulabschluss").withDimension(Schulabschluss_DIMENSION).withForeignKey("schul_abschluss_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(KLASSENWIEDERHOLUNG).withDimension(Klassenwiederholung_DIMENSION).withForeignKey("klassen_wdh").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(MIGRATIONSHINTERGRUND).withDimension(Migrationshintergrund_DIMENSION).withForeignKey("migrations_hg_id").build(),
-            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Sonderpädagogische Förderung").withDimension(Inklusion_DIMENSION).withForeignKey("foerder_art_id").build()
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULEN).withDimension(SCHULEN_DIMENSION).withForeignKey(SCHULE_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(SCHULJAHR).withDimension(SCHULJAHRE_DIMENSION).withForeignKey(SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(GESCHLECHT).withDimension(GESCHLECHT_DIMENSION).withForeignKey(GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(WOHNLANDKREIS).withDimension(Wohnlandkreis_DIMENSION).withForeignKey(WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(EINSCHULUNG).withDimension(Einschulungen_DIMENSION).withForeignKey(EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Schulabschluss").withDimension(Schulabschluss_DIMENSION).withForeignKey(SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(KLASSENWIEDERHOLUNG).withDimension(Klassenwiederholung_DIMENSION).withForeignKey(KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName(MIGRATIONSHINTERGRUND).withDimension(Migrationshintergrund_DIMENSION).withForeignKey(MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER).build(),
+            DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Sonderpädagogische Förderung").withDimension(Inklusion_DIMENSION).withForeignKey(FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER).build()
+
         ))
         .withMeasureGroups(List.of(CUBE3_MEASURE_GROUP))
         .build();

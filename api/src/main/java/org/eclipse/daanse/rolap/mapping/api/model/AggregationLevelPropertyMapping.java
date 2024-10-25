@@ -16,7 +16,7 @@ import org.eclipse.daanse.rdb.structure.api.model.Column;
 
 public interface AggregationLevelPropertyMapping {
 
-    Column getColumn();
+    String getColumn();
 
     String getName();
 

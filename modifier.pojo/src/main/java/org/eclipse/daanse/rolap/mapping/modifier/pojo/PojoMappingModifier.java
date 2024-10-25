@@ -467,7 +467,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-        String memberReaderClass, String origin, String primaryKey, String primaryKeyTable,
+        String memberReaderClass, String origin, Column primaryKey, Table primaryKeyTable,
         String uniqueKeyLevelName, boolean visible, QueryMapping query
     ) {
         return HierarchyMappingImpl.builder()
@@ -515,7 +515,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, String column, boolean dependsOnLevelValue, DataType type
+        MemberPropertyFormatterMapping formatter, Column column, boolean dependsOnLevelValue, DataType type
     ) {
         return MemberPropertyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -532,8 +532,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected ParentChildLinkMapping createParentChildLink(
-        TableQueryMapping table, String childColumn,
-        String parentColumn
+        TableQueryMapping table, Column childColumn,
+        Column parentColumn
     ) {
         return ParentChildLinkMappingImpl.builder()
             .withTable((TableQueryMappingImpl) table)
@@ -557,9 +557,9 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, String captionColumn, String column, HideMemberIfType hideMemberIf,
-        LevelType levelType, String nameColumn, String nullParentValue, String ordinalColumn, String parentColumn,
-        String table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        String approxRowCount, Column captionColumn, Column column, HideMemberIfType hideMemberIf,
+        LevelType levelType, Column nameColumn, String nullParentValue, Column ordinalColumn, Column parentColumn,
+        Table table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
             .withKeyExpression((SQLExpressionMappingImpl) keyExpression)
@@ -689,7 +689,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, String column, DataType datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, Column column, DataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     ) {
         return MeasureMappingImpl.builder()
@@ -814,7 +814,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected DimensionConnectorMapping createDimensionConnector(
-        String foreignKey, LevelMapping level,
+        Column foreignKey, LevelMapping level,
         String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
         PhysicalCubeMapping physicalCube
     ) {
@@ -1041,7 +1041,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackAttributeMapping createWritebackAttribute(String column, DimensionMapping dimension) {
+    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionMapping dimension) {
         return WritebackAttributeMappingImpl.builder()
             .withColumn(column)
             .withDimension((DimensionMappingImpl) dimension)
@@ -1049,7 +1049,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackMeasureMapping createwritebackMeasure(String column, String name) {
+    protected WritebackMeasureMapping createwritebackMeasure(Column column, String name) {
         return WritebackMeasureMappingImpl.builder()
             .withColumn(column)
             .withName(name)
