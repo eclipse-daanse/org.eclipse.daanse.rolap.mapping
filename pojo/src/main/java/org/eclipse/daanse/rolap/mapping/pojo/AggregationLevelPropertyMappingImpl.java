@@ -12,12 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping;
 
 public class AggregationLevelPropertyMappingImpl implements AggregationLevelPropertyMapping {
 
-    private Column column;
+    private String column;
 
     private String name;
 
@@ -26,11 +25,11 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
         this.name = builder.name;
     }
 
-    public Column getColumn() {
+    public String getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(String column) {
         this.column = column;
     }
 
@@ -47,13 +46,13 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
     }
 
     public static final class Builder {
-        private Column column;
+        private String column;
         private String name;
 
         private Builder() {
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(String column) {
             this.column = column;
             return this;
         }

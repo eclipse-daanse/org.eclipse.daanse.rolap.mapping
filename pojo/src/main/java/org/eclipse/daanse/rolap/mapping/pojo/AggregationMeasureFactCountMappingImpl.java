@@ -12,33 +12,32 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMapping;
 
 public class AggregationMeasureFactCountMappingImpl implements AggregationMeasureFactCountMapping {
 
-    private Column column;
+    private String column;
 
-    private Column factColumn;
+    private String factColumn;
 
     private AggregationMeasureFactCountMappingImpl(Builder builder) {
         this.column = builder.column;
         this.factColumn = builder.factColumn;
     }
 
-    public Column getColumn() {
+    public String getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(String column) {
         this.column = column;
     }
 
-    public Column getFactColumn() {
+    public String getFactColumn() {
         return factColumn;
     }
 
-    public void setFactColumn(Column factColumn) {
+    public void setFactColumn(String factColumn) {
         this.factColumn = factColumn;
     }
 
@@ -47,18 +46,18 @@ public class AggregationMeasureFactCountMappingImpl implements AggregationMeasur
     }
 
     public static final class Builder {
-        private Column column;
-        private Column factColumn;
+        private String column;
+        private String factColumn;
 
         private Builder() {
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(String column) {
             this.column = column;
             return this;
         }
 
-        public Builder withFactColumn(Column factColumn) {
+        public Builder withFactColumn(String factColumn) {
             this.factColumn = factColumn;
             return this;
         }

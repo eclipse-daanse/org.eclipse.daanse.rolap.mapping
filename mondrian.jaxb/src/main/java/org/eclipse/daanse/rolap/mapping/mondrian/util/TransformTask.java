@@ -528,7 +528,8 @@ public class TransformTask {
             oDim.ifPresent(d -> dc.setDimension(d));
         }
         dc.setVisible(virtualCubeDimension.visible());
-        dc.setForeignKey(virtualCubeDimension.foreignKey());
+        //TODO
+        //dc.setForeignKey(virtualCubeDimension.foreignKey());
         return dc;
     }
 
@@ -542,11 +543,13 @@ public class TransformTask {
             DimensionMappingImpl dim = transformDimension(d);
             catalog.getDimensions().add(dim);
             dc.setDimension(dim);
-            dc.setForeignKey(d.foreignKey());
+            //TODO
+            //dc.setForeignKey(d.foreignKey());
         } else if (dimensionUsageOrDimensions instanceof DimensionUsage du) {
             Optional<DimensionMappingImpl> oDim = findDimension(du.source());
             oDim.ifPresent(d -> dc.setDimension(d));
-            dc.setForeignKey(du.foreignKey());
+            //TODO
+            //dc.setForeignKey(du.foreignKey());
             if (du.level() != null) {
                 Optional<LevelMappingImpl> oLvl = findLevel(du.level());
                 oLvl.ifPresent(l -> dc.setLevel(l));
@@ -587,8 +590,9 @@ public class TransformTask {
         h.setHasAll(hierarchy.hasAll());
         h.setMemberReaderClass(hierarchy.memberReaderClass());
         h.setOrigin(hierarchy.origin());
-        h.setPrimaryKey(hierarchy.primaryKey());
-        h.setPrimaryKeyTable(hierarchy.primaryKeyTable());
+        //TODO
+        //h.setPrimaryKey(hierarchy.primaryKey());
+        //h.setPrimaryKeyTable(hierarchy.primaryKeyTable());
         h.setQuery(transformQuery(hierarchy.relation()));
         h.setUniqueKeyLevelName(hierarchy.uniqueKeyLevelName());
         h.setVisible(hierarchy.visible());
@@ -628,9 +632,11 @@ public class TransformTask {
         l.setName(level.name());
         l.setDescription(level.description());
         l.setApproxRowCount(level.approxRowCount());
-        l.setCaptionColumn(level.captionColumn());
+        //TODO
+        //l.setCaptionColumn(level.captionColumn());
         l.setCaptionExpression(transformSQLExpressionOfExpressionView(level.captionExpression()));
-        l.setColumn(level.column());
+        //TODO
+        //l.setColumn(level.column());
         l.setHideMemberIfType(HideMemberIfType.fromValue(level.hideMemberIf().getValue()));
         if (level.internalType() != null) {
             l.setDataType(DataType.fromValue(level.internalType().getValue()));
@@ -638,15 +644,19 @@ public class TransformTask {
         l.setKeyExpression(transformSQLExpressionOfExpressionView(level.keyExpression()));
         l.setLevelType(LevelType.fromValue(level.levelType().getValue()));
         l.setMemberFormatter(transformMemberFormatter(level.memberFormatter()));
-        l.setNameColumn(level.nameColumn());
+        //TODO
+        //l.setNameColumn(level.nameColumn());
         l.setNameExpression(transformSQLExpressionOfExpressionView(level.nameExpression()));
         l.setNullParentValue(level.nullParentValue());
-        l.setOrdinalColumn(level.ordinalColumn());
+        //TODO
+        //l.setOrdinalColumn(level.ordinalColumn());
         l.setOrdinalExpression(transformSQLExpressionOfExpressionView(level.ordinalExpression()));
         l.setParentChildLink(transformParentChildLink(level.closure()));
-        l.setParentColumn(level.parentColumn());
+        //TODO
+        //l.setParentColumn(level.parentColumn());
         l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
-        l.setTable(level.table());
+        //TODO
+        //l.setTable(level.table());
         l.setDataType(DataType.fromValue(level.type().getValue()));
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
@@ -667,7 +677,8 @@ public class TransformTask {
             mp.setDescription(property.description());
             mp.setName(property.name());
             mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
-            mp.setColumn(property.column());
+            //TODO
+            //mp.setColumn(property.column());
             mp.setDependsOnLevelValue(property.dependsOnLevelValue());
             mp.setDataType(DataType.fromValue(property.type() != null ? property.type().getValue() :
                 PropertyTypeEnum.STRING.getValue()));
@@ -689,8 +700,10 @@ public class TransformTask {
         if (closure != null) {
             ParentChildLinkMappingImpl pchl = ParentChildLinkMappingImpl.builder().build();
             pchl.setTable(transformTableQuery(closure.table()));
-            pchl.setChildColumn(closure.childColumn());
-            pchl.setParentColumn(closure.parentColumn());
+            //TODO
+            //pchl.setChildColumn(closure.childColumn());
+            //TODO
+            //pchl.setParentColumn(closure.parentColumn());
             return pchl;
         }
         return null;
@@ -728,7 +741,8 @@ public class TransformTask {
         m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
         m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));
-        m.setColumn(measure.column());
+        //TODO
+        //m.setColumn(measure.column());
         if (measure.datatype() != null) {
             m.setDatatype(DataType.fromValue(measure.datatype().toString()));
         }
@@ -818,7 +832,8 @@ public class TransformTask {
         org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackMeasure writebackMeasure
     ) {
         WritebackMeasureMappingImpl wbm = WritebackMeasureMappingImpl.builder().build();
-        wbm.setColumn(writebackMeasure.column());
+        //TODO
+        //wbm.setColumn(writebackMeasure.column());
         wbm.setName(writebackMeasure.name());
         return wbm;
     }
@@ -839,7 +854,8 @@ public class TransformTask {
         org.eclipse.daanse.rolap.mapping.mondrian.model.WritebackAttribute writebackAttribute
     ) {
         WritebackAttributeMappingImpl wba = WritebackAttributeMappingImpl.builder().build();
-        wba.setColumn(writebackAttribute.column());
+        //TODO
+        //wba.setColumn(writebackAttribute.column());
         if (dimensionConnectors != null) {
             Optional<DimensionConnectorMappingImpl> oDimC = dimensionConnectors.stream()
                 .filter(dc -> dc.getOverrideDimensionName().equals(writebackAttribute.dimension()))

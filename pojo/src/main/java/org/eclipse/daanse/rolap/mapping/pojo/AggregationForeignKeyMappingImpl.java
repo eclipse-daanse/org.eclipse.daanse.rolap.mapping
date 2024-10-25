@@ -12,33 +12,32 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
 
 public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMapping {
 
-    private Column aggregationColumn;
+    private String aggregationColumn;
 
-    private Column factColumn;
+    private String factColumn;
 
     private AggregationForeignKeyMappingImpl(Builder builder) {
         this.aggregationColumn = builder.aggregationColumn;
         this.factColumn = builder.factColumn;
     }
 
-    public Column getAggregationColumn() {
+    public String getAggregationColumn() {
         return aggregationColumn;
     }
 
-    public void setAggregationColumn(Column aggregationColumn) {
+    public void setAggregationColumn(String aggregationColumn) {
         this.aggregationColumn = aggregationColumn;
     }
 
-    public Column getFactColumn() {
+    public String getFactColumn() {
         return factColumn;
     }
 
-    public void setFactColumn(Column factColumn) {
+    public void setFactColumn(String factColumn) {
         this.factColumn = factColumn;
     }
 
@@ -47,18 +46,18 @@ public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMa
     }
 
     public static final class Builder {
-        private Column aggregationColumn;
-        private Column factColumn;
+        private String aggregationColumn;
+        private String factColumn;
 
         private Builder() {
         }
 
-        public Builder withAggregationColumn(Column aggregationColumn) {
+        public Builder withAggregationColumn(String aggregationColumn) {
             this.aggregationColumn = aggregationColumn;
             return this;
         }
 
-        public Builder withFactColumn(Column factColumn) {
+        public Builder withFactColumn(String factColumn) {
             this.factColumn = factColumn;
             return this;
         }

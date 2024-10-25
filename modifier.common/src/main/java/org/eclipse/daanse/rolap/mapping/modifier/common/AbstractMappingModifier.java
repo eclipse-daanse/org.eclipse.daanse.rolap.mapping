@@ -1097,26 +1097,26 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AggregationMeasureFactCountMapping aggregationMeasureFactCount
     ) {
         if (aggregationMeasureFactCount != null) {
-        	Column column = aggregationMeasureFactCountColumn(aggregationMeasureFactCount);
-        	Column factColumn = aggregationMeasureFactCountFactColumn(aggregationMeasureFactCount);
+            String column = aggregationMeasureFactCountColumn(aggregationMeasureFactCount);
+            String factColumn = aggregationMeasureFactCountFactColumn(aggregationMeasureFactCount);
             return createAggregationMeasureFactCount(column, factColumn);
         }
         return null;
     }
 
     protected abstract AggregationMeasureFactCountMapping createAggregationMeasureFactCount(
-        Column column,
-        Column factColumn
+        String column,
+        String factColumn
     );
 
-    protected Column aggregationMeasureFactCountFactColumn(
+    protected String aggregationMeasureFactCountFactColumn(
         AggregationMeasureFactCountMapping aggregationMeasureFactCount
     ) {
-        return column(aggregationMeasureFactCount.getFactColumn());
+        return aggregationMeasureFactCount.getFactColumn();
     }
 
-    protected Column aggregationMeasureFactCountColumn(AggregationMeasureFactCountMapping aggregationMeasureFactCount) {
-        return column(aggregationMeasureFactCount.getColumn());
+    protected String aggregationMeasureFactCountColumn(AggregationMeasureFactCountMapping aggregationMeasureFactCount) {
+        return aggregationMeasureFactCount.getColumn();
     }
 
     protected List<? extends AggregationLevelMapping> aggregationTableAggregationLevels(
@@ -1139,12 +1139,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties =
                 aggregationLevelAggregationLevelProperties(
                     aggregationLevel);
-            Column captionColumn = aggregationLevelCaptionColumn(aggregationLevel);
+            String captionColumn = aggregationLevelCaptionColumn(aggregationLevel);
             boolean collapsed = aggregationLevelCollapsed(aggregationLevel);
-            Column column = aggregationLevelColumn(aggregationLevel);
+            String column = aggregationLevelColumn(aggregationLevel);
             String name = aggregationLevelName(aggregationLevel);
-            Column nameColumn = aggregationLevelNameColumn(aggregationLevel);
-            Column ordinalColumn = aggregationLevelOrdinalColumn(aggregationLevel);
+            String nameColumn = aggregationLevelNameColumn(aggregationLevel);
+            String ordinalColumn = aggregationLevelOrdinalColumn(aggregationLevel);
             return createAggregationLevel(aggregationLevelProperties, captionColumn, collapsed, column, name,
                 nameColumn,
                 ordinalColumn);
@@ -1171,28 +1171,28 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         AggregationLevelPropertyMapping aggregationLevelProperty
     ) {
         if (aggregationLevelProperty != null) {
-            Column column = aggregationLevelPropertyColumn(aggregationLevelProperty);
+            String column = aggregationLevelPropertyColumn(aggregationLevelProperty);
             String name = aggregationLevelPropertyName(aggregationLevelProperty);
             return createAggregationLevelProperty(column, name);
         }
         return null;
     }
 
-    protected abstract AggregationLevelPropertyMapping createAggregationLevelProperty(Column column, String name);
+    protected abstract AggregationLevelPropertyMapping createAggregationLevelProperty(String column, String name);
 
     protected String aggregationLevelPropertyName(AggregationLevelPropertyMapping aggregationLevelProperty) {
         return aggregationLevelProperty.getName();
     }
 
-    protected Column aggregationLevelPropertyColumn(AggregationLevelPropertyMapping aggregationLevelProperty) {
-        return column(aggregationLevelProperty.getColumn());
+    protected String aggregationLevelPropertyColumn(AggregationLevelPropertyMapping aggregationLevelProperty) {
+        return aggregationLevelProperty.getColumn();
     }
 
-    protected Column aggregationLevelOrdinalColumn(AggregationLevelMapping aggregationLevel) {
-        return column(aggregationLevel.getOrdinalColumn());
+    protected String aggregationLevelOrdinalColumn(AggregationLevelMapping aggregationLevel) {
+        return aggregationLevel.getOrdinalColumn();
     }
 
-    protected Column aggregationLevelNameColumn(AggregationLevelMapping aggregationLevel) {
+    protected String aggregationLevelNameColumn(AggregationLevelMapping aggregationLevel) {
         return aggregationLevel.getNameColumn();
     }
 
@@ -1200,7 +1200,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationLevel.getName();
     }
 
-    protected Column aggregationLevelColumn(AggregationLevelMapping aggregationLevel) {
+    protected String aggregationLevelColumn(AggregationLevelMapping aggregationLevel) {
         return aggregationLevel.getColumn();
     }
 
@@ -1208,13 +1208,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationLevel.isCollapsed();
     }
 
-    protected Column aggregationLevelCaptionColumn(AggregationLevelMapping aggregationLevel) {
-        return column(aggregationLevel.getCaptionColumn());
+    protected String aggregationLevelCaptionColumn(AggregationLevelMapping aggregationLevel) {
+        return aggregationLevel.getCaptionColumn();
     }
 
     protected abstract AggregationLevelMapping createAggregationLevel(
-        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, Column captionColumn,
-        boolean collapsed, Column column, String name, Column nameColumn, Column ordinalColumn
+        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, String captionColumn,
+        boolean collapsed, String column, String name, String nameColumn, String ordinalColumn
     );
 
     protected List<? extends AggregationMeasureMapping> aggregationTableAggregationMeasures(
@@ -1234,7 +1234,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationMeasureMapping aggregationMeasure(AggregationMeasureMapping aggregationMeasure) {
         if (aggregationMeasure != null) {
-            Column column = aggregationMeasureColumn(aggregationMeasure);
+            String column = aggregationMeasureColumn(aggregationMeasure);
             String name = aggregationMeasureName(aggregationMeasure);
             String rollupType = aggregationMeasureRollupType(aggregationMeasure);
             return createAggregationMeasure(column, name, rollupType);
@@ -1243,7 +1243,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract AggregationMeasureMapping createAggregationMeasure(
-        Column column,
+        String column,
         String name,
         String rollupType
     );
@@ -1256,8 +1256,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return aggregationMeasure.getName();
     }
 
-    protected Column aggregationMeasureColumn(AggregationMeasureMapping aggregationMeasure) {
-        return column(aggregationMeasure.getColumn());
+    protected String aggregationMeasureColumn(AggregationMeasureMapping aggregationMeasure) {
+        return aggregationMeasure.getColumn();
     }
 
     protected List<? extends AggregationForeignKeyMapping> aggregationTableAggregationForeignKeys(
@@ -1277,24 +1277,24 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationForeignKeyMapping aggregationForeignKey(AggregationForeignKeyMapping aggregationForeignKey) {
         if (aggregationForeignKey != null) {
-        	Column aggregationColumn = aggregationForeignKeyAggregationColumn(aggregationForeignKey);
-            Column factColumn = aggregationForeignKeyFactColumn(aggregationForeignKey);
+            String aggregationColumn = aggregationForeignKeyAggregationColumn(aggregationForeignKey);
+            String factColumn = aggregationForeignKeyFactColumn(aggregationForeignKey);
             return createAggregationForeignKey(aggregationColumn, factColumn);
         }
         return null;
     }
 
-    protected Column aggregationForeignKeyFactColumn(AggregationForeignKeyMapping aggregationForeignKey) {
-        return column(aggregationForeignKey.getFactColumn());
+    protected String aggregationForeignKeyFactColumn(AggregationForeignKeyMapping aggregationForeignKey) {
+        return aggregationForeignKey.getFactColumn();
     }
 
-    protected Column aggregationForeignKeyAggregationColumn(AggregationForeignKeyMapping aggregationForeignKey) {
-        return column(aggregationForeignKey.getAggregationColumn());
+    protected String aggregationForeignKeyAggregationColumn(AggregationForeignKeyMapping aggregationForeignKey) {
+        return aggregationForeignKey.getAggregationColumn();
     }
 
     protected abstract AggregationForeignKeyMapping createAggregationForeignKey(
-        Column aggregationColumn,
-        Column factColumn
+        String aggregationColumn,
+        String factColumn
     );
 
     protected List<? extends AggregationColumnNameMapping> aggregationTableAggregationIgnoreColumns(
@@ -1320,17 +1320,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected AggregationColumnNameMapping aggregationColumnName(AggregationColumnNameMapping aggregationColumnName) {
         if (aggregationColumnName != null) {
-        	Column column = aggregationColumnNameColumn(aggregationColumnName);
+            String column = aggregationColumnNameColumn(aggregationColumnName);
             return createAggregationColumn(column);
         }
         return null;
     }
 
-    protected Column aggregationColumnNameColumn(AggregationColumnNameMapping aggregationColumnName) {
-        return column(aggregationColumnName.getColumn());
+    protected String aggregationColumnNameColumn(AggregationColumnNameMapping aggregationColumnName) {
+        return aggregationColumnName.getColumn();
     }
 
-    protected abstract AggregationColumnNameMapping createAggregationColumn(Column column);
+    protected abstract AggregationColumnNameMapping createAggregationColumn(String column);
 
     protected Table tableQueryTable(TableQueryMapping tableQuery) {
         return table(tableQuery.getTable());
@@ -2483,7 +2483,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected WritebackAttributeMapping writebackAttribute(WritebackAttributeMapping writebackAttribute) {
         if (writebackAttribute != null) {
-        	Column column = writebackAttributeColumn(writebackAttribute);
+            Column column = writebackAttributeColumn(writebackAttribute);
             DimensionMapping dimension = writebackAttributeDimension(writebackAttribute);
             return createWritebackAttribute(column, dimension);
         }
@@ -2517,7 +2517,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected WritebackMeasureMapping writebackMeasure(WritebackMeasureMapping writebackMeasure) {
         if (writebackMeasure != null) {
-        	Column column = writebackMeasureColumn(writebackMeasure);
+            Column column = writebackMeasureColumn(writebackMeasure);
             String name = writebackMeasureName(writebackMeasure);
             return createwritebackMeasure(column, name);
         }
@@ -3100,7 +3100,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected DimensionConnectorMapping dimensionConnector(DimensionConnectorMapping dimensionConnector) {
         if (dimensionConnector != null) {
-        	Column foreignKey = dimensionConnectorForeignKey(dimensionConnector);
+            Column foreignKey = dimensionConnectorForeignKey(dimensionConnector);
             LevelMapping level = dimensionConnectorLevel(dimensionConnector);
             String usagePrefix = dimensionConnectorUsagePrefix(dimensionConnector);
             boolean visible = dimensionConnectorVisible(dimensionConnector);
