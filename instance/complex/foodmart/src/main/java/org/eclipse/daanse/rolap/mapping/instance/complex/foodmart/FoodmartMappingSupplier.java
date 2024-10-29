@@ -410,7 +410,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //time_id,the_date,the_day,the_month,the_year,day_of_month,week_of_year,month_of_year,quarter,fiscal_period
     //INTEGER,TIMESTAMP,VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,INTEGER,SMALLINT,VARCHAR(30),VARCHAR(30)
     public static final ColumnImpl TIME_ID_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_TIME_ID).withType("INTEGER").build();
-    public static final ColumnImpl THE_DATE_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_TIME_ID).withType("TIMESTAMP").build();
+    public static final ColumnImpl THE_DATE_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_THE_DATE).withType("TIMESTAMP").build();
     public static final ColumnImpl THE_MONTH_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_THE_MONTH).withType("SMALLINT").build();
     public static final ColumnImpl THE_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_THE_YEAR).withType("SMALLINT").build();
     public static final ColumnImpl DAY_OF_MONTH_COLUMN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_DAY_OF_MONTH).withType("SMALLINT").build();
@@ -444,12 +444,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_class_id,product_subcategory,product_category,product_department,product_family
     //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
+    public static final ColumnImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(PRODUCT_CLASS_ID).withType("INTEGER").build();
     public static final ColumnImpl PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_SUBCATEGORY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl PRODUCT_CLASS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT_CLASS)
             .withColumns(List.of(
+                    PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS,
                     PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS,
                     PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS,
                     PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS,
@@ -462,6 +464,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl MANAGEMENT_ROLE_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("management_role").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl POSITION_ID_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withType("INTEGER").build();
     public static final ColumnImpl POSITION_TITLE_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("position_title").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("store_id").withType("INTEGER").build();
     public static final ColumnImpl SUPERVISOR_ID_COLUMN_IN_EMPLOYEE  = ColumnImpl.builder().withName("supervisor_id").withType("INTEGER").build();
     public static final ColumnImpl FULL_NAME_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("full_name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl MARITAL_STATUS_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
@@ -586,6 +589,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("early_income").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl GENDER_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_GENDER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl EDUCATION_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("education").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl NUM_CARS_OWNED_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("num_cars_owned").withType("INTEGER").build();
+    public static final ColumnImpl TOTAL_CHILDREN_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("total_children").withType("SMALLINT").build();
     public static final PhysicalTableImpl CUSTOMER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer")
             .withColumns(List.of(
                     CUSTOMER_ID_COLUMN_IN_CUSTOMER,
