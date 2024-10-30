@@ -108,10 +108,11 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
 
     public static final ColumnImpl D3H2L2_COLUMN = ColumnImpl.builder().withName(D_3_H_2_L_2).withType("VARCHAR").build();
     public static final ColumnImpl D3H2L2_ID_COLUMN = ColumnImpl.builder().withName("D3H2L2_id").withType("VARCHAR").build();
+    public static final ColumnImpl D3H2L1_ID_COLUMN = ColumnImpl.builder().withName("D3H2L1_id").withType("VARCHAR").build();
     public static final ColumnImpl D3H2L2_NAME_COLUMN = ColumnImpl.builder().withName("D3H2L2_NAME").withType("VARCHAR").build();
     public static final ColumnImpl D3H2L2_ORDINAL_COLUMN = ColumnImpl.builder().withName("D3H2L2_Ordinal").withType("VARCHAR").build();
     public static final PhysicalTableImpl D3H2L2_TABLE = ((Builder) PhysicalTableImpl.builder().withName(D3H2L2_TABLE_NAME)
-            .withColumns(List.of(D3H2L2_COLUMN, D3H2L2_ID_COLUMN, D3H2L2_NAME_COLUMN, D3H2L2_ORDINAL_COLUMN))).build();
+            .withColumns(List.of(D3H2L2_COLUMN, D3H2L2_ID_COLUMN, D3H2L1_ID_COLUMN, D3H2L2_NAME_COLUMN, D3H2L2_ORDINAL_COLUMN))).build();
 
     public static final ColumnImpl D3H2L1_COLUMN = ColumnImpl.builder().withName(D_3_H_2_L_1).withType("VARCHAR").build();
     public static final ColumnImpl D3H2L1_NAME_COLUMN = ColumnImpl.builder().withName("D3H2L1_NAME").withType("VARCHAR").build();
@@ -156,33 +157,33 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
 
     private static final JoinQueryMappingImpl JOIN1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("D3H3L1_id")
+            .withKey(D3H3L2_ID_COLUMN)
             .withQuery(TABLE7)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey(D_3_H_3_L_1)
+            .withKey(D3H3L1_COLUMN)
             .withQuery(TABLE8)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("D3H3L2_id")
+            .withKey(D3H3L2_ID_COLUMN)
             .withQuery(TABLE6)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey(D_3_H_3_L_2)
+            .withKey(D3H3L2_COLUMN)
             .withQuery(JOIN1)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN0 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("D3H2L1_id")
+            .withKey(D3H2L1_ID_COLUMN)
             .withQuery(TABLE5_1)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey(D_3_H_2_L_1)
+            .withKey(D3H2L1_COLUMN)
             .withQuery(TABLE5_2)
             .build())
         .build();

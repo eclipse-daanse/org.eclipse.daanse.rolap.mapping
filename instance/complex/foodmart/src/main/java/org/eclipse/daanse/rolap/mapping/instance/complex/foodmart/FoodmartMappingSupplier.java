@@ -431,11 +431,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
     //INTEGER,INTEGER,VARCHAR(60),VARCHAR(60),BIGINT,DECIMAL(10.4),REAL,REAL,SMALLINT,SMALLINT,SMALLINT,SMALLINT,REAL,REAL,REAL
+    public static final ColumnImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(PRODUCT_CLASS_ID).withType("INTEGER").build();
     public static final ColumnImpl PRODUCT_ID_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
     public static final ColumnImpl BRAND_NAME_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_BRAND_NAME).withType("VARCHAR").withTypeQualifiers(List.of("60")).build();
     public static final ColumnImpl PRODUCT_NAME_COLUMN_IN_PRODUCT = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_NAME).withType("VARCHAR").withTypeQualifiers(List.of("60")).build();
     public static final PhysicalTableImpl PRODUCT_TABLE =  ((Builder) PhysicalTableImpl.builder().withName(TABLE_PRODUCT)
             .withColumns(List.of(
+                    PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT,
                     PRODUCT_ID_COLUMN_IN_PRODUCT,
                     BRAND_NAME_COLUMN_IN_PRODUCT,
                     PRODUCT_NAME_COLUMN_IN_PRODUCT
@@ -493,9 +495,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //position_id,position_title,pay_type,min_scale,max_scale,management_role
     //INTEGER,VARCHAR(30),VARCHAR(30),DECIMAL(10.4),DECIMAL(10.4),VARCHAR(30)
+    public static final ColumnImpl POSITION_ID_COLUMN_IN_POSITION = ColumnImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withType("INTEGER").build();
     public static final ColumnImpl PAY_TYPE_COLUMN_IN_POSITION = ColumnImpl.builder().withName("pay_type").withType("INTEGER").build();
     public static final PhysicalTableImpl POSITION_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_NAME_POSITION)
-            .withColumns(List.of(PAY_TYPE_COLUMN_IN_POSITION))).build();
+            .withColumns(List.of(POSITION_ID_COLUMN_IN_POSITION, PAY_TYPE_COLUMN_IN_POSITION))).build();
 
     //pay_date,employee_id,department_id,currency_id,salary_paid,overtime_paid,vacation_accrued,vacation_used
     //TIMESTAMP,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),REAL,REAL
@@ -673,19 +676,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         STORE_RAGGED_TABLE).build();
 
     public static final JoinQueryMappingImpl JOIN_PRODUCT_PRODUCT_CLASS = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT)
             .withQuery(QUERY_TABLE_PRODUCT).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID)
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS)
             .withQuery(QUERY_TABLE_PRODUCT_CLASS).build()).build();
     public static final JoinQueryMappingImpl JOIN_EMPLOYEE_STORE = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_STORE_ID)
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID_COLUMN_IN_EMPLOYEE)
             .withQuery(QUERY_TABLE_EMPLOYEE).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_STORE_ID)
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(STORE_ID_COLUMN_IN_STORE)
             .withQuery(QUERY_TABLE_STORE).build()).build();
     public static final JoinQueryMappingImpl JOIN_EMPLOYEE_POSITION = JoinQueryMappingImpl.builder()
-        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_POSITION_ID)
+        .withLeft(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID_COLUMN_IN_EMPLOYEE)
             .withQuery(QUERY_TABLE_EMPLOYEE).build())
-        .withRight(JoinedQueryElementMappingImpl.builder().withKey(TABLE_COLUMN_POSITION_ID)
+        .withRight(JoinedQueryElementMappingImpl.builder().withKey(POSITION_ID_COLUMN_IN_POSITION)
             .withQuery(QUERY_TABLE_POSITION).build()).build();
     public static final TableQueryMappingImpl warehouseTable =
         TableQueryMappingImpl.builder().withTable(WAREHOUSE_TABLE).build();

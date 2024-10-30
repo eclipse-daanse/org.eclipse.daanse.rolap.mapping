@@ -331,7 +331,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, String key, QueryMapping query) {
+    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, Column key, QueryMapping query) {
         return JoinedQueryElementMappingImpl.builder()
             .withAlias(alias)
             .withKey(key)

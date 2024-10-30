@@ -60,6 +60,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalTableImpl YEAR_TABLE = ((Builder) PhysicalTableImpl.builder().withName("year")
             .withColumns(List.of(YEAR_IN_YEAR, ORDINAL_IN_YEAR))).build();
 
+    public static final ColumnImpl CONTINENT_ID_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("continent_id").withType("INTEGER").build();
     public static final ColumnImpl ID_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl NAME_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl COUNTRY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("country")
@@ -71,6 +72,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
             .withColumns(List.of(ID_COLUMN_IN_CONTENT, NAME_COLUMN_IN_CONTENT))).build();
 
     public static final ColumnImpl ID_COLUMN_IN_STATE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl CONTRY_ID_COLUMN_IN_STATE = ColumnImpl.builder().withName("contry_id").withType("INTEGER").build();
     public static final ColumnImpl NAME_COLUMN_IN_STATE = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl STATE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STATE)
             .withColumns(List.of(ID_COLUMN_IN_STATE, NAME_COLUMN_IN_STATE))).build();
@@ -106,22 +108,22 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
 
     private static final JoinQueryMappingImpl JOIN21 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("continent_id")
+            .withKey(CONTINENT_ID_COLUMN_IN_COUNTRY)
             .withQuery(TABLE22)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_CONTENT)
             .withQuery(TABLE23)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("contry_id")
+            .withKey(CONTRY_ID_COLUMN_IN_STATE)
             .withQuery(TABLE21)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_COUNTRY)
             .withQuery(JOIN21)
             .build())
         .build();
