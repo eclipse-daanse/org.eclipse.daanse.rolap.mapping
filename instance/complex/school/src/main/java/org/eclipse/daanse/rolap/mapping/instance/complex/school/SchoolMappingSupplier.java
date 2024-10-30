@@ -100,27 +100,35 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl ID_COLUMN_IN_SCHULE_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl SCHUL_NAME_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NAME).withType("VARCHAR").build();
     public static final ColumnImpl SCHUL_NUMMER_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NUMMER).withType("INTEGER").build();
-    public static final PhysicalTableImpl SCHULE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHULE)).build();
+    public static final ColumnImpl GANZTAGS_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("ganztags_art_id").withType("INTEGER").build();
+    public static final ColumnImpl TRAEGER_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("traeger_art_id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("schul_art_id").withType("INTEGER").build();
+    public static final PhysicalTableImpl SCHULE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHULE)
+            .withColumns(List.of(ID_COLUMN_IN_SCHULE_TABLE, SCHUL_NAME_IN_SCHULE_TABLE, SCHUL_NUMMER_IN_SCHULE_TABLE,
+                    GANZTAGS_ART_ID_IN_SCHULE_TABLE, TRAEGER_ART_ID_IN_SCHULE_TABLE, SCHUL_ART_ID_IN_SCHULE_TABLE))).build();
 
     //id,schul_umfang
     //INTEGER,VARCHAR
     public static final ColumnImpl ID_COLUMN_IN_GANZTAGS_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl SCHUL_UMFANG_IN_GANZTAGS_ART = ColumnImpl.builder().withName("schul_umfang").withType("VARCHAR").build();
-    public static final PhysicalTableImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ganztags_art")).build();
+    public static final PhysicalTableImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ganztags_art")
+            .withColumns(List.of(ID_COLUMN_IN_GANZTAGS_ART, SCHUL_UMFANG_IN_GANZTAGS_ART))).build();
 
     //id,traeger_name,traeger_art_id
     //INTEGER,VARCHAR,INTEGER
     public static final ColumnImpl ID_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("traeger_name").withType("VARCHAR").build();
+    public static final ColumnImpl TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("traeger_id").withType("INTEGER").build();
     public static final PhysicalTableImpl TRAEGER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("traeger")
-            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_TABLE, TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE))).build();
+            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_TABLE, TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE, TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE))).build();
 
     //id,traeger_art,traeger_kat_id
     //INTEGER,VARCHAR,VARCHAR
     public static final ColumnImpl ID_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl TRAEGER_ART_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName(TRAEGER_ART).withType("VARCHAR").build();
+    public static final ColumnImpl TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName("traeger_kat_id").withType("VARCHAR").build();
     public static final PhysicalTableImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_ART)
-            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_ART, TRAEGER_ART_COLUMN_IN_TRAEGER_ART))).build();
+            .withColumns(List.of(ID_COLUMN_IN_TRAEGER_ART, TRAEGER_ART_COLUMN_IN_TRAEGER_ART, TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART))).build();
 
     //id,traeger_kategorie
     //INTEGER,VARCHAR
@@ -131,7 +139,10 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     //id,schulart_name,schul_kategorie_id
     //INTEGER,VARCHAR,INTEGER
-    public static final PhysicalTableImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schule_art")).build();
+    public static final ColumnImpl ID_IN_SCHEDULE_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnImpl SCHUL_KATEGORIE_IN_SCHEDULE_ART = ColumnImpl.builder().withName("schul_kategorie_id").withType("INTEGER").build();
+    public static final PhysicalTableImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schule_art")
+            .withColumns(List.of(ID_IN_SCHEDULE_ART, SCHUL_KATEGORIE_IN_SCHEDULE_ART))).build();
 
     //"id","schul_jahr","order"
     //"INTEGER","VARCHAR","INTEGER"
@@ -185,8 +196,9 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     //INTEGER,VARCHAR,VARCHAR,INTEGER
     public static final ColumnImpl ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final ColumnImpl BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName("bundesland_id").withType("INTEGER").build();
     public static final PhysicalTableImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(WOHNORT_LANDKREIS)
-            .withColumns(List.of(ID_COLUMN_IN_WOHNORT_LANDKREIS, BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS))).build();
+            .withColumns(List.of(ID_COLUMN_IN_WOHNORT_LANDKREIS, BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS, BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS))).build();
 
     //id,schulart_name,schul_kategorie_id
     //INTEGER,VARCHAR,INTEGER
@@ -206,8 +218,9 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     //INTEGER,VARCHAR,INTEGER,
     public static final ColumnImpl ID_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName(FOERDERUNG_ART).withType("VARCHAR").build();
+    public static final ColumnImpl SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName("sp_foerderbedarf_id").withType("INTEGER").build();
     public static final PhysicalTableImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(FOERDERUNG_ART)
-            .withColumns(List.of(ID_COLUMN_IN_FOERDERUNG_ART, FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART))).build();
+            .withColumns(List.of(ID_COLUMN_IN_FOERDERUNG_ART, FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART, SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART))).build();
 
     //id,bezeichnung,,,,,,,,,,,,,,,,,id,bezeichnung
     //INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
@@ -328,88 +341,88 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     private static final JoinQueryMappingImpl JOIN1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("ganztags_art_id")
+            .withKey(GANZTAGS_ART_ID_IN_SCHULE_TABLE)
             .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_GANZTAGS_ART)
             .withQuery(GANZTAGS_ART_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN2_1_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("traeger_kat_id")
+            .withKey(TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART)
             .withQuery(TRAEGER_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_TRAEGER_KATEGORIE)
             .withQuery(TRAEGER_KATEGORIE_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN2_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("traeger_id")
+            .withKey(TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE)
             .withQuery(TRAEGER_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_TRAEGER_ART)
             .withQuery(JOIN2_1_1)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN2 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("traeger_art_id")
+            .withKey(TRAEGER_ART_ID_IN_SCHULE_TABLE)
             .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_TRAEGER_TABLE)
             .withQuery(JOIN2_1)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN3_1 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("schul_kategorie_id")
+            .withKey(SCHUL_KATEGORIE_IN_SCHEDULE_ART)
             .withQuery(SCHEDULE_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_SCHUL_KATEGORIE)
             .withQuery(SCHEDULE_KATEGORIE_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN3 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("schul_art_id")
+            .withKey(SCHUL_ART_ID_IN_SCHULE_TABLE)
             .withQuery(SCHEDULE_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_IN_SCHEDULE_ART)
             .withQuery(JOIN3_1)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN4 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("bundesland_id")
+            .withKey(BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS)
             .withQuery(WOHNORT_LANDKREIS_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_BUNDESLAND)
             .withQuery(BUNDESLAND_TABLE_QUERY)
             .build())
         .build();
 
     private static final JoinQueryMappingImpl JOIN5 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()
-            .withKey("sp_foerderbedarf_id")
+            .withKey(SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART)
             .withQuery(FOERDERUNG_ART_TABLE_QUERY)
             .build())
         .withRight(JoinedQueryElementMappingImpl.builder()
-            .withKey("id")
+            .withKey(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART)
             .withQuery(SONDERPAED_FOERDERBEDART_TABLE_QUERY)
             .build())
         .build();

@@ -890,7 +890,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected JoinedQueryElementMapping joinedQueryElement(JoinedQueryElementMapping joinedQueryElement) {
         if (joinedQueryElement != null) {
             String alias = joinedQueryElementAlias(joinedQueryElement);
-            String key = joinedQueryElementKey(joinedQueryElement);
+            Column key = joinedQueryElementKey(joinedQueryElement);
             QueryMapping query = joinedQueryElementQuery(joinedQueryElement);
             return createJoinedQueryElement(alias, key, query);
         }
@@ -901,15 +901,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return joinedQueryElement.getAlias();
     }
 
-    protected String joinedQueryElementKey(JoinedQueryElementMapping joinedQueryElement) {
-        return joinedQueryElement.getKey();
+    protected Column joinedQueryElementKey(JoinedQueryElementMapping joinedQueryElement) {
+        return column(joinedQueryElement.getKey());
     }
 
     protected QueryMapping joinedQueryElementQuery(JoinedQueryElementMapping joinedQueryElement) {
         return query(joinedQueryElement.getQuery());
     }
 
-    protected abstract JoinedQueryElementMapping createJoinedQueryElement(String alias, String key, QueryMapping query);
+    protected abstract JoinedQueryElementMapping createJoinedQueryElement(String alias, Column key, QueryMapping query);
 
     protected JoinedQueryElementMapping joinQueryLeft(JoinQueryMapping jq) {
         return joinedQueryElement(jq.getLeft());

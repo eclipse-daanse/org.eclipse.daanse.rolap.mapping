@@ -1183,7 +1183,8 @@ public class TransformTask {
     private JoinedQueryElementMappingImpl transformJoinedQueryElement(String alias, String key, RelationOrJoin roj) {
         JoinedQueryElementMappingImpl jqe = JoinedQueryElementMappingImpl.builder().build();
         jqe.setAlias(alias);
-        jqe.setKey(key);
+        //TODO
+        //jqe.setKey(key);
         jqe.setQuery(transformQuery(roj));
         return jqe;
     }
