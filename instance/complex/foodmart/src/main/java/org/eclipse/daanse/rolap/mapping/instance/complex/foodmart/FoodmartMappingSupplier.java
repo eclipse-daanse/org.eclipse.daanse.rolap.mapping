@@ -391,6 +391,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl FROZEN_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withType("INTEGER").build();
     public static final ColumnImpl MEAT_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withType("INTEGER").build();
     public static final ColumnImpl COFFEE_BAR_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withType("SMALLINT").build();
+    public static final ColumnImpl STORE_POSTAL_CODE_COLUMN_IN_STORE = ColumnImpl.builder().withName("store_postal_code").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl STORE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_STORE)
             .withColumns(List.of(
                 STORE_ID_COLUMN_IN_STORE,
@@ -405,7 +406,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 GROCERY_SQFT_COLUMN_IN_STORE,
                 FROZEN_SQFT_COLUMN_IN_STORE,
                 MEAT_SQFT_COLUMN_IN_STORE,
-                COFFEE_BAR_COLUMN_IN_STORE
+                COFFEE_BAR_COLUMN_IN_STORE,
+                STORE_POSTAL_CODE_COLUMN_IN_STORE
             ))).build();
 
     //time_id,the_date,the_day,the_month,the_year,day_of_month,week_of_year,month_of_year,quarter,fiscal_period
@@ -464,6 +466,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //employee_id,full_name,first_name,last_name,position_id,position_title,store_id,department_id,birth_date,hire_date,end_date,salary,supervisor_id,education_level,marital_status,gender,management_role
     //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,INTEGER,DATE,TIMESTAMP,TIMESTAMP,DECIMAL(10.4),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
     public static final ColumnImpl EMPLOYEE_ID_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withType("INTEGER").build();
+    public static final ColumnImpl FIRST_NAME_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("first_name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl LAST_NAME_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("last_name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl MANAGEMENT_ROLE_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("management_role").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl POSITION_ID_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withType("INTEGER").build();
     public static final ColumnImpl POSITION_TITLE_COLUMN_IN_EMPLOYEE = ColumnImpl.builder().withName("position_title").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
@@ -477,6 +481,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalTableImpl EMPLOYEE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EMPLOYEE)
             .withColumns(List.of(
                     EMPLOYEE_ID_COLUMN_IN_EMPLOYEE,
+                    FIRST_NAME_COLUMN_IN_EMPLOYEE,
+                    LAST_NAME_COLUMN_IN_EMPLOYEE,
                     MANAGEMENT_ROLE_COLUMN_IN_EMPLOYEE,
                     POSITION_ID_COLUMN_IN_EMPLOYEE,
                     POSITION_TITLE_COLUMN_IN_EMPLOYEE,
