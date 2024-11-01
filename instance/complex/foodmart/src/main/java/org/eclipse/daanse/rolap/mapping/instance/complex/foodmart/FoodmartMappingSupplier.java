@@ -392,6 +392,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl MEAT_SQFT_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withType("INTEGER").build();
     public static final ColumnImpl COFFEE_BAR_COLUMN_IN_STORE = ColumnImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withType("SMALLINT").build();
     public static final ColumnImpl STORE_POSTAL_CODE_COLUMN_IN_STORE = ColumnImpl.builder().withName("store_postal_code").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STORE_NUMBER_COLUMN_IN_STORE = ColumnImpl.builder().withName("store_number").withType("INTEGER").build();
     public static final PhysicalTableImpl STORE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TABLE_STORE)
             .withColumns(List.of(
                 STORE_ID_COLUMN_IN_STORE,
@@ -407,7 +408,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                 FROZEN_SQFT_COLUMN_IN_STORE,
                 MEAT_SQFT_COLUMN_IN_STORE,
                 COFFEE_BAR_COLUMN_IN_STORE,
-                STORE_POSTAL_CODE_COLUMN_IN_STORE
+                STORE_POSTAL_CODE_COLUMN_IN_STORE,
+                STORE_NUMBER_COLUMN_IN_STORE
             ))).build();
 
     //time_id,the_date,the_day,the_month,the_year,day_of_month,week_of_year,month_of_year,quarter,fiscal_period
@@ -544,6 +546,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl FROZEN_SQFT_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withType("INTEGER").build();
     public static final ColumnImpl MEAT_SQFT_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withType("INTEGER").build();
     public static final ColumnImpl COFFEE_BAR_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withType("SMALLINT").build();
+    public static final ColumnImpl REGION_ID_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName("region_id").withType("INTEGER").build();
     public static final PhysicalTableImpl STORE_RAGGED_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STORE_RAGGED)
             .withColumns(List.of(
                     STORE_ID_COLUMN_IN_STORE_RAGGED,
@@ -558,7 +561,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     GROCERY_SQFT_COLUMN_IN_STORE_RAGGED,
                     FROZEN_SQFT_COLUMN_IN_STORE_RAGGED,
                     MEAT_SQFT_COLUMN_IN_STORE_RAGGED,
-                    COFFEE_BAR_COLUMN_IN_STORE_RAGGED
+                    COFFEE_BAR_COLUMN_IN_STORE_RAGGED,
+                    REGION_ID_COLUMN_IN_STORE_RAGGED
             ))).build();
 
     //warehouse_id,warehouse_class_id,stores_id,warehouse_name,wa_address1,wa_address2,wa_address3,wa_address4,warehouse_city,warehouse_state_province,warehouse_postal_code,warehouse_country,warehouse_owner_name,warehouse_phone,warehouse_fax
@@ -593,7 +597,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //INTEGER,BIGINT,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(60)
     public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
     public static final ColumnImpl CITY_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_CITY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
-    public static final ColumnImpl STATE_PROVINCE_COLUMN_INCUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STATE_PROVINCE_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl COUNTRY_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl CUSTOMER_REGION_ID_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("customer_region_id").withType("INTEGER").build();
     public static final ColumnImpl MARITAL_STATUS_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
@@ -602,16 +606,24 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl EDUCATION_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("education").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl NUM_CARS_OWNED_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("num_cars_owned").withType("INTEGER").build();
     public static final ColumnImpl TOTAL_CHILDREN_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("total_children").withType("SMALLINT").build();
+    public static final ColumnImpl FULL_NAME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("fullname").withType("VARCHAR").withTypeQualifiers(List.of("60")).build();
+    public static final ColumnImpl ACCOUNT_NUM_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("account_num").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl LNAME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("lname").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl FNAME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("fname").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl CUSTOMER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer")
             .withColumns(List.of(
                     CUSTOMER_ID_COLUMN_IN_CUSTOMER,
                     CITY_COLUMN_IN_CUSTOMER,
-                    STATE_PROVINCE_COLUMN_INCUSTOMER,
+                    STATE_PROVINCE_COLUMN_IN_CUSTOMER,
                     COUNTRY_COLUMN_IN_CUSTOMER,
                     MARITAL_STATUS_COLUMN_IN_CUSTOMER,
                     YEARLY_INCOME_COLUMN_IN_CUSTOMER,
                     GENDER_COLUMN_IN_CUSTOMER,
-                    EDUCATION_COLUMN_IN_CUSTOMER
+                    EDUCATION_COLUMN_IN_CUSTOMER,
+                    FULL_NAME_COLUMN_IN_CUSTOMER,
+                    ACCOUNT_NUM_COLUMN_IN_CUSTOMER,
+                    LNAME_COLUMN_IN_CUSTOMER,
+                    FNAME_COLUMN_IN_CUSTOMER
             ))).build();
 
     //product_id,time_id,warehouse_id,store_id,units_ordered,units_shipped,warehouse_sales,warehouse_cost,supply_time,store_invoice
@@ -1001,7 +1013,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE = LevelMappingImpl.builder()
         .withName(STATE_PROVINCE)
-        .withColumn(STATE_PROVINCE_COLUMN_INCUSTOMER)
+        .withColumn(STATE_PROVINCE_COLUMN_IN_CUSTOMER)
         .withUniqueMembers(true)
         .build();
 

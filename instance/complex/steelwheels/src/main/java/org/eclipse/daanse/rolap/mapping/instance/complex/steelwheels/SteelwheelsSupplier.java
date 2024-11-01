@@ -69,6 +69,10 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl STATUS_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName(STATUS).withType("VARCHAR").build();
     public static final ColumnImpl QUANTITYORDERED_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("QUANTITYORDERED").withType("INTEGER").build();
     public static final ColumnImpl TOTALPRICE_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("TOTALPRICE").withType("NUMERIC").build();
+    public static final ColumnImpl ORDERDATE_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("ORDERDATE").withType("TIMESTAMP").build();
+    public static final ColumnImpl PRICEEACH_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("PRICEEACH").withType("NUMERIC").build();
+    public static final ColumnImpl REQUIREDDATE_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("REQUIREDDATE").withType("TIMESTAMP").build();
+    public static final ColumnImpl SHIPPEDDATE_COLUMN_IN_ORDER_FACT = ColumnImpl.builder().withName("SHIPPEDDATE").withType("TIMESTAMP").build();
     public static final PhysicalTableImpl ORDER_FACT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("orderfact")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT,
@@ -76,7 +80,11 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                     TIME_ID_COLUMN_IN_ORDER_FACT,
                     STATUS_COLUMN_IN_ORDER_FACT,
                     QUANTITYORDERED_COLUMN_IN_ORDER_FACT,
-                    TOTALPRICE_COLUMN_IN_ORDER_FACT
+                    TOTALPRICE_COLUMN_IN_ORDER_FACT,
+                    ORDERDATE_COLUMN_IN_ORDER_FACT,
+                    PRICEEACH_COLUMN_IN_ORDER_FACT,
+                    REQUIREDDATE_COLUMN_IN_ORDER_FACT,
+                    SHIPPEDDATE_COLUMN_IN_ORDER_FACT
                 ))).build();
 
     //CUSTOMERNUMBER,CUSTOMERNAME,CONTACTLASTNAME,CONTACTFIRSTNAME,PHONE,ADDRESSLINE1,ADDRESSLINE2,CITY,STATE,POSTALCODE,COUNTRY,EMPLOYEENUMBER,CREDITLIMIT,TERRITORY
@@ -87,6 +95,11 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl STATE_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("STATE").withType("VARCHAR").build();
     public static final ColumnImpl CITY_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("CITY").withType("VARCHAR").build();
     public static final ColumnImpl CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("CUSTOMERNAME").withType("VARCHAR").build();
+    public static final ColumnImpl CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("CONTACTFIRSTNAME").withType("VARCHAR").build();
+    public static final ColumnImpl CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("CONTACTLASTNAME").withType("VARCHAR").build();
+    public static final ColumnImpl PHONE_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("PHONE").withType("VARCHAR").build();
+    public static final ColumnImpl ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("ADDRESSLINE1").withType("VARCHAR").build();
+    public static final ColumnImpl CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER = ColumnImpl.builder().withName("CREDITLIMIT").withType("NUMERIC").build();
     public static final PhysicalTableImpl CUSTOMER_W_TER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer_w_ter")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER,
@@ -94,7 +107,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                     COUNTRY_COLUMN_IN_CUSTOMER_W_TER,
                     STATE_COLUMN_IN_CUSTOMER_W_TER,
                     CITY_COLUMN_IN_CUSTOMER_W_TER,
-                    CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER
+                    CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER,
+                    CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER,
+                    CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER,
+                    PHONE_COLUMN_IN_CUSTOMER_W_TER,
+                    ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER,
+                    CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER
                 ))).build();
 
     //PRODUCTCODE,PRODUCTNAME,PRODUCTLINE,PRODUCTSCALE,PRODUCTVENDOR,PRODUCTDESCRIPTION,QUANTITYINSTOCK,BUYPRICE,MSRP
@@ -103,12 +121,14 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl PRODUCTLINE_COLUMN_IN_PRODUCTS = ColumnImpl.builder().withName("PRODUCTLINE").withType("VARCHAR").build();
     public static final ColumnImpl PRODUCTVENDOR_COLUMN_IN_PRODUCTS = ColumnImpl.builder().withName("PRODUCTVENDOR").withType("VARCHAR").build();
     public static final ColumnImpl PRODUCTNAME_COLUMN_IN_PRODUCTS = ColumnImpl.builder().withName("PRODUCTNAME").withType("VARCHAR").build();
+    public static final ColumnImpl PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS = ColumnImpl.builder().withName("PRODUCTDESCRIPTION").withType("VARCHAR").build();
     public static final PhysicalTableImpl PRODUCTS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(PRODUCTS)
             .withColumns(List.of(
                     PRODUCTCODE_COLUMN_IN_PRODUCTS,
                     PRODUCTLINE_COLUMN_IN_PRODUCTS,
                     PRODUCTVENDOR_COLUMN_IN_PRODUCTS,
-                    PRODUCTNAME_COLUMN_IN_PRODUCTS
+                    PRODUCTNAME_COLUMN_IN_PRODUCTS,
+                    PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS
                 ))).build();
 
     //TIME_ID,MONTH_ID,QTR_ID,YEAR_ID,MONTH_NAME,MONTH_DESC,QTR_NAME,QTR_DESC
