@@ -422,6 +422,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_WEEK_OF_YEAR).withType("INTEGER").build();
     public static final ColumnImpl MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_MONTH_OF_YEAR).withType("SMALLINT").build();
     public static final ColumnImpl QUARTER_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName(TABLE_COLUMN_QUARTER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl FISCAL_PERIOD_COLUMN_IN_TIME_BY_DAY = ColumnImpl.builder().withName("fiscal_period").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl TIME_BY_DAY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("time_by_day")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_TIME_BY_DAY,
@@ -431,7 +432,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     DAY_OF_MONTH_COLUMN_TIME_BY_DAY,
                     WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY,
                     MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY,
-                    QUARTER_COLUMN_IN_TIME_BY_DAY
+                    QUARTER_COLUMN_IN_TIME_BY_DAY,
+                    FISCAL_PERIOD_COLUMN_IN_TIME_BY_DAY
                     ))).build();
 
     //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
@@ -568,17 +570,27 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //warehouse_id,warehouse_class_id,stores_id,warehouse_name,wa_address1,wa_address2,wa_address3,wa_address4,warehouse_city,warehouse_state_province,warehouse_postal_code,warehouse_country,warehouse_owner_name,warehouse_phone,warehouse_fax
     //INTEGER,INTEGER,INTEGER,VARCHAR(60),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
     public static final ColumnImpl WAREHOUSE_ID_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
     public static final ColumnImpl WAREHOUSE_COUNTRY_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl WAREHOUSE_STATE_PROVINCE_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_STATE_PROVINCE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl WAREHOUSE_CITY_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_CITY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl WAREHOUSE_NAME_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_NAME).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl WAREHOUSE_FAX_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName("warehouse_fax").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl WA_ADDRESS1_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName("wa_address1").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl WA_ADDRESS2_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName("wa_address2").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl WA_ADDRESS3_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName("wa_address3").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl WAREHOUSE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("warehouse")
             .withColumns(List.of(
                     WAREHOUSE_ID_COLUMN_IN_WAREHOUSE,
+                    STORE_ID_COLUMN_IN_WAREHOUSE,
                     WAREHOUSE_COUNTRY_COLUMN_IN_WAREHOUSE,
                     WAREHOUSE_STATE_PROVINCE_COLUMN_IN_WAREHOUSE,
                     WAREHOUSE_CITY_COLUMN_IN_WAREHOUSE,
-                    WAREHOUSE_NAME_COLUMN_IN_WAREHOUSE
+                    WAREHOUSE_NAME_COLUMN_IN_WAREHOUSE,
+                    WAREHOUSE_FAX_COLUMN_IN_WAREHOUSE,
+                    WA_ADDRESS1_COLUMN_IN_WAREHOUSE,
+                    WA_ADDRESS2_COLUMN_IN_WAREHOUSE,
+                    WA_ADDRESS3_COLUMN_IN_WAREHOUSE
             ))).build();
 
     //promotion_id,promotion_district_id,promotion_name,media_type,cost,start_date,end_date
@@ -610,6 +622,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl ACCOUNT_NUM_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("account_num").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl LNAME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("lname").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl FNAME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("fname").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl ADDRESS2_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("address2").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final PhysicalTableImpl CUSTOMER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("customer")
             .withColumns(List.of(
                     CUSTOMER_ID_COLUMN_IN_CUSTOMER,
@@ -623,7 +636,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     FULL_NAME_COLUMN_IN_CUSTOMER,
                     ACCOUNT_NUM_COLUMN_IN_CUSTOMER,
                     LNAME_COLUMN_IN_CUSTOMER,
-                    FNAME_COLUMN_IN_CUSTOMER
+                    FNAME_COLUMN_IN_CUSTOMER,
+                    ADDRESS2_COLUMN_IN_CUSTOMER
             ))).build();
 
     //product_id,time_id,warehouse_id,store_id,units_ordered,units_shipped,warehouse_sales,warehouse_cost,supply_time,store_invoice
