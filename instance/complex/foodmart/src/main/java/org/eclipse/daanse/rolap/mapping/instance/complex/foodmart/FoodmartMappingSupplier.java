@@ -357,6 +357,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String TABLE_COLUMN_STORE_ID = "store_id";
 
+    private static final String TABLE_COLUMN_STORES_ID = "stores_id";
+
     private static final String EMPLOYEE = "employee";
 
     private static final String TABLE_PRODUCT_CLASS = "product_class";
@@ -538,7 +540,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl STORE_ID_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
     public static final ColumnImpl STORE_TYPE_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl STORE_NAME_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
-    public static final ColumnImpl STREET_ADDRESS_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(STREET_ADDRESS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl STREET_ADDRESS_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(STORE_STREET_ADDRESS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl STORE_STATE_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl STORE_COUNTRY_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl STORE_MANAGER_COLUMN_IN_STORE_RAGGED = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
@@ -570,7 +572,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //warehouse_id,warehouse_class_id,stores_id,warehouse_name,wa_address1,wa_address2,wa_address3,wa_address4,warehouse_city,warehouse_state_province,warehouse_postal_code,warehouse_country,warehouse_owner_name,warehouse_phone,warehouse_fax
     //INTEGER,INTEGER,INTEGER,VARCHAR(60),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
     public static final ColumnImpl WAREHOUSE_ID_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withType("INTEGER").build();
-    public static final ColumnImpl STORE_ID_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_STORES_ID).withType("INTEGER").build();
     public static final ColumnImpl WAREHOUSE_COUNTRY_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl WAREHOUSE_STATE_PROVINCE_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_STATE_PROVINCE).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl WAREHOUSE_CITY_COLUMN_IN_WAREHOUSE = ColumnImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_CITY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
@@ -613,7 +615,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl COUNTRY_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_COUNTRY).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl CUSTOMER_REGION_ID_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("customer_region_id").withType("INTEGER").build();
     public static final ColumnImpl MARITAL_STATUS_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
-    public static final ColumnImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("early_income").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("yearly_income").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl GENDER_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName(TABLE_COLUMN_GENDER).withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl EDUCATION_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("education").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
     public static final ColumnImpl NUM_CARS_OWNED_COLUMN_IN_CUSTOMER = ColumnImpl.builder().withName("num_cars_owned").withType("INTEGER").build();
