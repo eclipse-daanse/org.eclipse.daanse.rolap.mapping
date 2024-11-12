@@ -400,26 +400,39 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String name = columnName(column);
             Table table = columnTable(column);
             String type = columnType(column);
-            List<String> typeQualifiers = columnTypeQualifiers(column);
+            Integer columnSize = columnColumnSize(column);
+            Integer decimalDigits = columnDecimalDigits(column);
+            Integer numPrecRadix = columnNumPrecRadix(column);
+            Integer charOctetLength = columnCharOctetLength(column);
+            Boolean nullable = columnNullable(column);
             String description = columnDescription(column);
-            return createColumn(name, table, type, typeQualifiers, description);
+            return createColumn(name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
         }
         return null;
     }
 
+    protected Integer columnColumnSize(Column column) {
+        return column.getColumnSize();
+    }
+
+    protected Integer columnDecimalDigits(Column column) {
+        return column.getDecimalDigits();
+    }
+
+    protected Integer columnNumPrecRadix(Column column) {
+        return column.getNumPrecRadix();
+    }
+
+    protected Integer columnCharOctetLength(Column column) {
+        return column.getNumPrecRadix();
+    }
+
+    protected Boolean columnNullable(Column column) {
+        return column.getNullable();
+    }
+
     protected String columnDescription(Column column) {
         return column.getDescription();
-    }
-
-    protected List<String> columnTypeQualifiers(Column column) {
-        return columnTypeQualifiers(column.getTypeQualifiers());
-    }
-
-    protected List<String> columnTypeQualifiers(List<String> typeQualifiers) {
-        if (typeQualifiers != null) {
-            return typeQualifiers.stream().map(q -> q).toList();
-        }
-        return List.of();
     }
 
     protected String columnType(Column column) {
@@ -435,8 +448,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract Column createColumn(
-        String name, Table table, String type, List<String> typeQualifiers,
-        String description
+        String name, Table table, String type, Integer columnSize, Integer decimalDigits,
+        Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     );
 
     protected String tableName(Table table) {

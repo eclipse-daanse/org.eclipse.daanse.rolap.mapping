@@ -62,32 +62,32 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
 
     public static final ColumnImpl CONTINENT_ID_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("continent_id").withType("INTEGER").build();
     public static final ColumnImpl ID_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl NAME_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl NAME_COLUMN_IN_COUNTRY = ColumnImpl.builder().withName("name").withType("VARCHAR").withColumnSize(30).build();
     public static final PhysicalTableImpl COUNTRY_TABLE = ((Builder) PhysicalTableImpl.builder().withName("country")
             .withColumns(List.of(ID_COLUMN_IN_COUNTRY, NAME_COLUMN_IN_COUNTRY))).build();
 
     public static final ColumnImpl ID_COLUMN_IN_CONTENT = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl NAME_COLUMN_IN_CONTENT = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl NAME_COLUMN_IN_CONTENT = ColumnImpl.builder().withName("name").withType("VARCHAR").withColumnSize(30).build();
     public static final PhysicalTableImpl CONTENT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("continent")
             .withColumns(List.of(ID_COLUMN_IN_CONTENT, NAME_COLUMN_IN_CONTENT))).build();
 
     public static final ColumnImpl ID_COLUMN_IN_STATE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
     public static final ColumnImpl CONTRY_ID_COLUMN_IN_STATE = ColumnImpl.builder().withName("contry_id").withType("INTEGER").build();
-    public static final ColumnImpl NAME_COLUMN_IN_STATE = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl NAME_COLUMN_IN_STATE = ColumnImpl.builder().withName("name").withType("VARCHAR").withColumnSize(30).build();
     public static final PhysicalTableImpl STATE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(STATE)
             .withColumns(List.of(ID_COLUMN_IN_STATE, NAME_COLUMN_IN_STATE))).build();
 
     public static final ColumnImpl GENDER_ID_COLUMN_IN_GENDER = ColumnImpl.builder().withName(GENDER_ID).withType("INTEGER").build();
-    public static final ColumnImpl NAME_COLUMN_IN_GENDER = ColumnImpl.builder().withName("name").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl NAME_COLUMN_IN_GENDER = ColumnImpl.builder().withName("name").withType("VARCHAR").withColumnSize(30).build();
     public static final PhysicalTableImpl GENDER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("gender")
             .withColumns(List.of(GENDER_ID_COLUMN_IN_GENDER, NAME_COLUMN_IN_GENDER))).build();
 
     public static final ColumnImpl AGE_IN_AGE_GROUPS = ColumnImpl.builder().withName("age").withType("INTEGER").build();
-    public static final ColumnImpl H1_IN_AGE_GROUPS = ColumnImpl.builder().withName("H1").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl H1_IN_AGE_GROUPS = ColumnImpl.builder().withName("H1").withType("VARCHAR").withColumnSize(30).build();
     public static final ColumnImpl H1_ORDER_IN_AGE_GROUPS = ColumnImpl.builder().withName("H1_Order").withType("INTEGER").build();
-    public static final ColumnImpl H2_IN_AGE_GROUPS = ColumnImpl.builder().withName("H2").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl H2_IN_AGE_GROUPS = ColumnImpl.builder().withName("H2").withType("VARCHAR").withColumnSize(30).build();
     public static final ColumnImpl H2_ORDER_IN_AGE_GROUPS = ColumnImpl.builder().withName("H2_Order").withType("INTEGER").build();
-    public static final ColumnImpl H9_IN_AGE_GROUPS = ColumnImpl.builder().withName("H9").withType("VARCHAR").withTypeQualifiers(List.of("30")).build();
+    public static final ColumnImpl H9_IN_AGE_GROUPS = ColumnImpl.builder().withName("H9").withType("VARCHAR").withColumnSize(30).build();
     public static final ColumnImpl H9_ORDER_IN_AGE_GROUPS = ColumnImpl.builder().withName("H9_Order").withType("INTEGER").build();
     public static final PhysicalTableImpl AGE_GROUPS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ageGroups")
             .withColumns(List.of(AGE_IN_AGE_GROUPS, H1_IN_AGE_GROUPS, H1_ORDER_IN_AGE_GROUPS, H2_IN_AGE_GROUPS, H2_ORDER_IN_AGE_GROUPS,
