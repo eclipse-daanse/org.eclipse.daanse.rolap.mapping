@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.school;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -898,6 +899,16 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
             .withName(SCHEMA_NAME)
             .withDocumentation(documentation)
             .withSchemas(List.of(SCHEMA))
+            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
+                    .withName(SCHEMA_NAME)
+                    .withTables(List.of(SCHULE_TABLE, GANZTAGS_ART_TABLE, TRAEGER_TABLE, TRAEGER_ART_TABLE,
+                            TRAEGER_KATEGORIE_TABLE, SCHEDULE_ART_TABLE, SCHUL_JAHR_TABLE,
+                            ALTERS_GRUPPE_TABLE, GESCHLECHT_TABLE, EINSCHULUNG_TABLE,
+                            KLASSEN_WIEDERHOLUNG_TABLE, SCHUL_ABSCHLUSS_TABLE, MIGRATIONS_HINTERGRUND_TABLE,
+                            WOHNORT_LANDKREIS_TABLE, SCHUL_ART_TABLE, SCHUL_KATEGORIE_TABLE, FOERDERUNG_ART_TABLE,
+                            PERSONAL_ART_TABLE, BUNDESLAND_TABLE, SONDERPAED_FOERDERBEDART_TABLE, FACT_SCHULEN_TABLE,
+                            FACT_PERSONAM_TABLE, FACT_SCHUELER_TABLE))
+                    .build()))
             .build();
     }
 

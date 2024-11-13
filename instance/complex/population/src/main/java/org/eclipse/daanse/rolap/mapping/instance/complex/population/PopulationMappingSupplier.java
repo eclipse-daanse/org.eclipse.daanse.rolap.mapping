@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.population;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -325,6 +326,11 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
             .withName(POPULATION)
             .withDocumentation(documentation)
             .withSchemas(List.of(SCHEMA))
+            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
+                    .withName(POPULATION)
+                    .withTables(List.of(POPULATION_TABLE, YEAR_TABLE, COUNTRY_TABLE,
+                            CONTENT_TABLE, STATE_TABLE, GENDER_TABLE, AGE_GROUPS_TABLE))
+                    .build()))
             .build();
     }
 

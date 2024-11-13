@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.expressivenames;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -434,6 +435,12 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
             .withName(SCHEMA_NAME)
             .withDocumentation(documentation)
             .withSchemas(List.of(SCHEMA))
+            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
+                    .withName(SCHEMA_NAME)
+                    .withTables(List.of(CUBE_1_TABLE_FACT, D1H1L1_TABLE, D2H1L1_TABLE,
+                            D2H2L2_TABLE, D3H1L1_TABLE, D3H2L2_TABLE, D3H2L1_TABLE,
+                            D3H3L3_TABLE, D3H3L2_TABLE, D3H3L1_TABLE))
+                    .build()))
             .build();
     }
 

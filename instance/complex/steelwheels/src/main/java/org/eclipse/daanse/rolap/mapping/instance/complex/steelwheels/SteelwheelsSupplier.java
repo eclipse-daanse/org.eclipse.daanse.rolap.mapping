@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -400,6 +401,11 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                 .withName(NAME)
                 .withDocumentation(documentation)
                 .withSchemas(List.of(schema))
+                .withDbschemas(List.of(DatabaseSchemaImpl.builder()
+                        .withName(NAME)
+                        .withTables(List.of(ORDER_FACT_TABLE, CUSTOMER_W_TER_TABLE, PRODUCTS_TABLE,
+                                TIME_TABLE))
+                        .build()))
                 .build();
     }
 
