@@ -257,6 +257,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withName(name)
             .withDocumentation((DocumentationMappingImpl) documentation)
             .withSchemas((List<SchemaMappingImpl>) schemas)
+            .withDbschemas((List<DatabaseSchemaImpl>) dbschemas)
             .build();
     }
 

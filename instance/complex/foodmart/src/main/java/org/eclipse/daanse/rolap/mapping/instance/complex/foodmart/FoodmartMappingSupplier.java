@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
+import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
@@ -376,6 +377,256 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     private static final String DOCUMENTATION_TEXT = "";
 
     private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
+
+    //month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
+    //SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+    public static final ColumnImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName("month_of_year").withType("SMALLINT").build();
+    public static final ColumnImpl QUARTER_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName("quarter").withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl THE_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName("the_year").withType("SMALLINT").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl CUSTOMER_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName("customer_count").withType("INTEGER").build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_C_10_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_c_10_sales_fact_1997")
+            .withColumns(List.of(
+                    MONTH_OF_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    QUARTER_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    THE_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    CUSTOMER_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997
+            ))).build();
+
+    //product_id,customer_id,store_id,promotion_id,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl PROMOTION_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withType("SMALLINT").build();
+    public static final ColumnImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("month_of_year").withType("SMALLINT").build();
+    public static final ColumnImpl QUARTER_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("quarter").withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl THE_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("the_year").withType("SMALLINT").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_C_14_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_c_14_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    STORE_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    PROMOTION_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    MONTH_OF_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    QUARTER_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    THE_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_C_14_SALES_FACT_1997
+            ))).build();
+
+    //product_id,promotion_id,customer_id,store_id,time_month,time_quarter,time_year,store_sales_sum,store_cost_sum,unit_sales_sum,fact_count
+    //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl PROMOTION_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withType("SMALLINT").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl TIME_MONTH_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("time_month").withType("SMALLINT").build();
+    public static final ColumnImpl TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("time_quarter").withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("time_year").withType("SMALLINT").build();
+    public static final ColumnImpl STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("store_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("store_cost_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("unit_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_C_SALES_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_C_SPECIAL_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_c_special_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    PROMOTION_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    STORE_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    TIME_MONTH_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    STORE_COST_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    UNIT_SALES_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_C_SALES_SALES_FACT_1997
+            ))).build();
+
+    //gender,marital_status,product_family,product_department,product_category,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
+    //VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+    public static final ColumnImpl GENDER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_GENDER).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl MARITAL_STATUS_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl PRODUCT_FAMILY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl PRODUCT_DEPARTMENT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl PRODUCT_CATEGORY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl MONTH_OF_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("month_of_year").withType("SMALLINT").build();
+    public static final ColumnImpl QUARTER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("quarter").withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl THE_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("the_year").withType("SMALLINT").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_G_MS_PCAT_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_g_ms_pcat_sales_fact_1997")
+            .withColumns(List.of(
+                    GENDER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    MARITAL_STATUS_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    PRODUCT_FAMILY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    PRODUCT_DEPARTMENT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    PRODUCT_CATEGORY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    MONTH_OF_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    QUARTER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    THE_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997
+            ))).build();
+
+    //time_id,customer_id,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl TIME_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName("time_id").withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_L_03_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_l_03_sales_fact_1997")
+            .withColumns(List.of(
+                    TIME_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_L_03_SALES_FACT_1997
+            ))).build();
+
+    //time_id,store_sales,store_cost,unit_sales,customer_count,fact_count
+    //INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+    public static final ColumnImpl TIME_ID_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName("time_id").withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl CUSTOMER_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName("customer_count").withType("INTEGER").build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_L_04_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_l_04_sales_fact_1997")
+            .withColumns(List.of(
+                    TIME_ID_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
+                    CUSTOMER_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997
+            ))).build();
+
+    //product_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl PROMOTION_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_L_05_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_l_05_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    PROMOTION_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    STORE_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_L_05_SALES_FACT_1997
+            ))).build();
+
+    //time_id,city,state_province,country,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl TIME_ID_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName("time_id").withType("INTEGER").build();
+    public static final ColumnImpl CITY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CITY).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl STATE_PROVINCE_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl COUNTRY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_COUNTRY).withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_LC_06_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_lc_06_sales_fact_1997")
+            .withColumns(List.of(
+                    TIME_ID_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    CITY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    STATE_PROVINCE_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    COUNTRY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_LC_06_SALES_FACT_1997
+            ))).build();
+
+    //product_id,customer_id,quarter,the_year,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,INTEGER,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl QUARTER_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName("quarter").withType("VARCHAR").withColumnSize(30).build();
+    public static final ColumnImpl THE_YEAR_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName("the_year").withType("SMALLINT").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_LC_100_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_lc_100_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    QUARTER_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    THE_YEAR_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_LC_100_SALES_FACT_1997
+            ))).build();
+
+    //product_id,time_id,customer_id,store_sales,store_cost,unit_sales,fact_count
+    //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl TIME_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("time_id").withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_LL_01_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_ll_01_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    TIME_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    STORE_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    STORE_COST_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    UNIT_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_LL_01_SALES_FACT_1997
+            ))).build();
+
+    //product_id,time_id,customer_id,store_sales_sum,store_cost_sum,unit_sales_sum,fact_count
+    //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+    public static final ColumnImpl PRODUCT_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withType("INTEGER").build();
+    public static final ColumnImpl TIME_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("time_id").withType("INTEGER").build();
+    public static final ColumnImpl CUSTOMER_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withType("INTEGER").build();
+    public static final ColumnImpl STORE_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("store_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl STORE_COST_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("store_cost_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("unit_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final PhysicalTableImpl AGG_PL_01_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_pl_01_sales_fact_1997")
+            .withColumns(List.of(
+                    PRODUCT_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    TIME_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    CUSTOMER_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    STORE_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    STORE_COST_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    UNIT_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_PL_01_SALES_FACT_1997
+            ))).build();
 
     //store_id,store_type,region_id,store_name,store_number,store_street_address,store_city,store_state,store_postal_code,store_country,store_manager,store_phone,store_fax,first_opened_date,last_remodel_date,store_sqft,grocery_sqft,frozen_sqft,meat_sqft,coffee_bar,video_store,salad_bar,prepared_food,florist
     //INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),TIMESTAMP,TIMESTAMP,INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,SMALLINT,SMALLINT,SMALLINT,SMALLINT
@@ -2333,6 +2584,18 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName(CATALOG_NAME)
             .withDocumentation(documentation)
             .withSchemas(List.of(SCHEMA))
+            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
+            .withName(SCHEMA_NAME)
+            .withTables(List.of(AGG_C_10_SALES_FACT_1997, AGG_C_14_SALES_FACT_1997,
+                            AGG_C_SPECIAL_SALES_FACT_1997, AGG_G_MS_PCAT_SALES_FACT_1997,
+                            AGG_L_03_SALES_FACT_1997, AGG_L_04_SALES_FACT_1997,
+                            AGG_L_05_SALES_FACT_1997, AGG_LC_06_SALES_FACT_1997,
+                            AGG_LC_100_SALES_FACT_1997, AGG_LL_01_SALES_FACT_1997,
+                            AGG_PL_01_SALES_FACT_1997,STORE_TABLE, TIME_BY_DAY_TABLE, PRODUCT_TABLE, PRODUCT_CLASS_TABLE,
+                            EMPLOYEE_TABLE, DEPARTAMENT_TABLE, POSITION_TABLE, SALARY_TABLE,
+                            EMPLOYEE_CLOSURE_TABLE, STORE_RAGGED_TABLE, WAREHOUSE_TABLE, PROMOTION_TABLE,
+                            CUSTOMER_TABLE, INVENTORY_FACKT_1997_TABLE, SALES_FACT_1997_TABLE))
+            .build()))
             .build();
     }
 
