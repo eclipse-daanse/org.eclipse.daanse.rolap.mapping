@@ -150,6 +150,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                     MONTH_ID_COLUMN_IN_TIME
                 ))).build();
 
+    public static final DatabaseSchemaImpl DATABASE_SCHEMA = DatabaseSchemaImpl.builder()
+    .withName(NAME)
+    .withTables(List.of(ORDER_FACT_TABLE, CUSTOMER_W_TER_TABLE, PRODUCTS_TABLE,
+            TIME_TABLE))
+    .build();
+
     public static final TableQueryMappingImpl orderfactTable = TableQueryMappingImpl.builder()
             .withTable(ORDER_FACT_TABLE)
             .build();
@@ -401,11 +407,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
                 .withName(NAME)
                 .withDocumentation(documentation)
                 .withSchemas(List.of(schema))
-                .withDbschemas(List.of(DatabaseSchemaImpl.builder()
-                        .withName(NAME)
-                        .withTables(List.of(ORDER_FACT_TABLE, CUSTOMER_W_TER_TABLE, PRODUCTS_TABLE,
-                                TIME_TABLE))
-                        .build()))
+                .withDbschemas(List.of())
                 .build();
     }
 
