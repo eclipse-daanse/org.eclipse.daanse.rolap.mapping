@@ -942,6 +942,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     UNIT_SALES_COLUMN_IN_SALES_FACT_1997
                     ))).build();
 
+    public static final DatabaseSchemaImpl DATABASE_SCHEMA = DatabaseSchemaImpl.builder()
+            .withName(SCHEMA_NAME)
+            .withTables(List.of(AGG_C_10_SALES_FACT_1997, AGG_C_14_SALES_FACT_1997,
+                            AGG_C_SPECIAL_SALES_FACT_1997, AGG_G_MS_PCAT_SALES_FACT_1997,
+                            AGG_L_03_SALES_FACT_1997, AGG_L_04_SALES_FACT_1997,
+                            AGG_L_05_SALES_FACT_1997, AGG_LC_06_SALES_FACT_1997,
+                            AGG_LC_100_SALES_FACT_1997, AGG_LL_01_SALES_FACT_1997,
+                            AGG_PL_01_SALES_FACT_1997,STORE_TABLE, TIME_BY_DAY_TABLE, PRODUCT_TABLE, PRODUCT_CLASS_TABLE,
+                            EMPLOYEE_TABLE, DEPARTAMENT_TABLE, POSITION_TABLE, SALARY_TABLE,
+                            EMPLOYEE_CLOSURE_TABLE, STORE_RAGGED_TABLE, WAREHOUSE_TABLE, PROMOTION_TABLE,
+                            CUSTOMER_TABLE, INVENTORY_FACKT_1997_TABLE, SALES_FACT_1997_TABLE))
+            .build();
+
     public static final TableQueryMappingImpl QUERY_TABLE_STORE =
         TableQueryMappingImpl.builder().withTable(STORE_TABLE).build();
     public static final TableQueryMappingImpl QUERY_TABLE_TIME_BY_DAY = TableQueryMappingImpl.builder().withTable(TIME_BY_DAY_TABLE).build();
@@ -2584,18 +2597,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName(CATALOG_NAME)
             .withDocumentation(documentation)
             .withSchemas(List.of(SCHEMA))
-            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
-            .withName(SCHEMA_NAME)
-            .withTables(List.of(AGG_C_10_SALES_FACT_1997, AGG_C_14_SALES_FACT_1997,
-                            AGG_C_SPECIAL_SALES_FACT_1997, AGG_G_MS_PCAT_SALES_FACT_1997,
-                            AGG_L_03_SALES_FACT_1997, AGG_L_04_SALES_FACT_1997,
-                            AGG_L_05_SALES_FACT_1997, AGG_LC_06_SALES_FACT_1997,
-                            AGG_LC_100_SALES_FACT_1997, AGG_LL_01_SALES_FACT_1997,
-                            AGG_PL_01_SALES_FACT_1997,STORE_TABLE, TIME_BY_DAY_TABLE, PRODUCT_TABLE, PRODUCT_CLASS_TABLE,
-                            EMPLOYEE_TABLE, DEPARTAMENT_TABLE, POSITION_TABLE, SALARY_TABLE,
-                            EMPLOYEE_CLOSURE_TABLE, STORE_RAGGED_TABLE, WAREHOUSE_TABLE, PROMOTION_TABLE,
-                            CUSTOMER_TABLE, INVENTORY_FACKT_1997_TABLE, SALES_FACT_1997_TABLE))
-            .build()))
+            .withDbschemas(List.of(DATABASE_SCHEMA))
             .build();
     }
 
