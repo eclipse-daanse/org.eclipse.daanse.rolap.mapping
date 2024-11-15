@@ -1216,7 +1216,8 @@ public class TransformTask {
             an.setAggregationMeasureFactCounts(transformAggregationMeasureFactCounts(aggName.measuresFactCounts()));
             an.setIgnorecase(aggName.ignorecase());
             an.setApproxRowCount(aggName.approxRowCount());
-            an.setName(aggName.name());
+            //TODO
+            //an.setName(aggName.name());
             catalog.getAggregationTables().add(an);
             return an;
         }
@@ -1251,8 +1252,10 @@ public class TransformTask {
         AggMeasureFactCount aggMeasureFactCount
     ) {
         AggregationMeasureFactCountMappingImpl amfc = AggregationMeasureFactCountMappingImpl.builder().build();
-        amfc.setColumn(aggMeasureFactCount.column());
-        amfc.setFactColumn(aggMeasureFactCount.factColumn());
+        //TODO
+        //amfc.setColumn(aggMeasureFactCount.column());
+        //TODO
+        //amfc.setFactColumn(aggMeasureFactCount.factColumn());
         return amfc;
     }
 
@@ -1263,12 +1266,16 @@ public class TransformTask {
     private AggregationLevelMappingImpl transformAggregationLevel(AggLevel aggLevel) {
         AggregationLevelMappingImpl al = AggregationLevelMappingImpl.builder().build();
         al.setAggregationLevelProperties(transformAggregationLevelProperties(aggLevel.properties()));
-        al.setCaptionColumn(aggLevel.captionColumn());
+        //TODO
+        //al.setCaptionColumn(aggLevel.captionColumn());
         al.setCollapsed(aggLevel.collapsed());
-        al.setColumn(aggLevel.column());
+        //TODO
+        //al.setColumn(aggLevel.column());
         al.setName(aggLevel.name());
-        al.setNameColumn(aggLevel.nameColumn());
-        al.setOrdinalColumn(aggLevel.ordinalColumn());
+        //TODO
+        //al.setNameColumn(aggLevel.nameColumn());
+        //TODO
+        //al.setOrdinalColumn(aggLevel.ordinalColumn());
         return al;
     }
 
@@ -1280,7 +1287,8 @@ public class TransformTask {
 
     private AggregationLevelPropertyMappingImpl transformAggregationLevelProperty(AggLevelProperty aggLevelProperty) {
         AggregationLevelPropertyMappingImpl ap = AggregationLevelPropertyMappingImpl.builder().build();
-        ap.setColumn(aggLevelProperty.column());
+        //TODO
+        //ap.setColumn(aggLevelProperty.column());
         ap.setName(aggLevelProperty.name());
         return ap;
     }
@@ -1291,7 +1299,8 @@ public class TransformTask {
 
     private AggregationMeasureMappingImpl transformAggregationMeasure(AggMeasure aggMeasure) {
         AggregationMeasureMappingImpl am = AggregationMeasureMappingImpl.builder().build();
-        am.setColumn(aggMeasure.column());
+        //TODO
+        //am.setColumn(aggMeasure.column());
         am.setName(aggMeasure.name());
         am.setRollupType(aggMeasure.rollupType());
         return am;
@@ -1303,8 +1312,10 @@ public class TransformTask {
 
     private AggregationForeignKeyMappingImpl transformAggregationForeignKey(AggForeignKey aggForeignKey) {
         AggregationForeignKeyMappingImpl afk = AggregationForeignKeyMappingImpl.builder().build();
-        afk.setAggregationColumn(aggForeignKey.aggColumn());
-        afk.setFactColumn(aggForeignKey.factColumn());
+        //TODO
+        //afk.setAggregationColumn(aggForeignKey.aggColumn());
+        //TODO
+        //afk.setFactColumn(aggForeignKey.factColumn());
         return afk;
     }
 
@@ -1314,7 +1325,8 @@ public class TransformTask {
 
     private AggregationColumnNameMappingImpl transformAggregationColumnName(AggColumnName aggColumnName) {
         AggregationColumnNameMappingImpl acn = AggregationColumnNameMappingImpl.builder().build();
-        acn.setColumn(aggColumnName.column());
+        //TODO
+        //acn.setColumn(aggColumnName.column());
         return acn;
     }
 

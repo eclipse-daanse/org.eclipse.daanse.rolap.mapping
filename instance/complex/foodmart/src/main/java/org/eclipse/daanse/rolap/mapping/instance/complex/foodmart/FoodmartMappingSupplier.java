@@ -438,9 +438,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("time_quarter").withType("VARCHAR").withColumnSize(30).build();
     public static final ColumnImpl TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("time_year").withType("SMALLINT").build();
     public static final ColumnImpl STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("store_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnImpl STORE_COST_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("store_cost_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnImpl UNIT_SALES_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnImpl.builder().withName("unit_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_C_SALES_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
+    public static final ColumnImpl STORE_COST_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("store_cost_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl UNIT_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("unit_sales_sum").withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
     public static final PhysicalTableImpl AGG_C_SPECIAL_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_c_special_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
@@ -451,9 +451,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
                     TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
                     STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
-                    STORE_COST_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
-                    UNIT_SALES_SUM_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
-                    FACT_COUNT_COLUMN_IN_AGG_C_SALES_SALES_FACT_1997
+                    STORE_COST_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    UNIT_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
+                    FACT_COUNT_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997
             ))).build();
 
     //gender,marital_status,product_family,product_department,product_category,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
@@ -1774,36 +1774,37 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             ))
             .withAggregationTables(List.of(
                 AggregationNameMappingImpl.builder()
-                    .withName("agg_c_special_sales_fact_1997")
+                    .withName(AGG_C_SPECIAL_SALES_FACT_1997)
                     .withAggregationFactCount(
-                        AggregationColumnNameMappingImpl.builder().withColumn(FACT_COUNT).build()
+                        AggregationColumnNameMappingImpl.builder().withColumn(FACT_COUNT_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build()
                     )
                     .withAggregationIgnoreColumns(List.of(
-                        AggregationColumnNameMappingImpl.builder().withColumn(FOO).build(),
-                        AggregationColumnNameMappingImpl.builder().withColumn(BAR).build()
+                        //TODO
+                        //AggregationColumnNameMappingImpl.builder().withColumn(FOO).build(),
+                        //AggregationColumnNameMappingImpl.builder().withColumn(BAR).build()
                     ))
                     .withAggregationForeignKeys(List.of(
-                        AggregationForeignKeyMappingImpl.builder().withFactColumn(TABLE_COLUMN_PRODUCT_ID).withAggregationColumn(
-                            "PRODUCT_ID").build(),
-                        AggregationForeignKeyMappingImpl.builder().withFactColumn(TABLE_COLUMN_CUSTOMER_ID).withAggregationColumn(
-                            "CUSTOMER_ID").build(),
-                        AggregationForeignKeyMappingImpl.builder().withFactColumn(TABLE_COLUMN_PROMOTION_ID).withAggregationColumn(
-                            "PROMOTION_ID").build(),
-                        AggregationForeignKeyMappingImpl.builder().withFactColumn(TABLE_COLUMN_STORE_ID).withAggregationColumn(
-                            "STORE_ID").build()
+                        AggregationForeignKeyMappingImpl.builder().withFactColumn(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997).withAggregationColumn(
+                            PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
+                        AggregationForeignKeyMappingImpl.builder().withFactColumn(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).withAggregationColumn(
+                            CUSTOMER_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
+                        AggregationForeignKeyMappingImpl.builder().withFactColumn(PROMOTION_ID_COLUMN_IN_SALES_FACT_1997).withAggregationColumn(
+                            PROMOTION_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
+                        AggregationForeignKeyMappingImpl.builder().withFactColumn(STORE_ID_COLUMN_IN_SALES_FACT_1997).withAggregationColumn(
+                            STORE_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build()
                     ))
                     .withAggregationMeasures(List.of(
                         AggregationMeasureMappingImpl.builder().withName("[Measures].[Unit Sales]").withColumn(
-                            "UNIT_SALES_SUM").build(),
+                            UNIT_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
                         AggregationMeasureMappingImpl.builder().withName("[Measures].[Store Cost]").withColumn(
-                            "STORE_COST_SUM").build(),
+                            STORE_COST_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
                         AggregationMeasureMappingImpl.builder().withName("[Measures].[Store Sales]").withColumn(
-                            "STORE_SALES_SUM").build()
+                            STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build()
                     ))
                     .withAggregationLevels(List.of(
-                        AggregationLevelMappingImpl.builder().withName("[Time].[Year]").withColumn("TIME_YEAR").build(),
-                        AggregationLevelMappingImpl.builder().withName("[Time].[Quarter]").withColumn("TIME_QUARTER").build(),
-                        AggregationLevelMappingImpl.builder().withName("[Time].[Month]").withColumn("TIME_MONTH").build()
+                        AggregationLevelMappingImpl.builder().withName("[Time].[Year]").withColumn(TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
+                        AggregationLevelMappingImpl.builder().withName("[Time].[Quarter]").withColumn(TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build(),
+                        AggregationLevelMappingImpl.builder().withName("[Time].[Month]").withColumn(TIME_MONTH_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997).build()
                     ))
                     .build()
             ))
