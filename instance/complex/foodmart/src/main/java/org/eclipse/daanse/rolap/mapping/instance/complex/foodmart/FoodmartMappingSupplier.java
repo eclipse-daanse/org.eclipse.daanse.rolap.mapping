@@ -469,6 +469,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnImpl STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
     public static final ColumnImpl STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_STORE_COST).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
     public static final ColumnImpl UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withType("DECIMAL").withColumnSize(10).withDecimalDigits(4).build();
+    public static final ColumnImpl CUSTOMER_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("customer_count").withType("INTEGER").build();
     public static final ColumnImpl FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnImpl.builder().withName("fact_count").withType("INTEGER").build();
     public static final PhysicalTableImpl AGG_G_MS_PCAT_SALES_FACT_1997 = ((Builder) PhysicalTableImpl.builder().withName("agg_g_ms_pcat_sales_fact_1997")
             .withColumns(List.of(
@@ -483,6 +484,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
                     STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
                     UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
+                    CUSTOMER_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
                     FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997
             ))).build();
 
