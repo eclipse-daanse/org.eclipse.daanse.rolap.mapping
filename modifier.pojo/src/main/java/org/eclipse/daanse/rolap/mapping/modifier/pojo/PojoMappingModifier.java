@@ -372,7 +372,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(String column, String factColumn) {
+    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(Column column, Column factColumn) {
         return AggregationMeasureFactCountMappingImpl.builder()
             .withColumn(column)
             .withFactColumn(factColumn)
@@ -380,7 +380,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationLevelPropertyMapping createAggregationLevelProperty(String column, String name) {
+    protected AggregationLevelPropertyMapping createAggregationLevelProperty(Column column, String name) {
         return AggregationLevelPropertyMappingImpl.builder()
             .withColumn(column)
             .withName(name)
@@ -390,8 +390,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AggregationLevelMapping createAggregationLevel(
-        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, String captionColumn,
-        boolean collapsed, String column, String name, String nameColumn, String ordinalColumn
+        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, Column captionColumn,
+        boolean collapsed, Column column, String name, Column nameColumn, Column ordinalColumn
     ) {
         return AggregationLevelMappingImpl.builder()
             .withAggregationLevelProperties((List<AggregationLevelPropertyMappingImpl>) aggregationLevelProperties)
@@ -405,7 +405,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationMeasureMapping createAggregationMeasure(String column, String name, String rollupType) {
+    protected AggregationMeasureMapping createAggregationMeasure(Column column, String name, String rollupType) {
         return AggregationMeasureMappingImpl.builder()
             .withColumn(column)
             .withName(name)
@@ -414,7 +414,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationForeignKeyMapping createAggregationForeignKey(String aggregationColumn, String factColumn) {
+    protected AggregationForeignKeyMapping createAggregationForeignKey(Column aggregationColumn, Column factColumn) {
         return AggregationForeignKeyMappingImpl.builder()
             .withAggregationColumn(aggregationColumn)
             .withFactColumn(factColumn)
@@ -422,7 +422,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationColumnNameMapping createAggregationColumn(String column) {
+    protected AggregationColumnNameMapping createAggregationColumn(Column column) {
         return AggregationColumnNameMappingImpl.builder()
             .withColumn(column)
             .build();
@@ -905,7 +905,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends AggregationMeasureMapping> aggregationMeasures,
         List<? extends AggregationLevelMapping> aggregationLevels,
         List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-        String id, String approxRowCount, String name
+        String id, String approxRowCount, Table name
     ) {
 
         return AggregationNameMappingImpl.builder()

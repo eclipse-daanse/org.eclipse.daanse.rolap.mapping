@@ -22,17 +22,17 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties;
 
-    private String captionColumn;
+    private Column captionColumn;
 
     private boolean collapsed = true;
 
-    private String column;
+    private Column column;
 
     private String name;
 
-    private String nameColumn;
+    private Column nameColumn;
 
-    private String ordinalColumn;
+    private Column ordinalColumn;
 
     private AggregationLevelMappingImpl(Builder builder) {
         this.aggregationLevelProperties = builder.aggregationLevelProperties;
@@ -52,11 +52,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.aggregationLevelProperties = aggregationLevelProperties;
     }
 
-    public String getCaptionColumn() {
+    public Column getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(String captionColumn) {
+    public void setCaptionColumn(Column captionColumn) {
         this.captionColumn = captionColumn;
     }
 
@@ -68,11 +68,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.collapsed = collapsed;
     }
 
-    public String getColumn() {
+    public Column getColumn() {
         return column;
     }
 
-    public void setColumn(String column) {
+    public void setColumn(Column column) {
         this.column = column;
     }
 
@@ -84,19 +84,19 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.name = name;
     }
 
-    public String getNameColumn() {
+    public Column getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(String nameColumn) {
+    public void setNameColumn(Column nameColumn) {
         this.nameColumn = nameColumn;
     }
 
-    public String getOrdinalColumn() {
+    public Column getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(String ordinalColumn) {
+    public void setOrdinalColumn(Column ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
@@ -106,12 +106,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     public static final class Builder {
         private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = new ArrayList<>();
-        private String captionColumn;
+        private Column captionColumn;
         private boolean collapsed = true;
-        private String column;
+        private Column column;
         private String name;
-        private String nameColumn;
-        private String ordinalColumn;
+        private Column nameColumn;
+        private Column ordinalColumn;
 
         private Builder() {
         }
@@ -122,7 +122,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withCaptionColumn(String captionColumn) {
+        public Builder withCaptionColumn(Column captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
@@ -132,7 +132,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withColumn(String column) {
+        public Builder withColumn(Column column) {
             this.column = column;
             return this;
         }
@@ -142,12 +142,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withNameColumn(String nameColumn) {
+        public Builder withNameColumn(Column nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
 
-        public Builder withOrdinalColumn(String ordinalColumn) {
+        public Builder withOrdinalColumn(Column ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }

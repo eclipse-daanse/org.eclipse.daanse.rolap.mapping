@@ -15,13 +15,14 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping;
 
 public class AggregationNameMappingImpl extends AggregationTableMappingImpl implements AggregationNameMapping {
 
     private String approxRowCount;
 
-    private String name;
+    private Table name;
 
     private AggregationNameMappingImpl(Builder builder) {
         this.approxRowCount = builder.approxRowCount;
@@ -44,11 +45,11 @@ public class AggregationNameMappingImpl extends AggregationTableMappingImpl impl
         this.approxRowCount = approxRowCount;
     }
 
-    public String getName() {
+    public Table getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(Table name) {
         this.name = name;
     }
 
@@ -58,7 +59,7 @@ public class AggregationNameMappingImpl extends AggregationTableMappingImpl impl
 
     public static final class Builder {
         private String approxRowCount;
-        private String name;
+        private Table name;
         private AggregationColumnNameMappingImpl aggregationFactCount;
         private List<AggregationColumnNameMappingImpl> aggregationIgnoreColumns = new ArrayList<>();
         private List<AggregationForeignKeyMappingImpl> aggregationForeignKeys = new ArrayList<>();
@@ -76,7 +77,7 @@ public class AggregationNameMappingImpl extends AggregationTableMappingImpl impl
             return this;
         }
 
-        public Builder withName(String name) {
+        public Builder withName(Table name) {
             this.name = name;
             return this;
         }
