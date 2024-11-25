@@ -38,6 +38,7 @@
     <module>mondrian.jaxb</module>
     <module>modifier.common</module>
     <module>modifier.pojo</module>
+    <module>verifyer</module>
     <!--module>modifier.emf</module-->
   </modules>
 </project>
