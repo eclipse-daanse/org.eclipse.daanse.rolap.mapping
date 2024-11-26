@@ -24,7 +24,6 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.util.converter.Converter;
 import org.osgi.util.converter.Converters;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +38,7 @@ public class DescriptionVerifyer implements Verifyer {
     @Activate
     public void activate(Map<String, Object> configMap) {
         this.config = CONVERTER.convert(configMap)
-                .to(DescriptionVerifierConfig.class);
+            .to(DescriptionVerifierConfig.class);
     }
 
     @Deactivate
@@ -50,7 +49,7 @@ public class DescriptionVerifyer implements Verifyer {
     DescriptionWalker descriptionWalker;
 
     @Override
-    public List<VerificationResult> verify(SchemaMapping schema, DataSource dataSource) {
+    public List<VerificationResult> verify(SchemaMapping schema) {
 
         return new DescriptionWalker(config).checkSchema(schema);
     }

@@ -1,6 +1,20 @@
+#*******************************************************************************
+# Copyright (c)  2004 Contributors to the Eclipse Foundation
+#
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/ 
+# 
+# SPDX-License-Identifier: EPL-2.0
+#
+#   Contributors:
+#	 SmartCity Jena - initial
+#	 Stefan Bischof (bipolis.org) - initial
+#*******************************************************************************
+
 -runstartlevel: \
-    order=sortbynameversion,\
-    begin=-1
+	order=sortbynameversion,\
+	begin=-1
 
 -runtrace: true
 
@@ -12,7 +26,7 @@
 -runsystemcapabilities: ${native_capability}
 
 -runproperties: \
-    org.slf4j.simpleLogger.defaultLogLevel=debug
+	org.slf4j.simpleLogger.defaultLogLevel=debug
 
 -runfw: org.apache.felix.framework
 
@@ -22,56 +36,41 @@
 	bnd.identity;id='${project.artifactId}-tests',\
 	bnd.identity;id=junit-jupiter-engine,\
 	bnd.identity;id=junit-platform-launcher,\
-	bnd.identity;id='org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.foodmart.record',\
-	bnd.identity;id='org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.foodmart.xml',\
-	bnd.identity;id='org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.steelwheels.record',\
-	bnd.identity;id='org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.steelwheels.xml',\
-	bnd.identity;id='org.eclipse.daanse.olap.rolap.dbmapper.provider.xml',\
-	bnd.identity;id='org.glassfish.hk2.osgi-resource-locator',\
-	bnd.identity;id='com.sun.xml.bind.jaxb-impl',\
-	bnd.identity;id='org.eclipse.daanse.jdbc.db.api',\
-	bnd.identity;id='org.eclipse.daanse.jdbc.db.core'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.api',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.api',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.complex.foodmart',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 -runbundles: \
-	assertj-core;version='[3.24.2,3.24.3)',\
-	ch.qos.logback.classic;version='[1.4.14,1.4.15)',\
-	ch.qos.logback.core;version='[1.4.14,1.4.15)',\
-	com.sun.xml.bind.jaxb-core;version='[4.0.4,4.0.5)',\
-	com.sun.xml.bind.jaxb-impl;version='[4.0.4,4.0.5)',\
-	jakarta.activation-api;version='[2.1.2,2.1.3)',\
-	jakarta.xml.bind-api;version='[4.0.1,4.0.2)',\
-	junit-jupiter-api;version='[5.9.2,5.9.3)',\
-	junit-jupiter-engine;version='[5.9.2,5.9.3)',\
-	junit-jupiter-params;version='[5.9.2,5.9.3)',\
-	junit-platform-commons;version='[1.9.2,1.9.3)',\
-	junit-platform-engine;version='[1.9.2,1.9.3)',\
-	junit-platform-launcher;version='[1.9.2,1.9.3)',\
-	net.bytebuddy.byte-buddy;version='[1.12.16,1.12.17)',\
-	net.bytebuddy.byte-buddy-agent;version='[1.12.16,1.12.17)',\
+	assertj-core;version='[3.26.0,3.26.1)',\
+	ch.qos.logback.classic;version='[1.5.6,1.5.7)',\
+	ch.qos.logback.core;version='[1.5.6,1.5.7)',\
+	junit-jupiter-api;version='[5.10.2,5.10.3)',\
+	junit-jupiter-engine;version='[5.10.2,5.10.3)',\
+	junit-jupiter-params;version='[5.10.2,5.10.3)',\
+	junit-platform-commons;version='[1.10.2,1.10.3)',\
+	junit-platform-engine;version='[1.10.2,1.10.3)',\
+	junit-platform-launcher;version='[1.10.2,1.10.3)',\
+	net.bytebuddy.byte-buddy;version='[1.14.16,1.14.17)',\
+	net.bytebuddy.byte-buddy-agent;version='[1.14.15,1.14.16)',\
 	org.apache.aries.spifly.dynamic.framework.extension;version='[1.3.7,1.3.8)',\
 	org.apache.felix.configadmin;version='[1.9.26,1.9.27)',\
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
-	org.eclipse.daanse.db.dialect.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.jdbc.db.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.jdbc.db.core;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.jdbc.db.record;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.model.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.model.jaxb;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.model.record;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.foodmart.record;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.foodmart.xml;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.steelwheels.record;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.sample.steelwheels.xml;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.provider.xml;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.verifyer.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.verifyer.basic;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.olap.rolap.dbmapper.verifyer.basic-tests;version='[0.0.1,0.0.2)',\
-	org.glassfish.hk2.osgi-resource-locator;version='[2.4.0,2.4.1)',\
+	org.eclipse.daanse.rdb.structure.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rdb.structure.pojo;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.pojo;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.verifyer.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.verifyer.basic;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.verifyer.basic-tests;version='[0.0.1,0.0.2)',\
 	org.mockito.mockito-core;version='[4.9.0,4.9.1)',\
 	org.objenesis;version='[3.3.0,3.3.1)',\
-	org.opentest4j;version='[1.2.0,1.2.1)',\
+	org.opentest4j;version='[1.3.0,1.3.1)',\
+	org.osgi.service.cm;version='[1.6.1,1.6.2)',\
 	org.osgi.service.component;version='[1.5.1,1.5.2)',\
 	org.osgi.test.common;version='[1.3.0,1.3.1)',\
 	org.osgi.test.junit5;version='[1.3.0,1.3.1)',\

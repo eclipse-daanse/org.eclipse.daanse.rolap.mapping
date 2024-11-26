@@ -15,12 +15,10 @@ package org.eclipse.daanse.rolap.mapping.verifyer.api;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 
 public interface Verifyer {
 
-    List<VerificationResult> verify(SchemaMapping schema, DataSource dataSource);
+    List<VerificationResult> verify(SchemaMapping schema);
 
 }

@@ -38,7 +38,7 @@ public class SchemaExplorer {
                 QueryMapping theCurrentRelOrJoin = (i == 0) ? theRelOrJoinL : theRelOrJoinR;
                 if (theCurrentRelOrJoin instanceof TableQueryMapping theTable) {
                     if (theTable.getAlias() != null && theTable.getAlias()
-                            .equals(table)) {
+                        .equals(table)) {
                         // If the alias was found get its table name and return
                         // it.
                         theTableName = theTable.getTable().getName();
@@ -52,7 +52,7 @@ public class SchemaExplorer {
                 }
             }
         }
-        return new String[] { schemaName, theTableName };
+        return new String[]{schemaName, theTableName};
     }
 
     public static void getTableNamesForJoin(QueryMapping relation, SortedSet<String> joinTables) {
@@ -65,8 +65,8 @@ public class SchemaExplorer {
                 QueryMapping theCurrentRelOrJoin = (i == 0) ? theRelOrJoinL : theRelOrJoinR;
                 if (theCurrentRelOrJoin instanceof TableQueryMapping theTable) {
                     String theTableName = (theTable.getAlias() != null && theTable.getAlias()
-                            .trim()
-                            .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
+                        .trim()
+                        .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
                     joinTables.add(theTableName);
                 } else {
                     // Calls recursively collecting all table names down the
