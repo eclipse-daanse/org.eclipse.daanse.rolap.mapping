@@ -23,7 +23,6 @@ import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.util.converter.Converter;
 import org.osgi.util.converter.Converters;
 
-import javax.sql.DataSource;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +37,7 @@ public class MandantoriesVerifyer implements Verifyer {
     @Activate
     public void activate(Map<String, Object> configMap) {
         this.config = CONVERTER.convert(configMap)
-                .to(MandantoriesVerifierConfig.class);
+            .to(MandantoriesVerifierConfig.class);
     }
 
     @Deactivate
@@ -47,7 +46,7 @@ public class MandantoriesVerifyer implements Verifyer {
     }
 
     @Override
-    public List<VerificationResult> verify(SchemaMapping schema, DataSource dataSource) {
+    public List<VerificationResult> verify(SchemaMapping schema) {
 
         return new MandantoriesSchemaWalker(config).checkSchema(schema);
     }

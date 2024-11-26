@@ -72,7 +72,7 @@ public class SchemaWalkerMessages {
 
     public static final String SCHEMA_SPACE = "schema ";
     public static final String WRITEBACK_TABLE_NAME_MUST_BE_SET = "WritebackTable name must be set";
-    public static final String WRITEBACK_COLUMNS_MUST_BE_SET = "WritebackTable columns must be set";
+    public static final String WRITEBACK_COLUMNS_MUST_BE_SET = "WritebackTable attrebute or measure must be set";
     public static final String WRITEBACK_COLUMN_NAME_MUST_BE_SET = "WritebackTable column name must be set";
     public static final String TABLE_NAME_MUST_BE_SET = "Table name must be set";
     public static final String JOIN_RELATION_MUST_BE_SET_LEFT_AND_RIGHT = "Join: relation must be set left and right";
@@ -157,9 +157,9 @@ public class SchemaWalkerMessages {
         "Formatter: either a Class Name or a Script are required";
     public static final String FORMATTER_CLASS_NAME_NOT_FOUND =
         "Formatter: Class Name %s not found";
-    public static final String CUBE_DIMENSION_NAME_MUST_BE_SET =
-        "Cube Dimension name must be set for element with name %s";
-    public static final String CUBE_DIMENSION_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES_IN_CUBE =
+    public static final String DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET =
+        "Dimension connector override name must be set for cube with name %s";
+    public static final String DIMENSION_CONNECTOR_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES_IN_CUBE =
         "Cube Dimension with name %s meets more then one time in cube with name %s";
     public static final String SCHEMA_DIMENSION_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES =
         "Schema Dimension with name %s meets more then one time";
@@ -173,10 +173,10 @@ public class SchemaWalkerMessages {
         "Virtual Cube Measure Cube name must be set";
     public static final String VIRTUAL_CUBE_DIMENSION_CUBE_NAME_IS_WRONG_CUBE_ABSENT_IN_SCHEMA =
         "Virtual Cube Dimension Cube name %s is wrong. Cube with name %s absent in schema";
-    public static final String VIRTUAL_CUBE_MEASURE_CUBE_NAME_IS_WRONG_CUBE_ABSENT_IN_SCHEMA =
-        "Virtual Cube Measure Cube name %s is wrong. Cube with name %s absent in schema";
-    public static final String SOURCE_MUST_BE_SET =
-        "Source must be set for dimension with name %s";
+    public static final String VIRTUAL_CUBE_MEASURE_IS_WRONG_CUBE_ABSENT_IN_SCHEMA =
+        "Virtual Cube Measure is wrong. Cube absent in schema";
+    public static final String DIMENSION_MUST_BE_SET_FOR_DIMENSION_CONNECTOR_WITH_NAME =
+        "Dimension must be set for dimension connector with name %s";
     public static final String JOIN_LEFT_KEY_MUST_BE_SET = "Join: Left key must be set";
     public static final String JOIN_RIGHT_KEY_MUST_BE_SET = "Join: Right key must be set";
     public static final String SCHEMA_MUST_BE_SET = "Table: Schema must be set";
@@ -191,7 +191,7 @@ public class SchemaWalkerMessages {
     public static final String LEVEL_TYPE_S_CAN_ONLY_BE_USED_WITH_A_STANDARD_DIMENSION =
         "Level: levelType %s can only be used with a StandardDimension";
     public static final String LEVEL_TYPE_MUST_BE_SET =
-    "Level: Type should be set for %s";
+        "Level: Type should be set for %s";
     public static final String NAMED_SET_NAME_MUST_BE_SET = "NamedSet name must be set";
     public static final String NAMED_SET_FORMULA_MUST_BE_SET = "NamedSet Formula must be set";
     public static final String USER_DEFINED_FUNCTION = "UserDefinedFunction";
@@ -215,8 +215,8 @@ public class SchemaWalkerMessages {
         "UserDefinedFunction with name %s. Either a Class Name or a Script are required ";
     public static final String FORMULA_MUST_BE_SET_FOR_CALCULATED_MEMBER =
         "Formula must be set for CalculatedMember with name %s";
-    public static final String DIMENSION_MUST_BE_SET_FOR_CALCULATED_MEMBER =
-        "Dimension must be set for CalculatedMember with name %s";
+    public static final String HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER =
+        "Hierarchy must be set for CalculatedMember with name %s";
     public static final String USER_DEFINED_FUNCTION_NAME_MUST_BE_SET = "UserDefinedFunction name must be set";
     public static final String SCHEMA_NAME_MUST_BE_SET = "Schema name must be set";
     public static final String SCHEMA_MUST_BE_NOT_NULL = "Schema must be set";

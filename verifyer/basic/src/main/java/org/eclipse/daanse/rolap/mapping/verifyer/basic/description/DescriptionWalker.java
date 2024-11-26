@@ -41,8 +41,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.PROPERTY_MUST_CONTAIN_DESCRIPTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.SCHEMA;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.SCHEMA_MUST_CONTAIN_DESCRIPTION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.SHARED_DIMENSION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.SHARED_DIMENSION_MUST_CONTAIN_DESCRIPTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE_MUST_CONTAIN_DESCRIPTION;
 
@@ -61,6 +59,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
@@ -90,8 +89,8 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCubeDimension(DimensionMapping dimension, CubeMapping cube, SchemaMapping schema) {
-        super.checkCubeDimension(dimension, cube, schema);
+    protected void checkDimension(DimensionMapping dimension, CubeMapping cube, SchemaMapping schema) {
+        super.checkDimension(dimension, cube, schema);
         Level lavel = config.dimension();
         if (lavel != null && (dimension.getDescription() == null || dimension.getDescription()
                 .isEmpty())) {
@@ -112,8 +111,8 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCube(CubeMapping cube, SchemaMapping schema) {
-        super.checkCube(cube, schema);
+    protected void checkPhysicalCube(PhysicalCubeMapping cube, SchemaMapping schema) {
+        super.checkPhysicalCube(cube, schema);
         Level lavel = config.cube();
         if (lavel != null && (cube.getDescription() == null || cube.getDescription()
                 .isEmpty())) {
@@ -175,9 +174,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkLevel(final LevelMapping l,
-                              HierarchyMapping hierarchy,
-                              DimensionMapping parentDimension, CubeMapping cube) {
+    protected void checkLevel(final LevelMapping l, HierarchyMapping hierarchy, DimensionMapping parentDimension, CubeMapping cube) {
         super.checkLevel(l, hierarchy, parentDimension, cube);
         Level lavel = config.level();
         if (lavel != null && (l.getDescription() == null || l.getDescription()
@@ -192,15 +189,19 @@ public class DescriptionWalker extends AbstractSchemaWalker {
         Level lavel = config.action();
         if (lavel != null && (action.getDescription() == null || action.getDescription()
                 .isEmpty())) {
-            results.add(new VerificationResultR(ACTION, ACTION_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
+            if (action instanceof DrillThroughActionMapping) {
+                results.add(new VerificationResultR(DRILL_THROUGH_ACTION, DRILL_THROUGH_ACTION_MUST_CONTAIN_DESCRIPTION,
+                        lavel, Cause.SCHEMA));
+            } else {
+                results.add(new VerificationResultR(ACTION, ACTION_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
+            }
         }
     }
 
 
     @Override
-    protected void checkProperty(final MemberPropertyMapping property, LevelMapping level,
-                                 HierarchyMapping hierarchy, CubeMapping cube) {
-        super.checkProperty(property, level, hierarchy, cube);
+    protected void checkMemberProperty(final MemberPropertyMapping property, LevelMapping level, HierarchyMapping hierarchy, CubeMapping cube) {
+        super.checkMemberProperty(property, level, hierarchy, cube);
         Level lavel = config.property();
         if (lavel != null && (property.getDescription() == null || property.getDescription()
                 .isEmpty())) {
@@ -226,17 +227,6 @@ public class DescriptionWalker extends AbstractSchemaWalker {
                 .isEmpty())) {
             results.add(
                     new VerificationResultR(PARAMETER, PARAMETER_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
-        }
-    }
-
-    @Override
-    protected void checkDrillThroughAction(final DrillThroughActionMapping drillThroughAction) {
-        super.checkDrillThroughAction(drillThroughAction);
-        Level lavel = config.drillThroughAction();
-        if (lavel != null && (drillThroughAction.getDescription() == null || drillThroughAction.getDescription()
-                .isEmpty())) {
-            results.add(new VerificationResultR(DRILL_THROUGH_ACTION, DRILL_THROUGH_ACTION_MUST_CONTAIN_DESCRIPTION,
-                    lavel, Cause.SCHEMA));
         }
     }
 }

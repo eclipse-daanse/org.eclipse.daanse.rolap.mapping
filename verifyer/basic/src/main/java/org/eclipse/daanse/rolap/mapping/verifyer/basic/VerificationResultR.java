@@ -17,10 +17,7 @@ import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 
-public record VerificationResultR(String title,
-                                  String description,
-                                  Level level,
-                                  Cause cause)
-        implements VerificationResult {
+public record VerificationResultR(String title, String description, Level level, Cause cause)
+    implements VerificationResult {
 
 }
