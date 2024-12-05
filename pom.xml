@@ -46,7 +46,7 @@
 
   <modules>
     <module>api</module>
-    <!--module>emf</module-->
+    <module>emf</module>
     <module>pojo</module>
     <module>instance</module>
     <module>mondrian.jaxb</module>
