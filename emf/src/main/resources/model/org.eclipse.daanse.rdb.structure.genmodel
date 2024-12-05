@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*********************************************************************
+* Copyright (c) 2024 Contributors to the Eclipse Foundation.
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+*
+* SPDX-License-Identifier: EPL-2.0
+**********************************************************************/
+-->
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2024 Contributors to the Eclipse Foundation.&#xA;&#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;"
+    modelDirectory="/org.eclipse.daanse.rdb.structure/src" modelPluginID="org.eclipse.daanse.rdb.structure"
+    modelName="org.eclipse.daanse.rdb.structure" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true" oSGiCompatible="true">
+  <foreignModel>org.eclipse.daanse.rdb.structure.ecore</foreignModel>
+  <genPackages prefix="RelationalDatabase" basePackage="org.eclipse.daanse.rdb.structure.emf"
+      resource="XML" disposableProviderFactory="true" ecorePackage="org.eclipse.daanse.rdb.structure.ecore#/">
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//DatabaseCatalog">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//DatabaseCatalog/schemas"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//DatabaseCatalog/links"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema/tables"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Table">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Table/description"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Table/columns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Table/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//PhysicalTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//SystemTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ViewTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Column">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/columnSize"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/description"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/primaryLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Column/foreignLinks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/decimalDigits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/charOctetLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/numPrecRadix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//Column/nullable"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Link">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/primaryKey"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Link/foreignKey"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IDatabaseCatalog"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IDatabaseSchema"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ITable"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IPhysicalTable"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IViewTable"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISystemTable"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IColumn"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ILink"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IInlineTable"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IRow"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//IRowValue"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISqlStatement"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//ISqlView"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//InlineTable">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//InlineTable/rows"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//Row">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//Row/rowValues"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//RowValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//RowValue/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//RowValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//SqlStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//SqlStatement/dialects"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rdb.structure.ecore#//SqlStatement/sql"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rdb.structure.ecore#//SqlView">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rdb.structure.ecore#//SqlView/sqlStatements"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
