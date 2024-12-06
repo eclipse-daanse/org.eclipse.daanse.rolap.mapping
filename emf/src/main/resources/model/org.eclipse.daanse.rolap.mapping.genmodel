@@ -296,7 +296,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/dependsOnLevelValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/propertyType"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/getDataType"
-          body="return null; // code here"/>
+          body="ColumnDataType cdt=getPropertyType();&#xA;return DataType.fromValue(cdt.getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/formula"/>
