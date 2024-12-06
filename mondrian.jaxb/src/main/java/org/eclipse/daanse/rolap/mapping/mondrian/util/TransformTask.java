@@ -53,7 +53,6 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.AggName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggPattern;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggTable;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.Closure;
-import org.eclipse.daanse.rolap.mapping.mondrian.model.ColumnDef;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeGrant;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.CubeUsage;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.DimensionGrant;
@@ -110,10 +109,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableColumnDefinitionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableRowCellMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableRowMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.KpiMappingImpl;
@@ -1142,42 +1138,6 @@ public class TransformTask {
 
     private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
         return sqls.stream().map(this::transformSql).toList();
-    }
-
-    private List<InlineTableColumnDefinitionMappingImpl> transformInlineTableColumnDefinitions(
-        List<ColumnDef> columnDefs
-    ) {
-        return columnDefs.stream().map(this::transformInlineTableColumnDefinition).toList();
-    }
-
-    private List<InlineTableRowMappingImpl> transformInlineTableRows(List<Row> rows) {
-        return rows.stream().map(this::transformInlineTableRow).toList();
-    }
-
-    private InlineTableColumnDefinitionMappingImpl transformInlineTableColumnDefinition(ColumnDef columnDef) {
-        InlineTableColumnDefinitionMappingImpl itcd = InlineTableColumnDefinitionMappingImpl.builder().build();
-        itcd.setName(columnDef.name());
-        if (columnDef.type() != null) {
-            itcd.setDataType(DataType.fromValue(columnDef.type().getValue()));
-        }
-        return itcd;
-    }
-
-    private InlineTableRowMappingImpl transformInlineTableRow(Row row) {
-        InlineTableRowMappingImpl itr = InlineTableRowMappingImpl.builder().build();
-        itr.setCells(transformInlineTableRowCells(row.values()));
-        return itr;
-    }
-
-    private List<InlineTableRowCellMappingImpl> transformInlineTableRowCells(List<Value> values) {
-        return values.stream().map(this::transformInlineTableRowCell).toList();
-    }
-
-    private InlineTableRowCellMappingImpl transformInlineTableRowCell(Value value) {
-        InlineTableRowCellMappingImpl itrc = InlineTableRowCellMappingImpl.builder().build();
-        itrc.setValue(value.content());
-        itrc.setColumnName(value.column());
-        return itrc;
     }
 
     private JoinedQueryElementMappingImpl transformJoinedQueryElement(String alias, String key, RelationOrJoin roj) {

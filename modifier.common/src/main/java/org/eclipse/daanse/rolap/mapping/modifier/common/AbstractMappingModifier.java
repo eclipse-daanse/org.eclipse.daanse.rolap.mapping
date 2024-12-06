@@ -60,10 +60,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowCellMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
@@ -794,92 +791,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String alias,
         InlineTable table
     );
-
-    protected List<InlineTableRowMappingMapping> inlineTableRowMappings(
-        List<? extends InlineTableRowMappingMapping> rows
-    ) {
-        if (rows != null) {
-            return rows.stream().map(this::inlineTableRowMapping).toList();
-        }
-        return List.of();
-    }
-
-    protected InlineTableRowMappingMapping inlineTableRowMapping(InlineTableRowMappingMapping inlineTableRowMapping) {
-        if (inlineTableRowMapping != null) {
-            List<? extends InlineTableRowCellMapping> cells = inlineTableRowMappingCells(inlineTableRowMapping);
-            return createInlineTableRowMapping(cells);
-        }
-        return null;
-    }
-
-    protected List<? extends InlineTableRowCellMapping> inlineTableRowMappingCells(
-        InlineTableRowMappingMapping inlineTableRowMapping
-    ) {
-        return inlineTableRowCells(inlineTableRowMapping.getCells());
-    }
-
-    protected List<InlineTableRowCellMapping> inlineTableRowCells(
-        List<? extends InlineTableRowCellMapping> cells
-    ) {
-        if (cells != null) {
-            return cells.stream().map(this::inlineTableRowCell).toList();
-        }
-        return List.of();
-    }
-
-    protected InlineTableRowCellMapping inlineTableRowCell(InlineTableRowCellMapping inlineTableRowCell) {
-        if (inlineTableRowCell != null) {
-            String value = inlineTableRowCellValue(inlineTableRowCell);
-            String columnName = inlineTableRowCellColumnName(inlineTableRowCell);
-            return createInlineTableRowCell(value, columnName);
-        }
-        return null;
-    }
-
-    protected abstract InlineTableRowCellMapping createInlineTableRowCell(String value, String columnName);
-
-    protected String inlineTableRowCellColumnName(InlineTableRowCellMapping inlineTableRowCell) {
-        return inlineTableRowCell.getColumnName();
-    }
-
-    protected String inlineTableRowCellValue(InlineTableRowCellMapping inlineTableRowCell) {
-        return inlineTableRowCell.getValue();
-    }
-
-    protected abstract InlineTableRowMappingMapping createInlineTableRowMapping(
-        List<? extends InlineTableRowCellMapping> cells
-    );
-
-    protected List<InlineTableColumnDefinitionMapping> inlineTableColumnDefinitions(
-        List<? extends InlineTableColumnDefinitionMapping> columnDefinitions
-    ) {
-        if (columnDefinitions != null) {
-            return columnDefinitions.stream().map(this::inlineTableColumnDefinition).toList();
-        }
-        return List.of();
-    }
-
-    protected InlineTableColumnDefinitionMapping inlineTableColumnDefinition(
-        InlineTableColumnDefinitionMapping inlineTableColumnDefinition
-    ) {
-        if (inlineTableColumnDefinition != null) {
-            String name = inlineTableColumnDefinitionName(inlineTableColumnDefinition);
-            DataType type = inlineTableColumnDefinitionType(inlineTableColumnDefinition);
-
-            return createInlineTableColumnDefinition(name, type);
-        }
-        return null;
-    }
-
-    protected abstract InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, DataType type);
-
-    protected DataType inlineTableColumnDefinitionType(InlineTableColumnDefinitionMapping inlineTableColumnDefinition) {
-        return inlineTableColumnDefinition.getDataType();
-    }
-
-    protected String inlineTableColumnDefinitionName(InlineTableColumnDefinitionMapping inlineTableColumnDefinition) {
-        return inlineTableColumnDefinition.getName();
-    }
 
     protected String inlineTableQueryAlias(InlineTableQueryMapping itq) {
         return itq.getAlias();

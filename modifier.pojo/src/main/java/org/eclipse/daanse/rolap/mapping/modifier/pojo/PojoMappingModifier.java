@@ -62,9 +62,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableColumnDefinitionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowCellMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableRowMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
@@ -133,10 +130,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughActionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughAttributeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableColumnDefinitionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableRowCellMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.InlineTableRowMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.KpiMappingImpl;
@@ -298,32 +292,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return InlineTableQueryMappingImpl.builder()
             .withAlias(alias)
             .withTable((InlineTableImpl) table)
-            .build();
-    }
-
-    @Override
-    protected InlineTableRowCellMapping createInlineTableRowCell(String value, String columnName) {
-        return InlineTableRowCellMappingImpl.builder()
-            .withValue(value)
-            .withColumnName(columnName)
-            .build();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected InlineTableRowMappingMapping createInlineTableRowMapping(
-        List<? extends InlineTableRowCellMapping> cells
-    ) {
-        return InlineTableRowMappingImpl.builder()
-            .withCells((List<InlineTableRowCellMappingImpl>) cells)
-            .build();
-    }
-
-    @Override
-    protected InlineTableColumnDefinitionMapping createInlineTableColumnDefinition(String name, DataType type) {
-        return InlineTableColumnDefinitionMappingImpl.builder()
-            .withName(name)
-            .withType(type)
             .build();
     }
 

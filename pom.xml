@@ -53,6 +53,6 @@
     <module>modifier.common</module>
     <module>modifier.pojo</module>
     <module>verifyer</module>
-    <!--module>modifier.emf</module-->
+    <module>modifier.emf</module>
   </modules>
 </project>
