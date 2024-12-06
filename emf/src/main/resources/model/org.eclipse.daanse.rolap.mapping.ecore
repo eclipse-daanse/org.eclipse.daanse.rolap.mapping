@@ -270,7 +270,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
     <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // code here"/>
+        <details key="body" value="ColumnDataType cdt=getPropertyType();&#xA;return DataType.fromValue(cdt.getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
