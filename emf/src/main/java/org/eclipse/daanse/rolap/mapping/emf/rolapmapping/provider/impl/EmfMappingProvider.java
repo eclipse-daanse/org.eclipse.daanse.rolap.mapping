@@ -36,7 +36,7 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(factory = true, ocd = EmfMappingProviderConfig.class)
 public class EmfMappingProvider implements CatalogMappingSupplier {
 
-    @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" +RolapMappingPackage.eNAME + ")")
+    @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" + RolapMappingPackage.eNAME + ")")
     private ResourceSet resourceSet;
 
     private CatalogMapping catalogMapping;
@@ -44,16 +44,18 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
     @Activate
     public void activate(EmfMappingProviderConfig config) throws IOException {
 
-        URI uri = URI.createURI(config.resource_url());
+        for (String url : config.resource_urls()) {
 
-        Resource resource = resourceSet.getResource(uri, true);
-        resource.load(Map.of());
+            URI uri = URI.createURI(url);
+            Resource resource = resourceSet.getResource(uri, true);
+            resource.load(Map.of());
+            EObject root = resource.getContents().get(0);
 
-        EObject root = resource.getContents().get(0);
-
-        if (root instanceof CatalogMapping rcm) {
-            catalogMapping = rcm;
+            if (root instanceof CatalogMapping rcm) {
+                catalogMapping = rcm;
+            }
         }
+
     }
 
     @Deactivate

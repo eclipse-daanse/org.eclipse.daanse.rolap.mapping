@@ -18,8 +18,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.AnnotationHelper.SetupMappingProviderWithTestInstance;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
 import org.junit.jupiter.api.Test;
@@ -40,11 +45,10 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @RequireServiceComponentRuntime
 public class EmfMappingProviderTest {
 
-    private static String BASE_DIR = System.getProperty("basePath");
 
     @SetupMappingProviderWithTestInstance
     @Test
-    public void loadSimpleFile(
+    public void catalogOnly(
             @InjectService(cardinality = 1, timeout = 2000) ServiceAware<CatalogMappingSupplier> saRolapContextMappingSupplier)
             throws SQLException, InterruptedException, IOException {
         assertThat(saRolapContextMappingSupplier.getServices()).hasSize(1);
@@ -54,6 +58,26 @@ public class EmfMappingProviderTest {
         CatalogMapping rCtx = rcms.get();
 
         assertThat(rCtx).isNotNull();
+
+    }
+
+    @SetupMappingProviderWithTestInstance
+    @Test
+    public void minimal(
+            @InjectService(cardinality = 1, timeout = 2000) ServiceAware<CatalogMappingSupplier> saRolapContextMappingSupplier)
+            throws SQLException, InterruptedException, IOException {
+        assertThat(saRolapContextMappingSupplier.getServices()).hasSize(1);
+
+        CatalogMappingSupplier rcms = saRolapContextMappingSupplier.getService();
+
+        CatalogMapping rCtx = rcms.get();
+        SchemaMapping schema = rCtx.getSchemas().get(0);
+        PhysicalCubeMapping cube = (PhysicalCubeMapping) schema.getCubes().get(0);
+        MeasureGroupMapping mg = cube.getMeasureGroups().get(0);
+        MeasureMapping measure = mg.getMeasures().get(0);
+        Column col = measure.getColumn();
+
+        assertThat(col.getName()).isEqualTo("meas");
 
     }
 
