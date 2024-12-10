@@ -6,3 +6,5 @@ on:
 jobs:
   stale:
     uses: eclipse-daanse/.github/.github/workflows/reuse_all_stale_bot.yml@main
+    secrets:
+      envGH: ${{ secrets.GITHUB_TOKEN }}
