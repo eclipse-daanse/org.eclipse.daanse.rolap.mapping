@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roma:Catalog
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
+    id="rolapc1"
+    name="rolapc1">
+  <schemas id="rolapschema1"
+      name="rolapSchema"
+      cubes="pc1"/>
+  <cubes xsi:type="roma:PhysicalCube"
+      id="pc1"
+      name="cube1">
+    <measureGroups
+        name="mg">
+      <measures
+          id="m1"
+          name="meas1"
+          column="rdb.xmi#pt1c2"
+          />
+    </measureGroups>
+  </cubes>
+</roma:Catalog>

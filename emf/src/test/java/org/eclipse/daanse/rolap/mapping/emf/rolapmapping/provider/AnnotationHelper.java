@@ -21,9 +21,9 @@ import static org.osgi.test.common.annotation.Property.ValueSource.TestUniqueId;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.Constants;
 import org.osgi.test.common.annotation.Property;
 import org.osgi.test.common.annotation.Property.TemplateArgument;
+import org.osgi.test.common.annotation.Property.Type;
 import org.osgi.test.common.annotation.config.WithFactoryConfiguration;
 
 public class AnnotationHelper {
@@ -35,7 +35,9 @@ public class AnnotationHelper {
     public static final String MARKER_TEST_UNIQUEID_HEX = PREFIX_MARKER_TESTING + "TestUniqueId.hex";
 
     @WithFactoryConfiguration(location = "?", factoryPid = Constants.PID_EMF_MAPPING_PROVIDER, properties = {
-            @Property(key = Constants.RESOURCE_URL, value = "file:///%s/target/test-classes/%s/%s/instance.xmi", //
+            @Property(key = Constants.RESOURCE_URLS, type = Type.Array, value = {
+                    "file:///%1$s/target/test-classes/%2$s/%3$s/rdb.xmi",
+                    "file:///%1$s/target/test-classes/%2$s/%3$s/rolap.xmi" }, //
                     templateArguments = { //
                             @TemplateArgument(source = SystemProperty, value = "basePath"), //
                             @TemplateArgument(source = TestClass), //

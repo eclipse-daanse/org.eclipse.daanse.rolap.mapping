@@ -19,6 +19,6 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 @ObjectClassDefinition()
 public @interface EmfMappingProviderConfig {
 
-    @AttributeDefinition(name = Constants.RESOURCE_URL)
-    String resource_url();
+    @AttributeDefinition(name = Constants.RESOURCE_URLS)
+    String[] resource_urls();
 }
