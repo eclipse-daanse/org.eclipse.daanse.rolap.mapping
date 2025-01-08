@@ -20,6 +20,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.Constants;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.EmfMappingProviderConfig;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -49,10 +50,13 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
             URI uri = URI.createURI(url);
             Resource resource = resourceSet.getResource(uri, true);
             resource.load(Map.of());
-            EObject root = resource.getContents().get(0);
+            EList<EObject> contents = resource.getContents();
 
-            if (root instanceof CatalogMapping rcm) {
-                catalogMapping = rcm;
+            for (EObject eObject : contents) {
+                if (eObject instanceof CatalogMapping rcm) {
+                    catalogMapping = rcm;
+                }
+
             }
         }
 
