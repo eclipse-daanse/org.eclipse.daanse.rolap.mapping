@@ -19,12 +19,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
+import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.AnnotationHelper.SetupMappingProviderWithTestInstance;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
 import org.junit.jupiter.api.Test;
@@ -78,6 +80,9 @@ public class EmfMappingProviderTest {
         Column col = measure.getColumn();
 
         assertThat(col.getName()).isEqualTo("meas");
+        TableQuery tq= (TableQuery) cube.getQuery();
+        Table table=tq.getTable();
+        assertThat(table.getName()).isEqualTo("ptone");
 
     }
 
