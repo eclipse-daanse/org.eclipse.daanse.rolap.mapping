@@ -223,17 +223,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
     <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // code here"/>
+        <details key="body" value="return DataType.fromValue(getType().getName());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // code here"/>
+        <details key="body" value="return HideMemberIfType.fromValue(getHideMemberIf().getName());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getLevelType" lowerBound="1" eType="#//LevelType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // code here"/>
+        <details key="body" value="return LevelType.fromValue(getType().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyExpression" eType="#//SQLExpression"
@@ -733,14 +733,13 @@
     <eLiterals name="DICTINCT_COUNT" value="5" literal="distinct-count"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnDataType">
-    <eLiterals name="AUTO" literal="auto"/>
-    <eLiterals name="STRING" value="1" literal=" String"/>
-    <eLiterals name="NUMERIC" value="2" literal="Numeric"/>
-    <eLiterals name="INTEGER" value="3" literal="Integer"/>
-    <eLiterals name="BOOLEAN" value="4" literal="Boolean"/>
-    <eLiterals name="DATE" value="5" literal="Date"/>
-    <eLiterals name="TIME" value="6" literal="Time"/>
-    <eLiterals name="TIMESTAMP" value="7" literal="Timestamp"/>
+    <eLiterals name="STRING" literal=" String"/>
+    <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
+    <eLiterals name="INTEGER" value="2" literal="Integer"/>
+    <eLiterals name="BOOLEAN" value="3" literal="Boolean"/>
+    <eLiterals name="DATE" value="4" literal="Date"/>
+    <eLiterals name="TIME" value="5" literal="Time"/>
+    <eLiterals name="TIMESTAMP" value="6" literal="Timestamp"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LevelDefinition">
     <eLiterals name="REGULAR" literal="Regular">
