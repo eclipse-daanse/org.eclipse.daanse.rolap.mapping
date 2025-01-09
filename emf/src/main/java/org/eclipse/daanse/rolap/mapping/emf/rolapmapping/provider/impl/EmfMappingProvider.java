@@ -25,6 +25,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.gecko.emf.osgi.constants.EMFNamespaces;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
@@ -45,18 +46,17 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
     @Activate
     public void activate(EmfMappingProviderConfig config) throws IOException {
 
-        for (String url : config.resource_urls()) {
+        String url = config.resource_url();
 
-            URI uri = URI.createURI(url);
-            Resource resource = resourceSet.getResource(uri, true);
-            resource.load(Map.of());
-            EList<EObject> contents = resource.getContents();
+        URI uri = URI.createURI(url);
+        Resource resource = resourceSet.getResource(uri, true);
+        resource.load(Map.of());
+        EcoreUtil.resolveAll(resource);
+        EList<EObject> contents = resource.getContents();
 
-            for (EObject eObject : contents) {
-                if (eObject instanceof CatalogMapping rcm) {
-                    catalogMapping = rcm;
-                }
-
+        for (EObject eObject : contents) {
+            if (eObject instanceof CatalogMapping rcm) {
+                catalogMapping = rcm;
             }
         }
 

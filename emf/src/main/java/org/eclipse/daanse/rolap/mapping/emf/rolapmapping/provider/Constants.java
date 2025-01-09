@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider;
 
 public class Constants {
 
-    public static final String RESOURCE_URLS = "resource.urls";
+    public static final String RESOURCE_URL = "resource.url";
 
     public static final String PID_EMF_MAPPING_PROVIDER = "org.eclipse.daanse.rolap.mapping.emf.provider.EmfMappingProvider";
 
