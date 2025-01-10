@@ -384,7 +384,7 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" lowerBound="1"
-        eType="#//ColumnDataType" defaultValueLiteral=" String"/>
+        eType="#//ColumnDataType" defaultValueLiteral="String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action #//IDrillThroughAction">
@@ -737,7 +737,7 @@
     <eLiterals name="DICTINCT_COUNT" value="5" literal="distinct-count"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnDataType">
-    <eLiterals name="STRING" literal=" String"/>
+    <eLiterals name="STRING" literal="String"/>
     <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
     <eLiterals name="INTEGER" value="2" literal="Integer"/>
     <eLiterals name="BOOLEAN" value="3" literal="Boolean"/>
