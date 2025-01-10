@@ -21,8 +21,6 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.Map;
 
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
