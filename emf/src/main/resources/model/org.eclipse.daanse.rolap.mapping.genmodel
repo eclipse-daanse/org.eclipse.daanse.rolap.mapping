@@ -206,7 +206,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Measure/aggregator"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Measure/measureGroup"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Measure/getDatatype"
-          body="return DataType.fromValue(getDataType().getName());"/>
+          body="return DataType.fromValue(getDataType().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Measure/getAggregatorType"
           body="return MeasureAggregatorType.fromValue(getAggregator().getLiteral());"/>
     </genClasses>
@@ -285,11 +285,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/uniqueMembers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/visible"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getDataType"
-          body="return DataType.fromValue(getType().getName());"/>
+          body="return DataType.fromValue(getType().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getHideMemberIfType"
-          body="return HideMemberIfType.fromValue(getHideMemberIf().getName());"/>
+          body="return HideMemberIfType.fromValue(getHideMemberIf().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getLevelType"
-          body="return LevelType.fromValue(getType().getName());"/>
+          body="return LevelType.fromValue(getType().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/formatter"/>
@@ -375,7 +375,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/dataType"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Parameter/getType"
-          body="return DataType.fromValue(getDataType().getName());"/>
+          body="return DataType.fromValue(getDataType().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Action"/>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAction">
@@ -462,13 +462,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/cubeAccess"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/cube"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/getAccess"
-          body="return AccessCube.fromValue(getCubeAccess().getName());"/>
+          body="return AccessCube.fromValue(getCubeAccess().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant/dimensionAccess"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant/dimension"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant/getAccess"
-          body="return AccessDimension.fromValue(getDimensionAccess().getName());"/>
+          body="return AccessDimension.fromValue(getDimensionAccess().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/memberGrants"/>
@@ -478,15 +478,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/bottomLevel"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/topLevel"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/getAccess"
-          body="return AccessHierarchy.fromValue(getHierarchyAccess().getName());"/>
+          body="return AccessHierarchy.fromValue(getHierarchyAccess().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/getRollupPolicyType"
-          body="return RollupPolicyType.fromValue(getRollupPolicy().getName());"/>
+          body="return RollupPolicyType.fromValue(getRollupPolicy().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant/memberAccess"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant/member"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant/getAccess"
-          body="return AccessMember.fromValue(getMemberAccess().getName());"/>
+          body="return AccessMember.fromValue(getMemberAccess().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessRole">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/accessSchemaGrants"/>
@@ -496,7 +496,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/cubeGrants"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/schemaAccess"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/getAccess"
-          body="return AccessSchema.fromValue(getSchemaAccess().getName());"/>
+          body="return AccessSchema.fromValue(getSchemaAccess().getLiteral());"/>
     </genClasses>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAbstractElement"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessCubeGrant"/>
