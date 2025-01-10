@@ -371,7 +371,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
     <eOperations name="getType" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // code here"/>
+        <details key="body" value="return DataType.fromValue(getType().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -491,7 +491,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // Code here"/>
+        <details key="body" value="return AccessCube.fromValue(getCubeAccess().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionGrants" upperBound="-1"
@@ -505,7 +505,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // Code here"/>
+        <details key="body" value="return AccessDimension.fromValue(getDimensionAccess().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimensionAccess" lowerBound="1"
@@ -516,12 +516,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant" eSuperTypes="#//IAccessHierarchyGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessHierarchy">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // Code here"/>
+        <details key="body" value="return AccessHierarchy.fromValue(getHierarchyAccess().getName());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getRollupPolicyType" lowerBound="1" eType="#//RollupPolicyType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; //code here"/>
+        <details key="body" value="return RollupPolicyType.fromValue(getRollupPolicy().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberGrants" upperBound="-1"
@@ -538,7 +538,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessMember">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // Code here"/>
+        <details key="body" value="return AccessMember.fromValue(getMemberAccess().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberAccess" lowerBound="1"
@@ -554,7 +554,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessSchemaGrant" eSuperTypes="#//IAccessSchemaGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessSchema">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return null; // Code here"/>
+        <details key="body" value="return AccessSchema.fromValue(getSchemaAccess().getName());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
