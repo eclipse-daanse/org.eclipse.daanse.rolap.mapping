@@ -17,7 +17,8 @@
   xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
   xmlns:rdbs="https://www.daanse.org/spec/org.eclipse.daanse.rdb.structure"
   id="rolapc1"
-  name="rolapc1">
+  name="rolapc1"
+  dbschemas="db.xmi#dbs1">
   <schemas id="rolapschema1"
     name="rolapSchema"
     cubes="pc1" />
