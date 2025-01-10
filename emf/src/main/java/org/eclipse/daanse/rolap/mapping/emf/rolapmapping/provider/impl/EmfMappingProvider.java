@@ -48,7 +48,7 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
 
         String url = config.resource_url();
 
-        URI uri = URI.createURI(url);
+        URI uri = URI.createFileURI(url);
         Resource resource = resourceSet.getResource(uri, true);
         resource.load(Map.of());
         EcoreUtil.resolveAll(resource);

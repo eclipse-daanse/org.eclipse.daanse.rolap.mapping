@@ -36,7 +36,7 @@ public class AnnotationHelper {
 
     @WithFactoryConfiguration(location = "?", factoryPid = Constants.PID_EMF_MAPPING_PROVIDER, properties = {
             @Property(key = Constants.RESOURCE_URL, type = Type.Scalar, value =
-                    "file:///%1$s/target/test-classes/%2$s/%3$s/catalog.xmi", //
+                    "%1$s/target/test-classes/%2$s/%3$s/catalog.xmi", //
                     templateArguments = { //
                             @TemplateArgument(source = SystemProperty, value = "basePath"), //
                             @TemplateArgument(source = TestClass), //
