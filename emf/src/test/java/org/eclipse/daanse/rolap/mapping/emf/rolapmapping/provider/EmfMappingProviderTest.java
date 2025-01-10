@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
+import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
@@ -73,6 +74,8 @@ public class EmfMappingProviderTest {
         CatalogMappingSupplier rcms = saRolapContextMappingSupplier.getService();
 
         CatalogMapping rCtx = rcms.get();
+        DatabaseSchema dbschem= rCtx.getDbschemas().get(0);
+        assertThat(dbschem.getName()).isEqualTo("schemaone");
         SchemaMapping schema = rCtx.getSchemas().get(0);
         PhysicalCubeMapping cube = (PhysicalCubeMapping) schema.getCubes().get(0);
         MeasureGroupMapping mg = cube.getMeasureGroups().get(0);
