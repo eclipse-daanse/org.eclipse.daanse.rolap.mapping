@@ -134,7 +134,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//IMeasure #//Member">
     <eOperations name="getDatatype" lowerBound="1" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getDataType().getName());"/>
+        <details key="body" value="return DataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getAggregatorType" lowerBound="1" eType="#//MeasureAggregatorType">
@@ -227,17 +227,17 @@
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
     <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getType().getName());"/>
+        <details key="body" value="return DataType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return HideMemberIfType.fromValue(getHideMemberIf().getName());"/>
+        <details key="body" value="return HideMemberIfType.fromValue(getHideMemberIf().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getLevelType" lowerBound="1" eType="#//LevelType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return LevelType.fromValue(getType().getName());"/>
+        <details key="body" value="return LevelType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="keyExpression" eType="#//SQLExpression"
@@ -375,7 +375,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
     <eOperations name="getType" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getDataType().getName());"/>
+        <details key="body" value="return DataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -495,7 +495,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessCube.fromValue(getCubeAccess().getName());"/>
+        <details key="body" value="return AccessCube.fromValue(getCubeAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionGrants" upperBound="-1"
@@ -509,7 +509,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessDimension.fromValue(getDimensionAccess().getName());"/>
+        <details key="body" value="return AccessDimension.fromValue(getDimensionAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimensionAccess" lowerBound="1"
@@ -520,12 +520,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant" eSuperTypes="#//IAccessHierarchyGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessHierarchy">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessHierarchy.fromValue(getHierarchyAccess().getName());"/>
+        <details key="body" value="return AccessHierarchy.fromValue(getHierarchyAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getRollupPolicyType" lowerBound="1" eType="#//RollupPolicyType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return RollupPolicyType.fromValue(getRollupPolicy().getName());"/>
+        <details key="body" value="return RollupPolicyType.fromValue(getRollupPolicy().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberGrants" upperBound="-1"
@@ -542,7 +542,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessMember">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessMember.fromValue(getMemberAccess().getName());"/>
+        <details key="body" value="return AccessMember.fromValue(getMemberAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberAccess" lowerBound="1"
@@ -558,7 +558,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessSchemaGrant" eSuperTypes="#//IAccessSchemaGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessSchema">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessSchema.fromValue(getSchemaAccess().getName());"/>
+        <details key="body" value="return AccessSchema.fromValue(getSchemaAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
@@ -714,7 +714,7 @@
     <eLiterals name="CUSTOM" value="2" literal="custom"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HideMemberIf">
-    <eLiterals name="NEVER" literal="never"/>
+    <eLiterals name="NEVER" literal="Never"/>
     <eLiterals name="IF_BLANK_NAME" value="1" literal="IfBlankName"/>
     <eLiterals name="IF_PARENTS_NAME" value="2" literal="IfParentsName"/>
   </eClassifiers>
