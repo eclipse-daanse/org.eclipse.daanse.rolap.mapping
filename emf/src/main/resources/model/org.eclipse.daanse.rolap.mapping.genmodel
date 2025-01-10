@@ -285,7 +285,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/uniqueMembers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/visible"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getDataType"
-          body="return DataType.fromValue(getType().getLiteral());"/>
+          body="return DataType.fromValue(getColumnType().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getHideMemberIfType"
           body="return HideMemberIfType.fromValue(getHideMemberIf().getLiteral());"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Level/getLevelType"
