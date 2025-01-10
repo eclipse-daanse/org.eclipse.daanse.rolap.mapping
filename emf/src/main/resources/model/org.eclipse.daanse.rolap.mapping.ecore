@@ -227,7 +227,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
     <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getType().getLiteral());"/>
+        <details key="body" value="return DataType.fromValue(getColumnType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
