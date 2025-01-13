@@ -16,15 +16,21 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>api</module>
-    <module>xmi</module>
-    <module>rec</module>
-    <module>emf</module>
+    <module>basic.structure.plain</module>
+    <module>basic.cube.minimal</module>
   </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.api</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 </project>
