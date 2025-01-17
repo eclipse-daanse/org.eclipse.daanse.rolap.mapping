@@ -48,8 +48,8 @@
 
 -runrequires: \
 	bnd.identity;id='${project.artifactId}-tests',\
-    bnd.identity;id='${project.artifactId}',\
-    bnd.identity;id='org.gecko.emf.json',\
+	bnd.identity;id='${project.artifactId}',\
+	bnd.identity;id='org.gecko.emf.json',\
 	bnd.identity;id='org.eclipse.daanse.rdb.structure.emf'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
