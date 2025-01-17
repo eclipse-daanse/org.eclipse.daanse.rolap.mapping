@@ -58,10 +58,10 @@
         eType="#//AggregationExclude" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
         eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" lowerBound="1" upperBound="-1"
         eType="#//Cube"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedSets" upperBound="-1"

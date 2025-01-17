@@ -42,19 +42,17 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE_CUBE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_WITH_NAME_MUST_CONTAIN;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSIONS;
+import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_MEASURE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_MEASURE_NAME_MUST_BE_SET;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.ELEMENT_FORMATTER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FACT_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMATTER_EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA_MUST_BE_SET_FOR_CALCULATED_MEMBER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY;
+import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HINT;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HINT_TYPE_MUST_BE_SET;
@@ -84,8 +82,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE_VALUE_DOES_NOT_CORRESPOND_TO_HIERARCHY_RELATION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.USER_DEFINED_FUNCTION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.USER_DEFINED_FUNCTION_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE_MUST_CONTAIN_DIMENSIONS;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE_MUST_CONTAIN_MEASURES;
@@ -98,19 +94,15 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_MEASURE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE_NAME_MUST_BE_SET;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.description.DescriptionVerifyerTest.setupDummyListAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
@@ -245,23 +237,19 @@ class MandantoriesVerifyerTest {
     void testSchema() {
 
 
-        when(schema.getParameters()).thenAnswer(setupDummyListAnswer(parameter));
         when(schema.getAccessRoles()).thenAnswer(setupDummyListAnswer(role));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(4);
+            .hasSize(2);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
-            .contains(PARAMETER_NAME_MUST_BE_SET)
-            .contains(PARAMETER_TYPE_MUST_BE_SET)
             .contains(ROLE_NAME_MUST_BE_SET);
 
         assertThat(result).extracting(VerificationResult::title)
-            .contains(SCHEMA)
-            .contains(PARAMETER);
+            .contains(SCHEMA);
         assertThat(result).extracting(VerificationResult::level)
             .containsOnly(Level.ERROR);
     }

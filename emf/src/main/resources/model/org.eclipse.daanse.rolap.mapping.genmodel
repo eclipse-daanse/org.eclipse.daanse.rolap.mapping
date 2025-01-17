@@ -150,9 +150,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/aggregationTables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/aggregationExcludes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/dbschemas"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/parameters"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Schema">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/parameters"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/cubes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/namedSets"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Schema/accessRoles"/>

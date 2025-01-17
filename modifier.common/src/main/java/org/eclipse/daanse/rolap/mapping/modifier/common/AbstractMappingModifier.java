@@ -154,9 +154,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String description = catalogDescription(catalog2);
             String name = catalogName(catalog2);
             DocumentationMapping documentation = catalogDocumentation(catalog2);
+            List<? extends ParameterMapping> parameters = catalogParameters(catalog);
 
             List<? extends SchemaMapping> schemas = catalogSchemas(catalog2);
-            return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
+            return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas, parameters);
         }
         return null;
     }
@@ -493,7 +494,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
-        List<? extends DatabaseSchema> dbschemas
+        List<? extends DatabaseSchema> dbschemas, List<? extends ParameterMapping> parameters
     );
 
     protected SchemaMapping schema(SchemaMapping schemaMappingOriginal) {
@@ -505,14 +506,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String description = schemaDescription(schemaMappingOriginal);
             String name = schemaName(schemaMappingOriginal);
             DocumentationMapping documentation = schemaDocumentation(schemaMappingOriginal);
-            List<? extends ParameterMapping> parameters = schemaParameters(schemaMappingOriginal);
             List<? extends CubeMapping> cubes = schemaCubes(schemaMappingOriginal);
             List<? extends NamedSetMapping> namedSets = schemaNamedSets(schemaMappingOriginal);
             List<? extends AccessRoleMapping> accessRoles = schemaAccessRoles(schemaMappingOriginal);
             AccessRoleMapping defaultAccessRole = schemaDefaultAccessRole(schemaMappingOriginal);
             String measuresDimensionName = schemaMeasuresDimensionName(schemaMappingOriginal);
 
-            return createSchema(annotations, id, description, name, documentation, parameters, cubes, namedSets,
+            return createSchema(annotations, id, description, name, documentation, cubes, namedSets,
                 accessRoles, defaultAccessRole, measuresDimensionName);
         }
         return null;
@@ -3092,8 +3092,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(cube.getAnnotations());
     }
 
-    protected List<? extends ParameterMapping> schemaParameters(SchemaMapping schemaMappingOriginal) {
-        return parameters(schemaMappingOriginal.getParameters());
+    protected List<? extends ParameterMapping> catalogParameters(CatalogMapping catalogMappingOriginal) {
+        return parameters(catalogMappingOriginal.getParameters());
     }
 
     protected List<? extends ParameterMapping> parameters(List<? extends ParameterMapping> parameters) {
@@ -3151,7 +3151,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract SchemaMapping createSchema(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        List<? extends ParameterMapping> parameters, List<? extends CubeMapping> cubes,
+        List<? extends CubeMapping> cubes,
         List<? extends NamedSetMapping> namedSets, List<? extends AccessRoleMapping> accessRoles,
         AccessRoleMapping defaultAccessRole, String measuresDimensionName
     );

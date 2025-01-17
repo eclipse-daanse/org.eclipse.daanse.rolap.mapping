@@ -33,8 +33,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.MEASURE_MUST_CONTAIN_DESCRIPTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.NAMED_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.NAMED_SET_MUST_CONTAIN_DESCRIPTION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.PARAMETER;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.PARAMETER_MUST_CONTAIN_DESCRIPTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.PROPERTY;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.PROPERTY_MUST_CONTAIN_DESCRIPTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.SCHEMA;
@@ -128,11 +126,10 @@ public class DescriptionVerifyerTest {
         when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
         when(dimensionConnector.getDimension()).thenReturn(dimension);
         when(schema.getNamedSets()).thenAnswer(setupDummyListAnswer(namedSet));
-        when(schema.getParameters()).thenAnswer(setupDummyListAnswer(parameter));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(6);
+            .hasSize(5);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -140,15 +137,13 @@ public class DescriptionVerifyerTest {
             .contains(CUBE_MUST_CONTAIN_DESCRIPTION)
             .contains(VIRTUAL_CUBE_MUST_CONTAIN_DESCRIPTION)
             .contains(DIMENSION_MUST_CONTAIN_DESCRIPTION)
-            .contains(NAMED_SET_MUST_CONTAIN_DESCRIPTION)
-            .contains(PARAMETER_MUST_CONTAIN_DESCRIPTION);
+            .contains(NAMED_SET_MUST_CONTAIN_DESCRIPTION);
         assertThat(result).extracting(VerificationResult::title)
             .contains(SCHEMA)
             .contains(CUBE)
             .contains(VIRTUAL_CUBE)
             .contains(DIMENSIONS)
-            .contains(NAMED_SET)
-            .contains(PARAMETER);
+            .contains(NAMED_SET);
         assertThat(result).extracting(VerificationResult::level)
             .containsOnly(Level.INFO);
     }
@@ -404,24 +399,25 @@ public class DescriptionVerifyerTest {
             .containsOnly(Level.INFO);
     }
 
-    void testParameter() {
-
-        when(schema.getParameters()).thenAnswer(setupDummyListAnswer(parameter));
-
-        List<VerificationResult> result = verifyer.verify(schema);
-        assertThat(result).isNotNull()
-            .hasSize(2);
-
-        assertThat(result)
-            .extracting(VerificationResult::description)
-            .contains(SCHEMA_MUST_CONTAIN_DESCRIPTION)
-            .contains(PARAMETER);
-        assertThat(result).extracting(VerificationResult::title)
-            .contains(SCHEMA)
-            .contains(PARAMETER);
-        assertThat(result).extracting(VerificationResult::level)
-            .containsOnly(Level.INFO);
-    }
+    // Parameters are now in Catalog
+//    void testParameter() {
+//
+//        when(schema.getParameters()).thenAnswer(setupDummyListAnswer(parameter));
+//
+//        List<VerificationResult> result = verifyer.verify(schema);
+//        assertThat(result).isNotNull()
+//            .hasSize(2);
+//
+//        assertThat(result)
+//            .extracting(VerificationResult::description)
+//            .contains(SCHEMA_MUST_CONTAIN_DESCRIPTION)
+//            .contains(PARAMETER);
+//        assertThat(result).extracting(VerificationResult::title)
+//            .contains(SCHEMA)
+//            .contains(PARAMETER);
+//        assertThat(result).extracting(VerificationResult::level)
+//            .containsOnly(Level.INFO);
+//    }
 
     @Test
     void testDrillThroughAction() {
