@@ -242,7 +242,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected CatalogMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
             String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
-            List<? extends DatabaseSchema> dbschemas) {
+            List<? extends DatabaseSchema> dbschemas, List<? extends ParameterMapping> parameters) {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         catalog.setId(id);
@@ -250,6 +250,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         catalog.setName(name);
         catalog.setDocumentation((Documentation) documentation);
         catalog.getSchemas().addAll((Collection<? extends Schema>) schemas);
+        catalog.getParameters().addAll((Collection<? extends Parameter>) parameters);
+
         // ??
         catalog.getDbschemas().addAll(
                 (Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
@@ -987,7 +989,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected SchemaMapping createSchema(List<? extends AnnotationMapping> annotations, String id, String description,
-            String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
+            String name, DocumentationMapping documentation,
             List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
             List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
             String measuresDimensionName) {
@@ -997,7 +999,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         schema.setDescription(description);
         schema.setName(name);
         schema.setDocumentation((Documentation) documentation);
-        schema.getParameters().addAll((Collection<? extends Parameter>) parameters);
         schema.getCubes().addAll((Collection<? extends Cube>) cubes);
         schema.getNamedSets().addAll((Collection<? extends NamedSet>) namedSets);
         schema.getAccessRoles().addAll((Collection<? extends AccessRole>) accessRoles);

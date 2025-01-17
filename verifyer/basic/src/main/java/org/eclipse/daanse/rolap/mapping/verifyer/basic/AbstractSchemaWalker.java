@@ -86,11 +86,12 @@ public abstract class AbstractSchemaWalker {
 
     protected List<VerificationResult> results = new ArrayList<>();
 
+//    checkParameterList(schema.getParameters());
+
     public List<VerificationResult> checkSchema(SchemaMapping schema) {
 
         if (schema != null) {
             checkAnnotationList(schema.getAnnotations());
-            checkParameterList(schema.getParameters());
             checkCubeList(schema.getCubes(), schema);
             checkNamedSetList(schema.getNamedSets());
             checkRoleList(schema.getAccessRoles(), schema);

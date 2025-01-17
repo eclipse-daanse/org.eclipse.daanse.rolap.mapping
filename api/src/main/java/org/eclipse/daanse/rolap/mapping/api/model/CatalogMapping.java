@@ -18,6 +18,8 @@ import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 
 public interface CatalogMapping extends AbstractElementMapping {
 
+    List<? extends ParameterMapping> getParameters();
+
     List<? extends SchemaMapping> getSchemas();
 //
 //    List<? extends CubeMapping> getCubes();
