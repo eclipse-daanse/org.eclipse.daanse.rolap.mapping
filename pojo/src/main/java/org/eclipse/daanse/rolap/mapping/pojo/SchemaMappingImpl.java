@@ -19,6 +19,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 
 public class SchemaMappingImpl extends AbstractElementMappingImpl implements SchemaMapping {
 
+    private List<ParameterMappingImpl> parameters;
+
     private List<? extends CubeMappingImpl> cubes;
 
     private List<NamedSetMappingImpl> namedSets;
@@ -30,6 +32,7 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
     private String measuresDimensionName;
 
     private SchemaMappingImpl(Builder builder) {
+        this.parameters = builder.parameters;
         this.cubes = builder.cubes;
         this.namedSets = builder.namedSets;
         this.accessRoles = builder.accessRoles;
@@ -40,6 +43,14 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
         super.setDescription(builder.description);
         super.setName(builder.name);
         super.setDocumentation(builder.documentation);
+    }
+
+    public List<ParameterMappingImpl> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<ParameterMappingImpl> parameters) {
+        this.parameters = parameters;
     }
 
     public List<? extends CubeMappingImpl> getCubes() {
@@ -87,6 +98,7 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
     }
 
     public static final class Builder {
+        private List<ParameterMappingImpl> parameters = new ArrayList<>();
         private List<CubeMappingImpl> cubes = new ArrayList<>();
         private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
@@ -99,6 +111,11 @@ public class SchemaMappingImpl extends AbstractElementMappingImpl implements Sch
         private DocumentationMappingImpl documentation;
 
         private Builder() {
+        }
+
+        public Builder withParameters(List<ParameterMappingImpl> parameters) {
+            this.parameters = parameters;
+            return this;
         }
 
         public Builder withCubes(List<CubeMappingImpl> cubes) {

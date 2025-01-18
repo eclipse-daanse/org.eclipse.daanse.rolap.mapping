@@ -242,7 +242,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id, String description,
         String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
-        List<? extends DatabaseSchema> dbschemas, List<? extends ParameterMapping> parameters
+        List<? extends DatabaseSchema> dbschemas
     ) {
         return CatalogMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -252,7 +252,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDocumentation((DocumentationMappingImpl) documentation)
             .withSchemas((List<SchemaMappingImpl>) schemas)
             .withDbschemas((List<DatabaseSchemaImpl>) dbschemas)
-            .withParameters((List<ParameterMappingImpl>) parameters)
             .build();
     }
 
@@ -820,7 +819,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected SchemaMapping createSchema(
         List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation,
+        String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
         List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
         List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
         String measuresDimensionName
@@ -831,6 +830,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDescription(description)
             .withName(name)
             .withDocumentation((DocumentationMappingImpl) documentation)
+            .withParameters((List<ParameterMappingImpl>) parameters)
             .withCubes((List<CubeMappingImpl>) cubes)
             .withNamedSets((List<NamedSetMappingImpl>) namedSets)
             .withAccessRoles((List<AccessRoleMappingImpl>) accessRoles)

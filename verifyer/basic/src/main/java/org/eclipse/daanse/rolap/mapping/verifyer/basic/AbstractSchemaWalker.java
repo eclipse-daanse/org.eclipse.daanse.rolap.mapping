@@ -86,15 +86,14 @@ public abstract class AbstractSchemaWalker {
 
     protected List<VerificationResult> results = new ArrayList<>();
 
-//    checkParameterList(schema.getParameters());
-
     public List<VerificationResult> checkSchema(SchemaMapping schema) {
 
         if (schema != null) {
             checkAnnotationList(schema.getAnnotations());
+            checkParameterList(schema.getParameters());
             checkCubeList(schema.getCubes(), schema);
             checkNamedSetList(schema.getNamedSets());
-            //TODO: FIX    checkRoleList(schema.getAccessRoles(), schema);
+            checkRoleList(schema.getAccessRoles(), schema);
         }
 
         return results;
@@ -600,7 +599,7 @@ public abstract class AbstractSchemaWalker {
     protected void checkRole(AccessRoleMapping role, SchemaMapping schema) {
         if (role != null) {
             checkAnnotationList(role.getAnnotations());
-            //TODO: FIX checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
+            checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
             checkAccessRoleList(role.getReferencedAccessRoles());
         }
     }
