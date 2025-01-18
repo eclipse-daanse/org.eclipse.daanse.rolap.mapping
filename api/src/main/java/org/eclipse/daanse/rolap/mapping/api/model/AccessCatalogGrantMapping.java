@@ -14,12 +14,12 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface SchemaMapping extends AbstractElementMapping {
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 
-    List<? extends CubeMapping> getCubes();
+public interface AccessCatalogGrantMapping {
 
-    List<? extends NamedSetMapping> getNamedSets();
+    List<? extends AccessSchemaGrantMapping> getSchemaGrants();
 
-    String getMeasuresDimensionName();
+    AccessCatalog getAccess();
 
 }
