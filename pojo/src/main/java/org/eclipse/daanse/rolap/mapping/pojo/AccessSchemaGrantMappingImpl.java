@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
 
 public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
@@ -69,5 +70,10 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
         public AccessSchemaGrantMappingImpl build() {
             return new AccessSchemaGrantMappingImpl(this);
         }
+    }
+
+    @Override
+    public SchemaMapping getSchema() {
+        return null; // TODO: IMPLEMENT
     }
 }

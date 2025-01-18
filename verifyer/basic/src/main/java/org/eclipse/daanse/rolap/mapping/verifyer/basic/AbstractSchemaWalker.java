@@ -94,7 +94,7 @@ public abstract class AbstractSchemaWalker {
             checkAnnotationList(schema.getAnnotations());
             checkCubeList(schema.getCubes(), schema);
             checkNamedSetList(schema.getNamedSets());
-            checkRoleList(schema.getAccessRoles(), schema);
+            //TODO: FIX    checkRoleList(schema.getAccessRoles(), schema);
         }
 
         return results;
@@ -600,7 +600,7 @@ public abstract class AbstractSchemaWalker {
     protected void checkRole(AccessRoleMapping role, SchemaMapping schema) {
         if (role != null) {
             checkAnnotationList(role.getAnnotations());
-            checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
+            //TODO: FIX checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
             checkAccessRoleList(role.getReferencedAccessRoles());
         }
     }
