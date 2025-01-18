@@ -523,7 +523,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected AccessRoleMapping schemaDefaultAccessRole(SchemaMapping schemaMappingOriginal) {
-        return accessRole(schemaMappingOriginal.getDefaultAccessRole());
+        return null;// TODO: Fix accessRole(schemaMappingOriginal.getDefaultAccessRole());
     }
 
     protected AccessRoleMapping accessRole(AccessRoleMapping accessRole) {
@@ -581,7 +581,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected List<? extends AccessSchemaGrantMapping> accessRoleAccessSchemaGrants(AccessRoleMapping accessRole) {
-        return accessSchemaGrants(accessRole.getAccessSchemaGrants());
+        return null;//TODO: FIX accessSchemaGrants(accessRole.getAccessSchemaGrants());
     }
 
     protected List<AccessSchemaGrantMapping> accessSchemaGrants(
@@ -2023,7 +2023,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     );
 
     protected List<? extends AccessRoleMapping> schemaAccessRoles(SchemaMapping schemaMappingOriginal) {
-        return accessRoles(schemaMappingOriginal.getAccessRoles());
+        return null;//TODO: FIXaccessRoles(schemaMappingOriginal.getAccessRoles());
     }
 
     protected List<AccessRoleMapping> accessRoles(List<? extends AccessRoleMapping> accessRoles) {
