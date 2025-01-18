@@ -270,7 +270,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         accessRole.setDescription(description);
         accessRole.setName(name);
         accessRole.setDocumentation((Documentation) documentation);
-        //TODO: FIXaccessRole.getAccessSchemaGrants().addAll((Collection<? extends AccessSchemaGrant>) accessSchemaGrants);
+        accessRole.getAccessSchemaGrants().addAll((Collection<? extends AccessSchemaGrant>) accessSchemaGrants);
         accessRole.getReferencedAccessRoles().addAll((Collection<? extends AccessRole>) referencedAccessRoles);
         return accessRole;
     }
@@ -1002,7 +1002,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         schema.getCubes().addAll((Collection<? extends Cube>) cubes);
         schema.getNamedSets().addAll((Collection<? extends NamedSet>) namedSets);
         schema.getAccessRoles().addAll((Collection<? extends AccessRole>) accessRoles);
-        //TODO: FIX schema.setDefaultAccessRole((AccessRole) defaultAccessRole);
+        schema.setDefaultAccessRole((AccessRole) defaultAccessRole);
         schema.setMeasuresDimensionName(measuresDimensionName);
         return schema;
     }

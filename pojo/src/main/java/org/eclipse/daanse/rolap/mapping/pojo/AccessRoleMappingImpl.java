@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 
 public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements AccessRoleMapping {
@@ -104,10 +103,5 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         public AccessRoleMappingImpl build() {
             return new AccessRoleMappingImpl(this);
         }
-    }
-
-    @Override
-    public List<? extends AccessCatalogGrantMapping> getAccessCatalogGrants() {
-        return null;//TODO: IMPLEMENT
     }
 }

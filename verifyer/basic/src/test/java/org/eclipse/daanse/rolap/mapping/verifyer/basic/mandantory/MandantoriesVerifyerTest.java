@@ -233,11 +233,11 @@ class MandantoriesVerifyerTest {
         true,
         null);
 
-    //TODO: reactivate @Test
+    @Test
     void testSchema() {
 
 
-        //TODO: FIX   when(schema.getAccessRoles()).thenAnswer(setupDummyListAnswer(role));
+        when(schema.getAccessRoles()).thenAnswer(setupDummyListAnswer(role));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()

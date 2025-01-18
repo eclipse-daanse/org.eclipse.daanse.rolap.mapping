@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
@@ -274,11 +273,6 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         public CatalogMappingImpl build() {
             return new CatalogMappingImpl(this);
         }
-    }
-
-    @Override
-    public AccessRoleMapping getDefaultAccessRole() {
-        return null;// TODO: IMPLEMENT
     }
 
 }
