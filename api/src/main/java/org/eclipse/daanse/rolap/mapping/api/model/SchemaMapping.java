@@ -20,6 +20,10 @@ public interface SchemaMapping extends AbstractElementMapping {
 
     List<? extends NamedSetMapping> getNamedSets();
 
+    List<? extends AccessRoleMapping> getAccessRoles();
+
+    AccessRoleMapping getDefaultAccessRole();
+
     String getMeasuresDimensionName();
 
 }
