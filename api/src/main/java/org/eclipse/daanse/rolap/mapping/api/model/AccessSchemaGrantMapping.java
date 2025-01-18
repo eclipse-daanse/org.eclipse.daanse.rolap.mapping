@@ -22,6 +22,4 @@ public interface AccessSchemaGrantMapping {
 
     AccessSchema getAccess();
 
-    SchemaMapping getSchema();
-
 }

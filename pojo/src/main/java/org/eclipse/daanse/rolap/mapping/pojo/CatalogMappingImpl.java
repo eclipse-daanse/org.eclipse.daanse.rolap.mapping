@@ -16,12 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
-
-    private List<ParameterMappingImpl> parameters;
 
     private List<SchemaMappingImpl> schemas;
 
@@ -46,7 +43,6 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
     private List<AggregationExcludeMappingImpl> aggregationExcludes;
 
     private CatalogMappingImpl(Builder builder) {
-        this.parameters = builder.parameters;
         this.schemas = builder.schemas;
         this.cubes = builder.cubes;
         this.dimensions = builder.dimensions;
@@ -63,14 +59,6 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         super.setDescription(builder.description);
         super.setName(builder.name);
         super.setDocumentation(builder.documentation);
-    }
-
-    public List<ParameterMappingImpl> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(List<ParameterMappingImpl> parameters) {
-        this.parameters = parameters;
     }
 
     public List<? extends CubeMappingImpl> getCubes() {
@@ -178,7 +166,6 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
         private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
-        private List<ParameterMappingImpl> parameters = new ArrayList<>();
         private String id;
         private String description;
         private String name;
@@ -266,19 +253,10 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
             this.documentation = documentation;
             return this;
         }
-        public Builder withParameters(List<ParameterMappingImpl> parameters) {
-            this.parameters = parameters;
-            return this;
-        }
 
         public CatalogMappingImpl build() {
             return new CatalogMappingImpl(this);
         }
-    }
-
-    @Override
-    public AccessRoleMapping getDefaultAccessRole() {
-        return null;// TODO: IMPLEMENT
     }
 
 }
