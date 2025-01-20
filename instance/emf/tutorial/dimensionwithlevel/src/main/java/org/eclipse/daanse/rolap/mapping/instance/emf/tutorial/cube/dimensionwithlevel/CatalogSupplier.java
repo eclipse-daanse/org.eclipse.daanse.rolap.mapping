@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.cubedimensionwithlevel;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimensionwithlevel;
 
 import java.util.List;
 
@@ -35,8 +35,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
-@Component(service = CatalogMappingSupplier.class)
-public class CubedimensionwithlevelCatalogMappingSupplier implements CatalogMappingSupplier {
+@Component(service = CatalogSupplier.class)
+public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "Cube";
     private static final String FACT = "Fact";
