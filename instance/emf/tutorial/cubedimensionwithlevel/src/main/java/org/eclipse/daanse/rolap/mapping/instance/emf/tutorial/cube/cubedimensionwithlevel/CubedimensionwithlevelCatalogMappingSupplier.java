@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.cubedimensionwithlevel;
 
 import java.util.List;
 
@@ -21,30 +21,37 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFacto
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier {
+public class CubedimensionwithlevelCatalogMappingSupplier implements CatalogMappingSupplier {
 
-    private static final String CUBE_ONE_MEASURE = "CubeOneMeasure";
+    private static final String CUBE = "Cube";
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-            A basic OLAP schema with a minimal cube
             Data cubes (<Cube>) are defined in an OLAP schema (<Schema>). Within the schema the name of each data cube must be unique.
-            This example schema contains one cube named "CubeOneMeasure".
+            This example schema contains one cube named "Cube".
+
             A cube is based on a fact table (<Table>) which refers to a database table containing one or more measurements to be aggregated (and optionally further columns defining factual dimensions).
             In this case the database table representing the fact table is named "Fact" in the database, which is adressed in the name attribute within the <Table> tag.
+
             Each measurement of the cube is defined in a separate <Measure> element.
-            The measurement in this example cube is named "Measure-Sum" (name attribute). It corresponds to the "VALUE" column (column attribute) in the database table "Fact" and is aggregated by summation (aggregator attribute).
+            The measurement in this example cube is named "Measure" (name attribute). It corresponds to the "VALUE" column (column attribute) in the database table "Fact" and is aggregated by summation (aggregator attribute).
+            Level is defined in <Level> element.
+            Property is defined in <Property> element inside <Level> element. Property we can see in cell tooltip in excel
             """;
 
     @Override
@@ -72,21 +79,41 @@ public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
-        measure.setName("Measure-Sum");
+        measure.setName("Measure");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
+        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level.setName("Level");
+        level.setColumn(keyColumn);
+
+        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        hierarchy.setHasAll(true);
+        hierarchy.setName("HierarchyWithHasAll");
+        hierarchy.setPrimaryKey(keyColumn);
+        hierarchy.setQuery(query);
+        hierarchy.getLevels().add(level);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setName("Dimension");
+        dimension.getHierarchies().add(hierarchy);
+
+        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setOverrideDimensionName("Dimension");
+        dimensionConnector.setDimension(dimension);
+
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setName(CUBE_ONE_MEASURE);
-        cube.setId(CUBE_ONE_MEASURE);
+        cube.setName(CUBE);
+        cube.setId(CUBE);
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
+        cube.getDimensionConnectors().add(dimensionConnector);
 
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("01_Minimal_Cube_With_One_Measure");
-        schema.setDescription("Schema of a minimal cube containing only one measurement but no other dimensions");
+        schema.setName("Minimal_Cube_with_cube_dimension_level");
+        schema.setDescription("Schema of a minimal cube containing only one measurement and one dimensions");
         schema.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
@@ -95,10 +122,9 @@ public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("catalog with schema with a minimal cube");
+        documentation.setValue("catalog with schema with a level");
         catalog.setDocumentation(documentation);
         return catalog;
-
     }
 
 }
