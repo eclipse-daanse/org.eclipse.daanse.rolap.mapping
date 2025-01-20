@@ -10,14 +10,16 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.inlinetable;
 
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row;
+import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
@@ -32,19 +34,26 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE_ONE_MEASURE = "CubeOneMeasure";
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-            A basic OLAP schema with a minimal cube
-            Data cubes (<Cube>) are defined in an OLAP schema (<Schema>). Within the schema the name of each data cube must be unique.
-            This example schema contains one cube named "CubeOneMeasure".
-            A cube is based on a fact table (<Table>) which refers to a database table containing one or more measurements to be aggregated (and optionally further columns defining factual dimensions).
-            In this case the database table representing the fact table is named "Fact" in the database, which is adressed in the name attribute within the <Table> tag.
-            Each measurement of the cube is defined in a separate <Measure> element.
-            The measurement in this example cube is named "Measure-Sum" (name attribute). It corresponds to the "VALUE" column (column attribute) in the database table "Fact" and is aggregated by summation (aggregator attribute).
+        A minimal cube based on an inline table
+
+        An inline table is a virtual table which is completely defined within the schema file instead of using an existing database table. Inline tables should only be used exceptionally.
+        The <InlineTable> element consists of 2 main components:
+        - the column definition (<ColumnDefs>) and
+        - the table data held in the table rows (<Rows>).
+        Within the <ColumnDefs> tag, every table column is represented by a <ColumnDef> element which defines the column name (name attribute) and  datatype (type attribute).
+        Each row containing the data must be defined separately by a <Row> element within the <Rows> tag of the inline table.
+        For each table cell within a row, a separate <Value> element must be created which contains the column name in the name attribute and the value as the element's content.
+
+        In this example schema, an inline table named "Fact" is used as the fact table of the cube. Therefore, the <InlineTable> element is used instead of the <Table> element.
+        It consists of the string column "KEY" and the numeric column "VALUE" (<ColumnDef> within <ColumnDefs>).
+        The table has one row which holds the text "A" in the "KEY" column and the value 100.5 in the "VALUE" column (<Row> & <Value> within <Rows>)
+        As the inline table is the only dataset the cube refers to, no external database is needed.
             """;
 
     @Override
@@ -61,10 +70,23 @@ public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier
         keyColumn.setId("Fact_VALUE");
         keyColumn.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        RowValue rowValue1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        rowValue1.setColumn(keyColumn);
+        rowValue1.setValue("A");
+
+        RowValue rowValue2 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        rowValue1.setColumn(valueColumn);
+        rowValue1.setValue("100.5");
+
+        Row row = RelationalDatabaseFactory.eINSTANCE.createRow();
+        row.getRowValues().addAll(List.of(rowValue1, rowValue2));
+
+        InlineTable table = RelationalDatabaseFactory.eINSTANCE.createInlineTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
+        table.getRows().add(row);
+
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -85,8 +107,9 @@ public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier
         cube.getMeasureGroups().add(measureGroup);
 
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("01_Minimal_Cube_With_One_Measure");
-        schema.setDescription("Schema of a minimal cube containing only one measurement but no other dimensions");
+        schema.setName("CubeOneMeasureInlineTable");
+        schema.setDescription(
+            "Schema of a minimal cube consisting of one measurement and based on an virtual inline table");
         schema.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
@@ -98,7 +121,5 @@ public class MinimalCubeCatalogMappingSupplier implements CatalogMappingSupplier
         documentation.setValue("catalog with schema with a minimal cube");
         catalog.setDocumentation(documentation);
         return catalog;
-
     }
-
 }
