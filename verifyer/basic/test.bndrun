@@ -38,8 +38,8 @@
 	bnd.identity;id=junit-platform-launcher,\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.api',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.api',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.complex.foodmart',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.rec.complex.foodmart',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.rec.complex.steelwheels'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 -runbundles: \
@@ -61,8 +61,8 @@
 	org.eclipse.daanse.rdb.structure.pojo;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.complex.foodmart;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.rec.complex.foodmart;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.rec.complex.steelwheels;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.pojo;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.verifyer.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.verifyer.basic;version='[0.0.1,0.0.2)',\

@@ -47,13 +47,13 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.complex.foodmart</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec.complex.foodmart</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.complex.steelwheels</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec.complex.steelwheels</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
