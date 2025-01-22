@@ -35,7 +35,7 @@ class IntegrationFoodMartVerifyerTest {
 
     @Test
     void testSteelWheels(
-        @InjectService(filter = "(component.name=org.eclipse.daanse.rolap.mapping.instance.complex.foodmart.FoodmartMappingSupplier)")
+        @InjectService(filter = "(component.name=org.eclipse.daanse.rolap.mapping.instance.rec.complex.foodmart.FoodmartMappingSupplier)")
             CatalogMappingSupplier supplier)
         throws CloneNotSupportedException {
         doTest(supplier);
