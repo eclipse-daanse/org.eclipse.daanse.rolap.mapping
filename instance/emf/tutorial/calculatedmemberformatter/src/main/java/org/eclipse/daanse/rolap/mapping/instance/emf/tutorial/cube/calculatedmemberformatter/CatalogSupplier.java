@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.differentdatatypes;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmemberformatter;
 
 import java.util.List;
 
@@ -20,8 +20,10 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
@@ -35,27 +37,12 @@ import org.osgi.service.component.annotations.Component;
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
-    private static final String CUBE_NAME = "CubeOneNumericMeasureDifferentDataTypes";
+    private static final String CUBE_NAME = "CubeCalculatedMemberFormater";
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-        A minimal cube with measures of different datatypes
-
-        The datatype of the measuse can be adapted by using the optional datatype attribute of the <Measure> element.
-        - String
-        - Numeric
-        - Integer
-        - Boolean
-        - Date
-        - Time
-        - Timestamp
-        If no datatype attribute is defined, the following default datatypes are used:
-        - if the aggregator "count" or "distinct-count" is used: Integer
-        - it another aggregator is used: Numeric
-
-        In this example cube both measurements are generated from the "VALUE_NUMERIC" column of the "Fact" table, but one is provided with an Intger and the other one with a Numeric datatype.
-            """;
-
+        A minimal cube with CellFormatter with class name in CalculatedMember and formater
+        """;
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
@@ -79,30 +66,45 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
         query.setTable(table);
 
-        Measure measureInteger = RolapMappingFactory.eINSTANCE.createMeasure();
-        measureInteger.setAggregator(MeasureAggregator.SUM);
-        measureInteger.setName("Measure1-Integer");
-        measureInteger.setDataType(ColumnDataType.INTEGER);
-        measureInteger.setColumn(valueColumn);
-
-        Measure measureNumeric = RolapMappingFactory.eINSTANCE.createMeasure();
-        measureNumeric.setAggregator(MeasureAggregator.SUM);
-        measureNumeric.setName("Measure1-Numeric");
-        measureNumeric.setDataType(ColumnDataType.NUMERIC);
-        measureNumeric.setColumn(valueColumn);
+        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure.setAggregator(MeasureAggregator.SUM);
+        measure.setName("Measure1");
+        measure.setColumn(valueColumn);
+        measure.setFormatString("Standard");
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll(List.of(measureInteger, measureNumeric));
+        measureGroup.getMeasures().addAll(List.of(measure));
+
+        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        calculatedMemberProperty.setName("FORMAT_STRING");
+        calculatedMemberProperty.setValue("$#,##0.00");
+
+        CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember1.setName("CM1");
+        calculatedMember1.setId("CM1");
+        calculatedMember1.setFormula("[Measures].[Measure1] + [Measures].[Measure1]");
+        calculatedMember1.getCalculatedMemberProperties().add(calculatedMemberProperty);
+
+        CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
+        cellFormatter.setRef("mondrian.rolap.format.CellFormatterImpl");
+
+        CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember2.setName("CM2");
+        calculatedMember2.setId("CM2");
+        calculatedMember2.setFormula("[Measures].[Measure1] + [Measures].[Measure1]");
+        calculatedMember2.setCellFormatter(cellFormatter);
+
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE_NAME);
         cube.setId(CUBE_NAME);
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
+        cube.getCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2));
 
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Cube_With_Measures_Of_Different_Datatypes");
-        schema.setDescription("Schema of a minimal cube containing the same measurement with two different data types");
+        schema.setName("Minimal_Cube_With_CalculatedMember_CellFormatter");
+        schema.setDescription("Schema of a minimal cube with CellFormatter with class name");
         schema.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
@@ -111,7 +113,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema of a minimal cube containing the same measurement with two different data types");
+        documentation.setValue("Catalog with schema of a minimal cube with CellFormatter with class name");
         catalog.setDocumentation(documentation);
         return catalog;
 
