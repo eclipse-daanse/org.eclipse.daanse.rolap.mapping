@@ -68,31 +68,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         keyColumn.setType("VARCHAR");
 
         Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("VALUE");
-        keyColumn.setId("Fact_VALUE");
-        keyColumn.setType("INTEGER");
+        valueColumn.setName("VALUE");
+        valueColumn.setId("Fact_VALUE");
+        valueColumn.setType("INTEGER");
 
         Column l1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("L1");
-        keyColumn.setId("Fact_L1");
-        keyColumn.setType("VARCHAR");
-        keyColumn.setColumnSize(100);
+        l1Column.setName("L1");
+        l1Column.setId("Fact_L1");
+        l1Column.setType("VARCHAR");
+        l1Column.setColumnSize(100);
 
         Column l2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("L2");
-        keyColumn.setId("Fact_L2");
-        keyColumn.setType("INTEGER");
+        l2Column.setName("L2");
+        l2Column.setId("Fact_L2");
+        l2Column.setType("INTEGER");
 
         Column prop1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("prop1");
-        keyColumn.setId("Fact_prop1");
-        keyColumn.setType("VARCHAR");
-        keyColumn.setColumnSize(100);
+        prop1Column.setName("prop1");
+        prop1Column.setId("Fact_prop1");
+        prop1Column.setType("VARCHAR");
+        prop1Column.setColumnSize(100);
 
         Column prop2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("prop2");
-        keyColumn.setId("Fact_prop2");
-        keyColumn.setType("INTEGER");
+        prop2Column.setName("prop2");
+        prop2Column.setId("Fact_prop2");
+        prop2Column.setType("INTEGER");
 
         PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
