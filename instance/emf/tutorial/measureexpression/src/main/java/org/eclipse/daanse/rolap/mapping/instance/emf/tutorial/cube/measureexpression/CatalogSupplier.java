@@ -54,14 +54,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         keyColumn.setType("VARCHAR");
 
         Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("VALUE");
-        keyColumn.setId("Fact_VALUE");
-        keyColumn.setType("INTEGER");
+        valueColumn.setName("VALUE");
+        valueColumn.setId("Fact_VALUE");
+        valueColumn.setType("INTEGER");
 
         Column valueNumericColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        keyColumn.setName("VALUE_NUMERIC");
-        keyColumn.setId("Fact_VALUE_NUMERIC");
-        keyColumn.setType("NUMERIC");
+        valueNumericColumn.setName("VALUE_NUMERIC");
+        valueNumericColumn.setId("Fact_VALUE_NUMERIC");
+        valueNumericColumn.setType("NUMERIC");
 
         PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
