@@ -36,5 +36,6 @@
     <module>hierarchywithview</module>
     <module>virtualcube</module>
     <module>namedset</module>
+    <module>aggregatetables</module>
   </modules>
 </project>
