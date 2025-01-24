@@ -21,5 +21,22 @@
   <packaging>pom</packaging>
   <modules>
     <module>minimal</module>
+    <module>inlinetable</module>
+    <module>dimensionwithlevel</module>
+    <module>dimensionwithmultylevels</module>
+    <module>dimensionwithlevelexpressions</module>
+    <module>differentaggregators</module>
+    <module>differentdatatypes</module>
+    <module>measureformats</module>
+    <module>cellformatter</module>
+    <module>calculatedmember</module>
+    <module>calculatedmemberformatter</module>
+    <module>measureexpression</module>
+    <module>timedimension</module>
+    <module>hierarchywithview</module>
+    <module>virtualcube</module>
+    <module>namedset</module>
+    <module>aggregatetables</module>
+    <module>kpiminimal</module>
   </modules>
 </project>
