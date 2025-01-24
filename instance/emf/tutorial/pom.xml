@@ -37,5 +37,6 @@
     <module>virtualcube</module>
     <module>namedset</module>
     <module>aggregatetables</module>
+    <module>kpiminimal</module>
   </modules>
 </project>
