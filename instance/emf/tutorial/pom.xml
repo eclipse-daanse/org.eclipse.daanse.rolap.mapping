@@ -35,5 +35,6 @@
     <module>timedimension</module>
     <module>hierarchywithview</module>
     <module>virtualcube</module>
+    <module>namedset</module>
   </modules>
 </project>
