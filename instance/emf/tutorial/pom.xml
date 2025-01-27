@@ -39,5 +39,7 @@
     <module>aggregatetables</module>
     <module>kpiminimal</module>
     <module>kpivirtualcube</module>
+    <module>writebacktable</module>
+    <module>writebackinlinetable</module>
   </modules>
 </project>
