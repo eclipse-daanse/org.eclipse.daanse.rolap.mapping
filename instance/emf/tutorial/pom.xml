@@ -26,6 +26,8 @@
     <module>dimensionwithmultylevels</module>
     <module>dimensionwithlevelexpressions</module>
     <module>dimensionwithlevelwithproperties</module>
+    <module>dimensionwithlevelwithparentchild</module>
+    <module>dimensionwithfunctionaldependencyoptimization</module>
     <module>differentaggregators</module>
     <module>differentdatatypes</module>
     <module>measureformats</module>
