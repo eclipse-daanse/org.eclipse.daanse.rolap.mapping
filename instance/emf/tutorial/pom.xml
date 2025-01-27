@@ -25,6 +25,7 @@
     <module>dimensionwithlevel</module>
     <module>dimensionwithmultylevels</module>
     <module>dimensionwithlevelexpressions</module>
+    <module>dimensionwithlevelwithproperties</module>
     <module>differentaggregators</module>
     <module>differentdatatypes</module>
     <module>measureformats</module>
