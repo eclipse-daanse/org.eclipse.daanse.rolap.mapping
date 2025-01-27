@@ -85,15 +85,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Row r1 = RelationalDatabaseFactory.eINSTANCE.createRow();
         r1.getRowValues().addAll(List.of(r1V1, r1V2, r1V3));
 
-/*
-<Rows>
-        <Row>
-          <Value column="VAL">60</Value>
-          <Value column="VAL1">30</Value>
-          <Value column="L2">Level55</Value>
-        </Row>
-      </Rows>
- */
+        /*
+         * <Rows> <Row> <Value column="VAL">60</Value> <Value column="VAL1">30</Value>
+         * <Value column="L2">Level55</Value> </Row> </Rows>
+         */
         Row r2 = RelationalDatabaseFactory.eINSTANCE.createRow();
         RowValue r2V1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
         r2V1.setColumn(valColumn);
@@ -146,7 +141,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
-        table.getRows().addAll(List.of(r1,r2,r3,r4,r5));
+        table.getRows().addAll(List.of(r1, r2, r3, r4, r5));
         databaseSchema.getTables().add(table);
 
         Column l1L1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
@@ -210,7 +205,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalTable factwbTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         factwbTable.setName("FACTWB");
         factwbTable.setId("FACTWB");
-        factwbTable.getColumns().addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
+        factwbTable.getColumns()
+                .addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
         databaseSchema.getTables().add(factwbTable);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -285,7 +281,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure2");
         writebackMeasure1.setColumn(val1Column);
-
 
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName("FACTWB");
