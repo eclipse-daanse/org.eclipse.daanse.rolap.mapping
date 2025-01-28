@@ -47,5 +47,6 @@
     <module>writebacktable</module>
     <module>writebackinlinetable</module>
     <module>writebackview</module>
+    <module>drillthroughaction</module>
   </modules>
 </project>
