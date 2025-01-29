@@ -42,6 +42,7 @@
     <module>hierarchywithinnerjoin</module>
     <module>hierarchywithinnertable</module>
     <module>virtualcube</module>
+    <module>virtualcubedimensions</module>
     <module>namedset</module>
     <module>aggregatetables</module>
     <module>kpiminimal</module>
