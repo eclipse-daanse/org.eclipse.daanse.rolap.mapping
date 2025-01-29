@@ -17,5 +17,5 @@
     <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.calculatedmember</artifactId>
 </project>

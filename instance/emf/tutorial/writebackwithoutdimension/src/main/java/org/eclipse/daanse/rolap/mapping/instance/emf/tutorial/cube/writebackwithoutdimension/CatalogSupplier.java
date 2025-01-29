@@ -33,7 +33,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackTable;
 import org.osgi.service.component.annotations.Component;
 
-@Component(service = CatalogSupplier.class)
+@Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "C";
@@ -149,6 +149,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("Catalog with schema with writeback without dimension");
         catalog.setDocumentation(documentation);

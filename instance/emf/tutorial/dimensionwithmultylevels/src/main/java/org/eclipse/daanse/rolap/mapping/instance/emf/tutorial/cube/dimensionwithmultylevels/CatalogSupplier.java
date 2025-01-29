@@ -37,7 +37,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
-@Component(service = CatalogSupplier.class)
+@Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "Cube";
@@ -167,6 +167,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("catalog with schema of a minimal cube with dimension with multy level with property");
         catalog.setDocumentation(documentation);

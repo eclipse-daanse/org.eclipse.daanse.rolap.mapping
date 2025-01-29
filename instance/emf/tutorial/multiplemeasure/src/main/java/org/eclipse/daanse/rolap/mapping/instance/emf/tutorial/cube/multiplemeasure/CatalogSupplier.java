@@ -104,6 +104,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("Catalog with schema of a minimal cube with two measures");
         catalog.setDocumentation(documentation);

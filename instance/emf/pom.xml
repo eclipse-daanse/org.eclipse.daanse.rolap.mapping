@@ -24,6 +24,7 @@
   <modules>
     <module>complex</module>
     <module>tutorial</module>
+    <module>serializer</module>
   </modules>
 
   <dependencies>

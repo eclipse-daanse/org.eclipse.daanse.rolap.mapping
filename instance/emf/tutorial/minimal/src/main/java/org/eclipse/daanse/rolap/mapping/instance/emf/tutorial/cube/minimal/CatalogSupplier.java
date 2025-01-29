@@ -88,12 +88,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         schema.setName("01_Minimal_Cube_With_One_Measure");
         schema.setDescription("Schema of a minimal cube containing only one measurement but no other dimensions");
         schema.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
+//        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
+//        schemaDocumentation.setValue(schemaDocumentationTxt);
+//        schema.setDocumentation(schemaDocumentation);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("catalog with schema with a minimal cube");
         catalog.setDocumentation(documentation);

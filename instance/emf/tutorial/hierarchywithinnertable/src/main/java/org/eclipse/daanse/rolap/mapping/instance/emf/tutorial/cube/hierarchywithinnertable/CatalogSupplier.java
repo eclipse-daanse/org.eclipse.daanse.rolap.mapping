@@ -188,6 +188,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
+
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("Catalog with schema with hierarchy with table reference with inner table");
         catalog.setDocumentation(documentation);
