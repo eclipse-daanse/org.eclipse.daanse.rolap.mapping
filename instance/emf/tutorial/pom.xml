@@ -40,6 +40,7 @@
     <module>timedimension</module>
     <module>hierarchywithview</module>
     <module>hierarchywithinnerjoin</module>
+    <module>hierarchywithinnertable</module>
     <module>virtualcube</module>
     <module>namedset</module>
     <module>aggregatetables</module>
