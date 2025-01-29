@@ -34,7 +34,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.osgi.service.component.annotations.Component;
 
-@Component(service = CatalogSupplier.class)
+@Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE1 = "Cube1";
@@ -145,6 +145,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getSchemas().add(schema);
+        catalog.getDbschemas().add(databaseSchema);
+
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("catalog with schema of a minimal virtual cube with measures");
         catalog.setDocumentation(documentation);
