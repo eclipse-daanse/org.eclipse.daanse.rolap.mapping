@@ -39,6 +39,7 @@
     <module>measureexpression</module>
     <module>timedimension</module>
     <module>hierarchywithview</module>
+    <module>hierarchywithinnerjoin</module>
     <module>virtualcube</module>
     <module>namedset</module>
     <module>aggregatetables</module>
