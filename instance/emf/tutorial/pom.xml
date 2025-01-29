@@ -49,6 +49,7 @@
     <module>kpiminimal</module>
     <module>kpivirtualcube</module>
     <module>writebacktable</module>
+    <module>writebackwithoutdimension</module>
     <module>writebackinlinetable</module>
     <module>writebackview</module>
     <module>drillthroughaction</module>
