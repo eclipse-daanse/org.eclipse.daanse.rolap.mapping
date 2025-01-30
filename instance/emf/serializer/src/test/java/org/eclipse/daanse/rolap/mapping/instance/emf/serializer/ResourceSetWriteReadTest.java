@@ -89,7 +89,8 @@ public class ResourceSetWriteReadTest {
     private void serializeCatalog(ResourceSet resourceSet, CatalogMappingSupplier catalogMappingSupplier)
             throws IOException {
 
-        String name = "" + System.currentTimeMillis();
+        CatalogMapping catalogMapping = catalogMappingSupplier.get();
+        String name = "" + catalogMapping.getName();
         Path baseDir = Files.createDirectories(tempDir.resolve(name));
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
