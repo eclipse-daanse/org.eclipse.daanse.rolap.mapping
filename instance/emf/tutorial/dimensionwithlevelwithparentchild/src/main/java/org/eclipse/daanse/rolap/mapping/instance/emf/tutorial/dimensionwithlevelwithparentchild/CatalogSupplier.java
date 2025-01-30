@@ -139,7 +139,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         TableQuery employeeClosureQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setTable(employeeClosureTable);
+        employeeClosureQuery.setTable(employeeClosureTable);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
@@ -172,7 +172,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MemberProperty propEducationLevel = RolapMappingFactory.eINSTANCE.createMemberProperty();
         propEducationLevel.setName("Education Level");
         propEducationLevel.setId("EducationLevel");
-        propEducationLevel.setColumn(salaryColumn);
+        propEducationLevel.setColumn(educationLevelColumn);
 
         MemberProperty propManagementRole = RolapMappingFactory.eINSTANCE.createMemberProperty();
         propManagementRole.setName("Management Role");
@@ -208,8 +208,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.setName("Employees");
         dimension.getHierarchies().add(hierarchy);
 
+
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Employees");
+        dimensionConnector.setForeignKey(employeeIdColumn);
         dimensionConnector.setDimension(dimension);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();

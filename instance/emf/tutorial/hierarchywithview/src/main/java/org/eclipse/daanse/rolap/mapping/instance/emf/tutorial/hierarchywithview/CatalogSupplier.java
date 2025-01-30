@@ -101,12 +101,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         htValueColumn.setType("INTEGER");
 
         PhysicalTable htTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
-        table.setName("HT");
-        table.setId("HT");
-        table.getColumns().addAll(List.of(keyColumn, nameColumn, htValueColumn));
+        htTable.setName("HT");
+        htTable.setId("HT");
+        htTable.getColumns().addAll(List.of(keyColumn, nameColumn, htValueColumn));
         databaseSchema.getTables().add(htTable);
-
-        databaseSchema.getTables().add(table);
 
         SqlStatement sqlStatement = RelationalDatabaseFactory.eINSTANCE.createSqlStatement();
         sqlStatement.getDialects().addAll(List.of("generic", "h2"));

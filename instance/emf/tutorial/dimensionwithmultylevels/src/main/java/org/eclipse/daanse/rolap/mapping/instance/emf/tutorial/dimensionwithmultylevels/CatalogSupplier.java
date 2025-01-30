@@ -125,13 +125,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         memberProperty2.setPropertyType(ColumnDataType.INTEGER);
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
-        level1.setName("Level");
+        level1.setName("Level1");
         level1.setId("Level1");
         level1.getMemberProperties().add(memberProperty1);
         level1.setColumn(l1Column);
 
         Level level2 = RolapMappingFactory.eINSTANCE.createLevel();
-        level2.setName("Level");
+        level2.setName("Level2");
         level2.setId("Level2");
         level2.getMemberProperties().add(memberProperty2);
         level2.setColumn(l2Column);
