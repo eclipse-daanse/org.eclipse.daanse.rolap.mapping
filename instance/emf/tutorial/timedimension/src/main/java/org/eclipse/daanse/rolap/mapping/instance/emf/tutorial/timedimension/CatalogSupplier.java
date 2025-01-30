@@ -172,7 +172,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelDay.setId("Day");
         levelDay.setColumn(dayInMonthColumn);
         levelDay.setType(LevelDefinition.TIME_DAYS);
-        levelMonths.setColumnType(ColumnDataType.NUMERIC);
+        levelDay.setColumnType(ColumnDataType.NUMERIC);
         levelDay.setUniqueMembers(false);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();

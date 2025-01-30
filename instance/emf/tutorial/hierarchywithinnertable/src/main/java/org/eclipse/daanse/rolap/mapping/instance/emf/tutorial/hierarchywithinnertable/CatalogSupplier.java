@@ -28,6 +28,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
@@ -139,8 +140,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
         query.setTable(table);
 
-        TableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setTable(inlineTable);
+        InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
+        inlineTableQuery.setTable(inlineTable);
+        inlineTableQuery.setAlias("HT");
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);

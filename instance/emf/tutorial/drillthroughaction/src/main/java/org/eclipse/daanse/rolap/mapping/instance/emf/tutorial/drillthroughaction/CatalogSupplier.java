@@ -146,6 +146,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TableQuery hxL2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
         hxL2Query.setTable(hxL2table);
 
+        TableQuery hxL2Query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        hxL2Query1.setTable(hxL2table);
+
         TableQuery h1L1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
         h1L1Query.setTable(h1L1table);
 
@@ -165,12 +168,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         join1.setRight(join1Right);
 
         JoinedQueryElement join2Left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        join1Left.setKey(hxL2H2L1KeyColumn);
-        join1Left.setQuery(hxL2Query);
+        join2Left.setKey(hxL2H2L1KeyColumn);
+        join2Left.setQuery(hxL2Query1);
 
         JoinedQueryElement join2Right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        join1Right.setKey(h2L1KeyColumn);
-        join1Right.setQuery(h2L1Query);
+        join2Right.setKey(h2L1KeyColumn);
+        join2Right.setQuery(h2L1Query);
 
         JoinQuery join2 = RolapMappingFactory.eINSTANCE.createJoinQuery();
         join2.setLeft(join2Left);

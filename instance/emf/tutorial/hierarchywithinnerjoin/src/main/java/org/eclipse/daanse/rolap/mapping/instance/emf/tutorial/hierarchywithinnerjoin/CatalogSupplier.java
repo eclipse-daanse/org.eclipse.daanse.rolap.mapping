@@ -125,10 +125,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         TableQuery level1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setTable(level1Table);
+        level1Query.setTable(level1Table);
 
         TableQuery level2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setTable(level2Table);
+        level2Query.setTable(level2Table);
 
         JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
         left.setKey(l2L1KeyColumn);

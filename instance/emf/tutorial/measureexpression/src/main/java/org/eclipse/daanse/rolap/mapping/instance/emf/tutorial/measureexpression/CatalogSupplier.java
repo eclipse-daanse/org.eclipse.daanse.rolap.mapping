@@ -97,7 +97,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SQL sql1 = RolapMappingFactory.eINSTANCE.createSQL();
         sql1.getDialects().addAll(List.of("generic", "h2"));
         sql1.setStatement(
-                "select sum(\"MEASURE_TABLE\".\"VALUE\") from \"MEASURE_TABLE\" where \"MEASURE_TABLE\".\"FLAG\" = 1)");
+                "(select sum(\"MEASURE_TABLE\".\"VALUE\") from \"MEASURE_TABLE\" where \"MEASURE_TABLE\".\"FLAG\" = 1)");
 
         SQL sql2 = RolapMappingFactory.eINSTANCE.createSQL();
         sql2.getDialects().addAll(List.of("generic", "h2"));

@@ -99,7 +99,7 @@ public class ResourceSetWriteReadTest {
 
         if (e != null) {
 
-            if (e.hasMoreElements()) {
+            while (e.hasMoreElements()) {
 
                 URL csvFile = e.nextElement();
                 Path p = baseDir.resolve(csvFile.getPath().substring(1));

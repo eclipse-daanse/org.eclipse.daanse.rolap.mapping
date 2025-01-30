@@ -24,13 +24,13 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
@@ -64,7 +64,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType("VARCHAR");
+        keyColumn.setType("String");
 
         Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
@@ -76,8 +76,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         rowValue1.setValue("A");
 
         RowValue rowValue2 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
-        rowValue1.setColumn(valueColumn);
-        rowValue1.setValue("100.5");
+        rowValue2.setColumn(valueColumn);
+        rowValue2.setValue("100.5");
 
         Row row = RelationalDatabaseFactory.eINSTANCE.createRow();
         row.getRowValues().addAll(List.of(rowValue1, rowValue2));
@@ -90,7 +90,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         databaseSchema.getTables().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        InlineTableQuery query = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
+        query.setAlias(FACT);
         query.setTable(table);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();

@@ -69,12 +69,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column key2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
         key2Column.setName("KEY");
-        key2Column.setId("C1_Fact_KEY");
+        key2Column.setId("C2_Fact_KEY");
         key2Column.setType("VARCHAR");
 
         Column value2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
         value2Column.setName("VALUE");
-        value2Column.setId("C1_Fact_VALUE");
+        value2Column.setId("C2_Fact_VALUE");
         value2Column.setType("INTEGER");
 
         PhysicalTable c2Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
@@ -114,10 +114,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube1.getMeasureGroups().add(measureGroup1);
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube1.setName(CUBE2);
-        cube1.setId(CUBE2);
-        cube1.setQuery(query2);
-        cube1.getMeasureGroups().add(measureGroup2);
+        cube2.setName(CUBE2);
+        cube2.setId(CUBE2);
+        cube2.setQuery(query2);
+        cube2.getMeasureGroups().add(measureGroup2);
 
         CubeConnector cubeConnector1 = RolapMappingFactory.eINSTANCE.createCubeConnector();
         cubeConnector1.setCube(cube1);

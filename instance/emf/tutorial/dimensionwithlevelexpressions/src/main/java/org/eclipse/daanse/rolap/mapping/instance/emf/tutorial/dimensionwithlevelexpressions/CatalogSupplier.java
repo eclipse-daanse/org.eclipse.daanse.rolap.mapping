@@ -105,6 +105,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("Level1");
         level1.setId("Level1");
+        level1.setColumn(keyColumn);
         level1.setNameExpression(nameExpression);
 
         SQL keySql1 = RolapMappingFactory.eINSTANCE.createSQL();
@@ -138,7 +139,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setName("Level2");
         level2.setId("Level2");
         level2.setKeyExpression(keyExpression);
-        level2.setKeyExpression(captionExpression);
+        level2.setCaptionExpression(captionExpression);
         level2.setOrdinalExpression(ordinalExpression);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
@@ -146,7 +147,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setName("HierarchyWithHasAll");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
-        hierarchy.getLevels().add(level1);
+        hierarchy.getLevels().addAll(List.of(level1, level2));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension");

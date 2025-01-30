@@ -69,8 +69,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setTable(table);
+        TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setTable(table);
+
+        TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query2.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
@@ -100,7 +103,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setHasAll(false);
         hierarchy.setName("HierarchyWithoutHasAll");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setQuery(query1);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
@@ -113,24 +116,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector1.setDimension(dimension);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setOverrideDimensionName("Cube2Dimension1");
-        dimensionConnector1.setForeignKey(keyColumn);
-        dimensionConnector1.setDimension(dimension);
+        dimensionConnector2.setOverrideDimensionName("Cube2Dimension1");
+        dimensionConnector2.setForeignKey(keyColumn);
+        dimensionConnector2.setDimension(dimension);
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
         cube1.setId(CUBE1);
-        cube1.setQuery(query);
+        cube1.setQuery(query1);
         cube1.getDimensionConnectors().add(dimensionConnector1);
         cube1.getMeasureGroups().add(measureGroup1);
         dimensionConnector1.setPhysicalCube(cube1);
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube1.setName(CUBE2);
-        cube1.setId(CUBE2);
-        cube1.setQuery(query);
-        cube1.getDimensionConnectors().add(dimensionConnector2);
-        cube1.getMeasureGroups().add(measureGroup2);
+        cube2.setName(CUBE2);
+        cube2.setId(CUBE2);
+        cube2.setQuery(query2);
+        cube2.getDimensionConnectors().add(dimensionConnector2);
+        cube2.getMeasureGroups().add(measureGroup2);
         dimensionConnector2.setPhysicalCube(cube2);
 
         VirtualCube vCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
