@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationColumnName;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationLevel;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationName;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
@@ -123,9 +124,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(productClassProductClassIdColumn, productClassProductFamileColumn));
         databaseSchema.getTables().add(productClassTable);
 
-        // PRODUCT_ID,STORE_COST_SUM,FACT_COUNT
-        // INTEGER,DECIMAL(10.4),INTEGER
-
         Column aggCSpecialSalesFact1997ProductIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997ProductIdColumn.setName("PRODUCT_ID");
         aggCSpecialSalesFact1997ProductIdColumn.setId("aggCSpecialSalesFact1997_PRODUCT_ID");
@@ -143,10 +141,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         aggCSpecialSalesFact1997FactCountColumn.setId("aggCSpecialSalesFact1997_FACT_COUNT");
         aggCSpecialSalesFact1997FactCountColumn.setType("INTEGER");
 
+        //PRODUCT_ID,STORE_COST_SUM,FACT_COUNT
+        //INTEGER,DECIMAL(10.4),INTEGER
+
         PhysicalTable aggCSpecialSalesFact1997Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         aggCSpecialSalesFact1997Table.setName("AGG_C_SPECIAL_SALES_FACT_1997");
         aggCSpecialSalesFact1997Table.setId("AGG_C_SPECIAL_SALES_FACT_1997");
-        productClassTable.getColumns().addAll(List.of(aggCSpecialSalesFact1997ProductIdColumn,
+        aggCSpecialSalesFact1997Table.getColumns().addAll(List.of(aggCSpecialSalesFact1997ProductIdColumn,
                 aggCSpecialSalesFact1997StoreCostSumColumn, aggCSpecialSalesFact1997FactCountColumn));
         databaseSchema.getTables().add(aggCSpecialSalesFact1997Table);
 
@@ -169,10 +170,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         aggregationMeasure.setName("[Measures].[Store Cost]");
         aggregationMeasure.setColumn(aggCSpecialSalesFact1997StoreCostSumColumn);
 
-        // AggregationLevel aggregationLevel =
-        // RolapMappingFactory.eINSTANCE.createAggregationLevel();
-        // aggregationLevel.setName("[Product].[Product Family]");
-        // aggregationLevel.setColumn(productClassProductFamileColumn);//??
+        AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
+        aggregationLevel.setName("[Product].[Product Family]");
+        aggregationLevel.setColumn(productClassProductFamileColumn);//??
 
         AggregationExclude aggregationExclude1 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude1.setName("AGG_C_14_SALES_FACT_1997");
@@ -183,7 +183,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         aggregationName.setName(aggCSpecialSalesFact1997Table);
         aggregationName.setAggregationFactCount(aggregationColumnName);
         aggregationName.getAggregationMeasures().add(aggregationMeasure);
-        // aggregationName.getAggregationLevels().add(aggregationLevel);
+        aggregationName.getAggregationLevels().add(aggregationLevel);
 
         TableQuery productQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
         productQuery.setTable(productTable);

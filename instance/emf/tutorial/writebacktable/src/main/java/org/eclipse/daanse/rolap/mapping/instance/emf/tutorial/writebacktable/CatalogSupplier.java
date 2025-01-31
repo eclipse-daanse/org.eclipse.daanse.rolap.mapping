@@ -78,16 +78,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Column l1L1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("L1");
-        l2Column.setId("L1_L1");
-        l2Column.setType("VARCHAR");
-        l2Column.setColumnSize(100);
+        l1L1Column.setName("L1");
+        l1L1Column.setId("L1_L1");
+        l1L1Column.setType("VARCHAR");
+        l1L1Column.setColumnSize(100);
 
         Column l1L2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("L2");
-        l2Column.setId("L1_L2");
-        l2Column.setType("VARCHAR");
-        l2Column.setColumnSize(100);
+        l1L2Column.setName("L2");
+        l1L2Column.setId("L1_L2");
+        l1L2Column.setType("VARCHAR");
+        l1L2Column.setColumnSize(100);
 
         PhysicalTable l1Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         l1Table.setName("L1");
@@ -102,9 +102,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         l2L2Column.setColumnSize(100);
 
         PhysicalTable l2Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
-        l1Table.setName("L2");
-        l1Table.setId("L2");
-        l1Table.getColumns().addAll(List.of(l2L2Column));
+        l2Table.setName("L2");
+        l2Table.setId("L2");
+        l2Table.getColumns().addAll(List.of(l2L2Column));
         databaseSchema.getTables().add(l2Table);
 
         Column factwbValColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
@@ -183,7 +183,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level l2Level = RolapMappingFactory.eINSTANCE.createLevel();
         l2Level.setName("L2");
-        l2Level.setId("L1Level");
+        l2Level.setId("L2Level");
         l2Level.setColumn(l2L2Column);
         l2Level.setTable(l2Table);
 
