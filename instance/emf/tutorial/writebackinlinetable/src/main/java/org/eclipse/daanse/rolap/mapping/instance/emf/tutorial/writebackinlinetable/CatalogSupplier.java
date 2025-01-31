@@ -27,6 +27,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -68,9 +69,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         val1Column.setType("INTEGER");
 
         Column l2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("VALUE");
-        l2Column.setId("Fact_VALUE");
-        l2Column.setType("VARCHAR");
+        l2Column.setName("L2");
+        l2Column.setId("Fact_L2");
+        l2Column.setType("String");
         l2Column.setColumnSize(100);
 
         RowValue r1V1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
@@ -141,16 +142,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Column l1L1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("L1");
-        l2Column.setId("L1_L1");
-        l2Column.setType("VARCHAR");
-        l2Column.setColumnSize(100);
+        l1L1Column.setName("L1");
+        l1L1Column.setId("L1_L1");
+        l1L1Column.setType("VARCHAR");
+        l1L1Column.setColumnSize(100);
 
         Column l1L2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("L2");
-        l2Column.setId("L1_L2");
-        l2Column.setType("VARCHAR");
-        l2Column.setColumnSize(100);
+        l1L2Column.setName("L2");
+        l1L2Column.setId("L1_L2");
+        l1L2Column.setType("VARCHAR");
+        l1L2Column.setColumnSize(100);
 
         PhysicalTable l1Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
         l1Table.setName("L1");
@@ -165,9 +166,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         l2L2Column.setColumnSize(100);
 
         PhysicalTable l2Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
-        l1Table.setName("L2");
-        l1Table.setId("L2");
-        l1Table.getColumns().addAll(List.of(l2L2Column));
+        l2Table.setName("L2");
+        l2Table.setId("L2");
+        l2Table.getColumns().addAll(List.of(l2L2Column));
         databaseSchema.getTables().add(l2Table);
 
         Column factwbValColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
@@ -205,8 +206,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
         databaseSchema.getTables().add(factwbTable);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        InlineTableQuery query = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
         query.setTable(table);
+        query.setAlias(FACT);
 
         TableQuery l1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
         l1Query.setTable(l1Table);
@@ -245,7 +247,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level l2Level = RolapMappingFactory.eINSTANCE.createLevel();
         l2Level.setName("L2");
-        l2Level.setId("L1Level");
+        l2Level.setId("L2Level");
         l2Level.setColumn(l2L2Column);
         l2Level.setTable(l2Table);
 
@@ -264,7 +266,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("D1");
         dimensionConnector.setDimension(dimension);
-        dimensionConnector.setForeignKey(l1L2Column);
+        dimensionConnector.setForeignKey(l2Column);
 
         WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
         writebackAttribute.setDimension(dimension);
@@ -275,8 +277,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         writebackMeasure1.setColumn(valColumn);
 
         WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure1.setName("Measure2");
-        writebackMeasure1.setColumn(val1Column);
+        writebackMeasure2.setName("Measure2");
+        writebackMeasure2.setColumn(val1Column);
 
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName("FACTWB");
