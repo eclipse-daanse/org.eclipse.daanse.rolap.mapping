@@ -265,12 +265,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("D1");
+        dimensionConnector.setId("D1");
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(l2Column);
 
         WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
-        writebackAttribute.setDimension(dimension);
-        writebackAttribute.setColumn(l1L1Column);
+        writebackAttribute.setDimensionConnector(dimensionConnector);
+        writebackAttribute.setColumn(l2Column);
 
         WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure1");

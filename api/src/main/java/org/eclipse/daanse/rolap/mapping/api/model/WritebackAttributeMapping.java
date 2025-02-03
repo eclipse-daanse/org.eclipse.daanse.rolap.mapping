@@ -18,6 +18,6 @@ public interface WritebackAttributeMapping {
 
     Column getColumn();
 
-    DimensionMapping getDimension();
+    DimensionConnectorMapping getDimensionConnector();
 
 }
