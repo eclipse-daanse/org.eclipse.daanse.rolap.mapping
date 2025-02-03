@@ -856,7 +856,7 @@ public class TransformTask {
             Optional<DimensionConnectorMappingImpl> oDimC = dimensionConnectors.stream()
                 .filter(dc -> dc.getOverrideDimensionName().equals(writebackAttribute.dimension()))
                 .findAny();
-            oDimC.ifPresent(d -> wba.setDimension(d.getDimension()));
+            oDimC.ifPresent(dc -> wba.setDimensionConnector(dc));
         }
         return wba;
     }

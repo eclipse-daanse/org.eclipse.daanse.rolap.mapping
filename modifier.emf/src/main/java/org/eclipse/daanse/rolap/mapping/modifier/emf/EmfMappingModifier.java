@@ -796,10 +796,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionMapping dimension) {
+    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionConnectorMapping dimensionConnector) {
         WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
         writebackAttribute.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column)column);
-        writebackAttribute.setDimension((Dimension) dimension);
+        writebackAttribute.setDimensionConnector((DimensionConnector) dimensionConnector);
         return writebackAttribute;
     }
 

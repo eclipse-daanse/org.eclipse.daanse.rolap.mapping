@@ -405,8 +405,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="WritebackAttribute" eSuperTypes="#//IWritebackAttribute">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
-        eType="#//Dimension"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnector" lowerBound="1"
+        eType="#//DimensionConnector"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure" eSuperTypes="#//IWritebackMeasure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"

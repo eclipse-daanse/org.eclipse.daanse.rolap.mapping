@@ -19,11 +19,11 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
 
     private Column column;
 
-    private DimensionMappingImpl dimension;
+    private DimensionConnectorMappingImpl dimensionConnector;
 
     private WritebackAttributeMappingImpl(Builder builder) {
         this.column = builder.column;
-        this.dimension = builder.dimension;
+        this.dimensionConnector = builder.dimensionConnector;
     }
 
     public Column getColumn() {
@@ -34,12 +34,12 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
         this.column = column;
     }
 
-    public DimensionMappingImpl getDimension() {
-        return dimension;
+    public DimensionConnectorMappingImpl getDimensionConnector() {
+        return dimensionConnector;
     }
 
-    public void setDimension(DimensionMappingImpl dimension) {
-        this.dimension = dimension;
+    public void setDimensionConnector(DimensionConnectorMappingImpl dimensionConnector) {
+        this.dimensionConnector = dimensionConnector;
     }
 
     public static Builder builder() {
@@ -48,7 +48,7 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
 
     public static final class Builder {
         private Column column;
-        private DimensionMappingImpl dimension;
+        private DimensionConnectorMappingImpl dimensionConnector;
 
         private Builder() {
         }
@@ -58,8 +58,8 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
             return this;
         }
 
-        public Builder withDimension(DimensionMappingImpl dimension) {
-            this.dimension = dimension;
+        public Builder withDimensionConnector(DimensionConnectorMappingImpl dimensionConnector) {
+            this.dimensionConnector = dimensionConnector;
             return this;
         }
 

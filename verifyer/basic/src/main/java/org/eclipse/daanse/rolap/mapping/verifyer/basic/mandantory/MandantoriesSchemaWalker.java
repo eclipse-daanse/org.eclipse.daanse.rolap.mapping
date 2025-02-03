@@ -929,23 +929,23 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     protected void checkWritebackAttribute(WritebackAttributeMapping writebackAttribute, PhysicalCubeMapping cube) {
         super.checkWritebackAttribute(writebackAttribute, cube);
         if (writebackAttribute != null) {
-            if (writebackAttribute.getDimension() == null) {
+            if (writebackAttribute.getDimensionConnector() == null) {
                 results.add(new VerificationResultR(WRITEBACK_ATTRIBUTE, WRITEBACK_ATTRIBUTE_DIMENSION_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             } else {
-                if (!cube.getDimensionConnectors().stream().anyMatch(dc -> dc.getDimension().equals(writebackAttribute.getDimension()))) {
-                    String msg = String.format(DIMENSION_WITH_NAME_ABSENT_IN_CUBE, orNotSet(writebackAttribute.getDimension().getName()), orNotSet(cube.getName()));
+                if (!cube.getDimensionConnectors().stream().anyMatch(dc -> dc.getDimension().equals(writebackAttribute.getDimensionConnector()))) {
+                    String msg = String.format(DIMENSION_WITH_NAME_ABSENT_IN_CUBE, orNotSet(writebackAttribute.getDimensionConnector().getOverrideDimensionName()), orNotSet(cube.getName()));
                     results.add(new VerificationResultR(WRITEBACK_ATTRIBUTE, msg,
                         ERROR, Cause.SCHEMA));
                 } else {
                     if (writebackAttribute.getColumn() != null) {
-                        Optional<? extends DimensionConnectorMapping> oDimensionConnector = cube.getDimensionConnectors().stream().filter(dc -> dc.getDimension().equals(writebackAttribute.getDimension())).findFirst();
+                        Optional<? extends DimensionConnectorMapping> oDimensionConnector = cube.getDimensionConnectors().stream().filter(dc -> dc.equals(writebackAttribute.getDimensionConnector())).findFirst();
                         if (oDimensionConnector.isPresent()) {
                             Column foreignKey = oDimensionConnector.get().getForeignKey();
                             if (!writebackAttribute.getColumn().equals(foreignKey)) {
                                 String msg = String.format(DIMENSION_WITH_NAME_DONT_HAVE_FOREIGN_KEY_IN_DIMENSION_IN_CUBE,
-                                    orNotSet(writebackAttribute.getDimension().getName()), writebackAttribute.getColumn().getName(),
-                                    orNotSet(writebackAttribute.getDimension().getName()), orNotSet(cube.getName()));
+                                    orNotSet(writebackAttribute.getDimensionConnector().getOverrideDimensionName()), writebackAttribute.getColumn().getName(),
+                                    orNotSet(writebackAttribute.getDimensionConnector().getOverrideDimensionName()), orNotSet(cube.getName()));
                                 results.add(new VerificationResultR(WRITEBACK_ATTRIBUTE, msg,
                                     ERROR, Cause.SCHEMA));
                             }

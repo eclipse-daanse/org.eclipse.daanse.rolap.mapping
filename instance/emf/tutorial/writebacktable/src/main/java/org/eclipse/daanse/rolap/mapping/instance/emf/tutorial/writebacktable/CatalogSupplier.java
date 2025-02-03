@@ -66,8 +66,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         val1Column.setType("INTEGER");
 
         Column l2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
-        l2Column.setName("VALUE");
-        l2Column.setId("Fact_VALUE");
+        l2Column.setName("L2");
+        l2Column.setId("Fact_L2");
         l2Column.setType("VARCHAR");
         l2Column.setColumnSize(100);
 
@@ -196,25 +196,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.getLevels().addAll(List.of(l1Level, l2Level));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setName("Dimension");
+        dimension.setName("D1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("D1");
+        dimensionConnector.setId("D1");
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(l1L2Column);
 
         WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
-        writebackAttribute.setDimension(dimension);
-        writebackAttribute.setColumn(l1L1Column);
+        writebackAttribute.setDimensionConnector(dimensionConnector);
+        writebackAttribute.setColumn(l2Column);
 
         WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
         WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure1.setName("Measure2");
-        writebackMeasure1.setColumn(val1Column);
+        writebackMeasure2.setName("Measure2");
+        writebackMeasure2.setColumn(val1Column);
 
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName("FACTWB");

@@ -2408,21 +2408,21 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected WritebackAttributeMapping writebackAttribute(WritebackAttributeMapping writebackAttribute) {
         if (writebackAttribute != null) {
             Column column = writebackAttributeColumn(writebackAttribute);
-            DimensionMapping dimension = writebackAttributeDimension(writebackAttribute);
-            return createWritebackAttribute(column, dimension);
+            DimensionConnectorMapping dimensionConnector = writebackAttributeDimensionConnector(writebackAttribute);
+            return createWritebackAttribute(column, dimensionConnector);
         }
         return null;
     }
 
-    protected DimensionMapping writebackAttributeDimension(WritebackAttributeMapping writebackAttribute) {
-        return dimension(writebackAttribute.getDimension());
+    protected DimensionConnectorMapping writebackAttributeDimensionConnector(WritebackAttributeMapping writebackAttribute) {
+        return dimensionConnector(writebackAttribute.getDimensionConnector());
     }
 
     protected Column writebackAttributeColumn(WritebackAttributeMapping writebackAttribute) {
         return column(writebackAttribute.getColumn());
     }
 
-    protected abstract WritebackAttributeMapping createWritebackAttribute(Column column, DimensionMapping dimension);
+    protected abstract WritebackAttributeMapping createWritebackAttribute(Column column, DimensionConnectorMapping dimension);
 
     protected List<? extends WritebackMeasureMapping> writebackTableWritebackMeasure(
         WritebackTableMapping writebackTable

@@ -1014,10 +1014,10 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionMapping dimension) {
+    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionConnectorMapping dimensionConnector) {
         return WritebackAttributeMappingImpl.builder()
             .withColumn(column)
-            .withDimension((DimensionMappingImpl) dimension)
+            .withDimensionConnector((DimensionConnectorMappingImpl) dimensionConnector)
             .build();
     }
 
