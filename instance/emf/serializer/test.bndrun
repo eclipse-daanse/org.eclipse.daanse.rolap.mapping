@@ -69,6 +69,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiminimal',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureformats',\
@@ -82,7 +83,11 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackinlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebacktable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackview',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackwithoutdimension'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackwithoutdimension',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesscubegrand',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesshierarchygrand',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessschemagrand',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -107,6 +112,10 @@
 	org.eclipse.daanse.rolap.mapping.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesscubegrand;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesshierarchygrand;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessschemagrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.calculatedmember;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter;version='[0.0.1,0.0.2)',\
@@ -124,6 +133,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnertable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiminimal;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression;version='[0.0.1,0.0.2)',\
