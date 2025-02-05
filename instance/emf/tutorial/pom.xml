@@ -47,11 +47,16 @@
     <module>namedset</module>
     <module>aggregatetables</module>
     <module>kpiminimal</module>
+    <module>kpiall</module>
     <module>kpivirtualcube</module>
     <module>writebacktable</module>
     <module>writebackwithoutdimension</module>
     <module>writebackinlinetable</module>
     <module>writebackview</module>
     <module>drillthroughaction</module>
+    <module>accesscubegrand</module>
+    <module>accesshierarchygrand</module>
+    <module>accessschemagrand</module>
+    <module>accessallnonecustom</module>
   </modules>
 </project>
