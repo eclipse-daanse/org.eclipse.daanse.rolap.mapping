@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
+import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 
 public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements TableQueryMapping {
@@ -30,12 +31,18 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
 
     private List<AggregationTableMappingImpl> aggregationTables;
 
+    private DocumentationMappingImpl documentation;
+
+    private String id;
+
     private TableQueryMappingImpl(Builder builder) {
         this.sqlWhereExpression = builder.sqlWhereExpression;
         this.aggregationExcludes = builder.aggregationExcludes;
         this.optimizationHints = builder.optimizationHints;
         this.table = builder.table;
         this.aggregationTables = builder.aggregationTables;
+        this.documentation = builder.documentation;
+        this.id = builder.id;
         super.setAlias(builder.alias);
     }
 
@@ -75,6 +82,24 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         return aggregationTables;
     }
 
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public DocumentationMapping getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(DocumentationMappingImpl documentation) {
+        this.documentation = documentation;
+    }
+
     public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
         this.aggregationTables = aggregationTables;
     }
@@ -90,6 +115,8 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         private PhysicalTableImpl table;
         private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
         private String alias;
+        private DocumentationMappingImpl documentation;
+        private String id;
 
         private Builder() {
         }
@@ -124,8 +151,19 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
             return this;
         }
 
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
+            return this;
+        }
+
         public TableQueryMappingImpl build() {
             return new TableQueryMappingImpl(this);
         }
     }
+
 }
