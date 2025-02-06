@@ -48,6 +48,11 @@
     <module>aggregatetables</module>
     <module>kpiminimal</module>
     <module>kpiall</module>
+    <module>kpivalue</module>
+    <module>kpigoal</module>
+    <module>kpistatus</module>
+    <module>kpitrend</module>
+    <module>kpiparent</module>
     <module>kpivirtualcube</module>
     <module>writebacktable</module>
     <module>writebackwithoutdimension</module>

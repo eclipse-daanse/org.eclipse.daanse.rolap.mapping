@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpitrend;
 
 import java.util.List;
 
@@ -36,12 +36,12 @@ import org.osgi.service.component.annotations.Component;
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
-    private static final String CATALOG = "tutorial_30-01_Cube_KPI_All_Properties";
+    private static final String CATALOG = "tutorial_30-05_Cube_KPI_with_Trend";
     private static final String CUBE = "CubeKPI";
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-        A minimal cube with Kpi with all kpi properties
+        A minimal cube with Kpi with Status property only
 
         A KPI has four important properties which are value, goal, status and trend.
         Let's explain this by means of Profit Margin with the below calculation.
@@ -120,20 +120,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         calculatedValue.setVisible(false);
         calculatedValue.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
-        CalculatedMember calculatedGoal = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedGoal.setName("CalculatedGoal");
-        calculatedGoal.setVisible(false);
-        calculatedGoal.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
-
         CalculatedMember calculatedStatus = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedStatus.setName("CalculatedStatus");
         calculatedStatus.setVisible(false);
         calculatedStatus.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
-
-        CalculatedMember calculatedTrend = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedTrend.setName("CalculatedTrend");
-        calculatedTrend.setVisible(false);
-        calculatedTrend.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
@@ -141,28 +131,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
         kpi.setName("Kpi1");
         kpi.setId("Kpi1");
-        kpi.setDescription("Kpi with all parameters");
-        kpi.setAssociatedMeasureGroupID("Kpi1MeasureGroupID");
+        kpi.setDescription("Kpi with Trend parameter");
+        kpi.setAssociatedMeasureGroupID("Kpi2MeasureGroupID");
         kpi.setValue("[Measures].[CalculatedValue]");
-        kpi.setGoal("[Measures].[CalculatedGoal]");
-        kpi.setStatus("[Measures].[CalculatedStatus]");
         kpi.setTrend("[Measures].[CalculatedTrend]");
-        kpi.setWeight("[Measures].[CalculatedValue]");
-        kpi.setCurrentTimeMember("[Measures].[CalculatedValue]");
-        kpi.setDisplayFolder("Kpi1Folder1\\Kpi1Folder2");
-        kpi.setStatusGraphic("Cylinder");
-        kpi.setTrendGraphic("Smiley Face");
+        kpi.setDisplayFolder("Kpi1Folder1\\Kpi1Folder3");
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
         cube.setId(CUBE);
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
-        cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedGoal, calculatedStatus, calculatedTrend));
+        cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedStatus));
         cube.getKpis().add(kpi);
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Cubes_With_KPI_all_Properties");
-        schema.setDescription("Minimal Cubes With KPI with all properties");
+        schema.setName("Minimal_Cubes_With_KPI_Trend");
+        schema.setDescription("Minimal Cubes With KPI with Trend");
         schema.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
@@ -173,7 +157,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getSchemas().add(schema);
         catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("catalog with schema with a minimal cubes With KPI with all properties");
+        documentation.setValue("Catalog with schema with a minimal cubes With KPI with Trend property");
         catalog.setDocumentation(documentation);
         return catalog;
 
