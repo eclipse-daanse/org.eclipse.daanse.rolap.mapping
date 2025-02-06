@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiparent;
 
 import java.util.List;
 
@@ -20,7 +20,6 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
@@ -36,12 +35,14 @@ import org.osgi.service.component.annotations.Component;
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
-    private static final String CATALOG = "tutorial_30-01_Cube_KPI_All_Properties";
-    private static final String CUBE = "CubeKPI";
+    private static final String CATALOG = "tutorial_30-07_Cube_KPI_with_Parent";
+    private static final String CUBE = "Cube";
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-        A minimal cube with Kpi with all kpi properties
+        A minimal cube with Kpi with parents - children
+        Kpi1 is parent for Kpi2_1, Kpi2_2
+        Kpi2_1 is parent for Kpi3
 
         A KPI has four important properties which are value, goal, status and trend.
         Let's explain this by means of Profit Margin with the below calculation.
@@ -103,66 +104,69 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
         query.setTable(table);
 
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
-        measure.setName("Measure1-Sum");
-        measure.setId("Measure1-Sum");
-        measure.setColumn(valueColumn);
-
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.COUNT);
-        measure1.setName("Measure2-Count");
-        measure1.setId("Measure2-Count");
+        measure1.setAggregator(MeasureAggregator.SUM);
+        measure1.setName("Measure-Sum1");
+        measure1.setId("Measure-Sum1");
         measure1.setColumn(valueColumn);
 
-        CalculatedMember calculatedValue = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedValue.setName("CalculatedValue");
-        calculatedValue.setVisible(false);
-        calculatedValue.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure2.setAggregator(MeasureAggregator.SUM);
+        measure2.setName("Measure-Sum2");
+        measure2.setId("Measure-Sum2");
+        measure2.setColumn(valueColumn);
 
-        CalculatedMember calculatedGoal = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedGoal.setName("CalculatedGoal");
-        calculatedGoal.setVisible(false);
-        calculatedGoal.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure3.setAggregator(MeasureAggregator.SUM);
+        measure3.setName("Measure-Sum3");
+        measure3.setId("Measure-Sum3");
+        measure3.setColumn(valueColumn);
 
-        CalculatedMember calculatedStatus = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedStatus.setName("CalculatedStatus");
-        calculatedStatus.setVisible(false);
-        calculatedStatus.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
-
-        CalculatedMember calculatedTrend = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedTrend.setName("CalculatedTrend");
-        calculatedTrend.setVisible(false);
-        calculatedTrend.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure4.setAggregator(MeasureAggregator.SUM);
+        measure4.setName("Measure-Sum4");
+        measure4.setId("Measure-Sum4");
+        measure4.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().add(measure);
-        measureGroup.getMeasures().add(measure1);
-        Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
-        kpi.setName("Kpi1");
-        kpi.setId("Kpi1");
-        kpi.setDescription("Kpi with all parameters");
-        kpi.setAssociatedMeasureGroupID("Kpi1MeasureGroupID");
-        kpi.setValue("[Measures].[CalculatedValue]");
-        kpi.setGoal("[Measures].[CalculatedGoal]");
-        kpi.setStatus("[Measures].[CalculatedStatus]");
-        kpi.setTrend("[Measures].[CalculatedTrend]");
-        kpi.setWeight("[Measures].[CalculatedValue]");
-        kpi.setCurrentTimeMember("[Measures].[CalculatedValue]");
-        kpi.setDisplayFolder("Kpi1Folder1\\Kpi1Folder2");
-        kpi.setStatusGraphic("Cylinder");
-        kpi.setTrendGraphic("Smiley Face");
+        measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3, measure4));
+
+        Kpi kpi1 = RolapMappingFactory.eINSTANCE.createKpi();
+        kpi1.setName("Kpi1");
+        kpi1.setId("Kpi1");
+        kpi1.setDescription("Kpi1");
+        kpi1.setValue("[Measures].[Measure-Sum1]");
+
+        Kpi kpi21 = RolapMappingFactory.eINSTANCE.createKpi();
+        kpi21.setName("Kpi21");
+        kpi21.setId("Kpi21");
+        kpi21.setDescription("Kpi2_1");
+        kpi21.setValue("[Measures].[Measure-Sum2]");
+        kpi21.setParentKpiID("Kpi1");
+
+        Kpi kpi22 = RolapMappingFactory.eINSTANCE.createKpi();
+        kpi22.setName("Kpi22");
+        kpi22.setId("Kpi22");
+        kpi22.setDescription("Kpi2_2");
+        kpi22.setValue("[Measures].[Measure-Sum3]");
+        kpi22.setParentKpiID("Kpi1");
+
+        Kpi kpi3 = RolapMappingFactory.eINSTANCE.createKpi();
+        kpi3.setName("Kpi3");
+        kpi3.setId("Kpi3");
+        kpi3.setDescription("Kpi3");
+        kpi3.setValue("[Measures].[Measure-Sum4]");
+        kpi3.setParentKpiID("Kpi21");
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
         cube.setId(CUBE);
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
-        cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedGoal, calculatedStatus, calculatedTrend));
-        cube.getKpis().add(kpi);
+        cube.getKpis().addAll(List.of(kpi1, kpi21, kpi22, kpi3));
         Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Cubes_With_KPI_all_Properties");
-        schema.setDescription("Minimal Cubes With KPI with all properties");
+        schema.setName("Minimal_Cubes_With_KPI_with_parent");
+        schema.setDescription("Minimal Cubes With KPI with parent");
         schema.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
@@ -173,7 +177,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getSchemas().add(schema);
         catalog.getDbschemas().add(databaseSchema);
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("catalog with schema with a minimal cubes With KPI with all properties");
+        documentation.setValue("catalog with schema with a minimal cubes With KPI with parent");
         catalog.setDocumentation(documentation);
         return catalog;
 
