@@ -88,8 +88,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube #//IPhysicalCube">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
         eType="#//DimensionConnector" containment="true" eOpposite="#//DimensionConnector/physicalCube"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writebackTable" eType="#//WritebackTable"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="action" upperBound="-1"
@@ -221,8 +220,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
     <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
@@ -307,7 +305,12 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
         eType="#//SQL" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RelationalQuery" abstract="true" eSuperTypes="#//Query #//IRelationalQuery">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>

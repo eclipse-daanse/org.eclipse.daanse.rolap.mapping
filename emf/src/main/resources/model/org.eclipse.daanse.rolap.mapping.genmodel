@@ -317,7 +317,10 @@
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SQLExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//SQLExpression/sqls"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Query"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Query">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Query/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Query/documentation"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//RelationalQuery">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//RelationalQuery/alias"/>
     </genClasses>
