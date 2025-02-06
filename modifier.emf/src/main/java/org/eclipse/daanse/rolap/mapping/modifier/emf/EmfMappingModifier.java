@@ -283,18 +283,22 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createInlineTableQuery(String alias, InlineTable table) {
+    protected QueryMapping createInlineTableQuery(String alias, InlineTable table, String id, DocumentationMapping documentation) {
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
         inlineTableQuery.setAlias(alias);
         inlineTableQuery.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable) table);
+        inlineTableQuery.setId(id);
+        inlineTableQuery.setDocumentation((Documentation) documentation);
         return inlineTableQuery;
     }
 
     @Override
-    protected QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right) {
+    protected QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right, String id, DocumentationMapping documentation) {
         JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
         joinQuery.setLeft((JoinedQueryElement) left);
         joinQuery.setRight((JoinedQueryElement) right);
+        joinQuery.setId(id);
+        joinQuery.setDocumentation((Documentation) documentation);
         return joinQuery;
     }
 
@@ -309,10 +313,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createSqlSelectQuery(String alias, SqlView sqlView) {
+    protected QueryMapping createSqlSelectQuery(String alias, SqlView sqlView, String id, DocumentationMapping documentation) {
         SqlSelectQuery sqlSelectQuery = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
         sqlSelectQuery.setAlias(alias);
         sqlSelectQuery.setSql((org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlView) sqlView);
+        sqlSelectQuery.setId(id);
+        sqlSelectQuery.setDocumentation((Documentation) documentation);
         return sqlSelectQuery;
     }
 
@@ -321,7 +327,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected TableQueryMapping createTableQuery(String alias, SQLMapping sqlWhereExpression,
             List<? extends AggregationExcludeMapping> aggregationExcludes,
             List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
-            List<? extends AggregationTableMapping> aggregationTables) {
+            List<? extends AggregationTableMapping> aggregationTables, String id, DocumentationMapping documentation) {
         TableQuery tableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
         tableQuery.setAlias(alias);
         tableQuery.setSqlWhereExpression((SQL) sqlWhereExpression);
@@ -329,6 +335,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         tableQuery.getOptimizationHints().addAll((Collection<? extends TableQueryOptimizationHint>) optimizationHints);
         tableQuery.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
         tableQuery.getAggregationTables().addAll((Collection<? extends AggregationTable>) aggregationTables);
+        tableQuery.setId(id);
+        tableQuery.setDocumentation((Documentation) documentation);
         return tableQuery;
     }
 

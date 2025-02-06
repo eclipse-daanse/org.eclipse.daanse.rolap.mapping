@@ -287,19 +287,24 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected QueryMapping createInlineTableQuery(
         String alias,
-        InlineTable table
+        InlineTable table, String id, DocumentationMapping documentation
     ) {
         return InlineTableQueryMappingImpl.builder()
             .withAlias(alias)
             .withTable((InlineTableImpl) table)
+            .withId(id)
+            .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
     }
 
     @Override
-    protected QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right) {
+    protected QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right,
+            String id, DocumentationMapping documentation) {
         return JoinQueryMappingImpl.builder()
             .withLeft((JoinedQueryElementMappingImpl) left)
             .withRight((JoinedQueryElementMappingImpl) right)
+            .withId(id)
+            .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
     }
 
@@ -314,10 +319,13 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createSqlSelectQuery(String alias, SqlView sql) {
+    protected QueryMapping createSqlSelectQuery(String alias, SqlView sql,
+            String id, DocumentationMapping documentation) {
         return SqlSelectQueryMappingImpl.builder()
             .withAlias(alias)
             .withSql((SqlViewImpl) sql)
+            .withId(id)
+            .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
     }
 
@@ -327,7 +335,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
         List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
-        List<? extends AggregationTableMapping> aggregationTables
+        List<? extends AggregationTableMapping> aggregationTables,
+        String id, DocumentationMapping documentation
     ) {
         return TableQueryMappingImpl.builder()
             .withAlias(alias)
@@ -336,6 +345,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withOptimizationHints((List<TableQueryOptimizationHintMappingImpl>) optimizationHints)
             .withTable((PhysicalTableImpl) table)
             .withAggregationTables((List<AggregationTableMappingImpl>) aggregationTables)
+            .withId(id)
+            .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
     }
 

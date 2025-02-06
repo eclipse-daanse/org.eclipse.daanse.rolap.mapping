@@ -778,9 +778,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (itq != null) {
             String alias = inlineTableQueryAlias(itq);
             InlineTable table = inlineTableInlineTable(itq);
-            return createInlineTableQuery(alias, table);
+            String id = inlineTableId(itq);
+            DocumentationMapping documentation = inlineTableDocumentation(itq);
+            return createInlineTableQuery(alias, table, id, documentation );
         }
         return null;
+    }
+
+    private String inlineTableId(InlineTableQueryMapping itq) {
+        return itq.getId();
+    }
+
+    private DocumentationMapping inlineTableDocumentation(InlineTableQueryMapping itq) {
+        return documentation(itq.getDocumentation());
     }
 
     private InlineTable inlineTableInlineTable(InlineTableQueryMapping itq) {
@@ -789,7 +799,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract QueryMapping createInlineTableQuery(
         String alias,
-        InlineTable table
+        InlineTable table,
+        String id, DocumentationMapping documentation
     );
 
     protected String inlineTableQueryAlias(InlineTableQueryMapping itq) {
@@ -800,12 +811,22 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (jq != null) {
             JoinedQueryElementMapping left = joinQueryLeft(jq);
             JoinedQueryElementMapping right = joinQueryRight(jq);
-            return createJoinQuery(left, right);
+            String id = joinQueryId(jq);
+            DocumentationMapping documentation = joinQueryDocumentation(jq);
+            return createJoinQuery(left, right, id, documentation);
         }
         return null;
     }
 
-    protected abstract QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right);
+    protected String joinQueryId(JoinQueryMapping jq) {
+        return jq.getId();
+    }
+
+    protected DocumentationMapping joinQueryDocumentation(JoinQueryMapping jq) {
+        return documentation(jq.getDocumentation());
+    }
+
+    protected abstract QueryMapping createJoinQuery(JoinedQueryElementMapping left, JoinedQueryElementMapping right, String id, DocumentationMapping documentation);
 
     protected JoinedQueryElementMapping joinQueryRight(JoinQueryMapping jq) {
         return joinedQueryElement(jq.getRight());
@@ -843,16 +864,26 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (ssq != null) {
             String alias = sqlSelectQueryAlias(ssq);
             SqlView sql = sqlSelectQuerySqlView(ssq);
-            return createSqlSelectQuery(alias, sql);
+            String id = sqlSelectQueryId(ssq);
+            DocumentationMapping documentation = sqlSelectQueryDocumentation(ssq);
+            return createSqlSelectQuery(alias, sql, id, documentation);
         }
         return null;
+    }
+
+    private String sqlSelectQueryId(SqlSelectQueryMapping ssq) {
+        return ssq.getId();
+    }
+
+    private DocumentationMapping sqlSelectQueryDocumentation(SqlSelectQueryMapping ssq) {
+        return documentation(ssq.getDocumentation());
     }
 
     private SqlView sqlSelectQuerySqlView(SqlSelectQueryMapping ssq) {
         return sqlView(ssq.getSql());
     }
 
-    protected abstract QueryMapping createSqlSelectQuery(String alias, SqlView sql);
+    protected abstract QueryMapping createSqlSelectQuery(String alias, SqlView sql, String id, DocumentationMapping documentation);
 
     protected List<SQLMapping> sqls(List<? extends SQLMapping> sqls) {
         if (sqls != null) {
@@ -879,11 +910,23 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
             List<? extends AggregationTableMapping> aggregationTables = tableQueryAggregationTables(tableQuery);
 
+            String id = tableId(tableQuery);
+
+            DocumentationMapping documentation = tableDocumentation(tableQuery);
+
             return createTableQuery(alias, sqlWhereExpression, aggregationExcludes, optimizationHints, table,
-                aggregationTables);
+                aggregationTables, id, documentation);
         }
         return null;
 
+    }
+
+    protected String tableId(TableQueryMapping tableQuery) {
+        return tableQuery.getId();
+    }
+
+    protected DocumentationMapping tableDocumentation(TableQueryMapping tableQuery) {
+        return documentation(tableQuery.getDocumentation());
     }
 
     protected Table tableTable(TableQueryMapping tableQuery) {
@@ -894,7 +937,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String alias, SQLMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
         List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
-        List<? extends AggregationTableMapping> aggregationTables
+        List<? extends AggregationTableMapping> aggregationTables, String id, DocumentationMapping documentation
     );
 
     protected List<? extends AggregationTableMapping> tableQueryAggregationTables(TableQueryMapping tableQuery) {

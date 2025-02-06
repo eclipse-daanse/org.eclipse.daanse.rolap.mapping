@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
+import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
 
 public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryMapping {
@@ -20,9 +21,16 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
 
     private JoinedQueryElementMappingImpl right;
 
+    private DocumentationMappingImpl documentation;
+
+    private String id;
+
+
     private JoinQueryMappingImpl(Builder builder) {
         this.left = builder.left;
         this.right = builder.right;
+        this.documentation = builder.documentation;
+        this.id = builder.id;
     }
 
     public JoinedQueryElementMappingImpl getLeft() {
@@ -41,6 +49,23 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
         this.right = right;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public DocumentationMapping getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(DocumentationMappingImpl documentation) {
+        this.documentation = documentation;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -48,6 +73,8 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
     public static final class Builder {
         private JoinedQueryElementMappingImpl left;
         private JoinedQueryElementMappingImpl right;
+        private DocumentationMappingImpl documentation;
+        private String id;
 
         private Builder() {
         }
@@ -59,6 +86,16 @@ public class JoinQueryMappingImpl extends QueryMappingImpl implements JoinQueryM
 
         public Builder withRight(JoinedQueryElementMappingImpl right) {
             this.right = right;
+            return this;
+        }
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder withDocumentation(DocumentationMappingImpl documentation) {
+            this.documentation = documentation;
             return this;
         }
 
