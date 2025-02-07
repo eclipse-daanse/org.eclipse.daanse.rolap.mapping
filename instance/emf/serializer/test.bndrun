@@ -13,8 +13,8 @@
 #*******************************************************************************
 
 -runstartlevel: \
-    order=sortbynameversion,\
-    begin=-1
+	order=sortbynameversion,\
+	begin=-1
 
 -runtrace: true
 
@@ -22,20 +22,20 @@
 
 # JaCoCo calculates test coverage
 -runpath.jacoco:\
-    org.jacoco.agent,\
-    org.jacoco.agent.rt
+	org.jacoco.agent,\
+	org.jacoco.agent.rt
 
 -runvm.coverage: -javaagent:${repo;org.jacoco.agent.rt}=destfile=${target-dir}/jacoco.exec
 -runvm.base: -DbasePath=${.}
 
 -runpath.log: \
-    ch.qos.logback.classic,\
-    ch.qos.logback.core,\
-    slf4j.api
+	ch.qos.logback.classic,\
+	ch.qos.logback.core,\
+	slf4j.api
 
 -runproperties.logback:\
-    org.osgi.framework.bootdelegation=org.mockito.internal.creation.bytebuddy.inject,\
-    logback.configurationFile=${project.build.testOutputDirectory}/logback-test.xml
+	org.osgi.framework.bootdelegation=org.mockito.internal.creation.bytebuddy.inject,\
+	logback.configurationFile=${project.build.testOutputDirectory}/logback-test.xml
 
 -runsystemcapabilities: ${native_capability}
 
@@ -93,8 +93,9 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesshierarchygrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessschemagrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname'
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchyhasalltruefalse'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -136,6 +137,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithproperties;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithmultylevels;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.drillthroughaction;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchyhasalltruefalse;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnerjoin;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnertable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview;version='[0.0.1,0.0.2)',\
@@ -149,6 +151,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivalue;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureformats;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.minimal;version='[0.0.1,0.0.2)',\
