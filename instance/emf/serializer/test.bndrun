@@ -92,7 +92,9 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesscubegrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesshierarchygrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessschemagrand',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -140,12 +142,13 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpigoal;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiminimal;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiparent;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpistatus;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpitrend;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiparent;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiminimal;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivalue;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureformats;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.minimal;version='[0.0.1,0.0.2)',\

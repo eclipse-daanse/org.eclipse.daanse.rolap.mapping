@@ -63,5 +63,7 @@
     <module>accesshierarchygrand</module>
     <module>accessschemagrand</module>
     <module>accessallnonecustom</module>
+    <module>levelifblankname</module>
+    <module>levelifparentsname</module>
   </modules>
 </project>
