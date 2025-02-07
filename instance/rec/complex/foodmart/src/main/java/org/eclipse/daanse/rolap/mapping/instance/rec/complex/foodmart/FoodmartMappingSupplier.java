@@ -19,7 +19,6 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
@@ -45,7 +44,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -60,13 +58,14 @@ import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.VirtualCubeMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.POJO, number = "3")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
@@ -370,9 +369,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     private static final String TABLE_STORE = "store";
 
-    private static final String SCHEMA_NAME = "FoodMart";
-
-    private static final String CATALOG_NAME = SCHEMA_NAME;
+    private static final String CATALOG_NAME = "FoodMart";
 
     private static final String DOCUMENTATION_TEXT = "";
 
@@ -945,7 +942,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     ))).build();
 
     public static final DatabaseSchemaImpl DATABASE_SCHEMA = DatabaseSchemaImpl.builder()
-            .withName(SCHEMA_NAME)
+            .withName(CATALOG_NAME)
             .withTables(List.of(AGG_C_10_SALES_FACT_1997, AGG_C_14_SALES_FACT_1997,
                             AGG_C_SPECIAL_SALES_FACT_1997, AGG_G_MS_PCAT_SALES_FACT_1997,
                             AGG_L_03_SALES_FACT_1997, AGG_L_04_SALES_FACT_1997,
@@ -2583,8 +2580,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
-    public static final SchemaMappingImpl SCHEMA = SchemaMappingImpl.builder()
-        .withName(SCHEMA_NAME)
+    public static final CatalogMappingImpl CATALOG = CatalogMappingImpl.builder()
+        .withName(CATALOG_NAME)
         .withCubes(List.of(CUBE_SALES, CUBE_WAREHOUSE, CUBE_STORE, CUBE_HR, CUBE_SALES_RAGGED, CUBE_SALES_2,
             CUBE_VIRTIAL_WAREHOUSE_AND_SALES))
         .withAccessRoles(List.of(
@@ -2592,16 +2589,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             noHRCubeRole,
             administratorRole
         ))
+        .withDbSchemas(List.of(DATABASE_SCHEMA))
         .build();
 
     @Override
     public CatalogMapping get() {
-        return CatalogMappingImpl.builder()
-            .withName(CATALOG_NAME)
-            .withDocumentation(documentation)
-            .withSchemas(List.of(SCHEMA))
-            .withDbschemas(List.of(DATABASE_SCHEMA))
-            .build();
+        return CATALOG;
     }
 
 }

@@ -19,7 +19,7 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
@@ -32,7 +32,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -135,22 +134,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2));
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Cubes_With_Two_Calculated_Members");
-        schema.setDescription("Schema of a minimal cube with two calculated members");
-        schema.getCubes().add(cube);
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Minimal_Cubes_With_Two_Calculated_Members");
+        catalog.setDescription("Schema of a minimal cube with two calculated members");
+        catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
-
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema of a minimal cube with CellFormatter with class name");
-        catalog.setDocumentation(documentation);
         return catalog;
 
     }

@@ -14,12 +14,14 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube;
 
 import java.util.List;
 
+import javax.xml.validation.Schema;
+
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
@@ -29,7 +31,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.osgi.service.component.annotations.Component;
@@ -136,22 +137,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
         vCube.getCalculatedMembers().add(calculatedMember);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Virtual_Cubes_With_Measures");
-        schema.setDescription("Schema of a minimal virtual cube with measures");
-        schema.getCubes().addAll(List.of(cube1, cube2, vCube));
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Minimal_Virtual_Cubes_With_Measures");
+        catalog.setDescription("Schema of a minimal virtual cube with measures");
+        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("catalog with schema of a minimal virtual cube with measures");
-        catalog.setDocumentation(documentation);
         return catalog;
     }
 

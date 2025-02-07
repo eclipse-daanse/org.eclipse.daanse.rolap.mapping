@@ -16,49 +16,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
-public class CatalogMappingImpl extends AbstractElementMappingImpl implements EnviromentMapping {
+public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
 
-    private List<SchemaMappingImpl> schemas;
+    private List<ParameterMappingImpl> parameters;
 
     private List<? extends CubeMappingImpl> cubes;
 
-    private List<DimensionMappingImpl> dimensions;
-
-    private List<HierarchyMappingImpl> hierarchies;
-
-    private List<LevelMappingImpl> levels;
-
-    private List<FormatterMappingImpl> formatters;
-
-    private List<DatabaseSchemaImpl> dbschemas;
-
-    private List<MeasureMappingImpl> measures;
+    private List<NamedSetMappingImpl> namedSets;
 
     private List<AccessRoleMappingImpl> accessRoles;
 
-    private List<AggregationTableMappingImpl> aggregationTables;
+    private AccessRoleMappingImpl defaultAccessRole;
 
-    private List<AggregationExcludeMappingImpl> aggregationExcludes;
+    private String measuresDimensionName;
+
+    private List<DatabaseSchemaImpl> dbschemas;
 
     private CatalogMappingImpl(Builder builder) {
-        this.schemas = builder.schemas;
+        this.parameters = builder.parameters;
         this.cubes = builder.cubes;
-        this.dimensions = builder.dimensions;
-        this.hierarchies = builder.hierarchies;
-        this.levels = builder.levels;
-        this.formatters = builder.formatters;
-        this.dbschemas = builder.dbschemas;
-        this.measures = builder.measures;
+        this.namedSets = builder.namedSets;
         this.accessRoles = builder.accessRoles;
-        this.aggregationTables = builder.aggregationTables;
-        this.aggregationExcludes = builder.aggregationExcludes;
+        this.defaultAccessRole = builder.defaultAccessRole;
+        this.measuresDimensionName = builder.measuresDimensionName;
+        this.dbschemas = builder.dbSchemas;
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
         super.setDocumentation(builder.documentation);
+    }
+
+    public List<ParameterMappingImpl> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<ParameterMappingImpl> parameters) {
+        this.parameters = parameters;
     }
 
     public List<? extends CubeMappingImpl> getCubes() {
@@ -69,52 +65,12 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements En
         this.cubes = cubes;
     }
 
-    public List<DimensionMappingImpl> getDimensions() {
-        return dimensions;
+    public List<NamedSetMappingImpl> getNamedSets() {
+        return namedSets;
     }
 
-    public void setDimensions(List<DimensionMappingImpl> dimensions) {
-        this.dimensions = dimensions;
-    }
-
-    public List<HierarchyMappingImpl> getHierarchies() {
-        return hierarchies;
-    }
-
-    public void setHierarchies(List<HierarchyMappingImpl> hierarchies) {
-        this.hierarchies = hierarchies;
-    }
-
-    public List<LevelMappingImpl> getLevels() {
-        return levels;
-    }
-
-    public void setLevels(List<LevelMappingImpl> levels) {
-        this.levels = levels;
-    }
-
-    public List<FormatterMappingImpl> getFormatters() {
-        return formatters;
-    }
-
-    public void setFormatters(List<FormatterMappingImpl> formatters) {
-        this.formatters = formatters;
-    }
-
-    public List<DatabaseSchemaImpl> getDbschemas() {
-        return dbschemas;
-    }
-
-    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
-        this.dbschemas = dbschemas;
-    }
-
-    public List<MeasureMappingImpl> getMeasures() {
-        return measures;
-    }
-
-    public void setMeasures(List<MeasureMappingImpl> measures) {
-        this.measures = measures;
+    public void setNamedSets(List<NamedSetMappingImpl> namedSets) {
+        this.namedSets = namedSets;
     }
 
     public List<AccessRoleMappingImpl> getAccessRoles() {
@@ -125,28 +81,29 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements En
         this.accessRoles = accessRoles;
     }
 
-    public List<AggregationTableMappingImpl> getAggregationTables() {
-        return aggregationTables;
+    public AccessRoleMappingImpl getDefaultAccessRole() {
+        return defaultAccessRole;
     }
 
-    public void setAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
-        this.aggregationTables = aggregationTables;
+    public void setDefaultAccessRole(AccessRoleMappingImpl defaultAccessRole) {
+        this.defaultAccessRole = defaultAccessRole;
     }
 
-    public List<AggregationExcludeMappingImpl> getAggregationExcludes() {
-        return aggregationExcludes;
+    public String getMeasuresDimensionName() {
+        return measuresDimensionName;
     }
 
-    public void setAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
-        this.aggregationExcludes = aggregationExcludes;
+    public void setMeasuresDimensionName(String measuresDimensionName) {
+        this.measuresDimensionName = measuresDimensionName;
     }
 
-    public List<SchemaMappingImpl> getSchemas() {
-        return schemas;
+    @Override
+    public List<DatabaseSchemaImpl> getDbschemas() {
+        return dbschemas;
     }
 
-    public void setSchemas(List<SchemaMappingImpl> schemas) {
-        this.schemas = schemas;
+    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+        this.dbschemas = dbschemas;
     }
 
     public static Builder builder() {
@@ -154,63 +111,34 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements En
     }
 
     public static final class Builder {
-        private List<SchemaMappingImpl> schemas = new ArrayList<>();
-        private List<? extends CubeMappingImpl> cubes = new ArrayList<>();
-        private List<DimensionMappingImpl> dimensions = new ArrayList<>();
-        private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
-        private List<LevelMappingImpl> levels = new ArrayList<>();
-        private List<FormatterMappingImpl> formatters = new ArrayList<>();
-        private List<DatabaseSchemaImpl> dbschemas = new ArrayList<>();
-        private List<MeasureMappingImpl> measures = new ArrayList<>();
+        private List<ParameterMappingImpl> parameters = new ArrayList<>();
+        private List<CubeMappingImpl> cubes = new ArrayList<>();
+        private List<NamedSetMappingImpl> namedSets = new ArrayList<>();
         private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
-        private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
-        private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
+        private AccessRoleMappingImpl defaultAccessRole;
+        private String measuresDimensionName;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
+        private List<DatabaseSchemaImpl> dbSchemas;
 
         private Builder() {
         }
 
-        public Builder withSchemas(List<SchemaMappingImpl> schemas) {
-            this.schemas = schemas;
+        public Builder withParameters(List<ParameterMappingImpl> parameters) {
+            this.parameters = parameters;
             return this;
         }
 
-        public Builder withCubes(List<? extends CubeMappingImpl> cubes) {
+        public Builder withCubes(List<CubeMappingImpl> cubes) {
             this.cubes = cubes;
             return this;
         }
 
-        public Builder withDimensions(List<DimensionMappingImpl> dimensions) {
-            this.dimensions = dimensions;
-            return this;
-        }
-
-        public Builder withHierarchies(List<HierarchyMappingImpl> hierarchies) {
-            this.hierarchies = hierarchies;
-            return this;
-        }
-
-        public Builder withLevels(List<LevelMappingImpl> levels) {
-            this.levels = levels;
-            return this;
-        }
-
-        public Builder withFormatters(List<FormatterMappingImpl> formatters) {
-            this.formatters = formatters;
-            return this;
-        }
-
-        public Builder withDbschemas(List<DatabaseSchemaImpl> dbschemas) {
-            this.dbschemas = dbschemas;
-            return this;
-        }
-
-        public Builder withMeasures(List<MeasureMappingImpl> measures) {
-            this.measures = measures;
+        public Builder withNamedSets(List<NamedSetMappingImpl> namedSets) {
+            this.namedSets = namedSets;
             return this;
         }
 
@@ -219,13 +147,13 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements En
             return this;
         }
 
-        public Builder withAggregationTables(List<AggregationTableMappingImpl> aggregationTables) {
-            this.aggregationTables = aggregationTables;
+        public Builder withDefaultAccessRole(AccessRoleMappingImpl defaultAccessRole) {
+            this.defaultAccessRole = defaultAccessRole;
             return this;
         }
 
-        public Builder withAggregationExcludes(List<AggregationExcludeMappingImpl> aggregationExcludes) {
-            this.aggregationExcludes = aggregationExcludes;
+        public Builder withMeasuresDimensionName(String measuresDimensionName) {
+            this.measuresDimensionName = measuresDimensionName;
             return this;
         }
 
@@ -251,6 +179,11 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements En
 
         public Builder withDocumentation(DocumentationMappingImpl documentation) {
             this.documentation = documentation;
+            return this;
+        }
+
+        public Builder withDbSchemas(List<DatabaseSchemaImpl> dbSchemas) {
+            this.dbSchemas = dbSchemas;
             return this;
         }
 

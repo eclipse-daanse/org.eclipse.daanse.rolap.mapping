@@ -30,6 +30,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Enviroment;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -40,7 +41,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -279,24 +279,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         roleU.getReferencedAccessRoles().add(role11);
         roleU.getReferencedAccessRoles().add(role12);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Cube_with_role_access_all_none_custom");
-        schema.setDescription("Schema with role access all, none, custom");
-        schema.getCubes().add(cube1);
-        schema.getCubes().add(cube2);
-        schema.getAccessRoles().addAll(List.of(role1, role11, role12, role2, role3, role4, roleManager, roleU));
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Cube_with_role_access_all_none_custom");
+        catalog.setDescription("Schema with role access all, none, custom");
+        catalog.getCubes().add(cube1);
+        catalog.getCubes().add(cube2);
+        catalog.getAccessRoles().addAll(List.of(role1, role11, role12, role2, role3, role4, roleManager, roleU));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema with role access all, none, custom");
-        catalog.setDocumentation(documentation);
         return catalog;
     }
 

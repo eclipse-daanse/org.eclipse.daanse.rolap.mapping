@@ -108,6 +108,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.EnviromentMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
@@ -126,7 +127,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
@@ -159,7 +159,7 @@ public class TransformTask {
     private AtomicInteger counterAggregationExclude = new AtomicInteger();
 
     private Schema mondrianSchema;
-    private CatalogMappingImpl catalog;
+    private EnviromentMappingImpl catalog;
 
     private TransformTask() {
         // none
@@ -238,10 +238,10 @@ public class TransformTask {
         return Optional.empty();
     }
 
-    CatalogMappingImpl transform() {
+    EnviromentMappingImpl transform() {
 
-        catalog = CatalogMappingImpl.builder().build();
-        SchemaMappingImpl s = SchemaMappingImpl.builder().build();
+        catalog = EnviromentMappingImpl.builder().build();
+        CatalogMappingImpl s = CatalogMappingImpl.builder().build();
 
         List<DimensionMappingImpl> dimensionsShared = transformSharedDimensions(mondrianSchema.dimensions());
         catalog.getDimensions().addAll(dimensionsShared);

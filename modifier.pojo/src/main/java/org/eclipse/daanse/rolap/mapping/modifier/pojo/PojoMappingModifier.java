@@ -120,7 +120,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
@@ -148,7 +147,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
@@ -162,7 +161,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.WritebackTableMappingImpl;
 
 public class PojoMappingModifier extends AbstractMappingModifier {
 
-    public PojoMappingModifier(EnviromentMapping catalog) {
+    public PojoMappingModifier(CatalogMapping catalog) {
         super(catalog);
     }
 
@@ -239,10 +238,12 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected EnviromentMapping createCatalog(
+    protected CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends CatalogMapping> schemas,
-        List<? extends DatabaseSchema> dbschemas
+        String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
+        List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
+        List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
+        String measuresDimensionName, List<? extends DatabaseSchema> dbschemas
     ) {
         return CatalogMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -250,11 +251,15 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDescription(description)
             .withName(name)
             .withDocumentation((DocumentationMappingImpl) documentation)
-            .withSchemas((List<SchemaMappingImpl>) schemas)
-            .withDbschemas((List<DatabaseSchemaImpl>) dbschemas)
+            .withParameters((List<ParameterMappingImpl>) parameters)
+            .withCubes((List<CubeMappingImpl>) cubes)
+            .withNamedSets((List<NamedSetMappingImpl>) namedSets)
+            .withAccessRoles((List<AccessRoleMappingImpl>) accessRoles)
+            .withDefaultAccessRole((AccessRoleMappingImpl) defaultAccessRole)
+            .withMeasuresDimensionName(measuresDimensionName)
+            .withDbSchemas((List<DatabaseSchemaImpl>) dbschemas)
             .build();
     }
-
 
     @SuppressWarnings("unchecked")
     @Override
@@ -823,30 +828,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return AnnotationMappingImpl.builder()
             .withValue(value)
             .withName(name)
-            .build();
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected CatalogMapping createSchema(
-        List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
-        List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
-        List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
-        String measuresDimensionName
-    ) {
-        return SchemaMappingImpl.builder()
-            .withAnnotations((List<AnnotationMappingImpl>) annotations)
-            .withId(id)
-            .withDescription(description)
-            .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
-            .withParameters((List<ParameterMappingImpl>) parameters)
-            .withCubes((List<CubeMappingImpl>) cubes)
-            .withNamedSets((List<NamedSetMappingImpl>) namedSets)
-            .withAccessRoles((List<AccessRoleMappingImpl>) accessRoles)
-            .withDefaultAccessRole((AccessRoleMappingImpl) defaultAccessRole)
-            .withMeasuresDimensionName(measuresDimensionName)
             .build();
     }
 

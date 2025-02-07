@@ -14,6 +14,8 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname;
 
 import java.util.List;
 
+import javax.xml.validation.Schema;
+
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
@@ -33,7 +35,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -341,22 +342,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube2.getMeasureGroups().add(measureGroup2);
         cube2.getDimensionConnectors().add(dimensionMembersHiddenMultipleLevelsConnector);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Minimal_Single_Hierarchy_Hidden_Members_with_IfBlankName");
-        schema.setDescription("Schema of a minimal cube with single Hierarchy Hidden Members with IfBlankName");
-        schema.getCubes().add(cube1);
-        schema.getCubes().add(cube2);
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Minimal_Single_Hierarchy_Hidden_Members_with_IfBlankName");
+        catalog.setDescription("Schema of a minimal cube with single Hierarchy Hidden Members with IfBlankName");
+        catalog.getCubes().add(cube1);
+        catalog.getCubes().add(cube2);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema of a minimal cube with with single Hierarchy Hidden Members with IfBlankName");
-        catalog.setDocumentation(documentation);
         return catalog;
     }
 

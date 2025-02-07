@@ -12,15 +12,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.rec.tutorial.basic.structure.plain;
 
-import java.util.List;
-
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
@@ -34,19 +32,15 @@ public class TutorialMappingSupplier implements CatalogMappingSupplier {
             RolapContext is a Container for Catalogs that are the major element of ther olap structure.
             """;
 
-    private final static SchemaMappingImpl schema = SchemaMappingImpl.builder()
+    private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()
             .withName("AnySchemaName")
             .withDocumentation(new DocumentationMappingImpl("Container for Cubes"))
 
             .build();
 
     @Override
-    public CatalogMappingImpl get() {
-        return CatalogMappingImpl.builder()
-                .withName(name)
-                .withDocumentation(new DocumentationMappingImpl(documentation_context_text))
-                .withSchemas(List.of(schema))
-                .build();
+    public CatalogMapping get() {
+        return schema;
     }
 
 }
