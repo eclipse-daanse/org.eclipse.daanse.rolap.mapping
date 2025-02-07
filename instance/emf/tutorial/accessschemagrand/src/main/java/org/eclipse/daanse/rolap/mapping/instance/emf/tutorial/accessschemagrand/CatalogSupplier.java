@@ -20,12 +20,10 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
@@ -35,7 +33,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -149,24 +146,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
         role.getAccessSchemaGrants().add(accessSchemaGrant);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Cube_with_access_all_dimension");
-        schema.setDescription("Schema with access all dimension only");
-        schema.getCubes().add(cube1);
-        schema.getCubes().add(cube2);
-        schema.getAccessRoles().add(role);
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Cube_with_access_all_dimension");
+        catalog.setDescription("Schema with access all dimension only");
+        catalog.getCubes().add(cube1);
+        catalog.getCubes().add(cube2);
+        catalog.getAccessRoles().add(role);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema with access all dimension only");
-        catalog.setDocumentation(documentation);
         return catalog;
     }
 

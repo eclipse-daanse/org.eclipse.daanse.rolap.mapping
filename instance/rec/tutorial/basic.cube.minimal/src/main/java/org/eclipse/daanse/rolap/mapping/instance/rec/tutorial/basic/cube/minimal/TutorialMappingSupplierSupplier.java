@@ -19,16 +19,16 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -77,22 +77,18 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
             .withDocumentation(new DocumentationMappingImpl(""))
             .build();
 
-    private final static SchemaMappingImpl schema = SchemaMappingImpl.builder()
+    private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()
             .withName("AnySchemaName")
             .withCubes(List.of(cube))
+            .withDbSchemas(List.of(DatabaseSchemaImpl.builder()
+                    .withName(name)
+                    .withTables(List.of(factTable))
+                    .build()))
             .build();
 
     @Override
-    public CatalogMappingImpl get() {
-        return CatalogMappingImpl.builder()
-                .withName(name)
-                .withDocumentation(documentation)
-                .withSchemas(List.of(schema))
-                .withDbschemas(List.of(DatabaseSchemaImpl.builder()
-                        .withName(name)
-                        .withTables(List.of(factTable))
-                        .build()))
-                .build();
+    public CatalogMapping get() {
+        return schema;
     }
 
 }

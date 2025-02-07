@@ -49,7 +49,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
@@ -79,7 +79,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
@@ -106,9 +105,9 @@ import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 
 public abstract class AbstractMappingModifier implements CatalogMappingSupplier {
 
-    protected EnviromentMapping catalog;
+    protected CatalogMapping catalog;
 
-    protected EnviromentMapping modifiedCatalog = null;
+    protected CatalogMapping modifiedCatalog = null;
 
     private Map<CubeMapping, CubeMapping> cubeMap = new HashMap<>();
 
@@ -134,7 +133,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     private Map<QueryMapping, QueryMapping> queryMap = new HashMap<>();
 
-    protected AbstractMappingModifier(EnviromentMapping catalog) {
+    protected AbstractMappingModifier(CatalogMapping catalog) {
         super();
         this.catalog = catalog;
     }
@@ -146,26 +145,35 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return modifiedCatalog;
     }
 
-    protected EnviromentMapping modifyCatalog(EnviromentMapping catalog2) {
+    protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
         if (catalog2 != null) {
-            List<? extends DatabaseSchema> dbschemas = catalogDatabaseSchemas(catalog2);
-            List<? extends AnnotationMapping> annotations = annotations(catalog2);
-            String id = catalogId(catalog2);
-            String description = catalogDescription(catalog2);
-            String name = catalogName(catalog2);
-            DocumentationMapping documentation = catalogDocumentation(catalog2);
 
-            List<? extends CatalogMapping> schemas = catalogSchemas(catalog2);
-            return createCatalog(annotations, id, description, name, documentation, schemas, dbschemas);
+            List<? extends AnnotationMapping> annotations = schemaAnnotations(catalog2);
+            String id = schemaId(catalog2);
+            String description = schemaDescription(catalog2);
+            String name = schemaName(catalog2);
+            DocumentationMapping documentation = schemaDocumentation(catalog2);
+            List<? extends ParameterMapping> parameters = schemaParameters(catalog2);
+            List<? extends CubeMapping> cubes = schemaCubes(catalog2);
+            List<? extends NamedSetMapping> namedSets = schemaNamedSets(catalog2);
+            List<? extends AccessRoleMapping> accessRoles = schemaAccessRoles(catalog2);
+            AccessRoleMapping defaultAccessRole = schemaDefaultAccessRole(catalog2);
+            String measuresDimensionName = schemaMeasuresDimensionName(catalog2);
+            List<? extends DatabaseSchema> dbschemas = catalogDatabaseSchemas(catalog2);
+
+            return createCatalog(annotations, id, description, name, documentation, parameters, cubes, namedSets,
+                accessRoles, defaultAccessRole, measuresDimensionName, dbschemas);
         }
         return null;
+
     }
 
-    private List<? extends DatabaseSchema> catalogDatabaseSchemas(EnviromentMapping catalog2) {
+
+    private List<? extends DatabaseSchema> catalogDatabaseSchemas(CatalogMapping catalog2) {
         return databaseSchemas(catalog2.getDbschemas());
     }
 
-    protected List<? extends AnnotationMapping> annotations(EnviromentMapping catalog2) {
+    protected List<? extends AnnotationMapping> annotations(CatalogMapping catalog2) {
         return annotations(catalog2.getAnnotations());
     }
 
@@ -463,59 +471,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id);
 
-    protected List<CatalogMapping> catalogSchemas(EnviromentMapping catalog2) {
-        return schemas(catalog2.getSchemas());
-    }
-
-    protected List<CatalogMapping> schemas(List<? extends CatalogMapping> schemas) {
-        if (schemas != null) {
-            return schemas.stream().map(this::schema).toList();
-        }
-        return List.of();
-    }
-
-    protected DocumentationMapping catalogDocumentation(EnviromentMapping catalog) {
+    protected DocumentationMapping catalogDocumentation(CatalogMapping catalog) {
         return documentation(catalog.getDocumentation());
     }
 
-    protected String catalogName(EnviromentMapping catalog2) {
+    protected String catalogName(CatalogMapping catalog2) {
         return catalog2.getDescription();
     }
 
-    protected String catalogDescription(EnviromentMapping catalog2) {
+    protected String catalogDescription(CatalogMapping catalog2) {
         return catalog2.getDescription();
     }
 
-    protected String catalogId(EnviromentMapping catalog2) {
+    protected String catalogId(CatalogMapping catalog2) {
         return catalog2.getId();
-    }
-
-    protected abstract EnviromentMapping createCatalog(
-        List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, List<? extends CatalogMapping> schemas,
-        List<? extends DatabaseSchema> dbschemas
-    );
-
-    protected CatalogMapping schema(CatalogMapping schemaMappingOriginal) {
-
-        if (schemaMappingOriginal != null) {
-
-            List<? extends AnnotationMapping> annotations = schemaAnnotations(schemaMappingOriginal);
-            String id = schemaId(schemaMappingOriginal);
-            String description = schemaDescription(schemaMappingOriginal);
-            String name = schemaName(schemaMappingOriginal);
-            DocumentationMapping documentation = schemaDocumentation(schemaMappingOriginal);
-            List<? extends ParameterMapping> parameters = schemaParameters(schemaMappingOriginal);
-            List<? extends CubeMapping> cubes = schemaCubes(schemaMappingOriginal);
-            List<? extends NamedSetMapping> namedSets = schemaNamedSets(schemaMappingOriginal);
-            List<? extends AccessRoleMapping> accessRoles = schemaAccessRoles(schemaMappingOriginal);
-            AccessRoleMapping defaultAccessRole = schemaDefaultAccessRole(schemaMappingOriginal);
-            String measuresDimensionName = schemaMeasuresDimensionName(schemaMappingOriginal);
-
-            return createSchema(annotations, id, description, name, documentation, parameters, cubes, namedSets,
-                accessRoles, defaultAccessRole, measuresDimensionName);
-        }
-        return null;
     }
 
     protected String schemaMeasuresDimensionName(CatalogMapping schemaMappingOriginal) {
@@ -3191,13 +3160,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return schemaMapping.getName();
     }
 
-    protected abstract CatalogMapping createSchema(
+    protected abstract CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
         List<? extends ParameterMapping> parameters, List<? extends CubeMapping> cubes,
         List<? extends NamedSetMapping> namedSets, List<? extends AccessRoleMapping> accessRoles,
-        AccessRoleMapping defaultAccessRole, String measuresDimensionName
+        AccessRoleMapping defaultAccessRole, String measuresDimensionName,
+        List<? extends DatabaseSchema> dbSchemas
     );
+
+
 
     protected CubeMapping look(CubeMapping c) {
         return cubeMap.get(c);

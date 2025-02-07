@@ -19,12 +19,11 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -34,7 +33,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
@@ -90,7 +89,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     private static final String SCHULE = "schule";
 
-    private static final String SCHEMA_NAME = "Schulwesen";
+    private static final String CATALOG_NAME = "Schulwesen";
 
     private static final String DOCUMENTATION_TEXT = "";
 
@@ -887,29 +886,26 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withMeasureGroups(List.of(CUBE3_MEASURE_GROUP))
         .build();
 
-    private static final SchemaMappingImpl
-        SCHEMA = SchemaMappingImpl.builder()
-        .withName(SCHEMA_NAME)
+    private static final CatalogMappingImpl
+        CATALOG = CatalogMappingImpl.builder()
+        .withName(CATALOG_NAME)
         .withCubes(List.of(CUBE1, CUBE2, CUBE3))
+        .withDbSchemas(List.of(DatabaseSchemaImpl.builder()
+                .withName(CATALOG_NAME)
+                .withTables(List.of(SCHULE_TABLE, GANZTAGS_ART_TABLE, TRAEGER_TABLE, TRAEGER_ART_TABLE,
+                        TRAEGER_KATEGORIE_TABLE, SCHEDULE_ART_TABLE, SCHUL_JAHR_TABLE,
+                        ALTERS_GRUPPE_TABLE, GESCHLECHT_TABLE, EINSCHULUNG_TABLE,
+                        KLASSEN_WIEDERHOLUNG_TABLE, SCHUL_ABSCHLUSS_TABLE, MIGRATIONS_HINTERGRUND_TABLE,
+                        WOHNORT_LANDKREIS_TABLE, SCHUL_ART_TABLE, SCHUL_KATEGORIE_TABLE, FOERDERUNG_ART_TABLE,
+                        PERSONAL_ART_TABLE, BUNDESLAND_TABLE, SONDERPAED_FOERDERBEDART_TABLE, FACT_SCHULEN_TABLE,
+                        FACT_PERSONAM_TABLE, FACT_SCHUELER_TABLE))
+                .build()))
+
         .build();
 
     @Override
     public CatalogMapping get() {
-        return CatalogMappingImpl.builder()
-            .withName(SCHEMA_NAME)
-            .withDocumentation(documentation)
-            .withSchemas(List.of(SCHEMA))
-            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
-                    .withName(SCHEMA_NAME)
-                    .withTables(List.of(SCHULE_TABLE, GANZTAGS_ART_TABLE, TRAEGER_TABLE, TRAEGER_ART_TABLE,
-                            TRAEGER_KATEGORIE_TABLE, SCHEDULE_ART_TABLE, SCHUL_JAHR_TABLE,
-                            ALTERS_GRUPPE_TABLE, GESCHLECHT_TABLE, EINSCHULUNG_TABLE,
-                            KLASSEN_WIEDERHOLUNG_TABLE, SCHUL_ABSCHLUSS_TABLE, MIGRATIONS_HINTERGRUND_TABLE,
-                            WOHNORT_LANDKREIS_TABLE, SCHUL_ART_TABLE, SCHUL_KATEGORIE_TABLE, FOERDERUNG_ART_TABLE,
-                            PERSONAL_ART_TABLE, BUNDESLAND_TABLE, SONDERPAED_FOERDERBEDART_TABLE, FACT_SCHULEN_TABLE,
-                            FACT_PERSONAM_TABLE, FACT_SCHUELER_TABLE))
-                    .build()))
-            .build();
+        return CATALOG;
     }
 
 }

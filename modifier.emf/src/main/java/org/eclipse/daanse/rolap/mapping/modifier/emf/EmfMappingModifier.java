@@ -45,7 +45,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
@@ -149,7 +148,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
@@ -165,7 +163,7 @@ import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
 public class EmfMappingModifier extends AbstractMappingModifier {
 
-    protected EmfMappingModifier(EnviromentMapping catalog) {
+    protected EmfMappingModifier(CatalogMapping catalog) {
         super(catalog);
     }
 
@@ -236,24 +234,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         databaseSchema.setName(name);
         databaseSchema.setId(id);
         return databaseSchema;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected EnviromentMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
-            String name, DocumentationMapping documentation, List<? extends CatalogMapping> schemas,
-            List<? extends DatabaseSchema> dbschemas) {
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        catalog.setId(id);
-        catalog.setDescription(description);
-        catalog.setName(name);
-        catalog.setDocumentation((Documentation) documentation);
-        catalog.getSchemas().addAll((Collection<? extends Schema>) schemas);
-        // ??
-        catalog.getDbschemas().addAll(
-                (Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
-        return catalog;
     }
 
     @SuppressWarnings("unchecked")
@@ -994,12 +974,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected CatalogMapping createSchema(List<? extends AnnotationMapping> annotations, String id, String description,
+    protected CatalogMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
             String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
             List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
             List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
-            String measuresDimensionName) {
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
+            String measuresDimensionName, List<? extends DatabaseSchema> dbschemas) {
+        Catalog schema = RolapMappingFactory.eINSTANCE.createCatalog();
         schema.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         schema.setId(id);
         schema.setDescription(description);
@@ -1011,6 +991,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         schema.getAccessRoles().addAll((Collection<? extends AccessRole>) accessRoles);
         schema.setDefaultAccessRole((AccessRole) defaultAccessRole);
         schema.setMeasuresDimensionName(measuresDimensionName);
+        schema.getDbschemas().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
         return schema;
     }
 

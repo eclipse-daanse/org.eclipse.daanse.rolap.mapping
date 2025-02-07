@@ -41,7 +41,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Schema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -186,24 +185,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
         role.getAccessSchemaGrants().add(accessSchemaGrant);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Cube_with_access_all_dimension_cube1_access_to_A_only");
-        schema.setDescription("Schema with access all dimension with cube1 access to A only");
-        schema.getCubes().add(cube1);
-        schema.getCubes().add(cube2);
-        schema.getAccessRoles().add(role);
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Cube_with_access_all_dimension_cube1_access_to_A_only");
+        catalog.setDescription("Schema with access all dimension with cube1 access to A only");
+        catalog.getCubes().add(cube1);
+        catalog.getCubes().add(cube2);
+        catalog.getAccessRoles().add(role);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        schema.setDocumentation(schemaDocumentation);
-
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName(CATALOG);
-        catalog.getSchemas().add(schema);
+        catalog.setDocumentation(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema with access all dimension with cube1 access to A only");
-        catalog.setDocumentation(documentation);
         return catalog;
     }
 

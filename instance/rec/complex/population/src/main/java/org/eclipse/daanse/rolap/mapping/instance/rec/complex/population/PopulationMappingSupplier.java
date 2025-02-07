@@ -19,12 +19,11 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -32,7 +31,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SchemaMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
@@ -314,24 +313,20 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName("Age").withDimension(DIMENSION4).withForeignKey(AGE_COLUMN_IN_POPULATION).build()))
         .build();
 
-    private static final SchemaMappingImpl
-        SCHEMA = SchemaMappingImpl.builder()
+    private static final CatalogMappingImpl
+        CATALOG = CatalogMappingImpl.builder()
         .withName(POPULATION)
         .withCubes(List.of(CUBE))
+        .withDbSchemas(List.of(DatabaseSchemaImpl.builder()
+                .withName(POPULATION)
+                .withTables(List.of(POPULATION_TABLE, YEAR_TABLE, COUNTRY_TABLE,
+                        CONTENT_TABLE, STATE_TABLE, GENDER_TABLE, AGE_GROUPS_TABLE))
+                .build()))
         .build();
 
     @Override
     public CatalogMapping get() {
-        return CatalogMappingImpl.builder()
-            .withName(POPULATION)
-            .withDocumentation(documentation)
-            .withSchemas(List.of(SCHEMA))
-            .withDbschemas(List.of(DatabaseSchemaImpl.builder()
-                    .withName(POPULATION)
-                    .withTables(List.of(POPULATION_TABLE, YEAR_TABLE, COUNTRY_TABLE,
-                            CONTENT_TABLE, STATE_TABLE, GENDER_TABLE, AGE_GROUPS_TABLE))
-                    .build()))
-            .build();
+        return CATALOG;
     }
 
 }
