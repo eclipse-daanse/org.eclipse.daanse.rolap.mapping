@@ -19,7 +19,7 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;

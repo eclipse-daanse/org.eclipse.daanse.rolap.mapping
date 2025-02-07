@@ -64,7 +64,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
@@ -93,7 +93,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    public List<VerificationResult> checkSchema(SchemaMapping schema) {
+    public List<VerificationResult> checkSchema(CatalogMapping schema) {
         super.checkSchema(schema);
         if (schema != null) {
             if (isEmpty(schema.getName())) {
@@ -109,7 +109,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCube(CubeMapping cube, SchemaMapping schema) {
+    protected void checkCube(CubeMapping cube, CatalogMapping schema) {
         super.checkCube(cube, schema);
         if (cube != null) {
             if (isEmpty(cube.getName())) {
@@ -266,7 +266,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDimensionConnector(DimensionConnectorMapping dimensionConnector, CubeMapping cube, SchemaMapping schema) {
+    protected void checkDimensionConnector(DimensionConnectorMapping dimensionConnector, CubeMapping cube, CatalogMapping schema) {
         super.checkDimensionConnector(dimensionConnector, cube, schema);
 
         if (cube != null) {
@@ -303,7 +303,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCubeMeasure(MeasureMapping virtualCubeMeasure, VirtualCubeMapping vCube, SchemaMapping schema) {
+    protected void checkVirtualCubeMeasure(MeasureMapping virtualCubeMeasure, VirtualCubeMapping vCube, CatalogMapping schema) {
         super.checkVirtualCubeMeasure(virtualCubeMeasure, vCube, schema);
         if (virtualCubeMeasure != null) {
             Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> (c instanceof PhysicalCubeMapping pCube && pCube.getMeasureGroups() != null
@@ -448,7 +448,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCube(VirtualCubeMapping virtCube, SchemaMapping schema) {
+    protected void checkVirtualCube(VirtualCubeMapping virtCube, CatalogMapping schema) {
         super.checkVirtualCube(virtCube, schema);
         if (virtCube != null) {
             if (isEmpty(virtCube.getName())) {
@@ -759,7 +759,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkRole(AccessRoleMapping role, SchemaMapping schema) {
+    protected void checkRole(AccessRoleMapping role, CatalogMapping schema) {
         super.checkRole(role, schema);
         if (role != null && role.getName() == null) {
             results.add(new VerificationResultR(ROLE, ROLE_NAME_MUST_BE_SET,
@@ -768,7 +768,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkSchemaGrant(AccessSchemaGrantMapping schemaGrant, SchemaMapping schema) {
+    protected void checkSchemaGrant(AccessSchemaGrantMapping schemaGrant, CatalogMapping schema) {
         super.checkSchemaGrant(schemaGrant, schema);
         if (schemaGrant != null && schemaGrant.getAccess() == null) {
             results.add(new VerificationResultR(SCHEMA_GRANT, SCHEMA_GRANT_ACCESS_MUST_BE_SET,
@@ -777,7 +777,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCubeGrant(AccessCubeGrantMapping cubeGrant, SchemaMapping schema) {
+    protected void checkCubeGrant(AccessCubeGrantMapping cubeGrant, CatalogMapping schema) {
         super.checkCubeGrant(cubeGrant, schema);
         if (cubeGrant != null && cubeGrant.getCube() == null) {
             results.add(new VerificationResultR(CUBE_GRANT, CUBE_GRANT_CUBE_MUST_BE_SET,
@@ -808,7 +808,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkHierarchyGrant(AccessHierarchyGrantMapping hierarchyGrant, CubeMapping cube, SchemaMapping schema) {
+    protected void checkHierarchyGrant(AccessHierarchyGrantMapping hierarchyGrant, CubeMapping cube, CatalogMapping schema) {
         super.checkHierarchyGrant(hierarchyGrant, cube, schema);
         if (hierarchyGrant != null && hierarchyGrant.getHierarchy() == null) {
             results.add(new VerificationResultR(HIERARCHY_GRANT, HIERARCHY_GRANT_HIERARCHY_MUST_BE_SET,
@@ -841,7 +841,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMemberGrant(AccessMemberGrantMapping memberGrant, CubeMapping cube, SchemaMapping schema) {
+    protected void checkMemberGrant(AccessMemberGrantMapping memberGrant, CubeMapping cube, CatalogMapping schema) {
         super.checkMemberGrant(memberGrant, cube, schema);
         if (memberGrant != null) {
             if (isEmpty(memberGrant.getMember())) {

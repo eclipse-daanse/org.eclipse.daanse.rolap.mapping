@@ -19,7 +19,7 @@ import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;

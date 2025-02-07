@@ -22,7 +22,7 @@ import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFacto
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row;
 import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;

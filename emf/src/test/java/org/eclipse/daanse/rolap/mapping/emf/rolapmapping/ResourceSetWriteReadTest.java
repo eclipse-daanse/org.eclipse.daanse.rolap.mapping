@@ -409,10 +409,6 @@ public class ResourceSetWriteReadTest {
         queryAgeGroups.setTable(tableAgeGroups);
         // AgeGroups table end
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Statistik");
-        catalog.setDescription("Statistische Daten, wie");
-
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Bevolkerung");
         cube.setId("Bevolkerung");
@@ -706,13 +702,12 @@ public class ResourceSetWriteReadTest {
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        Schema schema = RolapMappingFactory.eINSTANCE.createSchema();
-        schema.setName("Bevolkerung");
-        schema.getCubes().add(cube);
-
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Bevolkerung");
+        catalog.setDescription("Statistische Daten, wie");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
-        catalog.getSchemas().add(schema);
+
 
         resourceRolap.getContents()
                 .addAll(List.of(lJahr, lStadt, lPlanungsraum, lStatistischerBezirk, lGeschlecht, lAlter,

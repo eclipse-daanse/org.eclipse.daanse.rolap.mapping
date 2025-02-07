@@ -108,7 +108,7 @@ public class ResourceSetWriteReadTest {
             }
         }
 
-        CatalogMapping cm = catalogMappingSupplier.get();
+         CatalogMapping cm = catalogMappingSupplier.get();
 
         Catalog c = (Catalog) cm;
 

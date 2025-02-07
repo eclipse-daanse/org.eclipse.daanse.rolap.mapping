@@ -60,7 +60,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
@@ -77,7 +77,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    public List<VerificationResult> checkSchema(SchemaMapping schema) {
+    public List<VerificationResult> checkSchema(CatalogMapping schema) {
         super.checkSchema(schema);
         Level lavel = config.schema();
         if (lavel != null && (schema.getDescription() == null || schema.getDescription()
@@ -89,7 +89,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDimension(DimensionMapping dimension, CubeMapping cube, SchemaMapping schema) {
+    protected void checkDimension(DimensionMapping dimension, CubeMapping cube, CatalogMapping schema) {
         super.checkDimension(dimension, cube, schema);
         Level lavel = config.dimension();
         if (lavel != null && (dimension.getDescription() == null || dimension.getDescription()
@@ -100,7 +100,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCube(VirtualCubeMapping virtualCube, SchemaMapping schema) {
+    protected void checkVirtualCube(VirtualCubeMapping virtualCube, CatalogMapping schema) {
         super.checkVirtualCube(virtualCube, schema);
         Level lavel = config.virtualCube();
         if (lavel != null && (virtualCube.getDescription() == null || virtualCube.getDescription()
@@ -111,7 +111,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkPhysicalCube(PhysicalCubeMapping cube, SchemaMapping schema) {
+    protected void checkPhysicalCube(PhysicalCubeMapping cube, CatalogMapping schema) {
         super.checkPhysicalCube(cube, schema);
         Level lavel = config.cube();
         if (lavel != null && (cube.getDescription() == null || cube.getDescription()
