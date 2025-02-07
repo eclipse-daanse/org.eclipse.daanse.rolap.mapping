@@ -362,6 +362,20 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
 
 </project>
