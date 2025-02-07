@@ -18,26 +18,18 @@ import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
 
 public interface CatalogMapping extends AbstractElementMapping {
 
-    List<? extends SchemaMapping> getSchemas();
-//
-//    List<? extends CubeMapping> getCubes();
-//
-//    List<? extends DimensionMapping> getDimensions();
-//
-//    List<? extends HierarchyMapping> getHierarchies();
-//
-//    List<? extends LevelMapping> getLevels();
-//
-//    List<? extends FormatterMapping> getFormatters();
+    List<? extends ParameterMapping> getParameters();
+
+    List<? extends CubeMapping> getCubes();
+
+    List<? extends NamedSetMapping> getNamedSets();
+
+    List<? extends AccessRoleMapping> getAccessRoles();
+
+    AccessRoleMapping getDefaultAccessRole();
+
+    String getMeasuresDimensionName();
 
     List<? extends DatabaseSchema> getDbschemas();
-//
-//    List<? extends MeasureMapping> getMeasures();
-//
-//    List<? extends AccessRoleMapping> getAccessRoles();
-//
-//    List<? extends AggregationTableMapping> getAggregationTables();
-//
-//    List<? extends AggregationExcludeMapping> getAggregationExcludes();
 
 }

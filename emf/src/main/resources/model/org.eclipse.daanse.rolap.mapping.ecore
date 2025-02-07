@@ -37,9 +37,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//AbstractElement #//ICatalog">
+  <eClassifiers xsi:type="ecore:EClass" name="Enviroment" eSuperTypes="#//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
-        eType="#//Schema" containment="true"/>
+        eType="#//Catalog" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" upperBound="-1"
         eType="#//Cube" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" upperBound="-1"
@@ -56,10 +56,8 @@
         eType="#//AggregationTable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
         eType="#//AggregationExclude" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Schema" eSuperTypes="#//ISchema #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//ICatalog #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" lowerBound="1" upperBound="-1"
@@ -71,6 +69,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="measuresDimensionName"
         ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
+        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement #//ICube">
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMembers" upperBound="-1"
@@ -611,8 +611,6 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ICalculatedMemberProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping"
-      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ICellFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ICubeConnector" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping"
@@ -669,7 +667,7 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IRelationalQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RelationalQueryMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping"
+  <eClassifiers xsi:type="ecore:EClass" name="ICatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISQLExpression" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping"
       abstract="true" interface="true"/>

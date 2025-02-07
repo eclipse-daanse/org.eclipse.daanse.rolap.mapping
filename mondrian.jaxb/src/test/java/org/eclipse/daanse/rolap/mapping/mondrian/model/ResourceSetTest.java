@@ -22,7 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.mondrian.api.RolapMappingTransformer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -47,7 +47,7 @@ public class ResourceSetTest {
             throws SQLException, InterruptedException, IOException {
 
         String data = Files.readString(Path.of(BASE_DIR, "src/test/resources/schema.xml"));
-        CatalogMapping rc = transformer.transform(new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8)));
+        EnviromentMapping rc = transformer.transform(new ByteArrayInputStream(data.getBytes(StandardCharsets.UTF_8)));
         assertThat(rc).isNotNull();
 
     }

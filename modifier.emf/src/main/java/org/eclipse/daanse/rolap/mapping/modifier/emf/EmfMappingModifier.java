@@ -45,7 +45,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
@@ -71,7 +71,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
@@ -165,7 +165,7 @@ import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
 public class EmfMappingModifier extends AbstractMappingModifier {
 
-    protected EmfMappingModifier(CatalogMapping catalog) {
+    protected EmfMappingModifier(EnviromentMapping catalog) {
         super(catalog);
     }
 
@@ -240,8 +240,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected CatalogMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
-            String name, DocumentationMapping documentation, List<? extends SchemaMapping> schemas,
+    protected EnviromentMapping createCatalog(List<? extends AnnotationMapping> annotations, String id, String description,
+            String name, DocumentationMapping documentation, List<? extends CatalogMapping> schemas,
             List<? extends DatabaseSchema> dbschemas) {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
@@ -994,7 +994,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SchemaMapping createSchema(List<? extends AnnotationMapping> annotations, String id, String description,
+    protected CatalogMapping createSchema(List<? extends AnnotationMapping> annotations, String id, String description,
             String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
             List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
             List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,

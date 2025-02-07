@@ -140,7 +140,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
@@ -168,7 +168,7 @@ class MandantoriesVerifyerTest {
     @InjectService(filter = "(component.name=" + COMPONENT_NAME + ")")
     Verifyer verifyer;
 
-    SchemaMapping schema = mock(SchemaMapping.class);
+    CatalogMapping schema = mock(CatalogMapping.class);
     PhysicalCubeMapping cube = mock(PhysicalCubeMapping.class);
     VirtualCubeMapping virtualCube = mock(VirtualCubeMapping.class);
     DimensionConnectorMapping dimensionConnector = mock(DimensionConnectorMapping.class);

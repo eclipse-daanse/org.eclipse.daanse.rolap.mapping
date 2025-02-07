@@ -61,7 +61,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
@@ -103,7 +103,7 @@ public class DescriptionVerifyerTest {
     @InjectService(filter = "(component.name=" + COMPONENT_NAME + ")")
     Verifyer verifyer;
 
-    SchemaMapping schema = mock(SchemaMapping.class);
+    CatalogMapping schema = mock(CatalogMapping.class);
     PhysicalCubeMapping cube = mock(PhysicalCubeMapping.class);
     VirtualCubeMapping virtualCube = mock(VirtualCubeMapping.class);
     StandardDimensionMapping dimension = mock(StandardDimensionMapping.class);

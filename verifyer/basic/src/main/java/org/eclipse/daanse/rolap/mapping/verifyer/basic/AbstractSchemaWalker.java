@@ -70,7 +70,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
@@ -86,7 +86,7 @@ public abstract class AbstractSchemaWalker {
 
     protected List<VerificationResult> results = new ArrayList<>();
 
-    public List<VerificationResult> checkSchema(SchemaMapping schema) {
+    public List<VerificationResult> checkSchema(CatalogMapping schema) {
 
         if (schema != null) {
             checkAnnotationList(schema.getAnnotations());
@@ -99,7 +99,7 @@ public abstract class AbstractSchemaWalker {
         return results;
     }
 
-    protected void checkCube(CubeMapping cube, SchemaMapping schema) {
+    protected void checkCube(CubeMapping cube, CatalogMapping schema) {
         if (cube != null) {
             checkAnnotationList(cube.getAnnotations());
             checkKpiList(cube.getKpis(), cube);
@@ -115,7 +115,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkDimensionConnectorsList(List<? extends DimensionConnectorMapping> dimensionConnectors, CubeMapping cube, SchemaMapping schema) {
+    private void checkDimensionConnectorsList(List<? extends DimensionConnectorMapping> dimensionConnectors, CubeMapping cube, CatalogMapping schema) {
         if (dimensionConnectors != null) {
             dimensionConnectors.forEach(dc -> checkDimensionConnector(dc, cube, schema));
         }
@@ -227,7 +227,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkDimension(DimensionMapping cubeDimension, CubeMapping cube, SchemaMapping schema) {
+    protected void checkDimension(DimensionMapping cubeDimension, CubeMapping cube, CatalogMapping schema) {
         if (cubeDimension != null) {
             checkAnnotationList(cubeDimension.getAnnotations());
             if (cubeDimension.getHierarchies() != null) {
@@ -490,7 +490,7 @@ public abstract class AbstractSchemaWalker {
 
     }
 
-    protected void checkPhysicalCube(PhysicalCubeMapping physicalCube, SchemaMapping schema) {
+    protected void checkPhysicalCube(PhysicalCubeMapping physicalCube, CatalogMapping schema) {
         if (physicalCube != null) {
             checkQuery(physicalCube.getQuery());
             checkWritebackTable(physicalCube.getWritebackTable(), physicalCube);
@@ -500,7 +500,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkVirtualCube(VirtualCubeMapping virtCube, SchemaMapping schema) {
+    protected void checkVirtualCube(VirtualCubeMapping virtCube, CatalogMapping schema) {
         if (virtCube != null) {
             checkCubeUsageList(virtCube.getCubeUsages());
             checkReferencedMeasureList(virtCube.getReferencedMeasures(), virtCube, schema);
@@ -509,7 +509,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkReferencedCalculatedMemberList(List<? extends CalculatedMemberMapping> referencedMeasures, VirtualCubeMapping virtCube, SchemaMapping schema) {
+    protected void checkReferencedCalculatedMemberList(List<? extends CalculatedMemberMapping> referencedMeasures, VirtualCubeMapping virtCube, CatalogMapping schema) {
         if (referencedMeasures != null) {
             referencedMeasures.forEach(r -> checkReferencedCalculatedMember(r));
         }
@@ -519,7 +519,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkReferencedMeasureList(List<? extends MeasureMapping> referencedMeasures, VirtualCubeMapping virtCube, SchemaMapping schema) {
+    protected void checkReferencedMeasureList(List<? extends MeasureMapping> referencedMeasures, VirtualCubeMapping virtCube, CatalogMapping schema) {
         if (referencedMeasures != null) {
             referencedMeasures.forEach(r -> checkReferencedCalculatedMember(r));
         }
@@ -533,7 +533,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkVirtualCubeMeasure(MeasureMapping virtualCubeMeasure, VirtualCubeMapping vCube, SchemaMapping schema) {
+    protected void checkVirtualCubeMeasure(MeasureMapping virtualCubeMeasure, VirtualCubeMapping vCube, CatalogMapping schema) {
         if (virtualCubeMeasure != null) {
             checkAnnotationList(virtualCubeMeasure.getAnnotations());
         }
@@ -596,7 +596,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkRole(AccessRoleMapping role, SchemaMapping schema) {
+    protected void checkRole(AccessRoleMapping role, CatalogMapping schema) {
         if (role != null) {
             checkAnnotationList(role.getAnnotations());
             checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
@@ -616,26 +616,26 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkSchemaGrant(AccessSchemaGrantMapping schemaGrant, SchemaMapping schema) {
+    protected void checkSchemaGrant(AccessSchemaGrantMapping schemaGrant, CatalogMapping schema) {
         if (schemaGrant != null) {
             checkCubeGrantList(schemaGrant.getCubeGrants(), schema);
         }
     }
 
-    protected void checkCubeGrant(AccessCubeGrantMapping cubeGrant, SchemaMapping schema) {
+    protected void checkCubeGrant(AccessCubeGrantMapping cubeGrant, CatalogMapping schema) {
         if (cubeGrant != null && cubeGrant.getCube() != null) {
             checkDimensionGrantList(cubeGrant.getDimensionGrants());
             checkHierarchyGrantList(cubeGrant.getHierarchyGrants(), cubeGrant.getCube(), schema);
         }
     }
 
-    protected void checkHierarchyGrant(AccessHierarchyGrantMapping hierarchyGrant, CubeMapping cubeName, SchemaMapping schema) {
+    protected void checkHierarchyGrant(AccessHierarchyGrantMapping hierarchyGrant, CubeMapping cubeName, CatalogMapping schema) {
         if (hierarchyGrant != null) {
             checkMemberGrantList(hierarchyGrant.getMemberGrants(), cubeName, schema);
         }
     }
 
-    protected void checkMemberGrant(AccessMemberGrantMapping memberGrant, CubeMapping cubeName, SchemaMapping schema) {
+    protected void checkMemberGrant(AccessMemberGrantMapping memberGrant, CubeMapping cubeName, CatalogMapping schema) {
         //empty
     }
 
@@ -680,7 +680,7 @@ public abstract class AbstractSchemaWalker {
         return value == null ? NOT_SET : value;
     }
 
-    protected void checkFact(CubeMapping cube, SchemaMapping schema) {
+    protected void checkFact(CubeMapping cube, CatalogMapping schema) {
         //empty
     }
 
@@ -767,19 +767,19 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkCubeGrantList(List<? extends AccessCubeGrantMapping> list, SchemaMapping schema) {
+    private void checkCubeGrantList(List<? extends AccessCubeGrantMapping> list, CatalogMapping schema) {
         if (list != null) {
             list.forEach(cg -> checkCubeGrant(cg, schema));
         }
     }
 
-    private void checkHierarchyGrantList(List<? extends AccessHierarchyGrantMapping> list, CubeMapping cubeName, SchemaMapping schema) {
+    private void checkHierarchyGrantList(List<? extends AccessHierarchyGrantMapping> list, CubeMapping cubeName, CatalogMapping schema) {
         if (list != null) {
             list.forEach(hg -> checkHierarchyGrant(hg, cubeName, schema));
         }
     }
 
-    private void checkMemberGrantList(List<? extends AccessMemberGrantMapping> list, CubeMapping cubeName, SchemaMapping schema) {
+    private void checkMemberGrantList(List<? extends AccessMemberGrantMapping> list, CubeMapping cubeName, CatalogMapping schema) {
         if (list != null) {
             list.forEach(mg -> checkMemberGrant(mg, cubeName, schema));
         }
@@ -791,25 +791,25 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkSchemaGrantList(List<? extends AccessSchemaGrantMapping> list, SchemaMapping schema) {
+    private void checkSchemaGrantList(List<? extends AccessSchemaGrantMapping> list, CatalogMapping schema) {
         if (list != null) {
             list.forEach(sg -> checkSchemaGrant(sg, schema));
         }
     }
 
-    protected void checkDimensionConnectorList(List<? extends DimensionConnectorMapping> list, CubeMapping cube, SchemaMapping schema) {
+    protected void checkDimensionConnectorList(List<? extends DimensionConnectorMapping> list, CubeMapping cube, CatalogMapping schema) {
         if (list != null) {
             list.forEach(it -> checkDimensionConnector(it, cube, schema));
         }
     }
 
-    protected void checkDimensionConnector(DimensionConnectorMapping dc, CubeMapping cube, SchemaMapping schema) {
+    protected void checkDimensionConnector(DimensionConnectorMapping dc, CubeMapping cube, CatalogMapping schema) {
         if (dc != null) {
             checkDimension(dc.getDimension(), cube, schema);
         }
     }
 
-    private void checkCubeList(List<? extends CubeMapping> list, SchemaMapping schema) {
+    private void checkCubeList(List<? extends CubeMapping> list, CatalogMapping schema) {
         if (list != null) {
             list.forEach(cube -> checkCube(cube, schema));
         }
@@ -870,7 +870,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkRoleList(List<? extends AccessRoleMapping> list, SchemaMapping schema) {
+    private void checkRoleList(List<? extends AccessRoleMapping> list, CatalogMapping schema) {
         if (list != null) {
             list.forEach(r -> checkRole(r, schema));
         }

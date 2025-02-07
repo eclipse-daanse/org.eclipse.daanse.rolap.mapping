@@ -15,9 +15,9 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.SchemaMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
-public class SchemaMappingImpl extends AbstractElementMappingImpl implements SchemaMapping {
+public class SchemaMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
 
     private List<ParameterMappingImpl> parameters;
 

@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 
-public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
+public class CatalogMappingImpl extends AbstractElementMappingImpl implements EnviromentMapping {
 
     private List<SchemaMappingImpl> schemas;
 
