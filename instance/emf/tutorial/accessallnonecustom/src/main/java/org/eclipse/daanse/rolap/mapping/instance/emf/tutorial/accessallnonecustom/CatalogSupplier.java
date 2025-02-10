@@ -24,7 +24,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
@@ -41,7 +41,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -156,52 +156,52 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube2GrantRole1.setCube(cube2);
         cube2GrantRole1.setCubeAccess(CubeAccess.NONE);
 
-        AccessSchemaGrant accessSchemaGrantRole1 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole1.setSchemaAccess(SchemaAccess.ALL);
+        AccessCatalogGrant accessSchemaGrantRole1 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole1.setCatalogAccess(CatalogAccess.ALL);
         accessSchemaGrantRole1.getCubeGrants().addAll(List.of(cube2GrantRole1));
 
         AccessRole role1 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role1.setName("role1");
-        role1.getAccessSchemaGrants().add(accessSchemaGrantRole1);
+        role1.getAccessCatalogGrants().add(accessSchemaGrantRole1);
 
 
         AccessCubeGrant cube1GrantRole11 = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         cube1GrantRole11.setCube(cube1);
         cube1GrantRole11.setCubeAccess(CubeAccess.ALL);
 
-        AccessSchemaGrant accessSchemaGrantRole11 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole11.setSchemaAccess(SchemaAccess.NONE);
+        AccessCatalogGrant accessSchemaGrantRole11 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole11.setCatalogAccess(CatalogAccess.NONE);
         accessSchemaGrantRole11.getCubeGrants().addAll(List.of(cube1GrantRole11));
 
         AccessRole role11 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role11.setName("role11");
-        role11.getAccessSchemaGrants().add(accessSchemaGrantRole11);
+        role11.getAccessCatalogGrants().add(accessSchemaGrantRole11);
 
         AccessCubeGrant cube2GrantRole12 = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         cube2GrantRole12.setCube(cube2);
         cube2GrantRole12.setCubeAccess(CubeAccess.ALL);
 
-        AccessSchemaGrant accessSchemaGrantRole12 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole12.setSchemaAccess(SchemaAccess.NONE);
+        AccessCatalogGrant accessSchemaGrantRole12 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole12.setCatalogAccess(CatalogAccess.NONE);
         accessSchemaGrantRole12.getCubeGrants().addAll(List.of(cube2GrantRole12));
 
         AccessRole role12 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role12.setName("role12");
-        role12.getAccessSchemaGrants().add(accessSchemaGrantRole12);
+        role12.getAccessCatalogGrants().add(accessSchemaGrantRole12);
 
-        AccessSchemaGrant accessSchemaGrantRole2 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole2.setSchemaAccess(SchemaAccess.ALL);
+        AccessCatalogGrant accessSchemaGrantRole2 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole2.setCatalogAccess(CatalogAccess.ALL);
 
         AccessRole role2 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role2.setName("role2");
-        role2.getAccessSchemaGrants().add(accessSchemaGrantRole2);
+        role2.getAccessCatalogGrants().add(accessSchemaGrantRole2);
 
-        AccessSchemaGrant accessSchemaGrantRole3 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole3.setSchemaAccess(SchemaAccess.NONE);
+        AccessCatalogGrant accessSchemaGrantRole3 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole3.setCatalogAccess(CatalogAccess.NONE);
 
         AccessRole role3 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role3.setName("role3");
-        role3.getAccessSchemaGrants().add(accessSchemaGrantRole2);
+        role3.getAccessCatalogGrants().add(accessSchemaGrantRole2);
 
         AccessMemberGrant mg1Role4 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
         mg1Role4.setMemberAccess(MemberAccess.ALL);
@@ -222,13 +222,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube1GrantRole4.setCubeAccess(CubeAccess.ALL);
         cube1GrantRole4.getHierarchyGrants().add(hierarchyGrantRole4);
 
-        AccessSchemaGrant accessSchemaGrantRole4 = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRole4.setSchemaAccess(SchemaAccess.NONE);
+        AccessCatalogGrant accessSchemaGrantRole4 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRole4.setCatalogAccess(CatalogAccess.NONE);
         accessSchemaGrantRole4.getCubeGrants().add(cube1GrantRole4);
 
         AccessRole role4 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role4.setName("role3");
-        role4.getAccessSchemaGrants().add(accessSchemaGrantRole4);
+        role4.getAccessCatalogGrants().add(accessSchemaGrantRole4);
 
         AccessMemberGrant mg1RoleManager1 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
         mg1RoleManager1.setMemberAccess(MemberAccess.ALL);
@@ -266,13 +266,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube1GrantRoleManager.setCubeAccess(CubeAccess.ALL);
         cube1GrantRoleManager.getHierarchyGrants().addAll(List.of(hierarchyGrantRoleManager1, hierarchyGrantRoleManager2));
 
-        AccessSchemaGrant accessSchemaGrantRoleManager = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrantRoleManager.setSchemaAccess(SchemaAccess.NONE);
+        AccessCatalogGrant accessSchemaGrantRoleManager = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrantRoleManager.setCatalogAccess(CatalogAccess.NONE);
         accessSchemaGrantRoleManager.getCubeGrants().add(cube1GrantRoleManager);
 
         AccessRole roleManager = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleManager.setName("manager");
-        roleManager.getAccessSchemaGrants().add(accessSchemaGrantRoleManager);
+        roleManager.getAccessCatalogGrants().add(accessSchemaGrantRoleManager);
 
         AccessRole roleU = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleU.setName("role_u");

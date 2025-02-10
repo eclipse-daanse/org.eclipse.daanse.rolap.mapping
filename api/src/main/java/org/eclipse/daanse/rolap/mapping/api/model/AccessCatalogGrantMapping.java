@@ -18,7 +18,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 
 public interface AccessCatalogGrantMapping {
 
-    List<? extends AccessSchemaGrantMapping> getSchemaGrants();
+    List<? extends AccessCubeGrantMapping> getCubeGrants();
 
     AccessCatalog getAccess();
 

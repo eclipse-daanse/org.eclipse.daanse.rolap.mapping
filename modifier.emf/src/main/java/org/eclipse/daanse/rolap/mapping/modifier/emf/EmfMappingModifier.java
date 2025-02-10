@@ -32,7 +32,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
@@ -84,7 +84,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -95,7 +95,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Action;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationColumnName;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationExclude;
@@ -148,7 +148,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -240,7 +240,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessRoleMapping createAccessRole(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, DocumentationMapping documentation,
-            List<? extends AccessSchemaGrantMapping> accessSchemaGrants,
+            List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
             List<? extends AccessRoleMapping> referencedAccessRoles) {
         AccessRole accessRole = RolapMappingFactory.eINSTANCE.createAccessRole();
         accessRole.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
@@ -248,7 +248,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         accessRole.setDescription(description);
         accessRole.setName(name);
         accessRole.setDocumentation((Documentation) documentation);
-        accessRole.getAccessSchemaGrants().addAll((Collection<? extends AccessSchemaGrant>) accessSchemaGrants);
+        accessRole.getAccessCatalogGrants().addAll((Collection<? extends AccessCatalogGrant>) accessCatalogGrants);
         accessRole.getReferencedAccessRoles().addAll((Collection<? extends AccessRole>) referencedAccessRoles);
         return accessRole;
     }
@@ -665,12 +665,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AccessSchemaGrantMapping createAccessSchemaGrant(List<? extends AccessCubeGrantMapping> accessCubeGrant,
-            AccessSchema access) {
-        AccessSchemaGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
-        accessSchemaGrant.setSchemaAccess(toEmf(access));
-        return accessSchemaGrant;
+    protected AccessCatalogGrantMapping createAccessCatalogGrant(List<? extends AccessCubeGrantMapping> accessCubeGrant,
+            AccessCatalog access) {
+        AccessCatalogGrant accessCatalogGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessCatalogGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
+        accessCatalogGrant.setCatalogAccess(toEmf(access));
+        return accessCatalogGrant;
     }
 
     @SuppressWarnings("unchecked")
@@ -1011,7 +1011,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return null;
     }
 
-    private SchemaAccess toEmf(AccessSchema access) {
+    private CatalogAccess toEmf(AccessCatalog access) {
         return null;
     }
 

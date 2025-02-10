@@ -34,7 +34,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
@@ -93,7 +93,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -504,10 +504,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String name = accessRoleName(accessRole);
                 DocumentationMapping documentation = accessRoleDocumentation(accessRole);
 
-                List<? extends AccessSchemaGrantMapping> accessSchemaGrants = accessRoleAccessSchemaGrants(accessRole);
+                List<? extends AccessCatalogGrantMapping> accessCatalogGrants = accessRoleAccessCatalogGrants(accessRole);
                 List<? extends AccessRoleMapping> referencedAccessRoles = accessRoleReferencedAccessRoles(accessRole);
                 AccessRoleMapping ar = createAccessRole(annotations, id, description, name, documentation,
-                    accessSchemaGrants,
+                    accessCatalogGrants,
                     referencedAccessRoles);
                 accessRoleMap.put(accessRole, ar);
                 return ar;
@@ -541,7 +541,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract AccessRoleMapping createAccessRole(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        List<? extends AccessSchemaGrantMapping> accessSchemaGrants,
+        List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
         List<? extends AccessRoleMapping> referencedAccessRoles
     );
 
@@ -549,33 +549,33 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return accessRoles(accessRole.getReferencedAccessRoles());
     }
 
-    protected List<? extends AccessSchemaGrantMapping> accessRoleAccessSchemaGrants(AccessRoleMapping accessRole) {
-        return accessSchemaGrants(accessRole.getAccessSchemaGrants());
+    protected List<? extends AccessCatalogGrantMapping> accessRoleAccessCatalogGrants(AccessRoleMapping accessRole) {
+        return accessCatalogGrants(accessRole.getAccessCatalogGrants());
     }
 
-    protected List<AccessSchemaGrantMapping> accessSchemaGrants(
-        List<? extends AccessSchemaGrantMapping> accessSchemaGrants
+    protected List<AccessCatalogGrantMapping> accessCatalogGrants(
+        List<? extends AccessCatalogGrantMapping> accessCatalogGrants
     ) {
-        if (accessSchemaGrants != null) {
-            return accessSchemaGrants.stream().map(this::accessSchemaGrant).toList();
+        if (accessCatalogGrants != null) {
+            return accessCatalogGrants.stream().map(this::accessCatalogGrant).toList();
         }
         return List.of();
     }
 
-    protected AccessSchemaGrantMapping accessSchemaGrant(AccessSchemaGrantMapping accessSchemaGrant) {
-        if (accessSchemaGrant != null) {
-            List<? extends AccessCubeGrantMapping> accessCubeGrant = accessSchemaGrantAccessCubeGrant(
-                accessSchemaGrant);
-            AccessSchema access = accessSchemaGrantAccess(accessSchemaGrant);
-            return createAccessSchemaGrant(accessCubeGrant, access);
+    protected AccessCatalogGrantMapping accessCatalogGrant(AccessCatalogGrantMapping accessCatalogGrant) {
+        if (accessCatalogGrant != null) {
+            List<? extends AccessCubeGrantMapping> accessCubeGrant = accessCatalogGrantAccessCubeGrant(
+                accessCatalogGrant);
+            AccessCatalog access = accessCatalogGrantAccess(accessCatalogGrant);
+            return createAccessCatalogGrant(accessCubeGrant, access);
         }
         return null;
     }
 
-    protected List<? extends AccessCubeGrantMapping> accessSchemaGrantAccessCubeGrant(
-        AccessSchemaGrantMapping accessSchemaGrant
+    protected List<? extends AccessCubeGrantMapping> accessCatalogGrantAccessCubeGrant(
+        AccessCatalogGrantMapping accessCatalogGrant
     ) {
-        return accessCubeGrants(accessSchemaGrant.getCubeGrants());
+        return accessCubeGrants(accessCatalogGrant.getCubeGrants());
     }
 
     protected List<AccessCubeGrantMapping> accessCubeGrants(
@@ -2026,12 +2026,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCube access, CubeMapping cube
     );
 
-    protected AccessSchema accessSchemaGrantAccess(AccessSchemaGrantMapping accessSchemaGrant) {
-        return accessSchemaGrant.getAccess();
+    protected AccessCatalog accessCatalogGrantAccess(AccessCatalogGrantMapping accessCatalogGrant) {
+        return accessCatalogGrant.getAccess();
     }
 
-    protected abstract AccessSchemaGrantMapping createAccessSchemaGrant(
-        List<? extends AccessCubeGrantMapping> accessCubeGrant, AccessSchema access
+    protected abstract AccessCatalogGrantMapping createAccessCatalogGrant(
+        List<? extends AccessCubeGrantMapping> accessCubeGrant, AccessCatalog access
     );
 
     protected List<? extends AccessRoleMapping> schemaAccessRoles(CatalogMapping schemaMappingOriginal) {

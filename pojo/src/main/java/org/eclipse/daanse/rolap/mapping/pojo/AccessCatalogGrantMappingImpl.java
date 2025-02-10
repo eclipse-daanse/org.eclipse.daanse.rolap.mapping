@@ -15,16 +15,16 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 
-public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
+public class AccessCatalogGrantMappingImpl implements AccessCatalogGrantMapping {
 
     private List<AccessCubeGrantMappingImpl> cubeGrant;
 
-    private AccessSchema access;
+    private AccessCatalog access;
 
-    private AccessSchemaGrantMappingImpl(Builder builder) {
+    private AccessCatalogGrantMappingImpl(Builder builder) {
         this.cubeGrant = builder.cubeGrant;
         this.access = builder.access;
     }
@@ -37,11 +37,11 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
         this.cubeGrant = cubeGrant;
     }
 
-    public AccessSchema getAccess() {
+    public AccessCatalog getAccess() {
         return access;
     }
 
-    public void setAccess(AccessSchema access) {
+    public void setAccess(AccessCatalog access) {
         this.access = access;
     }
 
@@ -51,7 +51,7 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
 
     public static final class Builder {
         private List<AccessCubeGrantMappingImpl> cubeGrant = new ArrayList<>();
-        private AccessSchema access;
+        private AccessCatalog access;
 
         private Builder() {
         }
@@ -61,13 +61,13 @@ public class AccessSchemaGrantMappingImpl implements AccessSchemaGrantMapping {
             return this;
         }
 
-        public Builder withAccess(AccessSchema access) {
+        public Builder withAccess(AccessCatalog access) {
             this.access = access;
             return this;
         }
 
-        public AccessSchemaGrantMappingImpl build() {
-            return new AccessSchemaGrantMappingImpl(this);
+        public AccessCatalogGrantMappingImpl build() {
+            return new AccessCatalogGrantMappingImpl(this);
         }
     }
 }

@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 import java.util.List;
 
 public interface AccessRoleMapping extends AbstractElementMapping {
-    List<? extends AccessSchemaGrantMapping> getAccessSchemaGrants();
+    List<? extends AccessCatalogGrantMapping> getAccessCatalogGrants();
 
     List<? extends AccessRoleMapping> getReferencedAccessRoles();
 

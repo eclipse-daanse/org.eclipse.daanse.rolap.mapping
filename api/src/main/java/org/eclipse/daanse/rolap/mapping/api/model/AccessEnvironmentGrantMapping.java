@@ -14,12 +14,12 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessEnvironment;
 
-public interface AccessSchemaGrantMapping {
+public interface AccessEnvironmentGrantMapping {
 
-    List<? extends AccessCubeGrantMapping> getCubeGrants();
+    List<? extends AccessCatalogGrantMapping> getCatalogGrants();
 
-    AccessSchema getAccess();
+    AccessEnvironment getAccess();
 
 }

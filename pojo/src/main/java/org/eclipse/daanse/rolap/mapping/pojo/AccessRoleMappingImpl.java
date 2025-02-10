@@ -19,12 +19,12 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 
 public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements AccessRoleMapping {
 
-    private List<AccessSchemaGrantMappingImpl> accessSchemaGrants;
+    private List<AccessCatalogGrantMappingImpl> accessCatalogGrants;
 
     private List<AccessRoleMappingImpl> referencedAccessRoles;
 
     private AccessRoleMappingImpl(Builder builder) {
-        this.accessSchemaGrants = builder.accessSchemaGrants;
+        this.accessCatalogGrants = builder.accessCatalogGrants;
         this.referencedAccessRoles = builder.referencedAccessRoles;
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
@@ -33,12 +33,12 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         super.setDocumentation(builder.documentation);
     }
 
-    public List<AccessSchemaGrantMappingImpl> getAccessSchemaGrants() {
-        return accessSchemaGrants;
+    public List<AccessCatalogGrantMappingImpl> getAccessCatalogGrants() {
+        return accessCatalogGrants;
     }
 
-    public void setAccessSchemaGrants(List<AccessSchemaGrantMappingImpl> accessSchemaGrants) {
-        this.accessSchemaGrants = accessSchemaGrants;
+    public void setAccessCatalogGrants(List<AccessCatalogGrantMappingImpl> accessCatalogGrants) {
+        this.accessCatalogGrants = accessCatalogGrants;
     }
 
     public List<AccessRoleMappingImpl> getReferencedAccessRoles() {
@@ -54,7 +54,7 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
     }
 
     public static final class Builder {
-        private List<AccessSchemaGrantMappingImpl> accessSchemaGrants = new ArrayList<>();
+        private List<AccessCatalogGrantMappingImpl> accessCatalogGrants = new ArrayList<>();
         private List<AccessRoleMappingImpl> referencedAccessRoles = new ArrayList<>();
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
@@ -65,8 +65,8 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         private Builder() {
         }
 
-        public Builder withAccessSchemaGrants(List<AccessSchemaGrantMappingImpl> accessSchemaGrants) {
-            this.accessSchemaGrants = accessSchemaGrants;
+        public Builder withAccessCatalogGrants(List<AccessCatalogGrantMappingImpl> accessCatalogGrants) {
+            this.accessCatalogGrants = accessCatalogGrants;
             return this;
         }
 
