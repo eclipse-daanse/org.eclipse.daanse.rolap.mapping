@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
@@ -93,7 +93,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -105,7 +105,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessSchemaGrantMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ActionMappingMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
@@ -266,7 +266,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected AccessRoleMapping createAccessRole(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        List<? extends AccessSchemaGrantMapping> accessSchemaGrants,
+        List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
         List<? extends AccessRoleMapping> referencedAccessRoles
     ) {
         return AccessRoleMappingImpl.builder()
@@ -275,7 +275,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withDescription(description)
             .withName(name)
             .withDocumentation((DocumentationMappingImpl) documentation)
-            .withAccessSchemaGrants((List<AccessSchemaGrantMappingImpl>) accessSchemaGrants)
+            .withAccessCatalogGrants((List<AccessCatalogGrantMappingImpl>) accessCatalogGrants)
             .withReferencedAccessRoles((List<AccessRoleMappingImpl>) referencedAccessRoles)
             .build();
     }
@@ -637,11 +637,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AccessSchemaGrantMapping createAccessSchemaGrant(
+    protected AccessCatalogGrantMapping createAccessCatalogGrant(
         List<? extends AccessCubeGrantMapping> accessCubeGrant,
-        AccessSchema access
+        AccessCatalog access
     ) {
-        return AccessSchemaGrantMappingImpl.builder()
+        return AccessCatalogGrantMappingImpl.builder()
             .withCubeGrant((List<AccessCubeGrantMappingImpl>) accessCubeGrant)
             .withAccess(access)
             .build();

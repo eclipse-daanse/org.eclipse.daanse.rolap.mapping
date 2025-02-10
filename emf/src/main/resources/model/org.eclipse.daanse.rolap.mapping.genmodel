@@ -20,11 +20,11 @@
   <foreignModel>org.eclipse.daanse.rolap.mapping.ecore</foreignModel>
   <genPackages prefix="RolapMapping" basePackage="org.eclipse.daanse.rolap.mapping.emf"
       resource="XMI" disposableProviderFactory="true" ecorePackage="org.eclipse.daanse.rolap.mapping.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//SchemaAccess">
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//SchemaAccess/NONE"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//SchemaAccess/ALL"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//SchemaAccess/CUSTOM"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//SchemaAccess/ALL_DIMENSIONS"/>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/CUSTOM"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/ALL_DIMENSIONS"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess">
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess/NONE"/>
@@ -115,7 +115,7 @@
     </genEnums>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//SQLStatement"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//Formula"/>
-    <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//AccessSchema"/>
+    <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalog"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//AccessCube"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//AccessDimension"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchy"/>
@@ -492,14 +492,14 @@
           body="return AccessMember.fromValue(getMemberAccess().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessRole">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/accessSchemaGrants"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/accessCatalogGrants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/referencedAccessRoles"/>
     </genClasses>
-    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/cubeGrants"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/schemaAccess"/>
-      <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessSchemaGrant/getAccess"
-          body="return AccessSchema.fromValue(getSchemaAccess().getLiteral());"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/cubeGrants"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/catalogAccess"/>
+      <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/getAccess"
+          body="return AccessCatalog.fromValue(getCatalogAccess().getLiteral());"/>
     </genClasses>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAbstractElement"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessCubeGrant"/>
@@ -507,7 +507,7 @@
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessHierarchyGrant"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessMemberGrant"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessRole"/>
-    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessSchemaGrant"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAccessCatalogGrant"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAction"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAggregationColumnName"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IAggregationExclude"/>

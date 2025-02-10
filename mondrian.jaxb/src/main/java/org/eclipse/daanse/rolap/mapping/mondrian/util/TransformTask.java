@@ -36,7 +36,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -87,7 +87,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessSchemaGrantMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationForeignKeyMappingImpl;
@@ -461,15 +461,15 @@ public class TransformTask {
         return memberGrants.stream().map(this::transformAccessMemberGrant).toList();
     }
 
-    private AccessSchemaGrantMappingImpl transformAccessSchemaGrant(SchemaGrant schemaGrant) {
-        AccessSchemaGrantMappingImpl accessSchemaGrant = AccessSchemaGrantMappingImpl.builder().build();
+    private AccessCatalogGrantMappingImpl transformAccessSchemaGrant(SchemaGrant schemaGrant) {
+        AccessCatalogGrantMappingImpl accessSchemaGrant = AccessCatalogGrantMappingImpl.builder().build();
         accessSchemaGrant.setAccess(schemaGrant.access() != null ?
-            AccessSchema.fromValue(schemaGrant.access().toString()) : null);
+            AccessCatalog.fromValue(schemaGrant.access().toString()) : null);
         accessSchemaGrant.setCubeGrant(transformAccessCubeGrants(schemaGrant.cubeGrants()));
         return accessSchemaGrant;
     }
 
-    private List<AccessSchemaGrantMappingImpl> transformAccessSchemaGrants(List<SchemaGrant> schemaGrants) {
+    private List<AccessCatalogGrantMappingImpl> transformAccessSchemaGrants(List<SchemaGrant> schemaGrants) {
         return schemaGrants.stream().map(this::transformAccessSchemaGrant).toList();
     }
 
@@ -1309,7 +1309,7 @@ public class TransformTask {
         accessRole.setName(role.name());
         accessRole.setId("ar_" + counterAccessRole.incrementAndGet());
         accessRole.setDescription(role.description());
-        accessRole.setAccessSchemaGrants(transformAccessSchemaGrants(role.schemaGrants()));
+        accessRole.setAccessCatalogGrants(transformAccessSchemaGrants(role.schemaGrants()));
         accessRole.setAnnotations(transformAnnotations(role.annotations()));
         accessRole.getReferencedAccessRoles();
         return accessRole;

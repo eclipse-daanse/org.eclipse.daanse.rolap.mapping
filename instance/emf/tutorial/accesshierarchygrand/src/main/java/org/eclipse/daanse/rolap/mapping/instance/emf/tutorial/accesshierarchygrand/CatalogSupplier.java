@@ -25,7 +25,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
@@ -41,7 +41,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SchemaAccess;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -178,12 +178,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube1Grant.getHierarchyGrants().addAll(List.of(hierarchyGrant));
         cube1Grant.setCubeAccess(CubeAccess.ALL);
 
-        AccessSchemaGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessSchemaGrant();
-        accessSchemaGrant.setSchemaAccess(SchemaAccess.ALL_DIMENSIONS);
+        AccessCatalogGrant accessSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        accessSchemaGrant.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
         accessSchemaGrant.getCubeGrants().addAll(List.of(cube1Grant));
 
         AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
-        role.getAccessSchemaGrants().add(accessSchemaGrant);
+        role.getAccessCatalogGrants().add(accessSchemaGrant);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Cube_with_access_all_dimension_cube1_access_to_A_only");

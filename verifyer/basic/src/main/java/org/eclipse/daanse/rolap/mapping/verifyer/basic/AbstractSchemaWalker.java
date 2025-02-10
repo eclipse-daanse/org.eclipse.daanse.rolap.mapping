@@ -29,7 +29,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessSchemaGrantMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
@@ -599,7 +599,7 @@ public abstract class AbstractSchemaWalker {
     protected void checkRole(AccessRoleMapping role, CatalogMapping schema) {
         if (role != null) {
             checkAnnotationList(role.getAnnotations());
-            checkSchemaGrantList(role.getAccessSchemaGrants(), schema);
+            checkSchemaGrantList(role.getAccessCatalogGrants(), schema);
             checkAccessRoleList(role.getReferencedAccessRoles());
         }
     }
@@ -616,7 +616,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkSchemaGrant(AccessSchemaGrantMapping schemaGrant, CatalogMapping schema) {
+    protected void checkSchemaGrant(AccessCatalogGrantMapping schemaGrant, CatalogMapping schema) {
         if (schemaGrant != null) {
             checkCubeGrantList(schemaGrant.getCubeGrants(), schema);
         }
@@ -791,7 +791,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkSchemaGrantList(List<? extends AccessSchemaGrantMapping> list, CatalogMapping schema) {
+    private void checkSchemaGrantList(List<? extends AccessCatalogGrantMapping> list, CatalogMapping schema) {
         if (list != null) {
             list.forEach(sg -> checkSchemaGrant(sg, schema));
         }

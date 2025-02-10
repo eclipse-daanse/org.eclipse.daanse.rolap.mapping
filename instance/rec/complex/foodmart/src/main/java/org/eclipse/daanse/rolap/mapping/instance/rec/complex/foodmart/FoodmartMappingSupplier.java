@@ -22,7 +22,7 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessSchema;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -34,7 +34,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessSchemaGrantMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationForeignKeyMappingImpl;
@@ -2506,9 +2506,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final AccessRoleMappingImpl californiaManagerRole = AccessRoleMappingImpl.builder()
         .withName("California manager")
-        .withAccessSchemaGrants(List.of(
-            AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchema.NONE)
+        .withAccessCatalogGrants(List.of(
+            AccessCatalogGrantMappingImpl.builder()
+                .withAccess(AccessCatalog.NONE)
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
                         .withCube(CUBE_SALES)
@@ -2558,9 +2558,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final AccessRoleMappingImpl noHRCubeRole = AccessRoleMappingImpl.builder()
         .withName("No HR Cube")
-        .withAccessSchemaGrants(List.of(
-            AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchema.ALL)
+        .withAccessCatalogGrants(List.of(
+            AccessCatalogGrantMappingImpl.builder()
+                .withAccess(AccessCatalog.ALL)
                 .withCubeGrant(List.of(
                     AccessCubeGrantMappingImpl.builder()
                         .withCube(CUBE_HR)
@@ -2573,9 +2573,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final AccessRoleMappingImpl administratorRole = AccessRoleMappingImpl.builder()
         .withName("Administrator")
-        .withAccessSchemaGrants(List.of(
-            AccessSchemaGrantMappingImpl.builder()
-                .withAccess(AccessSchema.ALL)
+        .withAccessCatalogGrants(List.of(
+            AccessCatalogGrantMappingImpl.builder()
+                .withAccess(AccessCatalog.ALL)
                 .build()
         ))
         .build();

@@ -13,13 +13,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum AccessSchema {
+public enum AccessEnvironment {
 
     ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
 
     private final String value;
 
-    AccessSchema(String v) {
+    AccessEnvironment(String v) {
         value = v;
     }
 
@@ -27,8 +27,8 @@ public enum AccessSchema {
         return value;
     }
 
-    public static AccessSchema fromValue(String v) {
-        for (AccessSchema c: AccessSchema.values()) {
+    public static AccessEnvironment fromValue(String v) {
+        for (AccessEnvironment c: AccessEnvironment.values()) {
             if (c.value.equalsIgnoreCase(v)) {
                 return c;
             }
