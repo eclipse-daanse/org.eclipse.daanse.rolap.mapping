@@ -14,28 +14,26 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinne
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -69,69 +67,69 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column dimKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType("VARCHAR");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column htKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column htKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htKeyColumn.setName("KEY");
         htKeyColumn.setId("HT_KEY");
         htKeyColumn.setType("VARCHAR");
 
-        Column htValueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column htValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htValueColumn.setName("VALUE");
         htValueColumn.setId("HT_VALUE");
         htValueColumn.setType("NUMERIC");
 
-        Column htNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column htNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htNameColumn.setName("NAME");
         htNameColumn.setId("HT_NAME");
         htNameColumn.setType("VARCHAR");
 
-        RowValue r1v1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r1v1 = RolapMappingFactory.eINSTANCE.createRowValue();
         r1v1.setColumn(htKeyColumn);
         r1v1.setValue("1");
 
-        RowValue r1v2 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r1v2 = RolapMappingFactory.eINSTANCE.createRowValue();
         r1v2.setColumn(htValueColumn);
         r1v2.setValue("100.5");
 
-        RowValue r1v3 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r1v3 = RolapMappingFactory.eINSTANCE.createRowValue();
         r1v3.setColumn(htNameColumn);
         r1v3.setValue("name1");
 
-        Row r1 = RelationalDatabaseFactory.eINSTANCE.createRow();
+        Row r1 = RolapMappingFactory.eINSTANCE.createRow();
         r1.getRowValues().addAll(List.of(r1v1, r1v2, r1v3));
 
-        RowValue r2v1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r2v1 = RolapMappingFactory.eINSTANCE.createRowValue();
         r2v1.setColumn(htKeyColumn);
         r2v1.setValue("2");
 
-        RowValue r2v2 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r2v2 = RolapMappingFactory.eINSTANCE.createRowValue();
         r2v2.setColumn(htValueColumn);
         r2v2.setValue("100.2");
 
-        RowValue r2v3 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue r2v3 = RolapMappingFactory.eINSTANCE.createRowValue();
         r2v3.setColumn(htNameColumn);
         r2v3.setValue("name2");
 
-        Row r2 = RelationalDatabaseFactory.eINSTANCE.createRow();
+        Row r2 = RolapMappingFactory.eINSTANCE.createRow();
         r2.getRowValues().addAll(List.of(r2v1, r2v2, r2v3));
-        InlineTable inlineTable = RelationalDatabaseFactory.eINSTANCE.createInlineTable();
+        InlineTable inlineTable = RolapMappingFactory.eINSTANCE.createInlineTable();
         inlineTable.setName("HT");
         inlineTable.getColumns().addAll(List.of(htKeyColumn, htValueColumn, htNameColumn));
         inlineTable.getRows().addAll(List.of(r1, r2));

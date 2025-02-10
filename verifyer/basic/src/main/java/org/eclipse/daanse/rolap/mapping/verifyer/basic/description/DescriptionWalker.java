@@ -46,7 +46,7 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
@@ -184,7 +184,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAction(final ActionMappingMapping action) {
+    protected void checkAction(final ActionMapping action) {
         super.checkAction(action);
         Level lavel = config.action();
         if (lavel != null && (action.getDescription() == null || action.getDescription()

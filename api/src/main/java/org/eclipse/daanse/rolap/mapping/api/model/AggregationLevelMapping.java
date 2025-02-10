@@ -14,22 +14,20 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-
 public interface AggregationLevelMapping {
 
     List<? extends AggregationLevelPropertyMapping> getAggregationLevelProperties();
 
-    Column getCaptionColumn();
+    ColumnMapping getCaptionColumn();
 
     boolean isCollapsed();
 
-    Column getColumn();
+    ColumnMapping getColumn();
 
     String getName();
 
-    Column getNameColumn();
+    ColumnMapping getNameColumn();
 
-    Column getOrdinalColumn();
+    ColumnMapping getOrdinalColumn();
 
 }

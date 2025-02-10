@@ -14,16 +14,15 @@ package org.eclipse.daanse.rolap.mapping.instance.rec.complex.school;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -33,7 +32,8 @@ import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
@@ -97,166 +97,166 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     //id,schul_nummer,schul_name,traeger_id,schul_art_id,ganztags_art_id
     //INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
-    public static final ColumnImpl ID_COLUMN_IN_SCHULE_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_NAME_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NAME).withType("VARCHAR").build();
-    public static final ColumnImpl SCHUL_NUMMER_IN_SCHULE_TABLE = ColumnImpl.builder().withName(SCHUL_NUMMER).withType("INTEGER").build();
-    public static final ColumnImpl GANZTAGS_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("ganztags_art_id").withType("INTEGER").build();
-    public static final ColumnImpl TRAEGER_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("traeger_art_id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_ART_ID_IN_SCHULE_TABLE = ColumnImpl.builder().withName("schul_art_id").withType("INTEGER").build();
-    public static final PhysicalTableImpl SCHULE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHULE)
+    public static final ColumnMappingImpl ID_COLUMN_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_NAME_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName(SCHUL_NAME).withType("VARCHAR").build();
+    public static final ColumnMappingImpl SCHUL_NUMMER_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName(SCHUL_NUMMER).withType("INTEGER").build();
+    public static final ColumnMappingImpl GANZTAGS_ART_ID_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName("ganztags_art_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl TRAEGER_ART_ID_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName("traeger_art_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_ART_ID_IN_SCHULE_TABLE = ColumnMappingImpl.builder().withName("schul_art_id").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl SCHULE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(SCHULE)
             .withColumns(List.of(ID_COLUMN_IN_SCHULE_TABLE, SCHUL_NAME_IN_SCHULE_TABLE, SCHUL_NUMMER_IN_SCHULE_TABLE,
                     GANZTAGS_ART_ID_IN_SCHULE_TABLE, TRAEGER_ART_ID_IN_SCHULE_TABLE, SCHUL_ART_ID_IN_SCHULE_TABLE))).build();
 
     //id,schul_umfang
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_GANZTAGS_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_UMFANG_IN_GANZTAGS_ART = ColumnImpl.builder().withName("schul_umfang").withType("VARCHAR").build();
-    public static final PhysicalTableImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("ganztags_art")
+    public static final ColumnMappingImpl ID_COLUMN_IN_GANZTAGS_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_UMFANG_IN_GANZTAGS_ART = ColumnMappingImpl.builder().withName("schul_umfang").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl GANZTAGS_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("ganztags_art")
             .withColumns(List.of(ID_COLUMN_IN_GANZTAGS_ART, SCHUL_UMFANG_IN_GANZTAGS_ART))).build();
 
     //id,traeger_name,traeger_art_id
     //INTEGER,VARCHAR,INTEGER
-    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("traeger_name").withType("VARCHAR").build();
-    public static final ColumnImpl TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE = ColumnImpl.builder().withName("traeger_id").withType("INTEGER").build();
-    public static final PhysicalTableImpl TRAEGER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("traeger")
+    public static final ColumnMappingImpl ID_COLUMN_IN_TRAEGER_TABLE = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE = ColumnMappingImpl.builder().withName("traeger_name").withType("VARCHAR").build();
+    public static final ColumnMappingImpl TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE = ColumnMappingImpl.builder().withName("traeger_id").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl TRAEGER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("traeger")
             .withColumns(List.of(ID_COLUMN_IN_TRAEGER_TABLE, TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE, TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE))).build();
 
     //id,traeger_art,traeger_kat_id
     //INTEGER,VARCHAR,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl TRAEGER_ART_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName(TRAEGER_ART).withType("VARCHAR").build();
-    public static final ColumnImpl TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART = ColumnImpl.builder().withName("traeger_kat_id").withType("VARCHAR").build();
-    public static final PhysicalTableImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_ART)
+    public static final ColumnMappingImpl ID_COLUMN_IN_TRAEGER_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl TRAEGER_ART_COLUMN_IN_TRAEGER_ART = ColumnMappingImpl.builder().withName(TRAEGER_ART).withType("VARCHAR").build();
+    public static final ColumnMappingImpl TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART = ColumnMappingImpl.builder().withName("traeger_kat_id").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl TRAEGER_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TRAEGER_ART)
             .withColumns(List.of(ID_COLUMN_IN_TRAEGER_ART, TRAEGER_ART_COLUMN_IN_TRAEGER_ART, TRAEGER_KAT_ID_COLUMN_IN_TRAEGER_ART))).build();
 
     //id,traeger_kategorie
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_TRAEGER_KATEGORIE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE = ColumnImpl.builder().withName(TRAEGER_KATEGORIE).withType("VARCHAR").build();
-    public static final PhysicalTableImpl TRAEGER_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName(TRAEGER_KATEGORIE)
+    public static final ColumnMappingImpl ID_COLUMN_IN_TRAEGER_KATEGORIE = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE = ColumnMappingImpl.builder().withName(TRAEGER_KATEGORIE).withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl TRAEGER_KATEGORIE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TRAEGER_KATEGORIE)
             .withColumns(List.of(ID_COLUMN_IN_TRAEGER_KATEGORIE, TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE))).build();
 
     //id,schulart_name,schul_kategorie_id
     //INTEGER,VARCHAR,INTEGER
-    public static final ColumnImpl ID_IN_SCHEDULE_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_KATEGORIE_IN_SCHEDULE_ART = ColumnImpl.builder().withName("schul_kategorie_id").withType("INTEGER").build();
-    public static final PhysicalTableImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schule_art")
+    public static final ColumnMappingImpl ID_IN_SCHEDULE_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_KATEGORIE_IN_SCHEDULE_ART = ColumnMappingImpl.builder().withName("schul_kategorie_id").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl SCHEDULE_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("schule_art")
             .withColumns(List.of(ID_IN_SCHEDULE_ART, SCHUL_KATEGORIE_IN_SCHEDULE_ART))).build();
 
     //"id","schul_jahr","order"
     //"INTEGER","VARCHAR","INTEGER"
-    public static final ColumnImpl ID_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName(SCHUL_JAHR).withType("VARCHAR").build();
-    public static final ColumnImpl ORDER_COLUMN_IN_SCHUL_JAHR = ColumnImpl.builder().withName("order").withType("INTEGER").build();
-    public static final PhysicalTableImpl SCHUL_JAHR_TABLE = ((Builder) PhysicalTableImpl.builder().withName(SCHUL_JAHR)
+    public static final ColumnMappingImpl ID_COLUMN_IN_SCHUL_JAHR = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR = ColumnMappingImpl.builder().withName(SCHUL_JAHR).withType("VARCHAR").build();
+    public static final ColumnMappingImpl ORDER_COLUMN_IN_SCHUL_JAHR = ColumnMappingImpl.builder().withName("order").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl SCHUL_JAHR_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(SCHUL_JAHR)
             .withColumns(List.of(ID_COLUMN_IN_SCHUL_JAHR, SCHUL_JAHR_COLUMN_IN_SCHUL_JAHR, ORDER_COLUMN_IN_SCHUL_JAHR))).build();
 
     //id,altersgruppe
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_ALTERS_GRUPPE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE = ColumnImpl.builder().withName("altersgruppe").withType("INTEGER").build();
-    public static final PhysicalTableImpl ALTERS_GRUPPE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("alters_gruppe")
+    public static final ColumnMappingImpl ID_COLUMN_IN_ALTERS_GRUPPE = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE = ColumnMappingImpl.builder().withName("altersgruppe").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl ALTERS_GRUPPE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("alters_gruppe")
             .withColumns(List.of(ID_COLUMN_IN_ALTERS_GRUPPE, ALTERSGRUPPE_COLUMN_IN_ALTERS_GRUPPE))).build();
 
     //id,kuerzel,bezeichnung
     //INTEGER,VARCHAR,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_GESCHLECHT = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_GESCHLECHT = ColumnImpl.builder().withName(BEZEICHNUNG).withType("INTEGER").build();
-    public static final PhysicalTableImpl GESCHLECHT_TABLE = ((Builder) PhysicalTableImpl.builder().withName("geschlecht")
+    public static final ColumnMappingImpl ID_COLUMN_IN_GESCHLECHT = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl BEZEICHNUNG_COLUMN_IN_GESCHLECHT = ColumnMappingImpl.builder().withName(BEZEICHNUNG).withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl GESCHLECHT_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("geschlecht")
             .withColumns(List.of(ID_COLUMN_IN_GESCHLECHT, BEZEICHNUNG_COLUMN_IN_GESCHLECHT))).build();
 
-    public static final ColumnImpl ID_COLUMN_IN_EINSCHULUNG = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl EINSCHULUNG_COLUMN_IN_EINSCHULUNG = ColumnImpl.builder().withName(EINSCHULUNG2).withType("VARCHAR").build();
-    public static final PhysicalTableImpl EINSCHULUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName(EINSCHULUNG2)
+    public static final ColumnMappingImpl ID_COLUMN_IN_EINSCHULUNG = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl EINSCHULUNG_COLUMN_IN_EINSCHULUNG = ColumnMappingImpl.builder().withName(EINSCHULUNG2).withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl EINSCHULUNG_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(EINSCHULUNG2)
             .withColumns(List.of(ID_COLUMN_IN_EINSCHULUNG, EINSCHULUNG_COLUMN_IN_EINSCHULUNG))).build();
 
     //id,klassenwiederholung
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnImpl.builder().withName("klassenwiederholung").withType("INTEGER").build();
-    public static final PhysicalTableImpl KLASSEN_WIEDERHOLUNG_TABLE = ((Builder) PhysicalTableImpl.builder().withName("klassen_wiederholung")
+    public static final ColumnMappingImpl ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG = ColumnMappingImpl.builder().withName("klassenwiederholung").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl KLASSEN_WIEDERHOLUNG_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("klassen_wiederholung")
             .withColumns(List.of(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG, KLASSENWIEDERHOLUNG_COLUMN_IN_KLASSEN_WIEDERHOLUNG))).build();
 
     //id,schulabschluss
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnImpl.builder().withName("schulabschluss").withType("VARCHAR").build();
-    public static final PhysicalTableImpl SCHUL_ABSCHLUSS_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_abschluss")
+    public static final ColumnMappingImpl ID_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS = ColumnMappingImpl.builder().withName("schulabschluss").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl SCHUL_ABSCHLUSS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("schul_abschluss")
             .withColumns(List.of(ID_COLUMN_IN_SCHUL_ABSCHLUSS, SCHULABSCHLUSS_COLUMN_IN_SCHUL_ABSCHLUSS))).build();
 
     //id,migrations_hintergrund
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnImpl.builder().withName(MIGRATIONS_HINTERGRUND).withType("VARCHAR").build();
-    public static final PhysicalTableImpl MIGRATIONS_HINTERGRUND_TABLE = ((Builder) PhysicalTableImpl.builder().withName(MIGRATIONS_HINTERGRUND)
+    public static final ColumnMappingImpl ID_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND = ColumnMappingImpl.builder().withName(MIGRATIONS_HINTERGRUND).withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl MIGRATIONS_HINTERGRUND_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(MIGRATIONS_HINTERGRUND)
             .withColumns(List.of(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND, MIGRATIONS_HINTERGRUND_COLUMN_IN_MIGRATIONS_HINTERGRUND))).build();
 
     //id,kuerzel,bezeichnung,bundesland_id
     //INTEGER,VARCHAR,VARCHAR,INTEGER
-    public static final ColumnImpl ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
-    public static final ColumnImpl BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnImpl.builder().withName("bundesland_id").withType("INTEGER").build();
-    public static final PhysicalTableImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableImpl.builder().withName(WOHNORT_LANDKREIS)
+    public static final ColumnMappingImpl ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS = ColumnMappingImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final ColumnMappingImpl BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS = ColumnMappingImpl.builder().withName("bundesland_id").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl WOHNORT_LANDKREIS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(WOHNORT_LANDKREIS)
             .withColumns(List.of(ID_COLUMN_IN_WOHNORT_LANDKREIS, BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS, BUNDESLAND_ID_COLUMN_IN_WOHNORT_LANDKREIS))).build();
 
     //id,schulart_name,schul_kategorie_id
     //INTEGER,VARCHAR,INTEGER
-    public static final ColumnImpl ID_COLUMN_IN_SCHUL_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHULART_NAME_COLUMN_IN_SCHUL_ART = ColumnImpl.builder().withName("schulart_name").withType("VARCHAR").build();
-    public static final PhysicalTableImpl SCHUL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_art")
+    public static final ColumnMappingImpl ID_COLUMN_IN_SCHUL_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHULART_NAME_COLUMN_IN_SCHUL_ART = ColumnMappingImpl.builder().withName("schulart_name").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl SCHUL_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("schul_art")
             .withColumns(List.of(ID_COLUMN_IN_SCHUL_ART, SCHULART_NAME_COLUMN_IN_SCHUL_ART))).build();
 
     //id,schul_kategorie_name
     //INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_SCHUL_KATEGORIE = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE = ColumnImpl.builder().withName("schul_kategorie_name").withType("VARCHAR").build();
-    public static final PhysicalTableImpl SCHUL_KATEGORIE_TABLE = ((Builder) PhysicalTableImpl.builder().withName("schul_kategorie")
+    public static final ColumnMappingImpl ID_COLUMN_IN_SCHUL_KATEGORIE = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE = ColumnMappingImpl.builder().withName("schul_kategorie_name").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl SCHUL_KATEGORIE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("schul_kategorie")
             .withColumns(List.of(ID_COLUMN_IN_SCHUL_KATEGORIE, SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE))).build();
 
     //id,foerderung_art,sp_foerderbedarf_id
     //INTEGER,VARCHAR,INTEGER,
-    public static final ColumnImpl ID_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName(FOERDERUNG_ART).withType("VARCHAR").build();
-    public static final ColumnImpl SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART = ColumnImpl.builder().withName("sp_foerderbedarf_id").withType("INTEGER").build();
-    public static final PhysicalTableImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName(FOERDERUNG_ART)
+    public static final ColumnMappingImpl ID_COLUMN_IN_FOERDERUNG_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART = ColumnMappingImpl.builder().withName(FOERDERUNG_ART).withType("VARCHAR").build();
+    public static final ColumnMappingImpl SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART = ColumnMappingImpl.builder().withName("sp_foerderbedarf_id").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl FOERDERUNG_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(FOERDERUNG_ART)
             .withColumns(List.of(ID_COLUMN_IN_FOERDERUNG_ART, FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART, SP_FOERDERBEDARF_ID_COLUMN_IN_FOERDERUNG_ART))).build();
 
     //id,bezeichnung,,,,,,,,,,,,,,,,,id,bezeichnung
     //INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_PERSONAL_ART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_PERSONAL_ART = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
-    public static final PhysicalTableImpl PERSONAL_ART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("personal_art")
+    public static final ColumnMappingImpl ID_COLUMN_IN_PERSONAL_ART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl BEZEICHNUNG_COLUMN_IN_PERSONAL_ART = ColumnMappingImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl PERSONAL_ART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("personal_art")
             .withColumns(List.of(ID_COLUMN_IN_PERSONAL_ART, BEZEICHNUNG_COLUMN_IN_PERSONAL_ART))).build();
 
     //id,kuerzel,bezeichnung
     //INTEGER,VARCHAR,VARCHAR
-    public static final ColumnImpl ID_COLUMN_IN_BUNDESLAND = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl BEZEICHNUNG_COLUMN_IN_BUNDESLAND = ColumnImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
-    public static final PhysicalTableImpl BUNDESLAND_TABLE = ((Builder) PhysicalTableImpl.builder().withName("bundesland")
+    public static final ColumnMappingImpl ID_COLUMN_IN_BUNDESLAND = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl BEZEICHNUNG_COLUMN_IN_BUNDESLAND = ColumnMappingImpl.builder().withName(BEZEICHNUNG).withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl BUNDESLAND_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("bundesland")
             .withColumns(List.of(ID_COLUMN_IN_BUNDESLAND, BEZEICHNUNG_COLUMN_IN_BUNDESLAND))).build();
 
-    public static final ColumnImpl ID_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnImpl.builder().withName("id").withType("INTEGER").build();
-    public static final ColumnImpl SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnImpl.builder().withName("sonderpaed_bedarf").withType("VARCHAR").build();
-    public static final PhysicalTableImpl SONDERPAED_FOERDERBEDART_TABLE = ((Builder) PhysicalTableImpl.builder().withName("sonderpaed_foerderbedarf")
+    public static final ColumnMappingImpl ID_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnMappingImpl.builder().withName("id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART = ColumnMappingImpl.builder().withName("sonderpaed_bedarf").withType("VARCHAR").build();
+    public static final PhysicalTableMappingImpl SONDERPAED_FOERDERBEDART_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("sonderpaed_foerderbedarf")
             .withColumns(List.of(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART, SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART))).build();
 
     //schule_id,schul_jahr_id,anzahl_schulen,anzahl_klassen
     //INTEGER,INTEGER,INTEGER,INTEGER
-    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_SCHULEN = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
-    public static final PhysicalTableImpl FACT_SCHULEN_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schulen")
+    public static final ColumnMappingImpl SCHULE_ID_COLUMN_IN_FACT_SCHULEN = ColumnMappingImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN = ColumnMappingImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl FACT_SCHULEN_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("fact_schulen")
             .withColumns(List.of(SCHULE_ID_COLUMN_IN_FACT_SCHULEN, SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN))).build();
 
     //schule_id,schul_jahr_id,alters_gruppe_id,geschlecht_id,personal_art_id,anzahl_personen
     //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
-    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
-    public static final ColumnImpl ALTERS_GROUP_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("alters_gruppe_id").withType("INTEGER").build();
-    public static final ColumnImpl GESCHLECHT_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
-    public static final ColumnImpl PERSONAL_ART_ID_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("personal_art_id").withType("INTEGER").build();
-    public static final ColumnImpl ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL = ColumnImpl.builder().withName("anzahl_personen").withType("INTEGER").build();
-    public static final PhysicalTableImpl FACT_PERSONAM_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_personal")
+    public static final ColumnMappingImpl SCHULE_ID_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final ColumnMappingImpl ALTERS_GROUP_ID_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName("alters_gruppe_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl GESCHLECHT_ID_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl PERSONAL_ART_ID_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName("personal_art_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL = ColumnMappingImpl.builder().withName("anzahl_personen").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl FACT_PERSONAM_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("fact_personal")
             .withColumns(List.of(
                 SCHULE_ID_COLUMN_IN_FACT_PERSONAL,
                 SCHUL_JAHR_ID_COLUMN_IN_FACT_PERSONAL,
@@ -268,18 +268,18 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
 
     //schule_id,schul_jahr_id,geschlecht_id,wohn_lk_id,einschulung_id,schul_abschluss_id,klassen_wdh,migrations_hg_id,foerder_art_id,anzahl_schueler
     //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
-    public static final ColumnImpl SCHULE_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
-    public static final ColumnImpl GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
-    public static final ColumnImpl WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("wohn_lk_id").withType("INTEGER").build();
-    public static final ColumnImpl EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("einschulung_id").withType("INTEGER").build();
-    public static final ColumnImpl SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("schul_abschluss_id").withType("INTEGER").build();
-    public static final ColumnImpl KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("klassen_wdh").withType("INTEGER").build();
-    public static final ColumnImpl MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("migrations_hg_id").withType("INTEGER").build();
-    public static final ColumnImpl FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("foerder_art_id").withType("INTEGER").build();
-    public static final ColumnImpl ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("anzahl_schueler").withType("INTEGER").build();
-    public static final ColumnImpl ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER = ColumnImpl.builder().withName("anzahl_schulen").withType("INTEGER").build();
-    public static final PhysicalTableImpl FACT_SCHUELER_TABLE = ((Builder) PhysicalTableImpl.builder().withName("fact_schueler")
+    public static final ColumnMappingImpl SCHULE_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName(SCHULE_ID).withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName(SCHUL_JAHR_ID).withType("INTEGER").build();
+    public static final ColumnMappingImpl GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("geschlecht_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("wohn_lk_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("einschulung_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("schul_abschluss_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("klassen_wdh").withType("INTEGER").build();
+    public static final ColumnMappingImpl MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("migrations_hg_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("foerder_art_id").withType("INTEGER").build();
+    public static final ColumnMappingImpl ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("anzahl_schueler").withType("INTEGER").build();
+    public static final ColumnMappingImpl ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER = ColumnMappingImpl.builder().withName("anzahl_schulen").withType("INTEGER").build();
+    public static final PhysicalTableMappingImpl FACT_SCHUELER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("fact_schueler")
             .withColumns(List.of(
                 SCHULE_ID_COLUMN_IN_FACT_SCHUELER,
                 SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHUELER,
@@ -890,7 +890,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         CATALOG = CatalogMappingImpl.builder()
         .withName(CATALOG_NAME)
         .withCubes(List.of(CUBE1, CUBE2, CUBE3))
-        .withDbSchemas(List.of(DatabaseSchemaImpl.builder()
+        .withDbSchemas(List.of(DatabaseSchemaMappingImpl.builder()
                 .withName(CATALOG_NAME)
                 .withTables(List.of(SCHULE_TABLE, GANZTAGS_ART_TABLE, TRAEGER_TABLE, TRAEGER_ART_TABLE,
                         TRAEGER_KATEGORIE_TABLE, SCHEDULE_ART_TABLE, SCHUL_JAHR_TABLE,

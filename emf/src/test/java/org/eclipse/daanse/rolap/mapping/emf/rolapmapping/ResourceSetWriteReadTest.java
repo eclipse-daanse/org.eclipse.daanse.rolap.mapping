@@ -23,11 +23,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseCatalog;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -82,42 +77,42 @@ public class ResourceSetWriteReadTest {
         URI uriRdbs = URI.createFileURI(fileRdbs.toAbsolutePath().toString());
         Resource resourceRdbs = rs.createResource(uriRdbs);
 
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setName("jena.statistik");
         databaseSchema.setId("jena.statistik_id");
 
         // einwohner table start
-        Column columnEinwohnerJahr = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerJahr = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerJahr.setName("JAHR");
         columnEinwohnerJahr.setId("EinwohnerJAHR");
         columnEinwohnerJahr.setType("Integer");
 
-        Column columnEinwohnerStatbez = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerStatbez = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerStatbez.setName("STATBEZ");
         columnEinwohnerStatbez.setId("EinwohnerSTATBEZ");
         columnEinwohnerStatbez.setType("Integer");
 
-        Column columnEinwohnerKerGesch = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerKerGesch = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerKerGesch.setName("KER_GESCH");
         columnEinwohnerKerGesch.setId("EinwohnerKerGesch");
         columnEinwohnerKerGesch.setType("Text");
 
-        Column columnEinwohnerAge = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerAge = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerAge.setName("AGE");
         columnEinwohnerAge.setId("EinwohnerAge");
         columnEinwohnerAge.setType("Integer");
 
-        Column columnEinwohnerAnzahl = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerAnzahl = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerAnzahl.setName("Anzahl");
         columnEinwohnerAnzahl.setId("EinwohnerAnzahl");
         columnEinwohnerAnzahl.setType("Integer");
 
-        Column columnEinwohnerGeojson = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerGeojson = RolapMappingFactory.eINSTANCE.createColumn();
         columnEinwohnerGeojson.setName("GEOJSON");
         columnEinwohnerGeojson.setId("EinwohnerGeojson");
         columnEinwohnerGeojson.setType("Text");
 
-        PhysicalTable tableEinwohner = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableEinwohner = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableEinwohner.setName("einwohner");
         tableEinwohner.setId("einwohner");
         tableEinwohner.getColumns().addAll(List.of(columnEinwohnerJahr, columnEinwohnerStatbez, columnEinwohnerKerGesch,
@@ -127,17 +122,17 @@ public class ResourceSetWriteReadTest {
         // einwohner table end
 
         // year table start
-        Column columnYearYear = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnYearYear = RolapMappingFactory.eINSTANCE.createColumn();
         columnYearYear.setName("year");
         columnYearYear.setId("YearYear");
         columnYearYear.setType("Integer");
 
-        Column columnYearOrdinal = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnYearOrdinal = RolapMappingFactory.eINSTANCE.createColumn();
         columnYearOrdinal.setName("ordinal");
         columnYearOrdinal.setId("YearOrdinal");
         columnYearOrdinal.setType("Integer");
 
-        PhysicalTable tableYear = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableYear = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableYear.setName("year");
         tableYear.setId("tyear");
         tableYear.getColumns().addAll(List.of(columnYearYear, columnYearOrdinal));
@@ -146,37 +141,37 @@ public class ResourceSetWriteReadTest {
         // year table end
 
         // statbez table start
-        Column columnStatbezGid = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezGid = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezGid.setName("gid");
         columnStatbezGid.setId("StatbezGid");
         columnStatbezGid.setType("Integer");
 
-        Column columnStatbezPlraum = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezPlraum = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezPlraum.setName("plraum");
         columnStatbezPlraum.setId("StatbezPlraum");
         columnStatbezPlraum.setType("Integer");
 
-        Column columnStatbezStatbezName = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezStatbezName = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezStatbezName.setName("statbez_name");
         columnStatbezStatbezName.setId("StatbezStatbezName");
         columnStatbezStatbezName.setType("Text");
 
-        Column columnStatbezTheGeom = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezTheGeom = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezTheGeom.setName("the_geom");
         columnStatbezTheGeom.setId("StatbezTheGeom");
         columnStatbezTheGeom.setType("Text");
 
-        Column columnStatbezUuid = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezUuid = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezUuid.setName("uuid");
         columnStatbezUuid.setId("StatbezUuid");
         columnStatbezUuid.setType("Text");
 
-        Column columnStatbezGeojson = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnStatbezGeojson = RolapMappingFactory.eINSTANCE.createColumn();
         columnStatbezGeojson.setName("geojson");
         columnStatbezGeojson.setId("StatbezGeojson");
         columnStatbezGeojson.setType("Text");
 
-        PhysicalTable tableStatbez = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableStatbez = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableStatbez.setName("statbez");
         tableStatbez.setId("statbez");
         tableStatbez.getColumns().addAll(List.of(columnStatbezGid, columnStatbezPlraum, columnStatbezStatbezName,
@@ -186,42 +181,42 @@ public class ResourceSetWriteReadTest {
         // statbez table end
 
         // plraum table start
-        Column columnPlraumGid = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumGid = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumGid.setName("gid");
         columnPlraumGid.setId("PlraumGid");
         columnPlraumGid.setType("Integer");
 
-        Column columnPlraumPlraum = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumPlraum = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumPlraum.setName("plraum");
         columnPlraumPlraum.setId("PlraumPlraum");
         columnPlraumPlraum.setType("Text");
 
-        Column columnPlraumTheGeom = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumTheGeom = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumTheGeom.setName("the_geom");
         columnPlraumTheGeom.setId("PlraumTheGeom");
         columnPlraumTheGeom.setType("Text");
 
-        Column columnPlraumPlraumNr = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumPlraumNr = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumPlraumNr.setName("plraum_nr");
         columnPlraumPlraumNr.setId("PlraumPlraumNr");
         columnPlraumPlraumNr.setType("Integer");
 
-        Column columnPlraumUuid = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumUuid = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumUuid.setName("uuid");
         columnPlraumUuid.setId("PlraumUuid");
         columnPlraumUuid.setType("Text");
 
-        Column columnPlraumGeojson = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumGeojson = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumGeojson.setName("geojson");
         columnPlraumGeojson.setId("PlraumGeojson");
         columnPlraumGeojson.setType("Text");
 
-        Column columnPlraumTownid = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnPlraumTownid = RolapMappingFactory.eINSTANCE.createColumn();
         columnPlraumTownid.setName("townid");
         columnPlraumTownid.setId("PlraumTownid");
         columnPlraumTownid.setType("Integer");
 
-        PhysicalTable tablePlraum = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tablePlraum = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tablePlraum.setName("plraum");
         tablePlraum.setId("plraum");
         tablePlraum.getColumns().addAll(List.of(columnPlraumGid, columnPlraumPlraum, columnPlraumTheGeom,
@@ -231,22 +226,22 @@ public class ResourceSetWriteReadTest {
         // plraum table end
 
         // town table start
-        Column columnTownId = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnTownId = RolapMappingFactory.eINSTANCE.createColumn();
         columnTownId.setName("id");
         columnTownId.setId("TownId");
         columnTownId.setType("Integer");
 
-        Column columnTownName = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnTownName = RolapMappingFactory.eINSTANCE.createColumn();
         columnTownName.setName("name");
         columnTownName.setId("TownName");
         columnTownName.setType("Text");
 
-        Column columnTownGeojson = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnTownGeojson = RolapMappingFactory.eINSTANCE.createColumn();
         columnTownGeojson.setName("geojson");
         columnTownGeojson.setId("TownGeojson");
         columnTownGeojson.setType("Text");
 
-        PhysicalTable tableTown = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableTown.setName("town");
         tableTown.setId("town");
         tableTown.getColumns().addAll(List.of(columnTownId, columnTownName, columnTownGeojson));
@@ -255,17 +250,17 @@ public class ResourceSetWriteReadTest {
         // town table end
 
         // gender table start
-        Column columnGenderKey = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnGenderKey = RolapMappingFactory.eINSTANCE.createColumn();
         columnGenderKey.setName("key");
         columnGenderKey.setId("GenderKey");
         columnGenderKey.setType("Text");
 
-        Column columnGenderName = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnGenderName = RolapMappingFactory.eINSTANCE.createColumn();
         columnGenderName.setName("name");
         columnGenderName.setId("GenderName");
         columnGenderName.setType("Text");
 
-        PhysicalTable tableGender = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableGender = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableGender.setName("gender");
         tableGender.setId("gender");
         tableGender.getColumns().addAll(List.of(columnGenderKey, columnGenderName));
@@ -274,102 +269,102 @@ public class ResourceSetWriteReadTest {
         // gender table end
 
         // AgeGroups table start
-        Column columnAgeGroupsAge = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsAge = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsAge.setName("Age");
         columnAgeGroupsAge.setId("AgeGroupsAge");
         columnAgeGroupsAge.setType("Integer");
 
-        Column columnAgeGroupsH1 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH1 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH1.setName("H1");
         columnAgeGroupsH1.setId("AgeGroupsH1");
         columnAgeGroupsH1.setType("Text");
 
-        Column columnAgeGroupsH1Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH1Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH1Order.setName("H1_Order");
         columnAgeGroupsH1Order.setId("AgeGroupsH1Order");
         columnAgeGroupsH1Order.setType("Integer");
 
-        Column columnAgeGroupsH2 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH2 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH2.setName("H2");
         columnAgeGroupsH2.setId("AgeGroupsH2");
         columnAgeGroupsH2.setType("Text");
 
-        Column columnAgeGroupsH2Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH2Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH2Order.setName("H2_Order");
         columnAgeGroupsH2Order.setId("AgeGroupsH2Order");
         columnAgeGroupsH2Order.setType("Integer");
 
-        Column columnAgeGroupsH3 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH3 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH3.setName("H3");
         columnAgeGroupsH3.setId("AgeGroupsH3");
         columnAgeGroupsH3.setType("Text");
 
-        Column columnAgeGroupsH3Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH3Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH3Order.setName("H3_Order");
         columnAgeGroupsH3Order.setId("AgeGroupsH3Order");
         columnAgeGroupsH3Order.setType("Integer");
 
-        Column columnAgeGroupsH4 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH4 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH4.setName("H4");
         columnAgeGroupsH4.setId("AgeGroupsH4");
         columnAgeGroupsH4.setType("Text");
 
-        Column columnAgeGroupsH4Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH4Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH4Order.setName("H4_Order");
         columnAgeGroupsH4Order.setId("AgeGroupsH4Order");
         columnAgeGroupsH4Order.setType("Integer");
 
-        Column columnAgeGroupsH5 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH5 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH5.setName("H5");
         columnAgeGroupsH5.setId("AgeGroupsH5");
         columnAgeGroupsH5.setType("Text");
 
-        Column columnAgeGroupsH5Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH5Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH5Order.setName("H5_Order");
         columnAgeGroupsH5Order.setId("AgeGroupsH5Order");
         columnAgeGroupsH5Order.setType("Integer");
 
-        Column columnAgeGroupsH6 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH6 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH6.setName("H6");
         columnAgeGroupsH6.setId("AgeGroupsH6");
         columnAgeGroupsH6.setType("Text");
 
-        Column columnAgeGroupsH6Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH6Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH6Order.setName("H6_Order");
         columnAgeGroupsH6Order.setId("AgeGroupsH6Order");
         columnAgeGroupsH6Order.setType("Integer");
 
-        Column columnAgeGroupsH7 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH7 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH7.setName("H7");
         columnAgeGroupsH7.setId("AgeGroupsH7");
         columnAgeGroupsH7.setType("Text");
 
-        Column columnAgeGroupsH7Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH7Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH7Order.setName("H7_Order");
         columnAgeGroupsH7Order.setId("AgeGroupsH7Order");
         columnAgeGroupsH7Order.setType("Integer");
 
-        Column columnAgeGroupsH8 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH8 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH8.setName("H8");
         columnAgeGroupsH8.setId("AgeGroupsH8");
         columnAgeGroupsH8.setType("Text");
 
-        Column columnAgeGroupsH8Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH8Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH8Order.setName("H8_Order");
         columnAgeGroupsH8Order.setId("AgeGroupsH8Order");
         columnAgeGroupsH8Order.setType("Integer");
 
-        Column columnAgeGroupsH9 = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH9 = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH9.setName("H9");
         columnAgeGroupsH9.setId("AgeGroupsH9");
         columnAgeGroupsH9.setType("Text");
 
-        Column columnAgeGroupsH9Order = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH9Order = RolapMappingFactory.eINSTANCE.createColumn();
         columnAgeGroupsH9Order.setName("H9_Order");
         columnAgeGroupsH9Order.setId("AgeGroupsH9Order");
         columnAgeGroupsH9Order.setType("Integer");
 
-        PhysicalTable tableAgeGroups = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable tableAgeGroups = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableAgeGroups.setName("AgeGroups");
         tableAgeGroups.setId("AgeGroups");
         tableAgeGroups.getColumns()
@@ -380,7 +375,7 @@ public class ResourceSetWriteReadTest {
                         columnAgeGroupsH8Order, columnAgeGroupsH9, columnAgeGroupsH9Order));
         databaseSchema.getTables().add(tableAgeGroups);
 
-        DatabaseCatalog dbCatalog = RelationalDatabaseFactory.eINSTANCE.createDatabaseCatalog();
+        DatabaseCatalog dbCatalog = RolapMappingFactory.eINSTANCE.createDatabaseCatalog();
         dbCatalog.getSchemas().add(databaseSchema);
 
         resourceRdbs.getContents().add(dbCatalog);

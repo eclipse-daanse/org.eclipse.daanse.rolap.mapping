@@ -14,16 +14,12 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.timedimension;
 
 import java.util.List;
 
-import javax.xml.validation.Schema;
-
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
@@ -34,6 +30,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
@@ -68,54 +65,54 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column dateKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column dateKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dateKeyColumn.setName("DATE_KEY");
         dateKeyColumn.setId("Fact_DATE_KEY");
         dateKeyColumn.setType("TIMESTAMP");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        Column yearIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column yearIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         yearIdColumn.setName("YEAR_ID");
         yearIdColumn.setId("Fact_YEAR_ID");
         yearIdColumn.setType("INTEGER");
 
-        Column qtrIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column qtrIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         qtrIdColumn.setName("QTR_ID");
         qtrIdColumn.setId("Fact_QTR_ID");
         qtrIdColumn.setType("VARCHAR");
 
-        Column qtrNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column qtrNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         qtrNameColumn.setName("QTR_NAME");
         qtrNameColumn.setId("Fact_QTR_NAME");
         qtrNameColumn.setType("VARCHAR");
 
-        Column monthIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column monthIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         monthIdColumn.setName("MONTH_ID");
         monthIdColumn.setId("Fact_MONTH_ID");
         monthIdColumn.setType("VARCHAR");
 
-        Column monthNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column monthNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         monthNameColumn.setName("MONTH_NAME");
         monthNameColumn.setId("Fact_MONTH_NAME");
         monthNameColumn.setType("VARCHAR");
 
-        Column weekInMonthColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column weekInMonthColumn = RolapMappingFactory.eINSTANCE.createColumn();
         weekInMonthColumn.setName("WEEK_IN_MONTH");
         weekInMonthColumn.setId("Fact_WEEK_IN_MONTH");
         weekInMonthColumn.setType("INTEGER");
 
-        Column dayInMonthColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column dayInMonthColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dayInMonthColumn.setName("DAY_IN_MONTH");
         dayInMonthColumn.setId("Fact_DAY_IN_MONTH");
         dayInMonthColumn.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(dateKeyColumn, valueColumn));

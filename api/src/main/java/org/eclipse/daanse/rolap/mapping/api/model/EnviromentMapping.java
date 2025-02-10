@@ -12,10 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import java.util.List;
-
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
-
 public interface EnviromentMapping extends AbstractElementMapping {
 
 //    List<? extends SchemaMapping> getSchemas();

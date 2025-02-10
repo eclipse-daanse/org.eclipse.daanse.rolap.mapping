@@ -14,14 +14,11 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithleve
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
@@ -30,9 +27,10 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -61,24 +59,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column keyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType("VARCHAR");
 
-        Column key1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column key1Column = RolapMappingFactory.eINSTANCE.createColumn();
         key1Column.setName("KEY1");
         key1Column.setId("Fact_KEY1");
         key1Column.setType("VARCHAR");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(keyColumn, key1Column, valueColumn));
@@ -95,9 +93,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        SQL nameSql = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement nameSql = RolapMappingFactory.eINSTANCE.createSqlStatement();
         nameSql.getDialects().addAll(List.of("generic", "h2"));
-        nameSql.setStatement("\"KEY\" || ' ' || \"KEY1\"");
+        nameSql.setSql("\"KEY\" || ' ' || \"KEY1\"");
 
         SQLExpression nameExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
         nameExpression.getSqls().add(nameSql);
@@ -108,29 +106,29 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level1.setColumn(keyColumn);
         level1.setNameExpression(nameExpression);
 
-        SQL keySql1 = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement keySql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         keySql1.getDialects().addAll(List.of("generic"));
-        keySql1.setStatement("KEY");
-        SQL keySql2 = RolapMappingFactory.eINSTANCE.createSQL();
+        keySql1.setSql("KEY");
+        SqlStatement keySql2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         keySql2.getDialects().addAll(List.of("h2"));
-        keySql2.setStatement("\"KEY1\" || ' ' || \"KEY\"");
+        keySql2.setSql("\"KEY1\" || ' ' || \"KEY\"");
 
         SQLExpression keyExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
         keyExpression.getSqls().addAll(List.of(keySql1, keySql2));
 
-        SQL captionSql1 = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement captionSql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         captionSql1.getDialects().addAll(List.of("generic"));
-        captionSql1.setStatement("KEY");
-        SQL captionSql2 = RolapMappingFactory.eINSTANCE.createSQL();
+        captionSql1.setSql("KEY");
+        SqlStatement captionSql2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         captionSql2.getDialects().addAll(List.of("h2"));
-        captionSql2.setStatement("\"KEY1\" || '___' || \"KEY\"");
+        captionSql2.setSql("\"KEY1\" || '___' || \"KEY\"");
 
         SQLExpression captionExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
         captionExpression.getSqls().addAll(List.of(captionSql1, captionSql2));
 
-        SQL ordinalSql1 = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement ordinalSql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         ordinalSql1.getDialects().addAll(List.of("generic", "h2"));
-        ordinalSql1.setStatement("\"KEY\" || '___' || \"KEY1\"");
+        ordinalSql1.setSql("\"KEY\" || '___' || \"KEY1\"");
 
         SQLExpression ordinalExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
         ordinalExpression.getSqls().addAll(List.of(ordinalSql1));

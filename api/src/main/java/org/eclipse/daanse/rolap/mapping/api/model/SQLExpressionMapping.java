@@ -16,6 +16,6 @@ import java.util.List;
 
 public interface SQLExpressionMapping {
 
-    List<? extends SQLMapping> getSqls();
+    List<? extends SqlStatementMapping> getSqls();
 
 }

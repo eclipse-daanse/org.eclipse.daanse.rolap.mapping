@@ -14,21 +14,21 @@ package org.eclipse.daanse.rolap.mapping.instance.rec.tutorial.basic.cube.minima
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -55,8 +55,8 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
 
     private final static DocumentationMappingImpl documentation = new DocumentationMappingImpl(documentation_text);
 
-    private final static ColumnImpl VALUE_COLUMN = ColumnImpl.builder().withName("VALUE").withType("INTEGER").build();
-    private final static PhysicalTableImpl factTable = ((Builder) PhysicalTableImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
+    private final static ColumnMappingImpl VALUE_COLUMN = ColumnMappingImpl.builder().withName("VALUE").withType("INTEGER").build();
+    private final static PhysicalTableMappingImpl factTable = ((Builder) PhysicalTableMappingImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
 
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withTable(factTable).build();
 
@@ -80,7 +80,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()
             .withName("AnySchemaName")
             .withCubes(List.of(cube))
-            .withDbSchemas(List.of(DatabaseSchemaImpl.builder()
+            .withDbSchemas(List.of(DatabaseSchemaMappingImpl.builder()
                     .withName(name)
                     .withTables(List.of(factTable))
                     .build()))

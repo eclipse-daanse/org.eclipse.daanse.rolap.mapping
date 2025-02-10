@@ -70,7 +70,7 @@
         ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//DatabaseSchema"/>
+        eType="#//DatabaseSchema"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement #//ICube">
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMembers" upperBound="-1"
@@ -145,7 +145,7 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregator" eType="#//MeasureAggregator"/>
@@ -181,7 +181,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector" eSuperTypes="#//IDimensionConnector">
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
@@ -213,9 +213,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberReaderClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKeyTable" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Table"/>
+        eType="#//Table"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
@@ -254,16 +254,16 @@
         eType="#//MemberProperty" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//MemberFormatter"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="#//HideMemberIf"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//LevelDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Table"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
@@ -278,7 +278,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnDataType"/>
   </eClassifiers>
@@ -297,13 +297,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//TableQuery"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childColumn" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SQLExpression" eSuperTypes="#//ISQLExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
-        eType="#//SQL" containment="true"/>
+        eType="#//SqlStatement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -315,7 +315,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineTableQuery" eSuperTypes="#//RelationalQuery #//IInlineTableQuery">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//InlineTable"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//InlineTable"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JoinQuery" eSuperTypes="#//Query #//IJoinQuery">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="#//JoinedQueryElement"
@@ -325,19 +325,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JoinedQueryElement" eSuperTypes="#//IJoinedQueryElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SQL" eSuperTypes="#//ISQL">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialects" lowerBound="1"
-        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statement" lowerBound="1"
-        eType="#//SQLStatement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="SQLStatement" instanceClassName="java.lang.String"/>
   <eClassifiers xsi:type="ecore:EClass" name="TableQuery" eSuperTypes="#//RelationalQuery #//ITableQuery">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sqlWhereExpression" eType="#//SQL"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sqlWhereExpression" eType="#//SqlStatement"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
         eType="#//AggregationExclude" containment="true"/>
@@ -345,14 +338,14 @@
         eType="#//TableQueryOptimizationHint" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationTables" upperBound="-1"
         eType="#//AggregationTable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Table"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableQueryOptimizationHint" eSuperTypes="#//ITableQueryOptimizationHint">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlSelectQuery" eSuperTypes="#//RelationalQuery #//ISqlSelectQuery">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sql" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//SqlView"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sql" lowerBound="1" eType="#//SqlView"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberReaderParameter" eSuperTypes="#//IMemberReaderParameter">
@@ -407,13 +400,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackAttribute" eSuperTypes="#//IWritebackAttribute">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnector" lowerBound="1"
         eType="#//DimensionConnector"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure" eSuperTypes="#//IWritebackMeasure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackTable" eSuperTypes="#//IWritebackTable">
@@ -433,36 +426,36 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationForeignKey" eSuperTypes="#//IAggregationForeignKey">
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationColumn" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationLevel" eSuperTypes="#//IAggregationLevel">
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationLevelProperties"
         upperBound="-1" eType="#//AggregationLevelProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationLevelProperty" eSuperTypes="#//IAggregationLevelProperty">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasure" eSuperTypes="#//IAggregationMeasure">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasureFactCount" eSuperTypes="#//IAggregationMeasureFactCount">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationTable" abstract="true" eSuperTypes="#//IAggregationTable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationFactCount" lowerBound="1"
@@ -483,7 +476,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationName" eSuperTypes="#//AggregationTable #//IAggregationName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Table"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Table"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationPattern" eSuperTypes="#//AggregationTable #//IAggregationPattern">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" lowerBound="1"
@@ -493,7 +486,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationColumnName" eSuperTypes="#//IAggregationColumnName">
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="ecore:EClass org.eclipse.daanse.rdb.structure.ecore#//Column"/>
+        eType="#//Column"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
@@ -569,6 +562,78 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="catalogAccess" lowerBound="1"
         eType="#//CatalogAccess"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
+        eType="#//DatabaseSchema" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//IDatabaseSchema">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
+        eType="#//Table" containment="true" eOpposite="#//Table/schema" eKeys="#//Table/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//ITable">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
+        eType="#//Column" containment="true" eOpposite="#//Column/table" eKeys="#//Column/name"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//DatabaseSchema"
+        eOpposite="#//DatabaseSchema/tables"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
+        eOpposite="#//Table/columns"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryLinks" upperBound="-1"
+        eType="#//Link"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="foreignLinks" upperBound="-1"
+        eType="#//Link" eOpposite="#//Link/primaryKey"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimalDigits" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="charOctetLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numPrecRadix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//ILink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
+        eType="#//Column" eOpposite="#//Column/foreignLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" lowerBound="1"
+        eType="#//Column"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="#//IInlineTable #//Table">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//Row"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Row" eSuperTypes="#//IRow">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rowValues" upperBound="-1"
+        eType="#//RowValue" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RowValue" eSuperTypes="#//IRowValue">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SqlStatement" eSuperTypes="#//ISqlStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialects" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sql" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SqlView" eSuperTypes="#//ISqlView #//Table">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sqlStatements" lowerBound="1"
+        upperBound="-1" eType="#//SqlStatement"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IAccessCubeGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping"
@@ -583,7 +648,7 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IAccessCatalogGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAction" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping"
+  <eClassifiers xsi:type="ecore:EClass" name="IAction" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ActionMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IAggregationColumnName" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping"
       abstract="true" interface="true"/>
@@ -671,8 +736,6 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISQLExpression" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISQL" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLMapping"
-      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISqlSelectQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IStandardDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping"
@@ -692,6 +755,32 @@
   <eClassifiers xsi:type="ecore:EClass" name="IWritebackMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IWritebackTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IDatabaseCatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IDatabaseSchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ITable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IViewTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ViewTableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISystemTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SystemTableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ILink" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.LinkMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IInlineTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IRow" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RowMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IRowValue" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISqlStatement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISqlView" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EEnum" name="CatalogAccess">
     <eLiterals name="NONE" literal="none"/>

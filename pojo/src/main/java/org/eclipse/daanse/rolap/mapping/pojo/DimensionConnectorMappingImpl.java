@@ -12,12 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 
 public class DimensionConnectorMappingImpl implements DimensionConnectorMapping {
 
-    private Column foreignKey;
+    private ColumnMappingImpl foreignKey;
 
     private LevelMappingImpl level;
 
@@ -41,11 +40,11 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         this.physicalCube = builder.physicalCube;
 }
 
-    public Column getForeignKey() {
+    public ColumnMappingImpl getForeignKey() {
         return foreignKey;
     }
 
-    public void setForeignKey(Column foreignKey) {
+    public void setForeignKey(ColumnMappingImpl foreignKey) {
         this.foreignKey = foreignKey;
     }
 
@@ -102,7 +101,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
     }
 
     public static final class Builder {
-        private Column foreignKey;
+        private ColumnMappingImpl foreignKey;
         private LevelMappingImpl level;
         private String usagePrefix;
         private boolean visible = true;
@@ -113,7 +112,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         private Builder() {
         }
 
-        public Builder withForeignKey(Column foreignKey) {
+        public Builder withForeignKey(ColumnMappingImpl foreignKey) {
             this.foreignKey = foreignKey;
             return this;
         }

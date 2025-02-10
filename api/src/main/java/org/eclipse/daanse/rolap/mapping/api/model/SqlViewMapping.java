@@ -12,5 +12,10 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-public interface ActionMappingMapping extends AbstractElementMapping {
+import java.util.List;
+
+public interface SqlViewMapping extends TableMapping {
+
+    List<? extends SqlStatementMapping> getSqlStatements();
+
 }

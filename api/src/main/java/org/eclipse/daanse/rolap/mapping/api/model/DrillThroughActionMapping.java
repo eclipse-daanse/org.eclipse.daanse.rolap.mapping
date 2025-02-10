@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface DrillThroughActionMapping extends ActionMappingMapping {
+public interface DrillThroughActionMapping extends ActionMapping {
 
     List<? extends DrillThroughAttributeMapping> getDrillThroughAttribute();
 

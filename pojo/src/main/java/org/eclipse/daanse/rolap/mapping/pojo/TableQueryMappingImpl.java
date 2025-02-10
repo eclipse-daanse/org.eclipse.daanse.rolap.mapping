@@ -15,19 +15,18 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 
 public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements TableQueryMapping {
 
-    private SQLMappingImpl sqlWhereExpression;
+    private SqlStatementMappingImpl sqlWhereExpression;
 
     private List<AggregationExcludeMappingImpl> aggregationExcludes;
 
     private List<TableQueryOptimizationHintMappingImpl> optimizationHints;
 
-    private PhysicalTableImpl table;
+    private PhysicalTableMappingImpl table;
 
     private List<AggregationTableMappingImpl> aggregationTables;
 
@@ -46,11 +45,11 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         super.setAlias(builder.alias);
     }
 
-    public SQLMappingImpl getSqlWhereExpression() {
+    public SqlStatementMappingImpl getSqlWhereExpression() {
         return sqlWhereExpression;
     }
 
-    public void setSqlWhereExpression(SQLMappingImpl sqlWhereExpression) {
+    public void setSqlWhereExpression(SqlStatementMappingImpl sqlWhereExpression) {
         this.sqlWhereExpression = sqlWhereExpression;
     }
 
@@ -70,11 +69,11 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         this.optimizationHints = optimizationHints;
     }
 
-    public PhysicalTableImpl getTable() {
+    public PhysicalTableMappingImpl getTable() {
         return table;
     }
 
-    public void setTable(PhysicalTableImpl table) {
+    public void setTable(PhysicalTableMappingImpl table) {
         this.table = table;
     }
 
@@ -109,10 +108,10 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
     }
 
     public static final class Builder {
-        private SQLMappingImpl sqlWhereExpression;
+        private SqlStatementMappingImpl sqlWhereExpression;
         private List<AggregationExcludeMappingImpl> aggregationExcludes = new ArrayList<>();
         private List<TableQueryOptimizationHintMappingImpl> optimizationHints = new ArrayList<>();
-        private PhysicalTableImpl table;
+        private PhysicalTableMappingImpl table;
         private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
         private String alias;
         private DocumentationMappingImpl documentation;
@@ -121,7 +120,7 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
         private Builder() {
         }
 
-        public Builder withSqlWhereExpression(SQLMappingImpl sqlWhereExpression) {
+        public Builder withSqlWhereExpression(SqlStatementMappingImpl sqlWhereExpression) {
             this.sqlWhereExpression = sqlWhereExpression;
             return this;
         }
@@ -136,7 +135,7 @@ public class TableQueryMappingImpl extends RelationalQueryMappingImpl implements
             return this;
         }
 
-        public Builder withTable(PhysicalTableImpl table) {
+        public Builder withTable(PhysicalTableMappingImpl table) {
             this.table = table;
             return this;
         }

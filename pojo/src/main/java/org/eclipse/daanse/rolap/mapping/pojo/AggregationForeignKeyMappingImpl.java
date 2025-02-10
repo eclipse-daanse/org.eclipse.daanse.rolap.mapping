@@ -12,33 +12,32 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
 
 public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMapping {
 
-    private Column aggregationColumn;
+    private ColumnMappingImpl aggregationColumn;
 
-    private Column factColumn;
+    private ColumnMappingImpl factColumn;
 
     private AggregationForeignKeyMappingImpl(Builder builder) {
         this.aggregationColumn = builder.aggregationColumn;
         this.factColumn = builder.factColumn;
     }
 
-    public Column getAggregationColumn() {
+    public ColumnMappingImpl getAggregationColumn() {
         return aggregationColumn;
     }
 
-    public void setAggregationColumn(Column aggregationColumn) {
+    public void setAggregationColumn(ColumnMappingImpl aggregationColumn) {
         this.aggregationColumn = aggregationColumn;
     }
 
-    public Column getFactColumn() {
+    public ColumnMappingImpl getFactColumn() {
         return factColumn;
     }
 
-    public void setFactColumn(Column factColumn) {
+    public void setFactColumn(ColumnMappingImpl factColumn) {
         this.factColumn = factColumn;
     }
 
@@ -47,18 +46,18 @@ public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMa
     }
 
     public static final class Builder {
-        private Column aggregationColumn;
-        private Column factColumn;
+        private ColumnMappingImpl aggregationColumn;
+        private ColumnMappingImpl factColumn;
 
         private Builder() {
         }
 
-        public Builder withAggregationColumn(Column aggregationColumn) {
+        public Builder withAggregationColumn(ColumnMappingImpl aggregationColumn) {
             this.aggregationColumn = aggregationColumn;
             return this;
         }
 
-        public Builder withFactColumn(Column factColumn) {
+        public Builder withFactColumn(ColumnMappingImpl factColumn) {
             this.factColumn = factColumn;
             return this;
         }

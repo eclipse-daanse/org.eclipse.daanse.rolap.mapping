@@ -14,15 +14,11 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebacktable;
 
 import java.util.List;
 
-import javax.xml.validation.Schema;
-
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
@@ -33,6 +29,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -54,89 +51,89 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column valColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
         valColumn.setId("Fact_VAL");
         valColumn.setType("INTEGER");
 
-        Column val1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column val1Column = RolapMappingFactory.eINSTANCE.createColumn();
         val1Column.setName("VAL1");
         val1Column.setId("Fact_VAL1");
         val1Column.setType("INTEGER");
 
-        Column l2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l2Column.setName("L2");
         l2Column.setId("Fact_L2");
         l2Column.setType("VARCHAR");
         l2Column.setColumnSize(100);
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
         databaseSchema.getTables().add(table);
 
-        Column l1L1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column l1L1Column = RolapMappingFactory.eINSTANCE.createColumn();
         l1L1Column.setName("L1");
         l1L1Column.setId("L1_L1");
         l1L1Column.setType("VARCHAR");
         l1L1Column.setColumnSize(100);
 
-        Column l1L2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column l1L2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l1L2Column.setName("L2");
         l1L2Column.setId("L1_L2");
         l1L2Column.setType("VARCHAR");
         l1L2Column.setColumnSize(100);
 
-        PhysicalTable l1Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable l1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         l1Table.setName("L1");
         l1Table.setId("L1");
         l1Table.getColumns().addAll(List.of(l1L1Column, l1L2Column));
         databaseSchema.getTables().add(l1Table);
 
-        Column l2L2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column l2L2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l2L2Column.setName("L2");
         l2L2Column.setId("L2_L2");
         l2L2Column.setType("VARCHAR");
         l2L2Column.setColumnSize(100);
 
-        PhysicalTable l2Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable l2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         l2Table.setName("L2");
         l2Table.setId("L2");
         l2Table.getColumns().addAll(List.of(l2L2Column));
         databaseSchema.getTables().add(l2Table);
 
-        Column factwbValColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factwbValColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbValColumn.setName("VAL");
         factwbValColumn.setId("Factwb_VAL");
         factwbValColumn.setType("INTEGER");
 
-        Column factwbVal1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createColumn();
         factwbVal1Column.setName("VAL1");
         factwbVal1Column.setId("Factwb_VAL1");
         factwbVal1Column.setType("INTEGER");
 
-        Column factwbL2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factwbL2Column = RolapMappingFactory.eINSTANCE.createColumn();
         factwbL2Column.setName("L2");
         factwbL2Column.setId("factwb_L2");
         factwbL2Column.setType("VARCHAR");
         factwbL2Column.setColumnSize(100);
 
-        Column factwbIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbIdColumn.setName("ID");
         factwbIdColumn.setId("factwb_ID");
         factwbIdColumn.setType("VARCHAR");
         factwbIdColumn.setColumnSize(100);
 
-        Column factwbUserColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbUserColumn.setName("USER");
         factwbUserColumn.setId("factwb_USER");
         factwbUserColumn.setType("VARCHAR");
         factwbUserColumn.setColumnSize(100);
 
-        PhysicalTable factwbTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable factwbTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factwbTable.setName("FACTWB");
         factwbTable.setId("FACTWB");
         factwbTable.getColumns()

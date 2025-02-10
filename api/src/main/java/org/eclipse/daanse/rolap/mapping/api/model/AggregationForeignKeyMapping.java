@@ -12,12 +12,10 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-
 public interface AggregationForeignKeyMapping {
 
-    Column getAggregationColumn();
+    ColumnMapping getAggregationColumn();
 
-    Column getFactColumn();
+    ColumnMapping getFactColumn();
 
 }

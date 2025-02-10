@@ -15,9 +15,8 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 
 public class HierarchyMappingImpl extends AbstractElementMappingImpl implements HierarchyMapping {
     private List<LevelMappingImpl> levels;
@@ -40,9 +39,9 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
 
     private String origin;
 
-    private Column primaryKey;
+    private ColumnMappingImpl primaryKey;
 
-    private Table primaryKeyTable;
+    private TableMapping primaryKeyTable;
 
     private String uniqueKeyLevelName;
 
@@ -137,19 +136,19 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.origin = origin;
     }
 
-    public Column getPrimaryKey() {
+    public ColumnMappingImpl getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(Column primaryKey) {
+    public void setPrimaryKey(ColumnMappingImpl primaryKey) {
         this.primaryKey = primaryKey;
     }
 
-    public Table getPrimaryKeyTable() {
+    public TableMapping getPrimaryKeyTable() {
         return primaryKeyTable;
     }
 
-    public void setPrimaryKeyTable(Table primaryKeyTable) {
+    public void setPrimaryKeyTable(TableMapping primaryKeyTable) {
         this.primaryKeyTable = primaryKeyTable;
     }
 
@@ -208,8 +207,8 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         private boolean hasAll;
         private String memberReaderClass;
         private String origin;
-        private Column primaryKey;
-        private Table primaryKeyTable;
+        private ColumnMappingImpl primaryKey;
+        private TableMapping primaryKeyTable;
         private String uniqueKeyLevelName;
         private boolean visible;
         private QueryMappingImpl query;
@@ -272,12 +271,12 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
             return this;
         }
 
-        public Builder withPrimaryKey(Column primaryKey) {
+        public Builder withPrimaryKey(ColumnMappingImpl primaryKey) {
             this.primaryKey = primaryKey;
             return this;
         }
 
-        public Builder withPrimaryKeyTable(Table primaryKeyTable) {
+        public Builder withPrimaryKeyTable(TableMapping primaryKeyTable) {
             this.primaryKeyTable = primaryKeyTable;
             return this;
         }

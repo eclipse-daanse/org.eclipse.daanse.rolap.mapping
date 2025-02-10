@@ -20,18 +20,11 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
-import org.eclipse.daanse.rdb.structure.api.model.RowValue;
-import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl.Builder;
-import org.eclipse.daanse.rdb.structure.pojo.RowImpl;
-import org.eclipse.daanse.rdb.structure.pojo.RowValueImpl;
-import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
@@ -103,13 +96,16 @@ import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.EnviromentMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.InlineTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -124,10 +120,14 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.RowMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.RowValueMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SqlViewMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryOptimizationHintMappingImpl;
@@ -1058,51 +1058,51 @@ public class TransformTask {
         return null;
     }
 
-    private InlineTableImpl transformInlineTable(InlineTable it) {
+    private InlineTableMappingImpl transformInlineTable(InlineTable it) {
         //TODO
-        List<org.eclipse.daanse.rdb.structure.api.model.Row> rows = transformRows(it.rows());
-        InlineTableImpl inlineTable = InlineTableImpl.builder()
+        List<RowMapping> rows = transformRows(it.rows());
+        InlineTableMappingImpl inlineTable = InlineTableMappingImpl.builder()
             .withRows(rows)
             .build();
         return inlineTable;
     }
 
-    private List<org.eclipse.daanse.rdb.structure.api.model.Row> transformRows(List<Row> rows) {
+    private List<RowMapping> transformRows(List<Row> rows) {
         if (rows != null) {
             rows.stream().map(r -> transformRow(r));
         }
         return List.of();
     }
 
-    private org.eclipse.daanse.rdb.structure.api.model.Row transformRow(Row r) {
-        List<RowValue> rowValues = transformRowValues(r.values());
-        return RowImpl.builder().withRowValues(rowValues).build();
+    private RowMapping transformRow(Row r) {
+        List<RowValueMapping> rowValues = transformRowValues(r.values());
+        return RowMappingImpl.builder().withRowValues(rowValues).build();
     }
 
-    private List<RowValue> transformRowValues(List<Value> values) {
+    private List<RowValueMapping> transformRowValues(List<Value> values) {
         if (values != null) {
             values.stream().map(v -> transformValue(v));
         }
         return List.of();
     }
 
-    private RowValue transformValue(Value v) {
-        ColumnImpl column = ColumnImpl.builder().withName(v.column()).build();
-        return RowValueImpl.builder().withColumn(column).withValue(v.content()).build();
+    private RowValueMapping transformValue(Value v) {
+        ColumnMappingImpl column = ColumnMappingImpl.builder().withName(v.column()).build();
+        return RowValueMappingImpl.builder().withColumn(column).withValue(v.content()).build();
     }
 
-    private PhysicalTableImpl transformPhysicalTable(Table t) {
-        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder()
+    private PhysicalTableMappingImpl transformPhysicalTable(Table t) {
+        DatabaseSchemaMappingImpl databaseSchema = DatabaseSchemaMappingImpl.builder()
             .withName(t.schema())
             .build();
-        PhysicalTableImpl table = ((Builder) PhysicalTableImpl.builder()
+        PhysicalTableMappingImpl table = ((PhysicalTableMappingImpl.Builder) PhysicalTableMappingImpl.builder()
             .withName(t.name())
             .withsSchema(databaseSchema))
             .build();
         return table;
     }
 
-    private SqlViewImpl transformSqls(View v) {
+    private SqlViewMappingImpl transformSqls(View v) {
         // TODO Auto-generated method stub
         return null;
     }
@@ -1136,7 +1136,7 @@ public class TransformTask {
         return null;
     }
 
-    private List<SQLMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
+    private List<SqlStatementMappingImpl> transformSqls(List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls) {
         return sqls.stream().map(this::transformSql).toList();
     }
 
@@ -1325,9 +1325,9 @@ public class TransformTask {
         return sharedDimensions.stream().map(this::transformDimension).toList();
     }
 
-    private SQLMappingImpl transformSql(org.eclipse.daanse.rolap.mapping.mondrian.model.SQL sql) {
-        return SQLMappingImpl.builder()
-            .withStatement(sql.content())
+    private SqlStatementMappingImpl transformSql(org.eclipse.daanse.rolap.mapping.mondrian.model.SQL sql) {
+        return SqlStatementMappingImpl.builder()
+            .withSql(sql.content())
             .withDialects(List.of(sql.dialect()))
             .build();
     }

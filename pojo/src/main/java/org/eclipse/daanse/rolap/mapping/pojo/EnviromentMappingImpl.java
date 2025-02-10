@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 
 public class EnviromentMappingImpl extends AbstractElementMappingImpl implements EnviromentMapping {
@@ -32,7 +31,7 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
 
     private List<FormatterMappingImpl> formatters;
 
-    private List<DatabaseSchemaImpl> dbschemas;
+    private List<DatabaseSchemaMappingImpl> dbschemas;
 
     private List<MeasureMappingImpl> measures;
 
@@ -101,11 +100,11 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
         this.formatters = formatters;
     }
 
-    public List<DatabaseSchemaImpl> getDbschemas() {
+    public List<DatabaseSchemaMappingImpl> getDbschemas() {
         return dbschemas;
     }
 
-    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+    public void setDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
         this.dbschemas = dbschemas;
     }
 
@@ -160,7 +159,7 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
         private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
         private List<LevelMappingImpl> levels = new ArrayList<>();
         private List<FormatterMappingImpl> formatters = new ArrayList<>();
-        private List<DatabaseSchemaImpl> dbschemas = new ArrayList<>();
+        private List<DatabaseSchemaMappingImpl> dbschemas = new ArrayList<>();
         private List<MeasureMappingImpl> measures = new ArrayList<>();
         private List<AccessRoleMappingImpl> accessRoles = new ArrayList<>();
         private List<AggregationTableMappingImpl> aggregationTables = new ArrayList<>();
@@ -204,7 +203,7 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
             return this;
         }
 
-        public Builder withDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+        public Builder withDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
             this.dbschemas = dbschemas;
             return this;
         }

@@ -18,19 +18,13 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
-import org.eclipse.daanse.rdb.structure.api.model.Row;
-import org.eclipse.daanse.rdb.structure.api.model.RowValue;
-import org.eclipse.daanse.rdb.structure.api.model.SqlView;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
@@ -44,14 +38,18 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
@@ -68,10 +66,12 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
@@ -121,7 +121,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkAction(ActionMappingMapping action) {
+    protected void checkAction(ActionMapping action) {
         if (action != null) {
             checkAnnotationList(action.getAnnotations());
         }
@@ -209,13 +209,13 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkSqlList(List<? extends SQLMapping> sqls) {
+    private void checkSqlList(List<? extends SqlStatementMapping> sqls) {
         if (sqls != null) {
             sqls.forEach(s -> checkSQL(s));
         }
     }
 
-    protected void checkSQL(SQLMapping sql) {
+    protected void checkSQL(SqlStatementMapping sql) {
         //empty
     }
 
@@ -289,7 +289,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkSqlView(SqlView sql) {
+    protected void checkSqlView(SqlViewMapping sql) {
         if (sql != null) {
 
         }
@@ -301,42 +301,42 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkInlineTable(InlineTable table) {
+    protected void checkInlineTable(InlineTableMapping table) {
         if (table != null) {
             checkInlineTableRows(table.getRows());
             checkInlineTableColumns(table.getColumns());
         }
     }
 
-    protected void checkInlineTableColumns(List<? extends Column> list) {
+    protected void checkInlineTableColumns(List<? extends ColumnMapping> list) {
         if (list != null) {
             list.forEach(c -> checkInlineTableColumn(c));
         }
     }
 
-    protected void checkInlineTableColumn(Column c) {
+    protected void checkInlineTableColumn(ColumnMapping c) {
         //empty
     }
 
-    private void checkInlineTableRows(List<? extends Row> rows) {
+    private void checkInlineTableRows(List<? extends RowMapping> rows) {
         if (rows != null) {
             rows.forEach(this::checkRow);
         }
     }
 
-    protected void checkRow(Row row) {
+    protected void checkRow(RowMapping row) {
         if (row != null) {
             checkRowValueList(row.getRowValues());
         }
     }
 
-    private void checkRowValueList(List<? extends RowValue> rowValues) {
+    private void checkRowValueList(List<? extends RowValueMapping> rowValues) {
         if (rowValues != null) {
             rowValues.forEach(this::checkRowValue);
         }
     }
 
-    protected void checkRowValue(RowValue value) {
+    protected void checkRowValue(RowValueMapping value) {
         if (value != null) {
             checkColumn(value.getColumn());
             checkValue(value.getValue());
@@ -348,7 +348,7 @@ public abstract class AbstractSchemaWalker {
 
     }
 
-    protected void checkColumn(Column columnDef) {
+    protected void checkColumn(ColumnMapping columnDef) {
         //empty
     }
 
@@ -364,7 +364,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkSqlWhereExpression(SQLMapping sqlWhereExpression) {
+    private void checkSqlWhereExpression(SqlStatementMapping sqlWhereExpression) {
         checkSQL(sqlWhereExpression);
     }
 
@@ -372,7 +372,7 @@ public abstract class AbstractSchemaWalker {
         //empty
     }
 
-    protected void checkAggregationTable(AggregationTableMapping aggTable, DatabaseSchema schema) {
+    protected void checkAggregationTable(AggregationTableMapping aggTable, DatabaseSchemaMapping schema) {
         if (aggTable != null) {
             checkAggregationColumnName(aggTable.getAggregationFactCount());
             checkAggregationColumnNameList(aggTable.getAggregationIgnoreColumns());
@@ -389,7 +389,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkAggregationPattern(AggregationPatternMapping aggTable, DatabaseSchema schema) {
+    protected void checkAggregationPattern(AggregationPatternMapping aggTable, DatabaseSchemaMapping schema) {
         if (aggTable != null) {
             checkAggregationExcludeList(aggTable.getExcludes(), schema);
         }
@@ -427,7 +427,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkAggregationExclude(AggregationExcludeMapping aggExclude, DatabaseSchema schemaName) {
+    protected void checkAggregationExclude(AggregationExcludeMapping aggExclude, DatabaseSchemaMapping schemaName) {
         //empty
     }
 
@@ -568,7 +568,7 @@ public abstract class AbstractSchemaWalker {
      * @param parentHierarchy Hierarchy
      */
     protected void checkColumn(
-        Column column, String fieldName, LevelMapping level,
+        ColumnMapping column, String fieldName, LevelMapping level,
         CubeMapping cube, HierarchyMapping parentHierarchy
     ) {
         //empty
@@ -696,7 +696,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkAggregationTableList(List<? extends AggregationTableMapping> list, DatabaseSchema schema) {
+    private void checkAggregationTableList(List<? extends AggregationTableMapping> list, DatabaseSchemaMapping schema) {
         if (list != null) {
             list.forEach(at -> checkAggregationTable(at, schema));
         }
@@ -744,7 +744,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkAggregationExcludeList(List<? extends AggregationExcludeMapping> list, DatabaseSchema schema) {
+    private void checkAggregationExcludeList(List<? extends AggregationExcludeMapping> list, DatabaseSchemaMapping schema) {
         if (list != null) {
             list.forEach(ae -> checkAggregationExclude(ae, schema));
         }
@@ -876,7 +876,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkActionList(List<? extends ActionMappingMapping> list) {
+    private void checkActionList(List<? extends ActionMapping> list) {
         if (list != null) {
             list.forEach(this::checkAction);
         }

@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 
 public class CatalogMappingImpl extends AbstractElementMappingImpl implements CatalogMapping {
@@ -32,7 +31,7 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
 
     private String measuresDimensionName;
 
-    private List<DatabaseSchemaImpl> dbschemas;
+    private List<DatabaseSchemaMappingImpl> dbschemas;
 
     private CatalogMappingImpl(Builder builder) {
         this.parameters = builder.parameters;
@@ -98,11 +97,11 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
     }
 
     @Override
-    public List<DatabaseSchemaImpl> getDbschemas() {
+    public List<DatabaseSchemaMappingImpl> getDbschemas() {
         return dbschemas;
     }
 
-    public void setDbschemas(List<DatabaseSchemaImpl> dbschemas) {
+    public void setDbschemas(List<DatabaseSchemaMappingImpl> dbschemas) {
         this.dbschemas = dbschemas;
     }
 
@@ -122,7 +121,7 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
-        private List<DatabaseSchemaImpl> dbSchemas;
+        private List<DatabaseSchemaMappingImpl> dbSchemas;
 
         private Builder() {
         }
@@ -182,7 +181,7 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
             return this;
         }
 
-        public Builder withDbSchemas(List<DatabaseSchemaImpl> dbSchemas) {
+        public Builder withDbSchemas(List<DatabaseSchemaMappingImpl> dbSchemas) {
             this.dbSchemas = dbSchemas;
             return this;
         }

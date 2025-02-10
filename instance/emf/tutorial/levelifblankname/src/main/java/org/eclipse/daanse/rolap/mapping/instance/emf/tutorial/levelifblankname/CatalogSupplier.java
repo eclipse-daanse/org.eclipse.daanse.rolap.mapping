@@ -14,15 +14,11 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname;
 
 import java.util.List;
 
-import javax.xml.validation.Schema;
-
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
@@ -34,6 +30,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -64,131 +61,131 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column dimKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType("INTEGER");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        PhysicalTable factTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable factTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factTable.setName(FACT);
         factTable.setId(FACT);
         factTable.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(factTable);
 
-        Column factMultipleDimKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factMultipleDimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factMultipleDimKeyColumn.setName("DIM_KEY");
         factMultipleDimKeyColumn.setId("FactMultiple_DIM_KEY");
         factMultipleDimKeyColumn.setType("INTEGER");
 
-        Column factMultipleValueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column factMultipleValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factMultipleValueColumn.setName("VALUE");
         factMultipleValueColumn.setId("Fact_VALUE");
         factMultipleValueColumn.setType("INTEGER");
 
-        PhysicalTable factMultipleTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable factMultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factMultipleTable.setName("Fact_Multiple");
         factMultipleTable.setId("Fact_Multiple");
         factMultipleTable.getColumns().addAll(List.of(factMultipleDimKeyColumn, factMultipleValueColumn));
         databaseSchema.getTables().add(factMultipleTable);
 
-        Column level1MultipleKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level1MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1MultipleKeyColumn.setName("KEY");
         level1MultipleKeyColumn.setId("Level_1_Multiple_KEY");
         level1MultipleKeyColumn.setType("INTEGER");
 
-        Column level1MultipleNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level1MultipleNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1MultipleNameColumn.setName("NAME");
         level1MultipleNameColumn.setId("Level_1_Multiple_NAME");
         level1MultipleNameColumn.setType("VARCHAR");
 
-        PhysicalTable level1MultipleTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable level1MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level1MultipleTable.setName("Level_1_Multiple");
         level1MultipleTable.setId("Level_1_Multiple");
         level1MultipleTable.getColumns().addAll(List.of(level1MultipleKeyColumn, level1MultipleNameColumn));
         databaseSchema.getTables().add(level1MultipleTable);
 
-        Column level2NullKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2NullKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2NullKeyColumn.setName("KEY");
         level2NullKeyColumn.setId("Level_2_NULL_KEY");
         level2NullKeyColumn.setType("INTEGER");
 
-        Column level2NullNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2NullNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2NullNameColumn.setName("NAME");
         level2NullNameColumn.setId("Level_2_NULL_NAME");
         level2NullNameColumn.setType("VARCHAR");
 
-        Column level2NullL1KeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2NullL1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2NullL1KeyColumn.setName("L1_KEY");
         level2NullL1KeyColumn.setId("Level_2_NULL_L1_KEY");
         level2NullL1KeyColumn.setType("INTEGER");
 
-        PhysicalTable level2NullTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable level2NullTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level2NullTable.setName("Level_2_NULL");
         level2NullTable.setId("Level_2_NULL");
         level2NullTable.getColumns().addAll(List.of(level2NullKeyColumn, level2NullNameColumn, level2NullL1KeyColumn));
         databaseSchema.getTables().add(level2NullTable);
 
-        Column level1KeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1KeyColumn.setName("KEY");
         level1KeyColumn.setId("Level_1_KEY");
         level1KeyColumn.setType("INTEGER");
 
-        Column level1NameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1NameColumn.setName("NAME");
         level1NameColumn.setId("Level_1_NAME");
         level1NameColumn.setType("VARCHAR");
 
-        PhysicalTable level1Table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable level1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level1Table.setName("Level_1");
         level1Table.setId("Level_1");
         level1Table.getColumns().addAll(List.of(level1KeyColumn, level1NameColumn));
         databaseSchema.getTables().add(level1Table);
 
-        Column level2MultipleKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2MultipleKeyColumn.setName("KEY");
         level2MultipleKeyColumn.setId("Level_2_Multiple_KEY");
         level2MultipleKeyColumn.setType("INTEGER");
 
-        Column level2MultipleNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2MultipleNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2MultipleNameColumn.setName("NAME");
         level2MultipleNameColumn.setId("Level_2_Multiple_NAME");
         level2MultipleNameColumn.setType("VARCHAR");
 
-        Column level2MultipleL1KeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level2MultipleL1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2MultipleL1KeyColumn.setName("L1_KEY");
         level2MultipleL1KeyColumn.setId("Level_2_Multiple_L1_KEY");
         level2MultipleL1KeyColumn.setType("INTEGER");
 
-        PhysicalTable level2MultipleTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable level2MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level2MultipleTable.setName("Level_2_Multiple");
         level2MultipleTable.setId("Level_2_Multiple");
         level2MultipleTable.getColumns().addAll(List.of(level2MultipleKeyColumn, level2MultipleNameColumn, level2MultipleL1KeyColumn));
         databaseSchema.getTables().add(level2MultipleTable);
 
 
-        Column level3MultipleKeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level3MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level3MultipleKeyColumn.setName("KEY");
         level3MultipleKeyColumn.setId("Level_3_Multiple_KEY");
         level3MultipleKeyColumn.setType("INTEGER");
 
-        Column level3MultipleNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level3MultipleNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level3MultipleNameColumn.setName("NAME");
         level3MultipleNameColumn.setId("Level_3_Multiple_NAME");
         level3MultipleNameColumn.setType("VARCHAR");
 
-        Column level3MultipleL2KeyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column level3MultipleL2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level3MultipleL2KeyColumn.setName("L2_KEY");
         level3MultipleL2KeyColumn.setId("Level_3_Multiple_L2_KEY");
         level3MultipleL2KeyColumn.setType("INTEGER");
 
-        PhysicalTable level3MultipleTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable level3MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level3MultipleTable.setName("Level_3_Multiple");
         level3MultipleTable.setId("Level_3_Multiple");
         level3MultipleTable.getColumns().addAll(List.of(level3MultipleKeyColumn, level3MultipleNameColumn, level3MultipleL2KeyColumn));
