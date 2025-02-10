@@ -19,17 +19,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
 
 public class SQLExpressionMappingImpl implements SQLExpressionMapping {
 
-    private List<SQLMappingImpl> sqls;
+    private List<SqlStatementMappingImpl> sqls;
 
     private SQLExpressionMappingImpl(Builder builder) {
         this.sqls = builder.sqls;
     }
 
-    public List<SQLMappingImpl> getSqls() {
+    public List<SqlStatementMappingImpl> getSqls() {
         return sqls;
     }
 
-    public void setSqls(List<SQLMappingImpl> sqls) {
+    public void setSqls(List<SqlStatementMappingImpl> sqls) {
         this.sqls = sqls;
     }
 
@@ -38,12 +38,12 @@ public class SQLExpressionMappingImpl implements SQLExpressionMapping {
     }
 
     public static final class Builder {
-        private List<SQLMappingImpl> sqls = new ArrayList<>();
+        private List<SqlStatementMappingImpl> sqls = new ArrayList<>();
 
         private Builder() {
         }
 
-        public Builder withSqls(List<SQLMappingImpl> sqls) {
+        public Builder withSqls(List<SqlStatementMappingImpl> sqls) {
             this.sqls = sqls;
             return this;
         }

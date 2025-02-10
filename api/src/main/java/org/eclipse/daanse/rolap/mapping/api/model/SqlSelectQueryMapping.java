@@ -12,10 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rdb.structure.api.model.SqlView;
-
 public interface SqlSelectQueryMapping extends RelationalQueryMapping {
 
-    SqlView getSql();
+    SqlViewMapping getSql();
 
 }

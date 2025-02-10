@@ -15,33 +15,13 @@ package org.eclipse.daanse.rolap.mapping.modifier.pojo;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
-import org.eclipse.daanse.rdb.structure.api.model.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.api.model.Row;
-import org.eclipse.daanse.rdb.structure.api.model.RowValue;
-import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
-import org.eclipse.daanse.rdb.structure.api.model.SqlView;
-import org.eclipse.daanse.rdb.structure.api.model.Table;
-import org.eclipse.daanse.rdb.structure.pojo.AbstractTable;
-import org.eclipse.daanse.rdb.structure.pojo.ColumnImpl;
-import org.eclipse.daanse.rdb.structure.pojo.DatabaseSchemaImpl;
-import org.eclipse.daanse.rdb.structure.pojo.PhysicalTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.RowImpl;
-import org.eclipse.daanse.rdb.structure.pojo.RowValueImpl;
-import org.eclipse.daanse.rdb.structure.pojo.SqlStatementImpl;
-import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
-import org.eclipse.daanse.rdb.structure.pojo.SystemTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.ViewTableImpl;
-import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
@@ -53,15 +33,18 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
@@ -76,11 +59,15 @@ import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping;
@@ -100,6 +87,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
+import org.eclipse.daanse.rolap.mapping.pojo.AbstractTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
@@ -120,15 +108,19 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughActionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughAttributeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.InlineTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -144,16 +136,21 @@ import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.RowMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.RowValueMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SqlViewMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SystemTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryOptimizationHintMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TranslationMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ViewTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.VirtualCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.WritebackAttributeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.WritebackMeasureMappingImpl;
@@ -166,11 +163,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected Column createColumn(
-        String name, Table table, String type, Integer columnSize, Integer decimalDigits,
+    protected ColumnMapping createColumn(
+        String name, TableMapping table, String type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     ) {
-        ColumnImpl column = ColumnImpl.builder().build();
+        ColumnMappingImpl column = ColumnMappingImpl.builder().build();
         column.setName(name);
         column.setTable(table);
         column.setType(type);
@@ -185,42 +182,42 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected PhysicalTable createPhysicalTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected PhysicalTableMapping createPhysicalTable(
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
         String description
     ) {
-        PhysicalTableImpl physicalTableImpl = PhysicalTableImpl.builder().build();
+        PhysicalTableMappingImpl physicalTableImpl = PhysicalTableMappingImpl.builder().build();
         physicalTableImpl.setName(name);
-        physicalTableImpl.setColumns((List<ColumnImpl>) columns);
-        physicalTableImpl.setSchema((DatabaseSchemaImpl) schema);
+        physicalTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        physicalTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         physicalTableImpl.setDescription(description);
         return physicalTableImpl;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createSystemTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected TableMapping createSystemTable(
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
         String description
     ) {
-        SystemTableImpl systemTableImpl = SystemTableImpl.builder().build();
+        SystemTableMappingImpl systemTableImpl = SystemTableMappingImpl.builder().build();
         systemTableImpl.setName(name);
-        systemTableImpl.setColumns((List<ColumnImpl>) columns);
-        systemTableImpl.setSchema((DatabaseSchemaImpl) schema);
+        systemTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        systemTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         systemTableImpl.setDescription(description);
         return systemTableImpl;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createViewTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected TableMapping createViewTable(
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
         String description
     ) {
-        ViewTableImpl viewTableImpl = ViewTableImpl.builder().build();
+        ViewTableMappingImpl viewTableImpl = ViewTableMappingImpl.builder().build();
         viewTableImpl.setName(name);
-        viewTableImpl.setColumns((List<ColumnImpl>) columns);
-        viewTableImpl.setSchema((DatabaseSchemaImpl) schema);
+        viewTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        viewTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         viewTableImpl.setDescription(description);
         return viewTableImpl;
 
@@ -228,9 +225,9 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        DatabaseSchemaImpl databaseSchema = DatabaseSchemaImpl.builder().build();
-        databaseSchema.setTables((List<AbstractTable>) tables);
+    protected DatabaseSchemaMapping createDatabaseSchema(List<? extends TableMapping> tables, String name, String id) {
+        DatabaseSchemaMappingImpl databaseSchema = DatabaseSchemaMappingImpl.builder().build();
+        databaseSchema.setTables((List<AbstractTableMappingImpl>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
         return databaseSchema;
@@ -243,7 +240,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
         List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
         List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
-        String measuresDimensionName, List<? extends DatabaseSchema> dbschemas
+        String measuresDimensionName, List<? extends DatabaseSchemaMapping> dbschemas
     ) {
         return CatalogMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -257,7 +254,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withAccessRoles((List<AccessRoleMappingImpl>) accessRoles)
             .withDefaultAccessRole((AccessRoleMappingImpl) defaultAccessRole)
             .withMeasuresDimensionName(measuresDimensionName)
-            .withDbSchemas((List<DatabaseSchemaImpl>) dbschemas)
+            .withDbSchemas((List<DatabaseSchemaMappingImpl>) dbschemas)
             .build();
     }
 
@@ -292,11 +289,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected QueryMapping createInlineTableQuery(
         String alias,
-        InlineTable table, String id, DocumentationMapping documentation
+        InlineTableMapping table, String id, DocumentationMapping documentation
     ) {
         return InlineTableQueryMappingImpl.builder()
             .withAlias(alias)
-            .withTable((InlineTableImpl) table)
+            .withTable((InlineTableMappingImpl) table)
             .withId(id)
             .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
@@ -314,21 +311,21 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, Column key, QueryMapping query) {
+    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, ColumnMapping key, QueryMapping query) {
         return JoinedQueryElementMappingImpl.builder()
             .withAlias(alias)
-            .withKey(key)
+            .withKey((ColumnMappingImpl) key)
             .withQuery((QueryMappingImpl) query)
             .build();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createSqlSelectQuery(String alias, SqlView sql,
+    protected QueryMapping createSqlSelectQuery(String alias, SqlViewMapping sql,
             String id, DocumentationMapping documentation) {
         return SqlSelectQueryMappingImpl.builder()
             .withAlias(alias)
-            .withSql((SqlViewImpl) sql)
+            .withSql((SqlViewMappingImpl) sql)
             .withId(id)
             .withDocumentation((DocumentationMappingImpl) documentation)
             .build();
@@ -337,18 +334,18 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected TableQueryMapping createTableQuery(
-        String alias, SQLMapping sqlWhereExpression,
+        String alias, SqlStatementMapping sqlWhereExpression,
         List<? extends AggregationExcludeMapping> aggregationExcludes,
-        List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
+        List<? extends TableQueryOptimizationHintMapping> optimizationHints, TableMapping table,
         List<? extends AggregationTableMapping> aggregationTables,
         String id, DocumentationMapping documentation
     ) {
         return TableQueryMappingImpl.builder()
             .withAlias(alias)
-            .withSqlWhereExpression((SQLMappingImpl) sqlWhereExpression)
+            .withSqlWhereExpression((SqlStatementMappingImpl) sqlWhereExpression)
             .withAggregationExcludes((List<AggregationExcludeMappingImpl>) aggregationExcludes)
             .withOptimizationHints((List<TableQueryOptimizationHintMappingImpl>) optimizationHints)
-            .withTable((PhysicalTableImpl) table)
+            .withTable((PhysicalTableMappingImpl) table)
             .withAggregationTables((List<AggregationTableMappingImpl>) aggregationTables)
             .withId(id)
             .withDocumentation((DocumentationMappingImpl) documentation)
@@ -356,17 +353,17 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(Column column, Column factColumn) {
+    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(ColumnMapping column, ColumnMapping factColumn) {
         return AggregationMeasureFactCountMappingImpl.builder()
-            .withColumn(column)
-            .withFactColumn(factColumn)
+            .withColumn((ColumnMappingImpl) column)
+            .withFactColumn((ColumnMappingImpl) factColumn)
             .build();
     }
 
     @Override
-    protected AggregationLevelPropertyMapping createAggregationLevelProperty(Column column, String name) {
+    protected AggregationLevelPropertyMapping createAggregationLevelProperty(ColumnMapping column, String name) {
         return AggregationLevelPropertyMappingImpl.builder()
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withName(name)
             .build();
     }
@@ -374,41 +371,41 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AggregationLevelMapping createAggregationLevel(
-        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, Column captionColumn,
-        boolean collapsed, Column column, String name, Column nameColumn, Column ordinalColumn
+        List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, ColumnMapping captionColumn,
+        boolean collapsed, ColumnMapping column, String name, ColumnMapping nameColumn, ColumnMapping ordinalColumn
     ) {
         return AggregationLevelMappingImpl.builder()
             .withAggregationLevelProperties((List<AggregationLevelPropertyMappingImpl>) aggregationLevelProperties)
-            .withCaptionColumn(captionColumn)
+            .withCaptionColumn((ColumnMappingImpl) captionColumn)
             .withCollapsed(collapsed)
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withName(name)
-            .withNameColumn(nameColumn)
-            .withOrdinalColumn(ordinalColumn)
+            .withNameColumn((ColumnMappingImpl) nameColumn)
+            .withOrdinalColumn((ColumnMappingImpl) ordinalColumn)
             .build();
     }
 
     @Override
-    protected AggregationMeasureMapping createAggregationMeasure(Column column, String name, String rollupType) {
+    protected AggregationMeasureMapping createAggregationMeasure(ColumnMapping column, String name, String rollupType) {
         return AggregationMeasureMappingImpl.builder()
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withName(name)
             .withRollupType(rollupType)
             .build();
     }
 
     @Override
-    protected AggregationForeignKeyMapping createAggregationForeignKey(Column aggregationColumn, Column factColumn) {
+    protected AggregationForeignKeyMapping createAggregationForeignKey(ColumnMapping aggregationColumn, ColumnMapping factColumn) {
         return AggregationForeignKeyMappingImpl.builder()
-            .withAggregationColumn(aggregationColumn)
-            .withFactColumn(factColumn)
+            .withAggregationColumn((ColumnMappingImpl) aggregationColumn)
+            .withFactColumn((ColumnMappingImpl) factColumn)
             .build();
     }
 
     @Override
-    protected AggregationColumnNameMapping createAggregationColumn(Column column) {
+    protected AggregationColumnNameMapping createAggregationColumn(ColumnMapping column) {
         return AggregationColumnNameMappingImpl.builder()
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .build();
     }
 
@@ -433,11 +430,12 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .build();
     }
 
+
     @Override
-    protected SQLMapping createSQL(List<String> dialects, String statement) {
-        return SQLMappingImpl.builder()
+    protected SqlStatementMapping sqlStatement(List<String> dialects, String statement) {
+        return SqlStatementMappingImpl.builder()
             .withDialects(dialects)
-            .withStatement(statement)
+            .withSql(statement)
             .build();
     }
 
@@ -456,7 +454,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-        String memberReaderClass, String origin, Column primaryKey, Table primaryKeyTable,
+        String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping primaryKeyTable,
         String uniqueKeyLevelName, boolean visible, QueryMapping query
     ) {
         return HierarchyMappingImpl.builder()
@@ -475,7 +473,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withHasAll(hasAll)
             .withMemberReaderClass(memberReaderClass)
             .withOrigin(origin)
-            .withPrimaryKey(primaryKey)
+            .withPrimaryKey((ColumnMappingImpl) primaryKey)
             .withPrimaryKeyTable(primaryKeyTable)
             .withUniqueKeyLevelName(uniqueKeyLevelName)
             .withVisible(visible)
@@ -504,7 +502,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
-        MemberPropertyFormatterMapping formatter, Column column, boolean dependsOnLevelValue, DataType type
+        MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType type
     ) {
         return MemberPropertyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -513,7 +511,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withName(name)
             .withDocumentation((DocumentationMappingImpl) documentation)
             .withFormatter((MemberPropertyFormatterMappingImpl) formatter)
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withDependsOnLevelValue(dependsOnLevelValue)
             .withDataType(type)
             .build();
@@ -521,21 +519,21 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected ParentChildLinkMapping createParentChildLink(
-        TableQueryMapping table, Column childColumn,
-        Column parentColumn
+        TableQueryMapping table, ColumnMapping childColumn,
+        ColumnMapping parentColumn
     ) {
         return ParentChildLinkMappingImpl.builder()
             .withTable((TableQueryMappingImpl) table)
-            .withChildColumn(childColumn)
-            .withParentColumn(parentColumn)
+            .withChildColumn((ColumnMappingImpl) childColumn)
+            .withParentColumn((ColumnMappingImpl) parentColumn)
             .build();
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionMapping createSQLExpression(List<? extends SQLMapping> sqls) {
+    protected SQLExpressionMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
         return SQLExpressionMappingImpl.builder()
-            .withSqls((List<SQLMappingImpl>) sqls)
+            .withSqls((List<SqlStatementMappingImpl>) sqls)
             .build();
     }
 
@@ -546,9 +544,9 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
         SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-        String approxRowCount, Column captionColumn, Column column, HideMemberIfType hideMemberIf,
-        LevelType levelType, Column nameColumn, String nullParentValue, Column ordinalColumn, Column parentColumn,
-        Table table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
+        LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
+        TableMapping table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
             .withKeyExpression((SQLExpressionMappingImpl) keyExpression)
@@ -560,14 +558,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withMemberProperties((List<MemberPropertyMappingImpl>) memberProperties)
             .withMemberFormatter((MemberFormatterMappingImpl) memberFormatter)
             .withApproxRowCount(approxRowCount)
-            .withCaptionColumn(captionColumn)
-            .withColumn(column)
+            .withCaptionColumn((ColumnMappingImpl) captionColumn)
+            .withColumn((ColumnMappingImpl) column)
             .withHideMemberIfType(hideMemberIf)
             .withLevelType(levelType)
-            .withNameColumn(nameColumn)
+            .withNameColumn((ColumnMappingImpl) nameColumn)
             .withNullParentValue(nullParentValue)
-            .withOrdinalColumn(ordinalColumn)
-            .withParentColumn(parentColumn)
+            .withOrdinalColumn((ColumnMappingImpl) ordinalColumn)
+            .withParentColumn((ColumnMappingImpl) parentColumn)
             .withTable(table)
             .withType(type)
             .withUniqueMembers(uniqueMembers)
@@ -678,7 +676,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, Column column, DataType datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, DataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     ) {
         return MeasureMappingImpl.builder()
@@ -686,7 +684,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withBackColor(backColor)
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withDatatype(datatype)
             .withDisplayFolder(displayFolder)
             .withFormatString(formatString)
@@ -803,12 +801,12 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected DimensionConnectorMapping createDimensionConnector(
-        Column foreignKey, LevelMapping level,
+        ColumnMapping foreignKey, LevelMapping level,
         String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
         PhysicalCubeMapping physicalCube
     ) {
         return DimensionConnectorMappingImpl.builder()
-            .withForeignKey(foreignKey)
+            .withForeignKey((ColumnMappingImpl) foreignKey)
             .withLevel((LevelMappingImpl) level)
             .withUsagePrefix(usagePrefix)
             .withVisible(visible)
@@ -865,7 +863,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends AggregationMeasureMapping> aggregationMeasures,
         List<? extends AggregationLevelMapping> aggregationLevels,
         List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-        String id, String approxRowCount, Table name
+        String id, String approxRowCount, TableMapping name
     ) {
 
         return AggregationNameMappingImpl.builder()
@@ -948,7 +946,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
         List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
-        List<? extends ActionMappingMapping> action, boolean cache
+        List<? extends ActionMapping> action, boolean cache
     ) {
 
         return PhysicalCubeMappingImpl.builder()
@@ -974,7 +972,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected ActionMappingMapping createDrillThroughAction(
+    protected ActionMapping createDrillThroughAction(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, DocumentationMapping documentation,
         List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
@@ -1006,17 +1004,17 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionConnectorMapping dimensionConnector) {
+    protected WritebackAttributeMapping createWritebackAttribute(ColumnMapping column, DimensionConnectorMapping dimensionConnector) {
         return WritebackAttributeMappingImpl.builder()
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withDimensionConnector((DimensionConnectorMappingImpl) dimensionConnector)
             .build();
     }
 
     @Override
-    protected WritebackMeasureMapping createwritebackMeasure(Column column, String name) {
+    protected WritebackMeasureMapping createwritebackMeasure(ColumnMapping column, String name) {
         return WritebackMeasureMappingImpl.builder()
-            .withColumn(column)
+            .withColumn((ColumnMappingImpl) column)
             .withName(name)
             .build();
     }
@@ -1050,24 +1048,16 @@ public class PojoMappingModifier extends AbstractMappingModifier {
                 .build();
     }
 
-    @Override
-    protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
-        SqlStatementImpl sqlStatement = SqlStatementImpl.builder().build();
-        sqlStatement.setDialects(dialects);
-        sqlStatement.setSql(sql);
-        return sqlStatement;
-    }
-
     @SuppressWarnings("unchecked")
     @Override
-    protected SqlView createSqlView(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description, List<? extends SqlStatement> sqlStatements
+    protected SqlViewMapping createSqlView(
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String description, List<? extends SqlStatementMapping> sqlStatements
     ) {
-        SqlViewImpl sqlView = SqlViewImpl.builder().build();
+        SqlViewMappingImpl sqlView = SqlViewMappingImpl.builder().build();
         sqlView.setName(name);
-        sqlView.setColumns((List<ColumnImpl>) columns);
-        sqlView.setSchema((DatabaseSchemaImpl) schema);
+        sqlView.setColumns((List<ColumnMappingImpl>) columns);
+        sqlView.setSchema((DatabaseSchemaMappingImpl) schema);
         sqlView.setDescription(description);
         sqlView.setSqlStatements(sqlStatements);
         return sqlView;
@@ -1075,32 +1065,34 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected InlineTable createInlineTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description, List<? extends Row> rows
+    protected InlineTableMapping createInlineTable(
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String description, List<? extends RowMapping> rows
     ) {
-        InlineTableImpl inlineTable = InlineTableImpl.builder().build();
+        InlineTableMappingImpl inlineTable = InlineTableMappingImpl.builder().build();
         inlineTable.setName(name);
-        inlineTable.setColumns((List<ColumnImpl>) columns);
-        inlineTable.setSchema((DatabaseSchemaImpl) schema);
+        inlineTable.setColumns((List<ColumnMappingImpl>) columns);
+        inlineTable.setSchema((DatabaseSchemaMappingImpl) schema);
         inlineTable.setDescription(description);
         inlineTable.setRows(rows);
         return inlineTable;
     }
 
     @Override
-    protected RowValue createRowValue(Column column, String value) {
-        RowValueImpl rowValue = RowValueImpl.builder().build();
-        rowValue.setColumn(column);
+    protected RowValueMapping createRowValue(ColumnMapping column, String value) {
+        RowValueMappingImpl rowValue = RowValueMappingImpl.builder().build();
+        rowValue.setColumn((ColumnMappingImpl) column);
         rowValue.setValue(value);
         return rowValue;
     }
 
     @Override
-    protected Row createRow(List<? extends RowValue> rowValues) {
-        RowImpl row = RowImpl.builder().build();
+    protected RowMapping createRow(List<? extends RowValueMapping> rowValues) {
+        RowMappingImpl row = RowMappingImpl.builder().build();
         row.setRowValues(rowValues);
         return row;
     }
+
+
 
 }

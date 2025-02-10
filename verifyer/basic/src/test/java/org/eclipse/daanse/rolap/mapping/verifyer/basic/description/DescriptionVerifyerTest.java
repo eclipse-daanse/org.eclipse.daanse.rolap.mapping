@@ -48,7 +48,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
@@ -118,7 +118,7 @@ public class DescriptionVerifyerTest {
     NamedSetMapping namedSet = mock(NamedSetMapping.class);
     ParameterMapping parameter = mock(ParameterMapping.class);
     DrillThroughActionMapping drillThroughAction = mock(DrillThroughActionMapping.class);
-    ActionMappingMapping action = mock(ActionMappingMapping.class);
+    ActionMapping action = mock(ActionMapping.class);
     DimensionConnectorMapping dimensionConnector = mock(DimensionConnectorMapping.class);
 
     @Test

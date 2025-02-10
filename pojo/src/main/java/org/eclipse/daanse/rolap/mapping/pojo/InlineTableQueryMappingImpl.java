@@ -12,13 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.pojo.InlineTableImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
 
 public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl implements InlineTableQueryMapping {
 
-    private InlineTableImpl table;
+    private InlineTableMappingImpl table;
 
     private DocumentationMappingImpl documentation;
 
@@ -32,11 +31,11 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
         super.setAlias(builder.alias);
     }
 
-    public InlineTableImpl getTable() {
+    public InlineTableMappingImpl getTable() {
         return table;
     }
 
-    public void setTable(InlineTableImpl table) {
+    public void setTable(InlineTableMappingImpl table) {
         this.table = table;
     }
 
@@ -63,7 +62,7 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
     }
 
     public static final class Builder {
-        private InlineTableImpl table;
+        private InlineTableMappingImpl table;
         private String alias;
         private DocumentationMappingImpl documentation;
         private String id;
@@ -72,7 +71,7 @@ public class InlineTableQueryMappingImpl extends RelationalQueryMappingImpl impl
         private Builder() {
         }
 
-        public Builder withTable(InlineTableImpl table) {
+        public Builder withTable(InlineTableMappingImpl table) {
             this.table = table;
             return this;
         }

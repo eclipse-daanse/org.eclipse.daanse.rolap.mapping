@@ -12,11 +12,9 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-
 public interface WritebackAttributeMapping {
 
-    Column getColumn();
+    ColumnMapping getColumn();
 
     DimensionConnectorMapping getDimensionConnector();
 

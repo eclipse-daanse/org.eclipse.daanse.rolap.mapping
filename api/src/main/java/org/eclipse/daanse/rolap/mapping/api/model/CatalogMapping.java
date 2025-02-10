@@ -14,8 +14,6 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
-
 public interface CatalogMapping extends AbstractElementMapping {
 
     List<? extends ParameterMapping> getParameters();
@@ -30,6 +28,6 @@ public interface CatalogMapping extends AbstractElementMapping {
 
     String getMeasuresDimensionName();
 
-    List<? extends DatabaseSchema> getDbschemas();
+    List<? extends DatabaseSchemaMapping> getDbschemas();
 
 }

@@ -108,18 +108,18 @@ public class ResourceSetWriteReadTest {
             }
         }
 
-         CatalogMapping cm = catalogMappingSupplier.get();
+        CatalogMapping cm = catalogMappingSupplier.get();
 
         Catalog c = (Catalog) cm;
 
         Path mappingDir = baseDir.resolve("mapping");
         Files.createDirectories(mappingDir);
         Path fileCatalog = Files.createFile(mappingDir.resolve("catalog.xmi"));
-        Path fileDb = Files.createFile(mappingDir.resolve("db.xmi"));
+//        Path fileDb = Files.createFile(mappingDir.resolve("db.xmi"));
 
         URI uriCatalog = URI.createFileURI(fileCatalog.toAbsolutePath().toString());
-        URI uriDb = URI.createFileURI(fileDb.toAbsolutePath().toString());
-        Resource resourceDb = resourceSet.createResource(uriDb);
+//        URI uriDb = URI.createFileURI(fileDb.toAbsolutePath().toString());
+//        Resource resourceDb = resourceSet.createResource(uriDb);
         Resource resourceCatalog = resourceSet.createResource(uriCatalog);
 
         Set<EObject> set = new HashSet<>();
@@ -134,9 +134,9 @@ public class ResourceSetWriteReadTest {
 
         }
 
-        resourceDb.getContents().addAll(c.getDbschemas());
-
-        resourceDb.save(Map.of());
+//        resourceDb.getContents().addAll(c.getDbschemas());
+//
+//        resourceDb.save(Map.of());
         resourceCatalog.save(Map.of());
 
         System.out.println(baseDir);
@@ -145,8 +145,8 @@ public class ResourceSetWriteReadTest {
         System.out.println(fileCatalog.toAbsolutePath());
         System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
         System.out.println("-------");
-        System.out.println(fileDb.toAbsolutePath());
-        System.out.println(Files.readString(fileDb, StandardCharsets.UTF_8));
+//        System.out.println(fileDb.toAbsolutePath());
+//        System.out.println(Files.readString(fileDb, StandardCharsets.UTF_8));
     }
 
     private Set<EObject> allRef(Set<EObject> set, EObject eObject) {

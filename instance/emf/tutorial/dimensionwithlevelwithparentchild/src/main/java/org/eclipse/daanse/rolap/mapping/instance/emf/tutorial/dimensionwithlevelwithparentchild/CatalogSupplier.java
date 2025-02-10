@@ -14,15 +14,12 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithleve
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
@@ -33,8 +30,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -60,76 +57,76 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column employeeIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column employeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeIdColumn.setName("employee_id");
         employeeIdColumn.setId("Fact_employee_id");
         employeeIdColumn.setType("INTEGER");
 
-        Column fullNameColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column fullNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         fullNameColumn.setName("full_name");
         fullNameColumn.setId("Fact_full_name");
         fullNameColumn.setType("VARCHAR");
 
-        Column supervisorIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column supervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         supervisorIdColumn.setName("supervisor_id");
         supervisorIdColumn.setId("Fact_supervisor_id");
         supervisorIdColumn.setType("INTEGER");
 
-        Column maritalStatusColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column maritalStatusColumn = RolapMappingFactory.eINSTANCE.createColumn();
         maritalStatusColumn.setName("marital_status");
         maritalStatusColumn.setId("Fact_marital_status");
         maritalStatusColumn.setType("VARCHAR");
 
-        Column positionTitleColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column positionTitleColumn = RolapMappingFactory.eINSTANCE.createColumn();
         positionTitleColumn.setName("position_title");
         positionTitleColumn.setId("Fact_position_title");
         positionTitleColumn.setType("VARCHAR");
 
-        Column genderColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column genderColumn = RolapMappingFactory.eINSTANCE.createColumn();
         genderColumn.setName("gender");
         genderColumn.setId("Fact_gender");
         genderColumn.setType("VARCHAR");
 
-        Column salaryColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column salaryColumn = RolapMappingFactory.eINSTANCE.createColumn();
         salaryColumn.setName("salary");
         salaryColumn.setId("Fact_salary");
         salaryColumn.setType("INTEGER");
 
-        Column educationLevelColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column educationLevelColumn = RolapMappingFactory.eINSTANCE.createColumn();
         educationLevelColumn.setName("education_level");
         educationLevelColumn.setId("Fact_education_level");
         educationLevelColumn.setType("INTEGER");
 
-        Column managementRoleColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column managementRoleColumn = RolapMappingFactory.eINSTANCE.createColumn();
         managementRoleColumn.setName("management_role");
         managementRoleColumn.setId("Fact_management_role");
         managementRoleColumn.setType("VARCHAR");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(employeeIdColumn, fullNameColumn, supervisorIdColumn, maritalStatusColumn,
                 positionTitleColumn, genderColumn, salaryColumn, educationLevelColumn, managementRoleColumn));
         databaseSchema.getTables().add(table);
 
-        Column employeeClosureSupervisorIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column employeeClosureSupervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureSupervisorIdColumn.setName("supervisor_id");
         employeeClosureSupervisorIdColumn.setId("employee_closure_supervisor_id");
         employeeClosureSupervisorIdColumn.setType("INTEGER");
 
-        Column employeeClosureEmployeeIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column employeeClosureEmployeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureEmployeeIdColumn.setName("employee_id");
         employeeClosureEmployeeIdColumn.setId("employee_closure_employee_id");
         employeeClosureEmployeeIdColumn.setType("INTEGER");
 
-        Column employeeClosureDistanceColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column employeeClosureDistanceColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureDistanceColumn.setName("distance");
         employeeClosureDistanceColumn.setId("employee_closure_distance");
         employeeClosureDistanceColumn.setType("INTEGER");
 
-        PhysicalTable employeeClosureTable = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable employeeClosureTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         employeeClosureTable.setName("employee_closure");
         employeeClosureTable.setId("employee_closure");
         employeeClosureTable.getColumns().addAll(List.of(employeeClosureSupervisorIdColumn,

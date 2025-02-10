@@ -12,12 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 
 public class WritebackAttributeMappingImpl implements WritebackAttributeMapping {
 
-    private Column column;
+    private ColumnMappingImpl column;
 
     private DimensionConnectorMappingImpl dimensionConnector;
 
@@ -26,11 +25,11 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
         this.dimensionConnector = builder.dimensionConnector;
     }
 
-    public Column getColumn() {
+    public ColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(ColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -47,13 +46,13 @@ public class WritebackAttributeMappingImpl implements WritebackAttributeMapping 
     }
 
     public static final class Builder {
-        private Column column;
+        private ColumnMappingImpl column;
         private DimensionConnectorMappingImpl dimensionConnector;
 
         private Builder() {
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(ColumnMappingImpl column) {
             this.column = column;
             return this;
         }

@@ -12,10 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
-
 public interface InlineTableQueryMapping extends RelationalQueryMapping {
 
-    InlineTable getTable();
+    InlineTableMapping getTable();
 
 }

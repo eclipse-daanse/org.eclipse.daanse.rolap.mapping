@@ -12,13 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.pojo.SqlViewImpl;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 
 public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implements SqlSelectQueryMapping {
 
-    private SqlViewImpl sql;
+    private SqlViewMappingImpl sql;
     private DocumentationMappingImpl documentation;
     private String id;
 
@@ -30,11 +29,11 @@ public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implem
         super.setAlias(builder.alias);
     }
 
-    public SqlViewImpl getSql() {
+    public SqlViewMappingImpl getSql() {
         return sql;
     }
 
-    public void setSql(SqlViewImpl sql) {
+    public void setSql(SqlViewMappingImpl sql) {
         this.sql = sql;
     }
 
@@ -61,7 +60,7 @@ public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implem
     }
 
     public static final class Builder {
-        private SqlViewImpl sql;
+        private SqlViewMappingImpl sql;
         private String alias;
         private DocumentationMappingImpl documentation;
         private String id;
@@ -69,7 +68,7 @@ public class SqlSelectQueryMappingImpl extends RelationalQueryMappingImpl implem
         private Builder() {
         }
 
-        public Builder withSql(SqlViewImpl sql) {
+        public Builder withSql(SqlViewMappingImpl sql) {
             this.sql = sql;
             return this;
         }

@@ -14,19 +14,17 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.defaultmeasure;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -51,24 +49,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column keyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType("VARCHAR");
 
-        Column value1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column value1Column = RolapMappingFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE1");
         value1Column.setId("Fact_VALUE1");
         value1Column.setType("INTEGER");
 
-        Column value2Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column value2Column = RolapMappingFactory.eINSTANCE.createColumn();
         value2Column.setName("VALUE2");
         value2Column.setId("Fact_VALUE2");
         value2Column.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(keyColumn, value1Column, value2Column));

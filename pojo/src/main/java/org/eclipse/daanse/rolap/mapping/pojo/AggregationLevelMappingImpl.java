@@ -15,24 +15,23 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
 
 public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties;
 
-    private Column captionColumn;
+    private ColumnMappingImpl captionColumn;
 
     private boolean collapsed = true;
 
-    private Column column;
+    private ColumnMappingImpl column;
 
     private String name;
 
-    private Column nameColumn;
+    private ColumnMappingImpl nameColumn;
 
-    private Column ordinalColumn;
+    private ColumnMappingImpl ordinalColumn;
 
     private AggregationLevelMappingImpl(Builder builder) {
         this.aggregationLevelProperties = builder.aggregationLevelProperties;
@@ -52,11 +51,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.aggregationLevelProperties = aggregationLevelProperties;
     }
 
-    public Column getCaptionColumn() {
+    public ColumnMappingImpl getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(Column captionColumn) {
+    public void setCaptionColumn(ColumnMappingImpl captionColumn) {
         this.captionColumn = captionColumn;
     }
 
@@ -68,11 +67,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.collapsed = collapsed;
     }
 
-    public Column getColumn() {
+    public ColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(ColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -84,19 +83,19 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.name = name;
     }
 
-    public Column getNameColumn() {
+    public ColumnMappingImpl getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(Column nameColumn) {
+    public void setNameColumn(ColumnMappingImpl nameColumn) {
         this.nameColumn = nameColumn;
     }
 
-    public Column getOrdinalColumn() {
+    public ColumnMappingImpl getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(Column ordinalColumn) {
+    public void setOrdinalColumn(ColumnMappingImpl ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
@@ -106,12 +105,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     public static final class Builder {
         private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = new ArrayList<>();
-        private Column captionColumn;
+        private ColumnMappingImpl captionColumn;
         private boolean collapsed = true;
-        private Column column;
+        private ColumnMappingImpl column;
         private String name;
-        private Column nameColumn;
-        private Column ordinalColumn;
+        private ColumnMappingImpl nameColumn;
+        private ColumnMappingImpl ordinalColumn;
 
         private Builder() {
         }
@@ -122,7 +121,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withCaptionColumn(Column captionColumn) {
+        public Builder withCaptionColumn(ColumnMappingImpl captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
@@ -132,7 +131,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(ColumnMappingImpl column) {
             this.column = column;
             return this;
         }
@@ -142,12 +141,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withNameColumn(Column nameColumn) {
+        public Builder withNameColumn(ColumnMappingImpl nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
 
-        public Builder withOrdinalColumn(Column ordinalColumn) {
+        public Builder withOrdinalColumn(ColumnMappingImpl ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }

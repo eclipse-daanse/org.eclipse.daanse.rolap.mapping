@@ -14,15 +14,12 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunc
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
@@ -32,6 +29,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -64,93 +62,93 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column auotoDimIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column auotoDimIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         auotoDimIdColumn.setName("AUTO_DIM_ID");
         auotoDimIdColumn.setId("AUTOMOTIVE_DIM_AUTO_DIM_ID");
         auotoDimIdColumn.setType("INTEGER");
 
-        Column makeIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column makeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         makeIdColumn.setName("MAKE_ID");
         makeIdColumn.setId("AUTOMOTIVE_DIM_MAKE_ID");
         makeIdColumn.setType("INTEGER");
 
-        Column makeColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column makeColumn = RolapMappingFactory.eINSTANCE.createColumn();
         makeColumn.setName("MAKE");
         makeColumn.setId("AUTOMOTIVE_DIM_MAKE");
         makeColumn.setType("VARCHAR");
         makeColumn.setColumnSize(100);
 
-        Column modelIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column modelIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         modelIdColumn.setName("MODEL_ID");
         modelIdColumn.setId("AUTOMOTIVE_DIM_MODEL_ID");
         modelIdColumn.setType("INTEGER");
 
-        Column modelColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column modelColumn = RolapMappingFactory.eINSTANCE.createColumn();
         modelColumn.setName("MODEL");
         modelColumn.setId("AUTOMOTIVE_DIM_MODEL");
         modelColumn.setType("VARCHAR");
         modelColumn.setColumnSize(100);
 
-        Column plantIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column plantIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantIdColumn.setName("PLANT_ID");
         plantIdColumn.setId("AUTOMOTIVE_DIM_PLANT_ID");
         plantIdColumn.setType("INTEGER");
 
-        Column plantColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column plantColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantColumn.setName("PLANT");
         plantColumn.setId("AUTOMOTIVE_DIM_PLANT");
         plantColumn.setType("VARCHAR");
         plantColumn.setColumnSize(100);
 
-        Column plantStateIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column plantStateIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantStateIdColumn.setName("PLANT_STATE_ID");
         plantStateIdColumn.setId("AUTOMOTIVE_DIM_PLANT_STATE_ID");
         plantStateIdColumn.setType("INTEGER");
 
-        Column plantCityIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column plantCityIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantCityIdColumn.setName("PLANT_CITY_ID");
         plantCityIdColumn.setId("AUTOMOTIVE_DIM_PLANT_CITY_ID");
         plantCityIdColumn.setType("INTEGER");
 
-        Column vehicleIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column vehicleIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         vehicleIdColumn.setName("VEHICLE_ID");
         vehicleIdColumn.setId("AUTOMOTIVE_DIM_VEHICLE_ID");
         vehicleIdColumn.setType("INTEGER");
 
-        Column colorIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column colorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         colorIdColumn.setName("COLOR_ID");
         colorIdColumn.setId("AUTOMOTIVE_DIM_COLOR_ID");
         colorIdColumn.setType("INTEGER");
 
-        Column trimIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column trimIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         trimIdColumn.setName("TRIM_ID");
         trimIdColumn.setId("AUTOMOTIVE_DIM_TRIM_ID");
         trimIdColumn.setType("INTEGER");
 
-        Column licenseIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column licenseIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseIdColumn.setName("LICENSE_ID");
         licenseIdColumn.setId("AUTOMOTIVE_DIM_LICENSE_ID");
         licenseIdColumn.setType("INTEGER");
 
-        Column licenseColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column licenseColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseColumn.setName("LICENSE");
         licenseColumn.setId("AUTOMOTIVE_DIM_LICENSE");
         licenseColumn.setType("VARCHAR");
         licenseColumn.setColumnSize(100);
 
-        Column licenseStateIdColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column licenseStateIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseStateIdColumn.setName("LICENSE_STATE_ID");
         licenseStateIdColumn.setId("AUTOMOTIVE_DIM_LICENSE_STATE_ID");
         licenseStateIdColumn.setType("INTEGER");
 
-        Column priceColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column priceColumn = RolapMappingFactory.eINSTANCE.createColumn();
         priceColumn.setName("PRICE");
         priceColumn.setId("AUTOMOTIVE_DIM_PRICE");
         priceColumn.setType("INTEGER");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns()

@@ -15,9 +15,8 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -42,23 +41,23 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private String approxRowCount;
 
-    private Column captionColumn;
+    private ColumnMappingImpl captionColumn;
 
-    private Column column;
+    private ColumnMappingImpl column;
 
     private HideMemberIfType hideMemberIfType;
 
     private LevelType levelType;
 
-    private Column nameColumn;
+    private ColumnMappingImpl nameColumn;
 
     private String nullParentValue;
 
-    private Column ordinalColumn;
+    private ColumnMappingImpl ordinalColumn;
 
-    private Column parentColumn;
+    private ColumnMappingImpl parentColumn;
 
-    private Table table;
+    private TableMapping table;
 
     private DataType dataType;
 
@@ -168,19 +167,19 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.approxRowCount = approxRowCount;
     }
 
-    public Column getCaptionColumn() {
+    public ColumnMappingImpl getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(Column captionColumn) {
+    public void setCaptionColumn(ColumnMappingImpl captionColumn) {
         this.captionColumn = captionColumn;
     }
 
-    public Column getColumn() {
+    public ColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(ColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -207,11 +206,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.levelType = levelType;
     }
 
-    public Column getNameColumn() {
+    public ColumnMappingImpl getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(Column nameColumn) {
+    public void setNameColumn(ColumnMappingImpl nameColumn) {
         this.nameColumn = nameColumn;
     }
 
@@ -223,27 +222,27 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.nullParentValue = nullParentValue;
     }
 
-    public Column getOrdinalColumn() {
+    public ColumnMappingImpl getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(Column ordinalColumn) {
+    public void setOrdinalColumn(ColumnMappingImpl ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
-    public Column getParentColumn() {
+    public ColumnMappingImpl getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(Column parentColumn) {
+    public void setParentColumn(ColumnMappingImpl parentColumn) {
         this.parentColumn = parentColumn;
     }
 
-    public Table getTable() {
+    public TableMapping getTable() {
         return table;
     }
 
-    public void setTable(Table table) {
+    public void setTable(TableMapping table) {
         this.table = table;
     }
 
@@ -285,15 +284,15 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
         private String approxRowCount;
-        private Column captionColumn;
-        private Column column;
+        private ColumnMappingImpl captionColumn;
+        private ColumnMappingImpl column;
         private HideMemberIfType hideMemberIfType;
         private LevelType levelType;
-        private Column nameColumn;
+        private ColumnMappingImpl nameColumn;
         private String nullParentValue;
-        private Column ordinalColumn;
-        private Column parentColumn;
-        private Table table;
+        private ColumnMappingImpl ordinalColumn;
+        private ColumnMappingImpl parentColumn;
+        private TableMapping table;
         private DataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
@@ -351,12 +350,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withCaptionColumn(Column captionColumn) {
+        public Builder withCaptionColumn(ColumnMappingImpl captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(ColumnMappingImpl column) {
             this.column = column;
             return this;
         }
@@ -371,7 +370,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withNameColumn(Column nameColumn) {
+        public Builder withNameColumn(ColumnMappingImpl nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
@@ -381,17 +380,17 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withOrdinalColumn(Column ordinalColumn) {
+        public Builder withOrdinalColumn(ColumnMappingImpl ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }
 
-        public Builder withParentColumn(Column parentColumn) {
+        public Builder withParentColumn(ColumnMappingImpl parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }
 
-        public Builder withTable(Table table) {
+        public Builder withTable(TableMapping table) {
             this.table = table;
             return this;
         }

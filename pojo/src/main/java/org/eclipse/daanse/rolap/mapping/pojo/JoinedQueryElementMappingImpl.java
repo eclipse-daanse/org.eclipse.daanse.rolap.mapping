@@ -12,14 +12,13 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 
 public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping {
 
     private String alias;
 
-    private Column key;
+    private ColumnMappingImpl key;
 
     private QueryMappingImpl query;
 
@@ -37,11 +36,11 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
         this.alias = alias;
     }
 
-    public Column getKey() {
+    public ColumnMappingImpl getKey() {
         return key;
     }
 
-    public void setKey(Column key) {
+    public void setKey(ColumnMappingImpl key) {
         this.key = key;
     }
 
@@ -59,7 +58,7 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
 
     public static final class Builder {
         private String alias;
-        private Column key;
+        private ColumnMappingImpl key;
         private QueryMappingImpl query;
 
         private Builder() {
@@ -70,7 +69,7 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
             return this;
         }
 
-        public Builder withKey(Column key) {
+        public Builder withKey(ColumnMappingImpl key) {
             this.key = key;
             return this;
         }

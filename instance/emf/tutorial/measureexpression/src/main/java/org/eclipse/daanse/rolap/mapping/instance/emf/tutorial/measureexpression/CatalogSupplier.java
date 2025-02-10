@@ -14,23 +14,20 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression
 
 import java.util.List;
 
-import javax.xml.validation.Schema;
-
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
@@ -48,45 +45,45 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column keyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType("VARCHAR");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        Column valueNumericColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
         valueNumericColumn.setId("Fact_VALUE_NUMERIC");
         valueNumericColumn.setType("NUMERIC");
 
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(keyColumn, valueColumn, valueNumericColumn));
         databaseSchema.getTables().add(table);
 
-        Column idColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column idColumn = RolapMappingFactory.eINSTANCE.createColumn();
         idColumn.setName("ID");
         idColumn.setId("MEASURE_TABLE_ID");
         idColumn.setType("INTEGER");
 
-        Column value1Column = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column value1Column = RolapMappingFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE");
         value1Column.setId("MEASURE_TABLE_VALUE");
         value1Column.setType("INTEGER");
 
-        Column flagColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column flagColumn = RolapMappingFactory.eINSTANCE.createColumn();
         flagColumn.setName("FLAG");
         flagColumn.setId("MEASURE_TABLE_FLAG");
         flagColumn.setType("INTEGER");
 
-        PhysicalTable table1 = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table1.setName(MEASURE_TABLE);
         table1.setId(MEASURE_TABLE);
         table1.getColumns().addAll(List.of(idColumn, value1Column, flagColumn));
@@ -95,14 +92,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
         query.setTable(table);
 
-        SQL sql1 = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement sql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         sql1.getDialects().addAll(List.of("generic", "h2"));
-        sql1.setStatement(
+        sql1.setSql(
                 "(select sum(\"MEASURE_TABLE\".\"VALUE\") from \"MEASURE_TABLE\" where \"MEASURE_TABLE\".\"FLAG\" = 1)");
 
-        SQL sql2 = RolapMappingFactory.eINSTANCE.createSQL();
+        SqlStatement sql2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         sql2.getDialects().addAll(List.of("generic", "h2"));
-        sql2.setStatement("(CASE WHEN \"FACT\".\"VALUE\" > 21 THEN 50 ELSE \"FACT\".\"VALUE\" END)");
+        sql2.setSql("(CASE WHEN \"FACT\".\"VALUE\" > 21 THEN 50 ELSE \"FACT\".\"VALUE\" END)");
 
         SQLExpression measureExpression1 = RolapMappingFactory.eINSTANCE.createSQLExpression();
         measureExpression1.getSqls().addAll(List.of(sql1));

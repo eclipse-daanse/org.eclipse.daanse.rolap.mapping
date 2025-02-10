@@ -14,23 +14,21 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable;
 
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.EnviromentMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
@@ -59,30 +57,30 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public CatalogMapping get() {
-        DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE.createDatabaseSchema();
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
 
-        Column keyColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType("String");
 
-        Column valueColumn = RelationalDatabaseFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType("INTEGER");
 
-        RowValue rowValue1 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue rowValue1 = RolapMappingFactory.eINSTANCE.createRowValue();
         rowValue1.setColumn(keyColumn);
         rowValue1.setValue("A");
 
-        RowValue rowValue2 = RelationalDatabaseFactory.eINSTANCE.createRowValue();
+        RowValue rowValue2 = RolapMappingFactory.eINSTANCE.createRowValue();
         rowValue2.setColumn(valueColumn);
         rowValue2.setValue("100.5");
 
-        Row row = RelationalDatabaseFactory.eINSTANCE.createRow();
+        Row row = RolapMappingFactory.eINSTANCE.createRow();
         row.getRowValues().addAll(List.of(rowValue1, rowValue2));
 
-        InlineTable table = RelationalDatabaseFactory.eINSTANCE.createInlineTable();
+        InlineTable table = RolapMappingFactory.eINSTANCE.createInlineTable();
         table.setName(FACT);
         table.setId(FACT);
         table.getColumns().addAll(List.of(keyColumn, valueColumn));

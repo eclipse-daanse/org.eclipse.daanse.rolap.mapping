@@ -42,19 +42,17 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE_CUBE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_WITH_NAME_MUST_CONTAIN;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSIONS;
+import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_MEASURE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_MEASURE_NAME_MUST_BE_SET;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.ELEMENT_FORMATTER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FACT_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMATTER_EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.FORMULA_MUST_BE_SET_FOR_CALCULATED_MEMBER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY;
+import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HINT;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HINT_TYPE_MUST_BE_SET;
@@ -84,8 +82,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.TABLE_VALUE_DOES_NOT_CORRESPOND_TO_HIERARCHY_RELATION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.USER_DEFINED_FUNCTION;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.USER_DEFINED_FUNCTION_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE_MUST_CONTAIN_DIMENSIONS;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.VIRTUAL_CUBE_MUST_CONTAIN_MEASURES;
@@ -98,19 +94,13 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_MEASURE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE_NAME_MUST_BE_SET;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.description.DescriptionVerifyerTest.setupDummyListAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
-import java.util.Optional;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.Table;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
@@ -120,6 +110,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
@@ -139,8 +131,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
@@ -196,7 +188,7 @@ class MandantoriesVerifyerTest {
     AnnotationMapping annotation = mock(AnnotationMapping.class);
     AccessRoleMapping role = mock(AccessRoleMapping.class);
     CubeConnectorMapping cubeUsage = mock(CubeConnectorMapping.class);
-    SQLMapping sql = mock(SQLMapping.class);
+    SqlStatementMapping sql = mock(SqlStatementMapping.class);
     TableQueryOptimizationHintMapping hint = mock(TableQueryOptimizationHintMapping.class);
     AggregationTableMapping aggTable = mock(AggregationTableMapping.class);
     AggregationColumnNameMapping aggColumnName = mock(AggregationColumnNameMapping.class);
@@ -204,13 +196,13 @@ class MandantoriesVerifyerTest {
     AggregationMeasureMapping aggMeasure = mock(AggregationMeasureMapping.class);
     AggregationLevelMapping aggLevel = mock(AggregationLevelMapping.class);
     AggregationMeasureFactCountMapping measuresFactCount = mock(AggregationMeasureFactCountMapping.class);
-    Table table = mock(Table.class);
-    Table levelTable = mock(Table.class);
-    Column column = mock(Column.class);
-    Column nameColumn = mock(Column.class);
-    Column ordinalColumn = mock(Column.class);
-    Column parentColumn = mock(Column.class);
-    Column captionColumn = mock(Column.class);
+    TableMapping table = mock(TableMapping.class);
+    TableMapping levelTable = mock(TableMapping.class);
+    ColumnMapping column = mock(ColumnMapping.class);
+    ColumnMapping nameColumn = mock(ColumnMapping.class);
+    ColumnMapping ordinalColumn = mock(ColumnMapping.class);
+    ColumnMapping parentColumn = mock(ColumnMapping.class);
+    ColumnMapping captionColumn = mock(ColumnMapping.class);
 
     LevelMapping l = new LevelTest(
         "id",
@@ -406,7 +398,7 @@ class MandantoriesVerifyerTest {
         when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
         when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(level));
         when(hierarchy.getQuery()).thenReturn(joinQuery);
-        Table hierarchyTable = mock(Table.class);
+        TableMapping hierarchyTable = mock(TableMapping.class);
         when(hierarchyTable.getName()).thenReturn("hierarchyTable");
         when(hierarchy.getPrimaryKeyTable()).thenReturn(hierarchyTable);
         when(joinQuery.getLeft()).thenReturn(left);
@@ -611,11 +603,11 @@ class MandantoriesVerifyerTest {
     public record LevelTest(String getId,
                             DocumentationMapping getDocumentation,
                             String getName,
-                            Table getTable,
-                            Column getColumn,
-                            Column getNameColumn,
-                            Column getOrdinalColumn,
-                            Column getParentColumn,
+                            TableMapping getTable,
+                            ColumnMapping getColumn,
+                            ColumnMapping getNameColumn,
+                            ColumnMapping getOrdinalColumn,
+                            ColumnMapping getParentColumn,
                             String getNullParentValue,
                             DataType getDataType,
                             String getApproxRowCount,
@@ -624,7 +616,7 @@ class MandantoriesVerifyerTest {
                             HideMemberIfType getHideMemberIfType,
                             String getFormatter,
                             String getDescription,
-                            Column getCaptionColumn,
+                            ColumnMapping getCaptionColumn,
                             List<AnnotationMapping> getAnnotations,
                             SQLExpressionMapping getKeyExpression,
                             SQLExpressionMapping getNameExpression,

@@ -16,24 +16,13 @@ package org.eclipse.daanse.rolap.mapping.modifier.emf;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
-import org.eclipse.daanse.rdb.structure.api.model.DatabaseSchema;
-import org.eclipse.daanse.rdb.structure.api.model.InlineTable;
-import org.eclipse.daanse.rdb.structure.api.model.Row;
-import org.eclipse.daanse.rdb.structure.api.model.RowValue;
-import org.eclipse.daanse.rdb.structure.api.model.SqlStatement;
-import org.eclipse.daanse.rdb.structure.api.model.SqlView;
-import org.eclipse.daanse.rdb.structure.api.model.Table;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.PhysicalTable;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.RelationalDatabaseFactory;
-import org.eclipse.daanse.rdb.structure.emf.rdbstructure.SystemTable;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMappingMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
@@ -45,14 +34,18 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
@@ -68,10 +61,13 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping;
@@ -112,10 +108,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
@@ -125,6 +123,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -143,18 +142,25 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Parameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQL;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlView;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SystemTable;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Table;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Translation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ViewTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
@@ -169,51 +175,51 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createViewTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected TableMapping createViewTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
             String description) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.ViewTable table = RelationalDatabaseFactory.eINSTANCE
+        ViewTable table = RolapMappingFactory.eINSTANCE
                 .createViewTable();
         table.setName(name);
         table.getColumns()
-                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+                .addAll((Collection<? extends Column>) columns);
+        table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createSystemTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected Table createSystemTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
             String description) {
-        SystemTable table = RelationalDatabaseFactory.eINSTANCE.createSystemTable();
+        SystemTable table = RolapMappingFactory.eINSTANCE.createSystemTable();
         table.setName(name);
         table.getColumns()
-                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+                .addAll((Collection<? extends Column>) columns);
+        table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected org.eclipse.daanse.rdb.structure.api.model.PhysicalTable createPhysicalTable(String name, List<? extends Column> columns, DatabaseSchema schema,
+    protected PhysicalTable createPhysicalTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
             String description) {
-        PhysicalTable table = RelationalDatabaseFactory.eINSTANCE.createPhysicalTable();
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(name);
         table.getColumns()
-                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
-        table.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+                .addAll((Collection<? extends Column>) columns);
+        table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
     }
 
     @Override
-    protected Column createColumn(String name, Table table, String type, Integer columnSize, Integer decimalDigits,
+    protected Column createColumn(String name, TableMapping  table, String type, Integer columnSize, Integer decimalDigits,
             Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column column = RelationalDatabaseFactory.eINSTANCE
+        Column column = RolapMappingFactory.eINSTANCE
                 .createColumn();
         column.setName(name);
-        column.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
+        column.setTable((Table) table);
         column.setType(type);
         column.setColumnSize(columnSize);
         column.setDecimalDigits(decimalDigits);
@@ -226,11 +232,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected DatabaseSchema createDatabaseSchema(List<? extends Table> tables, String name, String id) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema databaseSchema = RelationalDatabaseFactory.eINSTANCE
+    protected DatabaseSchema createDatabaseSchema(List<? extends TableMapping> tables, String name, String id) {
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE
                 .createDatabaseSchema();
         databaseSchema.getTables()
-                .addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table>) tables);
+                .addAll((Collection<? extends Table>) tables);
         databaseSchema.setName(name);
         databaseSchema.setId(id);
         return databaseSchema;
@@ -263,10 +269,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createInlineTableQuery(String alias, InlineTable table, String id, DocumentationMapping documentation) {
+    protected QueryMapping createInlineTableQuery(String alias, InlineTableMapping table, String id, DocumentationMapping documentation) {
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
         inlineTableQuery.setAlias(alias);
-        inlineTableQuery.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable) table);
+        inlineTableQuery.setTable((InlineTable) table);
         inlineTableQuery.setId(id);
         inlineTableQuery.setDocumentation((Documentation) documentation);
         return inlineTableQuery;
@@ -283,20 +289,20 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, Column key, QueryMapping query) {
+    protected JoinedQueryElementMapping createJoinedQueryElement(String alias, ColumnMapping key, QueryMapping query) {
         JoinedQueryElement joinedQueryElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
         joinedQueryElement.setAlias(alias);
-        joinedQueryElement.setKey((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) key);
+        joinedQueryElement.setKey((Column) key);
         joinedQueryElement.setQuery((Query) query);
         return joinedQueryElement;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected QueryMapping createSqlSelectQuery(String alias, SqlView sqlView, String id, DocumentationMapping documentation) {
+    protected QueryMapping createSqlSelectQuery(String alias, SqlViewMapping sqlView, String id, DocumentationMapping documentation) {
         SqlSelectQuery sqlSelectQuery = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
         sqlSelectQuery.setAlias(alias);
-        sqlSelectQuery.setSql((org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlView) sqlView);
+        sqlSelectQuery.setSql((SqlView) sqlView);
         sqlSelectQuery.setId(id);
         sqlSelectQuery.setDocumentation((Documentation) documentation);
         return sqlSelectQuery;
@@ -304,16 +310,16 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected TableQueryMapping createTableQuery(String alias, SQLMapping sqlWhereExpression,
+    protected TableQueryMapping createTableQuery(String alias, SqlStatementMapping sqlWhereExpression,
             List<? extends AggregationExcludeMapping> aggregationExcludes,
-            List<? extends TableQueryOptimizationHintMapping> optimizationHints, Table table,
+            List<? extends TableQueryOptimizationHintMapping> optimizationHints, TableMapping  table,
             List<? extends AggregationTableMapping> aggregationTables, String id, DocumentationMapping documentation) {
         TableQuery tableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
         tableQuery.setAlias(alias);
-        tableQuery.setSqlWhereExpression((SQL) sqlWhereExpression);
+        tableQuery.setSqlWhereExpression((SqlStatement) sqlWhereExpression);
         tableQuery.getAggregationExcludes().addAll((Collection<? extends AggregationExclude>) aggregationExcludes);
         tableQuery.getOptimizationHints().addAll((Collection<? extends TableQueryOptimizationHint>) optimizationHints);
-        tableQuery.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
+        tableQuery.setTable((Table) table);
         tableQuery.getAggregationTables().addAll((Collection<? extends AggregationTable>) aggregationTables);
         tableQuery.setId(id);
         tableQuery.setDocumentation((Documentation) documentation);
@@ -355,7 +361,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends AggregationMeasureMapping> aggregationMeasures,
             List<? extends AggregationLevelMapping> aggregationLevels,
             List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
-            String id, String approxRowCount, Table name) {
+            String id, String approxRowCount, TableMapping  name) {
         AggregationName aggregationName = RolapMappingFactory.eINSTANCE.createAggregationName();
         aggregationName.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
         aggregationName.getAggregationIgnoreColumns()
@@ -369,24 +375,24 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         aggregationName.setIgnorecase(ignorecase);
         aggregationName.setId(id);
         aggregationName.setApproxRowCount(approxRowCount);
-        aggregationName.setName((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) name);
+        aggregationName.setName((Table) name);
         return aggregationName;
     }
 
     @Override
-    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(Column column, Column factColumn) {
+    protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(ColumnMapping column, ColumnMapping factColumn) {
         AggregationMeasureFactCount aggregationMeasureFactCount = RolapMappingFactory.eINSTANCE
                 .createAggregationMeasureFactCount();
-        aggregationMeasureFactCount.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
-        aggregationMeasureFactCount.setFactColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) factColumn);
+        aggregationMeasureFactCount.setColumn((Column) column);
+        aggregationMeasureFactCount.setFactColumn((Column) factColumn);
         return aggregationMeasureFactCount;
     }
 
     @Override
-    protected AggregationLevelPropertyMapping createAggregationLevelProperty(Column column, String name) {
+    protected AggregationLevelPropertyMapping createAggregationLevelProperty(ColumnMapping column, String name) {
         AggregationLevelProperty aggregationLevelProperty = RolapMappingFactory.eINSTANCE
                 .createAggregationLevelProperty();
-        aggregationLevelProperty.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        aggregationLevelProperty.setColumn((Column) column);
         aggregationLevelProperty.setName(name);
         return aggregationLevelProperty;
     }
@@ -394,41 +400,41 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected AggregationLevelMapping createAggregationLevel(
-            List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, Column captionColumn,
-            boolean collapsed, Column column, String name, Column nameColumn, Column ordinalColumn) {
+            List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, ColumnMapping captionColumn,
+            boolean collapsed, ColumnMapping column, String name, ColumnMapping nameColumn, ColumnMapping ordinalColumn) {
         AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
         aggregationLevel.getAggregationLevelProperties()
                 .addAll((Collection<? extends AggregationLevelProperty>) aggregationLevelProperties);
-        aggregationLevel.setCaptionColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) captionColumn);
+        aggregationLevel.setCaptionColumn((Column) captionColumn);
         aggregationLevel.setCollapsed(collapsed);
-        aggregationLevel.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        aggregationLevel.setColumn((Column) column);
         aggregationLevel.setName(name);
-        aggregationLevel.setNameColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) nameColumn);
-        aggregationLevel.setOrdinalColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) ordinalColumn);
+        aggregationLevel.setNameColumn((Column) nameColumn);
+        aggregationLevel.setOrdinalColumn((Column) ordinalColumn);
         return aggregationLevel;
     }
 
     @Override
-    protected AggregationMeasureMapping createAggregationMeasure(Column column, String name, String rollupType) {
+    protected AggregationMeasureMapping createAggregationMeasure(ColumnMapping column, String name, String rollupType) {
         AggregationMeasure aggregationMeasure = RolapMappingFactory.eINSTANCE.createAggregationMeasure();
-        aggregationMeasure.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        aggregationMeasure.setColumn((Column) column);
         aggregationMeasure.setName(name);
         aggregationMeasure.setRollupType(rollupType);
         return aggregationMeasure;
     }
 
     @Override
-    protected AggregationForeignKeyMapping createAggregationForeignKey(Column aggregationColumn, Column factColumn) {
+    protected AggregationForeignKeyMapping createAggregationForeignKey(ColumnMapping aggregationColumn, ColumnMapping factColumn) {
         AggregationForeignKey aggregationForeignKey = RolapMappingFactory.eINSTANCE.createAggregationForeignKey();
-        aggregationForeignKey.setAggregationColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) aggregationColumn);
-        aggregationForeignKey.setFactColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) factColumn);
+        aggregationForeignKey.setAggregationColumn((Column) aggregationColumn);
+        aggregationForeignKey.setFactColumn((Column) factColumn);
         return aggregationForeignKey;
     }
 
     @Override
-    protected AggregationColumnNameMapping createAggregationColumn(Column column) {
+    protected AggregationColumnNameMapping createAggregationColumn(ColumnMapping column) {
         AggregationColumnName aggregationColumnName = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
-        aggregationColumnName.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        aggregationColumnName.setColumn((Column) column);
         return aggregationColumnName;
     }
 
@@ -452,13 +458,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return aggregationExclude;
     }
 
-    @Override
-    protected SQLMapping createSQL(List<String> dialects, String statement) {
-        SQL sql = RolapMappingFactory.eINSTANCE.createSQL();
-        sql.getDialects().addAll(dialects);
-        sql.setStatement(statement);
-        return sql;
-    }
+
 
     @Override
     protected MemberReaderParameterMapping createMemberReaderParameter(String name, String value) {
@@ -474,7 +474,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
             List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
             String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-            String memberReaderClass, String origin, Column primaryKey, Table primaryKeyTable,
+            String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping  primaryKeyTable,
             String uniqueKeyLevelName, boolean visible, QueryMapping query) {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
@@ -493,8 +493,8 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         hierarchy.setHasAll(hasAll);
         hierarchy.setMemberReaderClass(memberReaderClass);
         hierarchy.setOrigin(origin);
-        hierarchy.setPrimaryKey((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) primaryKey);
-        hierarchy.setPrimaryKeyTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) primaryKeyTable);
+        hierarchy.setPrimaryKey((Column) primaryKey);
+        hierarchy.setPrimaryKeyTable((Table) primaryKeyTable);
         hierarchy.setUniqueKeyLevelName(uniqueKeyLevelName);
         hierarchy.setVisible(visible);
         hierarchy.setQuery((Query) query);
@@ -519,7 +519,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberPropertyMapping createMemberProperty(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, DocumentationMapping documentation,
-            MemberPropertyFormatterMapping formatter, Column column, boolean dependsOnLevelValue, DataType dataType) {
+            MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType dataType) {
         MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberProperty.setId(id);
@@ -527,27 +527,27 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         memberProperty.setName(name);
         memberProperty.setDocumentation((Documentation) documentation);
         memberProperty.setFormatter((MemberPropertyFormatter) formatter);
-        memberProperty.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        memberProperty.setColumn((Column) column);
         memberProperty.setDependsOnLevelValue(dependsOnLevelValue);
         memberProperty.setPropertyType(toEmf(dataType));
         return memberProperty;
     }
 
     @Override
-    protected ParentChildLinkMapping createParentChildLink(TableQueryMapping table, Column childColumn,
-            Column parentColumn) {
+    protected ParentChildLinkMapping createParentChildLink(TableQueryMapping table, ColumnMapping childColumn,
+            ColumnMapping parentColumn) {
         ParentChildLink parentChildLink = RolapMappingFactory.eINSTANCE.createParentChildLink();
         parentChildLink.setTable((TableQuery) table);
-        parentChildLink.setChildColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) childColumn);
-        parentChildLink.setParentColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) parentColumn);
+        parentChildLink.setChildColumn((Column) childColumn);
+        parentChildLink.setParentColumn((Column) parentColumn);
         return parentChildLink;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionMapping createSQLExpression(List<? extends SQLMapping> sqls) {
+    protected SQLExpressionMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
         SQLExpression sqlExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
-        sqlExpression.getSqls().addAll((Collection<? extends SQL>) sqls);
+        sqlExpression.getSqls().addAll((Collection<? extends SqlStatement>) sqls);
         return sqlExpression;
     }
 
@@ -557,9 +557,9 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
             SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
-            String approxRowCount, Column captionColumn, Column column, HideMemberIfType hideMemberIf,
-            LevelType levelType, Column nameColumn, String nullParentValue, Column ordinalColumn, Column parentColumn,
-            Table table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
+            String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
+            LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
+            TableMapping table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
         level.setNameExpression((SQLExpression) nameExpression);
@@ -570,15 +570,15 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.getMemberProperties().addAll((Collection<? extends MemberProperty>) memberProperties);
         level.setMemberFormatter((MemberFormatter) memberFormatter);
         level.setApproxRowCount(approxRowCount);
-        level.setCaptionColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) captionColumn);
-        level.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        level.setCaptionColumn((Column) captionColumn);
+        level.setColumn((Column) column);
         level.setHideMemberIf(toEmf(hideMemberIf));
         level.setType(toEmf(levelType));
-        level.setNameColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) nameColumn);
+        level.setNameColumn((Column) nameColumn);
         level.setNullParentValue(nullParentValue);
-        level.setOrdinalColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) ordinalColumn);
-        level.setParentColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) parentColumn);
-        level.setTable((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Table) table);
+        level.setOrdinalColumn((Column) ordinalColumn);
+        level.setParentColumn((Column) parentColumn);
+        level.setTable((Table) table);
         level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
@@ -732,7 +732,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
             List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
             List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
-            List<? extends ActionMappingMapping> action, boolean cache) {
+            List<? extends ActionMapping> action, boolean cache) {
         PhysicalCube physicalCube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         physicalCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         physicalCube.setId(id);
@@ -756,7 +756,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected ActionMappingMapping createDrillThroughAction(List<? extends AnnotationMapping> annotations, String id,
+    protected ActionMapping createDrillThroughAction(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, DocumentationMapping documentation,
             List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
             List<? extends MeasureMapping> drillThroughMeasure, boolean def) {
@@ -784,17 +784,17 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected WritebackAttributeMapping createWritebackAttribute(Column column, DimensionConnectorMapping dimensionConnector) {
+    protected WritebackAttributeMapping createWritebackAttribute(ColumnMapping column, DimensionConnectorMapping dimensionConnector) {
         WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
-        writebackAttribute.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column)column);
+        writebackAttribute.setColumn((Column)column);
         writebackAttribute.setDimensionConnector((DimensionConnector) dimensionConnector);
         return writebackAttribute;
     }
 
     @Override
-    protected WritebackMeasureMapping createwritebackMeasure(Column column, String name) {
+    protected WritebackMeasureMapping createwritebackMeasure(ColumnMapping column, String name) {
         WritebackMeasure writebackMeasure = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        writebackMeasure.setColumn((Column) column);
         writebackMeasure.setName(name);
         return writebackMeasure;
     }
@@ -824,7 +824,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MeasureMapping createMeasure(SQLExpressionMapping measureExpression,
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
-            CellFormatterMapping cellFormatter, String backColor, Column column, DataType datatype,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, DataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
             MeasureAggregatorType type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -833,7 +833,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
         measure.setBackColor(backColor);
-        measure.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        measure.setColumn((Column) column);
         measure.setDataType(toEmf(datatype));
         measure.setDisplayFolder(displayFolder);
         measure.setFormatString(formatString);
@@ -943,11 +943,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected DimensionConnectorMapping createDimensionConnector(Column foreignKey, LevelMapping level,
+    protected DimensionConnectorMapping createDimensionConnector(ColumnMapping foreignKey, LevelMapping level,
             String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
             PhysicalCubeMapping physicalCube) {
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setForeignKey((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) foreignKey);
+        dimensionConnector.setForeignKey((Column) foreignKey);
         dimensionConnector.setLevel((Level) level);
         dimensionConnector.setUsagePrefix(usagePrefix);
         dimensionConnector.setVisible(visible);
@@ -978,7 +978,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
             List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
             List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
-            String measuresDimensionName, List<? extends DatabaseSchema> dbschemas) {
+            String measuresDimensionName, List<? extends DatabaseSchemaMapping> dbschemas) {
         Catalog schema = RolapMappingFactory.eINSTANCE.createCatalog();
         schema.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         schema.setId(id);
@@ -991,7 +991,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         schema.getAccessRoles().addAll((Collection<? extends AccessRole>) accessRoles);
         schema.setDefaultAccessRole((AccessRole) defaultAccessRole);
         schema.setMeasuresDimensionName(measuresDimensionName);
-        schema.getDbschemas().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema>) dbschemas);
+        schema.getDbschemas().addAll((Collection<? extends DatabaseSchema>) dbschemas);
         return schema;
     }
 
@@ -1046,64 +1046,67 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return memberPropertyFormatter;
     }
 
+
     @Override
-    protected SqlStatement createSqlStatement(List<String> dialects, String sql) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlStatement sqlStatement = RelationalDatabaseFactory.eINSTANCE
+    protected SqlStatementMapping sqlStatement(List<String> dialects, String sql) {
+        SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE
                 .createSqlStatement();
         sqlStatement.getDialects().addAll(dialects);
         sqlStatement.setSql(sql);
         return sqlStatement;
     }
 
+
     @SuppressWarnings("unchecked")
     @Override
     protected SqlView createSqlView(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description, List<? extends SqlStatement> sqlStatements
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String description, List<? extends SqlStatementMapping> sqlStatements
     ) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlView sqlView = RelationalDatabaseFactory.eINSTANCE
+        SqlView sqlView = RolapMappingFactory.eINSTANCE
                 .createSqlView();
         sqlView.setName(name);
-        sqlView.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
-        sqlView.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+        sqlView.getColumns().addAll((Collection<? extends Column>) columns);
+        sqlView.setSchema((DatabaseSchema) schema);
         sqlView.setDescription(description);
-        sqlView.getSqlStatements().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.SqlStatement>) sqlStatements);
+        sqlView.getSqlStatements().addAll((Collection<? extends SqlStatement>) sqlStatements);
         return sqlView;
     }
 
     @SuppressWarnings("unchecked")
     @Override
     protected InlineTable createInlineTable(
-        String name, List<? extends Column> columns, DatabaseSchema schema,
-        String description, List<? extends Row> rows
+        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String description, List<? extends RowMapping> rows
     ) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.InlineTable inlineTable = RelationalDatabaseFactory.eINSTANCE
+        InlineTable inlineTable = RolapMappingFactory.eINSTANCE
                 .createInlineTable();
         inlineTable.setName(name);
-        inlineTable.getColumns().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column>) columns);
-        inlineTable.setSchema((org.eclipse.daanse.rdb.structure.emf.rdbstructure.DatabaseSchema) schema);
+        inlineTable.getColumns().addAll((Collection<? extends Column>) columns);
+        inlineTable.setSchema((DatabaseSchema) schema);
         inlineTable.setDescription(description);
-        inlineTable.getRows().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row>) rows);
+        inlineTable.getRows().addAll((Collection<? extends Row>) rows);
         return inlineTable;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected RowValue createRowValue(Column column, String value) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue rowValue = RelationalDatabaseFactory.eINSTANCE
+    protected RowValue createRowValue(ColumnMapping column, String value) {
+        RowValue rowValue = RolapMappingFactory.eINSTANCE
                 .createRowValue();
-        rowValue.setColumn((org.eclipse.daanse.rdb.structure.emf.rdbstructure.Column) column);
+        rowValue.setColumn((Column) column);
         rowValue.setValue(value);
         return rowValue;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Row createRow(List<? extends RowValue> rowValues) {
-        org.eclipse.daanse.rdb.structure.emf.rdbstructure.Row row = RelationalDatabaseFactory.eINSTANCE
+    protected Row createRow(List<? extends RowValueMapping> rowValues) {
+        Row row = RolapMappingFactory.eINSTANCE
                 .createRow();
-        row.getRowValues().addAll((Collection<? extends org.eclipse.daanse.rdb.structure.emf.rdbstructure.RowValue>) rowValues);
+        row.getRowValues().addAll((Collection<? extends RowValue>) rowValues);
         return row;
     }
+
 
 }

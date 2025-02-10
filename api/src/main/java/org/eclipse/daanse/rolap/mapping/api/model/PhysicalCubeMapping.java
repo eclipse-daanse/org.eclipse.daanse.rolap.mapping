@@ -20,7 +20,7 @@ public interface PhysicalCubeMapping extends CubeMapping {
 
     WritebackTableMapping getWritebackTable();
 
-    List<? extends ActionMappingMapping> getAction();
+    List<? extends ActionMapping> getAction();
 
     boolean isCache();
 

@@ -12,22 +12,21 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 
 public class AggregationColumnNameMappingImpl implements AggregationColumnNameMapping {
 
-    private Column column;
+    private ColumnMappingImpl column;
 
     private AggregationColumnNameMappingImpl(Builder builder) {
         this.column = builder.column;
     }
 
-    public Column getColumn() {
+    public ColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(Column column) {
+    public void setColumn(ColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -36,12 +35,12 @@ public class AggregationColumnNameMappingImpl implements AggregationColumnNameMa
     }
 
     public static final class Builder {
-        private Column column;
+        private ColumnMappingImpl column;
 
         private Builder() {
         }
 
-        public Builder withColumn(Column column) {
+        public Builder withColumn(ColumnMappingImpl column) {
             this.column = column;
             return this;
         }

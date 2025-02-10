@@ -12,16 +12,15 @@
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rdb.structure.api.model.Column;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 
 public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     private TableQueryMappingImpl table;
 
-    private Column childColumn;
+    private ColumnMappingImpl childColumn;
 
-    private Column parentColumn;
+    private ColumnMappingImpl parentColumn;
 
     private ParentChildLinkMappingImpl(Builder builder) {
         this.table = builder.table;
@@ -37,19 +36,19 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
         this.table = table;
     }
 
-    public Column getChildColumn() {
+    public ColumnMappingImpl getChildColumn() {
         return childColumn;
     }
 
-    public void setChildColumn(Column childColumn) {
+    public void setChildColumn(ColumnMappingImpl childColumn) {
         this.childColumn = childColumn;
     }
 
-    public Column getParentColumn() {
+    public ColumnMappingImpl getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(Column parentColumn) {
+    public void setParentColumn(ColumnMappingImpl parentColumn) {
         this.parentColumn = parentColumn;
     }
 
@@ -59,8 +58,8 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     public static final class Builder {
         private TableQueryMappingImpl table;
-        private Column childColumn;
-        private Column parentColumn;
+        private ColumnMappingImpl childColumn;
+        private ColumnMappingImpl parentColumn;
 
         private Builder() {
         }
@@ -70,12 +69,12 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
             return this;
         }
 
-        public Builder withChildColumn(Column childColumn) {
+        public Builder withChildColumn(ColumnMappingImpl childColumn) {
             this.childColumn = childColumn;
             return this;
         }
 
-        public Builder withParentColumn(Column parentColumn) {
+        public Builder withParentColumn(ColumnMappingImpl parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }

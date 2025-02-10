@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
 public class PhysicalCubeMappingImpl extends CubeMappingImpl implements PhysicalCubeMapping {
