@@ -38,6 +38,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
@@ -48,6 +49,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.LinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
@@ -113,6 +115,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.DatabaseCatalogImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
@@ -126,6 +129,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.KpiMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.LinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MemberFormatterMappingImpl;
@@ -285,7 +289,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .build();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected QueryMapping createInlineTableQuery(
         String alias,
@@ -319,7 +322,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .build();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected QueryMapping createSqlSelectQuery(String alias, SqlViewMapping sql,
             String id, DocumentationMapping documentation) {
@@ -432,7 +434,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
 
     @Override
-    protected SqlStatementMapping sqlStatement(List<String> dialects, String statement) {
+    protected SqlStatementMapping createSqlStatement(List<String> dialects, String statement) {
         return SqlStatementMappingImpl.builder()
             .withDialects(dialects)
             .withSql(statement)
@@ -1093,6 +1095,21 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return row;
     }
 
+    @Override
+    protected LinkMapping createLink(ColumnMapping primaryKey, ColumnMapping foreignKey) {
+        LinkMappingImpl link = LinkMappingImpl.builder().withPrimaryKey((ColumnMappingImpl) primaryKey)
+                .withForeignKey((ColumnMappingImpl) foreignKey).build();
+        return link;
+    }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected DatabaseCatalogMapping createDatabaseCatalog(List<? extends DatabaseSchemaMapping> schemas,
+            List<? extends LinkMapping> links) {
+        DatabaseCatalogImpl databaseCatalog = DatabaseCatalogImpl.builder()
+                .withSchemas((List<DatabaseSchemaMappingImpl>) schemas)
+                .withLinks((List<LinkMappingImpl>) links).build();
+        return databaseCatalog;
+    }
 
 }
