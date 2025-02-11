@@ -149,17 +149,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
         if (catalog2 != null) {
 
-            List<? extends AnnotationMapping> annotations = schemaAnnotations(catalog2);
-            String id = schemaId(catalog2);
-            String description = schemaDescription(catalog2);
-            String name = schemaName(catalog2);
-            DocumentationMapping documentation = schemaDocumentation(catalog2);
-            List<? extends ParameterMapping> parameters = schemaParameters(catalog2);
-            List<? extends CubeMapping> cubes = schemaCubes(catalog2);
-            List<? extends NamedSetMapping> namedSets = schemaNamedSets(catalog2);
-            List<? extends AccessRoleMapping> accessRoles = schemaAccessRoles(catalog2);
-            AccessRoleMapping defaultAccessRole = schemaDefaultAccessRole(catalog2);
-            String measuresDimensionName = schemaMeasuresDimensionName(catalog2);
+            List<? extends AnnotationMapping> annotations = catalogAnnotations(catalog2);
+            String id = catalogId(catalog2);
+            String description = catalogDescription(catalog2);
+            String name = catalogName(catalog2);
+            DocumentationMapping documentation = catalogDocumentation(catalog2);
+            List<? extends ParameterMapping> parameters = catalogParameters(catalog2);
+            List<? extends CubeMapping> cubes = catalogCubes(catalog2);
+            List<? extends NamedSetMapping> namedSets = catalogNamedSets(catalog2);
+            List<? extends AccessRoleMapping> accessRoles = catalogAccessRoles(catalog2);
+            AccessRoleMapping defaultAccessRole = catalogDefaultAccessRole(catalog2);
+            String measuresDimensionName = catalogMeasuresDimensionName(catalog2);
             List<? extends DatabaseSchemaMapping> dbschemas = catalogDatabaseSchemas(catalog2);
 
             return createCatalog(annotations, id, description, name, documentation, parameters, cubes, namedSets,
@@ -479,12 +479,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return catalog2.getId();
     }
 
-    protected String schemaMeasuresDimensionName(CatalogMapping schemaMappingOriginal) {
-        return schemaMappingOriginal.getMeasuresDimensionName();
+    protected String catalogMeasuresDimensionName(CatalogMapping catalogMappingOriginal) {
+        return catalogMappingOriginal.getMeasuresDimensionName();
     }
 
-    protected AccessRoleMapping schemaDefaultAccessRole(CatalogMapping schemaMappingOriginal) {
-        return accessRole(schemaMappingOriginal.getDefaultAccessRole());
+    protected AccessRoleMapping catalogDefaultAccessRole(CatalogMapping catalogMappingOriginal) {
+        return accessRole(catalogMappingOriginal.getDefaultAccessRole());
     }
 
     protected AccessRoleMapping accessRole(AccessRoleMapping accessRole) {
@@ -2026,8 +2026,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends AccessCubeGrantMapping> accessCubeGrant, AccessCatalog access
     );
 
-    protected List<? extends AccessRoleMapping> schemaAccessRoles(CatalogMapping schemaMappingOriginal) {
-        return accessRoles(schemaMappingOriginal.getAccessRoles());
+    protected List<? extends AccessRoleMapping> catalogAccessRoles(CatalogMapping catalogMappingOriginal) {
+        return accessRoles(catalogMappingOriginal.getAccessRoles());
     }
 
     protected List<AccessRoleMapping> accessRoles(List<? extends AccessRoleMapping> accessRoles) {
@@ -2037,8 +2037,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return List.of();
     }
 
-    protected List<? extends NamedSetMapping> schemaNamedSets(CatalogMapping schemaMappingOriginal) {
-        return namedSets(schemaMappingOriginal.getNamedSets());
+    protected List<? extends NamedSetMapping> catalogNamedSets(CatalogMapping catalogMappingOriginal) {
+        return namedSets(catalogMappingOriginal.getNamedSets());
     }
 
     protected List<NamedSetMapping> namedSets(List<? extends NamedSetMapping> namedSets) {
@@ -2096,8 +2096,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(namedSet.getAnnotations());
     }
 
-    protected List<? extends CubeMapping> schemaCubes(CatalogMapping schemaMappingOriginal) {
-        return cubes(schemaMappingOriginal.getCubes());
+    protected List<? extends CubeMapping> catalogCubes(CatalogMapping catalogMappingOriginal) {
+        return cubes(catalogMappingOriginal.getCubes());
     }
 
     protected List<CubeMapping> cubes(List<? extends CubeMapping> cubes) {
@@ -3096,16 +3096,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(cube.getAnnotations());
     }
 
-    protected List<? extends ParameterMapping> schemaParameters(CatalogMapping schemaMappingOriginal) {
-        return parameters(schemaMappingOriginal.getParameters());
+    protected List<? extends ParameterMapping> catalogParameters(CatalogMapping catalogMappingOriginal) {
+        return parameters(catalogMappingOriginal.getParameters());
     }
 
     protected List<? extends ParameterMapping> parameters(List<? extends ParameterMapping> parameters) {
         return List.of();
-    }
-
-    protected DocumentationMapping schemaDocumentation(CatalogMapping schemaMappingOriginal) {
-        return documentation(schemaMappingOriginal.getDocumentation());
     }
 
     protected DocumentationMapping documentation(DocumentationMapping documentation) {
@@ -3118,8 +3114,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract DocumentationMapping createDocumentation(String value);
 
-    protected List<? extends AnnotationMapping> schemaAnnotations(CatalogMapping schemaMappingOriginal) {
-        return annotations(schemaMappingOriginal.getAnnotations());
+    protected List<? extends AnnotationMapping> catalogAnnotations(CatalogMapping catalogMappingOriginal) {
+        return annotations(catalogMappingOriginal.getAnnotations());
     }
 
     protected List<AnnotationMapping> annotations(List<? extends AnnotationMapping> annotations) {
@@ -3139,18 +3135,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract AnnotationMapping createAnnotation(String value, String name);
-
-    protected String schemaId(CatalogMapping schemaMapping) {
-        return schemaMapping.getId();
-    }
-
-    protected String schemaDescription(CatalogMapping schemaMapping) {
-        return schemaMapping.getDescription();
-    }
-
-    protected String schemaName(CatalogMapping schemaMapping) {
-        return schemaMapping.getName();
-    }
 
     protected abstract CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id,
