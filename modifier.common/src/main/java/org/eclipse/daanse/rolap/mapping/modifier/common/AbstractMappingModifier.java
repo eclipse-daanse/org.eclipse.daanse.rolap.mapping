@@ -468,7 +468,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected String catalogName(CatalogMapping catalog2) {
-        return catalog2.getDescription();
+        return catalog2.getName();
     }
 
     protected String catalogDescription(CatalogMapping catalog2) {
