@@ -43,6 +43,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
@@ -57,6 +58,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.LinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
@@ -1357,7 +1359,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (sqlStatement != null) {
             List<String> dialects = sqlStatementDdialects(sqlStatement);
             String sql = sqlStatementSql(sqlStatement);
-            return sqlStatement(dialects, sql);
+            return createSqlStatement(dialects, sql);
         }
         return null;
     }
@@ -1366,7 +1368,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return sql.getSql();
     }
 
-    protected abstract SqlStatementMapping sqlStatement(List<String> dialects, String statement);
+    protected abstract SqlStatementMapping createSqlStatement(List<String> dialects, String statement);
 
     protected List<String> sqlDialects(SqlStatementMapping sql) {
         return dialects(sql.getDialects());
@@ -3159,7 +3161,44 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends DatabaseSchemaMapping> dbSchemas
     );
 
+    protected List<? extends LinkMapping> databaseCatalogLinks(DatabaseCatalogMapping catalog2) {
+        return links(catalog2.getLinks());
+    }
 
+    protected List<? extends LinkMapping> links(List<? extends LinkMapping> links) {
+        if (links != null) {
+            return links.stream().map(this::link).toList();
+        }
+        return null;
+    }
+
+    protected LinkMapping link(LinkMapping link) {
+        if (link != null) {
+            ColumnMapping primaryKey = linkPrimaryKey(link);
+            ColumnMapping foreignKey = linkForeignKey(link);
+            return createLink(primaryKey, foreignKey);
+        }
+        return null;
+    }
+
+    protected abstract LinkMapping createLink(ColumnMapping primaryKey, ColumnMapping foreignKey);
+
+    protected ColumnMapping linkForeignKey(LinkMapping link) {
+        return column(link.getForeignKey());
+    }
+
+    protected ColumnMapping linkPrimaryKey(LinkMapping link) {
+        return column(link.getPrimaryKey());
+    }
+
+    protected abstract DatabaseCatalogMapping createDatabaseCatalog(
+        List<? extends DatabaseSchemaMapping> schemas,
+        List<? extends LinkMapping> links
+    );
+
+    protected List<? extends DatabaseSchemaMapping> catalogSchemas(DatabaseCatalogMapping catalog2) {
+        return databaseSchemas(catalog2.getSchemas());
+    }
 
     protected CubeMapping look(CubeMapping c) {
         return cubeMap.get(c);

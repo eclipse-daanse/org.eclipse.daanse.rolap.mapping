@@ -39,6 +39,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
@@ -49,6 +50,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.LinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
@@ -113,6 +115,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseCatalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
@@ -130,6 +133,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Link;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -267,7 +271,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return accessMemberGrant;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected QueryMapping createInlineTableQuery(String alias, InlineTableMapping table, String id, DocumentationMapping documentation) {
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
@@ -297,7 +300,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return joinedQueryElement;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected QueryMapping createSqlSelectQuery(String alias, SqlViewMapping sqlView, String id, DocumentationMapping documentation) {
         SqlSelectQuery sqlSelectQuery = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
@@ -1048,7 +1050,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
 
     @Override
-    protected SqlStatementMapping sqlStatement(List<String> dialects, String sql) {
+    protected SqlStatementMapping createSqlStatement(List<String> dialects, String sql) {
         SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE
                 .createSqlStatement();
         sqlStatement.getDialects().addAll(dialects);
@@ -1089,7 +1091,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return inlineTable;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected RowValue createRowValue(ColumnMapping column, String value) {
         RowValue rowValue = RolapMappingFactory.eINSTANCE
@@ -1108,5 +1109,22 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return row;
     }
 
+    @Override
+    protected LinkMapping createLink(ColumnMapping primaryKey, ColumnMapping foreignKey) {
+        Link link = RolapMappingFactory.eINSTANCE.createLink();
+        link.setPrimaryKey((Column) primaryKey);
+        link.setForeignKey((Column) foreignKey);
+        return link;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected DatabaseCatalog createDatabaseCatalog(List<? extends DatabaseSchemaMapping> schemas,
+            List<? extends LinkMapping> links) {
+        DatabaseCatalog databaseCatalog = RolapMappingFactory.eINSTANCE.createDatabaseCatalog();
+        databaseCatalog.getSchemas().addAll((Collection<? extends DatabaseSchema>) schemas);
+        databaseCatalog.getLinks().addAll((Collection<? extends Link>) links);
+        return databaseCatalog;
+    }
 
 }
