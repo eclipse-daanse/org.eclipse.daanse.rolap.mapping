@@ -20,11 +20,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
@@ -32,7 +35,9 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
@@ -51,6 +56,8 @@ import org.osgi.test.common.annotation.InjectService;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
+
+import com.fasterxml.jackson.core.sym.Name1;
 
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
@@ -126,7 +133,11 @@ public class ResourceSetWriteReadTest {
 
         set = allRef(set, c);
 
-        for (EObject eObject : set) {
+        // sort
+
+        List<EObject> sortedList = set.stream().sorted(comparator).toList();
+
+        for (EObject eObject : sortedList) {
 
             if (eObject.eContainer() == null) {
                 resourceCatalog.getContents().add(eObject);
@@ -165,9 +176,112 @@ public class ResourceSetWriteReadTest {
                 set = allRef(set, eObject2);
 
             }
+            EObject eContainer = eObject.eContainer();
+
+            if (eContainer != null) {
+                set = allRef(set, eContainer);
+
+            }
 
         }
         return set;
     }
+
+    static EObjectComparator comparator = new EObjectComparator();
+
+    static class EObjectComparator implements Comparator<EObject> {
+
+        AtomicInteger COUNTER = new AtomicInteger();
+        Map<EClass, Integer> map = new HashMap<EClass, Integer>();
+
+        EObjectComparator() {
+            add(RolapMappingPackage.Literals.DATABASE_CATALOG);
+            add(RolapMappingPackage.Literals.PHYSICAL_TABLE);
+            add(RolapMappingPackage.Literals.VIEW_TABLE);
+            add(RolapMappingPackage.Literals.SYSTEM_TABLE);
+            add(RolapMappingPackage.Literals.SQL_VIEW);
+            add(RolapMappingPackage.Literals.COLUMN);
+
+            add(RolapMappingPackage.Literals.SQL_EXPRESSION);
+            add(RolapMappingPackage.Literals.SQL_SELECT_QUERY);
+            add(RolapMappingPackage.Literals.SQL_STATEMENT);
+
+            add(RolapMappingPackage.Literals.TABLE_QUERY);
+            add(RolapMappingPackage.Literals.IINLINE_TABLE_QUERY);
+            add(RolapMappingPackage.Literals.JOIN_QUERY);
+            add(RolapMappingPackage.Literals.JOINED_QUERY_ELEMENT);
+
+            add(RolapMappingPackage.Literals.CALCULATED_MEMBER);
+
+            add(RolapMappingPackage.Literals.LEVEL);
+            add(RolapMappingPackage.Literals.HIERARCHY);
+            add(RolapMappingPackage.Literals.STANDARD_DIMENSION);
+            add(RolapMappingPackage.Literals.TIME_DIMENSION);
+
+            add(RolapMappingPackage.Literals.NAMED_SET);
+
+
+            add(RolapMappingPackage.Literals.ACTION);
+
+            add(RolapMappingPackage.Literals.KPI);
+            add(RolapMappingPackage.Literals.MEASURE);
+            add(RolapMappingPackage.Literals.MEASURE_GROUP);
+
+            add(RolapMappingPackage.Literals.PHYSICAL_CUBE);
+
+            add(RolapMappingPackage.Literals.CUBE_CONNECTOR);
+
+            add(RolapMappingPackage.Literals.VIRTUAL_CUBE);
+
+            add(RolapMappingPackage.Literals.ACCESS_ROLE);
+            add(RolapMappingPackage.Literals.ACCESS_CATALOG_GRANT);
+            add(RolapMappingPackage.Literals.ACCESS_CUBE_GRANT);
+            add(RolapMappingPackage.Literals.ACCESS_DIMENSION_GRANT);
+            add(RolapMappingPackage.Literals.ACCESS_HIERARCHY_GRANT);
+            add(RolapMappingPackage.Literals.ACCESS_MEMBER_GRANT);
+
+            add(RolapMappingPackage.Literals.CATALOG);
+
+            add(RolapMappingPackage.Literals.CELL_FORMATTER);
+
+        }
+
+        void add(EClass eClass) {
+            map.put(eClass, COUNTER.incrementAndGet());
+        }
+
+        @Override
+        public int compare(EObject o1, EObject o2) {
+
+            EClass eClass1 = o1.eClass();
+            EClass eClass2 = o2.eClass();
+            int value = map.getOrDefault(eClass1, 0) - map.getOrDefault(eClass2, 0);
+
+            if (value != 0) {
+                return value;
+            }
+
+            Object s1 = "";
+            Object s2 = "";
+            EStructuralFeature eStructuralFeature1 = eClass1.getEStructuralFeature("id");
+            if (eStructuralFeature1 != null) {
+
+                s1 = o1.eGet(eStructuralFeature1);
+            }
+            EStructuralFeature eStructuralFeature2 = eClass2.getEStructuralFeature("id");
+            if (eStructuralFeature2 != null) {
+
+                s2 = o2.eGet(eStructuralFeature2);
+            }
+            if (s1 == null) {
+                s1 = "";
+            }
+            if (s2 == null) {
+                s2 = "";
+            }
+
+            return s1.toString().compareToIgnoreCase(s1.toString());
+        }
+    };
 
 }
