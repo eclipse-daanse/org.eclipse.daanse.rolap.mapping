@@ -170,7 +170,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
 
-    private List<? extends DatabaseSchemaMapping> catalogDatabaseSchemas(CatalogMapping catalog2) {
+    protected List<? extends DatabaseSchemaMapping> catalogDatabaseSchemas(CatalogMapping catalog2) {
         return databaseSchemas(catalog2.getDbschemas());
     }
 
