@@ -121,7 +121,7 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         private String description;
         private String name;
         private DocumentationMappingImpl documentation;
-        private List<DatabaseSchemaMappingImpl> dbSchemas;
+        private List<DatabaseSchemaMappingImpl> dbSchemas = new ArrayList<>();
 
         private Builder() {
         }
