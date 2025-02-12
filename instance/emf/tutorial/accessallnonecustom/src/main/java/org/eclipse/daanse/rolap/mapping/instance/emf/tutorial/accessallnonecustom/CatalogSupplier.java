@@ -65,6 +65,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -83,10 +84,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setId("Fact_Query1");
         query1.setTable(table);
 
         TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
         query2.setTable(table);
+        query2.setId("Fact_Query2");
 
         TableQuery queryh = RolapMappingFactory.eINSTANCE.createTableQuery();
         queryh.setTable(table);
@@ -94,6 +97,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
         measure1.setName("Measure1");
+        measure1.setId("Measure1");
         measure1.setColumn(valueColumn);
 
 
@@ -125,16 +129,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DimensionConnector dimensionConnectorCube11 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnectorCube11.setOverrideDimensionName("Dimension1");
         dimensionConnectorCube11.setDimension(dimension1);
+        dimensionConnectorCube11.setId("DimensionConnector1");
         dimensionConnectorCube11.setForeignKey(keyColumn);
 
         DimensionConnector dimensionConnectorCube12 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnectorCube12.setOverrideDimensionName("Dimension2");
         dimensionConnectorCube12.setDimension(dimension1);
+        dimensionConnectorCube12.setId("DimensionConnector12");
         dimensionConnectorCube12.setForeignKey(keyColumn);
 
         DimensionConnector dimensionConnectorCube2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnectorCube2.setOverrideDimensionName("Dimension1");
         dimensionConnectorCube2.setDimension(dimension1);
+        dimensionConnectorCube12.setId("DimensionConnector2");
         dimensionConnectorCube2.setForeignKey(keyColumn);
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
@@ -161,6 +168,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role1 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role1.setName("role1");
+        role1.setId("role1");
         role1.getAccessCatalogGrants().add(accessSchemaGrantRole1);
 
 
@@ -174,6 +182,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role11 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role11.setName("role11");
+        role11.setId("role11");
         role11.getAccessCatalogGrants().add(accessSchemaGrantRole11);
 
         AccessCubeGrant cube2GrantRole12 = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
@@ -186,6 +195,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role12 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role12.setName("role12");
+        role12.setId("role12");
         role12.getAccessCatalogGrants().add(accessSchemaGrantRole12);
 
         AccessCatalogGrant accessSchemaGrantRole2 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
@@ -193,6 +203,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role2 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role2.setName("role2");
+        role2.setId("role2");
         role2.getAccessCatalogGrants().add(accessSchemaGrantRole2);
 
         AccessCatalogGrant accessSchemaGrantRole3 = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
@@ -200,6 +211,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role3 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role3.setName("role3");
+        role3.setId("role3");
         role3.getAccessCatalogGrants().add(accessSchemaGrantRole2);
 
         AccessMemberGrant mg1Role4 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
@@ -227,6 +239,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole role4 = RolapMappingFactory.eINSTANCE.createAccessRole();
         role4.setName("role3");
+        role4.setId("role3");
         role4.getAccessCatalogGrants().add(accessSchemaGrantRole4);
 
         AccessMemberGrant mg1RoleManager1 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
@@ -271,15 +284,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole roleManager = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleManager.setName("manager");
+        roleManager.setId("manager");
         roleManager.getAccessCatalogGrants().add(accessSchemaGrantRoleManager);
 
         AccessRole roleU = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleU.setName("role_u");
+        roleU.setId("role_u");
         roleU.getReferencedAccessRoles().add(role11);
         roleU.getReferencedAccessRoles().add(role12);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Cube_with_role_access_all_none_custom");
+        catalog.setId("Cube_with_role_access_all_none_custom");
         catalog.setDescription("Schema with role access all, none, custom");
         catalog.getCubes().add(cube1);
         catalog.getCubes().add(cube2);

@@ -66,6 +66,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column dateKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dateKeyColumn.setName("DATE_KEY");
@@ -119,11 +120,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure-Sum");
+        measure.setId("Measure-Sum");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -175,6 +178,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
+        hierarchy.setId("hierarchy");
         hierarchy.setAllMemberName("All Years");
         hierarchy.setPrimaryKey(dateKeyColumn);
         hierarchy.setQuery(query);
@@ -182,6 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TimeDimension dimension = RolapMappingFactory.eINSTANCE.createTimeDimension();
         dimension.setName("Time");
+        dimension.setId("Time");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();

@@ -68,6 +68,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
@@ -139,12 +140,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
+        inlineTableQuery.setId("inlineTableQuery");
         inlineTableQuery.setTable(inlineTable);
         inlineTableQuery.setAlias("HT");
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure1");
+        measure.setId("Measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -152,6 +155,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("Level1");
+        level1.setId("Level1");
         level1.setColumn(htKeyColumn);
         level1.setNameColumn(htNameColumn);
         level1.setColumnType(ColumnDataType.INTEGER);
@@ -159,6 +163,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy1");
+        hierarchy.setId("Hierarchy1");
         hierarchy.setPrimaryKey(htKeyColumn);
         hierarchy.setQuery(inlineTableQuery);
         hierarchy.setPrimaryKeyTable(inlineTable);
@@ -166,6 +171,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
+        dimension.setId("Dimension1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();

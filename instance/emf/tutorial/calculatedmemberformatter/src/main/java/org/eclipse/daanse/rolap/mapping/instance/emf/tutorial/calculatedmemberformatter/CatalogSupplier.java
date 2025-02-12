@@ -46,6 +46,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -64,11 +65,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure1");
+        measure.setId("Measure1");
         measure.setColumn(valueColumn);
         measure.setFormatString("Standard");
 
@@ -87,6 +90,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         calculatedMember1.getCalculatedMemberProperties().add(calculatedMemberProperty);
 
         CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
+        cellFormatter.setId("cellFormatter");
         cellFormatter.setRef("mondrian.rolap.format.CellFormatterImpl");
 
         CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();

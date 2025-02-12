@@ -65,6 +65,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
@@ -120,12 +121,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(level2Table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         TableQuery level1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        level1Query.setId("level1Query");
         level1Query.setTable(level1Table);
 
         TableQuery level2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        level2Query.setId("level2Query");
         level2Query.setTable(level2Table);
 
         JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -137,12 +141,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         right.setQuery(level1Query);
 
         JoinQuery join = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        join.setId("join");
         join.setLeft(left);
         join.setRight(right);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure1");
+        measure.setId("Measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -150,6 +156,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("Level1");
+        level1.setId("Level1");
         level1.setColumn(l1KeyColumn);
         level1.setNameColumn(l1NameColumn);
         level1.setTable(level1Table);
@@ -157,6 +164,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level2 = RolapMappingFactory.eINSTANCE.createLevel();
         level2.setName("Level2");
+        level2.setId("Level2");
         level2.setColumn(l2KeyColumn);
         level2.setNameColumn(l2NameColumn);
         level2.setTable(level2Table);
@@ -165,6 +173,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy1");
+        hierarchy.setId("Hierarchy1");
         hierarchy.setPrimaryKey(l2KeyColumn);
         hierarchy.setQuery(join);
         hierarchy.setPrimaryKeyTable(level2Table);
@@ -172,6 +181,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
+        dimension.setId("Dimension1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();

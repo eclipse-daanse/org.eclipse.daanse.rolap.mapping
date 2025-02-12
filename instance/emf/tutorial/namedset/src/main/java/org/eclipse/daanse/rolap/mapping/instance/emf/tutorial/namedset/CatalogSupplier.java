@@ -50,6 +50,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -68,11 +69,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure1");
+        measure.setId("Measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -87,12 +90,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(false);
         hierarchy.setName("HierarchyWithoutHasAll");
+        hierarchy.setId("HierarchyWithoutHasAll");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
+        dimension.setId("Dimension1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -101,6 +106,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         NamedSet namedSet = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet.setName("NS");
+        namedSet.setId("NS");
         namedSet.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
         namedSet.setDisplayFolder("Folder");
 
