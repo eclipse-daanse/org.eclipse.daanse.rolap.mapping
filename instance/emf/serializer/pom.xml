@@ -38,13 +38,7 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rdb.structure.api</artifactId>
-      <version>${project.version}</version>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rdb.structure.emf</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.emf</artifactId>
       <version>${project.version}</version>
       <scope>compile</scope>
     </dependency>
@@ -71,7 +65,8 @@
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables</artifactId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables</artifactId>
       <version>${project.version}</version>
     </dependency>
 

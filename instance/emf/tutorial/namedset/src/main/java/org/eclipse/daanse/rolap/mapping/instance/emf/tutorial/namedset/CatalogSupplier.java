@@ -125,7 +125,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
         catalog.setDocumentation(schemaDocumentation);
-        catalog.getDbschemas().add(databaseSchema);
+//        catalog.getDbschemas().add(databaseSchema);
         return catalog;
     }
 
