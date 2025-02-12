@@ -53,6 +53,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -71,26 +72,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         Measure measureSum = RolapMappingFactory.eINSTANCE.createMeasure();
         measureSum.setAggregator(MeasureAggregator.SUM);
         measureSum.setName("Measure-Sum");
+        measureSum.setId("Measure-Sum");
         measureSum.setColumn(valueColumn);
 
         Measure measureMin = RolapMappingFactory.eINSTANCE.createMeasure();
         measureMin.setAggregator(MeasureAggregator.MIN);
         measureMin.setName("Measure-Min");
+        measureMin.setId("Measure-Min");
         measureMin.setColumn(valueColumn);
 
         Measure measureMax = RolapMappingFactory.eINSTANCE.createMeasure();
         measureMax.setAggregator(MeasureAggregator.MAX);
         measureMax.setName("Measure-Max");
+        measureMax.setId("Measure-Max");
         measureMax.setColumn(valueColumn);
 
         Measure measureAvg = RolapMappingFactory.eINSTANCE.createMeasure();
         measureAvg.setAggregator(MeasureAggregator.AVG);
         measureAvg.setName("Measure-Avg");
+        measureAvg.setId("Measure-Avg");
         measureAvg.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();

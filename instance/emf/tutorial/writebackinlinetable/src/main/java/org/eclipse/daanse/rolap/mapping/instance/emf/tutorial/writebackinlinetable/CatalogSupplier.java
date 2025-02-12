@@ -55,6 +55,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column valColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
@@ -205,13 +206,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(factwbTable);
 
         InlineTableQuery query = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
         query.setAlias(FACT);
 
         TableQuery l1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        l1Query.setId("l1TableQuery");
         l1Query.setTable(l1Table);
 
         TableQuery l2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        l2Query.setId("l2TableQuery");
         l2Query.setTable(l2Table);
 
         JoinedQueryElement joinLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -222,17 +226,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinRight.setQuery(l2Query);
 
         JoinQuery join = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        join.setId("join");
         join.setLeft(joinLeft);
         join.setRight(joinRight);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
         measure1.setName("Measure1");
+        measure1.setId("Measure1");
         measure1.setColumn(valColumn);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure2.setAggregator(MeasureAggregator.SUM);
         measure2.setName("Measure2");
+        measure2.setId("Measure2");
         measure2.setColumn(val1Column);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -252,6 +259,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
+        hierarchy.setId("HierarchyWithHasAll");
         hierarchy.setPrimaryKey(l1L2Column);
         hierarchy.setPrimaryKeyTable(l1Table);
         hierarchy.setQuery(join);
@@ -259,6 +267,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension");
+        dimension.setId("Dimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();

@@ -62,6 +62,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -80,17 +81,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setId("FactQuery1");
         query1.setTable(table);
 
         TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query2.setId("FactQuery2");
         query2.setTable(table);
 
         TableQuery queryh = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryh.setId("FactQueryH");
         queryh.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
         measure1.setName("Measure1");
+        measure1.setId("Measure1");
         measure1.setColumn(valueColumn);
 
 
@@ -182,6 +187,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         accessSchemaGrant.getCubeGrants().addAll(List.of(cube1Grant));
 
         AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
+        role.setName("role1");
+        role.setId("role1");
         role.getAccessCatalogGrants().add(accessSchemaGrant);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();

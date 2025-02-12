@@ -50,6 +50,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
@@ -68,9 +69,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setId("FactQuery1");
         query1.setTable(table);
 
         TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setId("FactQuery2");
         query2.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -100,12 +103,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(false);
         hierarchy.setName("HierarchyWithoutHasAll");
+        hierarchy.setId("HierarchyWithoutHasAll");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query1);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
+        dimension.setId("Dimension1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();

@@ -48,6 +48,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column key1Column = RolapMappingFactory.eINSTANCE.createColumn();
         key1Column.setName("KEY");
@@ -82,9 +83,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(c2Table);
 
         TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query1.setId("c1TableQuery");
         query1.setTable(c1Table);
 
         TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query2.setId("c2TableQuery");
         query2.setTable(c2Table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();

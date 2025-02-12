@@ -58,6 +58,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column employeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeIdColumn.setName("employee_id");
@@ -134,14 +135,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(employeeClosureTable);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         TableQuery employeeClosureQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
+        employeeClosureQuery.setId("EmployeeClosureQuery");
         employeeClosureQuery.setTable(employeeClosureTable);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure");
+        measure.setId("Measure");
         measure.setColumn(salaryColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -184,6 +188,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Employee Id");
+        level.setId("EmployeeIdLevel");
         level.setUniqueMembers(true);
         level.setColumnType(ColumnDataType.NUMERIC);
         level.setColumn(employeeIdColumn);
@@ -196,7 +201,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
-
+        hierarchy.setId("hierarchy");
         hierarchy.setAllMemberName("All Employees");
         hierarchy.setPrimaryKey(employeeIdColumn);
         hierarchy.setQuery(query);
@@ -204,6 +209,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Employees");
+        dimension.setId("Employees");
         dimension.getHierarchies().add(hierarchy);
 
 

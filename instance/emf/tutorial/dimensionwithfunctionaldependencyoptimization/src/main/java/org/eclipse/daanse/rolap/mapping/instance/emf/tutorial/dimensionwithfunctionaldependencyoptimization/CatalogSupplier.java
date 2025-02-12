@@ -63,6 +63,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column auotoDimIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         auotoDimIdColumn.setName("AUTO_DIM_ID");
@@ -158,11 +159,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
         query.setTable(table);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
         measure.setName("Measure");
+        measure.setId("Measure");
         measure.setColumn(priceColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -170,30 +173,35 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelMake = RolapMappingFactory.eINSTANCE.createLevel();
         levelMake.setName("Make");
+        levelMake.setId("Make");
         levelMake.setColumn(makeIdColumn);
         levelMake.setNameColumn(makeColumn);
         levelMake.setColumnType(ColumnDataType.NUMERIC);
 
         Level levelModel = RolapMappingFactory.eINSTANCE.createLevel();
         levelModel.setName("Model");
+        levelModel.setId("Model");
         levelModel.setColumn(modelIdColumn);
         levelModel.setNameColumn(modelColumn);
         levelModel.setColumnType(ColumnDataType.NUMERIC);
 
         MemberProperty stateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         stateProperty.setName("State");
+        stateProperty.setId("State");
         stateProperty.setColumn(plantStateIdColumn);
         stateProperty.setPropertyType(ColumnDataType.NUMERIC);
         stateProperty.setDependsOnLevelValue(true);
 
         MemberProperty cytyProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         cytyProperty.setName("City");
+        cytyProperty.setId("City");
         cytyProperty.setColumn(plantCityIdColumn);
         cytyProperty.setPropertyType(ColumnDataType.NUMERIC);
         cytyProperty.setDependsOnLevelValue(true);
 
         Level levelPlant = RolapMappingFactory.eINSTANCE.createLevel();
         levelPlant.setName("ManufacturingPlant");
+        levelPlant.setId("ManufacturingPlant");
         levelPlant.setColumn(plantIdColumn);
         levelPlant.setNameColumn(plantColumn);
         levelPlant.setColumnType(ColumnDataType.NUMERIC);
@@ -201,30 +209,35 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         MemberProperty colorProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         colorProperty.setName("Color");
+        colorProperty.setId("Color");
         colorProperty.setColumn(colorIdColumn);
         colorProperty.setPropertyType(ColumnDataType.NUMERIC);
         colorProperty.setDependsOnLevelValue(true);
 
         MemberProperty trimProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         trimProperty.setName("Trim");
+        trimProperty.setId("Trim");
         trimProperty.setColumn(trimIdColumn);
         trimProperty.setPropertyType(ColumnDataType.NUMERIC);
         trimProperty.setDependsOnLevelValue(true);
 
         Level levelVehicle = RolapMappingFactory.eINSTANCE.createLevel();
         levelVehicle.setName("Vehicle Identification Number");
+        levelVehicle.setId("Vehicle Identification Number");
         levelVehicle.setColumn(vehicleIdColumn);
         levelVehicle.setColumnType(ColumnDataType.NUMERIC);
         levelVehicle.getMemberProperties().addAll(List.of(colorProperty, trimProperty));
 
         MemberProperty licenseStateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         licenseStateProperty.setName("State");
+        licenseStateProperty.setId("State");
         licenseStateProperty.setColumn(licenseStateIdColumn);
         licenseStateProperty.setPropertyType(ColumnDataType.NUMERIC);
         licenseStateProperty.setDependsOnLevelValue(true);
 
         Level levelLicense = RolapMappingFactory.eINSTANCE.createLevel();
         levelLicense.setName("LicensePlateNum");
+        levelLicense.setId("LicensePlateNum");
         levelLicense.setColumn(vehicleIdColumn);
         levelLicense.setColumnType(ColumnDataType.STRING);
         levelLicense.getMemberProperties().addAll(List.of(licenseStateProperty));
@@ -232,12 +245,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setPrimaryKey(auotoDimIdColumn);
+        hierarchy.setId("hierarchy");
         hierarchy.setUniqueKeyLevelName("Vehicle Identification Number");
         hierarchy.setQuery(query);
         hierarchy.getLevels().addAll(List.of(levelMake, levelModel, levelPlant, levelVehicle, levelLicense));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Automotive");
+        dimension.setId("Automotive");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();

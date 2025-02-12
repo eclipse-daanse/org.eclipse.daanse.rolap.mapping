@@ -62,6 +62,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("databaseSchema");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
@@ -192,24 +193,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(level3MultipleTable);
 
         TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryFact.setId("queryFact");
         queryFact.setTable(factTable);
 
         TableQuery queryFactMultiple = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryFactMultiple.setId("queryFactMultiple");
         queryFactMultiple.setTable(factMultipleTable);
 
         TableQuery queryLevel2Null = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryLevel2Null.setId("queryLevel2Null");
         queryLevel2Null.setTable(level2NullTable);
 
         TableQuery queryLevel1 = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryLevel1.setId("queryLevel1");
         queryLevel1.setTable(level1Table);
 
         TableQuery queryLevel2Multiple = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryLevel2Multiple.setId("queryLevel2Multiple");
         queryLevel2Multiple.setTable(level2MultipleTable);
 
         TableQuery queryLevel3Multiple = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryLevel3Multiple.setId("queryLevel3Multiple");
         queryLevel3Multiple.setTable(level3MultipleTable);
 
         TableQuery queryLevel1Multiple = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryLevel1Multiple.setId("queryLevel1Multiple");
         queryLevel1Multiple.setTable(level1MultipleTable);
 
         JoinedQueryElement queryJoin1Left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -221,6 +229,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         queryJoin1Right.setQuery(queryLevel1);
 
         JoinQuery queryJoin1 = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        queryJoin1.setId("queryJoin1");
         queryJoin1.setLeft(queryJoin1Left);
         queryJoin1.setRight(queryJoin1Right);
 
@@ -233,17 +242,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         queryJoin2Right.setQuery(queryLevel1Multiple);
 
         JoinQuery queryJoin2 = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        queryJoin2.setId("queryJoin2");
         queryJoin2.setLeft(queryJoin2Left);
         queryJoin2.setRight(queryJoin2Right);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
         measure1.setName("Measure1");
+        measure1.setId("Measure1");
         measure1.setColumn(valueColumn);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure2.setAggregator(MeasureAggregator.SUM);
         measure2.setName("Measure1");
+        measure2.setId("Measure1");
         measure2.setColumn(valueColumn);
 
         MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -270,6 +282,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchyDimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchyDimensionMembersHiddenIfBlankName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfBlankName.setName("Hierarchy1");
+        hierarchyDimensionMembersHiddenIfBlankName.setId("Hierarchy1_1");
         hierarchyDimensionMembersHiddenIfBlankName.setPrimaryKey(level2NullKeyColumn);
         hierarchyDimensionMembersHiddenIfBlankName.setPrimaryKeyTable(level2NullTable);
         hierarchyDimensionMembersHiddenIfBlankName.setQuery(queryJoin1);
@@ -301,6 +314,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Hierarchy hierarchyDimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchyDimensionMembersHiddenMultipleLevels.setHasAll(true);
         hierarchyDimensionMembersHiddenMultipleLevels.setName("Hierarchy1");
+        hierarchyDimensionMembersHiddenMultipleLevels.setId("Hierarchy1_2");
         hierarchyDimensionMembersHiddenMultipleLevels.setPrimaryKey(level3MultipleKeyColumn);
         hierarchyDimensionMembersHiddenMultipleLevels.setPrimaryKeyTable(level3MultipleTable);
         hierarchyDimensionMembersHiddenMultipleLevels.setQuery(queryJoin2);
@@ -309,10 +323,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimensionMembersHiddenIfBlankName.setName("DimensionMembersHiddenIfBlankName");
+        dimensionMembersHiddenIfBlankName.setId("DimensionMembersHiddenIfBlankName");
         dimensionMembersHiddenIfBlankName.getHierarchies().add(hierarchyDimensionMembersHiddenIfBlankName);
 
         StandardDimension dimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimensionMembersHiddenMultipleLevels.setName("DimensionMembersHiddenMultipleLevels");
+        dimensionMembersHiddenMultipleLevels.setId("DimensionMembersHiddenMultipleLevels");
         dimensionMembersHiddenMultipleLevels.getHierarchies().add(hierarchyDimensionMembersHiddenMultipleLevels);
 
         DimensionConnector dimensionMembersHiddenIfBlankNameConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
