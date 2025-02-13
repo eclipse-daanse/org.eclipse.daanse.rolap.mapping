@@ -57,7 +57,7 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
     }
 
     public List<? extends CubeMappingImpl> getCubes() {
@@ -168,7 +168,7 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
         private String id;
         private String description;
         private String name;
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -248,8 +248,8 @@ public class EnviromentMappingImpl extends AbstractElementMappingImpl implements
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentation(List<DocumentationMappingImpl> documentations) {
+            this.documentations = documentations;
             return this;
         }
 

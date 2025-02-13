@@ -153,7 +153,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = catalogId(catalog2);
             String description = catalogDescription(catalog2);
             String name = catalogName(catalog2);
-            DocumentationMapping documentation = catalogDocumentation(catalog2);
+            List<? extends DocumentationMapping> documentations = catalogDocumentations(catalog2);
             List<? extends ParameterMapping> parameters = catalogParameters(catalog2);
             List<? extends CubeMapping> cubes = catalogCubes(catalog2);
             List<? extends NamedSetMapping> namedSets = catalogNamedSets(catalog2);
@@ -162,7 +162,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String measuresDimensionName = catalogMeasuresDimensionName(catalog2);
             List<? extends DatabaseSchemaMapping> dbschemas = catalogDatabaseSchemas(catalog2);
 
-            return createCatalog(annotations, id, description, name, documentation, parameters, cubes, namedSets,
+            return createCatalog(annotations, id, description, name, documentations, parameters, cubes, namedSets,
                 accessRoles, defaultAccessRole, measuresDimensionName, dbschemas);
         }
         return null;
@@ -463,8 +463,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract DatabaseSchemaMapping createDatabaseSchema(List<? extends TableMapping> tables, String name, String id);
 
-    protected DocumentationMapping catalogDocumentation(CatalogMapping catalog) {
-        return documentation(catalog.getDocumentation());
+    protected List<? extends DocumentationMapping> catalogDocumentations(CatalogMapping catalog) {
+        return documentations(catalog.getDocumentations());
     }
 
     protected String catalogName(CatalogMapping catalog2) {
@@ -494,11 +494,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = accessRoleId(accessRole);
                 String description = accessRoleDescription(accessRole);
                 String name = accessRoleName(accessRole);
-                DocumentationMapping documentation = accessRoleDocumentation(accessRole);
+                List<? extends DocumentationMapping> documentations = accessRoleDocumentations(accessRole);
 
                 List<? extends AccessCatalogGrantMapping> accessCatalogGrants = accessRoleAccessCatalogGrants(accessRole);
                 List<? extends AccessRoleMapping> referencedAccessRoles = accessRoleReferencedAccessRoles(accessRole);
-                AccessRoleMapping ar = createAccessRole(annotations, id, description, name, documentation,
+                AccessRoleMapping ar = createAccessRole(annotations, id, description, name, documentations,
                     accessCatalogGrants,
                     referencedAccessRoles);
                 accessRoleMap.put(accessRole, ar);
@@ -514,8 +514,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(accessRole.getAnnotations());
     }
 
-    protected DocumentationMapping accessRoleDocumentation(AccessRoleMapping accessRole) {
-        return documentation(accessRole.getDocumentation());
+    protected List<? extends DocumentationMapping> accessRoleDocumentations(AccessRoleMapping accessRole) {
+        return documentations(accessRole.getDocumentations());
     }
 
     protected String accessRoleName(AccessRoleMapping accessRole) {
@@ -532,7 +532,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract AccessRoleMapping createAccessRole(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
         List<? extends AccessRoleMapping> referencedAccessRoles
     );
@@ -671,7 +671,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = hierarchyId(hierarchy);
                 String description = hierarchyDescription(hierarchy);
                 String name = hierarchyName(hierarchy);
-                DocumentationMapping documentation = hierarchyDocumentation(hierarchy);
+                List<? extends DocumentationMapping> documentations = hierarchyDocumentations(hierarchy);
 
                 List<? extends LevelMapping> levels = hierarchyLevels(hierarchy);
                 List<? extends MemberReaderParameterMapping> memberReaderParameters = hierarchyMemberReaderParameters(
@@ -690,7 +690,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean visible = hierarchyVisible(hierarchy);
                 QueryMapping query = hierarchyQuery(hierarchy);
 
-                HierarchyMapping h = createHierarchy(annotations, id, description, name, documentation, levels,
+                HierarchyMapping h = createHierarchy(annotations, id, description, name, documentations, levels,
                     memberReaderParameters,
                     allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
                     memberReaderClass, origin, primaryKey, primaryKeyTable, uniqueKeyLevelName, visible, query);
@@ -1477,8 +1477,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return List.of();
     }
 
-    protected DocumentationMapping hierarchyDocumentation(HierarchyMapping hierarchy) {
-        return documentation(hierarchy.getDocumentations());
+    protected List<? extends DocumentationMapping> hierarchyDocumentations(HierarchyMapping hierarchy) {
+        return documentations(hierarchy.getDocumentations());
     }
 
     protected String hierarchyName(HierarchyMapping hierarchy) {
@@ -1499,7 +1499,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract HierarchyMapping createHierarchy(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
+        String description, String name, List<? extends DocumentationMapping> documentations, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
         String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping primaryKeyTable,
@@ -1631,7 +1631,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = memberFormatterId(memberFormatter);
                 String description = memberFormatterDescription(memberFormatter);
                 String name = memberFormatterName(memberFormatter);
-                DocumentationMapping documentation = memberFormatterDocumentation(memberFormatter);
+                List<? extends DocumentationMapping> documentation = memberFormatterDocumentation(memberFormatter);
                 String ref = memberFormatterRef(memberFormatter);
                 MemberFormatterMapping mf = createMemberFormatter(annotations, id, description, name, documentation,
                     ref);
@@ -1646,15 +1646,15 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract MemberFormatterMapping createMemberFormatter(
         List<? extends AnnotationMapping> annotations,
-        String id, String description, String name, DocumentationMapping documentation, String ref
+        String id, String description, String name, List<? extends DocumentationMapping> documentation, String ref
     );
 
     protected String memberFormatterRef(MemberFormatterMapping memberFormatter) {
         return memberFormatter.getRef();
     }
 
-    protected DocumentationMapping memberFormatterDocumentation(MemberFormatterMapping memberFormatter) {
-        return documentation(memberFormatter.getDocumentation());
+    protected List<? extends DocumentationMapping> memberFormatterDocumentation(MemberFormatterMapping memberFormatter) {
+        return documentations(memberFormatter.getDocumentations());
     }
 
     protected String memberFormatterName(MemberFormatterMapping memberFormatter) {
@@ -1692,7 +1692,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = memberPropertyId(memberProperty);
             String description = memberPropertyDescription(memberProperty);
             String name = memberPropertyName(memberProperty);
-            DocumentationMapping documentation = memberPropertyDocumentation(memberProperty);
+            List<? extends DocumentationMapping> documentation = memberPropertyDocumentations(memberProperty);
 
             MemberPropertyFormatterMapping formatter = memberPropertyFormatter(memberProperty);
             ColumnMapping column = memberPropertyColumn(memberProperty);
@@ -1711,7 +1711,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
-        String id, String description, String name, DocumentationMapping documentation,
+        String id, String description, String name, List<? extends DocumentationMapping> documentation,
         MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType type
     );
 
@@ -1735,7 +1735,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = memberPropertyFormatterId(memberPropertyFormatter);
                 String description = memberPropertyFormatterDescription(memberPropertyFormatter);
                 String name = memberPropertyFormatterName(memberPropertyFormatter);
-                DocumentationMapping documentation = memberPropertyFormatterDocumentation(memberPropertyFormatter);
+                List<? extends DocumentationMapping> documentation = memberPropertyFormatterDocumentations(memberPropertyFormatter);
                 String ref = memberPropertyFormatterRef(memberPropertyFormatter);
                 MemberPropertyFormatterMapping mf = createMemberPropertyFormatter(annotations, id, description, name,
                     documentation,
@@ -1751,17 +1751,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract MemberPropertyFormatterMapping createMemberPropertyFormatter(
         List<? extends AnnotationMapping> annotations, String id, String description, String name,
-        DocumentationMapping documentation, String ref
+        List<? extends DocumentationMapping> documentation, String ref
     );
 
     private String memberPropertyFormatterRef(MemberPropertyFormatterMapping memberPropertyFormatter) {
         return memberPropertyFormatter.getRef();
     }
 
-    private DocumentationMapping memberPropertyFormatterDocumentation(
+    private List<? extends DocumentationMapping> memberPropertyFormatterDocumentations(
         MemberPropertyFormatterMapping memberPropertyFormatter
     ) {
-        return documentation(memberPropertyFormatter.getDocumentation());
+        return documentations(memberPropertyFormatter.getDocumentations());
     }
 
     private String memberPropertyFormatterName(MemberPropertyFormatterMapping memberPropertyFormatter) {
@@ -1782,8 +1782,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(memberPropertyFormatter.getAnnotations());
     }
 
-    protected DocumentationMapping memberPropertyDocumentation(MemberPropertyMapping memberProperty) {
-        return documentation(memberProperty.getDocumentation());
+    protected List<? extends DocumentationMapping> memberPropertyDocumentations(MemberPropertyMapping memberProperty) {
+        return documentations(memberProperty.getDocumentations());
     }
 
     protected String memberPropertyName(MemberPropertyMapping memberProperty) {
@@ -1791,6 +1791,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected String memberPropertyDescription(MemberPropertyMapping memberProperty) {
+
         return memberProperty.getDescription();
     }
 
@@ -1931,7 +1932,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = dimensionId(dimension);
                 String description = dimensionDescription(dimension);
                 String name = dimensionName(dimension);
-                DocumentationMapping documentation = dimensionDocumentation(dimension);
+                List<? extends DocumentationMapping> documentation = dimensionDocumentation(dimension);
 
                 List<? extends HierarchyMapping> hierarchies = dimensionHierarchies(dimension);
                 String usagePrefix = dimensionUsagePrefix(dimension);
@@ -1955,13 +1956,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract TimeDimensionMapping createTimeDimension(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentation,
         List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
     );
 
     protected abstract StandardDimensionMapping createStandardDimension(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentation,
         List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
     );
 
@@ -1984,8 +1985,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return List.of();
     }
 
-    protected DocumentationMapping dimensionDocumentation(DimensionMapping dimension) {
-        return documentation(dimension.getDocumentation());
+    protected List<? extends DocumentationMapping> dimensionDocumentation(DimensionMapping dimension) {
+        return documentations(dimension.getDocumentations());
     }
 
     protected String dimensionName(DimensionMapping dimension) {
@@ -2054,18 +2055,18 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = namedSetId(namedSet);
             String description = namedSetDescription(namedSet);
             String name = namedSetName(namedSet);
-            DocumentationMapping documentation = namedSetDocumentation(namedSet);
+            List<? extends DocumentationMapping> documentations = namedSetDocumentation(namedSet);
 
             String displayFolder = namedSetDisplayFolder(namedSet);
             String formula = namedSetFormula(namedSet);
-            return createNamedSet(annotations, id, description, name, documentation, displayFolder, formula);
+            return createNamedSet(annotations, id, description, name, documentations, displayFolder, formula);
         }
         return null;
     }
 
     protected abstract NamedSetMapping createNamedSet(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String displayFolder, String formula
+        String description, String name, List<? extends DocumentationMapping> documentation, String displayFolder, String formula
     );
 
     protected String namedSetFormula(NamedSetMapping namedSet) {
@@ -2076,8 +2077,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return namedSet.getDisplayFolder();
     }
 
-    protected DocumentationMapping namedSetDocumentation(NamedSetMapping namedSet) {
-        return documentation(namedSet.getDocumentation());
+    protected List<? extends DocumentationMapping> namedSetDocumentation(NamedSetMapping namedSet) {
+        return documentations(namedSet.getDocumentations());
     }
 
     protected String namedSetName(NamedSetMapping namedSet) {
@@ -2124,7 +2125,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = cubeId(cube);
                 String description = cubeDescription(cube);
                 String name = cubeName(cube);
-                DocumentationMapping documentation = cubeDocumentation(cube);
+                List<? extends DocumentationMapping> documentations = cubeDocumentations(cube);
 
                 List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
                 List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
@@ -2137,7 +2138,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 List<? extends CalculatedMemberMapping> referencedCalculatedMembers =
                     virtualCubeReferencedCalculatedMembers(cube);
                 List<? extends CubeConnectorMapping> cubeUsages = virtualCubeCubeUsages(cube);
-                VirtualCubeMapping vc = createVirtualCube(annotations, id, description, name, documentation,
+                VirtualCubeMapping vc = createVirtualCube(annotations, id, description, name, documentations,
                     dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
                     referencedMeasures, referencedCalculatedMembers, cubeUsages);
                 cubeMap.put(cube, vc);
@@ -2165,7 +2166,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = cubeId(cube);
                 String description = cubeDescription(cube);
                 String name = cubeName(cube);
-                DocumentationMapping documentation = cubeDocumentation(cube);
+                List<? extends DocumentationMapping> documentations = cubeDocumentations(cube);
                 List<? extends DimensionConnectorMapping> dimensionConnectors = cubeDimensionConnectors(cube);
                 List<? extends CalculatedMemberMapping> calculatedMembers = cubeCalculatedMembers(cube);
                 List<? extends NamedSetMapping> namedSets = cubeNamedSets(cube);
@@ -2178,7 +2179,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 WritebackTableMapping writebackTable = physicalCubeWritebackTable(cube);
                 List<? extends ActionMapping> action = physicalCubeAction(cube);
                 boolean cache = physicalCubeCache(cube);
-                PhysicalCubeMapping pc = createPhysicalCube(annotations, id, description, name, documentation,
+                PhysicalCubeMapping pc = createPhysicalCube(annotations, id, description, name, documentations,
                     dimensionConnectors, calculatedMembers, namedSets, kpis, defaultMeasure, enabled, visible,
                     measureGroups, query, writebackTable, action, cache);
                 for (MeasureGroupMapping mg : measureGroups) {
@@ -2232,7 +2233,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String id,
         String description,
         String name,
-        DocumentationMapping documentation,
+        List<? extends DocumentationMapping> documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers,
         List<? extends NamedSetMapping> namedSets,
@@ -2247,7 +2248,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract PhysicalCubeMapping createPhysicalCube(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentation,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
@@ -2276,20 +2277,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = actionMappingId(actionMapping);
             String description = actionMappingDescription(actionMapping);
             String name = actionMappingName(actionMapping);
-            DocumentationMapping documentation = actionMappingDocumentation(actionMapping);
+            List<? extends DocumentationMapping> documentations = actionMappingDocumentation(actionMapping);
 
             List<? extends DrillThroughAttributeMapping> drillThroughAttribute =
                 drillThroughActionDrillThroughAttribute(dta);
             List<? extends MeasureMapping> drillThroughMeasure = drillThroughActionDrillThroughMeasure(dta);
             boolean def = drillThroughActionDefault(dta);
-            return createDrillThroughAction(annotations, id, description, name, documentation,
+            return createDrillThroughAction(annotations, id, description, name, documentations,
                 drillThroughAttribute, drillThroughMeasure, def);
         }
         return null;
     }
 
-    protected DocumentationMapping actionMappingDocumentation(ActionMapping actionMapping) {
-        return documentation(actionMapping.getDocumentation());
+    protected List<? extends DocumentationMapping> actionMappingDocumentation(ActionMapping actionMapping) {
+        return documentations(actionMapping.getDocumentations());
     }
 
     protected String actionMappingName(ActionMapping actionMapping) {
@@ -2310,7 +2311,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract ActionMapping createDrillThroughAction(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
         List<? extends MeasureMapping> drillThroughMeasure, boolean def
     );
@@ -2630,9 +2631,9 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = cellFormatterId(cellFormatter);
                 String description = cellFormatterDescription(cellFormatter);
                 String name = cellFormatterName(cellFormatter);
-                DocumentationMapping documentation = cellFormatterDocumentation(cellFormatter);
+                List<? extends DocumentationMapping> documentations = cellFormatterDocumentation(cellFormatter);
                 String ref = cellFormatterRef(cellFormatter);
-                CellFormatterMapping cf = createCellFormatter(annotations, id, description, name, documentation, ref);
+                CellFormatterMapping cf = createCellFormatter(annotations, id, description, name, documentations, ref);
                 formatterMap.put(cellFormatter, cf);
                 return cf;
             } else {
@@ -2646,8 +2647,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return cellFormatter.getRef();
     }
 
-    protected DocumentationMapping cellFormatterDocumentation(CellFormatterMapping cellFormatter) {
-        return documentation(cellFormatter.getDocumentation());
+    protected List<? extends DocumentationMapping> cellFormatterDocumentation(CellFormatterMapping cellFormatter) {
+        return documentations(cellFormatter.getDocumentations());
     }
 
     protected String cellFormatterName(CellFormatterMapping cellFormatter) {
@@ -2668,7 +2669,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract CellFormatterMapping createCellFormatter(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String ref
+        String description, String name, List<? extends DocumentationMapping> documentations, String ref
     );
 
     protected List<? extends CalculatedMemberPropertyMapping> measureCalculatedMemberProperty(MeasureMapping measure) {
@@ -2693,19 +2694,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = calculatedMemberPropertyId(calculatedMemberProperty);
             String description = calculatedMemberPropertyDescription(calculatedMemberProperty);
             String name = calculatedMemberPropertyName(calculatedMemberProperty);
-            DocumentationMapping documentation = calculatedMemberPropertyDocumentation(calculatedMemberProperty);
+            List<? extends DocumentationMapping> documentations = calculatedMemberPropertyDocumentation(calculatedMemberProperty);
 
             String expression = calculatedMemberPropertyExpression(calculatedMemberProperty);
             String value = calculatedMemberPropertyValue(calculatedMemberProperty);
 
-            return createCalculatedMemberProperty(annotations, id, description, name, documentation, expression, value);
+            return createCalculatedMemberProperty(annotations, id, description, name, documentations, expression, value);
         }
         return null;
     }
 
     protected abstract CalculatedMemberPropertyMapping createCalculatedMemberProperty(
         List<? extends AnnotationMapping> annotations, String id, String description, String name,
-        DocumentationMapping documentation, String expression, String value
+        List<? extends DocumentationMapping> documentation, String expression, String value
     );
 
     protected String calculatedMemberPropertyValue(CalculatedMemberPropertyMapping calculatedMemberProperty) {
@@ -2716,10 +2717,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return calculatedMemberProperty.getExpression();
     }
 
-    protected DocumentationMapping calculatedMemberPropertyDocumentation(
+    protected List<? extends DocumentationMapping> calculatedMemberPropertyDocumentation(
         CalculatedMemberPropertyMapping calculatedMemberProperty
     ) {
-        return documentation(calculatedMemberProperty.getDocumentation());
+        return documentations(calculatedMemberProperty.getDocumentations());
     }
 
     protected String calculatedMemberPropertyName(CalculatedMemberPropertyMapping calculatedMemberProperty) {
@@ -2761,7 +2762,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String id = kpiId(kpi);
             String description = kpiDescription(kpi);
             String name = kpiName(kpi);
-            DocumentationMapping documentation = kpiDocumentation(kpi);
+            List<? extends DocumentationMapping> documentations = kpiDocumentations(kpi);
 
             List<? extends TranslationMapping> translations = kpiTranslations(kpi);
             String displayFolder = kpiDisplayFolder(kpi);
@@ -2775,7 +2776,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String statusGraphic = kpiStatusGraphic(kpi);
             String currentTimeMember = kpiCurrentTimeMember(kpi);
             String parentKpiID = kpiParentKpiID(kpi);
-            return createKpi(annotations, id, description, name, documentation, translations, displayFolder,
+            return createKpi(annotations, id, description, name, documentations, translations, displayFolder,
                 associatedMeasureGroupID, value, goal, status, trend, weight, trendGraphic, statusGraphic,
                 currentTimeMember, parentKpiID);
         }
@@ -2874,8 +2875,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String displayFolder, List<? extends AnnotationMapping> annotations
     );
 
-    protected DocumentationMapping kpiDocumentation(KpiMapping kpi) {
-        return documentation(kpi.getDocumentation());
+    protected List<? extends DocumentationMapping> kpiDocumentations(KpiMapping kpi) {
+        return documentations(kpi.getDocumentations());
     }
 
     protected String kpiName(KpiMapping kpi) {
@@ -2896,7 +2897,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract KpiMapping createKpi(
         List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends TranslationMapping> translations,
+        String name, List<? extends DocumentationMapping> documentations, List<? extends TranslationMapping> translations,
         String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
         String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
         String parentKpiID
@@ -2926,7 +2927,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = calculatedMemberId(calculatedMember);
                 String description = calculatedMemberDescription(calculatedMember);
                 String name = calculatedMemberName(calculatedMember);
-                DocumentationMapping documentation = calculatedMemberDocumentation(calculatedMember);
+                List<? extends DocumentationMapping> documentations = calculatedMemberDocumentation(calculatedMember);
 
                 List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties =
                     calculatedMemberCalculatedMemberProperties(
@@ -2939,7 +2940,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String parent = calculatedMemberParent(calculatedMember);
                 boolean visible = calculatedMemberVisible(calculatedMember);
 
-                CalculatedMemberMapping cm = createCalculatedMember(annotations, id, description, name, documentation
+                CalculatedMemberMapping cm = createCalculatedMember(annotations, id, description, name, documentations
                     , calculatedMemberProperties,
                     cellFormatter, formula, displayFolder, formatString, hierarchy, parent, visible);
                 calculatedMemberMap.put(calculatedMember, cm);
@@ -2953,7 +2954,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract CalculatedMemberMapping createCalculatedMember(
         List<? extends AnnotationMapping> annotations,
-        String id, String description, String name, DocumentationMapping documentation,
+        String id, String description, String name, List<? extends DocumentationMapping> documentation,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
         CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
         HierarchyMapping hierarchy, String parent, boolean visible
@@ -2993,8 +2994,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return calculatedMemberProperties(calculatedMember.getCalculatedMemberProperties());
     }
 
-    protected DocumentationMapping calculatedMemberDocumentation(CalculatedMemberMapping calculatedMember) {
-        return documentation(calculatedMember.getDocumentation());
+    protected List<? extends DocumentationMapping> calculatedMemberDocumentation(CalculatedMemberMapping calculatedMember) {
+        return documentations(calculatedMember.getDocumentations());
     }
 
     protected String calculatedMemberName(CalculatedMemberMapping calculatedMember) {
@@ -3076,8 +3077,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return column(dimensionConnector.getForeignKey());
     }
 
-    protected DocumentationMapping cubeDocumentation(CubeMapping cube) {
-        return documentation(cube.getDocumentation());
+    protected List<? extends DocumentationMapping> cubeDocumentations(CubeMapping cube) {
+        return documentations(cube.getDocumentations());
     }
 
     protected String cubeName(CubeMapping cube) {
@@ -3101,6 +3102,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected List<? extends ParameterMapping> parameters(List<? extends ParameterMapping> parameters) {
+        return List.of();
+    }
+
+    protected List<? extends DocumentationMapping> documentations(List<? extends DocumentationMapping> documentations) {
+        if (documentations != null) {
+            return documentations.stream().map(this::documentation).toList();
+        }
         return List.of();
     }
 
@@ -3138,7 +3146,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends ParameterMapping> parameters, List<? extends CubeMapping> cubes,
         List<? extends NamedSetMapping> namedSets, List<? extends AccessRoleMapping> accessRoles,
         AccessRoleMapping defaultAccessRole, String measuresDimensionName,

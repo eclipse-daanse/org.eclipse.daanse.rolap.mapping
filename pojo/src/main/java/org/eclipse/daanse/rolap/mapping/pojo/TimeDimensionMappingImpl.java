@@ -27,7 +27,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
     }
 
     public static Builder builder() {
@@ -42,7 +42,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
         private String id;
         private String description;
         private String name;
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -82,8 +82,8 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
+            this.documentations = documentations;
             return this;
         }
 

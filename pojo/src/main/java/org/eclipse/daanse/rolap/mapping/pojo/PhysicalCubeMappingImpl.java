@@ -46,7 +46,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
     }
 
     @Override
@@ -126,7 +126,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         private String id;
         private String description;
         private String name;
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -211,8 +211,8 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
+            this.documentations = documentations;
             return this;
         }
 

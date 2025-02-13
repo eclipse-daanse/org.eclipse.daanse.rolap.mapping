@@ -241,7 +241,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected CatalogMapping createCatalog(
         List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends ParameterMapping> parameters,
+        String name, List<? extends DocumentationMapping> documentations, List<? extends ParameterMapping> parameters,
         List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
         List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
         String measuresDimensionName, List<? extends DatabaseSchemaMapping> dbschemas
@@ -251,7 +251,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withParameters((List<ParameterMappingImpl>) parameters)
             .withCubes((List<CubeMappingImpl>) cubes)
             .withNamedSets((List<NamedSetMappingImpl>) namedSets)
@@ -266,7 +266,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessRoleMapping createAccessRole(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
         List<? extends AccessRoleMapping> referencedAccessRoles
     ) {
@@ -275,7 +275,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withAccessCatalogGrants((List<AccessCatalogGrantMappingImpl>) accessCatalogGrants)
             .withReferencedAccessRoles((List<AccessRoleMappingImpl>) referencedAccessRoles)
             .build();
@@ -453,7 +453,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected HierarchyMapping createHierarchy(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, List<? extends LevelMapping> levels,
+        String description, String name, List<? extends DocumentationMapping> documentations, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
         String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping primaryKeyTable,
@@ -464,7 +464,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withId(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withLevels((List<LevelMappingImpl>) levels)
             .withMemberReaderParameters((List<MemberReaderParameterMappingImpl>) memberReaderParameters)
             .withAllLevelName(allLevelName)
@@ -487,14 +487,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberFormatterMapping createMemberFormatter(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String ref
+        String description, String name, List<? extends DocumentationMapping> documentations, String ref
     ) {
         return MemberFormatterMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withRef(ref)
             .build();
     }
@@ -503,7 +503,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType type
     ) {
         return MemberPropertyMappingImpl.builder()
@@ -511,7 +511,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withFormatter((MemberPropertyFormatterMappingImpl) formatter)
             .withColumn((ColumnMappingImpl) column)
             .withDependsOnLevelValue(dependsOnLevelValue)
@@ -598,7 +598,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected StandardDimensionMapping createStandardDimension(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
     ) {
         return StandardDimensionMappingImpl.builder()
@@ -606,7 +606,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations( (List<DocumentationMappingImpl>) documentations)
             .withHierarchies((List<HierarchyMappingImpl>) hierarchies)
             .withUsagePrefix(usagePrefix)
             .withVisible(visible)
@@ -651,14 +651,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected NamedSetMapping createNamedSet(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String displayFolder, String formula
+        String description, String name, List<? extends DocumentationMapping> documentations, String displayFolder, String formula
     ) {
         return NamedSetMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withDisplayFolder(displayFolder)
             .withFormula(formula)
             .build();
@@ -701,14 +701,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected CellFormatterMapping createCellFormatter(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation, String ref
+        String description, String name, List<? extends DocumentationMapping> documentations, String ref
     ) {
         return CellFormatterMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withRef(ref)
             .build();
     }
@@ -717,14 +717,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected CalculatedMemberPropertyMapping createCalculatedMemberProperty(
         List<? extends AnnotationMapping> annotations, String id, String description, String name,
-        DocumentationMapping documentation, String expression, String value
+        List<? extends DocumentationMapping> documentations, String expression, String value
     ) {
         return CalculatedMemberPropertyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withExpression(expression)
             .withValue(value)
             .build();
@@ -749,7 +749,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected KpiMapping createKpi(
         List<? extends AnnotationMapping> annotations, String id, String description,
-        String name, DocumentationMapping documentation, List<? extends TranslationMapping> translations,
+        String name, List<? extends DocumentationMapping> documentations, List<? extends TranslationMapping> translations,
         String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
         String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
         String parentKpiID
@@ -759,7 +759,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withTranslations((List<TranslationMappingImpl>) translations)
             .withDisplayFolder(displayFolder)
             .withAssociatedMeasureGroupID(associatedMeasureGroupID)
@@ -779,7 +779,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected CalculatedMemberMapping createCalculatedMember(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
         CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
         HierarchyMapping hierarchy, String parent, boolean visible
@@ -789,7 +789,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withCalculatedMemberProperties((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperties)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withFormula(formula)
@@ -886,7 +886,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected TimeDimensionMapping createTimeDimension(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible
     ) {
         return TimeDimensionMappingImpl.builder()
@@ -894,7 +894,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withHierarchies((List<HierarchyMappingImpl>) hierarchies)
             .withUsagePrefix(usagePrefix)
             .withVisible(visible)
@@ -913,7 +913,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected VirtualCubeMapping createVirtualCube(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
@@ -925,7 +925,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withDimensionConnectors((List<DimensionConnectorMappingImpl>) dimensionConnectors)
             .withCalculatedMembers((List<CalculatedMemberMappingImpl>) calculatedMembers)
             .withNamedSets((List<NamedSetMappingImpl>) namedSets)
@@ -943,7 +943,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected PhysicalCubeMapping createPhysicalCube(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends DimensionConnectorMapping> dimensionConnectors,
         List<? extends CalculatedMemberMapping> calculatedMembers, List<? extends NamedSetMapping> namedSets,
         List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
@@ -956,7 +956,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withDimensionConnectors((List<DimensionConnectorMappingImpl>) dimensionConnectors)
             .withCalculatedMembers((List<CalculatedMemberMappingImpl>) calculatedMembers)
             .withNamedSets((List<NamedSetMappingImpl>) namedSets)
@@ -976,7 +976,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected ActionMapping createDrillThroughAction(
         List<? extends AnnotationMapping> annotations, String id,
-        String description, String name, DocumentationMapping documentation,
+        String description, String name, List<? extends DocumentationMapping> documentations,
         List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
         List<? extends MeasureMapping> drillThroughMeasure, boolean def
     ) {
@@ -985,7 +985,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withId(id)
             .withDescription(description)
             .withName(name)
-            .withDocumentation((DocumentationMappingImpl) documentation)
+            .withDocumentations((List<DocumentationMappingImpl>) documentations)
             .withDrillThroughAttribute((List<DrillThroughAttributeMappingImpl>) drillThroughAttribute)
             .withDrillThroughMeasure((List<MeasureMappingImpl>) drillThroughMeasure)
             .withTheDefault(def)
@@ -1039,13 +1039,13 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberPropertyFormatterMapping createMemberPropertyFormatter(
             List<? extends AnnotationMapping> annotations, String id, String description, String name,
-            DocumentationMapping documentation, String ref) {
+            List<? extends DocumentationMapping> documentations, String ref) {
         return MemberPropertyFormatterMappingImpl.builder()
                 .withAnnotations((List<AnnotationMappingImpl>) annotations)
                 .withId(id)
                 .withDescription(description)
                 .withName(name)
-                .withDocumentation((DocumentationMappingImpl) documentation)
+                .withDocumentations((List<DocumentationMappingImpl>) documentations)
                 .withRef(ref)
                 .build();
     }
