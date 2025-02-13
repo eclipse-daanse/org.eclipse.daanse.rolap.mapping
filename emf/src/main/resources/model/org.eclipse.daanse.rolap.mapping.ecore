@@ -21,7 +21,13 @@
     <details key="basePackage" value="org.eclipse.daanse.rolap.mapping.emf"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//IDocumentation">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderMajor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderMinor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderMicro" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showContainer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="showContainments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation" eSuperTypes="#//IAnnotation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -34,8 +40,8 @@
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentations" upperBound="-1"
+        eType="#//Documentation" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Enviroment" eSuperTypes="#//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
@@ -573,28 +579,20 @@
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
-        eType="#//Table" containment="true" eOpposite="#//Table/schema" eKeys="#//Table/name"/>
+        eType="#//Table" containment="true" eOpposite="#//Table/schema"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//ITable">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//ITable #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
-        eType="#//Column" containment="true" eOpposite="#//Column/table" eKeys="#//Column/name"/>
+        eType="#//Column" containment="true" eOpposite="#//Column/table"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//DatabaseSchema"
         eOpposite="#//DatabaseSchema/tables"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
         eOpposite="#//Table/columns"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryLinks" upperBound="-1"

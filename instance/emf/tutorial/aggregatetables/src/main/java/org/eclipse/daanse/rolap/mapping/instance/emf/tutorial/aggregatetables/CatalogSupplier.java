@@ -260,12 +260,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.setDocumentation(schemaDocumentation);
+        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("catalog with schema with aggregate tables");
-        catalog.setDocumentation(documentation);
+        catalog.getDocumentations().add(documentation);
         return catalog;
     }
 

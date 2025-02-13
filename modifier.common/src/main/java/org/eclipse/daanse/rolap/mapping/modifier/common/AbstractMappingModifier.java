@@ -1478,7 +1478,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected DocumentationMapping hierarchyDocumentation(HierarchyMapping hierarchy) {
-        return documentation(hierarchy.getDocumentation());
+        return documentation(hierarchy.getDocumentations());
     }
 
     protected String hierarchyName(HierarchyMapping hierarchy) {

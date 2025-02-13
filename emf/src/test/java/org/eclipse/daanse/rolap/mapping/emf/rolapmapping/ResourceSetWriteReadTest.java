@@ -426,7 +426,7 @@ public class ResourceSetWriteReadTest {
 
 
         Level lJahr = RolapMappingFactory.eINSTANCE.createLevel();
-        lJahr.setDocumentation(d);
+        lJahr.getDocumentations().add(d);
         lJahr.setName("Jahr");
         lJahr.setId("lJahr");
         lJahr.setColumn(columnYearYear);

@@ -167,7 +167,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.setDocumentation(schemaDocumentation);
+        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
         return catalog;
     }

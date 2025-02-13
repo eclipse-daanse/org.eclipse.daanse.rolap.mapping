@@ -30,7 +30,7 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
     }
 
     public List<AccessCatalogGrantMappingImpl> getAccessCatalogGrants() {
