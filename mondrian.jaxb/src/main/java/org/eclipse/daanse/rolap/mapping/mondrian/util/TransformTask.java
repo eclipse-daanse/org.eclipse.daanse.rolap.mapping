@@ -263,19 +263,19 @@ public class TransformTask {
         s.setAnnotations(transformAnnotations(mondrianSchema.annotations()));
         s.setMeasuresDimensionName(mondrianSchema.measuresCaption());
         s.setCubes(allCubes);
-        s.setDocumentations(List.of(transformDocumentation(mondrianSchema.documentation())));
+        s.setDocumentations(transformDocumentation(mondrianSchema.documentation()));
         catalog.setSchemas(List.of(s));
 
         return catalog;
     }
 
-    private DocumentationMappingImpl transformDocumentation(
+    private List<DocumentationMappingImpl> transformDocumentation(
         Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.Documentation> documentation
     ) {
         if (documentation.isPresent()) {
-            return new DocumentationMappingImpl(documentation.get().documentation());
+            return List.of(new DocumentationMappingImpl(documentation.get().documentation()));
         }
-        return null;
+        return List.of();
     }
 
     private List<VirtualCubeMappingImpl> transformVirtualCubes(

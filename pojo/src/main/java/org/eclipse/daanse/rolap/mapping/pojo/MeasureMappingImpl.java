@@ -48,7 +48,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
         super.setDescription(builder.description);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
         super.setDisplayFolder(builder.displayFolder);
         super.setFormatString(builder.formatString);
         super.setVisible(builder.visible);
@@ -134,7 +134,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private MeasureAggregatorType aggregatorType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String description;
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
         private MeasureGroupMapping measureGroup;
 
         private Builder() {
@@ -217,8 +217,8 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentation(List<DocumentationMappingImpl> documentations) {
+            this.documentations = documentations;
             return this;
         }
 

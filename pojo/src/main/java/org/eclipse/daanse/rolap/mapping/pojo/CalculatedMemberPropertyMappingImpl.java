@@ -31,7 +31,7 @@ public class CalculatedMemberPropertyMappingImpl extends AbstractElementMappingI
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
     }
 
     public void setExpression(String expression) {
@@ -61,7 +61,7 @@ public class CalculatedMemberPropertyMappingImpl extends AbstractElementMappingI
         private String id;
         private String description;
         private String name;
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -96,8 +96,8 @@ public class CalculatedMemberPropertyMappingImpl extends AbstractElementMappingI
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
+            this.documentations= documentations;
             return this;
         }
 

@@ -74,7 +74,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
             .withName("CubeOneMeasure")
             .withQuery(tableQuery)
             .withMeasureGroups(List.of(measureGroup))
-            .withDocumentation(new DocumentationMappingImpl(""))
+            .withDocumentations(List.of(new DocumentationMappingImpl("")))
             .build();
 
     private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()

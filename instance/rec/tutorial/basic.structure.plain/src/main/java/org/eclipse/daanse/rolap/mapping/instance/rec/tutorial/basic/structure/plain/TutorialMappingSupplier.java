@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.rec.tutorial.basic.structure.plain;
 
+import java.util.List;
+
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
@@ -34,7 +36,7 @@ public class TutorialMappingSupplier implements CatalogMappingSupplier {
 
     private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()
             .withName("AnySchemaName")
-            .withDocumentation(new DocumentationMappingImpl("Container for Cubes"))
+            .withDocumentations(List.of(new DocumentationMappingImpl("Container for Cubes")))
 
             .build();
 

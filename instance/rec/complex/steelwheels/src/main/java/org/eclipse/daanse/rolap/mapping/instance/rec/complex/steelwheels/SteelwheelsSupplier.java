@@ -366,7 +366,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName(CUBE_NAME)
             .withQuery(orderfactTable)
             .withMeasureGroups(List.of(steelWheelsSalesMeasureGroup))
-            .withDocumentation(new DocumentationMappingImpl(""))
+            .withDocumentations(List.of(new DocumentationMappingImpl("")))
             .withDimensionConnectors(List.of(
                     DimensionConnectorMappingImpl.builder()
                             .withOverrideDimensionName("Markets")

@@ -2301,7 +2301,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withQuery(TABLE_QUERY_FACT_SALES_1997_WITH_AGG_EXCLUSED)
         .withMeasureGroups(List.of(MEASURE_GROUP_FOR_CUBE_SALES))
         .withDefaultMeasure(MEASURE_UNIT_SALES)
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .withAnnotations(List.of(
             AnnotationMappingImpl.builder().withName("caption.de_DE").withValue("Verkaufen").build(),
             AnnotationMappingImpl.builder().withName("caption.fr_FR").withValue("Ventes").build(),
@@ -2342,7 +2342,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final PhysicalCubeMappingImpl CUBE_WAREHOUSE = PhysicalCubeMappingImpl.builder()
         .withName(NAME_CUBE_WAREHOUSE)
         .withQuery(QUERY_TABLE_inventoryFact1997)
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .withDimensionConnectors(List.of(
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE).withForeignKey(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE_SIZE_IN_SQFT).withDimension(DIMENSION_STORE_SIZE_IN_SQFT).withForeignKey(STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997).build(),
@@ -2367,7 +2367,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_STORE).withDimension(DIMENSION_STORE_WITH_QUERY_STORE).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_HAS_COFFEE_BAR).withDimension(DIMENSION_HAS_COFFEE_BAR).build()
         ))
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .build();
 
     public static final PhysicalCubeMappingImpl CUBE_HR = PhysicalCubeMappingImpl.builder()
@@ -2383,7 +2383,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_DEPARTMENT).withDimension(DIMENSION_DEPARTMENT).withForeignKey(DEPARTMENT_ID_COLUMN_IN_SALARY).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_EMPLOYEES).withDimension(DIMENSION_EMPLOYEES).withForeignKey(EMPLOYEE_ID_COLUMN_IN_SALARY).build()
         ))
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_EMPLOEE_SALARY, CALCULATED_MEMBER_AVG_SALARY))
         .build();
 
@@ -2407,7 +2407,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_MARITAL_STATUS).withDimension(DIMENSION_MARITAL_STATUS).withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_YEARLY_INCOME).withDimension(DIMENSION_YEARLY_INCOME).withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build()
         ))
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .build();
 
     public static final PhysicalCubeMappingImpl CUBE_SALES_2 = PhysicalCubeMappingImpl.builder()
@@ -2419,7 +2419,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_PRODUCT).withDimension(DIMENSION_PRODUCT).withForeignKey(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997).build(),
             DimensionConnectorMappingImpl.builder().withOverrideDimensionName(NAME_DIMENSION_GENDER).withDimension(DIMENSION_GENDER).withForeignKey(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997).build()
         ))
-        .withDocumentation(new DocumentationMappingImpl(""))
+        .withDocumentations(List.of(new DocumentationMappingImpl("")))
         .withCalculatedMembers(List.of(CALCULATED_MEMBER_PROFIT_WITH_ORDER,
             CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2))
         .build();

@@ -92,7 +92,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         super.setDescription(builder.description);
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
-        super.setDocumentations(builder.documentation);
+        super.setDocumentations(builder.documentations);
     }
 
     public SQLExpressionMappingImpl getKeyExpression() {
@@ -300,7 +300,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private String description;
         private String id;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
-        private DocumentationMappingImpl documentation;
+        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -430,8 +430,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withDocumentation(DocumentationMappingImpl documentation) {
-            this.documentation = documentation;
+        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
+            this.documentations = documentations;
             return this;
         }
 
