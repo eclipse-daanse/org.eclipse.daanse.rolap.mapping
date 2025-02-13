@@ -575,7 +575,6 @@
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ICube"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IDimensionConnector"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IDimension"/>
-    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IDocumentation"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IDrillThroughAction"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IDrillThroughAttribute"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IFormatter"/>

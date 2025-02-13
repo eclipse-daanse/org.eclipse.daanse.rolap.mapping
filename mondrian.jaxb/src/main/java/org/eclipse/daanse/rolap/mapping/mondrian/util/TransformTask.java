@@ -25,11 +25,11 @@ import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -75,12 +75,12 @@ import org.eclipse.daanse.rolap.mapping.mondrian.model.Value;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.View;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCubeDimension;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCubeMeasure;
+import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationForeignKeyMappingImpl;
@@ -102,7 +102,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.EnviromentMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableMappingImpl;
@@ -263,19 +262,9 @@ public class TransformTask {
         s.setAnnotations(transformAnnotations(mondrianSchema.annotations()));
         s.setMeasuresDimensionName(mondrianSchema.measuresCaption());
         s.setCubes(allCubes);
-        s.setDocumentations(transformDocumentation(mondrianSchema.documentation()));
         catalog.setSchemas(List.of(s));
 
         return catalog;
-    }
-
-    private List<DocumentationMappingImpl> transformDocumentation(
-        Optional<org.eclipse.daanse.rolap.mapping.mondrian.model.Documentation> documentation
-    ) {
-        if (documentation.isPresent()) {
-            return List.of(new DocumentationMappingImpl(documentation.get().documentation()));
-        }
-        return List.of();
     }
 
     private List<VirtualCubeMappingImpl> transformVirtualCubes(

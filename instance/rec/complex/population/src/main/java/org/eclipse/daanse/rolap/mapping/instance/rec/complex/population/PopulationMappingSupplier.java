@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -101,10 +100,6 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
     private static final TableQueryMappingImpl TABLE21 = TableQueryMappingImpl.builder().withTable(STATE_TABLE).build();
     private static final TableQueryMappingImpl TABLE3 = TableQueryMappingImpl.builder().withTable(GENDER_TABLE).build();
     private static final TableQueryMappingImpl TABLE4 = TableQueryMappingImpl.builder().withTable(AGE_GROUPS_TABLE).build();
-
-    private static final String DOCUMENTATION_TEXT = "";
-
-    private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
     private static final JoinQueryMappingImpl JOIN21 = JoinQueryMappingImpl.builder()
         .withLeft(JoinedQueryElementMappingImpl.builder()

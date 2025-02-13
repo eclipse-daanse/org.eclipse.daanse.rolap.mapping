@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -90,10 +89,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
     private static final String SCHULE = "schule";
 
     private static final String CATALOG_NAME = "Schulwesen";
-
-    private static final String DOCUMENTATION_TEXT = "";
-
-    private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
     //id,schul_nummer,schul_name,traeger_id,schul_art_id,ganztags_art_id
     //INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER

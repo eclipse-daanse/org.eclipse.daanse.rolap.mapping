@@ -24,6 +24,4 @@ public interface AbstractElementMapping {
 
     String getName();
 
-    List<? extends DocumentationMapping> getDocumentations();
-
 }

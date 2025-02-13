@@ -20,7 +20,7 @@
     <details key="prefix" value="RolapMapping"/>
     <details key="basePackage" value="org.eclipse.daanse.rolap.mapping.emf"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//IDocumentation">
+  <eClassifiers xsi:type="ecore:EClass" name="Documentation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="orderMajor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
@@ -683,8 +683,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="IDimensionConnector" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDocumentation" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IDrillThroughAction" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping"
       abstract="true" interface="true"/>
