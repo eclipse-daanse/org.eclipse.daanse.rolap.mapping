@@ -263,7 +263,7 @@ public class TransformTask {
         s.setAnnotations(transformAnnotations(mondrianSchema.annotations()));
         s.setMeasuresDimensionName(mondrianSchema.measuresCaption());
         s.setCubes(allCubes);
-        s.setDocumentation(transformDocumentation(mondrianSchema.documentation()));
+        s.setDocumentations(List.of(transformDocumentation(mondrianSchema.documentation())));
         catalog.setSchemas(List.of(s));
 
         return catalog;

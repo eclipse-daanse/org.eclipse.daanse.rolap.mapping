@@ -48,7 +48,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
         super.setDescription(builder.description);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
         super.setDisplayFolder(builder.displayFolder);
         super.setFormatString(builder.formatString);
         super.setVisible(builder.visible);

@@ -302,7 +302,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getAccessRoles().addAll(List.of(role1, role11, role12, role2, role3, role4, roleManager, roleU));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.setDocumentation(schemaDocumentation);
+        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
         return catalog;

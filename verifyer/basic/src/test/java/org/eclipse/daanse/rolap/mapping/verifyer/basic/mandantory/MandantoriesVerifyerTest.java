@@ -601,7 +601,7 @@ class MandantoriesVerifyerTest {
     }
 
     public record LevelTest(String getId,
-                            DocumentationMapping getDocumentation,
+                            List<DocumentationMapping> getDocumentations,
                             String getName,
                             TableMapping getTable,
                             ColumnMapping getColumn,

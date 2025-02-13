@@ -45,7 +45,7 @@ public class CatalogMappingImpl extends AbstractElementMappingImpl implements Ca
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
     }
 
     public List<ParameterMappingImpl> getParameters() {

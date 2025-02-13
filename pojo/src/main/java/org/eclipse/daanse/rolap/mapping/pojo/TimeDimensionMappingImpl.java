@@ -27,7 +27,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
     }
 
     public static Builder builder() {

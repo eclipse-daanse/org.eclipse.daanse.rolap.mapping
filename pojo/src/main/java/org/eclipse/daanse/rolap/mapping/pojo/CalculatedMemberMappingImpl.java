@@ -37,7 +37,7 @@ public class CalculatedMemberMappingImpl extends MemberMappingImpl implements Ca
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
         super.setDisplayFolder(builder.displayFolder);
         super.setFormatString(builder.formatString);
         super.setVisible(builder.visible);

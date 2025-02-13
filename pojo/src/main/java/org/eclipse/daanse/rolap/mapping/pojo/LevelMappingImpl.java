@@ -92,7 +92,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         super.setDescription(builder.description);
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
     }
 
     public SQLExpressionMappingImpl getKeyExpression() {

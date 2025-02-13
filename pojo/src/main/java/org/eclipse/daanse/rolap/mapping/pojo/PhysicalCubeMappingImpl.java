@@ -46,7 +46,7 @@ public class PhysicalCubeMappingImpl extends CubeMappingImpl implements Physical
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentation(builder.documentation);
+        super.setDocumentations(builder.documentation);
     }
 
     @Override

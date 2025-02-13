@@ -26,7 +26,7 @@ public abstract class AbstractElementMappingImpl implements AbstractElementMappi
 
     private String name;
 
-    private DocumentationMappingImpl documentation;
+    private List<DocumentationMappingImpl> documentations;
 
     public List<AnnotationMappingImpl> getAnnotations() {
         return annotations;
@@ -60,11 +60,11 @@ public abstract class AbstractElementMappingImpl implements AbstractElementMappi
         this.name = name;
     }
 
-    public DocumentationMappingImpl getDocumentation() {
-        return documentation;
+    public List<DocumentationMappingImpl> getDocumentations() {
+        return documentations;
     }
 
-    public void setDocumentation(DocumentationMappingImpl documentation) {
-        this.documentation = documentation;
+    public void setDocumentations(List<DocumentationMappingImpl> documentations) {
+        this.documentations = documentations;
     }
 }
