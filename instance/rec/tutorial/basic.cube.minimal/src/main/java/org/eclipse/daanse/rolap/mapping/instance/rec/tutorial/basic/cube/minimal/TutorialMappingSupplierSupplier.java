@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
@@ -39,21 +38,6 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
 
     private final static String name = "Minimal Physical Cube";
 
-    private final static String documentation_text = """
-            Context of a minimal physical cube with just one Measure but no other dimensions.
-
-            This example schema contains one cube named "CubeOneMeasure".
-
-            A physical cube is based on a Database Table mostly called `Fact-Table` which refers to a database table containing one or more measurements to be aggregated.
-            In this case the database table representing the fact table is named "Fact" in the database, which is adressed in the name attribute of the TableQuery.
-
-            Each measurement of the cube is defined in a separate and grouped by an MeasureGroup.
-            The measurement in this example cube is named "Measure-Sum" (name attribute). It corresponds to the "VALUE" column (column attribute) in the database table "Fact" and is aggregated by summation (aggregator attribute).
-
-            The MeasureGroup can but must not have a Name.
-            """;
-
-    private final static DocumentationMappingImpl documentation = new DocumentationMappingImpl(documentation_text);
 
     private final static ColumnMappingImpl VALUE_COLUMN = ColumnMappingImpl.builder().withName("VALUE").withType("INTEGER").build();
     private final static PhysicalTableMappingImpl factTable = ((Builder) PhysicalTableMappingImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
@@ -74,7 +58,6 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
             .withName("CubeOneMeasure")
             .withQuery(tableQuery)
             .withMeasureGroups(List.of(measureGroup))
-            .withDocumentations(List.of(new DocumentationMappingImpl("")))
             .build();
 
     private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()

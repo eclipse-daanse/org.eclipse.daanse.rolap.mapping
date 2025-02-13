@@ -25,7 +25,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -67,10 +66,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     public static final String DIMENSION_1 = "Dimension1";
     public static final String DIMENSION_2 = "Dimension2";
     public static final String DIMENSION_3 = "Dimension3";
-
-    private static final String DOCUMENTATION_TEXT = "";
-
-    private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
     public static final ColumnMappingImpl D1_COLUMN = ColumnMappingImpl.builder().withName("D1").withType("VARCHAR").build();
     public static final ColumnMappingImpl D2_COLUMN = ColumnMappingImpl.builder().withName("D2").withType("VARCHAR").build();

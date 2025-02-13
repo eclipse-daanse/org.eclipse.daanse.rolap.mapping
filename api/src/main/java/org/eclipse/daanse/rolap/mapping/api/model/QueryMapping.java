@@ -16,5 +16,4 @@ public interface QueryMapping {
 
     String getId();
 
-    DocumentationMapping getDocumentation();
 }

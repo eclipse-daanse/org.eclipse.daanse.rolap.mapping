@@ -37,7 +37,6 @@ public class CalculatedMemberMappingImpl extends MemberMappingImpl implements Ca
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentations);
         super.setDisplayFolder(builder.displayFolder);
         super.setFormatString(builder.formatString);
         super.setVisible(builder.visible);
@@ -99,15 +98,13 @@ public class CalculatedMemberMappingImpl extends MemberMappingImpl implements Ca
         private String id;
         private String description;
         private String name;
-        private List<DocumentationMappingImpl> documentations;
         private PhysicalCubeMapping physicalCube;
 
         private Builder() {
         }
 
         public Builder withCalculatedMemberProperties(
-            List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties
-        ) {
+                List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
             this.calculatedMemberProperties = calculatedMemberProperties;
             return this;
         }
@@ -164,11 +161,6 @@ public class CalculatedMemberMappingImpl extends MemberMappingImpl implements Ca
 
         public Builder withName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
-            this.documentations = documentations;
             return this;
         }
 

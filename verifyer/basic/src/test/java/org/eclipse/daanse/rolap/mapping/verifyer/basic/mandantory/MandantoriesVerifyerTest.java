@@ -115,7 +115,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DocumentationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
@@ -206,7 +205,6 @@ class MandantoriesVerifyerTest {
 
     LevelMapping l = new LevelTest(
         "id",
-        null,
         "name",
         levelTable,
         column,
@@ -601,7 +599,6 @@ class MandantoriesVerifyerTest {
     }
 
     public record LevelTest(String getId,
-                            List<DocumentationMapping> getDocumentations,
                             String getName,
                             TableMapping getTable,
                             ColumnMapping getColumn,

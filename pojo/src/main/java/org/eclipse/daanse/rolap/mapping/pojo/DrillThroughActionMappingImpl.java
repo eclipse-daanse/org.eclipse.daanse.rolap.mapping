@@ -23,7 +23,7 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
 
     private List<MeasureMappingImpl> drillThroughMeasure;
 
-    private boolean theDefault; //false
+    private boolean theDefault; // false
 
     private DrillThroughActionMappingImpl(Builder builder) {
         this.drillThroughAttribute = builder.drillThroughAttribute;
@@ -33,7 +33,6 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentations);
     }
 
     public List<DrillThroughAttributeMappingImpl> getDrillThroughAttribute() {
@@ -72,7 +71,6 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
         private String id;
         private String description;
         private String name;
-        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -109,11 +107,6 @@ public class DrillThroughActionMappingImpl extends ActionMappingMappingImpl impl
 
         public Builder withName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
-            this.documentations = documentations;
             return this;
         }
 

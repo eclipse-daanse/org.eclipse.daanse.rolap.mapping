@@ -27,7 +27,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
@@ -56,10 +55,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     private static final String NAME = "SteelWheels";
 
     private static final String CUBE_NAME = "SteelWheelsSales";
-
-    private static final String DOCUMENTATION_TEXT = "";
-
-    private static final DocumentationMappingImpl documentation = new DocumentationMappingImpl(DOCUMENTATION_TEXT);
 
     //ORDERNUMBER,PRODUCTCODE,QUANTITYORDERED,PRICEEACH,ORDERLINENUMBER,TOTALPRICE,ORDERDATE,REQUIREDDATE,SHIPPEDDATE,STATUS,COMMENTS,CUSTOMERNUMBER,TIME_ID,QTR_ID,MONTH_ID,YEAR_ID
     //INTEGER,VARCHAR,INTEGER,NUMERIC,INTEGER,NUMERIC,TIMESTAMP,TIMESTAMP,TIMESTAMP,VARCHAR,VARCHAR,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
@@ -366,7 +361,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName(CUBE_NAME)
             .withQuery(orderfactTable)
             .withMeasureGroups(List.of(steelWheelsSalesMeasureGroup))
-            .withDocumentations(List.of(new DocumentationMappingImpl("")))
             .withDimensionConnectors(List.of(
                     DimensionConnectorMappingImpl.builder()
                             .withOverrideDimensionName("Markets")

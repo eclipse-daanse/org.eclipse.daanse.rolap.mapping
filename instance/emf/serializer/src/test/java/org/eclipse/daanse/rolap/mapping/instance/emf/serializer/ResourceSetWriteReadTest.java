@@ -13,6 +13,7 @@
 */
 package org.eclipse.daanse.rolap.mapping.instance.emf.serializer;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -31,7 +33,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -40,6 +44,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
 import org.gecko.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.BeforeAll;
@@ -56,8 +61,6 @@ import org.osgi.test.common.annotation.InjectService;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
-
-import com.fasterxml.jackson.core.sym.Name1;
 
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
@@ -93,6 +96,8 @@ public class ResourceSetWriteReadTest {
 
     }
 
+    Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
+
     private void serializeCatalog(ResourceSet resourceSet, CatalogMappingSupplier catalogMappingSupplier)
             throws IOException {
 
@@ -122,11 +127,8 @@ public class ResourceSetWriteReadTest {
         Path mappingDir = baseDir.resolve("mapping");
         Files.createDirectories(mappingDir);
         Path fileCatalog = Files.createFile(mappingDir.resolve("catalog.xmi"));
-//        Path fileDb = Files.createFile(mappingDir.resolve("db.xmi"));
 
         URI uriCatalog = URI.createFileURI(fileCatalog.toAbsolutePath().toString());
-//        URI uriDb = URI.createFileURI(fileDb.toAbsolutePath().toString());
-//        Resource resourceDb = resourceSet.createResource(uriDb);
         Resource resourceCatalog = resourceSet.createResource(uriCatalog);
 
         Set<EObject> set = new HashSet<>();
@@ -137,17 +139,20 @@ public class ResourceSetWriteReadTest {
 
         List<EObject> sortedList = set.stream().sorted(comparator).toList();
 
+        List<Documentation> docs = lookupDocumentationms(sortedList);
+
         for (EObject eObject : sortedList) {
 
             if (eObject.eContainer() == null) {
-                resourceCatalog.getContents().add(eObject);
+
+                if (!(eObject instanceof Documentation)) {
+
+                    resourceCatalog.getContents().add(eObject);
+                }
             }
 
         }
 
-//        resourceDb.getContents().addAll(c.getDbschemas());
-//
-//        resourceDb.save(Map.of());
         resourceCatalog.save(Map.of());
 
         System.out.println(baseDir);
@@ -156,8 +161,130 @@ public class ResourceSetWriteReadTest {
         System.out.println(fileCatalog.toAbsolutePath());
         System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
         System.out.println("-------");
+
+        Path fileReadme = Files.createFile(mappingDir.resolve("README.MD"));
+
+        StringBuilder sbReadme = new StringBuilder();
+
+        for (Documentation documentation : docs) {
+
+            String title = documentation.getTitle();
+
+            String body = documentation.getValue();
+
+            int imaj = documentation.getOrderMajor();
+            int imin = documentation.getOrderMinor();
+            int imic = documentation.getOrderMicro();
+
+            boolean schowCont = documentation.isShowContainer();
+
+            if (title != null) {
+                sbReadme.append("#");
+
+                if (imin == 0) {
+                    sbReadme.append("#");
+                }
+                if (imic == 0) {
+                    sbReadme.append("#");
+                }
+                sbReadme.append(title).append("\n");
+
+            }
+
+            if (body != null) {
+                sbReadme.append(body);
+                sbReadme.append("\n");
+            }
+
+            if (!schowCont) {
+
+                EObject eoc = EcoreUtil.copy(map.get(documentation));
+
+                URI uro = URI.createFileURI("dummy.xml");
+
+                Resource r = resourceSet.createResource(uro);
+                r.getContents().add(eoc);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                r.save(baos, null);
+
+                String cleaned = baos.toString().replace("file:" + fileCatalog.toAbsolutePath().toString(), "");
+
+                cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
+                sbReadme.append("```xmi");
+                sbReadme.append("\n");
+                sbReadme.append(cleaned);
+                sbReadme.append("\n");
+                sbReadme.append("```");
+                sbReadme.append("\n");
+
+            }
+        }
+
+        sbReadme.append("# Full Model");
+        sbReadme.append("\n");
+        sbReadme.append("\n");
+
+        sbReadme.append("```xmi");
+        sbReadme.append("\n");
+        sbReadme.append(Files.readString(fileCatalog, StandardCharsets.UTF_8));
+        sbReadme.append("\n");
+        sbReadme.append("```");
+        sbReadme.append("\n");
+
+        Files.writeString(fileReadme, sbReadme);
 //        System.out.println(fileDb.toAbsolutePath());
 //        System.out.println(Files.readString(fileDb, StandardCharsets.UTF_8));
+    }
+
+    private List<Documentation> lookupDocumentationms(List<EObject> sortedList) {
+
+        List<Documentation> docs = new ArrayList<Documentation>();
+
+        for (EObject eo : sortedList) {
+            if (eo instanceof AbstractElement ae) {
+                for (Documentation documentation : ae.getDocumentations()) {
+                    map.put(documentation, ae);
+                    docs.add(documentation);
+
+                }
+                ae.getDocumentations().clear();
+            }
+            TreeIterator<EObject> allContents = eo.eAllContents();
+            while (allContents.hasNext()) {
+                EObject obj = allContents.next();
+                if (obj instanceof AbstractElement ae) {
+                    for (Documentation documentation : ae.getDocumentations()) {
+                        map.put(documentation, ae);
+                        docs.add(documentation);
+                    }
+                    ae.getDocumentations().clear();
+                }
+            }
+        }
+
+        docs.sort(new Comparator<Documentation>() {
+
+            @Override
+            public int compare(Documentation o1, Documentation o2) {
+
+                int imaj = o1.getOrderMajor() - o2.getOrderMajor();
+                if (imaj != 0) {
+                    return imaj;
+                }
+
+                int imin = o1.getOrderMinor() - o2.getOrderMinor();
+                if (imin != 0) {
+                    return imin;
+                }
+
+                int imic = o1.getOrderMicro() - o2.getOrderMicro();
+                if (imic != 0) {
+                    return imic;
+                }
+                return 0;
+            }
+        });
+        return docs;
     }
 
     private Set<EObject> allRef(Set<EObject> set, EObject eObject) {
@@ -219,7 +346,6 @@ public class ResourceSetWriteReadTest {
             add(RolapMappingPackage.Literals.TIME_DIMENSION);
 
             add(RolapMappingPackage.Literals.NAMED_SET);
-
 
             add(RolapMappingPackage.Literals.ACTION);
 

@@ -12,14 +12,11 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.rec.tutorial.basic.structure.plain;
 
-import java.util.List;
-
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.pojo.DocumentationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -28,15 +25,8 @@ import org.osgi.service.component.annotations.ServiceScope;
 @Component(service =  CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class TutorialMappingSupplier implements CatalogMappingSupplier {
 
-    private final static String name = "Structure of a Mapping";
-
-    private final static String documentation_context_text = """
-            RolapContext is a Container for Catalogs that are the major element of ther olap structure.
-            """;
-
     private final static CatalogMappingImpl schema = CatalogMappingImpl.builder()
             .withName("AnySchemaName")
-            .withDocumentations(List.of(new DocumentationMappingImpl("Container for Cubes")))
 
             .build();
 

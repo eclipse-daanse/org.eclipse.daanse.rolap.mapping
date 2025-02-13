@@ -30,7 +30,6 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         super.setId(builder.id);
         super.setDescription(builder.description);
         super.setName(builder.name);
-        super.setDocumentations(builder.documentations);
     }
 
     public List<AccessCatalogGrantMappingImpl> getAccessCatalogGrants() {
@@ -60,7 +59,6 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
         private String id;
         private String description;
         private String name;
-        private List<DocumentationMappingImpl> documentations;
 
         private Builder() {
         }
@@ -92,11 +90,6 @@ public class AccessRoleMappingImpl extends AbstractElementMappingImpl implements
 
         public Builder withName(String name) {
             this.name = name;
-            return this;
-        }
-
-        public Builder withDocumentations(List<DocumentationMappingImpl> documentations) {
-            this.documentations = documentations;
             return this;
         }
 
