@@ -72,17 +72,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        TableQuery query1 = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query1.setId("FactQuery1");
-        query1.setTable(table);
-
-        TableQuery query2 = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query2.setId("FactQuery2");
-        query2.setTable(table);
-
-        TableQuery queryh = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryh.setId("FactQueryH");
-        queryh.setTable(table);
+        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
+        query.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
@@ -107,7 +99,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setName("Hierarchy1");
         hierarchy.setId("Hierarchy1");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(queryh);
+        hierarchy.setQuery(query);
         hierarchy.getLevels().add(level2);
 
         StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
@@ -133,14 +125,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
         cube1.setId(CUBE1);
-        cube1.setQuery(query1);
+        cube1.setQuery(query);
         cube1.getMeasureGroups().add(measureGroupC1);
         cube1.getDimensionConnectors().addAll(List.of(dimensionConnectorCube11, dimensionConnectorCube12));
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
         cube2.setId(CUBE2);
-        cube2.setQuery(query2);
+        cube2.setQuery(query);
         cube2.getMeasureGroups().add(measureGroupC2);
         cube2.getDimensionConnectors().add(dimensionConnectorCube2);
 
