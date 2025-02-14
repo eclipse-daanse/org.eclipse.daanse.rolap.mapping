@@ -21,6 +21,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>minimal</module>
+    <module>aggexclude</module>
     <module>inlinetable</module>
     <module>dimensionwithlevel</module>
     <module>dimensionwithmultylevels</module>
@@ -28,6 +29,11 @@
     <module>dimensionwithlevelwithproperties</module>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
+    <module>dimensionmultiple</module>
+    <module>dimensionwithmultiplehierarchies</module>
+    <module>dimensionwithlevelattribute</module>
+    <module>dimensionwithlevelparentcolumn</module>
+    <module>dimensionwithlevelclosure</module>
     <module>differentaggregators</module>
     <module>differentdatatypes</module>
     <module>measureformats</module>
@@ -44,6 +50,8 @@
     <module>virtualcube</module>
     <module>virtualcubedimensions</module>
     <module>virtualcubecalculatedmember</module>
+    <module>virtualcubemeasureonly</module>
+    <module>virtualcubevisiblereferencecubes</module>
     <module>namedset</module>
     <module>aggregatetables</module>
     <module>kpiminimal</module>
