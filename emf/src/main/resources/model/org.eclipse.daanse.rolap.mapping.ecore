@@ -568,16 +568,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="catalogAccess" lowerBound="1"
         eType="#//CatalogAccess"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog">
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
         eType="#//DatabaseSchema" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//Link" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//IDatabaseSchema">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//IDatabaseSchema #//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//Table" containment="true" eOpposite="#//Table/schema"/>
   </eClassifiers>
