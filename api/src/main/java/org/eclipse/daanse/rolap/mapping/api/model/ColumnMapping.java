@@ -13,13 +13,15 @@
 */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+
 public interface ColumnMapping {
 
     String getName();
 
     TableMapping getTable();
 
-    String getType();
+    ColumnType getType();
 
     Integer getColumnSize();
 

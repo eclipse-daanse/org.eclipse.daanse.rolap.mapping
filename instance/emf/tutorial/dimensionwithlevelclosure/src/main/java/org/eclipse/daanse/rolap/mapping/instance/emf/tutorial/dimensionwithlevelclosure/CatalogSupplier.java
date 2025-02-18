@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
@@ -23,8 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
@@ -55,12 +54,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType("INTEGER");
+        dimKeyColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -71,17 +70,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column closureParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureParentKeyColumn.setName("PARENT_KEY");
         closureParentKeyColumn.setId("Closure_PARENT_KEY");
-        closureParentKeyColumn.setType("INTEGER");
+        closureParentKeyColumn.setType(ColumnType.INTEGER);
 
         Column closureChildKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureChildKeyColumn.setName("CHILD_KEY");
         closureChildKeyColumn.setId("Closure_CHILD_KEY");
-        closureChildKeyColumn.setType("INTEGER");
+        closureChildKeyColumn.setType(ColumnType.INTEGER);
 
         Column closureDistColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureDistColumn.setName("DIST");
         closureDistColumn.setId("Closure_DIST");
-        closureDistColumn.setType("INTEGER");
+        closureDistColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable closureTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         closureTable.setName("Closure");
@@ -92,17 +91,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column hierarchyKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyKeyColumn.setName("KEY");
         hierarchyKeyColumn.setId("Hierarchy_KEY");
-        hierarchyKeyColumn.setType("INTEGER");
+        hierarchyKeyColumn.setType(ColumnType.INTEGER);
 
         Column hierarchyNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyNameColumn.setName("KEY");
         hierarchyNameColumn.setId("Hierarchy_NAME");
-        hierarchyNameColumn.setType("INTEGER");
+        hierarchyNameColumn.setType(ColumnType.INTEGER);
 
         Column hierarchyParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyParentKeyColumn.setName("PARENT_KEY");
         hierarchyParentKeyColumn.setId("Hierarchy_PARENT_KEY");
-        hierarchyParentKeyColumn.setType("INTEGER");
+        hierarchyParentKeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable hierarchyTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         hierarchyTable.setName("Hierarchy");

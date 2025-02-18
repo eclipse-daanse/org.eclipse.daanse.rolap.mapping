@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
@@ -71,47 +72,47 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dateKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dateKeyColumn.setName("DATE_KEY");
         dateKeyColumn.setId("Fact_DATE_KEY");
-        dateKeyColumn.setType("TIMESTAMP");
+        dateKeyColumn.setType(ColumnType.TIMESTAMP);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         Column yearIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         yearIdColumn.setName("YEAR_ID");
         yearIdColumn.setId("Fact_YEAR_ID");
-        yearIdColumn.setType("INTEGER");
+        yearIdColumn.setType(ColumnType.INTEGER);
 
         Column qtrIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         qtrIdColumn.setName("QTR_ID");
         qtrIdColumn.setId("Fact_QTR_ID");
-        qtrIdColumn.setType("VARCHAR");
+        qtrIdColumn.setType(ColumnType.VARCHAR);
 
         Column qtrNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         qtrNameColumn.setName("QTR_NAME");
         qtrNameColumn.setId("Fact_QTR_NAME");
-        qtrNameColumn.setType("VARCHAR");
+        qtrNameColumn.setType(ColumnType.VARCHAR);
 
         Column monthIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         monthIdColumn.setName("MONTH_ID");
         monthIdColumn.setId("Fact_MONTH_ID");
-        monthIdColumn.setType("VARCHAR");
+        monthIdColumn.setType(ColumnType.VARCHAR);
 
         Column monthNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         monthNameColumn.setName("MONTH_NAME");
         monthNameColumn.setId("Fact_MONTH_NAME");
-        monthNameColumn.setType("VARCHAR");
+        monthNameColumn.setType(ColumnType.VARCHAR);
 
         Column weekInMonthColumn = RolapMappingFactory.eINSTANCE.createColumn();
         weekInMonthColumn.setName("WEEK_IN_MONTH");
         weekInMonthColumn.setId("Fact_WEEK_IN_MONTH");
-        weekInMonthColumn.setType("INTEGER");
+        weekInMonthColumn.setType(ColumnType.INTEGER);
 
         Column dayInMonthColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dayInMonthColumn.setName("DAY_IN_MONTH");
         dayInMonthColumn.setId("Fact_DAY_IN_MONTH");
-        dayInMonthColumn.setType("INTEGER");
+        dayInMonthColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);

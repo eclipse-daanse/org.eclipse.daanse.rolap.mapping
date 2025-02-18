@@ -81,6 +81,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
@@ -216,7 +217,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected Column createColumn(String name, TableMapping  table, String type, Integer columnSize, Integer decimalDigits,
+    protected Column createColumn(String name, TableMapping  table, ColumnType type, Integer columnSize, Integer decimalDigits,
             Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         Column column = RolapMappingFactory.eINSTANCE
                 .createColumn();

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
@@ -65,34 +66,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType("VARCHAR");
+        keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         Column l1Column = RolapMappingFactory.eINSTANCE.createColumn();
         l1Column.setName("L1");
         l1Column.setId("Fact_L1");
-        l1Column.setType("VARCHAR");
+        l1Column.setType(ColumnType.VARCHAR);
         l1Column.setColumnSize(100);
 
         Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l2Column.setName("L2");
         l2Column.setId("Fact_L2");
-        l2Column.setType("INTEGER");
+        l2Column.setType(ColumnType.INTEGER);
 
         Column prop1Column = RolapMappingFactory.eINSTANCE.createColumn();
         prop1Column.setName("prop1");
         prop1Column.setId("Fact_prop1");
-        prop1Column.setType("VARCHAR");
+        prop1Column.setType(ColumnType.VARCHAR);
         prop1Column.setColumnSize(100);
 
         Column prop2Column = RolapMappingFactory.eINSTANCE.createColumn();
         prop2Column.setName("prop2");
         prop2Column.setId("Fact_prop2");
-        prop2Column.setType("INTEGER");
+        prop2Column.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);

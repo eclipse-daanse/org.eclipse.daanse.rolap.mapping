@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -65,17 +66,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType("VARCHAR");
+        keyColumn.setType(ColumnType.VARCHAR);
 
         Column key1Column = RolapMappingFactory.eINSTANCE.createColumn();
         key1Column.setName("KEY1");
         key1Column.setId("Fact_KEY1");
-        key1Column.setType("VARCHAR");
+        key1Column.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
@@ -67,72 +68,72 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
     public static final String DIMENSION_2 = "Dimension2";
     public static final String DIMENSION_3 = "Dimension3";
 
-    public static final ColumnMappingImpl D1_COLUMN = ColumnMappingImpl.builder().withName("D1").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2_COLUMN = ColumnMappingImpl.builder().withName("D2").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3_COLUMN = ColumnMappingImpl.builder().withName("D3").withType("VARCHAR").build();
-    public static final ColumnMappingImpl M1_COLUMN = ColumnMappingImpl.builder().withName("M1").withType("INTEGER").build();
+    public static final ColumnMappingImpl D1_COLUMN = ColumnMappingImpl.builder().withName("D1").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2_COLUMN = ColumnMappingImpl.builder().withName("D2").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3_COLUMN = ColumnMappingImpl.builder().withName("D3").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl M1_COLUMN = ColumnMappingImpl.builder().withName("M1").withType(ColumnType.INTEGER).build();
     public static final PhysicalTableMappingImpl CUBE_1_TABLE_FACT = ((Builder) PhysicalTableMappingImpl.builder().withName("Cube1Fact")
             .withColumns(List.of(D1_COLUMN, D2_COLUMN, D3_COLUMN, M1_COLUMN))).build();
 
-    public static final ColumnMappingImpl D1H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_1_H_1_L_1).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D1H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D1H1L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D1H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D1H1L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D1H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_1_H_1_L_1).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D1H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D1H1L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D1H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D1H1L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D1H1L1_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D1H1L1Table")
             .withColumns(List.of(D1H1L1_COLUMN, D1H1L1_NAME_COLUMN, D1H1L1_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D2H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_2_H_1_L_1).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H1L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H1L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D2H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_2_H_1_L_1).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H1L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H1L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D2H1L1_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D2H1L1Table")
             .withColumns(List.of(D2H1L1_COLUMN, D2H1L1_NAME_COLUMN, D2H1L1_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D2H2L2_COLUMN = ColumnMappingImpl.builder().withName(D_2_H_2_L_2).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H2L1_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H2L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H2L2_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H2L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H2L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H2L2_Ordinal").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D2H2L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D2H2L2_COLUMN = ColumnMappingImpl.builder().withName(D_2_H_2_L_2).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H2L1_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H2L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H2L2_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H2L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H2L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H2L2_Ordinal").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D2H2L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D2H2L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D2H2L2_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D2H2L2Table")
             .withColumns(List.of(D2H2L2_COLUMN, D2H2L2_NAME_COLUMN, D2H2L1_NAME_COLUMN, D2H2L2_ORDINAL_COLUMN, D2H2L1_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D3H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_1_L_1).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H1L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H1L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H1L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_1_L_1).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H1L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H1L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H1L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H1L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H1L1_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D3H1L1Table")
             .withColumns(List.of(D3H1L1_COLUMN, D3H1L1_NAME_COLUMN, D3H1L1_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D3H2L2_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_2_L_2).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L2_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_id").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L1_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_id").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H2L2_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_2_L_2).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L2_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_id").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L1_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_id").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H2L2_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H2L2_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(D3H2L2_TABLE_NAME)
             .withColumns(List.of(D3H2L2_COLUMN, D3H2L2_ID_COLUMN, D3H2L1_ID_COLUMN, D3H2L2_NAME_COLUMN, D3H2L2_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D3H2L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_2_L_1).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H2L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H2L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_2_L_1).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H2L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H2L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H2L1_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D3H2L1Table")
             .withColumns(List.of(D3H2L1_COLUMN, D3H2L1_NAME_COLUMN, D3H2L1_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D3H3L3_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_3).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L2_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_id").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L3_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L3_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L3_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L3_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H3L3_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_3).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L2_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_id").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L3_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L3_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L3_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L3_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H3L3_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(D3H3L3_TABLE_NAME)
             .withColumns(List.of(D3H3L3_COLUMN, D3H3L2_ID_COLUMN, D3H3L3_NAME_COLUMN, D3H3L3_ORDINAL_COLUMN))).build();
 
-    public static final ColumnMappingImpl D3H3L2_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_2).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L1_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_id").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H3L2_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_2).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L1_ID_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_id").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L2_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L2_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L2_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H3L2_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D3H3L2Table")
             .withColumns(List.of(D3H3L2_COLUMN, D3H3L1_ID_COLUMN, D3H3L2_NAME_COLUMN, D3H3L2_ORDINAL_COLUMN))).build();
 
     //D3H3L1,D3H3L1_NAME,D3H3L1_Ordinal
-    public static final ColumnMappingImpl D3H3L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_1).withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_NAME").withType("VARCHAR").build();
-    public static final ColumnMappingImpl D3H3L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_Ordinal").withType("VARCHAR").build();
+    public static final ColumnMappingImpl D3H3L1_COLUMN = ColumnMappingImpl.builder().withName(D_3_H_3_L_1).withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L1_NAME_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_NAME").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl D3H3L1_ORDINAL_COLUMN = ColumnMappingImpl.builder().withName("D3H3L1_Ordinal").withType(ColumnType.VARCHAR).build();
     public static final PhysicalTableMappingImpl D3H3L1_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("D3H3L1Table")
             .withColumns(List.of(D3H3L1_COLUMN, D3H3L1_NAME_COLUMN, D3H3L1_ORDINAL_COLUMN))).build();
 

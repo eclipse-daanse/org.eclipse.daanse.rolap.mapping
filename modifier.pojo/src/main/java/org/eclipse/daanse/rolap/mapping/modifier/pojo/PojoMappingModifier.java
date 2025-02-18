@@ -81,6 +81,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
@@ -166,7 +167,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected ColumnMapping createColumn(
-        String name, TableMapping table, String type, Integer columnSize, Integer decimalDigits,
+        String name, TableMapping table, ColumnType type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     ) {
         ColumnMappingImpl column = ColumnMappingImpl.builder().build();
@@ -714,7 +715,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected CalculatedMemberPropertyMapping createCalculatedMemberProperty(
         List<? extends AnnotationMapping> annotations, String id, String description, String name,
-         String expression, String value
+        String expression, String value
     ) {
         return CalculatedMemberPropertyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -1031,7 +1032,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberPropertyFormatterMapping createMemberPropertyFormatter(
             List<? extends AnnotationMapping> annotations, String id, String description, String name,
-             String ref) {
+            String ref) {
         return MemberPropertyFormatterMappingImpl.builder()
                 .withAnnotations((List<AnnotationMappingImpl>) annotations)
                 .withId(id)

@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -50,17 +51,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column valColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
         valColumn.setId("Fact_VAL");
-        valColumn.setType("INTEGER");
+        valColumn.setType(ColumnType.INTEGER);
 
         Column val1Column = RolapMappingFactory.eINSTANCE.createColumn();
         val1Column.setName("VAL1");
         val1Column.setId("Fact_VAL1");
-        val1Column.setType("INTEGER");
+        val1Column.setType(ColumnType.INTEGER);
 
         Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l2Column.setName("VALUE");
         l2Column.setId("Fact_VALUE");
-        l2Column.setType("VARCHAR");
+        l2Column.setType(ColumnType.VARCHAR);
         l2Column.setColumnSize(100);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -72,29 +73,29 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column factwbValColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbValColumn.setName("VAL");
         factwbValColumn.setId("Factwb_VAL");
-        factwbValColumn.setType("INTEGER");
+        factwbValColumn.setType(ColumnType.INTEGER);
 
         Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createColumn();
         factwbVal1Column.setName("VAL1");
         factwbVal1Column.setId("Factwb_VAL1");
-        factwbVal1Column.setType("INTEGER");
+        factwbVal1Column.setType(ColumnType.INTEGER);
 
         Column factwbL2Column = RolapMappingFactory.eINSTANCE.createColumn();
         factwbL2Column.setName("L2");
         factwbL2Column.setId("factwb_L2");
-        factwbL2Column.setType("VARCHAR");
+        factwbL2Column.setType(ColumnType.VARCHAR);
         factwbL2Column.setColumnSize(100);
 
         Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbIdColumn.setName("ID");
         factwbIdColumn.setId("factwb_ID");
-        factwbIdColumn.setType("VARCHAR");
+        factwbIdColumn.setType(ColumnType.VARCHAR);
         factwbIdColumn.setColumnSize(100);
 
         Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createColumn();
         factwbUserColumn.setName("USER");
         factwbUserColumn.setId("factwb_USER");
-        factwbUserColumn.setType("VARCHAR");
+        factwbUserColumn.setType(ColumnType.VARCHAR);
         factwbUserColumn.setColumnSize(100);
 
         PhysicalTable factwbTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
