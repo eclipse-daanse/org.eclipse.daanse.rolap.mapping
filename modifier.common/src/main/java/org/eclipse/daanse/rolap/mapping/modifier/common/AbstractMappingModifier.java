@@ -93,6 +93,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
@@ -394,7 +395,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (column != null) {
             String name = columnName(column);
             TableMapping table = columnTable(column);
-            String type = columnType(column);
+            ColumnType type = columnType(column);
             Integer columnSize = columnColumnSize(column);
             Integer decimalDigits = columnDecimalDigits(column);
             Integer numPrecRadix = columnNumPrecRadix(column);
@@ -430,7 +431,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return column.getDescription();
     }
 
-    protected String columnType(ColumnMapping column) {
+    protected ColumnType columnType(ColumnMapping column) {
         return column.getType();
     }
 
@@ -443,7 +444,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract ColumnMapping createColumn(
-        String name, TableMapping table, String type, Integer columnSize, Integer decimalDigits,
+        String name, TableMapping table, ColumnType type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     );
 

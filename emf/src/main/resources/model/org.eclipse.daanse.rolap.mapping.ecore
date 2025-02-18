@@ -588,7 +588,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn #//AbstractElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eOperations name="getColumnType" lowerBound="1" eType="#//ColumnType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return ColumnType.fromValue(getType().getValue());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
         eOpposite="#//Table/columns"/>
@@ -1030,4 +1035,5 @@
   <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="MeasureAggregatorType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ColumnType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType"/>
 </ecore:EPackage>

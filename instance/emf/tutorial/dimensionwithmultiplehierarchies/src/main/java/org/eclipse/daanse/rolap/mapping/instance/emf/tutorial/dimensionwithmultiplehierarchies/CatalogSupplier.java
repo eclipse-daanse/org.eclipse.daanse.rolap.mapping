@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -54,17 +55,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dim1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dim1KeyColumn.setName("DIM1_KEY");
         dim1KeyColumn.setId("Fact_DIM1_KEY");
-        dim1KeyColumn.setType("INTEGER");
+        dim1KeyColumn.setType(ColumnType.INTEGER);
 
         Column dim2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dim2KeyColumn.setName("DIM2_KEY");
         dim2KeyColumn.setId("Fact_DIM2_KEY");
-        dim2KeyColumn.setType("INTEGER");
+        dim2KeyColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -75,12 +76,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         h1L1KeyColumn.setName("KEY");
         h1L1KeyColumn.setId("H1_L1_KEY");
-        h1L1KeyColumn.setType("INTEGER");
+        h1L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column h1L1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         h1L1NameColumn.setName("NAME");
         h1L1NameColumn.setId("H1_L1_NAME");
-        h1L1NameColumn.setType("VARCHAR");
+        h1L1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable h1L1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         h1L1Table.setName("H1_L1");
@@ -91,12 +92,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column h2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         h2L1KeyColumn.setName("KEY");
         h2L1KeyColumn.setId("H2_L1_KEY");
-        h2L1KeyColumn.setType("INTEGER");
+        h2L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column h2L1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         h2L1NameColumn.setName("NAME");
         h2L1NameColumn.setId("H2_L1_NAME");
-        h2L1NameColumn.setType("VARCHAR");
+        h2L1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable h2L1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         h2L1Table.setName("H2_L1");
@@ -107,22 +108,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column hxL2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hxL2KeyColumn.setName("KEY");
         hxL2KeyColumn.setId("HX_L2_KEY");
-        hxL2KeyColumn.setType("INTEGER");
+        hxL2KeyColumn.setType(ColumnType.INTEGER);
 
         Column hxL2NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hxL2NameColumn.setName("NAME");
         hxL2NameColumn.setId("HX_L2_NAME");
-        hxL2NameColumn.setType("VARCHAR");
+        hxL2NameColumn.setType(ColumnType.VARCHAR);
 
         Column hxL2H1L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hxL2H1L1KeyColumn.setName("H1L1_KEY");
         hxL2H1L1KeyColumn.setId("HX_L2_H1L1_KEY");
-        hxL2H1L1KeyColumn.setType("INTEGER");
+        hxL2H1L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column hxL2H2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hxL2H2L1KeyColumn.setName("H2L1_KEY");
         hxL2H2L1KeyColumn.setId("HX_L2_H2L1_KEY");
-        hxL2H2L1KeyColumn.setType("INTEGER");
+        hxL2H2L1KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable hxL2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         hxL2Table.setName("HX_L2");

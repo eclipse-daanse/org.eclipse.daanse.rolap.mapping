@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
@@ -73,12 +74,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType("VARCHAR");
+        dimKeyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -89,17 +90,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column htKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htKeyColumn.setName("KEY");
         htKeyColumn.setId("HT_KEY");
-        htKeyColumn.setType("VARCHAR");
+        htKeyColumn.setType(ColumnType.VARCHAR);
 
         Column htValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htValueColumn.setName("VALUE");
         htValueColumn.setId("HT_VALUE");
-        htValueColumn.setType("NUMERIC");
+        htValueColumn.setType(ColumnType.NUMERIC);
 
         Column htNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htNameColumn.setName("NAME");
         htNameColumn.setId("HT_NAME");
-        htNameColumn.setType("VARCHAR");
+        htNameColumn.setType(ColumnType.VARCHAR);
 
         RowValue r1v1 = RolapMappingFactory.eINSTANCE.createRowValue();
         r1v1.setColumn(htKeyColumn);

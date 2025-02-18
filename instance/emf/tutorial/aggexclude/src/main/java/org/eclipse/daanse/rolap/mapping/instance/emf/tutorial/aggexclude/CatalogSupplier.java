@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationExclude;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
@@ -48,12 +49,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType("VARCHAR");
+        keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -67,12 +68,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column aggKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         aggKeyColumn.setName("KEY");
         aggKeyColumn.setId("agg_01_Fact_KEY");
-        aggKeyColumn.setType("VARCHAR");
+        aggKeyColumn.setType(ColumnType.VARCHAR);
 
         Column aggValueCountColumn = RolapMappingFactory.eINSTANCE.createColumn();
         aggValueCountColumn.setName("KEY");
         aggValueCountColumn.setId("agg_01_Fact_VALUE_count");
-        aggValueCountColumn.setType("VARCHAR");
+        aggValueCountColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable aggTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         aggTable.setName("agg_01_Fact");

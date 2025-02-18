@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -54,12 +55,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType("INTEGER");
+        dimKeyColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable factTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factTable.setName(FACT);
@@ -70,12 +71,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column level1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1KeyColumn.setName("KEY");
         level1KeyColumn.setId("Level_1_KEY");
-        level1KeyColumn.setType("INTEGER");
+        level1KeyColumn.setType(ColumnType.INTEGER);
 
         Column level1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level1NameColumn.setName("NAME");
         level1NameColumn.setId("Level_1_NAME");
-        level1NameColumn.setType("VARCHAR");
+        level1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable level1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level1Table.setName("Level_1");
@@ -86,17 +87,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column level2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2KeyColumn.setName("KEY");
         level2KeyColumn.setId("Level_2_KEY");
-        level2KeyColumn.setType("INTEGER");
+        level2KeyColumn.setType(ColumnType.INTEGER);
 
         Column level2NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2NameColumn.setName("NAME");
         level2NameColumn.setId("Level_2_NAME");
-        level2NameColumn.setType("VARCHAR");
+        level2NameColumn.setType(ColumnType.VARCHAR);
 
         Column level2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         level2L1KeyColumn.setName("L1_KEY");
         level2L1KeyColumn.setId("Level_2_L1_KEY");
-        level2L1KeyColumn.setType("INTEGER");
+        level2L1KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable level2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level2Table.setName("Level_2");

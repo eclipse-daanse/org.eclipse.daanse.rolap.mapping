@@ -16,6 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
@@ -71,12 +72,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType("VARCHAR");
+        dimKeyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType("INTEGER");
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -87,17 +88,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("HT_KEY");
-        keyColumn.setType("INTEGER");
+        keyColumn.setType(ColumnType.INTEGER);
 
         Column nameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         nameColumn.setName("NAME");
         nameColumn.setId("HT_NAME");
-        nameColumn.setType("VARCHAR");
+        nameColumn.setType(ColumnType.VARCHAR);
 
         Column htValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htValueColumn.setName("VALUE");
         htValueColumn.setId("HT_VALUE");
-        htValueColumn.setType("INTEGER");
+        htValueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable htTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         htTable.setName("HT");
@@ -116,17 +117,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyViewColumn.setName("KEY");
         keyViewColumn.setId("View_KEY");
-        keyViewColumn.setType("INTEGER");
+        keyViewColumn.setType(ColumnType.INTEGER);
 
         Column nameViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
         nameViewColumn.setName("NAME");
         nameViewColumn.setId("View_NAME");
-        nameViewColumn.setType("VARCHAR");
+        nameViewColumn.setType(ColumnType.VARCHAR);
 
         Column htValueViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
         htValueViewColumn.setName("VALUE");
         htValueViewColumn.setId("View_VALUE");
-        htValueViewColumn.setType("INTEGER");
+        htValueViewColumn.setType(ColumnType.INTEGER);
 
         sqlView.getColumns().addAll(List.of(keyViewColumn, nameViewColumn, htValueViewColumn));
 

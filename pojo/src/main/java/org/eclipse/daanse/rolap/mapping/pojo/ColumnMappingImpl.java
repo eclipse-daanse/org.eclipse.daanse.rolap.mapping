@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
 
 public class ColumnMappingImpl implements ColumnMapping {
 
@@ -46,11 +47,11 @@ public class ColumnMappingImpl implements ColumnMapping {
         this.table = table;
     }
 
-    public String getType() {
+    public ColumnType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ColumnType type) {
         this.type = type;
     }
 
@@ -86,7 +87,7 @@ public class ColumnMappingImpl implements ColumnMapping {
 
     private TableMapping table;
 
-    private String type;
+    private ColumnType type;
 
     private boolean nullable;
 
@@ -110,7 +111,7 @@ public class ColumnMappingImpl implements ColumnMapping {
 
         private TableMapping table;
 
-        private String type;
+        private ColumnType type;
 
         private String description;
 
@@ -134,7 +135,7 @@ public class ColumnMappingImpl implements ColumnMapping {
             return this;
         }
 
-        public Builder withType(String type) {
+        public Builder withType(ColumnType type) {
             this.type = type;
             return this;
         }
