@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
 public enum AccessCube {
 
-    ALL("all"), CUSTOM("custom"), NONE("none"), ALL_DIMENSIONS("all_dimensions");
+    ALL("all"), CUSTOM("custom"), NONE("none");
 
     private final String value;
 
