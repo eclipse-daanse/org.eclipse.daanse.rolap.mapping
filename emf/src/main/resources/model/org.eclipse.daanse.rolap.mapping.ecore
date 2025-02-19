@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 /*********************************************************************
 * Copyright (c) 2024 Contributors to the Eclipse Foundation.
@@ -627,7 +627,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlView" eSuperTypes="#//ISqlView #//Table">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqlStatements" lowerBound="1"
-        upperBound="-1" eType="#//SqlStatement"/>
+        upperBound="-1" eType="#//SqlStatement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
       abstract="true" interface="true"/>
