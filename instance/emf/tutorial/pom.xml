@@ -74,5 +74,6 @@
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
     <module>hierarchyhasalltruefalse</module>
+    <module>database</module>
   </modules>
 </project>

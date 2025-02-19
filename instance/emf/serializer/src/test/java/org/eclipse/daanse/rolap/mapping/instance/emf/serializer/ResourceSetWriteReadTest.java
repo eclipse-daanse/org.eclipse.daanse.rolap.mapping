@@ -17,9 +17,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
 import java.nio.file.StandardOpenOption;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -37,10 +40,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -69,12 +74,13 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceSetWriteReadTest {
 
-//    @TempDir
     static Path tempDir;
 
     @BeforeAll
     public static void beforeAll() throws IOException {
-        tempDir = Files.createTempDirectory("tutorials");
+        tempDir = Path.of("./daansetutorials");
+        deleteDirectory(tempDir);
+        tempDir = Files.createDirectories(tempDir);
     }
 
     @Test
@@ -88,7 +94,12 @@ public class ResourceSetWriteReadTest {
         try {
 
             for (CatalogMappingSupplier catalogMappingSupplier : mappingSuppiers) {
-                serializeCatalog(resourceSet, catalogMappingSupplier);
+
+                try {
+                    serializeCatalog(resourceSet, catalogMappingSupplier);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,24 +112,9 @@ public class ResourceSetWriteReadTest {
     private void serializeCatalog(ResourceSet resourceSet, CatalogMappingSupplier catalogMappingSupplier)
             throws IOException {
 
-        CatalogMapping catalogMapping = catalogMappingSupplier.get();
-        String name = "" + catalogMapping.getName();
+        String name = catalogMappingSupplier.getClass().getPackageName();
         Path baseDir = Files.createDirectories(tempDir.resolve(name));
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
-
-        // List all XML files in the OSGI-INF directory and below
-        Enumeration<URL> e = b.findEntries("data", "*.csv", true);
-
-        if (e != null) {
-
-            while (e.hasMoreElements()) {
-
-                URL csvFile = e.nextElement();
-                Path p = baseDir.resolve(csvFile.getPath().substring(1));
-                Files.createDirectories(p.getParent());
-                Files.write(p, csvFile.openStream().readAllBytes(), StandardOpenOption.CREATE);
-            }
-        }
 
         CatalogMapping cm = catalogMappingSupplier.get();
 
@@ -178,27 +174,35 @@ public class ResourceSetWriteReadTest {
 
             boolean schowCont = documentation.isShowContainer();
 
+            int contain = documentation.getShowContainments();
+
             if (title != null) {
                 sbReadme.append("#");
 
-                if (imin == 0) {
+                if (imin != 0) {
                     sbReadme.append("#");
                 }
-                if (imic == 0) {
+                if (imic != 0) {
                     sbReadme.append("#");
                 }
-                sbReadme.append(title).append("\n");
+                sbReadme.append(title);
+                sbReadme.append("\n");
+                sbReadme.append("\n");
 
             }
 
             if (body != null) {
                 sbReadme.append(body);
                 sbReadme.append("\n");
+                sbReadme.append("\n");
+
             }
 
-            if (!schowCont) {
+            if (schowCont) {
 
                 EObject eoc = EcoreUtil.copy(map.get(documentation));
+
+                removeContentsOfLevel(eoc, contain);
 
                 URI uro = URI.createFileURI("dummy.xml");
 
@@ -210,17 +214,27 @@ public class ResourceSetWriteReadTest {
                 String cleaned = baos.toString().replace("file:" + fileCatalog.toAbsolutePath().toString(), "");
 
                 cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
+                cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",
+                        "");
+                cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
+                cleaned = cleaned.replace("dummy.xml#", "");
                 sbReadme.append("```xmi");
                 sbReadme.append("\n");
                 sbReadme.append(cleaned);
                 sbReadme.append("\n");
                 sbReadme.append("```");
                 sbReadme.append("\n");
+                sbReadme.append("\n");
 
             }
         }
+        sbReadme.append("\n");
 
-        sbReadme.append("# Full Model");
+        sbReadme.append("## Definition");
+        sbReadme.append("\n");
+        sbReadme.append("\n");
+        sbReadme.append("This files represent the complete definition of the catalog.");
+
         sbReadme.append("\n");
         sbReadme.append("\n");
 
@@ -231,9 +245,66 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("```");
         sbReadme.append("\n");
 
-        Files.writeString(fileReadme, sbReadme);
+        sbReadme.append("## csv data");
+        sbReadme.append("\n");
+        sbReadme.append("\n");
+
+        sbReadme.append("\n");
+        sbReadme.append("This files represent the data in the tables.");
+        sbReadme.append("\n");
+
+        sbReadme.append("\n");
+
+        // List all XML files in the OSGI-INF directory and below
+        Enumeration<URL> eCsvs = b.findEntries("data", "*.csv", true);
+
+        if (eCsvs != null) {
+
+            while (eCsvs.hasMoreElements()) {
+                URL csvFile = eCsvs.nextElement();
+                byte[] csv = csvFile.openStream().readAllBytes();
+
+                Path p = baseDir.resolve(csvFile.getPath().substring(1));
+                Files.createDirectories(p.getParent());
+                Files.write(p, csv, StandardOpenOption.CREATE);
+
+                String filename = p.getName(p.getNameCount() - 1).toString();
+                sbReadme.append("- [" + filename.replace(".csv", "") + "](./data/" + filename + ")");
+                sbReadme.append("\n");
+                sbReadme.append("\n");
+
+//            sbReadme.append("```csv");
+//            sbReadme.append("\n");
+//            sbReadme.append(new String(csv));
+//            sbReadme.append("\n");
+//            sbReadme.append("```");
+//            sbReadme.append("\n");
 //        System.out.println(fileDb.toAbsolutePath());
 //        System.out.println(Files.readString(fileDb, StandardCharsets.UTF_8));
+            }
+        }
+        Files.writeString(fileReadme, sbReadme);
+    }
+
+    private void removeContentsOfLevel(EObject eoc, int contain) {
+
+        EList<EReference> it = eoc.eClass().getEAllContainments();
+
+        for (EReference eReference : it) {
+
+            if (contain > 0) {
+
+                for (EObject eo : eReference.eCrossReferences()) {
+                    removeContentsOfLevel(eo, contain - 1);
+                }
+            } else {
+
+//                for (EObject eObject : eReference.eContents()) {
+                eoc.eUnset(eReference);
+//                }
+
+            }
+        }
     }
 
     private List<Documentation> lookupDocumentationms(List<EObject> sortedList) {
@@ -249,9 +320,10 @@ public class ResourceSetWriteReadTest {
                 }
                 ae.getDocumentations().clear();
             }
-            TreeIterator<EObject> allContents = eo.eAllContents();
-            while (allContents.hasNext()) {
-                EObject obj = allContents.next();
+            List<EObject> list = new ArrayList<EObject>();
+
+            eo.eAllContents().forEachRemaining(list::add);
+            for (EObject obj : list) {
                 if (obj instanceof AbstractElement ae) {
                     for (Documentation documentation : ae.getDocumentations()) {
                         map.put(documentation, ae);
@@ -318,11 +390,15 @@ public class ResourceSetWriteReadTest {
 
     static class EObjectComparator implements Comparator<EObject> {
 
-        AtomicInteger COUNTER = new AtomicInteger();
+        AtomicInteger COUNTER = new AtomicInteger(1);
         Map<EClass, Integer> map = new HashMap<EClass, Integer>();
 
         EObjectComparator() {
+            add(RolapMappingPackage.Literals.CATALOG);
             add(RolapMappingPackage.Literals.DATABASE_CATALOG);
+
+            add(RolapMappingPackage.Literals.DATABASE_SCHEMA);
+
             add(RolapMappingPackage.Literals.PHYSICAL_TABLE);
             add(RolapMappingPackage.Literals.VIEW_TABLE);
             add(RolapMappingPackage.Literals.SYSTEM_TABLE);
@@ -366,8 +442,6 @@ public class ResourceSetWriteReadTest {
             add(RolapMappingPackage.Literals.ACCESS_HIERARCHY_GRANT);
             add(RolapMappingPackage.Literals.ACCESS_MEMBER_GRANT);
 
-            add(RolapMappingPackage.Literals.CATALOG);
-
             add(RolapMappingPackage.Literals.CELL_FORMATTER);
 
         }
@@ -410,4 +484,23 @@ public class ResourceSetWriteReadTest {
         }
     };
 
+    public static void deleteDirectory(Path directory) throws IOException {
+        if (!Files.exists(directory)) {
+            return;
+        }
+
+        Files.walkFileTree(directory, new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                Files.delete(file);
+                return FileVisitResult.CONTINUE;
+            }
+
+            @Override
+            public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+                Files.delete(dir);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+    }
 }
