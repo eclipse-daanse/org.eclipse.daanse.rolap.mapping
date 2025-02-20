@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -45,7 +46,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column column = RolapMappingFactory.eINSTANCE.createColumn();
         column.setName("ColumnOne");
         column.setId("_col");
-        column.setType("VARCHAR");
+        column.setType(ColumnDataType.VARCHAR);
 
         SqlView sqlview = RolapMappingFactory.eINSTANCE.createSqlView();
         sqlview.setName("sqlview");

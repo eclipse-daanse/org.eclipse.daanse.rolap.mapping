@@ -16,8 +16,8 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -59,16 +59,16 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //ORDERNUMBER,PRODUCTCODE,QUANTITYORDERED,PRICEEACH,ORDERLINENUMBER,TOTALPRICE,ORDERDATE,REQUIREDDATE,SHIPPEDDATE,STATUS,COMMENTS,CUSTOMERNUMBER,TIME_ID,QTR_ID,MONTH_ID,YEAR_ID
     //INTEGER,VARCHAR,INTEGER,NUMERIC,INTEGER,NUMERIC,TIMESTAMP,TIMESTAMP,TIMESTAMP,VARCHAR,VARCHAR,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
-    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnType.INTEGER).build();
-    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl STATUS_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(STATUS).withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl QUANTITYORDERED_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("QUANTITYORDERED").withType(ColumnType.INTEGER).build();
-    public static final ColumnMappingImpl TOTALPRICE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TOTALPRICE").withType(ColumnType.NUMERIC).build();
-    public static final ColumnMappingImpl ORDERDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("ORDERDATE").withType(ColumnType.TIMESTAMP).build();
-    public static final ColumnMappingImpl PRICEEACH_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRICEEACH").withType(ColumnType.NUMERIC).build();
-    public static final ColumnMappingImpl REQUIREDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("REQUIREDDATE").withType(ColumnType.TIMESTAMP).build();
-    public static final ColumnMappingImpl SHIPPEDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("SHIPPEDDATE").withType(ColumnType.TIMESTAMP).build();
+    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl STATUS_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(STATUS).withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl QUANTITYORDERED_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("QUANTITYORDERED").withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl TOTALPRICE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TOTALPRICE").withType(ColumnDataType.NUMERIC).build();
+    public static final ColumnMappingImpl ORDERDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("ORDERDATE").withType(ColumnDataType.TIMESTAMP).build();
+    public static final ColumnMappingImpl PRICEEACH_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRICEEACH").withType(ColumnDataType.NUMERIC).build();
+    public static final ColumnMappingImpl REQUIREDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("REQUIREDDATE").withType(ColumnDataType.TIMESTAMP).build();
+    public static final ColumnMappingImpl SHIPPEDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("SHIPPEDDATE").withType(ColumnDataType.TIMESTAMP).build();
     public static final PhysicalTableMappingImpl ORDER_FACT_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("orderfact")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT,
@@ -85,17 +85,17 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //CUSTOMERNUMBER,CUSTOMERNAME,CONTACTLASTNAME,CONTACTFIRSTNAME,PHONE,ADDRESSLINE1,ADDRESSLINE2,CITY,STATE,POSTALCODE,COUNTRY,EMPLOYEENUMBER,CREDITLIMIT,TERRITORY
     //INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,INTEGER,NUMERIC,VARCHAR
-    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnType.INTEGER).build();
-    public static final ColumnMappingImpl TERRITORY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("TERRITORY").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("COUNTRY").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl STATE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("STATE").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl CITY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CITY").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CUSTOMERNAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTFIRSTNAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTLASTNAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl PHONE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("PHONE").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("ADDRESSLINE1").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CREDITLIMIT").withType(ColumnType.NUMERIC).build();
+    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl TERRITORY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("TERRITORY").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("COUNTRY").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl STATE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("STATE").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CITY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CITY").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CUSTOMERNAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTFIRSTNAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTLASTNAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PHONE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("PHONE").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("ADDRESSLINE1").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CREDITLIMIT").withType(ColumnDataType.NUMERIC).build();
     public static final PhysicalTableMappingImpl CUSTOMER_W_TER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("customer_w_ter")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER,
@@ -113,11 +113,11 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //PRODUCTCODE,PRODUCTNAME,PRODUCTLINE,PRODUCTSCALE,PRODUCTVENDOR,PRODUCTDESCRIPTION,QUANTITYINSTOCK,BUYPRICE,MSRP
     //VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR(900),INTEGER,NUMERIC,NUMERIC
-    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTLINE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTLINE").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTVENDOR_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTVENDOR").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTNAME_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTNAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTDESCRIPTION").withType(ColumnType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTLINE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTLINE").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTVENDOR_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTVENDOR").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTNAME_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTNAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTDESCRIPTION").withType(ColumnDataType.VARCHAR).build();
     public static final PhysicalTableMappingImpl PRODUCTS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(PRODUCTS)
             .withColumns(List.of(
                     PRODUCTCODE_COLUMN_IN_PRODUCTS,
@@ -129,12 +129,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //TIME_ID,MONTH_ID,QTR_ID,YEAR_ID,MONTH_NAME,MONTH_DESC,QTR_NAME,QTR_DESC
     //VARCHAR,INTEGER,INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl YEAR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("YEAR_ID").withType(ColumnType.INTEGER).build();
-    public static final ColumnMappingImpl QTR_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_NAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl QTR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_ID").withType(ColumnType.INTEGER).build();
-    public static final ColumnMappingImpl MONTH_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnType.VARCHAR).build();
-    public static final ColumnMappingImpl MONTH_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnType.INTEGER).build();
+    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl YEAR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("YEAR_ID").withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl QTR_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_NAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl QTR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_ID").withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl MONTH_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl MONTH_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl TIME_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("time")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_TIME,
@@ -165,7 +165,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl territoryLevel = LevelMappingImpl.builder()
             .withName("Territory")
             .withColumn(TERRITORY_COLUMN_IN_CUSTOMER_W_TER)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -174,7 +174,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl countryLevel = LevelMappingImpl.builder()
             .withName("Country")
             .withColumn(COUNTRY_COLUMN_IN_CUSTOMER_W_TER)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -183,7 +183,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl stateProvinceLevel = LevelMappingImpl.builder()
             .withName("State Province")
             .withColumn(STATE_COLUMN_IN_CUSTOMER_W_TER)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -192,7 +192,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl cityLevel = LevelMappingImpl.builder()
             .withName("City")
             .withColumn(CITY_COLUMN_IN_CUSTOMER_W_TER)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -201,7 +201,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl customerLevel = LevelMappingImpl.builder()
             .withName("Customer")
             .withColumn(CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -211,7 +211,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Line")
             .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTLINE_COLUMN_IN_PRODUCTS)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -221,7 +221,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Vendor")
             .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTVENDOR_COLUMN_IN_PRODUCTS)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -231,7 +231,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName(PRODUCT)
             .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTNAME_COLUMN_IN_PRODUCTS)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -240,7 +240,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl yearsLevel = LevelMappingImpl.builder()
             .withName("Years")
             .withColumn(YEAR_ID_COLUMN_IN_TIME)
-            .withType(DataType.INTEGER)
+            .withType(InternalDataType.INTEGER)
             .withUniqueMembers(true)
             .withLevelType(LevelType.TIME_YEARS)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -250,7 +250,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Quarters")
             .withColumn(QTR_NAME_COLUMN_IN_TIME)
             .withOrdinalColumn(QTR_ID_COLUMN_IN_TIME)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
             .withLevelType(LevelType.TIME_QUARTERS)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -260,7 +260,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Months")
             .withColumn(MONTH_NAME_COLUMN_IN_TIME)
             .withOrdinalColumn(MONTH_ID_COLUMN_IN_TIME)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
             .withLevelType(LevelType.TIME_MONTHS)
             .withHideMemberIfType(HideMemberIfType.NEVER)
@@ -269,7 +269,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl typeLevel = LevelMappingImpl.builder()
             .withName("Type")
             .withColumn(STATUS_COLUMN_IN_ORDER_FACT)
-            .withType(DataType.STRING)
+            .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
             .withLevelType(LevelType.REGULAR)
             .withHideMemberIfType(HideMemberIfType.NEVER)

@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 
 public interface MemberPropertyMapping extends AbstractElementMapping {
 
@@ -22,6 +22,6 @@ public interface MemberPropertyMapping extends AbstractElementMapping {
 
     boolean isDependsOnLevelValue();
 
-    DataType getDataType();
+    InternalDataType getDataType();
 
 }

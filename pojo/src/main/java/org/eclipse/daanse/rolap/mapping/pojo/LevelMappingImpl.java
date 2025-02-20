@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
@@ -59,7 +59,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private TableMapping table;
 
-    private DataType dataType;
+    private InternalDataType dataType;
 
     private boolean uniqueMembers;
 
@@ -245,11 +245,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.table = table;
     }
 
-    public DataType getDataType() {
-        return this.dataType != null ? this.dataType : DataType.STRING;
+    public InternalDataType getDataType() {
+        return this.dataType != null ? this.dataType : InternalDataType.STRING;
     }
 
-    public void setDataType(DataType dataType) {
+    public void setDataType(InternalDataType dataType) {
         this.dataType = dataType;
     }
 
@@ -292,7 +292,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private ColumnMappingImpl ordinalColumn;
         private ColumnMappingImpl parentColumn;
         private TableMapping table;
-        private DataType dataType;
+        private InternalDataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
         private String name;
@@ -393,7 +393,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withType(DataType dataType) {
+        public Builder withType(InternalDataType dataType) {
             this.dataType = dataType;
             return this;
         }

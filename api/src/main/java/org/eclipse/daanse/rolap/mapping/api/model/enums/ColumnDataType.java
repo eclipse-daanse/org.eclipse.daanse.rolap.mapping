@@ -13,7 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum ColumnType {
+public enum ColumnDataType {
     VARCHAR("Varchar"),
     NUMERIC("Numeric"),
     DECIMAL("Decimal"),
@@ -31,7 +31,7 @@ public enum ColumnType {
 
     private final String value;
 
-    ColumnType(String v) {
+    ColumnDataType(String v) {
         value = v;
     }
 
@@ -39,8 +39,8 @@ public enum ColumnType {
         return value;
     }
 
-    public static ColumnType fromValue(String v) {
-        for (ColumnType c : ColumnType.values()) {
+    public static ColumnDataType fromValue(String v) {
+        for (ColumnDataType c : ColumnDataType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

@@ -30,7 +30,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -624,7 +624,7 @@ public class TransformTask {
         //l.setColumn(level.column());
         l.setHideMemberIfType(HideMemberIfType.fromValue(level.hideMemberIf().getValue()));
         if (level.internalType() != null) {
-            l.setDataType(DataType.fromValue(level.internalType().getValue()));
+            l.setDataType(InternalDataType.fromValue(level.internalType().getValue()));
         }
         l.setKeyExpression(transformSQLExpressionOfExpressionView(level.keyExpression()));
         l.setLevelType(LevelType.fromValue(level.levelType().getValue()));
@@ -642,7 +642,7 @@ public class TransformTask {
         l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
         //TODO
         //l.setTable(level.table());
-        l.setDataType(DataType.fromValue(level.type().getValue()));
+        l.setDataType(InternalDataType.fromValue(level.type().getValue()));
         l.setUniqueMembers(level.uniqueMembers());
         l.setVisible(level.visible());
         l.setMemberProperties(transformMemberProperties(level.properties()));
@@ -665,7 +665,7 @@ public class TransformTask {
             //TODO
             //mp.setColumn(property.column());
             mp.setDependsOnLevelValue(property.dependsOnLevelValue());
-            mp.setDataType(DataType.fromValue(property.type() != null ? property.type().getValue() :
+            mp.setDataType(InternalDataType.fromValue(property.type() != null ? property.type().getValue() :
                 PropertyTypeEnum.STRING.getValue()));
 
             return mp;
@@ -729,7 +729,7 @@ public class TransformTask {
         //TODO
         //m.setColumn(measure.column());
         if (measure.datatype() != null) {
-            m.setDatatype(DataType.fromValue(measure.datatype().toString()));
+            m.setDatatype(InternalDataType.fromValue(measure.datatype().toString()));
         }
         m.setDisplayFolder(measure.displayFolder());
         m.setFormatString(measure.formatString());

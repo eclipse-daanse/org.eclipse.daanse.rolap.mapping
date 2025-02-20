@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
@@ -56,7 +56,7 @@ public interface LevelMapping extends AbstractElementMapping{
 
     TableMapping getTable();
 
-    DataType getDataType();
+    InternalDataType getDataType();
 
     boolean isUniqueMembers();
 

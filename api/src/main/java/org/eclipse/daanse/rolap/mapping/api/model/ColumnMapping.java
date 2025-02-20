@@ -13,7 +13,7 @@
 */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 
 public interface ColumnMapping {
 
@@ -21,7 +21,7 @@ public interface ColumnMapping {
 
     TableMapping getTable();
 
-    ColumnType getType();
+    ColumnDataType getType();
 
     Integer getColumnSize();
 

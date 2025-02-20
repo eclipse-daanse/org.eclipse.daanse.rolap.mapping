@@ -13,7 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
-public enum DataType {
+public enum InternalDataType {
 
     STRING("String"),
     NUMERIC("Numeric"),
@@ -25,7 +25,7 @@ public enum DataType {
 
     private final String value;
 
-    DataType(String v) {
+    InternalDataType(String v) {
         value = v;
     }
 
@@ -33,8 +33,8 @@ public enum DataType {
         return value;
     }
 
-    public static DataType fromValue(String v) {
-        for (DataType c : DataType.values()) {
+    public static InternalDataType fromValue(String v) {
+        for (InternalDataType c : InternalDataType.values()) {
             if (c.value.equals(v)) {
                 return c;
             }

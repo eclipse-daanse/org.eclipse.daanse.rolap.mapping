@@ -81,8 +81,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -111,7 +111,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
@@ -217,7 +217,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected Column createColumn(String name, TableMapping  table, ColumnType type, Integer columnSize, Integer decimalDigits,
+    protected Column createColumn(String name, TableMapping  table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
             Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         Column column = RolapMappingFactory.eINSTANCE
                 .createColumn();
@@ -513,7 +513,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberPropertyMapping createMemberProperty(List<? extends AnnotationMapping> annotations, String id,
             String description, String name,
-            MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType dataType) {
+            MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, InternalDataType dataType) {
         MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberProperty.setId(id);
@@ -552,7 +552,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-            TableMapping table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
+            TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
         level.setNameExpression((SQLExpression) nameExpression);
@@ -811,7 +811,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MeasureMapping createMeasure(SQLExpressionMapping measureExpression,
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
-            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, DataType datatype,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
             MeasureAggregatorType type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -994,7 +994,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return null;
     }
 
-    private ColumnDataType toEmf(DataType datatype) {
+    private ColumnInternalDataType toEmf(InternalDataType datatype) {
         return null;
     }
 

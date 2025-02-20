@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 
 public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implements MemberPropertyMapping {
 
@@ -26,7 +26,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private boolean dependsOnLevelValue;
 
-    private DataType dataType;
+    private InternalDataType dataType;
 
     private MemberPropertyMappingImpl(Builder builder) {
         this.formatter = builder.formatter;
@@ -63,15 +63,15 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         this.dependsOnLevelValue = dependsOnLevelValue;
     }
 
-    public DataType getDataType() {
+    public InternalDataType getDataType() {
         if (dataType == null) {
-            return DataType.STRING;
+            return InternalDataType.STRING;
         } else {
             return dataType;
         }
     }
 
-    public void setDataType(DataType type) {
+    public void setDataType(InternalDataType type) {
         this.dataType = type;
     }
 
@@ -83,7 +83,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         private MemberPropertyFormatterMappingImpl formatter;
         private ColumnMappingImpl column;
         private boolean dependsOnLevelValue;
-        private DataType dataType;
+        private InternalDataType dataType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
@@ -107,7 +107,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
             return this;
         }
 
-        public Builder withDataType(DataType dataType) {
+        public Builder withDataType(InternalDataType dataType) {
             this.dataType = dataType;
             return this;
         }

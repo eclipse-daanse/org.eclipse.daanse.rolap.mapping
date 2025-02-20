@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -53,17 +53,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dim1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dim1KeyColumn.setName("DIM1_KEY");
         dim1KeyColumn.setId("Fact_DIM1_KEY");
-        dim1KeyColumn.setType(ColumnType.INTEGER);
+        dim1KeyColumn.setType(ColumnDataType.INTEGER);
 
         Column dim2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dim2KeyColumn.setName("DIM2_KEY");
         dim2KeyColumn.setId("Fact_DIM2_KEY");
-        dim2KeyColumn.setType(ColumnType.INTEGER);
+        dim2KeyColumn.setType(ColumnDataType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -74,12 +74,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyDim1Column = RolapMappingFactory.eINSTANCE.createColumn();
         keyDim1Column.setName("KEY");
         keyDim1Column.setId("Dim1_KEY");
-        keyDim1Column.setType(ColumnType.INTEGER);
+        keyDim1Column.setType(ColumnDataType.INTEGER);
 
         Column nameDim1Column = RolapMappingFactory.eINSTANCE.createColumn();
         nameDim1Column.setName("NAME");
         nameDim1Column.setId("Dim1_NAME");
-        nameDim1Column.setType(ColumnType.VARCHAR);
+        nameDim1Column.setType(ColumnDataType.VARCHAR);
 
         PhysicalTable tableDim1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableDim1.setName("DIM_1");
@@ -90,12 +90,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyDim2Column = RolapMappingFactory.eINSTANCE.createColumn();
         keyDim2Column.setName("KEY");
         keyDim2Column.setId("Dim2_KEY");
-        keyDim2Column.setType(ColumnType.INTEGER);
+        keyDim2Column.setType(ColumnDataType.INTEGER);
 
         Column nameDim2Column = RolapMappingFactory.eINSTANCE.createColumn();
         nameDim2Column.setName("NAME");
         nameDim2Column.setId("Dim2_NAME");
-        nameDim2Column.setType(ColumnType.VARCHAR);
+        nameDim2Column.setType(ColumnDataType.VARCHAR);
 
         PhysicalTable tableDim2 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableDim2.setName("DIM_2");

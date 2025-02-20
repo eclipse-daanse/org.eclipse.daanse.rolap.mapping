@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
@@ -52,17 +52,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(ColumnDataType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(ColumnDataType.INTEGER);
 
         Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
         valueNumericColumn.setId("Fact_VALUE_NUMERIC");
-        valueNumericColumn.setType(ColumnType.NUMERIC);
+        valueNumericColumn.setType(ColumnDataType.NUMERIC);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -73,17 +73,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column idColumn = RolapMappingFactory.eINSTANCE.createColumn();
         idColumn.setName("ID");
         idColumn.setId("MEASURE_TABLE_ID");
-        idColumn.setType(ColumnType.INTEGER);
+        idColumn.setType(ColumnDataType.INTEGER);
 
         Column value1Column = RolapMappingFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE");
         value1Column.setId("MEASURE_TABLE_VALUE");
-        value1Column.setType(ColumnType.INTEGER);
+        value1Column.setType(ColumnDataType.INTEGER);
 
         Column flagColumn = RolapMappingFactory.eINSTANCE.createColumn();
         flagColumn.setName("FLAG");
         flagColumn.setId("MEASURE_TABLE_FLAG");
-        flagColumn.setType(ColumnType.INTEGER);
+        flagColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table1.setName(MEASURE_TABLE);

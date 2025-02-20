@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -69,86 +69,86 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column auotoDimIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         auotoDimIdColumn.setName("AUTO_DIM_ID");
         auotoDimIdColumn.setId("AUTOMOTIVE_DIM_AUTO_DIM_ID");
-        auotoDimIdColumn.setType(ColumnType.INTEGER);
+        auotoDimIdColumn.setType(ColumnDataType.INTEGER);
 
         Column makeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         makeIdColumn.setName("MAKE_ID");
         makeIdColumn.setId("AUTOMOTIVE_DIM_MAKE_ID");
-        makeIdColumn.setType(ColumnType.INTEGER);
+        makeIdColumn.setType(ColumnDataType.INTEGER);
 
         Column makeColumn = RolapMappingFactory.eINSTANCE.createColumn();
         makeColumn.setName("MAKE");
         makeColumn.setId("AUTOMOTIVE_DIM_MAKE");
-        makeColumn.setType(ColumnType.VARCHAR);
+        makeColumn.setType(ColumnDataType.VARCHAR);
         makeColumn.setColumnSize(100);
 
         Column modelIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         modelIdColumn.setName("MODEL_ID");
         modelIdColumn.setId("AUTOMOTIVE_DIM_MODEL_ID");
-        modelIdColumn.setType(ColumnType.INTEGER);
+        modelIdColumn.setType(ColumnDataType.INTEGER);
 
         Column modelColumn = RolapMappingFactory.eINSTANCE.createColumn();
         modelColumn.setName("MODEL");
         modelColumn.setId("AUTOMOTIVE_DIM_MODEL");
-        modelColumn.setType(ColumnType.VARCHAR);
+        modelColumn.setType(ColumnDataType.VARCHAR);
         modelColumn.setColumnSize(100);
 
         Column plantIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantIdColumn.setName("PLANT_ID");
         plantIdColumn.setId("AUTOMOTIVE_DIM_PLANT_ID");
-        plantIdColumn.setType(ColumnType.INTEGER);
+        plantIdColumn.setType(ColumnDataType.INTEGER);
 
         Column plantColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantColumn.setName("PLANT");
         plantColumn.setId("AUTOMOTIVE_DIM_PLANT");
-        plantColumn.setType(ColumnType.VARCHAR);
+        plantColumn.setType(ColumnDataType.VARCHAR);
         plantColumn.setColumnSize(100);
 
         Column plantStateIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantStateIdColumn.setName("PLANT_STATE_ID");
         plantStateIdColumn.setId("AUTOMOTIVE_DIM_PLANT_STATE_ID");
-        plantStateIdColumn.setType(ColumnType.INTEGER);
+        plantStateIdColumn.setType(ColumnDataType.INTEGER);
 
         Column plantCityIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         plantCityIdColumn.setName("PLANT_CITY_ID");
         plantCityIdColumn.setId("AUTOMOTIVE_DIM_PLANT_CITY_ID");
-        plantCityIdColumn.setType(ColumnType.INTEGER);
+        plantCityIdColumn.setType(ColumnDataType.INTEGER);
 
         Column vehicleIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         vehicleIdColumn.setName("VEHICLE_ID");
         vehicleIdColumn.setId("AUTOMOTIVE_DIM_VEHICLE_ID");
-        vehicleIdColumn.setType(ColumnType.INTEGER);
+        vehicleIdColumn.setType(ColumnDataType.INTEGER);
 
         Column colorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         colorIdColumn.setName("COLOR_ID");
         colorIdColumn.setId("AUTOMOTIVE_DIM_COLOR_ID");
-        colorIdColumn.setType(ColumnType.INTEGER);
+        colorIdColumn.setType(ColumnDataType.INTEGER);
 
         Column trimIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         trimIdColumn.setName("TRIM_ID");
         trimIdColumn.setId("AUTOMOTIVE_DIM_TRIM_ID");
-        trimIdColumn.setType(ColumnType.INTEGER);
+        trimIdColumn.setType(ColumnDataType.INTEGER);
 
         Column licenseIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseIdColumn.setName("LICENSE_ID");
         licenseIdColumn.setId("AUTOMOTIVE_DIM_LICENSE_ID");
-        licenseIdColumn.setType(ColumnType.INTEGER);
+        licenseIdColumn.setType(ColumnDataType.INTEGER);
 
         Column licenseColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseColumn.setName("LICENSE");
         licenseColumn.setId("AUTOMOTIVE_DIM_LICENSE");
-        licenseColumn.setType(ColumnType.VARCHAR);
+        licenseColumn.setType(ColumnDataType.VARCHAR);
         licenseColumn.setColumnSize(100);
 
         Column licenseStateIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         licenseStateIdColumn.setName("LICENSE_STATE_ID");
         licenseStateIdColumn.setId("AUTOMOTIVE_DIM_LICENSE_STATE_ID");
-        licenseStateIdColumn.setType(ColumnType.INTEGER);
+        licenseStateIdColumn.setType(ColumnDataType.INTEGER);
 
         Column priceColumn = RolapMappingFactory.eINSTANCE.createColumn();
         priceColumn.setName("PRICE");
         priceColumn.setId("AUTOMOTIVE_DIM_PRICE");
-        priceColumn.setType(ColumnType.INTEGER);
+        priceColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -177,27 +177,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelMake.setId("Make");
         levelMake.setColumn(makeIdColumn);
         levelMake.setNameColumn(makeColumn);
-        levelMake.setColumnType(ColumnDataType.NUMERIC);
+        levelMake.setColumnType(ColumnInternalDataType.NUMERIC);
 
         Level levelModel = RolapMappingFactory.eINSTANCE.createLevel();
         levelModel.setName("Model");
         levelModel.setId("Model");
         levelModel.setColumn(modelIdColumn);
         levelModel.setNameColumn(modelColumn);
-        levelModel.setColumnType(ColumnDataType.NUMERIC);
+        levelModel.setColumnType(ColumnInternalDataType.NUMERIC);
 
         MemberProperty stateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         stateProperty.setName("State");
         stateProperty.setId("State");
         stateProperty.setColumn(plantStateIdColumn);
-        stateProperty.setPropertyType(ColumnDataType.NUMERIC);
+        stateProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         stateProperty.setDependsOnLevelValue(true);
 
         MemberProperty cytyProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         cytyProperty.setName("City");
         cytyProperty.setId("City");
         cytyProperty.setColumn(plantCityIdColumn);
-        cytyProperty.setPropertyType(ColumnDataType.NUMERIC);
+        cytyProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         cytyProperty.setDependsOnLevelValue(true);
 
         Level levelPlant = RolapMappingFactory.eINSTANCE.createLevel();
@@ -205,42 +205,42 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelPlant.setId("ManufacturingPlant");
         levelPlant.setColumn(plantIdColumn);
         levelPlant.setNameColumn(plantColumn);
-        levelPlant.setColumnType(ColumnDataType.NUMERIC);
+        levelPlant.setColumnType(ColumnInternalDataType.NUMERIC);
         levelPlant.getMemberProperties().addAll(List.of(stateProperty, cytyProperty));
 
         MemberProperty colorProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         colorProperty.setName("Color");
         colorProperty.setId("Color");
         colorProperty.setColumn(colorIdColumn);
-        colorProperty.setPropertyType(ColumnDataType.NUMERIC);
+        colorProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         colorProperty.setDependsOnLevelValue(true);
 
         MemberProperty trimProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         trimProperty.setName("Trim");
         trimProperty.setId("Trim");
         trimProperty.setColumn(trimIdColumn);
-        trimProperty.setPropertyType(ColumnDataType.NUMERIC);
+        trimProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         trimProperty.setDependsOnLevelValue(true);
 
         Level levelVehicle = RolapMappingFactory.eINSTANCE.createLevel();
         levelVehicle.setName("Vehicle Identification Number");
         levelVehicle.setId("Vehicle Identification Number");
         levelVehicle.setColumn(vehicleIdColumn);
-        levelVehicle.setColumnType(ColumnDataType.NUMERIC);
+        levelVehicle.setColumnType(ColumnInternalDataType.NUMERIC);
         levelVehicle.getMemberProperties().addAll(List.of(colorProperty, trimProperty));
 
         MemberProperty licenseStateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
         licenseStateProperty.setName("State");
         licenseStateProperty.setId("State");
         licenseStateProperty.setColumn(licenseStateIdColumn);
-        licenseStateProperty.setPropertyType(ColumnDataType.NUMERIC);
+        licenseStateProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         licenseStateProperty.setDependsOnLevelValue(true);
 
         Level levelLicense = RolapMappingFactory.eINSTANCE.createLevel();
         levelLicense.setName("LicensePlateNum");
         levelLicense.setId("LicensePlateNum");
         levelLicense.setColumn(vehicleIdColumn);
-        levelLicense.setColumnType(ColumnDataType.STRING);
+        levelLicense.setColumnType(ColumnInternalDataType.STRING);
         levelLicense.getMemberProperties().addAll(List.of(licenseStateProperty));
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();

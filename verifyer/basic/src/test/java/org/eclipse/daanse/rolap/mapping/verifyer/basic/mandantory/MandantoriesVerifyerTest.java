@@ -138,7 +138,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
@@ -212,7 +212,7 @@ class MandantoriesVerifyerTest {
         ordinalColumn,
         parentColumn,
         "nullParentValue",
-        DataType.STRING,
+        InternalDataType.STRING,
         "approxRowCount",
         true,
         LevelType.REGULAR,
@@ -606,7 +606,7 @@ class MandantoriesVerifyerTest {
                             ColumnMapping getOrdinalColumn,
                             ColumnMapping getParentColumn,
                             String getNullParentValue,
-                            DataType getDataType,
+                            InternalDataType getDataType,
                             String getApproxRowCount,
                             boolean isUniqueMembers,
                             LevelType getLevelType,
