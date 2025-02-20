@@ -137,9 +137,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//IMeasure #//Member">
-    <eOperations name="getDatatype" lowerBound="1" eType="#//DataType">
+    <eOperations name="getDatatype" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getDataType().getLiteral());"/>
+        <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getAggregatorType" lowerBound="1" eType="#//MeasureAggregatorType">
@@ -152,7 +152,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnDataType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregator" eType="#//MeasureAggregator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroup" lowerBound="1"
@@ -229,9 +229,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
-    <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
+    <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getColumnType().getLiteral());"/>
+        <details key="body" value="return InternalDataType.fromValue(getColumnType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
@@ -270,15 +270,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnDataType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
-    <eOperations name="getDataType" lowerBound="1" eType="#//DataType">
+    <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="ColumnDataType cdt=getPropertyType();&#xA;return DataType.fromValue(cdt.getLiteral());"/>
+        <details key="body" value="return InternalDataType.fromValue(getPropertyType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
@@ -286,7 +286,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnDataType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnInternalDataType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//ICalculatedMember #//Member">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" eType="#//Formula"/>
@@ -375,9 +375,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter"/>
   <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
-    <eOperations name="getType" eType="#//DataType">
+    <eOperations name="getType" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return DataType.fromValue(getDataType().getLiteral());"/>
+        <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -386,7 +386,7 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" lowerBound="1"
-        eType="#//ColumnDataType" defaultValueLiteral="String"/>
+        eType="#//ColumnInternalDataType" defaultValueLiteral="String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action #//IDrillThroughAction">
@@ -588,12 +588,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn #//AbstractElement">
-    <eOperations name="getColumnType" lowerBound="1" eType="#//ColumnType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ColumnType.fromValue(getType().getValue());"/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
         eOpposite="#//Table/columns"/>
@@ -824,7 +819,7 @@
     <eLiterals name="AVG" value="4" literal="avg"/>
     <eLiterals name="DICTINCT_COUNT" value="5" literal="distinct-count"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="ColumnDataType">
+  <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>
     <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
     <eLiterals name="INTEGER" value="2" literal="Integer"/>
@@ -1030,10 +1025,10 @@
   <eClassifiers xsi:type="ecore:EDataType" name="AccessDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension"/>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy"/>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="DataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.DataType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="InternalDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="HideMemberIfType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="MeasureAggregatorType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="ColumnType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="ColumnDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType"/>
 </ecore:EPackage>

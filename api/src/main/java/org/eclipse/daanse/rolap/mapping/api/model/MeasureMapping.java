@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public interface MeasureMapping extends MemberMapping{
@@ -23,7 +23,7 @@ public interface MeasureMapping extends MemberMapping{
 
     ColumnMapping getColumn();
 
-    DataType getDatatype();
+    InternalDataType getDatatype();
 
     MeasureAggregatorType getAggregatorType();
 

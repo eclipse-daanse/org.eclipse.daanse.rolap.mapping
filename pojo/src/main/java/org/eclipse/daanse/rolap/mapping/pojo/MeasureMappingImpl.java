@@ -17,7 +17,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapping {
@@ -28,7 +28,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
     private ColumnMappingImpl column;
 
-    private DataType datatype;
+    private InternalDataType datatype;
 
     private String formatter;
 
@@ -80,11 +80,11 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.column = column;
     }
 
-    public DataType getDatatype() {
+    public InternalDataType getDatatype() {
         return datatype;
     }
 
-    public void setDatatype(DataType datatype) {
+    public void setDatatype(InternalDataType datatype) {
         this.datatype = datatype;
     }
 
@@ -123,7 +123,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
         private ColumnMappingImpl column;
-        private DataType datatype;
+        private InternalDataType datatype;
         private String displayFolder;
         private String formatString;
         private String formatter;
@@ -165,7 +165,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withDatatype(DataType datatype) {
+        public Builder withDatatype(InternalDataType datatype) {
             this.datatype = datatype;
             return this;
         }

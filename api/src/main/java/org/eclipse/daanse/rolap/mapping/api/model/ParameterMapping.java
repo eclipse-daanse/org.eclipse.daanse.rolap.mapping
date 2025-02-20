@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 
 public interface ParameterMapping {
 
@@ -24,6 +24,6 @@ public interface ParameterMapping {
 
     String getName();
 
-    DataType getType();
+    InternalDataType getType();
 
 }

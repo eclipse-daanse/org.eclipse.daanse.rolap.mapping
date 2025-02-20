@@ -93,9 +93,9 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.DataType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
@@ -395,7 +395,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (column != null) {
             String name = columnName(column);
             TableMapping table = columnTable(column);
-            ColumnType type = columnType(column);
+            ColumnDataType type = columnType(column);
             Integer columnSize = columnColumnSize(column);
             Integer decimalDigits = columnDecimalDigits(column);
             Integer numPrecRadix = columnNumPrecRadix(column);
@@ -431,7 +431,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return column.getDescription();
     }
 
-    protected ColumnType columnType(ColumnMapping column) {
+    protected ColumnDataType columnType(ColumnMapping column) {
         return column.getType();
     }
 
@@ -444,7 +444,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract ColumnMapping createColumn(
-        String name, TableMapping table, ColumnType type, Integer columnSize, Integer decimalDigits,
+        String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     );
 
@@ -1503,7 +1503,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 ColumnMapping ordinalColumn = levelOrdinalColumn(level);
                 ColumnMapping parentColumn = levelParentColumn(level);
                 TableMapping table = levelTable(level);
-                DataType type = levelType(level);
+                InternalDataType type = levelType(level);
                 boolean uniqueMembers = levelUniqueMembers(level);
                 boolean visible = levelVisible(level);
                 String name = levelName(level);
@@ -1540,7 +1540,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.isUniqueMembers();
     }
 
-    protected DataType levelType(LevelMapping level) {
+    protected InternalDataType levelType(LevelMapping level) {
         return level.getDataType();
     }
 
@@ -1655,7 +1655,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             MemberPropertyFormatterMapping formatter = memberPropertyFormatter(memberProperty);
             ColumnMapping column = memberPropertyColumn(memberProperty);
             boolean dependsOnLevelValue = memberPropertyDependsOnLevelValue(memberProperty);
-            DataType type = memberDataType(memberProperty);
+            InternalDataType type = memberDataType(memberProperty);
 
             return createMemberProperty(annotations, id, description, name, formatter, column,
                 dependsOnLevelValue, type);
@@ -1670,10 +1670,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MemberPropertyMapping createMemberProperty(
         List<? extends AnnotationMapping> annotations,
         String id, String description, String name,
-        MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, DataType type
+        MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, InternalDataType type
     );
 
-    protected DataType memberDataType(MemberPropertyMapping memberProperty) {
+    protected InternalDataType memberDataType(MemberPropertyMapping memberProperty) {
         return memberProperty.getDataType();
     }
 
@@ -1820,7 +1820,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        TableMapping table, DataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
@@ -2481,7 +2481,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 CellFormatterMapping cellFormatter = measureCellFormatter(measure);
                 String backColor = measureBackColor(measure);
                 ColumnMapping column = measureColumn(measure);
-                DataType datatype = measureDatatype(measure);
+                InternalDataType datatype = measureDatatype(measure);
                 String displayFolder = measureDisplayFolder(measure);
                 String formatString = measureFormatString(measure);
                 String formatter = measureFormatter(measure);
@@ -2503,7 +2503,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MeasureMapping createMeasure(
         SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
-        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, DataType datatype, String displayFolder,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     );
 
@@ -2535,7 +2535,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return measure.getDisplayFolder();
     }
 
-    protected DataType measureDatatype(MeasureMapping measure) {
+    protected InternalDataType measureDatatype(MeasureMapping measure) {
         return measure.getDatatype();
     }
 

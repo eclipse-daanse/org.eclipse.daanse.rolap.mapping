@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
@@ -64,12 +64,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(ColumnDataType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -85,14 +85,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureInteger.setAggregator(MeasureAggregator.SUM);
         measureInteger.setName("Measure1-Integer");
         measureInteger.setId("Measure1-Integer");
-        measureInteger.setDataType(ColumnDataType.INTEGER);
+        measureInteger.setDataType(ColumnInternalDataType.INTEGER);
         measureInteger.setColumn(valueColumn);
 
         Measure measureNumeric = RolapMappingFactory.eINSTANCE.createMeasure();
         measureNumeric.setAggregator(MeasureAggregator.SUM);
         measureNumeric.setName("Measure1-Numeric");
         measureNumeric.setId("Measure1-Numeric");
-        measureNumeric.setDataType(ColumnDataType.NUMERIC);
+        measureNumeric.setDataType(ColumnInternalDataType.NUMERIC);
         measureNumeric.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();

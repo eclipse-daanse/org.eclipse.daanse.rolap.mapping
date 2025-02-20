@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -54,12 +54,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType(ColumnType.INTEGER);
+        dimKeyColumn.setType(ColumnDataType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -70,17 +70,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column closureParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureParentKeyColumn.setName("PARENT_KEY");
         closureParentKeyColumn.setId("Closure_PARENT_KEY");
-        closureParentKeyColumn.setType(ColumnType.INTEGER);
+        closureParentKeyColumn.setType(ColumnDataType.INTEGER);
 
         Column closureChildKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureChildKeyColumn.setName("CHILD_KEY");
         closureChildKeyColumn.setId("Closure_CHILD_KEY");
-        closureChildKeyColumn.setType(ColumnType.INTEGER);
+        closureChildKeyColumn.setType(ColumnDataType.INTEGER);
 
         Column closureDistColumn = RolapMappingFactory.eINSTANCE.createColumn();
         closureDistColumn.setName("DIST");
         closureDistColumn.setId("Closure_DIST");
-        closureDistColumn.setType(ColumnType.INTEGER);
+        closureDistColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable closureTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         closureTable.setName("Closure");
@@ -91,17 +91,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column hierarchyKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyKeyColumn.setName("KEY");
         hierarchyKeyColumn.setId("Hierarchy_KEY");
-        hierarchyKeyColumn.setType(ColumnType.INTEGER);
+        hierarchyKeyColumn.setType(ColumnDataType.INTEGER);
 
         Column hierarchyNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyNameColumn.setName("KEY");
         hierarchyNameColumn.setId("Hierarchy_NAME");
-        hierarchyNameColumn.setType(ColumnType.INTEGER);
+        hierarchyNameColumn.setType(ColumnDataType.INTEGER);
 
         Column hierarchyParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         hierarchyParentKeyColumn.setName("PARENT_KEY");
         hierarchyParentKeyColumn.setId("Hierarchy_PARENT_KEY");
-        hierarchyParentKeyColumn.setType(ColumnType.INTEGER);
+        hierarchyParentKeyColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable hierarchyTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         hierarchyTable.setName("Hierarchy");
@@ -139,7 +139,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setName("Level");
         level.setId("Level");
         level.setUniqueMembers(true);
-        level.setColumnType(ColumnDataType.INTEGER);
+        level.setColumnType(ColumnInternalDataType.INTEGER);
         level.setColumn(hierarchyKeyColumn);
         level.setNameColumn(hierarchyNameColumn);
         level.setParentColumn(hierarchyParentKeyColumn);

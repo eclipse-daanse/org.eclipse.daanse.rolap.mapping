@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -66,34 +66,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(ColumnDataType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(ColumnDataType.INTEGER);
 
         Column l1Column = RolapMappingFactory.eINSTANCE.createColumn();
         l1Column.setName("L1");
         l1Column.setId("Fact_L1");
-        l1Column.setType(ColumnType.VARCHAR);
+        l1Column.setType(ColumnDataType.VARCHAR);
         l1Column.setColumnSize(100);
 
         Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
         l2Column.setName("L2");
         l2Column.setId("Fact_L2");
-        l2Column.setType(ColumnType.INTEGER);
+        l2Column.setType(ColumnDataType.INTEGER);
 
         Column prop1Column = RolapMappingFactory.eINSTANCE.createColumn();
         prop1Column.setName("prop1");
         prop1Column.setId("Fact_prop1");
-        prop1Column.setType(ColumnType.VARCHAR);
+        prop1Column.setType(ColumnDataType.VARCHAR);
         prop1Column.setColumnSize(100);
 
         Column prop2Column = RolapMappingFactory.eINSTANCE.createColumn();
         prop2Column.setName("prop2");
         prop2Column.setId("Fact_prop2");
-        prop2Column.setType(ColumnType.INTEGER);
+        prop2Column.setType(ColumnDataType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -118,13 +118,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         memberProperty1.setName("Prop1");
         memberProperty1.setId("Prop1");
         memberProperty1.setColumn(prop1Column);
-        memberProperty1.setPropertyType(ColumnDataType.STRING);
+        memberProperty1.setPropertyType(ColumnInternalDataType.STRING);
 
         MemberProperty memberProperty2 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         memberProperty2.setName("Prop2");
         memberProperty2.setId("Prop2");
         memberProperty2.setColumn(prop2Column);
-        memberProperty2.setPropertyType(ColumnDataType.INTEGER);
+        memberProperty2.setPropertyType(ColumnInternalDataType.INTEGER);
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("Level1");

@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -64,47 +64,47 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column employeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeIdColumn.setName("employee_id");
         employeeIdColumn.setId("Fact_employee_id");
-        employeeIdColumn.setType(ColumnType.INTEGER);
+        employeeIdColumn.setType(ColumnDataType.INTEGER);
 
         Column fullNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         fullNameColumn.setName("full_name");
         fullNameColumn.setId("Fact_full_name");
-        fullNameColumn.setType(ColumnType.VARCHAR);
+        fullNameColumn.setType(ColumnDataType.VARCHAR);
 
         Column supervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         supervisorIdColumn.setName("supervisor_id");
         supervisorIdColumn.setId("Fact_supervisor_id");
-        supervisorIdColumn.setType(ColumnType.INTEGER);
+        supervisorIdColumn.setType(ColumnDataType.INTEGER);
 
         Column maritalStatusColumn = RolapMappingFactory.eINSTANCE.createColumn();
         maritalStatusColumn.setName("marital_status");
         maritalStatusColumn.setId("Fact_marital_status");
-        maritalStatusColumn.setType(ColumnType.VARCHAR);
+        maritalStatusColumn.setType(ColumnDataType.VARCHAR);
 
         Column positionTitleColumn = RolapMappingFactory.eINSTANCE.createColumn();
         positionTitleColumn.setName("position_title");
         positionTitleColumn.setId("Fact_position_title");
-        positionTitleColumn.setType(ColumnType.VARCHAR);
+        positionTitleColumn.setType(ColumnDataType.VARCHAR);
 
         Column genderColumn = RolapMappingFactory.eINSTANCE.createColumn();
         genderColumn.setName("gender");
         genderColumn.setId("Fact_gender");
-        genderColumn.setType(ColumnType.VARCHAR);
+        genderColumn.setType(ColumnDataType.VARCHAR);
 
         Column salaryColumn = RolapMappingFactory.eINSTANCE.createColumn();
         salaryColumn.setName("salary");
         salaryColumn.setId("Fact_salary");
-        salaryColumn.setType(ColumnType.INTEGER);
+        salaryColumn.setType(ColumnDataType.INTEGER);
 
         Column educationLevelColumn = RolapMappingFactory.eINSTANCE.createColumn();
         educationLevelColumn.setName("education_level");
         educationLevelColumn.setId("Fact_education_level");
-        educationLevelColumn.setType(ColumnType.INTEGER);
+        educationLevelColumn.setType(ColumnDataType.INTEGER);
 
         Column managementRoleColumn = RolapMappingFactory.eINSTANCE.createColumn();
         managementRoleColumn.setName("management_role");
         managementRoleColumn.setId("Fact_management_role");
-        managementRoleColumn.setType(ColumnType.VARCHAR);
+        managementRoleColumn.setType(ColumnDataType.VARCHAR);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -116,17 +116,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column employeeClosureSupervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureSupervisorIdColumn.setName("supervisor_id");
         employeeClosureSupervisorIdColumn.setId("employee_closure_supervisor_id");
-        employeeClosureSupervisorIdColumn.setType(ColumnType.INTEGER);
+        employeeClosureSupervisorIdColumn.setType(ColumnDataType.INTEGER);
 
         Column employeeClosureEmployeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureEmployeeIdColumn.setName("employee_id");
         employeeClosureEmployeeIdColumn.setId("employee_closure_employee_id");
-        employeeClosureEmployeeIdColumn.setType(ColumnType.INTEGER);
+        employeeClosureEmployeeIdColumn.setType(ColumnDataType.INTEGER);
 
         Column employeeClosureDistanceColumn = RolapMappingFactory.eINSTANCE.createColumn();
         employeeClosureDistanceColumn.setName("distance");
         employeeClosureDistanceColumn.setId("employee_closure_distance");
-        employeeClosureDistanceColumn.setType(ColumnType.INTEGER);
+        employeeClosureDistanceColumn.setType(ColumnDataType.INTEGER);
 
         PhysicalTable employeeClosureTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         employeeClosureTable.setName("employee_closure");
@@ -191,7 +191,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setName("Employee Id");
         level.setId("EmployeeIdLevel");
         level.setUniqueMembers(true);
-        level.setColumnType(ColumnDataType.NUMERIC);
+        level.setColumnType(ColumnInternalDataType.NUMERIC);
         level.setColumn(employeeIdColumn);
         level.setNameColumn(fullNameColumn);
         level.setParentColumn(supervisorIdColumn);
