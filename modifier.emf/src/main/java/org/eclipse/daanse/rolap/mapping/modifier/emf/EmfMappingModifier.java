@@ -82,8 +82,8 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
@@ -112,6 +112,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
@@ -120,7 +121,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
@@ -223,7 +223,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
                 .createColumn();
         column.setName(name);
         column.setTable((Table) table);
-        column.setType(type);
+        column.setType(toEmf(type));
         column.setColumnSize(columnSize);
         column.setDecimalDigits(decimalDigits);
         column.setNumPrecRadix(numPrecRadix);
@@ -231,6 +231,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         column.setNullable(nullable);
         column.setDescription(description);
         return column;
+    }
+
+    private ColumnType toEmf(ColumnDataType type) {
+        return ColumnType.valueOf(type.name().toUpperCase());
     }
 
     @SuppressWarnings("unchecked")
@@ -552,7 +556,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-            TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
+            TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setKeyExpression((SQLExpression) keyExpression);
         level.setNameExpression((SQLExpression) nameExpression);
@@ -572,7 +576,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setOrdinalColumn((Column) ordinalColumn);
         level.setParentColumn((Column) parentColumn);
         level.setTable((Table) table);
-        level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);

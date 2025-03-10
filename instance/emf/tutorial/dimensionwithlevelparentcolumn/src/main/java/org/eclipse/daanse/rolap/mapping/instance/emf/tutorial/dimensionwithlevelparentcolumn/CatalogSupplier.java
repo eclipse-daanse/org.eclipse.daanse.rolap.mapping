@@ -16,10 +16,9 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -67,12 +66,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
-        dimKeyColumn.setType(ColumnDataType.INTEGER);
+        dimKeyColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnDataType.INTEGER);
+        valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
@@ -83,17 +82,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column memberKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         memberKeyColumn.setName("KEY");
         memberKeyColumn.setId("Hier_One_Top_Member_KEY");
-        memberKeyColumn.setType(ColumnDataType.INTEGER);
+        memberKeyColumn.setType(ColumnType.INTEGER);
 
         Column memberNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
         memberNameColumn.setName("NAME");
         memberNameColumn.setId("Hier_One_Top_Member_NAME");
-        memberNameColumn.setType(ColumnDataType.VARCHAR);
+        memberNameColumn.setType(ColumnType.VARCHAR);
 
         Column memberParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         memberParentKeyColumn.setName("PARENT_KEY");
         memberParentKeyColumn.setId("Hier_One_Top_Member_PARENT_KEY");
-        memberParentKeyColumn.setType(ColumnDataType.INTEGER);
+        memberParentKeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table1.setName("Hier_One_Top_Member");
@@ -122,7 +121,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setName("Level");
         level.setId("Level");
         level.setUniqueMembers(true);
-        level.setColumnType(ColumnInternalDataType.INTEGER);
         level.setColumn(memberKeyColumn);
         level.setNameColumn(memberNameColumn);
         level.setParentColumn(memberParentKeyColumn);

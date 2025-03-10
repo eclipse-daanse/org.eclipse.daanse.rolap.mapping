@@ -59,16 +59,16 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //ORDERNUMBER,PRODUCTCODE,QUANTITYORDERED,PRICEEACH,ORDERLINENUMBER,TOTALPRICE,ORDERDATE,REQUIREDDATE,SHIPPEDDATE,STATUS,COMMENTS,CUSTOMERNUMBER,TIME_ID,QTR_ID,MONTH_ID,YEAR_ID
     //INTEGER,VARCHAR,INTEGER,NUMERIC,INTEGER,NUMERIC,TIMESTAMP,TIMESTAMP,TIMESTAMP,VARCHAR,VARCHAR,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
-    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl STATUS_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(STATUS).withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl QUANTITYORDERED_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("QUANTITYORDERED").withType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TOTALPRICE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TOTALPRICE").withType(ColumnDataType.NUMERIC).build();
-    public static final ColumnMappingImpl ORDERDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("ORDERDATE").withType(ColumnDataType.TIMESTAMP).build();
-    public static final ColumnMappingImpl PRICEEACH_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRICEEACH").withType(ColumnDataType.NUMERIC).build();
-    public static final ColumnMappingImpl REQUIREDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("REQUIREDDATE").withType(ColumnDataType.TIMESTAMP).build();
-    public static final ColumnMappingImpl SHIPPEDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("SHIPPEDDATE").withType(ColumnDataType.TIMESTAMP).build();
+    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRODUCTCODE").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TIME_ID").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl STATUS_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName(STATUS).withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl QUANTITYORDERED_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("QUANTITYORDERED").withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl TOTALPRICE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("TOTALPRICE").withDataType(ColumnDataType.NUMERIC).build();
+    public static final ColumnMappingImpl ORDERDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("ORDERDATE").withDataType(ColumnDataType.TIMESTAMP).build();
+    public static final ColumnMappingImpl PRICEEACH_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("PRICEEACH").withDataType(ColumnDataType.NUMERIC).build();
+    public static final ColumnMappingImpl REQUIREDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("REQUIREDDATE").withDataType(ColumnDataType.TIMESTAMP).build();
+    public static final ColumnMappingImpl SHIPPEDDATE_COLUMN_IN_ORDER_FACT = ColumnMappingImpl.builder().withName("SHIPPEDDATE").withDataType(ColumnDataType.TIMESTAMP).build();
     public static final PhysicalTableMappingImpl ORDER_FACT_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("orderfact")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_ORDER_FACT,
@@ -85,17 +85,17 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //CUSTOMERNUMBER,CUSTOMERNAME,CONTACTLASTNAME,CONTACTFIRSTNAME,PHONE,ADDRESSLINE1,ADDRESSLINE2,CITY,STATE,POSTALCODE,COUNTRY,EMPLOYEENUMBER,CREDITLIMIT,TERRITORY
     //INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,INTEGER,NUMERIC,VARCHAR
-    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TERRITORY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("TERRITORY").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("COUNTRY").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl STATE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("STATE").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl CITY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CITY").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CUSTOMERNAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTFIRSTNAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTLASTNAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl PHONE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("PHONE").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("ADDRESSLINE1").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CREDITLIMIT").withType(ColumnDataType.NUMERIC).build();
+    public static final ColumnMappingImpl CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName(CUSTOMERNUMBER).withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl TERRITORY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("TERRITORY").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("COUNTRY").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl STATE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("STATE").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CITY_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CITY").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CUSTOMERNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CUSTOMERNAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CONTACTFIRSTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTFIRSTNAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CONTACTLASTNAME_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CONTACTLASTNAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PHONE_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("PHONE").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl ADDRESSLINE1_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("ADDRESSLINE1").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl CREDITLIMIT_COLUMN_IN_CUSTOMER_W_TER = ColumnMappingImpl.builder().withName("CREDITLIMIT").withDataType(ColumnDataType.NUMERIC).build();
     public static final PhysicalTableMappingImpl CUSTOMER_W_TER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("customer_w_ter")
             .withColumns(List.of(
                     CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER,
@@ -113,11 +113,11 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //PRODUCTCODE,PRODUCTNAME,PRODUCTLINE,PRODUCTSCALE,PRODUCTVENDOR,PRODUCTDESCRIPTION,QUANTITYINSTOCK,BUYPRICE,MSRP
     //VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR(900),INTEGER,NUMERIC,NUMERIC
-    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTCODE").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTLINE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTLINE").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTVENDOR_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTVENDOR").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTNAME_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTNAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTDESCRIPTION").withType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTCODE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTCODE").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTLINE_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTLINE").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTVENDOR_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTVENDOR").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTNAME_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTNAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl PRODUCTDESCRIPTION_COLUMN_IN_PRODUCTS = ColumnMappingImpl.builder().withName("PRODUCTDESCRIPTION").withDataType(ColumnDataType.VARCHAR).build();
     public static final PhysicalTableMappingImpl PRODUCTS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(PRODUCTS)
             .withColumns(List.of(
                     PRODUCTCODE_COLUMN_IN_PRODUCTS,
@@ -129,12 +129,12 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     //TIME_ID,MONTH_ID,QTR_ID,YEAR_ID,MONTH_NAME,MONTH_DESC,QTR_NAME,QTR_DESC
     //VARCHAR,INTEGER,INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("TIME_ID").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl YEAR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("YEAR_ID").withType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl QTR_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_NAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl QTR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_ID").withType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl MONTH_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl MONTH_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("TIME_ID").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl YEAR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("YEAR_ID").withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl QTR_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_NAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl QTR_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("QTR_ID").withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl MONTH_NAME_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withDataType(ColumnDataType.VARCHAR).build();
+    public static final ColumnMappingImpl MONTH_ID_COLUMN_IN_TIME = ColumnMappingImpl.builder().withName("MONTH_NAME").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl TIME_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("time")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_TIME,

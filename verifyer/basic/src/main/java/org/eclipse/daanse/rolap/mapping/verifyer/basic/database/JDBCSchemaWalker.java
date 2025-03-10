@@ -230,7 +230,7 @@ public class JDBCSchemaWalker {
                 String message = String.format(TABLE_S_COLUMN_NAME_NOT_DEFINED, it.getName());
                 results.add(new VerificationResultR(TABLE, message, ERROR, DATABASE));
             }
-            if (column.getType() == null) {
+            if (column.getDataType() == null) {
                 String message = String.format(TABLE_S_COLUMN_TYPE_NOT_DEFINED, it.getName());
                 results.add(new VerificationResultR(TABLE, message, ERROR, DATABASE));
             }

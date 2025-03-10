@@ -40,7 +40,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static String name = "Minimal Physical Cube";
 
 
-    private final static ColumnMappingImpl VALUE_COLUMN = ColumnMappingImpl.builder().withName("VALUE").withType(ColumnDataType.INTEGER).build();
+    private final static ColumnMappingImpl VALUE_COLUMN = ColumnMappingImpl.builder().withName("VALUE").withDataType(ColumnDataType.INTEGER).build();
     private final static PhysicalTableMappingImpl factTable = ((Builder) PhysicalTableMappingImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
 
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withTable(factTable).build();
