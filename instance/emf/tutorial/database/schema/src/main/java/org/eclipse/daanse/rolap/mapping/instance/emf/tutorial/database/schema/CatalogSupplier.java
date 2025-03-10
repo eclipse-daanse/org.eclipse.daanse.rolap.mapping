@@ -18,9 +18,9 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
@@ -55,7 +55,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column columnOther = RolapMappingFactory.eINSTANCE.createColumn();
         columnOther.setName("theColumn");
         columnOther.setId("_colt1c1");
-        columnOther.setType(ColumnDataType.VARCHAR);
+        columnOther.setType(ColumnType.VARCHAR);
 
         PhysicalTable tableOther = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableOther.setName("theTable");
@@ -69,7 +69,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column columnDefault = RolapMappingFactory.eINSTANCE.createColumn();
         columnDefault.setName("theColumn");
         columnDefault.setId("_colt2c1");
-        columnDefault.setType(ColumnDataType.VARCHAR);
+        columnDefault.setType(ColumnType.VARCHAR);
 
         PhysicalTable tableDefault = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableDefault.setName("theTable");

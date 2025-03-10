@@ -18,9 +18,9 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
@@ -78,45 +78,45 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnCommon.setId("_col1");
         columnCommon.setNullable(true);
         columnCommon.setDescription("Non nullable Column with description");
-        columnCommon.setType(ColumnDataType.VARCHAR);
+        columnCommon.setType(ColumnType.VARCHAR);
 
         Column columnVarchar = RolapMappingFactory.eINSTANCE.createColumn();
         columnVarchar.setName("ColumnVarchar");
         columnVarchar.setId("_col2");
         columnVarchar.setColumnSize(255);
-        columnVarchar.setType(ColumnDataType.VARCHAR);
+        columnVarchar.setType(ColumnType.VARCHAR);
 
         Column columnDecimal = RolapMappingFactory.eINSTANCE.createColumn();
         columnDecimal.setName("ColumnDecimal");
         columnDecimal.setId("_col3");
         columnDecimal.setDecimalDigits(2);
         columnDecimal.setNumPrecRadix(3);
-        columnDecimal.setType(ColumnDataType.DECIMAL);
+        columnDecimal.setType(ColumnType.DECIMAL);
 
         Column columnNumeric = RolapMappingFactory.eINSTANCE.createColumn();
         columnNumeric.setName("ColumnNumeric");
         columnNumeric.setId("_col3");
-        columnNumeric.setType(ColumnDataType.NUMERIC);
+        columnNumeric.setType(ColumnType.NUMERIC);
 
         Column columnFloat = RolapMappingFactory.eINSTANCE.createColumn();
         columnFloat.setName("ColumnFloat");
         columnFloat.setId("_col4");
-        columnFloat.setType(ColumnDataType.FLOAT);
+        columnFloat.setType(ColumnType.FLOAT);
 
         Column columnReal = RolapMappingFactory.eINSTANCE.createColumn();
         columnReal.setName("ColumnReal");
         columnReal.setId("_col5");
-        columnReal.setType(ColumnDataType.REAL);
+        columnReal.setType(ColumnType.REAL);
 
         Column columnDouble = RolapMappingFactory.eINSTANCE.createColumn();
         columnDouble.setName("ColumnDouble");
         columnDouble.setId("_col6");
-        columnDouble.setType(ColumnDataType.DOUBLE);
+        columnDouble.setType(ColumnType.DOUBLE);
 
         Column columnInteger = RolapMappingFactory.eINSTANCE.createColumn();
         columnInteger.setName("ColumnIneger");
         columnInteger.setId("_col7");
-        columnInteger.setType(ColumnDataType.INTEGER);
+        columnInteger.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("TableWithColumnTypes");

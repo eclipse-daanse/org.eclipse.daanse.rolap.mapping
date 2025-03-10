@@ -21,7 +21,7 @@ public interface ColumnMapping {
 
     TableMapping getTable();
 
-    ColumnDataType getType();
+    ColumnDataType getDataType();
 
     Integer getColumnSize();
 

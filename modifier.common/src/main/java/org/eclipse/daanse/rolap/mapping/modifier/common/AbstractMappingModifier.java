@@ -395,7 +395,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (column != null) {
             String name = columnName(column);
             TableMapping table = columnTable(column);
-            ColumnDataType type = columnType(column);
+            ColumnDataType type = columnDataType(column);
             Integer columnSize = columnColumnSize(column);
             Integer decimalDigits = columnDecimalDigits(column);
             Integer numPrecRadix = columnNumPrecRadix(column);
@@ -431,8 +431,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return column.getDescription();
     }
 
-    protected ColumnDataType columnType(ColumnMapping column) {
-        return column.getType();
+    protected ColumnDataType columnDataType(ColumnMapping column) {
+        return column.getDataType();
     }
 
     protected TableMapping columnTable(ColumnMapping column) {
@@ -1503,7 +1503,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 ColumnMapping ordinalColumn = levelOrdinalColumn(level);
                 ColumnMapping parentColumn = levelParentColumn(level);
                 TableMapping table = levelTable(level);
-                InternalDataType type = levelType(level);
                 boolean uniqueMembers = levelUniqueMembers(level);
                 boolean visible = levelVisible(level);
                 String name = levelName(level);
@@ -1512,7 +1511,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 return createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
                     parentExpression, parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
-                    parentColumn, table, type, uniqueMembers, visible, name, id, description);
+                    parentColumn, table,  uniqueMembers, visible, name, id, description);
             } else {
                 return levelMap.get(level);
             }
@@ -1540,9 +1539,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.isUniqueMembers();
     }
 
-    protected InternalDataType levelType(LevelMapping level) {
-        return level.getDataType();
-    }
+
 
     protected TableMapping levelTable(LevelMapping level) {
         return level.getTable();
@@ -1820,7 +1817,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {

@@ -41,7 +41,7 @@ public enum ColumnDataType {
 
     public static ColumnDataType fromValue(String v) {
         for (ColumnDataType c : ColumnDataType.values()) {
-            if (c.value.equals(v)) {
+            if (c.value.equalsIgnoreCase(v)) {
                 return c;
             }
         }

@@ -56,8 +56,6 @@ public interface LevelMapping extends AbstractElementMapping{
 
     TableMapping getTable();
 
-    InternalDataType getDataType();
-
     boolean isUniqueMembers();
 
     boolean isVisible();

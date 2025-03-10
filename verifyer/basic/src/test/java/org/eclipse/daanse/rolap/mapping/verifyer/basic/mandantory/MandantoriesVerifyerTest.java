@@ -418,7 +418,7 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(65);
+            .hasSize(64);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -484,7 +484,7 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(17);
+            .hasSize(16);
 
         assertThat(result)
             .extracting(VerificationResult::description)

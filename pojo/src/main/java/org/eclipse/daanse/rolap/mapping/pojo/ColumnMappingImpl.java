@@ -22,7 +22,7 @@ public class ColumnMappingImpl implements ColumnMapping {
     public ColumnMappingImpl(Builder builder) {
         this.name = builder.name;
         this.table = builder.table;
-        this.type = builder.type;
+        this.dataType = builder.dataType;
         this.nullable = builder.nullable;
         this.charOctetLength = builder.charOctetLength;
         this.numPrecRadix = builder.numPrecRadix;
@@ -47,12 +47,12 @@ public class ColumnMappingImpl implements ColumnMapping {
         this.table = table;
     }
 
-    public ColumnDataType getType() {
-        return type;
+    public ColumnDataType getDataType() {
+        return dataType;
     }
 
-    public void setType(ColumnDataType type) {
-        this.type = type;
+    public void setDataType(ColumnDataType dataType) {
+        this.dataType = dataType;
     }
 
     public void setNullable(boolean nullable) {
@@ -87,7 +87,7 @@ public class ColumnMappingImpl implements ColumnMapping {
 
     private TableMapping table;
 
-    private ColumnDataType type;
+    private ColumnDataType dataType;
 
     private boolean nullable;
 
@@ -111,7 +111,7 @@ public class ColumnMappingImpl implements ColumnMapping {
 
         private TableMapping table;
 
-        private ColumnDataType type;
+        private ColumnDataType dataType;
 
         private String description;
 
@@ -135,8 +135,8 @@ public class ColumnMappingImpl implements ColumnMapping {
             return this;
         }
 
-        public Builder withType(ColumnDataType type) {
-            this.type = type;
+        public Builder withDataType(ColumnDataType dataType) {
+            this.dataType = dataType;
             return this;
         }
 
@@ -199,5 +199,7 @@ public class ColumnMappingImpl implements ColumnMapping {
     public Boolean getNullable() {
         return nullable;
     }
+
+
 
 }

@@ -643,7 +643,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(COLUMN_DEF, COLUMN_DEF_NAME_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
-            if (column.getType() == null) {
+            if (column.getDataType() == null) {
                 results.add(new VerificationResultR(COLUMN_DEF, COLUMN_DEF_TYPE_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -1101,11 +1101,6 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                         .getValue());
                 results.add(new VerificationResultR(LEVEL, msg, ERROR, Cause.SCHEMA));
             }
-        }
-        if (level.getDataType() == null) {
-            String msg = String.format(LEVEL_TYPE_MUST_BE_SET,
-                level.getName() == null ? NOT_SET : level.getName());
-            results.add(new VerificationResultR(LEVEL, msg, WARNING, Cause.SCHEMA));
         }
     }
 

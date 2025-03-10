@@ -16,10 +16,10 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
@@ -66,23 +66,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
-        keyColumn.setType(ColumnDataType.VARCHAR);
+        keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
-        valueColumn.setType(ColumnDataType.INTEGER);
+        valueColumn.setType(ColumnType.INTEGER);
 
         Column lColumn = RolapMappingFactory.eINSTANCE.createColumn();
         lColumn.setName("L");
         lColumn.setId("Fact_L");
-        lColumn.setType(ColumnDataType.VARCHAR);
+        lColumn.setType(ColumnType.VARCHAR);
         lColumn.setColumnSize(100);
 
         Column propColumn = RolapMappingFactory.eINSTANCE.createColumn();
         propColumn.setName("prop");
         propColumn.setId("Fact_prop");
-        propColumn.setType(ColumnDataType.VARCHAR);
+        propColumn.setType(ColumnType.VARCHAR);
         propColumn.setColumnSize(100);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
