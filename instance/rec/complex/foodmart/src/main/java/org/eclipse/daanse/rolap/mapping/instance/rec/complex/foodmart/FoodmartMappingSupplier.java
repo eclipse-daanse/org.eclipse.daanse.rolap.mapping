@@ -632,7 +632,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnMappingImpl STORE_TYPE_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final ColumnMappingImpl STREET_ADDRESS_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(STORE_STREET_ADDRESS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final ColumnMappingImpl STORE_NAME_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.VARCHAR).build();
     public static final ColumnMappingImpl STORE_MANAGER_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final ColumnMappingImpl STORE_CITY_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final ColumnMappingImpl STORE_STATE_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
