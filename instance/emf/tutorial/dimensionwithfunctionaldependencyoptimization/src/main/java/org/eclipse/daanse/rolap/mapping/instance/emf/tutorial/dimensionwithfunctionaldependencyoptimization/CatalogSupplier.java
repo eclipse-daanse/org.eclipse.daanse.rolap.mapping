@@ -224,7 +224,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelVehicle = RolapMappingFactory.eINSTANCE.createLevel();
         levelVehicle.setName("Vehicle Identification Number");
-        levelVehicle.setId("Vehicle Identification Number");
+        levelVehicle.setId("Vehicle_Identification_Number");
         levelVehicle.setColumn(vehicleIdColumn);
         levelVehicle.setColumnType(ColumnInternalDataType.NUMERIC);
         levelVehicle.getMemberProperties().addAll(List.of(colorProperty, trimProperty));

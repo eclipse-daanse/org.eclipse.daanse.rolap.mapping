@@ -332,8 +332,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="JoinedQueryElement" eSuperTypes="#//IJoinedQueryElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableQuery" eSuperTypes="#//RelationalQuery #//ITableQuery">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqlWhereExpression" eType="#//SqlStatement"
