@@ -757,7 +757,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     //position_id,position_title,pay_type,min_scale,max_scale,management_role
     //INTEGER,VARCHAR(30),VARCHAR(30),DECIMAL(10.4),DECIMAL(10.4),VARCHAR(30)
     public static final ColumnMappingImpl POSITION_ID_COLUMN_IN_POSITION = ColumnMappingImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PAY_TYPE_COLUMN_IN_POSITION = ColumnMappingImpl.builder().withName("pay_type").withDataType(ColumnDataType.INTEGER).build();
+    public static final ColumnMappingImpl PAY_TYPE_COLUMN_IN_POSITION = ColumnMappingImpl.builder().withName("pay_type").withDataType(ColumnDataType.VARCHAR).build();
     public static final PhysicalTableMappingImpl POSITION_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TABLE_NAME_POSITION)
             .withColumns(List.of(POSITION_ID_COLUMN_IN_POSITION, PAY_TYPE_COLUMN_IN_POSITION))).build();
 
