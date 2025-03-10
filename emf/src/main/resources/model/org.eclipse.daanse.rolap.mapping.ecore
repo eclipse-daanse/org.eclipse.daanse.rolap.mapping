@@ -587,7 +587,8 @@
         <details key="body" value="return ColumnDataType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"
+        defaultValueLiteral="Varchar"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
         eOpposite="#//Table/columns"/>
@@ -828,20 +829,20 @@
     <eLiterals name="TIMESTAMP" value="6" literal="Timestamp"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnType">
-    <eLiterals name="VARCHAR" literal="String"/>
+    <eLiterals name="VARCHAR" literal="Varchar"/>
     <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
-    <eLiterals name="DECIMAL" value="2" literal="Integer"/>
-    <eLiterals name="FLOAT" value="3" literal="Boolean"/>
-    <eLiterals name="REAL" value="4" literal="Date"/>
-    <eLiterals name="INTEGER" value="5" literal="Time"/>
-    <eLiterals name="SMALLINT" value="6" literal="Timestamp"/>
-    <eLiterals name="DOUBLE" value="7"/>
-    <eLiterals name="OTHER" value="8"/>
-    <eLiterals name="BOOLEAN" value="10"/>
-    <eLiterals name="DATE" value="11"/>
-    <eLiterals name="TIME" value="12"/>
-    <eLiterals name="TIMESTAMP" value="13"/>
-    <eLiterals name="BIGINT" value="14"/>
+    <eLiterals name="DECIMAL" value="2" literal="Decimal"/>
+    <eLiterals name="FLOAT" value="3" literal="Float"/>
+    <eLiterals name="REAL" value="4" literal="Real"/>
+    <eLiterals name="INTEGER" value="5" literal="Integer"/>
+    <eLiterals name="SMALLINT" value="6" literal="SmallInt"/>
+    <eLiterals name="DOUBLE" value="7" literal="Double"/>
+    <eLiterals name="OTHER" value="8" literal="Other"/>
+    <eLiterals name="BOOLEAN" value="10" literal="Boolean"/>
+    <eLiterals name="DATE" value="11" literal="Date"/>
+    <eLiterals name="TIME" value="12" literal="Time"/>
+    <eLiterals name="TIMESTAMP" value="13" literal="Timestamp"/>
+    <eLiterals name="BIGINT" value="14" literal="BinInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LevelDefinition">
     <eLiterals name="REGULAR" literal="Regular">
