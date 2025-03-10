@@ -20,6 +20,8 @@ public abstract class DimensionMappingImpl extends AbstractElementMappingImpl im
 
     private List<HierarchyMappingImpl> hierarchies;
 
+    private HierarchyMappingImpl defaultHierarchy;
+
     private String usagePrefix;
 
     private boolean visible = true;
@@ -46,6 +48,14 @@ public abstract class DimensionMappingImpl extends AbstractElementMappingImpl im
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public HierarchyMappingImpl getDefaultHierarchy() {
+        return defaultHierarchy;
+    }
+
+    public void setDefaultHierarchy(HierarchyMappingImpl defaultHierarchy) {
+        this.defaultHierarchy = defaultHierarchy;
     }
 
 }

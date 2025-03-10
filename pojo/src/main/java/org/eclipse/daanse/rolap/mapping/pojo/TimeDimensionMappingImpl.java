@@ -21,6 +21,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
 
     private TimeDimensionMappingImpl(Builder builder) {
         super.setHierarchies(builder.hierarchies);
+        super.setDefaultHierarchy(builder.defaultHierarchy);
         super.setUsagePrefix(builder.usagePrefix);
         super.setVisible(builder.visible);
         super.setAnnotations(builder.annotations);
@@ -35,6 +36,7 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
 
     public static final class Builder {
         private List<HierarchyMappingImpl> hierarchies = new ArrayList<>();
+        private HierarchyMappingImpl defaultHierarchy;
         private String usagePrefix;
         private boolean visible = true;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
@@ -47,6 +49,11 @@ public class TimeDimensionMappingImpl extends DimensionMappingImpl implements Ti
 
         public Builder withHierarchies(List<HierarchyMappingImpl> hierarchies) {
             this.hierarchies = hierarchies;
+            return this;
+        }
+
+        public Builder withDefaultHierarchy(HierarchyMappingImpl defaultHierarchy) {
+            this.defaultHierarchy = defaultHierarchy;
             return this;
         }
 

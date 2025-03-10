@@ -184,6 +184,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultHierarchy" eType="#//Hierarchy"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector" eSuperTypes="#//IDimensionConnector">
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" lowerBound="1"
