@@ -541,7 +541,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/numPrecRadix"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/nullable"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Column/getDataType"
-          body="return null; // TODO:"/>
+          body="return ColumnDataType.fromValue(getType().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Link">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Link/primaryKey"/>
