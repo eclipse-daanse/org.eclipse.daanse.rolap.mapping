@@ -113,7 +113,11 @@ public class ResourceSetWriteReadTest {
             throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
+        name = name.substring(46);
         Path baseDir = Files.createDirectories(tempDir.resolve(name));
+        Path dataDir = Files.createDirectories(baseDir.resolve("data"));
+        Path keepFile = Files.createFile(dataDir.resolve(".keep"));
+
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
         CatalogMapping cm = catalogMappingSupplier.get();

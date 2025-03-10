@@ -60,7 +60,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sqlview.getSqlStatements().add(sqlStatement);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("CatalogOne");
+        catalog.setName("Database - SqlView");
         catalog.setId("_cat");
         catalog.getDbschemas().add(databaseSchema);
 

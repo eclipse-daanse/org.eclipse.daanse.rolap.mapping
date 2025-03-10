@@ -86,7 +86,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("CatalogOne");
+        catalog.setName("Database - Table");
         catalog.setId("_cat");
         catalog.getDbschemas().add(databaseSchema);
 

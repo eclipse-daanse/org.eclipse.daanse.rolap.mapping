@@ -126,7 +126,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("DatabaseColumnTypes");
+        catalog.setName("Database - ColumnTypes");
         catalog.setId("_cat");
         catalog.getDbschemas().add(databaseSchema);
 
