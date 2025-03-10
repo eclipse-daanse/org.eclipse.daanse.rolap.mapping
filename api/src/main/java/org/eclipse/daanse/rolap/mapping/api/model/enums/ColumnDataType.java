@@ -20,14 +20,14 @@ public enum ColumnDataType {
     FLOAT("Float"),
     REAL("Real"),
     INTEGER("Integer"),
-    SMALLINT("Smallint"),
+    SMALLINT("SmallInt"),
     DOUBLE("Double"),
     OTHER("Other"),
     BOOLEAN("Boolean"),
     DATE("Date"),
     TIME("Time"),
     TIMESTAMP("Timestamp"),
-    BIGINT("Bigint");
+    BIGINT("BigInt");
 
     private final String value;
 
