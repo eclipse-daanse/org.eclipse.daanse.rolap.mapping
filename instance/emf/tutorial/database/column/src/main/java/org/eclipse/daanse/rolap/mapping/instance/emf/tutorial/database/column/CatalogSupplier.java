@@ -78,7 +78,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnCommon.setId("_col1");
         columnCommon.setNullable(true);
         columnCommon.setDescription("Non nullable Column with description");
-//        columnCommon.setType("VARCHAR");
+        columnCommon.setType(ColumnDataType.VARCHAR);
 
         Column columnVarchar = RolapMappingFactory.eINSTANCE.createColumn();
         columnVarchar.setName("ColumnVarchar");

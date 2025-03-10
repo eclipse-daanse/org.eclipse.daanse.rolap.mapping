@@ -52,15 +52,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dim1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
-        dim1KeyColumn.setName("DIM1_KEY");
-        dim1KeyColumn.setId("Fact_DIM1_KEY");
-        dim1KeyColumn.setType(ColumnDataType.INTEGER);
-
-        Column dim2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
-        dim2KeyColumn.setName("DIM2_KEY");
-        dim2KeyColumn.setId("Fact_DIM2_KEY");
-        dim2KeyColumn.setType(ColumnDataType.INTEGER);
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        dimKeyColumn.setName("DIM_KEY");
+        dimKeyColumn.setId("Fact_DIM_KEY");
+        dimKeyColumn.setType(ColumnDataType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
@@ -70,7 +65,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId(FACT);
-        table.getColumns().addAll(List.of(dim1KeyColumn, dim2KeyColumn, valueColumn));
+        table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
@@ -215,16 +210,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy1.getLevels().add(h1Level2);
 
         Level h2Level1 = RolapMappingFactory.eINSTANCE.createLevel();
-        h1Level2.setName("H2_Level1");
-        h1Level2.setId("H2_Level1");
-        h1Level2.setColumn(h2L1KeyColumn);
-        h1Level2.setNameColumn(h2L1NameColumn);
-        h1Level2.setTable(h2L1Table);
+        h2Level1.setName("H2_Level1");
+        h2Level1.setId("H2_Level1");
+        h2Level1.setColumn(h2L1KeyColumn);
+        h2Level1.setNameColumn(h2L1NameColumn);
+        h2Level1.setTable(h2L1Table);
 
 
         Level h2Level2 = RolapMappingFactory.eINSTANCE.createLevel();
-        h2Level2.setName("H1_Level2");
-        h2Level2.setId("H1_Level2");
+        h2Level2.setName("H2_Level2");
+        h2Level2.setId("H2_Level2");
         h2Level2.setColumn(hxL2KeyColumn);
         h2Level2.setNameColumn(hxL2NameColumn);
         h2Level2.setTable(hxL2Table);
@@ -248,6 +243,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Dimension1");
         dimensionConnector.setDimension(dimension1);
+        dimensionConnector.setForeignKey(dimKeyColumn);
+
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
         cube.setId(CUBE);

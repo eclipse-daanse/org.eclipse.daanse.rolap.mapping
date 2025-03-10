@@ -126,7 +126,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         calculatedMember2.setName("CM2");
         calculatedMember2.setId("CM2");
         calculatedMember2.setHierarchy(hierarchy);
-        calculatedMember2.setParent("[Dimension1.Hierarchy1].[All Dimension1.Hierarchy1s]");
+        calculatedMember2.setParent("[Dimension1].[Hierarchy1].[All Hierarchy1s]");
         calculatedMember2.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
         calculatedMember2.getCalculatedMemberProperties().add(calculatedMemberProperty);
 
