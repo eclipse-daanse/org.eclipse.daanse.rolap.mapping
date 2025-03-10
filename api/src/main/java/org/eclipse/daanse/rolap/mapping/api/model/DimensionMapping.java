@@ -18,6 +18,8 @@ public interface DimensionMapping extends AbstractElementMapping {
 
     List<? extends HierarchyMapping> getHierarchies();
 
+    HierarchyMapping getDefaultHierarchy();
+
     String getUsagePrefix();
 
     boolean isVisible();
