@@ -161,7 +161,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setOverrideDimensionName("Dimension1");
         dimensionConnector1.setDimension(dimension);
-        dimensionConnector1.setLevel(level);
         dimensionConnector1.setForeignKey(dimKeyColumn);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
