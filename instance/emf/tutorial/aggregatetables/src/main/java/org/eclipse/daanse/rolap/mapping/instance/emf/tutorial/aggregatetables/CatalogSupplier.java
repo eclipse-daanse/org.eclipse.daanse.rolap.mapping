@@ -171,7 +171,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         aggregationMeasure.setColumn(aggCSpecialSalesFact1997StoreCostSumColumn);
 
         AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
-        aggregationLevel.setName("[Product].[Product Family]");
+        aggregationLevel.setName("[Product].[Product Family].[Product Family]");
         aggregationLevel.setColumn(productClassProductFamileColumn);//??
 
         AggregationExclude aggregationExclude1 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
@@ -180,6 +180,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         aggregationExclude2.setName("AGG_LC_100_SALES_FACT_1997");
 
         AggregationName aggregationName = RolapMappingFactory.eINSTANCE.createAggregationName();
+        aggregationName.setId("aggregationName");
         aggregationName.setName(aggCSpecialSalesFact1997Table);
         aggregationName.setAggregationFactCount(aggregationColumnName);
         aggregationName.getAggregationMeasures().add(aggregationMeasure);

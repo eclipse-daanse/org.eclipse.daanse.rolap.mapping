@@ -234,18 +234,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         queryJoin1.setLeft(queryJoin1Left);
         queryJoin1.setRight(queryJoin1Right);
 
-        JoinedQueryElement queryJoin2Left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        queryJoin2Left.setKey(level2MultipleL1KeyColumn);
-        queryJoin2Left.setQuery(queryLevel2Multiple);
+        JoinedQueryElement queryJoin2RightLeftElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        queryJoin2RightLeftElement.setKey(level2MultipleL1KeyColumn);
+        queryJoin2RightLeftElement.setQuery(queryLevel2Multiple);
 
-        JoinedQueryElement queryJoin2Right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        queryJoin2Right.setKey(level1MultipleKeyColumn);
-        queryJoin2Right.setQuery(queryLevel1Multiple);
+        JoinedQueryElement queryJoin2RightRightElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        queryJoin2RightRightElement.setKey(level1MultipleKeyColumn);
+        queryJoin2RightRightElement.setQuery(queryLevel1Multiple);
+
+        JoinQuery queryJoin2Right = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        queryJoin2Right.setId("queryJoin2Right");
+        queryJoin2Right.setLeft(queryJoin2RightLeftElement);
+        queryJoin2Right.setRight(queryJoin2RightRightElement);
+
+        JoinedQueryElement queryJoin2LeftElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        queryJoin2LeftElement.setKey(level3MultipleL2KeyColumn);
+        queryJoin2LeftElement.setQuery(queryLevel3Multiple);
+
+        JoinedQueryElement queryJoin2RightElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        queryJoin2RightElement.setKey(level1MultipleKeyColumn);
+        queryJoin2RightElement.setQuery(queryJoin2Right);
 
         JoinQuery queryJoin2 = RolapMappingFactory.eINSTANCE.createJoinQuery();
         queryJoin2.setId("queryJoin2");
-        queryJoin2.setLeft(queryJoin2Left);
-        queryJoin2.setRight(queryJoin2Right);
+        queryJoin2.setLeft(queryJoin2LeftElement);
+        queryJoin2.setRight(queryJoin2RightElement);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
@@ -305,8 +318,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDimensionMembersHiddenMultipleLevelsLevel2.setTable(level2MultipleTable);
 
         Level hierarchyDimensionMembersHiddenMultipleLevelsLevel3 = RolapMappingFactory.eINSTANCE.createLevel();
-        hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setName("Level2");
-        hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setId("h2Level2");
+        hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setName("Level3");
+        hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setId("h2Level3");
         hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setColumn(level3MultipleKeyColumn);
         hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setNameColumn(level3MultipleNameColumn);
         hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setHideMemberIf(HideMemberIf.IF_BLANK_NAME);
