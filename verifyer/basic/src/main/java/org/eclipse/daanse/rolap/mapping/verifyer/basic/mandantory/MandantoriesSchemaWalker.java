@@ -150,10 +150,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(MEASURE, msg, ERROR, Cause.SCHEMA));
             }
 
-            //ExpressionView
-            if (measure.getMeasureExpression() != null) {
-                // Measure expressions are OK
-            } else if (measure.getColumn() == null) {
+            if (measure.getColumn() == null) {
                 String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
                 results.add(new VerificationResultR(MEASURE, msg, ERROR,
                     Cause.SCHEMA));

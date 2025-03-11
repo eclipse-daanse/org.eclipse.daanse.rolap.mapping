@@ -63,7 +63,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
@@ -152,7 +152,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpressionColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlView;
@@ -220,7 +220,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected Column createColumn(String name, TableMapping  table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
             Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         Column column = RolapMappingFactory.eINSTANCE
-                .createColumn();
+                .createPhysicalColumn();
         column.setName(name);
         column.setTable((Table) table);
         column.setType(toEmf(type));
@@ -542,27 +542,21 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
-        SQLExpression sqlExpression = RolapMappingFactory.eINSTANCE.createSQLExpression();
+    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
+        SQLExpressionColumn sqlExpression = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         sqlExpression.getSqls().addAll((Collection<? extends SqlStatement>) sqls);
         return sqlExpression;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected LevelMapping createLevel(SQLExpressionMapping keyExpression, SQLExpressionMapping nameExpression,
-            SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
-            SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
+    protected LevelMapping createLevel(ParentChildLinkMapping parentChildLink,
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
             TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
-        level.setKeyExpression((SQLExpression) keyExpression);
-        level.setNameExpression((SQLExpression) nameExpression);
-        level.setCaptionExpression((SQLExpression) captionExpression);
-        level.setOrdinalExpression((SQLExpression) ordinalExpression);
-        level.setParentExpression((SQLExpression) parentExpression);
+
         level.setParentChildLink((ParentChildLink) parentChildLink);
         level.getMemberProperties().addAll((Collection<? extends MemberProperty>) memberProperties);
         level.setMemberFormatter((MemberFormatter) memberFormatter);
@@ -812,13 +806,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MeasureMapping createMeasure(SQLExpressionMapping measureExpression,
+    protected MeasureMapping createMeasure(
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
             MeasureAggregatorType type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setMeasureExpression((SQLExpression) measureExpression);
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);

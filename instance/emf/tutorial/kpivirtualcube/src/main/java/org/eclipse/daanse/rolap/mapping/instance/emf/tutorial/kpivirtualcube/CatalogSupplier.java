@@ -85,17 +85,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType(ColumnType.VARCHAR);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
 
-        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
         valueNumericColumn.setId("Fact_VALUE_NUMERIC");
         valueNumericColumn.setType(ColumnType.INTEGER);

@@ -123,7 +123,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RowMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RowValueMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingColumnImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlViewMappingImpl;
@@ -707,9 +707,9 @@ public class TransformTask {
         return null;
     }
 
-    private SQLExpressionMappingImpl transformSQLExpressionOfExpressionView(ExpressionView expressionView) {
+    private SQLExpressionMappingColumnImpl transformSQLExpressionOfExpressionView(ExpressionView expressionView) {
         if (expressionView != null) {
-            SQLExpressionMappingImpl sqlExpression = SQLExpressionMappingImpl.builder().build();
+            SQLExpressionMappingColumnImpl sqlExpression = SQLExpressionMappingColumnImpl.builder().build();
             sqlExpression.setSqls(transformSqls(expressionView.sqls()));
             return sqlExpression;
         }
@@ -736,15 +736,16 @@ public class TransformTask {
         m.setName(measure.name());
         m.setVisible(measure.visible());
         if (measure.measureExpression() != null) {
-            m.setMeasureExpression(transformSqlExpression(measure.measureExpression().sqls()));
+            // redefine as column
+            // m.setMeasureExpression(transformSqlExpression(measure.measureExpression().sqls()));
         }
         return m;
     }
 
-    private SQLExpressionMappingImpl transformSqlExpression(
+    private SQLExpressionMappingColumnImpl transformSqlExpression(
         List<org.eclipse.daanse.rolap.mapping.mondrian.model.SQL> sqls
     ) {
-        SQLExpressionMappingImpl sqlExpression = SQLExpressionMappingImpl.builder().build();
+        SQLExpressionMappingColumnImpl sqlExpression = SQLExpressionMappingColumnImpl.builder().build();
         sqlExpression.setSqls(transformSqls(sqls));
         return sqlExpression;
     }

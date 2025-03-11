@@ -60,47 +60,47 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column employeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column employeeIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         employeeIdColumn.setName("employee_id");
         employeeIdColumn.setId("Fact_employee_id");
         employeeIdColumn.setType(ColumnType.INTEGER);
 
-        Column fullNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column fullNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         fullNameColumn.setName("full_name");
         fullNameColumn.setId("Fact_full_name");
         fullNameColumn.setType(ColumnType.VARCHAR);
 
-        Column supervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column supervisorIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         supervisorIdColumn.setName("supervisor_id");
         supervisorIdColumn.setId("Fact_supervisor_id");
         supervisorIdColumn.setType(ColumnType.INTEGER);
 
-        Column maritalStatusColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column maritalStatusColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         maritalStatusColumn.setName("marital_status");
         maritalStatusColumn.setId("Fact_marital_status");
         maritalStatusColumn.setType(ColumnType.VARCHAR);
 
-        Column positionTitleColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column positionTitleColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         positionTitleColumn.setName("position_title");
         positionTitleColumn.setId("Fact_position_title");
         positionTitleColumn.setType(ColumnType.VARCHAR);
 
-        Column genderColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column genderColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         genderColumn.setName("gender");
         genderColumn.setId("Fact_gender");
         genderColumn.setType(ColumnType.VARCHAR);
 
-        Column salaryColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column salaryColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         salaryColumn.setName("salary");
         salaryColumn.setId("Fact_salary");
         salaryColumn.setType(ColumnType.INTEGER);
 
-        Column educationLevelColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column educationLevelColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         educationLevelColumn.setName("education_level");
         educationLevelColumn.setId("Fact_education_level");
         educationLevelColumn.setType(ColumnType.INTEGER);
 
-        Column managementRoleColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column managementRoleColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         managementRoleColumn.setName("management_role");
         managementRoleColumn.setId("Fact_management_role");
         managementRoleColumn.setType(ColumnType.VARCHAR);
@@ -112,17 +112,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 positionTitleColumn, genderColumn, salaryColumn, educationLevelColumn, managementRoleColumn));
         databaseSchema.getTables().add(table);
 
-        Column employeeClosureSupervisorIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column employeeClosureSupervisorIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         employeeClosureSupervisorIdColumn.setName("supervisor_id");
         employeeClosureSupervisorIdColumn.setId("employee_closure_supervisor_id");
         employeeClosureSupervisorIdColumn.setType(ColumnType.INTEGER);
 
-        Column employeeClosureEmployeeIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column employeeClosureEmployeeIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         employeeClosureEmployeeIdColumn.setName("employee_id");
         employeeClosureEmployeeIdColumn.setId("employee_closure_employee_id");
         employeeClosureEmployeeIdColumn.setType(ColumnType.INTEGER);
 
-        Column employeeClosureDistanceColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column employeeClosureDistanceColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         employeeClosureDistanceColumn.setName("distance");
         employeeClosureDistanceColumn.setId("employee_closure_distance");
         employeeClosureDistanceColumn.setType(ColumnType.INTEGER);

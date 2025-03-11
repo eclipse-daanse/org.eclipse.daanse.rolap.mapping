@@ -59,12 +59,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column productIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productIdColumn.setName("PRODUCT_ID");
         productIdColumn.setId("SALES_FACT_1997_PRODUCT_ID");
         productIdColumn.setType(ColumnType.INTEGER);
 
-        Column storeCostColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column storeCostColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         storeCostColumn.setName("STORE_COST");
         storeCostColumn.setId("SALES_FACT_1997_STORE_COST");
         storeCostColumn.setType(ColumnType.DECIMAL);
@@ -77,23 +77,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         salesFact1997.getColumns().addAll(List.of(productIdColumn, storeCostColumn));
         databaseSchema.getTables().add(salesFact1997);
 
-        Column productProductClassIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productProductClassIdColumn.setName("PRODUCT_CLASS_ID");
         productProductClassIdColumn.setId("PRODUCT_PRODUCT_CLASS_ID");
         productProductClassIdColumn.setType(ColumnType.INTEGER);
 
-        Column productProductIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productProductIdColumn.setName("PRODUCT_ID");
         productProductIdColumn.setId("PRODUCT_PRODUCT_ID");
         productProductIdColumn.setType(ColumnType.INTEGER);
 
-        Column productBrandNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productBrandNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productBrandNameColumn.setName("brand_name");
         productBrandNameColumn.setId("PRODUCT_brand_name");
         productBrandNameColumn.setType(ColumnType.VARCHAR);
         productBrandNameColumn.setColumnSize(60);
 
-        Column productProductNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productProductNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productProductNameColumn.setName("brand_name");
         productProductNameColumn.setId("PRODUCT_brand_name");
         productProductNameColumn.setType(ColumnType.VARCHAR);
@@ -106,12 +106,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 productBrandNameColumn, productProductNameColumn));
         databaseSchema.getTables().add(productTable);
 
-        Column productClassProductClassIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productClassProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productClassProductClassIdColumn.setName("PRODUCT_CLASS_ID");
         productClassProductClassIdColumn.setId("PRODUCT_CLASS_PRODUCT_CLASS_ID");
         productClassProductClassIdColumn.setType(ColumnType.INTEGER);
 
-        Column productClassProductFamileColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column productClassProductFamileColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productClassProductFamileColumn.setName("PRODUCT_FAMILE");
         productClassProductFamileColumn.setId("PRODUCT_CLASS_PRODUCT_FAMILE");
         productClassProductFamileColumn.setType(ColumnType.VARCHAR);
@@ -124,19 +124,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(productClassProductClassIdColumn, productClassProductFamileColumn));
         databaseSchema.getTables().add(productClassTable);
 
-        Column aggCSpecialSalesFact1997ProductIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column aggCSpecialSalesFact1997ProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997ProductIdColumn.setName("PRODUCT_ID");
         aggCSpecialSalesFact1997ProductIdColumn.setId("aggCSpecialSalesFact1997_PRODUCT_ID");
         aggCSpecialSalesFact1997ProductIdColumn.setType(ColumnType.INTEGER);
 
-        Column aggCSpecialSalesFact1997StoreCostSumColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column aggCSpecialSalesFact1997StoreCostSumColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997StoreCostSumColumn.setName("STORE_COST_SUM");
         aggCSpecialSalesFact1997StoreCostSumColumn.setId("aggCSpecialSalesFact1997_STORE_COST_SUM");
         aggCSpecialSalesFact1997StoreCostSumColumn.setType(ColumnType.DECIMAL);
         aggCSpecialSalesFact1997StoreCostSumColumn.setColumnSize(10);
         aggCSpecialSalesFact1997StoreCostSumColumn.setDecimalDigits(4);
 
-        Column aggCSpecialSalesFact1997FactCountColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column aggCSpecialSalesFact1997FactCountColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997FactCountColumn.setName("FACT_COUNT");
         aggCSpecialSalesFact1997FactCountColumn.setId("aggCSpecialSalesFact1997_FACT_COUNT");
         aggCSpecialSalesFact1997FactCountColumn.setType(ColumnType.INTEGER);

@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 
 public abstract class AbstractTableMappingImpl implements TableMapping {
@@ -27,11 +28,11 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
         this.name = name;
     }
 
-    public List<ColumnMappingImpl> getColumns() {
+    public List<ColumnMapping> getColumns() {
         return columns;
     }
 
-    public void setColumns(List<ColumnMappingImpl> columns) {
+    public void setColumns(List<ColumnMapping> columns) {
         this.columns = columns;
     }
 
@@ -53,7 +54,7 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
 
     private String name;
 
-    private List<ColumnMappingImpl> columns;
+    private List<ColumnMapping> columns;
 
     private DatabaseSchemaMappingImpl schema;
 
@@ -63,7 +64,7 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
 
         private String name;
 
-        private List<ColumnMappingImpl> columns;
+        private List<ColumnMapping> columns;
 
         private DatabaseSchemaMappingImpl schema;
 
@@ -74,7 +75,7 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
             return (B) this;
         }
 
-        public B withColumns(List<ColumnMappingImpl> columns) {
+        public B withColumns(List<ColumnMapping> columns) {
             this.columns = columns;
             return (B) this;
         }
@@ -93,7 +94,7 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
             return name;
         }
 
-        public List<ColumnMappingImpl> getColumns() {
+        public List<ColumnMapping> getColumns() {
             return columns;
         }
 

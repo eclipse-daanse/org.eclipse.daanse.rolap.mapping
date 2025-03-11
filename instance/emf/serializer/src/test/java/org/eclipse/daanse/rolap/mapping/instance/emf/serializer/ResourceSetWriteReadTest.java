@@ -408,8 +408,9 @@ public class ResourceSetWriteReadTest {
             add(RolapMappingPackage.Literals.SYSTEM_TABLE);
             add(RolapMappingPackage.Literals.SQL_VIEW);
             add(RolapMappingPackage.Literals.COLUMN);
+            add(RolapMappingPackage.Literals.PHYSICAL_COLUMN);
 
-            add(RolapMappingPackage.Literals.SQL_EXPRESSION);
+            add(RolapMappingPackage.Literals.SQL_EXPRESSION_COLUMN);
             add(RolapMappingPackage.Literals.SQL_SELECT_QUERY);
             add(RolapMappingPackage.Literals.SQL_STATEMENT);
 

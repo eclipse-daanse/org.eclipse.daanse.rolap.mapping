@@ -63,34 +63,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType(ColumnType.VARCHAR);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
 
-        Column l1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column l1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         l1Column.setName("L1");
         l1Column.setId("Fact_L1");
         l1Column.setType(ColumnType.VARCHAR);
         l1Column.setColumnSize(100);
 
-        Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column l2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         l2Column.setName("L2");
         l2Column.setId("Fact_L2");
         l2Column.setType(ColumnType.INTEGER);
 
-        Column prop1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column prop1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         prop1Column.setName("prop1");
         prop1Column.setId("Fact_prop1");
         prop1Column.setType(ColumnType.VARCHAR);
         prop1Column.setColumnSize(100);
 
-        Column prop2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column prop2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         prop2Column.setName("prop2");
         prop2Column.setId("Fact_prop2");
         prop2Column.setType(ColumnType.INTEGER);

@@ -43,7 +43,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("_dbschema");
 
-        Column column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("ColumnOne");
         column.setId("_col");
         column.setType(ColumnType.VARCHAR);

@@ -129,7 +129,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
@@ -615,11 +615,11 @@ class MandantoriesVerifyerTest {
                             String getDescription,
                             ColumnMapping getCaptionColumn,
                             List<AnnotationMapping> getAnnotations,
-                            SQLExpressionMapping getKeyExpression,
-                            SQLExpressionMapping getNameExpression,
-                            SQLExpressionMapping getCaptionExpression,
-                            SQLExpressionMapping getOrdinalExpression,
-                            SQLExpressionMapping getParentExpression,
+                            SQLExpressionColumnMapping getKeyExpression,
+                            SQLExpressionColumnMapping getNameExpression,
+                            SQLExpressionColumnMapping getCaptionExpression,
+                            SQLExpressionColumnMapping getOrdinalExpression,
+                            SQLExpressionColumnMapping getParentExpression,
                             ParentChildLinkMapping getParentChildLink,
                             List<MemberPropertyMapping> getMemberProperties,
                             boolean isVisible,

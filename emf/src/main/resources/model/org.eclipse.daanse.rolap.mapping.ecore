@@ -147,8 +147,6 @@
         <details key="body" value="return MeasureAggregatorType.fromValue(getAggregator().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="measureExpression" eType="#//SQLExpression"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="#//Column"/>
@@ -240,16 +238,6 @@
         <details key="body" value="return LevelType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="keyExpression" eType="#//SQLExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nameExpression" eType="#//SQLExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="captionExpression" eType="#//SQLExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalExpression" eType="#//SQLExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentExpression" eType="#//SQLExpression"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentChildLink" eType="#//ParentChildLink"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberProperties" upperBound="-1"
@@ -301,16 +289,6 @@
         eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" lowerBound="1"
         eType="#//Column"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SQLExpression" eSuperTypes="#//ISQLExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
-        eType="#//SqlStatement" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
-        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RelationalQuery" abstract="true" eSuperTypes="#//Query #//IRelationalQuery">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -581,7 +559,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Column" eSuperTypes="#//IColumn #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Column" abstract="true" eSuperTypes="#//IColumn #//AbstractElement">
     <eOperations name="getDataType" eType="#//ColumnDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return ColumnDataType.fromValue(getType().getLiteral());"/>
@@ -600,6 +578,17 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="charOctetLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="numPrecRadix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalColumn" eSuperTypes="#//Column #//IPhysicalColumn"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionColumn" eSuperTypes="#//ISQLExpressionColumn #//Column">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
+        eType="#//SqlStatement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//ILink">
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
@@ -719,6 +708,8 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IParentChildLink" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping"
       abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalColumnMapping"
+      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IPhysicalCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.QueryMapping"
@@ -727,7 +718,7 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ICatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISQLExpression" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping"
+  <eClassifiers xsi:type="ecore:EClass" name="ISQLExpressionColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ISqlSelectQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping"
       abstract="true" interface="true"/>

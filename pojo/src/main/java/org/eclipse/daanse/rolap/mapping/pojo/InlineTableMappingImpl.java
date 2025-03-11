@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 
@@ -46,7 +47,7 @@ public class InlineTableMappingImpl extends AbstractTableMappingImpl implements 
 
         private String name;
 
-        private List<ColumnMappingImpl> columns;
+        private List<ColumnMapping> columns;
 
         private DatabaseSchemaMappingImpl schema;
 
@@ -62,7 +63,7 @@ public class InlineTableMappingImpl extends AbstractTableMappingImpl implements 
             return this;
         }
 
-        public Builder withColumns(List<ColumnMappingImpl> columns) {
+        public Builder withColumns(List<ColumnMapping> columns) {
             this.columns = columns;
             return this;
         }

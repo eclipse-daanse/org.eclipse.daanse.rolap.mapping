@@ -70,12 +70,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.VARCHAR);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -86,17 +86,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column htKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column htKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htKeyColumn.setName("KEY");
         htKeyColumn.setId("HT_KEY");
         htKeyColumn.setType(ColumnType.VARCHAR);
 
-        Column htValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column htValueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueColumn.setName("VALUE");
         htValueColumn.setId("HT_VALUE");
         htValueColumn.setType(ColumnType.NUMERIC);
 
-        Column htNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column htNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htNameColumn.setName("NAME");
         htNameColumn.setId("HT_NAME");
         htNameColumn.setType(ColumnType.VARCHAR);

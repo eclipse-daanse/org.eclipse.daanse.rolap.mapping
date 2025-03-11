@@ -64,7 +64,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
@@ -143,7 +143,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RowMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.RowValueMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingColumnImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlViewMappingImpl;
@@ -191,7 +191,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         PhysicalTableMappingImpl physicalTableImpl = PhysicalTableMappingImpl.builder().build();
         physicalTableImpl.setName(name);
-        physicalTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        physicalTableImpl.setColumns((List<ColumnMapping>) columns);
         physicalTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         physicalTableImpl.setDescription(description);
         return physicalTableImpl;
@@ -205,7 +205,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         SystemTableMappingImpl systemTableImpl = SystemTableMappingImpl.builder().build();
         systemTableImpl.setName(name);
-        systemTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        systemTableImpl.setColumns((List<ColumnMapping>) columns);
         systemTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         systemTableImpl.setDescription(description);
         return systemTableImpl;
@@ -219,7 +219,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         ViewTableMappingImpl viewTableImpl = ViewTableMappingImpl.builder().build();
         viewTableImpl.setName(name);
-        viewTableImpl.setColumns((List<ColumnMappingImpl>) columns);
+        viewTableImpl.setColumns((List<ColumnMapping>) columns);
         viewTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         viewTableImpl.setDescription(description);
         return viewTableImpl;
@@ -532,8 +532,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
-        return SQLExpressionMappingImpl.builder()
+    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
+        return SQLExpressionMappingColumnImpl.builder()
             .withSqls((List<SqlStatementMappingImpl>) sqls)
             .build();
     }
@@ -541,20 +541,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected LevelMapping createLevel(
-        SQLExpressionMapping keyExpression, SQLExpressionMapping nameExpression,
-        SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
-        SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
+        ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
         TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
-            .withKeyExpression((SQLExpressionMappingImpl) keyExpression)
-            .withNameExpression((SQLExpressionMappingImpl) nameExpression)
-            .withCaptionExpression((SQLExpressionMappingImpl) captionExpression)
-            .withOrdinalExpression((SQLExpressionMappingImpl) ordinalExpression)
-            .withParentExpression((SQLExpressionMappingImpl) parentExpression)
+
             .withParentChildLink((ParentChildLinkMappingImpl) parentChildLink)
             .withMemberProperties((List<MemberPropertyMappingImpl>) memberProperties)
             .withMemberFormatter((MemberFormatterMappingImpl) memberFormatter)
@@ -673,13 +667,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected MeasureMapping createMeasure(
-        SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
     ) {
         return MeasureMappingImpl.builder()
-            .withMeasureExpression((SQLExpressionMappingImpl) measureExpression)
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withBackColor(backColor)
@@ -1050,7 +1042,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         SqlViewMappingImpl sqlView = SqlViewMappingImpl.builder().build();
         sqlView.setName(name);
-        sqlView.setColumns((List<ColumnMappingImpl>) columns);
+        sqlView.setColumns((List<ColumnMapping>) columns);
         sqlView.setSchema((DatabaseSchemaMappingImpl) schema);
         sqlView.setDescription(description);
         sqlView.setSqlStatements(sqlStatements);
@@ -1065,7 +1057,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         InlineTableMappingImpl inlineTable = InlineTableMappingImpl.builder().build();
         inlineTable.setName(name);
-        inlineTable.setColumns((List<ColumnMappingImpl>) columns);
+        inlineTable.setColumns((List<ColumnMapping>) columns);
         inlineTable.setSchema((DatabaseSchemaMappingImpl) schema);
         inlineTable.setDescription(description);
         inlineTable.setRows(rows);

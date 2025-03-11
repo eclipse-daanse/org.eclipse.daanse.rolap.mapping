@@ -68,12 +68,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.VARCHAR);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -84,17 +84,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("HT_KEY");
         keyColumn.setType(ColumnType.INTEGER);
 
-        Column nameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column nameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameColumn.setName("NAME");
         nameColumn.setId("HT_NAME");
         nameColumn.setType(ColumnType.VARCHAR);
 
-        Column htValueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column htValueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueColumn.setName("VALUE");
         htValueColumn.setId("HT_VALUE");
         htValueColumn.setType(ColumnType.INTEGER);
@@ -113,17 +113,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sqlView.setId("HT_VIEW");
         sqlView.getSqlStatements().add(sqlStatement);
 
-        Column keyViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyViewColumn.setName("KEY");
         keyViewColumn.setId("View_KEY");
         keyViewColumn.setType(ColumnType.INTEGER);
 
-        Column nameViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column nameViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameViewColumn.setName("NAME");
         nameViewColumn.setId("View_NAME");
         nameViewColumn.setType(ColumnType.VARCHAR);
 
-        Column htValueViewColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column htValueViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueViewColumn.setName("VALUE");
         htValueViewColumn.setId("View_VALUE");
         htValueViewColumn.setType(ColumnType.INTEGER);

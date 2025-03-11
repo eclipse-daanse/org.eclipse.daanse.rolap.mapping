@@ -63,12 +63,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.INTEGER);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -79,17 +79,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column memberKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column memberKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         memberKeyColumn.setName("KEY");
         memberKeyColumn.setId("Hier_One_Top_Member_KEY");
         memberKeyColumn.setType(ColumnType.INTEGER);
 
-        Column memberNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column memberNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         memberNameColumn.setName("NAME");
         memberNameColumn.setId("Hier_One_Top_Member_NAME");
         memberNameColumn.setType(ColumnType.VARCHAR);
 
-        Column memberParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column memberParentKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         memberParentKeyColumn.setName("PARENT_KEY");
         memberParentKeyColumn.setId("Hier_One_Top_Member_PARENT_KEY");
         memberParentKeyColumn.setType(ColumnType.INTEGER);

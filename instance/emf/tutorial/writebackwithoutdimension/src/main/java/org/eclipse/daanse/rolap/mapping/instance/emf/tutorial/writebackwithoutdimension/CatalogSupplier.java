@@ -48,17 +48,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column valColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valColumn.setName("VAL");
         valColumn.setId("Fact_VAL");
         valColumn.setType(ColumnType.INTEGER);
 
-        Column val1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column val1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         val1Column.setName("VAL1");
         val1Column.setId("Fact_VAL1");
         val1Column.setType(ColumnType.INTEGER);
 
-        Column l2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column l2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         l2Column.setName("VALUE");
         l2Column.setId("Fact_VALUE");
         l2Column.setType(ColumnType.VARCHAR);
@@ -70,29 +70,29 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
         databaseSchema.getTables().add(table);
 
-        Column factwbValColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column factwbValColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbValColumn.setName("VAL");
         factwbValColumn.setId("Factwb_VAL");
         factwbValColumn.setType(ColumnType.INTEGER);
 
-        Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbVal1Column.setName("VAL1");
         factwbVal1Column.setId("Factwb_VAL1");
         factwbVal1Column.setType(ColumnType.INTEGER);
 
-        Column factwbL2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column factwbL2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbL2Column.setName("L2");
         factwbL2Column.setId("factwb_L2");
         factwbL2Column.setType(ColumnType.VARCHAR);
         factwbL2Column.setColumnSize(100);
 
-        Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbIdColumn.setName("ID");
         factwbIdColumn.setId("factwb_ID");
         factwbIdColumn.setType(ColumnType.VARCHAR);
         factwbIdColumn.setColumnSize(100);
 
-        Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbUserColumn.setName("USER");
         factwbUserColumn.setId("factwb_USER");
         factwbUserColumn.setType(ColumnType.VARCHAR);

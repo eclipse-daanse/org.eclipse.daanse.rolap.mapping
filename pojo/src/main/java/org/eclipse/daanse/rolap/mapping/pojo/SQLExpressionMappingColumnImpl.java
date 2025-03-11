@@ -8,18 +8,20 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *   SmartCity Jena - initial
- *   Stefan Bischof (bipolis.org) - initial
+ *
  */
 package org.eclipse.daanse.rolap.mapping.pojo;
 
-import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 
-public class ColumnMappingImpl implements ColumnMapping {
+public class SQLExpressionMappingColumnImpl implements SQLExpressionColumnMapping {
 
-    public ColumnMappingImpl(Builder builder) {
+    public SQLExpressionMappingColumnImpl(Builder builder) {
         this.name = builder.name;
         this.table = builder.table;
         this.dataType = builder.dataType;
@@ -29,6 +31,7 @@ public class ColumnMappingImpl implements ColumnMapping {
         this.columnSize = builder.columnSize;
         this.decimalDigits = builder.decimalDigits;
         this.description = builder.description;
+        this.sqls = builder.sqls;
     }
 
     public String getName() {
@@ -101,10 +104,6 @@ public class ColumnMappingImpl implements ColumnMapping {
 
     private String description;
 
-    public static Builder builder() {
-        return new Builder();
-    }
-
     public static final class Builder {
 
         private String name;
@@ -124,6 +123,16 @@ public class ColumnMappingImpl implements ColumnMapping {
         private Integer columnSize;
 
         private Integer decimalDigits;
+
+        private List<SqlStatementMappingImpl> sqls = new ArrayList<>();
+
+        private Builder() {
+        }
+
+        public Builder withSqls(List<SqlStatementMappingImpl> sqls) {
+            this.sqls = sqls;
+            return this;
+        }
 
         public Builder withName(String name) {
             this.name = name;
@@ -170,8 +179,8 @@ public class ColumnMappingImpl implements ColumnMapping {
             return this;
         }
 
-        public ColumnMappingImpl build() {
-            return new ColumnMappingImpl(this);
+        public SQLExpressionMappingColumnImpl build() {
+            return new SQLExpressionMappingColumnImpl(this);
         }
     }
 
@@ -199,4 +208,19 @@ public class ColumnMappingImpl implements ColumnMapping {
     public Boolean getNullable() {
         return nullable;
     }
+
+    private List<SqlStatementMappingImpl> sqls;
+
+    public List<SqlStatementMappingImpl> getSqls() {
+        return sqls;
+    }
+
+    public void setSqls(List<SqlStatementMappingImpl> sqls) {
+        this.sqls = sqls;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
 }
