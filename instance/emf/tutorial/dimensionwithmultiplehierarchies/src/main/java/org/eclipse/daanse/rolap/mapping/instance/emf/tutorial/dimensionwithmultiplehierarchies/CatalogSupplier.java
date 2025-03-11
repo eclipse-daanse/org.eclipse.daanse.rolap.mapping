@@ -52,12 +52,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.INTEGER);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -68,12 +68,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h1L1KeyColumn.setName("KEY");
         h1L1KeyColumn.setId("H1_L1_KEY");
         h1L1KeyColumn.setType(ColumnType.INTEGER);
 
-        Column h1L1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column h1L1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h1L1NameColumn.setName("NAME");
         h1L1NameColumn.setId("H1_L1_NAME");
         h1L1NameColumn.setType(ColumnType.VARCHAR);
@@ -84,12 +84,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         h1L1Table.getColumns().addAll(List.of(h1L1KeyColumn, h1L1NameColumn));
         databaseSchema.getTables().add(h1L1Table);
 
-        Column h2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column h2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h2L1KeyColumn.setName("KEY");
         h2L1KeyColumn.setId("H2_L1_KEY");
         h2L1KeyColumn.setType(ColumnType.INTEGER);
 
-        Column h2L1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column h2L1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h2L1NameColumn.setName("NAME");
         h2L1NameColumn.setId("H2_L1_NAME");
         h2L1NameColumn.setType(ColumnType.VARCHAR);
@@ -100,22 +100,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         h2L1Table.getColumns().addAll(List.of(h1L1KeyColumn, h1L1NameColumn));
         databaseSchema.getTables().add(h2L1Table);
 
-        Column hxL2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hxL2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2KeyColumn.setName("KEY");
         hxL2KeyColumn.setId("HX_L2_KEY");
         hxL2KeyColumn.setType(ColumnType.INTEGER);
 
-        Column hxL2NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hxL2NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2NameColumn.setName("NAME");
         hxL2NameColumn.setId("HX_L2_NAME");
         hxL2NameColumn.setType(ColumnType.VARCHAR);
 
-        Column hxL2H1L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hxL2H1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2H1L1KeyColumn.setName("H1L1_KEY");
         hxL2H1L1KeyColumn.setId("HX_L2_H1L1_KEY");
         hxL2H1L1KeyColumn.setType(ColumnType.INTEGER);
 
-        Column hxL2H2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hxL2H2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2H2L1KeyColumn.setName("H2L1_KEY");
         hxL2H2L1KeyColumn.setId("HX_L2_H2L1_KEY");
         hxL2H2L1KeyColumn.setType(ColumnType.INTEGER);

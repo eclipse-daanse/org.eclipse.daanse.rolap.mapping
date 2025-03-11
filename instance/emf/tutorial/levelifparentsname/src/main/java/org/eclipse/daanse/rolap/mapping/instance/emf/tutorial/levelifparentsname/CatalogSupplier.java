@@ -52,12 +52,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.INTEGER);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -68,12 +68,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         factTable.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(factTable);
 
-        Column level1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column level1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1KeyColumn.setName("KEY");
         level1KeyColumn.setId("Level_1_KEY");
         level1KeyColumn.setType(ColumnType.INTEGER);
 
-        Column level1NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column level1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1NameColumn.setName("NAME");
         level1NameColumn.setId("Level_1_NAME");
         level1NameColumn.setType(ColumnType.VARCHAR);
@@ -84,17 +84,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level1Table.getColumns().addAll(List.of(level1KeyColumn, level1NameColumn));
         databaseSchema.getTables().add(level1Table);
 
-        Column level2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column level2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2KeyColumn.setName("KEY");
         level2KeyColumn.setId("Level_2_KEY");
         level2KeyColumn.setType(ColumnType.INTEGER);
 
-        Column level2NameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column level2NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2NameColumn.setName("NAME");
         level2NameColumn.setId("Level_2_NAME");
         level2NameColumn.setType(ColumnType.VARCHAR);
 
-        Column level2L1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column level2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2L1KeyColumn.setName("L1_KEY");
         level2L1KeyColumn.setId("Level_2_L1_KEY");
         level2L1KeyColumn.setType(ColumnType.INTEGER);

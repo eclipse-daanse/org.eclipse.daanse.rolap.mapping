@@ -27,7 +27,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpression;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpressionColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
@@ -49,17 +49,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
         keyColumn.setId("Fact_KEY");
         keyColumn.setType(ColumnType.VARCHAR);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
 
-        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
         valueNumericColumn.setId("Fact_VALUE_NUMERIC");
         valueNumericColumn.setType(ColumnType.NUMERIC);
@@ -70,30 +70,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(keyColumn, valueColumn, valueNumericColumn));
         databaseSchema.getTables().add(table);
 
-        Column idColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column idColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         idColumn.setName("ID");
         idColumn.setId("MEASURE_TABLE_ID");
         idColumn.setType(ColumnType.INTEGER);
 
-        Column value1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column value1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value1Column.setName("VALUE");
         value1Column.setId("MEASURE_TABLE_VALUE");
         value1Column.setType(ColumnType.INTEGER);
 
-        Column flagColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column flagColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         flagColumn.setName("FLAG");
         flagColumn.setId("MEASURE_TABLE_FLAG");
         flagColumn.setType(ColumnType.INTEGER);
-
-        PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
-        table1.setName(MEASURE_TABLE);
-        table1.setId(MEASURE_TABLE);
-        table1.getColumns().addAll(List.of(idColumn, value1Column, flagColumn));
-        databaseSchema.getTables().add(table1);
-
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("FactQuery");
-        query.setTable(table);
 
         SqlStatement sql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         sql1.getDialects().addAll(List.of("generic", "h2"));
@@ -104,23 +94,33 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sql2.getDialects().addAll(List.of("generic", "h2"));
         sql2.setSql("(CASE WHEN \"FACT\".\"VALUE\" > 21 THEN 50 ELSE \"FACT\".\"VALUE\" END)");
 
-        SQLExpression measureExpression1 = RolapMappingFactory.eINSTANCE.createSQLExpression();
+        SQLExpressionColumn measureExpression1 = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         measureExpression1.getSqls().addAll(List.of(sql1));
 
-        SQLExpression measureExpression2 = RolapMappingFactory.eINSTANCE.createSQLExpression();
+        SQLExpressionColumn measureExpression2 = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         measureExpression2.getSqls().addAll(List.of(sql2));
+
+        PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        table1.setName(MEASURE_TABLE);
+        table1.setId(MEASURE_TABLE);
+        table1.getColumns().addAll(List.of(idColumn, value1Column, flagColumn, measureExpression1, measureExpression2));
+        databaseSchema.getTables().add(table1);
+
+        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query.setId("FactQuery");
+        query.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setAggregator(MeasureAggregator.SUM);
         measure1.setName("Measure1-Sum");
         measure1.setId("Measure1-Sum");
-        measure1.setMeasureExpression(measureExpression1);
+        measure1.setColumn(measureExpression1);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure2.setAggregator(MeasureAggregator.SUM);
         measure2.setName("Measure2-Sum");
         measure2.setId("Measure2-Sum");
-        measure2.setMeasureExpression(measureExpression2);
+        measure2.setColumn(measureExpression2);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2));

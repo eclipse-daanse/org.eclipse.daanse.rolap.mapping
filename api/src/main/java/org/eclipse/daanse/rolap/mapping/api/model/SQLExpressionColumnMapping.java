@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 
 import java.util.List;
 
-public interface SQLExpressionMapping {
+public interface SQLExpressionColumnMapping extends ColumnMapping {
 
     List<? extends SqlStatementMapping> getSqls();
 

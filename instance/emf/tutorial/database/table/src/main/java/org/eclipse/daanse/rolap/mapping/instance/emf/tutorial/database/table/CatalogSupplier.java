@@ -52,7 +52,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("_dbschema");
 
-        Column column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("ColumnOne");
         column.setId("_col");
         column.setType(ColumnType.VARCHAR);
@@ -63,7 +63,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(column));
         databaseSchema.getTables().add(table);
 
-        Column column2 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column column2 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column2.setName("ColumnOne");
         column2.setId("_col");
         column2.setType(ColumnType.VARCHAR);
@@ -74,7 +74,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table2.getColumns().addAll(List.of(column2));
         databaseSchema.getTables().add(table2);
 
-        Column column3 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column column3 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column3.setName("ColumnOne");
         column3.setId("_col");
         column3.setType(ColumnType.VARCHAR);

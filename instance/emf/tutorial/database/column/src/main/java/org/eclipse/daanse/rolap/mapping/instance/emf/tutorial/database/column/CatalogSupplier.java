@@ -73,47 +73,47 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("_dbschema");
 
-        Column columnCommon = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnCommon = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnCommon.setName("ColumnWithDescription");
         columnCommon.setId("_col1");
         columnCommon.setNullable(true);
         columnCommon.setDescription("Non nullable Column with description");
         columnCommon.setType(ColumnType.VARCHAR);
 
-        Column columnVarchar = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnVarchar = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnVarchar.setName("ColumnVarchar");
         columnVarchar.setId("_col2");
         columnVarchar.setColumnSize(255);
         columnVarchar.setType(ColumnType.VARCHAR);
 
-        Column columnDecimal = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnDecimal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnDecimal.setName("ColumnDecimal");
         columnDecimal.setId("_col3");
         columnDecimal.setDecimalDigits(2);
         columnDecimal.setNumPrecRadix(3);
         columnDecimal.setType(ColumnType.DECIMAL);
 
-        Column columnNumeric = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnNumeric = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnNumeric.setName("ColumnNumeric");
         columnNumeric.setId("_col3");
         columnNumeric.setType(ColumnType.NUMERIC);
 
-        Column columnFloat = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnFloat = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnFloat.setName("ColumnFloat");
         columnFloat.setId("_col4");
         columnFloat.setType(ColumnType.FLOAT);
 
-        Column columnReal = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnReal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnReal.setName("ColumnReal");
         columnReal.setId("_col5");
         columnReal.setType(ColumnType.REAL);
 
-        Column columnDouble = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnDouble = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnDouble.setName("ColumnDouble");
         columnDouble.setId("_col6");
         columnDouble.setType(ColumnType.DOUBLE);
 
-        Column columnInteger = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnInteger = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnInteger.setName("ColumnIneger");
         columnInteger.setId("_col7");
         columnInteger.setType(ColumnType.INTEGER);

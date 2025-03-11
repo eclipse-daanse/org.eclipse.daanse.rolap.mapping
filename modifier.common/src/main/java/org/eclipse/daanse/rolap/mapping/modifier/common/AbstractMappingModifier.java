@@ -73,7 +73,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
@@ -1485,11 +1485,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected LevelMapping level(LevelMapping level) {
         if (level != null) {
             if (!levelMap.containsKey(level)) {
-                SQLExpressionMapping keyExpression = levelKeyExpression(level);
-                SQLExpressionMapping nameExpression = levelNameExpression(level);
-                SQLExpressionMapping captionExpression = levelCaptionExpression(level);
-                SQLExpressionMapping ordinalExpression = levelOrdinalExpression(level);
-                SQLExpressionMapping parentExpression = levelParentExpression(level);
                 ParentChildLinkMapping parentChildLink = levelParentChildLink(level);
                 List<? extends MemberPropertyMapping> memberProperties = levelMemberProperties(level);
                 MemberFormatterMapping memberFormatter = levelMemberFormatter(level);
@@ -1508,8 +1503,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String name = levelName(level);
                 String id = levelId(level);
                 String description = levelDescription(level);
-                return createLevel(keyExpression, nameExpression, captionExpression, ordinalExpression,
-                    parentExpression, parentChildLink, memberProperties, memberFormatter, approxRowCount,
+                return createLevel( parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
                     parentColumn, table,  uniqueMembers, visible, name, id, description);
             } else {
@@ -1776,11 +1770,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         ColumnMapping parentColumn
     );
 
-    protected SQLExpressionMapping levelParentExpression(LevelMapping level) {
-        return sqlExpression(level.getParentExpression());
-    }
-
-    protected SQLExpressionMapping sqlExpression(SQLExpressionMapping sqlExpression) {
+    protected SQLExpressionColumnMapping sqlExpression(SQLExpressionColumnMapping sqlExpression) {
         if (sqlExpression != null) {
             List<? extends SqlStatementMapping> sqls = sqlExpressionSqls(sqlExpression);
             return createSQLExpression(sqls);
@@ -1788,32 +1778,14 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected abstract SQLExpressionMapping createSQLExpression(List<? extends SqlStatementMapping> sqls);
+    protected abstract SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls);
 
-    protected List<? extends SqlStatementMapping> sqlExpressionSqls(SQLExpressionMapping sqlExpression) {
+    protected List<? extends SqlStatementMapping> sqlExpressionSqls(SQLExpressionColumnMapping sqlExpression) {
         return sqls(sqlExpression.getSqls());
     }
 
-    protected SQLExpressionMapping levelOrdinalExpression(LevelMapping level) {
-        return sqlExpression(level.getOrdinalExpression());
-    }
-
-    protected SQLExpressionMapping levelCaptionExpression(LevelMapping level) {
-        return sqlExpression(level.getCaptionExpression());
-    }
-
-    protected SQLExpressionMapping levelNameExpression(LevelMapping level) {
-        return sqlExpression(level.getNameExpression());
-    }
-
-    protected SQLExpressionMapping levelKeyExpression(LevelMapping level) {
-        return sqlExpression(level.getKeyExpression());
-    }
-
     protected abstract LevelMapping createLevel(
-        SQLExpressionMapping keyExpression, SQLExpressionMapping nameExpression,
-        SQLExpressionMapping captionExpression, SQLExpressionMapping ordinalExpression,
-        SQLExpressionMapping parentExpression, ParentChildLinkMapping parentChildLink,
+        ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
@@ -2471,7 +2443,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected MeasureMapping measure(MeasureMapping measure) {
         if (measure != null) {
             if (!measureMap.containsKey(measure)) {
-                SQLExpressionMapping measureExpression = measureMeasureExpression(measure);
                 List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
                     measureCalculatedMemberProperty(
                         measure);
@@ -2486,7 +2457,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String name = measureName(measure);
                 String id = measureId(measure);
                 MeasureAggregatorType aggregatorType = aggregatorType(measure);
-                MeasureMapping m = createMeasure(measureExpression, calculatedMemberProperty, cellFormatter, backColor,
+                MeasureMapping m = createMeasure( calculatedMemberProperty, cellFormatter, backColor,
                     column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
                 measureMap.put(measure, m);
                 return m;
@@ -2498,7 +2469,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract MeasureMapping createMeasure(
-        SQLExpressionMapping measureExpression,
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
         String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
@@ -2654,9 +2624,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(calculatedMemberProperty.getAnnotations());
     }
 
-    protected SQLExpressionMapping measureMeasureExpression(MeasureMapping measure) {
-        return sqlExpression(measure.getMeasureExpression());
-    }
 
     protected List<? extends KpiMapping> cubeKpis(CubeMapping cube) {
         return kpis(cube.getKpis());

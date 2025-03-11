@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
@@ -22,11 +23,9 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapping {
 
-    private SQLExpressionMappingImpl measureExpression;
-
     private String backColor;
 
-    private ColumnMappingImpl column;
+    private ColumnMapping column;
 
     private InternalDataType datatype;
 
@@ -37,7 +36,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
     private MeasureGroupMapping measureGroup;
 
     private MeasureMappingImpl(Builder builder) {
-        this.measureExpression = builder.measureExpression;
         this.backColor = builder.backColor;
         this.column = builder.column;
         this.datatype = builder.datatype;
@@ -56,14 +54,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
     }
 
-    public SQLExpressionMappingImpl getMeasureExpression() {
-        return measureExpression;
-    }
-
-    public void setMeasureExpression(SQLExpressionMappingImpl measureExpression) {
-        this.measureExpression = measureExpression;
-    }
-
     public String getBackColor() {
         return backColor;
     }
@@ -72,7 +62,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.backColor = backColor;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public ColumnMapping getColumn() {
         return column;
     }
 
@@ -118,11 +108,10 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
     public static final class Builder {
 
-        private SQLExpressionMappingImpl measureExpression;
         private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
         private String backColor;
-        private ColumnMappingImpl column;
+        private ColumnMapping column;
         private InternalDataType datatype;
         private String displayFolder;
         private String formatString;
@@ -138,14 +127,8 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private Builder() {
         }
 
-        public Builder withMeasureExpression(SQLExpressionMappingImpl measureExpression) {
-            this.measureExpression = measureExpression;
-            return this;
-        }
-
         public Builder withCalculatedMemberProperty(
-            List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties
-        ) {
+                List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
             this.calculatedMemberProperties = calculatedMemberProperties;
             return this;
         }
@@ -160,7 +143,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(ColumnMapping column) {
             this.column = column;
             return this;
         }
@@ -220,7 +203,8 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withCalculatedMemberProperties(List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
+        public Builder withCalculatedMemberProperties(
+                List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties) {
             this.calculatedMemberProperties = calculatedMemberProperties;
             return this;
         }

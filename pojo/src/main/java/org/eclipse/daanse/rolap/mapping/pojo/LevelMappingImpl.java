@@ -23,15 +23,15 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
 public class LevelMappingImpl extends AbstractElementMappingImpl implements LevelMapping {
 
-    private SQLExpressionMappingImpl keyExpression;
+    private SQLExpressionMappingColumnImpl keyExpression;
 
-    private SQLExpressionMappingImpl nameExpression;
+    private SQLExpressionMappingColumnImpl nameExpression;
 
-    private SQLExpressionMappingImpl captionExpression;
+    private SQLExpressionMappingColumnImpl captionExpression;
 
-    private SQLExpressionMappingImpl ordinalExpression;
+    private SQLExpressionMappingColumnImpl ordinalExpression;
 
-    private SQLExpressionMappingImpl parentExpression;
+    private SQLExpressionMappingColumnImpl parentExpression;
 
     private ParentChildLinkMappingImpl parentChildLink;
 
@@ -94,43 +94,43 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         super.setAnnotations(builder.annotations);
     }
 
-    public SQLExpressionMappingImpl getKeyExpression() {
+    public SQLExpressionMappingColumnImpl getKeyExpression() {
         return keyExpression;
     }
 
-    public void setKeyExpression(SQLExpressionMappingImpl keyExpression) {
+    public void setKeyExpression(SQLExpressionMappingColumnImpl keyExpression) {
         this.keyExpression = keyExpression;
     }
 
-    public SQLExpressionMappingImpl getNameExpression() {
+    public SQLExpressionMappingColumnImpl getNameExpression() {
         return nameExpression;
     }
 
-    public void setNameExpression(SQLExpressionMappingImpl nameExpression) {
+    public void setNameExpression(SQLExpressionMappingColumnImpl nameExpression) {
         this.nameExpression = nameExpression;
     }
 
-    public SQLExpressionMappingImpl getCaptionExpression() {
+    public SQLExpressionMappingColumnImpl getCaptionExpression() {
         return captionExpression;
     }
 
-    public void setCaptionExpression(SQLExpressionMappingImpl captionExpression) {
+    public void setCaptionExpression(SQLExpressionMappingColumnImpl captionExpression) {
         this.captionExpression = captionExpression;
     }
 
-    public SQLExpressionMappingImpl getOrdinalExpression() {
+    public SQLExpressionMappingColumnImpl getOrdinalExpression() {
         return ordinalExpression;
     }
 
-    public void setOrdinalExpression(SQLExpressionMappingImpl ordinalExpression) {
+    public void setOrdinalExpression(SQLExpressionMappingColumnImpl ordinalExpression) {
         this.ordinalExpression = ordinalExpression;
     }
 
-    public SQLExpressionMappingImpl getParentExpression() {
+    public SQLExpressionMappingColumnImpl getParentExpression() {
         return parentExpression;
     }
 
-    public void setParentExpression(SQLExpressionMappingImpl parentExpression) {
+    public void setParentExpression(SQLExpressionMappingColumnImpl parentExpression) {
         this.parentExpression = parentExpression;
     }
 
@@ -274,11 +274,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public static final class Builder {
-        private SQLExpressionMappingImpl keyExpression;
-        private SQLExpressionMappingImpl nameExpression;
-        private SQLExpressionMappingImpl captionExpression;
-        private SQLExpressionMappingImpl ordinalExpression;
-        private SQLExpressionMappingImpl parentExpression;
+        private SQLExpressionMappingColumnImpl keyExpression;
+        private SQLExpressionMappingColumnImpl nameExpression;
+        private SQLExpressionMappingColumnImpl captionExpression;
+        private SQLExpressionMappingColumnImpl ordinalExpression;
+        private SQLExpressionMappingColumnImpl parentExpression;
         private ParentChildLinkMappingImpl parentChildLink;
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
@@ -303,27 +303,27 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private Builder() {
         }
 
-        public Builder withKeyExpression(SQLExpressionMappingImpl keyExpression) {
+        public Builder withKeyExpression(SQLExpressionMappingColumnImpl keyExpression) {
             this.keyExpression = keyExpression;
             return this;
         }
 
-        public Builder withNameExpression(SQLExpressionMappingImpl nameExpression) {
+        public Builder withNameExpression(SQLExpressionMappingColumnImpl nameExpression) {
             this.nameExpression = nameExpression;
             return this;
         }
 
-        public Builder withCaptionExpression(SQLExpressionMappingImpl captionExpression) {
+        public Builder withCaptionExpression(SQLExpressionMappingColumnImpl captionExpression) {
             this.captionExpression = captionExpression;
             return this;
         }
 
-        public Builder withOrdinalExpression(SQLExpressionMappingImpl ordinalExpression) {
+        public Builder withOrdinalExpression(SQLExpressionMappingColumnImpl ordinalExpression) {
             this.ordinalExpression = ordinalExpression;
             return this;
         }
 
-        public Builder withParentExpression(SQLExpressionMappingImpl parentExpression) {
+        public Builder withParentExpression(SQLExpressionMappingColumnImpl parentExpression) {
             this.parentExpression = parentExpression;
             return this;
         }

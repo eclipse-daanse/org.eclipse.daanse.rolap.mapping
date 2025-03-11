@@ -17,8 +17,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public interface MeasureMapping extends MemberMapping{
 
-    SQLExpressionMapping getMeasureExpression();
-
     String getBackColor();
 
     ColumnMapping getColumn();

@@ -50,17 +50,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dim1KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dim1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dim1KeyColumn.setName("DIM1_KEY");
         dim1KeyColumn.setId("Fact_DIM1_KEY");
         dim1KeyColumn.setType(ColumnType.INTEGER);
 
-        Column dim2KeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dim2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dim2KeyColumn.setName("DIM2_KEY");
         dim2KeyColumn.setId("Fact_DIM2_KEY");
         dim2KeyColumn.setType(ColumnType.INTEGER);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -71,12 +71,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dim1KeyColumn, dim2KeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column keyDim1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyDim1Column.setName("KEY");
         keyDim1Column.setId("Dim1_KEY");
         keyDim1Column.setType(ColumnType.INTEGER);
 
-        Column nameDim1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column nameDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameDim1Column.setName("NAME");
         nameDim1Column.setId("Dim1_NAME");
         nameDim1Column.setType(ColumnType.VARCHAR);
@@ -87,12 +87,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         tableDim1.getColumns().addAll(List.of(keyDim1Column, nameDim1Column));
         databaseSchema.getTables().add(tableDim1);
 
-        Column keyDim2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column keyDim2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyDim2Column.setName("KEY");
         keyDim2Column.setId("Dim2_KEY");
         keyDim2Column.setType(ColumnType.INTEGER);
 
-        Column nameDim2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column nameDim2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameDim2Column.setName("NAME");
         nameDim2Column.setId("Dim2_NAME");
         nameDim2Column.setType(ColumnType.VARCHAR);

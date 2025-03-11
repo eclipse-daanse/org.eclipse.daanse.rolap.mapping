@@ -58,7 +58,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
-import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingColumnImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
@@ -902,6 +902,27 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnMappingImpl WAREHOUSE_SALES_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("warehouse_sales").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
     public static final ColumnMappingImpl UNITS_SHIPPED_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("units_shipped").withDataType(ColumnDataType.INTEGER).build();
     public static final ColumnMappingImpl UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("units_ordered").withDataType(ColumnDataType.INTEGER).build();
+
+    public static final  SQLExpressionMappingColumnImpl MEASURE_WAREHOUSE_PROFIT_COL =  SQLExpressionMappingColumnImpl.builder()
+            .withSqls(List.of(
+                SqlStatementMappingImpl.builder()
+                    .withDialects(List.of(
+                        DIALECT_MYSQL,
+                        DIALECT_MARIADB,
+                        DIALECT_INFOBRIGHT
+                    ))
+                    .withSql("`warehouse_sales` - `inventory_fact_1997`.`warehouse_cost`")
+                    .build(),
+                SqlStatementMappingImpl.builder()
+                    .withDialects(List.of(
+                        DIALECT_GENERIC
+                    ))
+                    .withSql("&quot;warehouse_sales&quot; - &quot;inventory_fact_1997&quot;.&quot;" +
+                        "warehouse_cost&quot;")
+                    .build()
+            ))
+            .build();
+
     public static final PhysicalTableMappingImpl INVENTORY_FACKT_1997_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("inventory_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_INVENTORY_FACKT_1997,
@@ -913,7 +934,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     WAREHOUSE_COST_COLUMN_IN_INVENTORY_FACKT_1997,
                     WAREHOUSE_SALES_COLUMN_IN_INVENTORY_FACKT_1997,
                     UNITS_SHIPPED_COLUMN_IN_INVENTORY_FACKT_1997,
-                    UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997
+                    UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997,
+                    MEASURE_WAREHOUSE_PROFIT_COL
             ))).build();
 
 
@@ -927,6 +949,46 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
     public static final ColumnMappingImpl STORE_COST_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
     public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+
+    public static final SQLExpressionMappingColumnImpl MEASURE_PROMOTION_SALES_COL = SQLExpressionMappingColumnImpl.builder()
+            .withSqls(List.of(
+                    SqlStatementMappingImpl.builder()
+                        .withDialects(List.of(DIALECT_ACCESS))
+                        .withSql("Iif(\"sales_fact_1997\".\"promotion_id\" = 0, 0, \"sales_fact_1997\"" +
+                            ".\"store_sales\")")
+                        .build(),
+                    SqlStatementMappingImpl.builder()
+                        .withDialects(List.of(
+                            DIALECT_ORACLE,
+                            DIALECT_H2,
+                            DIALECT_HSQLDB,
+                            DIALECT_POSTGRES,
+                            DIALECT_NEOVIEW,
+                            DIALECT_DERBY,
+                            DIALECT_LUCIDDB,
+                            DIALECT_DB2,
+                            NUODB,
+                            DIALECT_SNOWFLAKE
+                        ))
+                        .withSql("(case when \"sales_fact_1997\".\"promotion_id\" = 0 then 0 else " +
+                            "\"sales_fact_1997\".\"store_sales\" end)")
+                        .build(),
+                    SqlStatementMappingImpl.builder()
+                        .withDialects(List.of(DIALECT_INFOBRIGHT))
+                        .withSql("(case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`" +
+                            ".`store_sales` end)")
+                        .build(),
+                    SqlStatementMappingImpl.builder()
+                        .withDialects(List.of(DIALECT_ACCESS))
+                        .withSql("`sales_fact_1997`.`store_sales`")
+                        .build(),
+                    SqlStatementMappingImpl.builder()
+                        .withDialects(List.of(DIALECT_GENERIC))
+                        .withSql("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997" +
+                            ".store_sales end)")
+                        .build()
+                )).build();
+
     public static final PhysicalTableMappingImpl SALES_FACT_1997_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(SALES_FACT_1997)
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_SALES_FACT_1997,
@@ -936,7 +998,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     STORE_ID_COLUMN_IN_SALES_FACT_1997,
                     STORE_SALES_COLUMN_IN_SALES_FACT_1997,
                     STORE_COST_COLUMN_IN_SALES_FACT_1997,
-                    UNIT_SALES_COLUMN_IN_SALES_FACT_1997
+                    UNIT_SALES_COLUMN_IN_SALES_FACT_1997,
+                    MEASURE_PROMOTION_SALES_COL
                     ))).build();
 
     public static final DatabaseSchemaMappingImpl DATABASE_SCHEMA = DatabaseSchemaMappingImpl.builder()
@@ -1305,7 +1368,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withType(InternalDataType.NUMERIC)
         .withUniqueMembers(true)
-        .withNameExpression(SQLExpressionMappingImpl.builder()
+        .withNameExpression(SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(
                 SqlStatementMappingImpl.builder()
                     .withDialects(List.of(
@@ -1360,7 +1423,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .build()
             ))
             .build())
-        .withOrdinalExpression(SQLExpressionMappingImpl.builder()
+        .withOrdinalExpression(SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(
                 SqlStatementMappingImpl.builder()
                     .withDialects(List.of(
@@ -2107,49 +2170,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         ))
         .build();
 
+
     public static final MeasureMappingImpl MEASURE_PROMOTION_SALES = MeasureMappingImpl.builder()
         .withName("Promotion Sales")
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureExpression(SQLExpressionMappingImpl.builder()
-            .withSqls(List.of(
-                SqlStatementMappingImpl.builder()
-                    .withDialects(List.of(DIALECT_ACCESS))
-                    .withSql("Iif(\"sales_fact_1997\".\"promotion_id\" = 0, 0, \"sales_fact_1997\"" +
-                        ".\"store_sales\")")
-                    .build(),
-                SqlStatementMappingImpl.builder()
-                    .withDialects(List.of(
-                        DIALECT_ORACLE,
-                        DIALECT_H2,
-                        DIALECT_HSQLDB,
-                        DIALECT_POSTGRES,
-                        DIALECT_NEOVIEW,
-                        DIALECT_DERBY,
-                        DIALECT_LUCIDDB,
-                        DIALECT_DB2,
-                        NUODB,
-                        DIALECT_SNOWFLAKE
-                    ))
-                    .withSql("(case when \"sales_fact_1997\".\"promotion_id\" = 0 then 0 else " +
-                        "\"sales_fact_1997\".\"store_sales\" end)")
-                    .build(),
-                SqlStatementMappingImpl.builder()
-                    .withDialects(List.of(DIALECT_INFOBRIGHT))
-                    .withSql("(case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`" +
-                        ".`store_sales` end)")
-                    .build(),
-                SqlStatementMappingImpl.builder()
-                    .withDialects(List.of(DIALECT_ACCESS))
-                    .withSql("`sales_fact_1997`.`store_sales`")
-                    .build(),
-                SqlStatementMappingImpl.builder()
-                    .withDialects(List.of(DIALECT_GENERIC))
-                    .withSql("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997" +
-                        ".store_sales end)")
-                    .build()
-            ))
-            .build())
+        .withColumn(MEASURE_PROMOTION_SALES_COL)
         .build();
 
     public static final MeasureMappingImpl MEASURE_STORE_INVOICE = MeasureMappingImpl.builder()
@@ -2193,26 +2219,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final MeasureMappingImpl MEASURE_WAREHOUSE_PROFIT = MeasureMappingImpl.builder()
         .withName("Warehouse Profit")
         .withAggregatorType(MeasureAggregatorType.SUM)
-        .withMeasureExpression(
-            SQLExpressionMappingImpl.builder()
-                .withSqls(List.of(
-                    SqlStatementMappingImpl.builder()
-                        .withDialects(List.of(
-                            DIALECT_MYSQL,
-                            DIALECT_MARIADB,
-                            DIALECT_INFOBRIGHT
-                        ))
-                        .withSql("`warehouse_sales` - `inventory_fact_1997`.`warehouse_cost`")
-                        .build(),
-                    SqlStatementMappingImpl.builder()
-                        .withDialects(List.of(
-                            DIALECT_GENERIC
-                        ))
-                        .withSql("&quot;warehouse_sales&quot; - &quot;inventory_fact_1997&quot;.&quot;" +
-                            "warehouse_cost&quot;")
-                        .build()
-                ))
-                .build()
+        .withColumn(
+                MEASURE_WAREHOUSE_PROFIT_COL
         )
         .build();
 

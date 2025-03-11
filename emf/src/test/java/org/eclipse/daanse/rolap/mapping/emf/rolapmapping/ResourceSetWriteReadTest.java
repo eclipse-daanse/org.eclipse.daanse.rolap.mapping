@@ -82,32 +82,32 @@ public class ResourceSetWriteReadTest {
         databaseSchema.setId("jena.statistik_id");
 
         // einwohner table start
-        Column columnEinwohnerJahr = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerJahr = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerJahr.setName("JAHR");
         columnEinwohnerJahr.setId("EinwohnerJAHR");
         columnEinwohnerJahr.setType(ColumnType.INTEGER);
 
-        Column columnEinwohnerStatbez = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerStatbez = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerStatbez.setName("STATBEZ");
         columnEinwohnerStatbez.setId("EinwohnerSTATBEZ");
         columnEinwohnerStatbez.setType(ColumnType.INTEGER);
 
-        Column columnEinwohnerKerGesch = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerKerGesch = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerKerGesch.setName("KER_GESCH");
         columnEinwohnerKerGesch.setId("EinwohnerKerGesch");
         columnEinwohnerKerGesch.setType(ColumnType.VARCHAR);
 
-        Column columnEinwohnerAge = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerAge = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerAge.setName("AGE");
         columnEinwohnerAge.setId("EinwohnerAge");
         columnEinwohnerAge.setType(ColumnType.INTEGER);
 
-        Column columnEinwohnerAnzahl = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerAnzahl = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerAnzahl.setName("Anzahl");
         columnEinwohnerAnzahl.setId("EinwohnerAnzahl");
         columnEinwohnerAnzahl.setType(ColumnType.INTEGER);
 
-        Column columnEinwohnerGeojson = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnEinwohnerGeojson = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnEinwohnerGeojson.setName("GEOJSON");
         columnEinwohnerGeojson.setId("EinwohnerGeojson");
         columnEinwohnerGeojson.setType(ColumnType.VARCHAR);
@@ -122,12 +122,12 @@ public class ResourceSetWriteReadTest {
         // einwohner table end
 
         // year table start
-        Column columnYearYear = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnYearYear = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnYearYear.setName("year");
         columnYearYear.setId("YearYear");
         columnYearYear.setType(ColumnType.INTEGER);
 
-        Column columnYearOrdinal = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnYearOrdinal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnYearOrdinal.setName("ordinal");
         columnYearOrdinal.setId("YearOrdinal");
         columnYearOrdinal.setType(ColumnType.INTEGER);
@@ -141,32 +141,32 @@ public class ResourceSetWriteReadTest {
         // year table end
 
         // statbez table start
-        Column columnStatbezGid = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezGid = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezGid.setName("gid");
         columnStatbezGid.setId("StatbezGid");
         columnStatbezGid.setType(ColumnType.INTEGER);
 
-        Column columnStatbezPlraum = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezPlraum = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezPlraum.setName("plraum");
         columnStatbezPlraum.setId("StatbezPlraum");
         columnStatbezPlraum.setType(ColumnType.INTEGER);
 
-        Column columnStatbezStatbezName = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezStatbezName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezStatbezName.setName("statbez_name");
         columnStatbezStatbezName.setId("StatbezStatbezName");
         columnStatbezStatbezName.setType(ColumnType.INTEGER);
 
-        Column columnStatbezTheGeom = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezTheGeom = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezTheGeom.setName("the_geom");
         columnStatbezTheGeom.setId("StatbezTheGeom");
         columnStatbezTheGeom.setType(ColumnType.INTEGER);
 
-        Column columnStatbezUuid = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezUuid = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezUuid.setName("uuid");
         columnStatbezUuid.setId("StatbezUuid");
         columnStatbezUuid.setType(ColumnType.INTEGER);
 
-        Column columnStatbezGeojson = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnStatbezGeojson = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnStatbezGeojson.setName("geojson");
         columnStatbezGeojson.setId("StatbezGeojson");
         columnStatbezGeojson.setType(ColumnType.INTEGER);
@@ -181,37 +181,37 @@ public class ResourceSetWriteReadTest {
         // statbez table end
 
         // plraum table start
-        Column columnPlraumGid = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumGid = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumGid.setName("gid");
         columnPlraumGid.setId("PlraumGid");
         columnPlraumGid.setType(ColumnType.INTEGER);
 
-        Column columnPlraumPlraum = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumPlraum = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumPlraum.setName("plraum");
         columnPlraumPlraum.setId("PlraumPlraum");
         columnPlraumPlraum.setType(ColumnType.VARCHAR);
 
-        Column columnPlraumTheGeom = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumTheGeom = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumTheGeom.setName("the_geom");
         columnPlraumTheGeom.setId("PlraumTheGeom");
         columnPlraumTheGeom.setType(ColumnType.VARCHAR);
 
-        Column columnPlraumPlraumNr = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumPlraumNr = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumPlraumNr.setName("plraum_nr");
         columnPlraumPlraumNr.setId("PlraumPlraumNr");
         columnPlraumPlraumNr.setType(ColumnType.INTEGER);
 
-        Column columnPlraumUuid = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumUuid = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumUuid.setName("uuid");
         columnPlraumUuid.setId("PlraumUuid");
         columnPlraumUuid.setType(ColumnType.VARCHAR);
 
-        Column columnPlraumGeojson = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumGeojson = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumGeojson.setName("geojson");
         columnPlraumGeojson.setId("PlraumGeojson");
         columnPlraumGeojson.setType(ColumnType.INTEGER);
 
-        Column columnPlraumTownid = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnPlraumTownid = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnPlraumTownid.setName("townid");
         columnPlraumTownid.setId("PlraumTownid");
         columnPlraumTownid.setType(ColumnType.INTEGER);
@@ -226,17 +226,17 @@ public class ResourceSetWriteReadTest {
         // plraum table end
 
         // town table start
-        Column columnTownId = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnTownId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnTownId.setName("id");
         columnTownId.setId("TownId");
         columnTownId.setType(ColumnType.INTEGER);
 
-        Column columnTownName = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnTownName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnTownName.setName("name");
         columnTownName.setId("TownName");
         columnTownName.setType(ColumnType.VARCHAR);
 
-        Column columnTownGeojson = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnTownGeojson = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnTownGeojson.setName("geojson");
         columnTownGeojson.setId("TownGeojson");
         columnTownGeojson.setType(ColumnType.VARCHAR);
@@ -250,12 +250,12 @@ public class ResourceSetWriteReadTest {
         // town table end
 
         // gender table start
-        Column columnGenderKey = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnGenderKey = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnGenderKey.setName("key");
         columnGenderKey.setId("GenderKey");
         columnGenderKey.setType(ColumnType.VARCHAR);
 
-        Column columnGenderName = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnGenderName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnGenderName.setName("name");
         columnGenderName.setId("GenderName");
         columnGenderName.setType(ColumnType.VARCHAR);
@@ -269,97 +269,97 @@ public class ResourceSetWriteReadTest {
         // gender table end
 
         // AgeGroups table start
-        Column columnAgeGroupsAge = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsAge = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsAge.setName("Age");
         columnAgeGroupsAge.setId("AgeGroupsAge");
         columnAgeGroupsAge.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH1 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH1 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH1.setName("H1");
         columnAgeGroupsH1.setId("AgeGroupsH1");
         columnAgeGroupsH1.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH1Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH1Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH1Order.setName("H1_Order");
         columnAgeGroupsH1Order.setId("AgeGroupsH1Order");
         columnAgeGroupsH1Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH2 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH2 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH2.setName("H2");
         columnAgeGroupsH2.setId("AgeGroupsH2");
         columnAgeGroupsH2.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH2Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH2Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH2Order.setName("H2_Order");
         columnAgeGroupsH2Order.setId("AgeGroupsH2Order");
         columnAgeGroupsH2Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH3 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH3 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH3.setName("H3");
         columnAgeGroupsH3.setId("AgeGroupsH3");
         columnAgeGroupsH3.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH3Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH3Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH3Order.setName("H3_Order");
         columnAgeGroupsH3Order.setId("AgeGroupsH3Order");
         columnAgeGroupsH3Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH4 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH4 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH4.setName("H4");
         columnAgeGroupsH4.setId("AgeGroupsH4");
         columnAgeGroupsH4.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH4Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH4Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH4Order.setName("H4_Order");
         columnAgeGroupsH4Order.setId("AgeGroupsH4Order");
         columnAgeGroupsH4Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH5 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH5 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH5.setName("H5");
         columnAgeGroupsH5.setId("AgeGroupsH5");
         columnAgeGroupsH5.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH5Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH5Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH5Order.setName("H5_Order");
         columnAgeGroupsH5Order.setId("AgeGroupsH5Order");
         columnAgeGroupsH5Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH6 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH6 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH6.setName("H6");
         columnAgeGroupsH6.setId("AgeGroupsH6");
         columnAgeGroupsH6.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH6Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH6Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH6Order.setName("H6_Order");
         columnAgeGroupsH6Order.setId("AgeGroupsH6Order");
         columnAgeGroupsH6Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH7 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH7 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH7.setName("H7");
         columnAgeGroupsH7.setId("AgeGroupsH7");
         columnAgeGroupsH7.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH7Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH7Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH7Order.setName("H7_Order");
         columnAgeGroupsH7Order.setId("AgeGroupsH7Order");
         columnAgeGroupsH7Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH8 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH8 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH8.setName("H8");
         columnAgeGroupsH8.setId("AgeGroupsH8");
         columnAgeGroupsH8.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH8Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH8Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH8Order.setName("H8_Order");
         columnAgeGroupsH8Order.setId("AgeGroupsH8Order");
         columnAgeGroupsH8Order.setType(ColumnType.INTEGER);
 
-        Column columnAgeGroupsH9 = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH9 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH9.setName("H9");
         columnAgeGroupsH9.setId("AgeGroupsH9");
         columnAgeGroupsH9.setType(ColumnType.VARCHAR);
 
-        Column columnAgeGroupsH9Order = RolapMappingFactory.eINSTANCE.createColumn();
+        Column columnAgeGroupsH9Order = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnAgeGroupsH9Order.setName("H9_Order");
         columnAgeGroupsH9Order.setId("AgeGroupsH9Order");
         columnAgeGroupsH9Order.setType(ColumnType.INTEGER);

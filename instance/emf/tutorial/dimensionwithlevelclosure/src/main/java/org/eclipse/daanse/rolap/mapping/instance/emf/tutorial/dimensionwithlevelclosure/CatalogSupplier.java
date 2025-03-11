@@ -50,12 +50,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
         dimKeyColumn.setId("Fact_DIM_KEY");
         dimKeyColumn.setType(ColumnType.INTEGER);
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
         valueColumn.setId("Fact_VALUE");
         valueColumn.setType(ColumnType.INTEGER);
@@ -66,17 +66,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column closureParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column closureParentKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         closureParentKeyColumn.setName("PARENT_KEY");
         closureParentKeyColumn.setId("Closure_PARENT_KEY");
         closureParentKeyColumn.setType(ColumnType.INTEGER);
 
-        Column closureChildKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column closureChildKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         closureChildKeyColumn.setName("CHILD_KEY");
         closureChildKeyColumn.setId("Closure_CHILD_KEY");
         closureChildKeyColumn.setType(ColumnType.INTEGER);
 
-        Column closureDistColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column closureDistColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         closureDistColumn.setName("DIST");
         closureDistColumn.setId("Closure_DIST");
         closureDistColumn.setType(ColumnType.INTEGER);
@@ -87,17 +87,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         closureTable.getColumns().addAll(List.of(closureParentKeyColumn, closureChildKeyColumn, closureDistColumn));
         databaseSchema.getTables().add(closureTable);
 
-        Column hierarchyKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hierarchyKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hierarchyKeyColumn.setName("KEY");
         hierarchyKeyColumn.setId("Hierarchy_KEY");
         hierarchyKeyColumn.setType(ColumnType.INTEGER);
 
-        Column hierarchyNameColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hierarchyNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hierarchyNameColumn.setName("KEY");
         hierarchyNameColumn.setId("Hierarchy_NAME");
         hierarchyNameColumn.setType(ColumnType.INTEGER);
 
-        Column hierarchyParentKeyColumn = RolapMappingFactory.eINSTANCE.createColumn();
+        Column hierarchyParentKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hierarchyParentKeyColumn.setName("PARENT_KEY");
         hierarchyParentKeyColumn.setId("Hierarchy_PARENT_KEY");
         hierarchyParentKeyColumn.setType(ColumnType.INTEGER);

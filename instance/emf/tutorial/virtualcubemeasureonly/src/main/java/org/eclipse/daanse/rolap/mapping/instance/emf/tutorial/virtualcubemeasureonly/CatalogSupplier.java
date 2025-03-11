@@ -51,12 +51,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("databaseSchema");
 
-        Column key1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column key1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         key1Column.setName("KEY");
         key1Column.setId("C1_Fact_KEY");
         key1Column.setType(ColumnType.VARCHAR);
 
-        Column value1Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column value1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value1Column.setName("VALUE");
         value1Column.setId("C1_Fact_VALUE");
         value1Column.setType(ColumnType.INTEGER);
@@ -67,12 +67,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         c1Table.getColumns().addAll(List.of(key1Column, value1Column));
         databaseSchema.getTables().add(c1Table);
 
-        Column key2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column key2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         key2Column.setName("KEY");
         key2Column.setId("C2_Fact_KEY");
         key2Column.setType(ColumnType.VARCHAR);
 
-        Column value2Column = RolapMappingFactory.eINSTANCE.createColumn();
+        Column value2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value2Column.setName("VALUE");
         value2Column.setId("C2_Fact_VALUE");
         value2Column.setType(ColumnType.INTEGER);
