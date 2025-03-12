@@ -16,7 +16,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 
 public class DimensionConnectorMappingImpl implements DimensionConnectorMapping {
 
-    private ColumnMappingImpl foreignKey;
+    private PhysicalColumnMappingImpl foreignKey;
 
     private LevelMappingImpl level;
 
@@ -40,11 +40,11 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         this.physicalCube = builder.physicalCube;
 }
 
-    public ColumnMappingImpl getForeignKey() {
+    public PhysicalColumnMappingImpl getForeignKey() {
         return foreignKey;
     }
 
-    public void setForeignKey(ColumnMappingImpl foreignKey) {
+    public void setForeignKey (PhysicalColumnMappingImpl foreignKey) {
         this.foreignKey = foreignKey;
     }
 
@@ -101,7 +101,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
     }
 
     public static final class Builder {
-        private ColumnMappingImpl foreignKey;
+        private PhysicalColumnMappingImpl foreignKey;
         private LevelMappingImpl level;
         private String usagePrefix;
         private boolean visible = true;
@@ -112,7 +112,7 @@ public class DimensionConnectorMappingImpl implements DimensionConnectorMapping 
         private Builder() {
         }
 
-        public Builder withForeignKey(ColumnMappingImpl foreignKey) {
+        public Builder withForeignKey(PhysicalColumnMappingImpl foreignKey) {
             this.foreignKey = foreignKey;
             return this;
         }

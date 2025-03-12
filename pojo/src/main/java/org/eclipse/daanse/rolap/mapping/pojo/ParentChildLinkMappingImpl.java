@@ -18,9 +18,9 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     private TableQueryMappingImpl table;
 
-    private ColumnMappingImpl childColumn;
+    private PhysicalColumnMappingImpl childColumn;
 
-    private ColumnMappingImpl parentColumn;
+    private PhysicalColumnMappingImpl parentColumn;
 
     private ParentChildLinkMappingImpl(Builder builder) {
         this.table = builder.table;
@@ -36,19 +36,19 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
         this.table = table;
     }
 
-    public ColumnMappingImpl getChildColumn() {
+    public PhysicalColumnMappingImpl getChildColumn() {
         return childColumn;
     }
 
-    public void setChildColumn(ColumnMappingImpl childColumn) {
+    public void setChildColumn(PhysicalColumnMappingImpl childColumn) {
         this.childColumn = childColumn;
     }
 
-    public ColumnMappingImpl getParentColumn() {
+    public PhysicalColumnMappingImpl getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(ColumnMappingImpl parentColumn) {
+    public void setParentColumn(PhysicalColumnMappingImpl parentColumn) {
         this.parentColumn = parentColumn;
     }
 
@@ -58,8 +58,8 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
 
     public static final class Builder {
         private TableQueryMappingImpl table;
-        private ColumnMappingImpl childColumn;
-        private ColumnMappingImpl parentColumn;
+        private PhysicalColumnMappingImpl childColumn;
+        private PhysicalColumnMappingImpl parentColumn;
 
         private Builder() {
         }
@@ -69,12 +69,12 @@ public class ParentChildLinkMappingImpl implements ParentChildLinkMapping {
             return this;
         }
 
-        public Builder withChildColumn(ColumnMappingImpl childColumn) {
+        public Builder withChildColumn (PhysicalColumnMappingImpl childColumn) {
             this.childColumn = childColumn;
             return this;
         }
 
-        public Builder withParentColumn(ColumnMappingImpl parentColumn) {
+        public Builder withParentColumn (PhysicalColumnMappingImpl parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }

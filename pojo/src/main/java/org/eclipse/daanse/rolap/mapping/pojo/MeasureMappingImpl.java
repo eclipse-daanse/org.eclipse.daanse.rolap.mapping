@@ -66,7 +66,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 

@@ -16,7 +16,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 
 public class RowValueMappingImpl implements RowValueMapping {
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
     private String value;
 
     public RowValueMappingImpl(Builder builder) {
@@ -25,7 +25,7 @@ public class RowValueMappingImpl implements RowValueMapping {
     }
 
     @Override
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
@@ -34,7 +34,7 @@ public class RowValueMappingImpl implements RowValueMapping {
         return value;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn (PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -48,10 +48,10 @@ public class RowValueMappingImpl implements RowValueMapping {
 
     public static final class Builder {
 
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
         private String value;
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn (PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }

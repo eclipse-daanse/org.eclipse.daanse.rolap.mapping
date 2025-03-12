@@ -22,7 +22,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     private MemberPropertyFormatterMappingImpl formatter;
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private boolean dependsOnLevelValue;
 
@@ -47,11 +47,11 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
         this.formatter = formatter;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -81,7 +81,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
 
     public static final class Builder {
         private MemberPropertyFormatterMappingImpl formatter;
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
         private boolean dependsOnLevelValue;
         private InternalDataType dataType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
@@ -97,7 +97,7 @@ public class MemberPropertyMappingImpl extends AbstractElementMappingImpl implem
             return this;
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }

@@ -22,13 +22,13 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
@@ -49,46 +49,46 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
 
     private static final String POPULATION = "Population";
 
-    public static final ColumnMappingImpl YEAR_COLUMN_IN_POPULATION = ColumnMappingImpl.builder().withName("year").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STATE_ID_COLUMN_IN_POPULATION = ColumnMappingImpl.builder().withName("state_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl GENDER_ID_COLUMN_IN_POPULATION = ColumnMappingImpl.builder().withName(GENDER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl AGE_COLUMN_IN_POPULATION = ColumnMappingImpl.builder().withName("age").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl YEAR_COLUMN_IN_POPULATION = PhysicalColumnMappingImpl.builder().withName("year").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STATE_ID_COLUMN_IN_POPULATION = PhysicalColumnMappingImpl.builder().withName("state_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl GENDER_ID_COLUMN_IN_POPULATION = PhysicalColumnMappingImpl.builder().withName(GENDER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl AGE_COLUMN_IN_POPULATION = PhysicalColumnMappingImpl.builder().withName("age").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl POPULATION_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("population")).build();
 
-    public static final ColumnMappingImpl YEAR_IN_YEAR = ColumnMappingImpl.builder().withName("year").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl ORDINAL_IN_YEAR = ColumnMappingImpl.builder().withName("ordinal").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl YEAR_IN_YEAR = PhysicalColumnMappingImpl.builder().withName("year").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl ORDINAL_IN_YEAR = PhysicalColumnMappingImpl.builder().withName("ordinal").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl YEAR_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("year")
             .withColumns(List.of(YEAR_IN_YEAR, ORDINAL_IN_YEAR))).build();
 
-    public static final ColumnMappingImpl CONTINENT_ID_COLUMN_IN_COUNTRY = ColumnMappingImpl.builder().withName("continent_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl ID_COLUMN_IN_COUNTRY = ColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl NAME_COLUMN_IN_COUNTRY = ColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl CONTINENT_ID_COLUMN_IN_COUNTRY = PhysicalColumnMappingImpl.builder().withName("continent_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl ID_COLUMN_IN_COUNTRY = PhysicalColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl NAME_COLUMN_IN_COUNTRY = PhysicalColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl COUNTRY_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("country")
             .withColumns(List.of(ID_COLUMN_IN_COUNTRY, NAME_COLUMN_IN_COUNTRY))).build();
 
-    public static final ColumnMappingImpl ID_COLUMN_IN_CONTENT = ColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl NAME_COLUMN_IN_CONTENT = ColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl ID_COLUMN_IN_CONTENT = PhysicalColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl NAME_COLUMN_IN_CONTENT = PhysicalColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl CONTENT_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("continent")
             .withColumns(List.of(ID_COLUMN_IN_CONTENT, NAME_COLUMN_IN_CONTENT))).build();
 
-    public static final ColumnMappingImpl ID_COLUMN_IN_STATE = ColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CONTRY_ID_COLUMN_IN_STATE = ColumnMappingImpl.builder().withName("contry_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl NAME_COLUMN_IN_STATE = ColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl ID_COLUMN_IN_STATE = PhysicalColumnMappingImpl.builder().withName("id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CONTRY_ID_COLUMN_IN_STATE = PhysicalColumnMappingImpl.builder().withName("contry_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl NAME_COLUMN_IN_STATE = PhysicalColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl STATE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(STATE)
             .withColumns(List.of(ID_COLUMN_IN_STATE, NAME_COLUMN_IN_STATE))).build();
 
-    public static final ColumnMappingImpl GENDER_ID_COLUMN_IN_GENDER = ColumnMappingImpl.builder().withName(GENDER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl NAME_COLUMN_IN_GENDER = ColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl GENDER_ID_COLUMN_IN_GENDER = PhysicalColumnMappingImpl.builder().withName(GENDER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl NAME_COLUMN_IN_GENDER = PhysicalColumnMappingImpl.builder().withName("name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl GENDER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("gender")
             .withColumns(List.of(GENDER_ID_COLUMN_IN_GENDER, NAME_COLUMN_IN_GENDER))).build();
 
-    public static final ColumnMappingImpl AGE_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("age").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl H1_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H1").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl H1_ORDER_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H1_Order").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl H2_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl H2_ORDER_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H2_Order").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl H9_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H9").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl H9_ORDER_IN_AGE_GROUPS = ColumnMappingImpl.builder().withName("H9_Order").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl AGE_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("age").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl H1_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H1").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl H1_ORDER_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H1_Order").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl H2_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl H2_ORDER_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H2_Order").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl H9_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H9").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl H9_ORDER_IN_AGE_GROUPS = PhysicalColumnMappingImpl.builder().withName("H9_Order").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGE_GROUPS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("ageGroups")
             .withColumns(List.of(AGE_IN_AGE_GROUPS, H1_IN_AGE_GROUPS, H1_ORDER_IN_AGE_GROUPS, H2_IN_AGE_GROUPS, H2_ORDER_IN_AGE_GROUPS,
                     H9_IN_AGE_GROUPS, H9_ORDER_IN_AGE_GROUPS))).build();

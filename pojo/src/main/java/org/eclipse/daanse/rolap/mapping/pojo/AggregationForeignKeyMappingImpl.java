@@ -16,28 +16,28 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
 
 public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMapping {
 
-    private ColumnMappingImpl aggregationColumn;
+    private PhysicalColumnMappingImpl aggregationColumn;
 
-    private ColumnMappingImpl factColumn;
+    private PhysicalColumnMappingImpl factColumn;
 
     private AggregationForeignKeyMappingImpl(Builder builder) {
         this.aggregationColumn = builder.aggregationColumn;
         this.factColumn = builder.factColumn;
     }
 
-    public ColumnMappingImpl getAggregationColumn() {
+    public PhysicalColumnMappingImpl getAggregationColumn() {
         return aggregationColumn;
     }
 
-    public void setAggregationColumn(ColumnMappingImpl aggregationColumn) {
+    public void setAggregationColumn(PhysicalColumnMappingImpl aggregationColumn) {
         this.aggregationColumn = aggregationColumn;
     }
 
-    public ColumnMappingImpl getFactColumn() {
+    public PhysicalColumnMappingImpl getFactColumn() {
         return factColumn;
     }
 
-    public void setFactColumn(ColumnMappingImpl factColumn) {
+    public void setFactColumn(PhysicalColumnMappingImpl factColumn) {
         this.factColumn = factColumn;
     }
 
@@ -46,18 +46,18 @@ public class AggregationForeignKeyMappingImpl implements AggregationForeignKeyMa
     }
 
     public static final class Builder {
-        private ColumnMappingImpl aggregationColumn;
-        private ColumnMappingImpl factColumn;
+        private PhysicalColumnMappingImpl aggregationColumn;
+        private PhysicalColumnMappingImpl factColumn;
 
         private Builder() {
         }
 
-        public Builder withAggregationColumn(ColumnMappingImpl aggregationColumn) {
+        public Builder withAggregationColumn(PhysicalColumnMappingImpl aggregationColumn) {
             this.aggregationColumn = aggregationColumn;
             return this;
         }
 
-        public Builder withFactColumn(ColumnMappingImpl factColumn) {
+        public Builder withFactColumn(PhysicalColumnMappingImpl factColumn) {
             this.factColumn = factColumn;
             return this;
         }

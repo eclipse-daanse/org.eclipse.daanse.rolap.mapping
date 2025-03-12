@@ -18,7 +18,7 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
 
     private String alias;
 
-    private ColumnMappingImpl key;
+    private PhysicalColumnMappingImpl key;
 
     private QueryMappingImpl query;
 
@@ -36,11 +36,11 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
         this.alias = alias;
     }
 
-    public ColumnMappingImpl getKey() {
+    public PhysicalColumnMappingImpl getKey() {
         return key;
     }
 
-    public void setKey(ColumnMappingImpl key) {
+    public void setKey(PhysicalColumnMappingImpl key) {
         this.key = key;
     }
 
@@ -58,7 +58,7 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
 
     public static final class Builder {
         private String alias;
-        private ColumnMappingImpl key;
+        private PhysicalColumnMappingImpl key;
         private QueryMappingImpl query;
 
         private Builder() {
@@ -69,7 +69,7 @@ public class JoinedQueryElementMappingImpl implements JoinedQueryElementMapping 
             return this;
         }
 
-        public Builder withKey(ColumnMappingImpl key) {
+        public Builder withKey(PhysicalColumnMappingImpl key) {
             this.key = key;
             return this;
         }

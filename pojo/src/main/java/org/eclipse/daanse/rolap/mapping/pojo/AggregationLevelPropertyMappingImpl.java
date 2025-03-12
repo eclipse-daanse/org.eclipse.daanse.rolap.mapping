@@ -16,7 +16,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMappin
 
 public class AggregationLevelPropertyMappingImpl implements AggregationLevelPropertyMapping {
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private String name;
 
@@ -25,11 +25,11 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
         this.name = builder.name;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -46,13 +46,13 @@ public class AggregationLevelPropertyMappingImpl implements AggregationLevelProp
     }
 
     public static final class Builder {
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
         private String name;
 
         private Builder() {
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }

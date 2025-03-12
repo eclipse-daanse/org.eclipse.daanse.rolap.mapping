@@ -41,21 +41,21 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private String approxRowCount;
 
-    private ColumnMappingImpl captionColumn;
+    private PhysicalColumnMappingImpl captionColumn;
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private HideMemberIfType hideMemberIfType;
 
     private LevelType levelType;
 
-    private ColumnMappingImpl nameColumn;
+    private PhysicalColumnMappingImpl nameColumn;
 
     private String nullParentValue;
 
-    private ColumnMappingImpl ordinalColumn;
+    private PhysicalColumnMappingImpl ordinalColumn;
 
-    private ColumnMappingImpl parentColumn;
+    private PhysicalColumnMappingImpl parentColumn;
 
     private TableMapping table;
 
@@ -166,19 +166,19 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.approxRowCount = approxRowCount;
     }
 
-    public ColumnMappingImpl getCaptionColumn() {
+    public PhysicalColumnMappingImpl getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(ColumnMappingImpl captionColumn) {
+    public void setCaptionColumn (PhysicalColumnMappingImpl captionColumn) {
         this.captionColumn = captionColumn;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn (PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -205,11 +205,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.levelType = levelType;
     }
 
-    public ColumnMappingImpl getNameColumn() {
+    public PhysicalColumnMappingImpl getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(ColumnMappingImpl nameColumn) {
+    public void setNameColumn (PhysicalColumnMappingImpl nameColumn) {
         this.nameColumn = nameColumn;
     }
 
@@ -221,19 +221,19 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.nullParentValue = nullParentValue;
     }
 
-    public ColumnMappingImpl getOrdinalColumn() {
+    public PhysicalColumnMappingImpl getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(ColumnMappingImpl ordinalColumn) {
+    public void setOrdinalColumn (PhysicalColumnMappingImpl ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
-    public ColumnMappingImpl getParentColumn() {
+    public PhysicalColumnMappingImpl getParentColumn() {
         return parentColumn;
     }
 
-    public void setParentColumn(ColumnMappingImpl parentColumn) {
+    public void setParentColumn (PhysicalColumnMappingImpl parentColumn) {
         this.parentColumn = parentColumn;
     }
 
@@ -283,14 +283,14 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
         private String approxRowCount;
-        private ColumnMappingImpl captionColumn;
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl captionColumn;
+        private PhysicalColumnMappingImpl column;
         private HideMemberIfType hideMemberIfType;
         private LevelType levelType;
-        private ColumnMappingImpl nameColumn;
+        private PhysicalColumnMappingImpl nameColumn;
         private String nullParentValue;
-        private ColumnMappingImpl ordinalColumn;
-        private ColumnMappingImpl parentColumn;
+        private PhysicalColumnMappingImpl ordinalColumn;
+        private PhysicalColumnMappingImpl parentColumn;
         private TableMapping table;
         private InternalDataType dataType;
         private boolean uniqueMembers;
@@ -348,12 +348,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withCaptionColumn(ColumnMappingImpl captionColumn) {
+        public Builder withCaptionColumn (PhysicalColumnMappingImpl captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn (PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }
@@ -368,7 +368,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withNameColumn(ColumnMappingImpl nameColumn) {
+        public Builder withNameColumn (PhysicalColumnMappingImpl nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
@@ -378,12 +378,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withOrdinalColumn(ColumnMappingImpl ordinalColumn) {
+        public Builder withOrdinalColumn (PhysicalColumnMappingImpl ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }
 
-        public Builder withParentColumn(ColumnMappingImpl parentColumn) {
+        public Builder withParentColumn (PhysicalColumnMappingImpl parentColumn) {
             this.parentColumn = parentColumn;
             return this;
         }
