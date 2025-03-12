@@ -921,6 +921,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                         "warehouse_cost&quot;")
                     .build()
             ))
+            .withDataType(ColumnDataType.DECIMAL)
             .build();
 
     public static final PhysicalTableMappingImpl INVENTORY_FACKT_1997_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("inventory_fact_1997")
@@ -987,7 +988,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                         .withSql("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997" +
                             ".store_sales end)")
                         .build()
-                )).build();
+                ))
+            .withDataType(ColumnDataType.DECIMAL)
+            .build();
 
     public static final PhysicalTableMappingImpl SALES_FACT_1997_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(SALES_FACT_1997)
             .withColumns(List.of(
@@ -1368,7 +1371,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withColumn(CUSTOMER_ID_COLUMN_IN_CUSTOMER)
         .withType(InternalDataType.NUMERIC)
         .withUniqueMembers(true)
-        .withNameExpression(SQLExpressionMappingColumnImpl.builder()
+        .withNameColumn(SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(
                 SqlStatementMappingImpl.builder()
                     .withDialects(List.of(
@@ -1422,8 +1425,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withSql("fullname")
                     .build()
             ))
+            .withDataType(ColumnDataType.VARCHAR)
             .build())
-        .withOrdinalExpression(SQLExpressionMappingColumnImpl.builder()
+        .withOrdinalColumn(SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(
                 SqlStatementMappingImpl.builder()
                     .withDialects(List.of(
@@ -1470,6 +1474,7 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     .withSql("fullname")
                     .build()
             ))
+            .withDataType(ColumnDataType.VARCHAR)
             .build())
         .withMemberProperties(List.of(
             MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_GENDER).withColumn(GENDER_COLUMN_IN_CUSTOMER).build(),
