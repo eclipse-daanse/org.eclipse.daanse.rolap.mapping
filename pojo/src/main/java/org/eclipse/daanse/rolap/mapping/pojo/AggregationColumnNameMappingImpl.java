@@ -16,17 +16,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 
 public class AggregationColumnNameMappingImpl implements AggregationColumnNameMapping {
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private AggregationColumnNameMappingImpl(Builder builder) {
         this.column = builder.column;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -35,12 +35,12 @@ public class AggregationColumnNameMappingImpl implements AggregationColumnNameMa
     }
 
     public static final class Builder {
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
 
         private Builder() {
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }

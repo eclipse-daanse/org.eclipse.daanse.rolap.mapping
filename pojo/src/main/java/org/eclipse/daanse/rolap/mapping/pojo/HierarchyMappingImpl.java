@@ -39,7 +39,7 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
 
     private String origin;
 
-    private ColumnMappingImpl primaryKey;
+    private PhysicalColumnMappingImpl primaryKey;
 
     private TableMapping primaryKeyTable;
 
@@ -135,11 +135,11 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.origin = origin;
     }
 
-    public ColumnMappingImpl getPrimaryKey() {
+    public PhysicalColumnMappingImpl getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(ColumnMappingImpl primaryKey) {
+    public void setPrimaryKey(PhysicalColumnMappingImpl primaryKey) {
         this.primaryKey = primaryKey;
     }
 
@@ -206,7 +206,7 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         private boolean hasAll;
         private String memberReaderClass;
         private String origin;
-        private ColumnMappingImpl primaryKey;
+        private PhysicalColumnMappingImpl primaryKey;
         private TableMapping primaryKeyTable;
         private String uniqueKeyLevelName;
         private boolean visible;
@@ -269,7 +269,7 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
             return this;
         }
 
-        public Builder withPrimaryKey(ColumnMappingImpl primaryKey) {
+        public Builder withPrimaryKey(PhysicalColumnMappingImpl primaryKey) {
             this.primaryKey = primaryKey;
             return this;
         }

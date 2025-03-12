@@ -21,17 +21,17 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties;
 
-    private ColumnMappingImpl captionColumn;
+    private PhysicalColumnMappingImpl captionColumn;
 
     private boolean collapsed = true;
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private String name;
 
-    private ColumnMappingImpl nameColumn;
+    private PhysicalColumnMappingImpl nameColumn;
 
-    private ColumnMappingImpl ordinalColumn;
+    private PhysicalColumnMappingImpl ordinalColumn;
 
     private AggregationLevelMappingImpl(Builder builder) {
         this.aggregationLevelProperties = builder.aggregationLevelProperties;
@@ -51,11 +51,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.aggregationLevelProperties = aggregationLevelProperties;
     }
 
-    public ColumnMappingImpl getCaptionColumn() {
+    public PhysicalColumnMappingImpl getCaptionColumn() {
         return captionColumn;
     }
 
-    public void setCaptionColumn(ColumnMappingImpl captionColumn) {
+    public void setCaptionColumn(PhysicalColumnMappingImpl captionColumn) {
         this.captionColumn = captionColumn;
     }
 
@@ -67,11 +67,11 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.collapsed = collapsed;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -83,19 +83,19 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
         this.name = name;
     }
 
-    public ColumnMappingImpl getNameColumn() {
+    public PhysicalColumnMappingImpl getNameColumn() {
         return nameColumn;
     }
 
-    public void setNameColumn(ColumnMappingImpl nameColumn) {
+    public void setNameColumn (PhysicalColumnMappingImpl nameColumn) {
         this.nameColumn = nameColumn;
     }
 
-    public ColumnMappingImpl getOrdinalColumn() {
+    public PhysicalColumnMappingImpl getOrdinalColumn() {
         return ordinalColumn;
     }
 
-    public void setOrdinalColumn(ColumnMappingImpl ordinalColumn) {
+    public void setOrdinalColumn (PhysicalColumnMappingImpl ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
     }
 
@@ -105,12 +105,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
 
     public static final class Builder {
         private List<AggregationLevelPropertyMappingImpl> aggregationLevelProperties = new ArrayList<>();
-        private ColumnMappingImpl captionColumn;
+        private PhysicalColumnMappingImpl captionColumn;
         private boolean collapsed = true;
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
         private String name;
-        private ColumnMappingImpl nameColumn;
-        private ColumnMappingImpl ordinalColumn;
+        private PhysicalColumnMappingImpl nameColumn;
+        private PhysicalColumnMappingImpl ordinalColumn;
 
         private Builder() {
         }
@@ -121,7 +121,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withCaptionColumn(ColumnMappingImpl captionColumn) {
+        public Builder withCaptionColumn (PhysicalColumnMappingImpl captionColumn) {
             this.captionColumn = captionColumn;
             return this;
         }
@@ -131,7 +131,7 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn (PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }
@@ -141,12 +141,12 @@ public class AggregationLevelMappingImpl implements AggregationLevelMapping {
             return this;
         }
 
-        public Builder withNameColumn(ColumnMappingImpl nameColumn) {
+        public Builder withNameColumn (PhysicalColumnMappingImpl nameColumn) {
             this.nameColumn = nameColumn;
             return this;
         }
 
-        public Builder withOrdinalColumn(ColumnMappingImpl ordinalColumn) {
+        public Builder withOrdinalColumn (PhysicalColumnMappingImpl ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
             return this;
         }

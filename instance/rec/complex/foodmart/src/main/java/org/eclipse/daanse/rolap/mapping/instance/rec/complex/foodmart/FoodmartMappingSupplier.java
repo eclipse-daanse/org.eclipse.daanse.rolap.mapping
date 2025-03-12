@@ -43,7 +43,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -375,14 +375,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
     //SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
-    public static final ColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl QUARTER_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl QUARTER_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_10_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_C_10_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_c_10_sales_fact_1997")
             .withColumns(List.of(
                     MONTH_OF_YEAR_COLUMN_IN_AGG_C_10_SALES_FACT_1997,
@@ -397,17 +397,17 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,customer_id,store_id,promotion_id,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl QUARTER_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl QUARTER_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_14_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_C_14_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_c_14_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_C_14_SALES_FACT_1997,
@@ -425,17 +425,17 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,promotion_id,customer_id,store_id,time_month,time_quarter,time_year,store_sales_sum,store_cost_sum,unit_sales_sum,fact_count
     //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TIME_MONTH_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_month").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("store_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("store_cost_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("unit_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_MONTH_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_month").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl TIME_QUARTER_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl TIME_YEAR_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("store_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("store_cost_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_SUM_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("unit_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_C_SPECIAL_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_c_special_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_C_SPECIAL_SALES_FACT_1997,
@@ -453,19 +453,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //gender,marital_status,product_family,product_department,product_category,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
     //VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
-    public static final ColumnMappingImpl GENDER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl MARITAL_STATUS_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_FAMILY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_DEPARTMENT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_CATEGORY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl QUARTER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl GENDER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl MARITAL_STATUS_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_FAMILY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_DEPARTMENT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_CATEGORY_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("month_of_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl QUARTER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_G_MS_PCAT_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_g_ms_pcat_sales_fact_1997")
             .withColumns(List.of(
                     GENDER_COLUMN_IN_AGG_G_MS_PCAT_SALES_FACT_1997,
@@ -485,12 +485,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //time_id,customer_id,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_03_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_L_03_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_l_03_sales_fact_1997")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_AGG_L_03_SALES_FACT_1997,
@@ -503,12 +503,12 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //time_id,store_sales,store_cost,unit_sales,customer_count,fact_count
     //INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("customer_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_04_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_L_04_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_l_04_sales_fact_1997")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_AGG_L_04_SALES_FACT_1997,
@@ -521,14 +521,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_L_05_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_L_05_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_l_05_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_L_05_SALES_FACT_1997,
@@ -543,14 +543,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //time_id,city,state_province,country,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CITY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STATE_PROVINCE_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CITY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STATE_PROVINCE_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl COUNTRY_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LC_06_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_LC_06_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_lc_06_sales_fact_1997")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_AGG_LC_06_SALES_FACT_1997,
@@ -565,14 +565,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,customer_id,quarter,the_year,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,INTEGER,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl QUARTER_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl QUARTER_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("quarter").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl THE_YEAR_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("the_year").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LC_100_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_LC_100_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_lc_100_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_LC_100_SALES_FACT_1997,
@@ -587,13 +587,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,time_id,customer_id,store_sales,store_cost,unit_sales,fact_count
     //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_LL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_LL_01_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_ll_01_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_LL_01_SALES_FACT_1997,
@@ -607,13 +607,13 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,time_id,customer_id,store_sales_sum,store_cost_sum,unit_sales_sum,fact_count
     //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("store_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("store_cost_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("unit_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = ColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("time_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("store_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("store_cost_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_SUM_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("unit_sales_sum").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl FACT_COUNT_COLUMN_IN_AGG_PL_01_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName("fact_count").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl AGG_PL_01_SALES_FACT_1997 = ((Builder) PhysicalTableMappingImpl.builder().withName("agg_pl_01_sales_fact_1997")
             .withColumns(List.of(
                     PRODUCT_ID_COLUMN_IN_AGG_PL_01_SALES_FACT_1997,
@@ -627,22 +627,22 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //store_id,store_type,region_id,store_name,store_number,store_street_address,store_city,store_state,store_postal_code,store_country,store_manager,store_phone,store_fax,first_opened_date,last_remodel_date,store_sqft,grocery_sqft,frozen_sqft,meat_sqft,coffee_bar,video_store,salad_bar,prepared_food,florist
     //INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),TIMESTAMP,TIMESTAMP,INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,SMALLINT,SMALLINT,SMALLINT,SMALLINT
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl REGION_ID_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName("region_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_TYPE_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STREET_ADDRESS_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(STORE_STREET_ADDRESS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_NAME_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.VARCHAR).build();
-    public static final ColumnMappingImpl STORE_MANAGER_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_CITY_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_STATE_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_SQFT_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl GROCERY_SQFT_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_GROCERY_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FROZEN_SQFT_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl MEAT_SQFT_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl COFFEE_BAR_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl STORE_POSTAL_CODE_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName("store_postal_code").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_NUMBER_COLUMN_IN_STORE = ColumnMappingImpl.builder().withName("store_number").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl REGION_ID_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName("region_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_TYPE_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STREET_ADDRESS_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(STORE_STREET_ADDRESS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_NAME_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.VARCHAR).build();
+    public static final PhysicalColumnMappingImpl STORE_MANAGER_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_CITY_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_STATE_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_SQFT_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl GROCERY_SQFT_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_GROCERY_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FROZEN_SQFT_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl MEAT_SQFT_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl COFFEE_BAR_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl STORE_POSTAL_CODE_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName("store_postal_code").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_NUMBER_COLUMN_IN_STORE = PhysicalColumnMappingImpl.builder().withName("store_number").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl STORE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TABLE_STORE)
             .withColumns(List.of(
                 STORE_ID_COLUMN_IN_STORE,
@@ -664,15 +664,15 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //time_id,the_date,the_day,the_month,the_year,day_of_month,week_of_year,month_of_year,quarter,fiscal_period
     //INTEGER,TIMESTAMP,VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,INTEGER,SMALLINT,VARCHAR(30),VARCHAR(30)
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl THE_DATE_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_DATE).withDataType(ColumnDataType.TIMESTAMP).build();
-    public static final ColumnMappingImpl THE_MONTH_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_MONTH).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl THE_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_YEAR).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl DAY_OF_MONTH_COLUMN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_DAY_OF_MONTH).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WEEK_OF_YEAR).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MONTH_OF_YEAR).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl QUARTER_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_QUARTER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl FISCAL_PERIOD_COLUMN_IN_TIME_BY_DAY = ColumnMappingImpl.builder().withName("fiscal_period").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl THE_DATE_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_DATE).withDataType(ColumnDataType.TIMESTAMP).build();
+    public static final PhysicalColumnMappingImpl THE_MONTH_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_MONTH).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl THE_YEAR_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_THE_YEAR).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl DAY_OF_MONTH_COLUMN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_DAY_OF_MONTH).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl WEEK_OF_YEAR_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WEEK_OF_YEAR).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl MONTH_OF_YEAR_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MONTH_OF_YEAR).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl QUARTER_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_QUARTER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl FISCAL_PERIOD_COLUMN_IN_TIME_BY_DAY = PhysicalColumnMappingImpl.builder().withName("fiscal_period").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl TIME_BY_DAY_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("time_by_day")
             .withColumns(List.of(
                     TIME_ID_COLUMN_IN_TIME_BY_DAY,
@@ -688,10 +688,10 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
     //INTEGER,INTEGER,VARCHAR(60),VARCHAR(60),BIGINT,DECIMAL(10.4),REAL,REAL,SMALLINT,SMALLINT,SMALLINT,SMALLINT,REAL,REAL,REAL
-    public static final ColumnMappingImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT = ColumnMappingImpl.builder().withName(PRODUCT_CLASS_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_PRODUCT = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl BRAND_NAME_COLUMN_IN_PRODUCT = ColumnMappingImpl.builder().withName(TABLE_COLUMN_BRAND_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
-    public static final ColumnMappingImpl PRODUCT_NAME_COLUMN_IN_PRODUCT = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT = PhysicalColumnMappingImpl.builder().withName(PRODUCT_CLASS_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_PRODUCT = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl BRAND_NAME_COLUMN_IN_PRODUCT = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_BRAND_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_NAME_COLUMN_IN_PRODUCT = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
     public static final PhysicalTableMappingImpl PRODUCT_TABLE =  ((Builder) PhysicalTableMappingImpl.builder().withName(TABLE_PRODUCT)
             .withColumns(List.of(
                     PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT,
@@ -703,11 +703,11 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_class_id,product_subcategory,product_category,product_department,product_family
     //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
-    public static final ColumnMappingImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS = ColumnMappingImpl.builder().withName(PRODUCT_CLASS_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_SUBCATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS = PhysicalColumnMappingImpl.builder().withName(PRODUCT_CLASS_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_SUBCATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_CATEGORY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_DEPARTMENT).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_FAMILY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl PRODUCT_CLASS_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TABLE_PRODUCT_CLASS)
             .withColumns(List.of(
                     PRODUCT_CLASS_ID_COLUMN_IN_PRODUCT_CLASS,
@@ -719,19 +719,19 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //employee_id,full_name,first_name,last_name,position_id,position_title,store_id,department_id,birth_date,hire_date,end_date,salary,supervisor_id,education_level,marital_status,gender,management_role
     //INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,INTEGER,DATE,TIMESTAMP,TIMESTAMP,DECIMAL(10.4),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
-    public static final ColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FIRST_NAME_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("first_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl LAST_NAME_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("last_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl MANAGEMENT_ROLE_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("management_role").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl POSITION_ID_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl POSITION_TITLE_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("position_title").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("store_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl SUPERVISOR_ID_COLUMN_IN_EMPLOYEE  = ColumnMappingImpl.builder().withName("supervisor_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FULL_NAME_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("full_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl MARITAL_STATUS_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl GENDER_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl SALARY_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName(SALARY).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl EDUCATION_LEVEL_COLUMN_IN_EMPLOYEE = ColumnMappingImpl.builder().withName("education_level").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FIRST_NAME_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("first_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl LAST_NAME_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("last_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl MANAGEMENT_ROLE_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("management_role").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl POSITION_ID_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl POSITION_TITLE_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("position_title").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("store_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl SUPERVISOR_ID_COLUMN_IN_EMPLOYEE  = PhysicalColumnMappingImpl.builder().withName("supervisor_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FULL_NAME_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("full_name").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl MARITAL_STATUS_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl GENDER_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl SALARY_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName(SALARY).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl EDUCATION_LEVEL_COLUMN_IN_EMPLOYEE = PhysicalColumnMappingImpl.builder().withName("education_level").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl EMPLOYEE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(EMPLOYEE)
             .withColumns(List.of(
                     EMPLOYEE_ID_COLUMN_IN_EMPLOYEE,
@@ -750,23 +750,23 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //department_id,department_description
     //INTEGER,VARCHAR(30)
-    public static final ColumnMappingImpl DEPARTMENT_ID_COLUMN_IN_DEPARTMENT = ColumnMappingImpl.builder().withName(TABLE_COLUMN_DEPARTMENT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl DEPARTMENT_ID_COLUMN_IN_DEPARTMENT = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_DEPARTMENT_ID).withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl DEPARTAMENT_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("department")
             .withColumns(List.of(DEPARTMENT_ID_COLUMN_IN_DEPARTMENT))).build();
 
     //position_id,position_title,pay_type,min_scale,max_scale,management_role
     //INTEGER,VARCHAR(30),VARCHAR(30),DECIMAL(10.4),DECIMAL(10.4),VARCHAR(30)
-    public static final ColumnMappingImpl POSITION_ID_COLUMN_IN_POSITION = ColumnMappingImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PAY_TYPE_COLUMN_IN_POSITION = ColumnMappingImpl.builder().withName("pay_type").withDataType(ColumnDataType.VARCHAR).build();
+    public static final PhysicalColumnMappingImpl POSITION_ID_COLUMN_IN_POSITION = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_POSITION_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PAY_TYPE_COLUMN_IN_POSITION = PhysicalColumnMappingImpl.builder().withName("pay_type").withDataType(ColumnDataType.VARCHAR).build();
     public static final PhysicalTableMappingImpl POSITION_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(TABLE_NAME_POSITION)
             .withColumns(List.of(POSITION_ID_COLUMN_IN_POSITION, PAY_TYPE_COLUMN_IN_POSITION))).build();
 
     //pay_date,employee_id,department_id,currency_id,salary_paid,overtime_paid,vacation_accrued,vacation_used
     //TIMESTAMP,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),REAL,REAL
-    public static final ColumnMappingImpl PAY_DATE_COLUMN_IN_SALARY = ColumnMappingImpl.builder().withName("pay_date").withDataType(ColumnDataType.TIMESTAMP).build();
-    public static final ColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_SALARY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl DEPARTMENT_ID_COLUMN_IN_SALARY = ColumnMappingImpl.builder().withName(TABLE_COLUMN_DEPARTMENT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl SALARY_PAID_COLUMN_IN_SALARY = ColumnMappingImpl.builder().withName("salary_paid").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl PAY_DATE_COLUMN_IN_SALARY = PhysicalColumnMappingImpl.builder().withName("pay_date").withDataType(ColumnDataType.TIMESTAMP).build();
+    public static final PhysicalColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_SALARY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl DEPARTMENT_ID_COLUMN_IN_SALARY = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_DEPARTMENT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl SALARY_PAID_COLUMN_IN_SALARY = PhysicalColumnMappingImpl.builder().withName("salary_paid").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
     public static final PhysicalTableMappingImpl SALARY_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(SALARY)
             .withColumns(List.of(
                     PAY_DATE_COLUMN_IN_SALARY,
@@ -775,8 +775,8 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
                     SALARY_PAID_COLUMN_IN_SALARY
             ))).build();
 
-    public static final ColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_EMPLOYEE_CLOSURE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl SUPERVISOR_ID_COLUMN_IN_EMPLOYEE_CLOSURE = ColumnMappingImpl.builder().withName("supervisor_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl EMPLOYEE_ID_COLUMN_IN_EMPLOYEE_CLOSURE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_EMPLOYEE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl SUPERVISOR_ID_COLUMN_IN_EMPLOYEE_CLOSURE = PhysicalColumnMappingImpl.builder().withName("supervisor_id").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl EMPLOYEE_CLOSURE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(EMPLOYEE_CLOSURE)
             .withColumns(List.of(
                     EMPLOYEE_ID_COLUMN_IN_EMPLOYEE_CLOSURE,
@@ -785,20 +785,20 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //store_id,store_type,region_id,store_name,store_number,store_street_address,store_city,store_state,store_postal_code,store_country,store_manager,store_phone,store_fax,first_opened_date,last_remodel_date,store_sqft,grocery_sqft,frozen_sqft,meat_sqft,coffee_bar,video_store,salad_bar,prepared_food,florist
     //INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),TIMESTAMP,TIMESTAMP,INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,SMALLINT,SMALLINT,SMALLINT,SMALLINT
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_TYPE_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_NAME_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STREET_ADDRESS_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(STORE_STREET_ADDRESS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_STATE_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_MANAGER_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_CITY_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STORE_SQFT_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl GROCERY_SQFT_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_GROCERY_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl FROZEN_SQFT_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl MEAT_SQFT_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl COFFEE_BAR_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl REGION_ID_COLUMN_IN_STORE_RAGGED = ColumnMappingImpl.builder().withName("region_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_TYPE_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_NAME_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STREET_ADDRESS_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(STORE_STREET_ADDRESS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_STATE_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_STATE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_COUNTRY_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_MANAGER_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_MANAGER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_CITY_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STORE_SQFT_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl GROCERY_SQFT_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_GROCERY_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl FROZEN_SQFT_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_FROZEN_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl MEAT_SQFT_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MEAT_SQFT).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl COFFEE_BAR_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_COFFEE_BAR).withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl REGION_ID_COLUMN_IN_STORE_RAGGED = PhysicalColumnMappingImpl.builder().withName("region_id").withDataType(ColumnDataType.INTEGER).build();
     public static final PhysicalTableMappingImpl STORE_RAGGED_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName(STORE_RAGGED)
             .withColumns(List.of(
                     STORE_ID_COLUMN_IN_STORE_RAGGED,
@@ -819,16 +819,16 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //warehouse_id,warehouse_class_id,stores_id,warehouse_name,wa_address1,wa_address2,wa_address3,wa_address4,warehouse_city,warehouse_state_province,warehouse_postal_code,warehouse_country,warehouse_owner_name,warehouse_phone,warehouse_fax
     //INTEGER,INTEGER,INTEGER,VARCHAR(60),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
-    public static final ColumnMappingImpl WAREHOUSE_ID_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORES_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl WAREHOUSE_COUNTRY_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WAREHOUSE_STATE_PROVINCE_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WAREHOUSE_CITY_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WAREHOUSE_NAME_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WAREHOUSE_FAX_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName("warehouse_fax").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WA_ADDRESS1_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName("wa_address1").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WA_ADDRESS2_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName("wa_address2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl WA_ADDRESS3_COLUMN_IN_WAREHOUSE = ColumnMappingImpl.builder().withName("wa_address3").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_ID_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORES_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_COUNTRY_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_STATE_PROVINCE_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_CITY_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_NAME_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_FAX_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName("warehouse_fax").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WA_ADDRESS1_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName("wa_address1").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WA_ADDRESS2_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName("wa_address2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl WA_ADDRESS3_COLUMN_IN_WAREHOUSE = PhysicalColumnMappingImpl.builder().withName("wa_address3").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl WAREHOUSE_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("warehouse")
             .withColumns(List.of(
                     WAREHOUSE_ID_COLUMN_IN_WAREHOUSE,
@@ -845,9 +845,9 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //promotion_id,promotion_district_id,promotion_name,media_type,cost,start_date,end_date
     //INTEGER,INTEGER,VARCHAR(30),VARCHAR(30),DECIMAL(10.4),TIMESTAMP,TIMESTAMP
-    public static final ColumnMappingImpl PROMOTION_ID_COLUMN_IN_PROMOTION = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PROMOTION_NAME_COLUMN_IN_PROMOTION = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl MEDIA_TYPE_COLUMN_IN_PROMOTION = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MEDIA_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_ID_COLUMN_IN_PROMOTION = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_NAME_COLUMN_IN_PROMOTION = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_NAME).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl MEDIA_TYPE_COLUMN_IN_PROMOTION = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MEDIA_TYPE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl PROMOTION_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("promotion")
             .withColumns(List.of(
                     PROMOTION_ID_COLUMN_IN_PROMOTION,
@@ -857,22 +857,22 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //customer_id,account_num,lname,fname,mi,address1,address2,address3,address4,city,state_province,postal_code,country,customer_region_id,phone1,phone2,birthdate,marital_status,yearly_income,gender,total_children,num_children_at_home,education,date_accnt_opened,member_card,occupation,houseowner,num_cars_owned,fullname
     //INTEGER,BIGINT,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(30),VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,SMALLINT,VARCHAR(30),DATE,VARCHAR(30),VARCHAR(30),VARCHAR(30),INTEGER,VARCHAR(60)
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CITY_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl STATE_PROVINCE_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl CUSTOMER_REGION_ID_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("customer_region_id").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl MARITAL_STATUS_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("yearly_income").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl GENDER_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl EDUCATION_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("education").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl NUM_CARS_OWNED_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("num_cars_owned").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TOTAL_CHILDREN_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("total_children").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl FULL_NAME_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("fullname").withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
-    public static final ColumnMappingImpl ACCOUNT_NUM_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("account_num").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl LNAME_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("lname").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl FNAME_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("fname").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
-    public static final ColumnMappingImpl ADDRESS2_COLUMN_IN_CUSTOMER = ColumnMappingImpl.builder().withName("address2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CITY_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CITY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl STATE_PROVINCE_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STATE_PROVINCE).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl COUNTRY_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_COUNTRY).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_REGION_ID_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("customer_region_id").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl MARITAL_STATUS_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_MARITAL_STATUS).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl YEARLY_INCOME_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("yearly_income").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl GENDER_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_GENDER).withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl EDUCATION_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("education").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl NUM_CARS_OWNED_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("num_cars_owned").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TOTAL_CHILDREN_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("total_children").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl FULL_NAME_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("fullname").withDataType(ColumnDataType.VARCHAR).withColumnSize(60).build();
+    public static final PhysicalColumnMappingImpl ACCOUNT_NUM_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("account_num").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl LNAME_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("lname").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl FNAME_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("fname").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
+    public static final PhysicalColumnMappingImpl ADDRESS2_COLUMN_IN_CUSTOMER = PhysicalColumnMappingImpl.builder().withName("address2").withDataType(ColumnDataType.VARCHAR).withColumnSize(30).build();
     public static final PhysicalTableMappingImpl CUSTOMER_TABLE = ((Builder) PhysicalTableMappingImpl.builder().withName("customer")
             .withColumns(List.of(
                     CUSTOMER_ID_COLUMN_IN_CUSTOMER,
@@ -892,16 +892,16 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,time_id,warehouse_id,store_id,units_ordered,units_shipped,warehouse_sales,warehouse_cost,supply_time,store_invoice
     //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),SMALLINT,DECIMAL(10.4)
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl WAREHOUSE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_INVOICE_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("store_invoice").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl SUPPLY_TIME_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("supply_time").withDataType(ColumnDataType.SMALLINT).build();
-    public static final ColumnMappingImpl WAREHOUSE_COST_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("warehouse_cost").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl WAREHOUSE_SALES_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("warehouse_sales").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNITS_SHIPPED_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("units_shipped").withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997 = ColumnMappingImpl.builder().withName("units_ordered").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_WAREHOUSE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_INVOICE_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("store_invoice").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl SUPPLY_TIME_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("supply_time").withDataType(ColumnDataType.SMALLINT).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_COST_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("warehouse_cost").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl WAREHOUSE_SALES_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("warehouse_sales").withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNITS_SHIPPED_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("units_shipped").withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997 = PhysicalColumnMappingImpl.builder().withName("units_ordered").withDataType(ColumnDataType.INTEGER).build();
 
     public static final  SQLExpressionMappingColumnImpl MEASURE_WAREHOUSE_PROFIT_COL =  SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(
@@ -941,14 +941,14 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
     //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
-    public static final ColumnMappingImpl PRODUCT_ID_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl TIME_ID_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl PROMOTION_ID_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_ID_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
-    public static final ColumnMappingImpl STORE_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl STORE_COST_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
-    public static final ColumnMappingImpl UNIT_SALES_COLUMN_IN_SALES_FACT_1997 = ColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl PRODUCT_ID_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PRODUCT_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl TIME_ID_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_TIME_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_CUSTOMER_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl PROMOTION_ID_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_PROMOTION_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_ID_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_ID).withDataType(ColumnDataType.INTEGER).build();
+    public static final PhysicalColumnMappingImpl STORE_SALES_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl STORE_COST_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_STORE_COST).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
+    public static final PhysicalColumnMappingImpl UNIT_SALES_COLUMN_IN_SALES_FACT_1997 = PhysicalColumnMappingImpl.builder().withName(TABLE_COLUMN_UNIT_SALES).withDataType(ColumnDataType.DECIMAL).withColumnSize(10).withDecimalDigits(4).build();
 
     public static final SQLExpressionMappingColumnImpl MEASURE_PROMOTION_SALES_COL = SQLExpressionMappingColumnImpl.builder()
             .withSqls(List.of(

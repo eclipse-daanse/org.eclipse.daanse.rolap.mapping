@@ -16,28 +16,28 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMap
 
 public class AggregationMeasureFactCountMappingImpl implements AggregationMeasureFactCountMapping {
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
-    private ColumnMappingImpl factColumn;
+    private PhysicalColumnMappingImpl factColumn;
 
     private AggregationMeasureFactCountMappingImpl(Builder builder) {
         this.column = builder.column;
         this.factColumn = builder.factColumn;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
-    public ColumnMappingImpl getFactColumn() {
+    public PhysicalColumnMappingImpl getFactColumn() {
         return factColumn;
     }
 
-    public void setFactColumn(ColumnMappingImpl factColumn) {
+    public void setFactColumn(PhysicalColumnMappingImpl factColumn) {
         this.factColumn = factColumn;
     }
 
@@ -46,18 +46,18 @@ public class AggregationMeasureFactCountMappingImpl implements AggregationMeasur
     }
 
     public static final class Builder {
-        private ColumnMappingImpl column;
-        private ColumnMappingImpl factColumn;
+        private PhysicalColumnMappingImpl column;
+        private PhysicalColumnMappingImpl factColumn;
 
         private Builder() {
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }
 
-        public Builder withFactColumn(ColumnMappingImpl factColumn) {
+        public Builder withFactColumn (PhysicalColumnMappingImpl factColumn) {
             this.factColumn = factColumn;
             return this;
         }

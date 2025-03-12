@@ -112,7 +112,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseCatalogImpl;
@@ -317,7 +317,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected JoinedQueryElementMapping createJoinedQueryElement(String alias, ColumnMapping key, QueryMapping query) {
         return JoinedQueryElementMappingImpl.builder()
             .withAlias(alias)
-            .withKey((ColumnMappingImpl) key)
+            .withKey((PhysicalColumnMappingImpl) key)
             .withQuery((QueryMappingImpl) query)
             .build();
     }
@@ -357,15 +357,15 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(ColumnMapping column, ColumnMapping factColumn) {
         return AggregationMeasureFactCountMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
-            .withFactColumn((ColumnMappingImpl) factColumn)
+            .withColumn((PhysicalColumnMappingImpl) column)
+            .withFactColumn((PhysicalColumnMappingImpl) factColumn)
             .build();
     }
 
     @Override
     protected AggregationLevelPropertyMapping createAggregationLevelProperty(ColumnMapping column, String name) {
         return AggregationLevelPropertyMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withName(name)
             .build();
     }
@@ -378,19 +378,19 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         return AggregationLevelMappingImpl.builder()
             .withAggregationLevelProperties((List<AggregationLevelPropertyMappingImpl>) aggregationLevelProperties)
-            .withCaptionColumn((ColumnMappingImpl) captionColumn)
+            .withCaptionColumn((PhysicalColumnMappingImpl) captionColumn)
             .withCollapsed(collapsed)
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withName(name)
-            .withNameColumn((ColumnMappingImpl) nameColumn)
-            .withOrdinalColumn((ColumnMappingImpl) ordinalColumn)
+            .withNameColumn((PhysicalColumnMappingImpl) nameColumn)
+            .withOrdinalColumn((PhysicalColumnMappingImpl) ordinalColumn)
             .build();
     }
 
     @Override
     protected AggregationMeasureMapping createAggregationMeasure(ColumnMapping column, String name, String rollupType) {
         return AggregationMeasureMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withName(name)
             .withRollupType(rollupType)
             .build();
@@ -399,15 +399,15 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected AggregationForeignKeyMapping createAggregationForeignKey(ColumnMapping aggregationColumn, ColumnMapping factColumn) {
         return AggregationForeignKeyMappingImpl.builder()
-            .withAggregationColumn((ColumnMappingImpl) aggregationColumn)
-            .withFactColumn((ColumnMappingImpl) factColumn)
+            .withAggregationColumn((PhysicalColumnMappingImpl) aggregationColumn)
+            .withFactColumn((PhysicalColumnMappingImpl) factColumn)
             .build();
     }
 
     @Override
     protected AggregationColumnNameMapping createAggregationColumn(ColumnMapping column) {
         return AggregationColumnNameMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .build();
     }
 
@@ -475,7 +475,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withHasAll(hasAll)
             .withMemberReaderClass(memberReaderClass)
             .withOrigin(origin)
-            .withPrimaryKey((ColumnMappingImpl) primaryKey)
+            .withPrimaryKey((PhysicalColumnMappingImpl) primaryKey)
             .withPrimaryKeyTable(primaryKeyTable)
             .withUniqueKeyLevelName(uniqueKeyLevelName)
             .withVisible(visible)
@@ -513,7 +513,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withName(name)
 
             .withFormatter((MemberPropertyFormatterMappingImpl) formatter)
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withDependsOnLevelValue(dependsOnLevelValue)
             .withDataType(type)
             .build();
@@ -526,8 +526,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     ) {
         return ParentChildLinkMappingImpl.builder()
             .withTable((TableQueryMappingImpl) table)
-            .withChildColumn((ColumnMappingImpl) childColumn)
-            .withParentColumn((ColumnMappingImpl) parentColumn)
+            .withChildColumn((PhysicalColumnMappingImpl) childColumn)
+            .withParentColumn((PhysicalColumnMappingImpl) parentColumn)
             .build();
     }
 
@@ -564,14 +564,14 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withMemberProperties((List<MemberPropertyMappingImpl>) memberProperties)
             .withMemberFormatter((MemberFormatterMappingImpl) memberFormatter)
             .withApproxRowCount(approxRowCount)
-            .withCaptionColumn((ColumnMappingImpl) captionColumn)
-            .withColumn((ColumnMappingImpl) column)
+            .withCaptionColumn((PhysicalColumnMappingImpl) captionColumn)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withHideMemberIfType(hideMemberIf)
             .withLevelType(levelType)
-            .withNameColumn((ColumnMappingImpl) nameColumn)
+            .withNameColumn((PhysicalColumnMappingImpl) nameColumn)
             .withNullParentValue(nullParentValue)
-            .withOrdinalColumn((ColumnMappingImpl) ordinalColumn)
-            .withParentColumn((ColumnMappingImpl) parentColumn)
+            .withOrdinalColumn((PhysicalColumnMappingImpl) ordinalColumn)
+            .withParentColumn((PhysicalColumnMappingImpl) parentColumn)
             .withTable(table)
             .withUniqueMembers(uniqueMembers)
             .withVisible(visible)
@@ -686,7 +686,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withBackColor(backColor)
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withDatatype(datatype)
             .withDisplayFolder(displayFolder)
             .withFormatString(formatString)
@@ -808,7 +808,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         PhysicalCubeMapping physicalCube
     ) {
         return DimensionConnectorMappingImpl.builder()
-            .withForeignKey((ColumnMappingImpl) foreignKey)
+            .withForeignKey((PhysicalColumnMappingImpl) foreignKey)
             .withLevel((LevelMappingImpl) level)
             .withUsagePrefix(usagePrefix)
             .withVisible(visible)
@@ -1003,7 +1003,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected WritebackAttributeMapping createWritebackAttribute(ColumnMapping column, DimensionConnectorMapping dimensionConnector) {
         return WritebackAttributeMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withDimensionConnector((DimensionConnectorMappingImpl) dimensionConnector)
             .build();
     }
@@ -1011,7 +1011,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected WritebackMeasureMapping createwritebackMeasure(ColumnMapping column, String name) {
         return WritebackMeasureMappingImpl.builder()
-            .withColumn((ColumnMappingImpl) column)
+            .withColumn((PhysicalColumnMappingImpl) column)
             .withName(name)
             .build();
     }
@@ -1078,7 +1078,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @Override
     protected RowValueMapping createRowValue(ColumnMapping column, String value) {
         RowValueMappingImpl rowValue = RowValueMappingImpl.builder().build();
-        rowValue.setColumn((ColumnMappingImpl) column);
+        rowValue.setColumn((PhysicalColumnMappingImpl) column);
         rowValue.setValue(value);
         return rowValue;
     }
@@ -1092,8 +1092,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected LinkMapping createLink(ColumnMapping primaryKey, ColumnMapping foreignKey) {
-        LinkMappingImpl link = LinkMappingImpl.builder().withPrimaryKey((ColumnMappingImpl) primaryKey)
-                .withForeignKey((ColumnMappingImpl) foreignKey).build();
+        LinkMappingImpl link = LinkMappingImpl.builder().withPrimaryKey((PhysicalColumnMappingImpl) primaryKey)
+                .withForeignKey((PhysicalColumnMappingImpl) foreignKey).build();
         return link;
     }
 

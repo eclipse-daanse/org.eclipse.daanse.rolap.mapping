@@ -22,25 +22,25 @@ public class LinkMappingImpl implements LinkMapping {
         this.foreignKey = builder.foreignKey;
     }
 
-    public ColumnMappingImpl getPrimaryKey() {
+    public PhysicalColumnMappingImpl getPrimaryKey() {
         return primaryKey;
     }
 
-    public void setPrimaryKey(ColumnMappingImpl primaryKey) {
+    public void setPrimaryKey(PhysicalColumnMappingImpl primaryKey) {
         this.primaryKey = primaryKey;
     }
 
-    public ColumnMappingImpl getForeignKey() {
+    public PhysicalColumnMappingImpl getForeignKey() {
         return foreignKey;
     }
 
-    public void setForeignKey(ColumnMappingImpl foreignKey) {
+    public void setForeignKey(PhysicalColumnMappingImpl foreignKey) {
         this.foreignKey = foreignKey;
     }
 
-    private ColumnMappingImpl primaryKey;
+    private PhysicalColumnMappingImpl primaryKey;
 
-    private ColumnMappingImpl foreignKey;
+    private PhysicalColumnMappingImpl foreignKey;
 
     public static Builder builder() {
         return new Builder();
@@ -48,16 +48,16 @@ public class LinkMappingImpl implements LinkMapping {
 
     public static final class Builder {
 
-        private ColumnMappingImpl primaryKey;
+        private PhysicalColumnMappingImpl primaryKey;
 
-        private ColumnMappingImpl foreignKey;
+        private PhysicalColumnMappingImpl foreignKey;
 
-        public Builder withPrimaryKey(ColumnMappingImpl primaryKey) {
+        public Builder withPrimaryKey(PhysicalColumnMappingImpl primaryKey) {
             this.primaryKey = primaryKey;
             return this;
         }
 
-        public Builder withForeignKey(ColumnMappingImpl foreignKey) {
+        public Builder withForeignKey (PhysicalColumnMappingImpl foreignKey) {
             this.foreignKey = foreignKey;
             return this;
         }

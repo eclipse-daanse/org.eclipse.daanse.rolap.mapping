@@ -22,7 +22,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.ColumnMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
@@ -40,7 +40,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static String name = "Minimal Physical Cube";
 
 
-    private final static ColumnMappingImpl VALUE_COLUMN = ColumnMappingImpl.builder().withName("VALUE").withDataType(ColumnDataType.INTEGER).build();
+    private final static PhysicalColumnMappingImpl VALUE_COLUMN = PhysicalColumnMappingImpl.builder().withName("VALUE").withDataType(ColumnDataType.INTEGER).build();
     private final static PhysicalTableMappingImpl factTable = ((Builder) PhysicalTableMappingImpl.builder().withName(name).withColumns(List.of(VALUE_COLUMN))).build();
 
     private final static TableQueryMappingImpl tableQuery = TableQueryMappingImpl.builder().withTable(factTable).build();

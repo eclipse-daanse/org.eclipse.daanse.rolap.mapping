@@ -16,7 +16,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 
 public class WritebackMeasureMappingImpl implements WritebackMeasureMapping {
 
-    private ColumnMappingImpl column;
+    private PhysicalColumnMappingImpl column;
 
     private String name;
 
@@ -25,11 +25,11 @@ public class WritebackMeasureMappingImpl implements WritebackMeasureMapping {
         this.name = builder.name;
     }
 
-    public ColumnMappingImpl getColumn() {
+    public PhysicalColumnMappingImpl getColumn() {
         return column;
     }
 
-    public void setColumn(ColumnMappingImpl column) {
+    public void setColumn(PhysicalColumnMappingImpl column) {
         this.column = column;
     }
 
@@ -46,13 +46,13 @@ public class WritebackMeasureMappingImpl implements WritebackMeasureMapping {
     }
 
     public static final class Builder {
-        private ColumnMappingImpl column;
+        private PhysicalColumnMappingImpl column;
         private String name;
 
         private Builder() {
         }
 
-        public Builder withColumn(ColumnMappingImpl column) {
+        public Builder withColumn(PhysicalColumnMappingImpl column) {
             this.column = column;
             return this;
         }
