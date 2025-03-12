@@ -138,7 +138,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
@@ -565,13 +564,13 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withMemberFormatter((MemberFormatterMappingImpl) memberFormatter)
             .withApproxRowCount(approxRowCount)
             .withCaptionColumn((PhysicalColumnMappingImpl) captionColumn)
-            .withColumn((PhysicalColumnMappingImpl) column)
+            .withColumn((ColumnMapping) column)
             .withHideMemberIfType(hideMemberIf)
             .withLevelType(levelType)
-            .withNameColumn((PhysicalColumnMappingImpl) nameColumn)
+            .withNameColumn((ColumnMapping) nameColumn)
             .withNullParentValue(nullParentValue)
-            .withOrdinalColumn((PhysicalColumnMappingImpl) ordinalColumn)
-            .withParentColumn((PhysicalColumnMappingImpl) parentColumn)
+            .withOrdinalColumn((ColumnMapping) ordinalColumn)
+            .withParentColumn((ColumnMapping) parentColumn)
             .withTable(table)
             .withUniqueMembers(uniqueMembers)
             .withVisible(visible)
@@ -686,7 +685,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withBackColor(backColor)
-            .withColumn((PhysicalColumnMappingImpl) column)
+            .withColumn((ColumnMapping) column)
             .withDatatype(datatype)
             .withDisplayFolder(displayFolder)
             .withFormatString(formatString)

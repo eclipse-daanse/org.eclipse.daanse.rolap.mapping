@@ -619,27 +619,27 @@ public class TransformTask {
         l.setApproxRowCount(level.approxRowCount());
         //TODO
         //l.setCaptionColumn(level.captionColumn());
-        l.setCaptionExpression(transformSQLExpressionOfExpressionView(level.captionExpression()));
+        l.setCaptionColumn(transformSQLExpressionOfExpressionView(level.captionExpression()));
         //TODO
         //l.setColumn(level.column());
         l.setHideMemberIfType(HideMemberIfType.fromValue(level.hideMemberIf().getValue()));
         if (level.internalType() != null) {
             l.setDataType(InternalDataType.fromValue(level.internalType().getValue()));
         }
-        l.setKeyExpression(transformSQLExpressionOfExpressionView(level.keyExpression()));
+        l.setColumn(transformSQLExpressionOfExpressionView(level.keyExpression()));
         l.setLevelType(LevelType.fromValue(level.levelType().getValue()));
         l.setMemberFormatter(transformMemberFormatter(level.memberFormatter()));
         //TODO
         //l.setNameColumn(level.nameColumn());
-        l.setNameExpression(transformSQLExpressionOfExpressionView(level.nameExpression()));
+        l.setNameColumn(transformSQLExpressionOfExpressionView(level.nameExpression()));
         l.setNullParentValue(level.nullParentValue());
         //TODO
         //l.setOrdinalColumn(level.ordinalColumn());
-        l.setOrdinalExpression(transformSQLExpressionOfExpressionView(level.ordinalExpression()));
+        l.setOrdinalColumn(transformSQLExpressionOfExpressionView(level.ordinalExpression()));
         l.setParentChildLink(transformParentChildLink(level.closure()));
         //TODO
         //l.setParentColumn(level.parentColumn());
-        l.setParentExpression(transformSQLExpressionOfExpressionView(level.parentExpression()));
+        l.setParentColumn(transformSQLExpressionOfExpressionView(level.parentExpression()));
         //TODO
         //l.setTable(level.table());
         l.setDataType(InternalDataType.fromValue(level.type().getValue()));
