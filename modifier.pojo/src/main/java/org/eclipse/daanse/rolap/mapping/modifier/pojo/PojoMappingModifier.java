@@ -138,6 +138,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
@@ -166,11 +167,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected ColumnMapping createColumn(
+    protected ColumnMapping createPhysicalColumn(
         String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     ) {
-        ColumnMappingImpl column = ColumnMappingImpl.builder().build();
+        PhysicalColumnMappingImpl column = PhysicalColumnMappingImpl.builder().build();
         column.setName(name);
         column.setTable(table);
         column.setDataType(type);
@@ -532,9 +533,19 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
+    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls, String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
+            Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         return SQLExpressionMappingColumnImpl.builder()
             .withSqls((List<SqlStatementMappingImpl>) sqls)
+            .withName(name)
+            .withTable(table)
+            .withDataType(type)
+            .withColumnSize(columnSize)
+            .withDecimalDigits(decimalDigits)
+            .withNumPrecRadix(numPrecRadix)
+            .withCharOctetLength(charOctetLength)
+            .withNullable(nullable)
+            .withDescription(description)
             .build();
     }
 

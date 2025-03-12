@@ -391,8 +391,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return List.of();
     }
 
-    protected ColumnMapping  column(ColumnMapping column) {
-        if (column != null) {
+    protected ColumnMapping column(ColumnMapping column) {
+        if (column instanceof SQLExpressionColumnMapping sec) {
+            return sqlExpression(sec);
+        }
+        else if (column instanceof ColumnMapping) {
             String name = columnName(column);
             TableMapping table = columnTable(column);
             ColumnDataType type = columnDataType(column);
@@ -402,7 +405,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             Integer charOctetLength = columnCharOctetLength(column);
             Boolean nullable = columnNullable(column);
             String description = columnDescription(column);
-            return createColumn(name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
+            return createPhysicalColumn(name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
         }
         return null;
     }
@@ -443,7 +446,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return column.getName();
     }
 
-    protected abstract ColumnMapping createColumn(
+    protected abstract ColumnMapping createPhysicalColumn(
         String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
         Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description
     );
@@ -1773,12 +1776,22 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected SQLExpressionColumnMapping sqlExpression(SQLExpressionColumnMapping sqlExpression) {
         if (sqlExpression != null) {
             List<? extends SqlStatementMapping> sqls = sqlExpressionSqls(sqlExpression);
-            return createSQLExpression(sqls);
+            String name = columnName(sqlExpression);
+            TableMapping table = columnTable(sqlExpression);
+            ColumnDataType type = columnDataType(sqlExpression);
+            Integer columnSize = columnColumnSize(sqlExpression);
+            Integer decimalDigits = columnDecimalDigits(sqlExpression);
+            Integer numPrecRadix = columnNumPrecRadix(sqlExpression);
+            Integer charOctetLength = columnCharOctetLength(sqlExpression);
+            Boolean nullable = columnNullable(sqlExpression);
+            String description = columnDescription(sqlExpression);
+            return createSQLExpression(sqls, name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
         }
         return null;
     }
 
-    protected abstract SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls);
+    protected abstract SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls, String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
+            Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description);
 
     protected List<? extends SqlStatementMapping> sqlExpressionSqls(SQLExpressionColumnMapping sqlExpression) {
         return sqls(sqlExpression.getSqls());

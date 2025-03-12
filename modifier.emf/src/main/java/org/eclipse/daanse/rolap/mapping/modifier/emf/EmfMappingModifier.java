@@ -217,7 +217,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     @Override
-    protected Column createColumn(String name, TableMapping  table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
+    protected Column createPhysicalColumn(String name, TableMapping  table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
             Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         Column column = RolapMappingFactory.eINSTANCE
                 .createPhysicalColumn();
@@ -542,9 +542,19 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls) {
+    protected SQLExpressionColumnMapping createSQLExpression(List<? extends SqlStatementMapping> sqls, String name, TableMapping table, ColumnDataType type, Integer columnSize, Integer decimalDigits,
+            Integer numPrecRadix, Integer charOctetLength, Boolean nullable, String description) {
         SQLExpressionColumn sqlExpression = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         sqlExpression.getSqls().addAll((Collection<? extends SqlStatement>) sqls);
+        sqlExpression.setName(name);
+        sqlExpression.setTable((Table) table);
+        sqlExpression.setType(toEmf(type));
+        sqlExpression.setColumnSize(columnSize);
+        sqlExpression.setDecimalDigits(decimalDigits);
+        sqlExpression.setNumPrecRadix(numPrecRadix);
+        sqlExpression.setCharOctetLength(charOctetLength);
+        sqlExpression.setNullable(nullable);
+        sqlExpression.setDescription(description);
         return sqlExpression;
     }
 
