@@ -220,11 +220,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     public static final class Builder {
-        private SQLExpressionMappingColumnImpl keyExpression;
-        private SQLExpressionMappingColumnImpl nameExpression;
-        private SQLExpressionMappingColumnImpl captionExpression;
-        private SQLExpressionMappingColumnImpl ordinalExpression;
-        private SQLExpressionMappingColumnImpl parentExpression;
         private ParentChildLinkMappingImpl parentChildLink;
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
@@ -247,31 +242,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
 
         private Builder() {
-        }
-
-        public Builder withKeyExpression(SQLExpressionMappingColumnImpl keyExpression) {
-            this.keyExpression = keyExpression;
-            return this;
-        }
-
-        public Builder withNameExpression(SQLExpressionMappingColumnImpl nameExpression) {
-            this.nameExpression = nameExpression;
-            return this;
-        }
-
-        public Builder withCaptionExpression(SQLExpressionMappingColumnImpl captionExpression) {
-            this.captionExpression = captionExpression;
-            return this;
-        }
-
-        public Builder withOrdinalExpression(SQLExpressionMappingColumnImpl ordinalExpression) {
-            this.ordinalExpression = ordinalExpression;
-            return this;
-        }
-
-        public Builder withParentExpression(SQLExpressionMappingColumnImpl parentExpression) {
-            this.parentExpression = parentExpression;
-            return this;
         }
 
         public Builder withParentChildLink(ParentChildLinkMappingImpl parentChildLink) {
