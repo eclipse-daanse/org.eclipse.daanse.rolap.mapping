@@ -1,0 +1,4 @@
+id,migrations_hintergrund
+INTEGER,VARCHAR
+0,ohne Migrationshintergrund
+1,mit Migrationshintergrund

@@ -1,0 +1,8 @@
+id,schulabschluss
+INTEGER,VARCHAR
+0,Abgang ohne Abschluss
+1,Abitur
+2,Realschulabschluss
+3,Hauptschulabschluss
+4,Berufsschulabschluss
+9999,kein Schulabgang

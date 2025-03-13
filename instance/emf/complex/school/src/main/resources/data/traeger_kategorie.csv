@@ -1,0 +1,4 @@
+id,traeger_kategorie
+INTEGER,VARCHAR
+0,öffentlicher Träger
+1,freier Träger

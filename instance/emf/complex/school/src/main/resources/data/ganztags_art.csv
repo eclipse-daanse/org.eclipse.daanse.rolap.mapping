@@ -1,0 +1,6 @@
+id,schul_umfang
+INTEGER,VARCHAR
+0,Keine Ganztagsschule
+1,Offene Ganztagsschule
+2,Teilweise gebundene Ganztagsschule
+3,Voll gebundene Ganztagsschule

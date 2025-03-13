@@ -1,0 +1,5 @@
+id,foerderung_art,sp_foerderbedarf_id
+INTEGER,VARCHAR,
+0,Keine Förderung,0
+1,Gemeinsamer Unterricht,1
+2,Separater Unterricht,1

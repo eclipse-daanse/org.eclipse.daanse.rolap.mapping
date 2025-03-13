@@ -1,0 +1,13 @@
+id,traeger_name,traeger_art_id
+INTEGER,VARCHAR,INTEGER
+0,Stadt Jena,0
+1,Freistaat Thüringen,1
+2,Euro-Schulen gemeinnützige Gesellschaft für berufliche Bildung und Beschäftigung Thüringen mbH,2
+3,GAW-Institut für berufliche Bildung gemeinnützige GmbH,2
+4,TSA Bildung und Soziales gGmbH,2
+5,Arbeiterwohlfahrt Regionalverband Mitte-West-Thüringen e.V.,2
+6,Quer-Wege e.V.,2
+7,DRK Kreisverband Jena-Eisenberg-Stadtroda e.V.,2
+8,Evangelische Grundschule Jena e.V.,2
+9,Evangelische Schulstiftung in Mitteldeutschland,2
+10,Verein Waldorfpädagogik Ostthüringen e.V.,2

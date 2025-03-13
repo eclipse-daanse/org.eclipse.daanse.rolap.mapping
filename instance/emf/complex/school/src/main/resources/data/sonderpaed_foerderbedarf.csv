@@ -1,0 +1,4 @@
+id,sonderpaed_bedarf
+INTEGER,VARCHAR
+0,Schüler:in ohne sonderpädagogischem Förderbedarf
+1,Schüler:in mit sonderpädagogischem Förderbedarf
