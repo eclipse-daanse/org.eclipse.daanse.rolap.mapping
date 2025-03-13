@@ -564,7 +564,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-            TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description) {
+            TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
 
         level.setParentChildLink((ParentChildLink) parentChildLink);
@@ -580,6 +580,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setOrdinalColumn((Column) ordinalColumn);
         level.setParentColumn((Column) parentColumn);
         level.setTable((Table) table);
+        level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);

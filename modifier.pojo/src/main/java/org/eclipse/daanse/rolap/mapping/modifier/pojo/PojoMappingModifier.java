@@ -555,7 +555,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        TableMapping table, boolean uniqueMembers, boolean visible, String name, String id, String description
+        TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
 
@@ -572,6 +572,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withOrdinalColumn((ColumnMapping) ordinalColumn)
             .withParentColumn((ColumnMapping) parentColumn)
             .withTable(table)
+            .withType(type)
             .withUniqueMembers(uniqueMembers)
             .withVisible(visible)
             .withName(name)
