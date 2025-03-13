@@ -1,0 +1,4 @@
+id,kuerzel,bezeichnung
+INTEGER,VARCHAR,VARCHAR
+0,TH,Thüringen
+9999,OTHER,Außerhalb Thüringens

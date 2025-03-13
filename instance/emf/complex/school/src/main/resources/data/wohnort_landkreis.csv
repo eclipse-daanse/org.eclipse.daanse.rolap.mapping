@@ -1,0 +1,8 @@
+id,kuerzel,bezeichnung,bundesland_id
+INTEGER,VARCHAR,VARCHAR,INTEGER
+0,J,Kreisfreie Stadt Jena,0
+1,SHK,Saale-Holzland-Kreis,0
+2,SOK,Saale-Orla-Kreis,0
+3,SLF,Landkreis Saalfeld-Rudolstadt,0
+99,OTHER_TH,Andere Landkreise innerhalb Thüringens,0
+9999,OTHER,Landkreise außerhalb Thüringens,9999

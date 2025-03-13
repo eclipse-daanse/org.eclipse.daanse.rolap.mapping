@@ -1,0 +1,7 @@
+id,altersgruppe
+INTEGER,VARCHAR
+10,bis unter 30 Jahre
+11,30 bis unter 45 Jahre
+12,45 bis unter 55 Jahre
+13,55 bis unter 60 Jahre
+14,60 Jahre und älter

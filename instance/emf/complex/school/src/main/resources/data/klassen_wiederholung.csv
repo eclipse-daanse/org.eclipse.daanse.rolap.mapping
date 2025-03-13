@@ -1,0 +1,4 @@
+id,klassenwiederholung
+INTEGER,VARCHAR
+0,klasse erstmalig absolviert
+1,klasse wiederholt

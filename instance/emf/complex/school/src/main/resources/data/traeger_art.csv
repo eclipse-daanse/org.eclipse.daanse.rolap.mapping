@@ -1,0 +1,5 @@
+id,traeger_art,traeger_kat_id
+INTEGER,VARCHAR,VARCHAR
+0,kommunaler Träger,0
+1,staatlicher Träger,0
+2,freier Träger,1

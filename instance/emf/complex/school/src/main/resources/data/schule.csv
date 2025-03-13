@@ -1,0 +1,42 @@
+id,schul_nummer,schul_name,traeger_id,schul_art_id,ganztags_art_id
+INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
+0,18996,Talschule Jena Staatliche Grundschule,0,0,1
+1,19001,"Staatliche Grundschule ""Heinrich Heine"" Jena",0,0,1
+2,19014,Schule am Rautal Jena Staatliche Grundschule,0,0,1
+3,19027,Nordschule Jena Staatliche Grundschule,0,0,1
+4,19060,Westschule Jena Staatliche Grundschule,0,0,1
+5,19088,Saaletalschule Jena Staatliche Grundschule,0,0,1
+6,19105,Südschule Jena Staatliche Grundschule,0,0,1
+7,19134,"Staatliche Grundschule ""Friedrich Schiller"" Jena",0,0,1
+8,32014,Staatliches regionales Förderzentrum Jena,0,3,3
+9,40037,"Staatliches Sportgymnasium mit angegliederten Regelschulklassen ""Joh. Chr. Fr. GutsMuths"" Jena",1,2,3
+10,40522,"Staatliche Integrierte Gesamtschule ""Grete Unrein"" Jena",0,1,0
+11,45073,"Staatliche Gemeinschaftsschule ""An der Trießnitz"" Jena",0,1,1
+12,45087,Jenaplan-Schule Jena Staatliche Gemeinschaftsschule,0,1,2
+13,45090,Lobdeburgschule Jena Staatliche Gemeinschaftsschule,0,1,2
+14,45093,Werkstattschule Jena Staatliche Gemeinschaftsschule,0,1,1
+15,45098,Montessorischule Jena Staatliche Gemeinschaftsschule,0,1,2
+16,45104,Kaleidoskop Jena Staatliche Gemeinschaftsschule Jenaplan-Schule Lobeda,0,1,2
+17,45117,"Staatliche Gemeinschaftsschule ""Galileo"" Winzerla",0,1,2
+18,45120,"Staatliche Gemeinschaftsschule ""Kulturanum"" Jena",0,1,1
+19,45127,"Staatliche Gemeinschaftsschule ""Wenigenjena""",0,1,2
+20,51275,Otto-Schott-Gymnasium Jena Staatliches Gymnasium,0,2,0
+21,51291,"Staatliches Gymnasium ""Ernst Abbe"" Jena",0,2,0
+22,51296,Adolf-Reichwein-Gymnasium Jena Staatliches Gymnasium,0,2,0
+23,51304,Carl-Zeiss-Gymnasium Jena Staatliches Gymnasium mit math.-nw. Spezialklassen,0,2,2
+24,51318,Staatliches Angergymnasium Jena,0,2,0
+25,60899,Karl-Volkmar-Stoy-Schule Jena Staatliches Berufsschulzentrum Wirtschaft und Verwaltung,0,4,
+26,60946,Staatliches Berufsbildendes Schulzentrum Jena-Göschwitz,0,4,
+27,60959,Staatliche Berufsbildende Schule für Gesundheit und Soziales Jena,0,4,
+28,64943,"Euro Akademie Jena, Berufsbildende Ersatzschule",2,4,
+29,64952,"GAW-Institut für berufliche Bildung gemeinnützige GmbH, Staatlich genehmigte Höhere Berufsfachschule für Pflegeberufe",3,4,
+30,64957,Freie Berufsbildende Schule Jena,4,4,
+31,75083,Freie Ganztagsschule Leonardo - Gemeinschaftsschule,5,1,2
+32,76271,Freie Ganztagsgrundschule SteinMalEins,6,0,3
+33,76284,"DUALINGO-bilinguale Ganztagsgrundschule Jena, DRK-Kreisverband Jena-Eisenberg-Stadtroda e.V.",7,0,0
+34,76301,Evangelische Grundschule Klaus-Peter Hertzsch Jena,8,0,1
+35,78150,Staatlich anerkanntes Christliches Gymnasium Jena,9,2,1
+36,79005,Freie Waldorfschule Jena,10,1,1
+37,79318,UniverSaale Jena Freie Gesamtschule,6,1,0
+38,32005,Kastanienschule Jena Staatliches Regionales Förderzentrum Förderschwerpunkt geistige Entwicklung (Aufhebung 31.07.2020),0,3,3
+39,32022,Janis-Schule Staatliches regionales Förderzentrum Jena (Aufhebung 31.07.2020),0,3,3

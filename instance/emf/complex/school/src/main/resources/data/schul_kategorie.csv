@@ -1,0 +1,4 @@
+id,schul_kategorie_name
+INTEGER,VARCHAR
+0,Allgemeinbildende Schule
+1,Berufsbildende Schule
