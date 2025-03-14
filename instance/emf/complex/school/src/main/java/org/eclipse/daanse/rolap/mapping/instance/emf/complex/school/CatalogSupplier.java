@@ -109,9 +109,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         GANZTAGS_ART_ID_IN_SCHULE_TABLE.setName("ganztags_art_id");
         GANZTAGS_ART_ID_IN_SCHULE_TABLE.setType(ColumnType.INTEGER);
 
-        Column TRAEGER_ART_ID_IN_SCHULE_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        TRAEGER_ART_ID_IN_SCHULE_TABLE.setName("traeger_art_id");
-        TRAEGER_ART_ID_IN_SCHULE_TABLE.setType(ColumnType.INTEGER);
+        Column TRAEGER_ID_IN_SCHULE_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        TRAEGER_ID_IN_SCHULE_TABLE.setName("traeger_id");
+        TRAEGER_ID_IN_SCHULE_TABLE.setType(ColumnType.INTEGER);
 
         Column SCHUL_ART_ID_IN_SCHULE_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         SCHUL_ART_ID_IN_SCHULE_TABLE.setName("schul_art_id");
@@ -121,7 +121,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SCHULE_TABLE.setName(SCHULE);
         SCHULE_TABLE.getColumns()
                 .addAll(List.of(ID_COLUMN_IN_SCHULE_TABLE, SCHUL_NAME_IN_SCHULE_TABLE, SCHUL_NUMMER_IN_SCHULE_TABLE,
-                        GANZTAGS_ART_ID_IN_SCHULE_TABLE, TRAEGER_ART_ID_IN_SCHULE_TABLE, SCHUL_ART_ID_IN_SCHULE_TABLE));
+                        GANZTAGS_ART_ID_IN_SCHULE_TABLE, TRAEGER_ID_IN_SCHULE_TABLE, SCHUL_ART_ID_IN_SCHULE_TABLE));
 
         // id,schul_umfang
         // INTEGER,VARCHAR
@@ -147,14 +147,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE.setName("traeger_name");
         TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE.setType(ColumnType.VARCHAR);
 
-        Column TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE.setName("traeger_id");
-        TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE.setType(ColumnType.INTEGER);
+        Column TRAEGER_ART_ID_COLUMN_IN_TRAEGER_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        TRAEGER_ART_ID_COLUMN_IN_TRAEGER_TABLE.setName("traeger_art_id");
+        TRAEGER_ART_ID_COLUMN_IN_TRAEGER_TABLE.setType(ColumnType.INTEGER);
 
         PhysicalTable TRAEGER_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TRAEGER_TABLE.setName("traeger");
         TRAEGER_TABLE.getColumns().addAll(List.of(ID_COLUMN_IN_TRAEGER_TABLE, TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE,
-                TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE));
+                TRAEGER_ART_ID_COLUMN_IN_TRAEGER_TABLE));
 
         // id,traeger_art,traeger_kat_id
         // INTEGER,VARCHAR,VARCHAR
@@ -201,7 +201,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SCHUL_KATEGORIE_IN_SCHEDULE_ART.setType(ColumnType.INTEGER);
 
         PhysicalTable SCHEDULE_ART_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalTable();
-        SCHEDULE_ART_TABLE.setName("schule_art");
+        SCHEDULE_ART_TABLE.setName("schul_art");
         SCHEDULE_ART_TABLE.getColumns().addAll(List.of(ID_IN_SCHEDULE_ART, SCHUL_KATEGORIE_IN_SCHEDULE_ART));
 
         // "id","schul_jahr","order"
@@ -509,10 +509,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER.setName("anzahl_schueler");
         ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER.setType(ColumnType.INTEGER);
 
-        Column ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER.setName("anzahl_schulen");
-        ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER.setType(ColumnType.INTEGER);
-
         PhysicalTable FACT_SCHUELER_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         FACT_SCHUELER_TABLE.setName("fact_schueler");
         FACT_SCHUELER_TABLE.getColumns()
@@ -520,8 +516,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         GESCHLECHT_ID_COLUMN_IN_FACT_SCHUELER, WOHN_LK_ID_COLUMN_IN_FACT_SCHUELER,
                         EINSCHULUNG_ID_COLUMN_IN_FACT_SCHUELER, SCHUL_ABSCHLUSS_ID_COLUMN_IN_FACT_SCHUELER,
                         KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER, MIGRATIONS_HG_ID_COLUMN_IN_FACT_SCHUELER,
-                        FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER, ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER,
-                        ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER));
+                        FOERDER_ART_ID_COLUMN_IN_FACT_SCHUELER, ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER));
 
         databaseSchema.getTables()
                 .addAll(List.of(SCHULE_TABLE, GANZTAGS_ART_TABLE, TRAEGER_TABLE, TRAEGER_ART_TABLE,
@@ -611,9 +606,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         FACT_SCHULEN_TABLE_QUERY.setId("FACT_SCHULEN_TABLE_QUERY");
         FACT_SCHULEN_TABLE_QUERY.setTable(FACT_SCHULEN_TABLE);
 
-        TableQuery FACT_PERSONAM_TABLE_QUERY = RolapMappingFactory.eINSTANCE.createTableQuery();
-        FACT_PERSONAM_TABLE_QUERY.setId("FACT_PERSONAM_TABLE_QUERY");
-        FACT_PERSONAM_TABLE_QUERY.setTable(FACT_PERSONAM_TABLE);
+        TableQuery FACT_PERSONAL_TABLE_QUERY = RolapMappingFactory.eINSTANCE.createTableQuery();
+        FACT_PERSONAL_TABLE_QUERY.setId("FACT_PERSONAM_TABLE_QUERY");
+        FACT_PERSONAL_TABLE_QUERY.setTable(FACT_PERSONAM_TABLE);
 
         TableQuery FACT_SCHUELER_TABLE_QUERY = RolapMappingFactory.eINSTANCE.createTableQuery();
         FACT_SCHUELER_TABLE_QUERY.setId("FACT_SCHUELER_TABLE_QUERY");
@@ -646,7 +641,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         JOIN2_1_1.setRight(JOIN2_1_1R);
 
         JoinedQueryElement JOIN2_1L = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        JOIN2_1L.setKey(TRAEGER_ID_COLUMN_IN_TRAEGER_TABLE);
+        JOIN2_1L.setKey(TRAEGER_ART_ID_COLUMN_IN_TRAEGER_TABLE);
         JOIN2_1L.setQuery(TRAEGER_TABLE_QUERY);
 
         JoinedQueryElement JOIN2_1R = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -659,7 +654,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         JOIN2_1.setRight(JOIN2_1R);
 
         JoinedQueryElement JOIN2L = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
-        JOIN2L.setKey(TRAEGER_ART_ID_IN_SCHULE_TABLE);
+        JOIN2L.setKey(TRAEGER_ID_IN_SCHULE_TABLE);
         JOIN2L.setQuery(SCHEDULE_TABLE_QUERY);
 
         JoinedQueryElement JOIN2R = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -1053,7 +1048,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setName("Anzahl Schulen");
         measure1.setId("M_Anzahl_Schulen");
-        measure1.setColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER);
+        measure1.setColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER);
         measure1.setAggregator(MeasureAggregator.SUM);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -1081,7 +1076,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CUBE2_MEASURE_GROUP.getMeasures().addAll(List.of(measure3));
 
         MeasureGroup CUBE3_MEASURE_GROUP = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        CUBE2_MEASURE_GROUP.getMeasures().addAll(List.of(measure4));
+        CUBE3_MEASURE_GROUP.getMeasures().addAll(List.of(measure4));
 
         DimensionConnector SCHULEN_DC1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         SCHULEN_DC1.setOverrideDimensionName(SCHULEN);
@@ -1096,7 +1091,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalCube CUBE1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         CUBE1.setId("CUBE1");
         CUBE1.setName("Schulen in Jena (Institutionen)");
-        CUBE1.setQuery(FACT_SCHULEN_TABLE_QUERY);
+        CUBE1.setQuery(FACT_SCHUELER_TABLE_QUERY);
         CUBE1.getDimensionConnectors().addAll(List.of(SCHULEN_DC1, SCHULJAHR_DC1));
         CUBE1.getMeasureGroups().addAll(List.of(CUBE1_MEASURE_GROUP));
 
@@ -1128,7 +1123,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalCube CUBE2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         CUBE2.setName("Pädagogisches Personal an Jenaer Schulen");
         CUBE2.setId("CUBE2");
-        CUBE2.setQuery(FACT_PERSONAM_TABLE_QUERY);
+        CUBE2.setQuery(FACT_PERSONAL_TABLE_QUERY);
         CUBE2.getDimensionConnectors()
                 .addAll(List.of(SCHULEN_DC2, SCHULJAHR_DC2, Altersgruppe_DC, GESCHLECHT_DC, Berufsgruppe_DC));
         CUBE2.getMeasureGroups().addAll(List.of(CUBE2_MEASURE_GROUP));

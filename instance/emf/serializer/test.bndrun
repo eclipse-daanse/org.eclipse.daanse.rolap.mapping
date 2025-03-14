@@ -110,7 +110,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackinlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebacktable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackview',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackwithoutdimension'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackwithoutdimension',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.school'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -125,6 +126,7 @@
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
 	org.eclipse.daanse.rolap.mapping.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.emf;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.school;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom;version='[0.0.1,0.0.2)',\
