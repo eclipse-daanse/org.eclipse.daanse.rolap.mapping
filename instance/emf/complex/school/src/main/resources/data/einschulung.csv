@@ -1,3 +1,4 @@
 id,einschulung
 INTEGER,VARCHAR
-1,einschulung
+0,nein
+1,ja
