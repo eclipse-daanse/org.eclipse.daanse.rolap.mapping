@@ -429,10 +429,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN.setName(SCHUL_JAHR_ID);
         SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN.setType(ColumnType.INTEGER);
 
+        Column ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN.setName("anzahl_schulen");
+        ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN.setType(ColumnType.INTEGER);
+
+        Column ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN.setName("anzahl_klassen");
+        ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN.setType(ColumnType.INTEGER);
+
         PhysicalTable FACT_SCHULEN_TABLE = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         FACT_SCHULEN_TABLE.setName("fact_schulen");
         FACT_SCHULEN_TABLE.getColumns()
-                .addAll(List.of(SCHULE_ID_COLUMN_IN_FACT_SCHULEN, SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN));
+                .addAll(List.of(SCHULE_ID_COLUMN_IN_FACT_SCHULEN, SCHUL_JAHR_ID_COLUMN_IN_FACT_SCHULEN, ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN, ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN));
 
         // schule_id,schul_jahr_id,alters_gruppe_id,geschlecht_id,personal_art_id,anzahl_personen
         // INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
@@ -1048,13 +1056,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure1.setName("Anzahl Schulen");
         measure1.setId("M_Anzahl_Schulen");
-        measure1.setColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER);
+        measure1.setColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN);
         measure1.setAggregator(MeasureAggregator.SUM);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure2.setName("Anzahl Klassen");
         measure2.setId("M_Anzahl_Klassen");
-        measure2.setColumn(KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER);
+        measure2.setColumn(ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN);
         measure2.setAggregator(MeasureAggregator.SUM);
 
         Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
@@ -1091,7 +1099,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalCube CUBE1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         CUBE1.setId("CUBE1");
         CUBE1.setName("Schulen in Jena (Institutionen)");
-        CUBE1.setQuery(FACT_SCHUELER_TABLE_QUERY);
+        CUBE1.setQuery(FACT_SCHULEN_TABLE_QUERY);
         CUBE1.getDimensionConnectors().addAll(List.of(SCHULEN_DC1, SCHULJAHR_DC1));
         CUBE1.getMeasureGroups().addAll(List.of(CUBE1_MEASURE_GROUP));
 
