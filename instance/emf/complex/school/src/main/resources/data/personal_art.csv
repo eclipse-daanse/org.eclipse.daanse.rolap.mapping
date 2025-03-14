@@ -1,6 +1,6 @@
-id,bezeichnung,,,,,,,,,,,,,,,,,id,bezeichnung
-INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
-,,,,,,,,,,,,,,,,,,0,Lehrer:in
-,,,,,,,,,,,,,,,,,,1,Erzieher:in
-,,,,,,,,,,,,,,,,,,2,Sonderpädagogische Fachkraft
-,,,,,,,,,,,,,,,,,,3,Lehramtsanwärter:in
+id,bezeichnung
+INTEGER,VARCHAR
+0,Lehrer:in
+1,Erzieher:in
+2,Sonderpädagogische Fachkraft
+3,Lehramtsanwärter:in
