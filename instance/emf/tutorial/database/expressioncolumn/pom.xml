@@ -16,19 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database</artifactId>
     <version>${revision}</version>
   </parent>
-
-  <packaging>pom</packaging>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database</artifactId>
-  <modules>
-    <module>intro</module>
-    <module>column</module>
-    <module>table</module>
-    <module>schema</module>
-    <module>inlinetable</module>
-    <module>sqlview</module>
-    <module>expressioncolumn</module>
-  </modules>
+  <artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn</artifactId>
 </project>

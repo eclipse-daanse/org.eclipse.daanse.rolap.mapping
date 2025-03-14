@@ -95,27 +95,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column columnNumeric = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnNumeric.setName("ColumnNumeric");
-        columnNumeric.setId("_col3");
+        columnNumeric.setId("_col4");
         columnNumeric.setType(ColumnType.NUMERIC);
 
         Column columnFloat = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnFloat.setName("ColumnFloat");
-        columnFloat.setId("_col4");
+        columnFloat.setId("_col5");
         columnFloat.setType(ColumnType.FLOAT);
 
         Column columnReal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnReal.setName("ColumnReal");
-        columnReal.setId("_col5");
+        columnReal.setId("_col6");
         columnReal.setType(ColumnType.REAL);
 
         Column columnDouble = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnDouble.setName("ColumnDouble");
-        columnDouble.setId("_col6");
+        columnDouble.setId("_col7");
         columnDouble.setType(ColumnType.DOUBLE);
 
         Column columnInteger = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnInteger.setName("ColumnIneger");
-        columnInteger.setId("_col7");
+        columnInteger.setId("_col8");
         columnInteger.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
