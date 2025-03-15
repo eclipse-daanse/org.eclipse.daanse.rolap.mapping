@@ -39,8 +39,6 @@
     <module>differentaggregators</module>
     <module>differentdatatypes</module>
     <module>measureformats</module>
-    <module>defaultmeasure</module>
-    <module>multiplemeasure</module>
     <module>cellformatter</module>
     <module>calculatedmember</module>
     <module>calculatedmemberformatter</module>
