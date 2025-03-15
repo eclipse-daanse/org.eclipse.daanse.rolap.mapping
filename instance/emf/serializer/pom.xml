@@ -75,6 +75,13 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.schema</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -103,13 +110,45 @@
     </dependency>
 
 
-    <!-- other-->
+    <!-- cube -->
+
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.minimal</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.multiple</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.datatype</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.format</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+
+    <!-- other-->
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -146,19 +185,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.differentaggregators</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.differentdatatypes</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -359,7 +385,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset.all</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -373,7 +399,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min</artifactId>
       <version>${project.version}</version>
     </dependency>
 
