@@ -32,29 +32,29 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String introBody = """
             The foundation of all data analysis is the data to be analyzed.
             In this case, it is stored in a relational database.
-                        """;
+            """;
 
     private static final String catalogBody = """
             The catalog is the primary object in a Daanse server. It serves as a logical grouping to separate different topics in the context of data storage and analysis. The catalog references a single databaseSchema.
-                        """;
+            """;
 
     private static final String schemaBody = """
             A catalog can be structured into databaseSchemas to logically group tables. The same table name can exist in multiple schemas.
 
             In Daanse, we represent the database schema, where the data is stored, as a DatabaseSchema element.
-                        """;
+            """;
 
     private static final String tableBody = """
             A schema contains the tables within a database. There are multiple types of tables, which we will explain in further tutorials.
 
             The most common type we use is the physical table. The tables defined in a schema do not have to match all tables in the actual database — only those that should be visible for the server. This provides an additional layer of security.
-                        """;
+            """;
 
     private static final String columnBody = """
             A table consists of columns, each with a name and a data type.
 
             The columns defined in a table do not have to match all columns in the actual database — only those that should be visible for the server. This provides an additional layer of security.
-                        """;
+            """;
 
     @Override
     public CatalogMapping get() {
