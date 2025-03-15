@@ -24,7 +24,6 @@
   <modules>
     <module>aggexclude</module>
     <module>inlinetable</module>
-    <module>dimensionwithlevel</module>
     <module>dimensionwithsmallintbooleanlevel</module>
     <module>dimensionwithmultylevels</module>
     <module>dimensionwithlevelexpressions</module>
