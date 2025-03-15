@@ -36,7 +36,6 @@
     <module>dimensionwithlevelattribute</module>
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
-    <module>differentdatatypes</module>
     <module>cellformatter</module>
     <module>calculatedmember</module>
     <module>calculatedmemberformatter</module>
