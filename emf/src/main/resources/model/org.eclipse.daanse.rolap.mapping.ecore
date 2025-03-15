@@ -29,19 +29,21 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showContainer" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="showContainments" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="documentations" upperBound="-1"
+        eType="#//Documentation" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation" eSuperTypes="#//IAnnotation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//IAbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//IAbstractElement #//DocumentedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
         eType="#//Annotation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="documentations" upperBound="-1"
-        eType="#//Documentation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Enviroment" eSuperTypes="#//AbstractElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
@@ -590,7 +592,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
         eType="#//SqlStatement" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery #//DocumentedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
@@ -809,12 +811,13 @@
     <eLiterals name="HIDDEN" value="3" literal="hidden"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MeasureAggregator">
-    <eLiterals name="SUM" literal="sum"/>
-    <eLiterals name="COUNT" value="1" literal="count"/>
-    <eLiterals name="MIN" value="2" literal="min"/>
-    <eLiterals name="MAX" value="3" literal="max"/>
-    <eLiterals name="AVG" value="4" literal="avg"/>
-    <eLiterals name="DICTINCT_COUNT" value="5" literal="distinct-count"/>
+    <eLiterals name="NONE" literal="None"/>
+    <eLiterals name="SUM" value="1" literal="sum"/>
+    <eLiterals name="COUNT" value="2" literal="count"/>
+    <eLiterals name="MIN" value="3" literal="min"/>
+    <eLiterals name="MAX" value="4" literal="max"/>
+    <eLiterals name="AVG" value="5" literal="avg"/>
+    <eLiterals name="DICTINCT_COUNT" value="6" literal="distinct-count"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>

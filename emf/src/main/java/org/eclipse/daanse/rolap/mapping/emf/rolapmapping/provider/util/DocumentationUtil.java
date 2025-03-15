@@ -13,13 +13,13 @@
 */
 package org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util;
 
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DocumentedElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 
 public class DocumentationUtil {
 
-    public static void document(AbstractElement element, String title, String body, int orderMajor, int orderMinor,
+    public static void document(DocumentedElement element, String title, String body, int orderMajor, int orderMinor,
             int orderMicro, boolean showContainer, int setShowContainments) {
         Documentation doc = RolapMappingFactory.eINSTANCE.createDocumentation();
 
