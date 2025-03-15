@@ -28,5 +28,6 @@
     <module>measure.format</module>
     <module>measure.aggregator.base</module>
     <module>measure.group</module>
+    <module>dimension.intro</module>
   </modules>
 </project>

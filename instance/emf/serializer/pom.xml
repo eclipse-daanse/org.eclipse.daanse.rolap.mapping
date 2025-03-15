@@ -129,6 +129,13 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.group</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.datatype</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -144,6 +151,13 @@
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro</artifactId>
       <version>${project.version}</version>
     </dependency>
 
