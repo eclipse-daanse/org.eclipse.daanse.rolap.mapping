@@ -27,5 +27,6 @@
     <module>measure.datatype</module>
     <module>measure.format</module>
     <module>measure.aggregator.base</module>
+    <module>measure.group</module>
   </modules>
 </project>

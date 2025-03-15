@@ -133,7 +133,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure3.setFormatString("#,##0.");
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3));
+        measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresFormatCube");
