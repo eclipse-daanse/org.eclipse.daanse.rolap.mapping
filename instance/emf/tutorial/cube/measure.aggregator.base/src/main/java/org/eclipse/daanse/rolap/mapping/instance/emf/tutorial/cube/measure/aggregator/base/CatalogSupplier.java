@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -35,25 +35,29 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Data cubes are the most important objects in OLAP. Cubes provide access to data related to a specific topic, which corresponds to the cube's name. Within the catalog, each data cube must have a unique name.
+            Data cubes can also have multiple measures when different aggregations are required for a column.
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on a single table that stores all the data. The table is named `Fact` and contains two columns: `KEY` and `VALUE`. The KEY column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
+            The cube defined in this example is based on a single table that stores all the data. The table, named `Fact`, contains two columns: `KEY` and `VALUE`. The `KEY` column acts as a discriminator, while the `VALUE` column holds the measurements to be aggregated.
             """;
 
     private static final String queryBody = """
-            The bridge between the cube and the database is the query element. In this case, it is a TableQuery, as it directly references the physical table `Fact`. The query element is not visible to users accessing the cube through the XMLA API, such as Daanse Dashboard, Power BI, or Excel.
+            This example uses a TableQuery, as it directly references the physical table `Fact`.
             """;
 
     private static final String cubeBody = """
-            The cube is the element visible to users in analysis tools. A cube is based on elements such as measures, dimensions, hierarchies, KPIs, and named sets. In this case, we only define measures, which are the minimal required elements. The other elements are optional. To link a measure to the cube, we use the `MeasureGroup` element. The `MeasureGroup` is useful for organizing multiple measures into logical groups. Measures are used to define the data that should be aggregated. In this example, the measure is named Measure-Sum and references the `VALUE` column in the Fact table. The measure is aggregated using summation.
+            In this example, multiple measures are defined. All measures reference the `VALUE` column and use the following aggregation functions:
+            - SUM – Calculates the sum of the values.
+            - MIN – Retrieves the minimum value.
+            - MAX – Retrieves the maximum value.
+            - AVG – Computes the average of the values.
             """;
 
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
@@ -62,7 +66,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_value");
+        valueColumn.setId("_col");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -75,32 +79,47 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setId("_query");
         query.setTable(table);
 
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
-        measure.setName("Measure-Sum");
-        measure.setId("_measure");
-        measure.setColumn(valueColumn);
+        Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure1.setAggregator(MeasureAggregator.SUM);
+        measure1.setName("Sum of Value");
+        measure1.setId("_measure1");
+        measure1.setColumn(valueColumn);
+
+        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure2.setAggregator(MeasureAggregator.MAX);
+        measure2.setName("Max of Value");
+        measure2.setId("_measure2");
+        measure2.setColumn(valueColumn);
+
+        Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure3.setAggregator(MeasureAggregator.MIN);
+        measure3.setName("Min of Value");
+        measure3.setId("_measure3");
+        measure3.setColumn(valueColumn);
+
+        Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure4.setAggregator(MeasureAggregator.AVG);
+        measure4.setName("Avg of Value");
+        measure4.setId("_measure4");
+        measure4.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().add(measure);
+        measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setName("MinimalCube");
+        cube.setName("MeasuresAggregatorsCube");
         cube.setId("_cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setId("_cat");
-        catalog.setName("Cube - Minimal");
+        catalog.setName("Cube - Measures and Aggregators");
         catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Introduction into Cubes", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);
-
         return catalog;
 
     }
