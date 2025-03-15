@@ -35,20 +35,20 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Data cubes are the most important objects in OLAP. Cubes provide access to data related to a specific topic, which corresponds to the cube's name. Within the catalog, each data cube must have a unique name.
-                                    """;
+                        Data cubes are the most important objects in OLAP. Cubes provide access to data related to a specific topic, which corresponds to the cube's name. Within the catalog, each data cube must have a unique name.
+            """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on a single table that stores all the data. The table is named Fact and contains two columns: KEY and VALUE. The KEY column serves as a discriminator, while the VALUE column contains the measurements to be aggregated.
-                        """;
+                        The cube defined in this example is based on a single table that stores all the data. The table is named Fact and contains two columns: KEY and VALUE. The KEY column serves as a discriminator, while the VALUE column contains the measurements to be aggregated.
+            """;
 
     private static final String queryBody = """
-            The bridge between the cube and the database is the query element. In this case, it is a TableQuery, as it directly references the physical table Fact. The query element is not visible to users accessing the cube through the XMLA API, such as Daanse Dashboard, Power BI, or Excel.
-                                  """;
+                        The bridge between the cube and the database is the query element. In this case, it is a TableQuery, as it directly references the physical table Fact. The query element is not visible to users accessing the cube through the XMLA API, such as Daanse Dashboard, Power BI, or Excel.
+            """;
 
     private static final String cubeBody = """
-            The cube is the element visible to users in analysis tools. A cube is based on elements such as measures, dimensions, hierarchies, KPIs, and named sets. In this case, we only define measures, which are the minimal required elements. The other elements are optional. To link a measure to the cube, we use the MeasureGroup element. The MeasureGroup is useful for organizing multiple measures into logical groups. Measures are used to define the data that should be aggregated. In this example, the measure is named Measure-Sum and references the VALUE column in the Fact table. The measure is aggregated using summation.
-                        """;
+                        The cube is the element visible to users in analysis tools. A cube is based on elements such as measures, dimensions, hierarchies, KPIs, and named sets. In this case, we only define measures, which are the minimal required elements. The other elements are optional. To link a measure to the cube, we use the MeasureGroup element. The MeasureGroup is useful for organizing multiple measures into logical groups. Measures are used to define the data that should be aggregated. In this example, the measure is named Measure-Sum and references the VALUE column in the Fact table. The measure is aggregated using summation.
+            """;
 
     @Override
     public CatalogMapping get() {
