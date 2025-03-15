@@ -19,9 +19,8 @@
     <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
     <version>${revision}</version>
   </parent>
-
-  <packaging>pom</packaging>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database</artifactId>
+  <packaging>pom</packaging>
   <modules>
     <module>intro</module>
     <module>column</module>

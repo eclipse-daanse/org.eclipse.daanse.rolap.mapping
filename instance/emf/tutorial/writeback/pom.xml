@@ -19,6 +19,6 @@
     <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback</artifactId>
   <packaging>pom</packaging>
 </project>

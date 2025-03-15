@@ -10,7 +10,9 @@
 * SPDX-License-Identifier: EPL-2.0
 **********************************************************************/
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
@@ -20,7 +22,6 @@
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>minimal</module>
     <module>aggexclude</module>
     <module>inlinetable</module>
     <module>dimensionwithlevel</module>
@@ -48,12 +49,12 @@
     <module>hierarchywithview</module>
     <module>hierarchywithinnerjoin</module>
     <module>hierarchywithinnertable</module>
-    <module>virtualcube</module>
+    <module>virtualcube.min</module>
     <module>virtualcubedimensions</module>
     <module>virtualcubecalculatedmember</module>
     <module>virtualcubemeasureonly</module>
     <module>virtualcubevisiblereferencecubes</module>
-    <module>namedset</module>
+    <module>namedset.all</module>
     <module>aggregatetables</module>
     <module>kpiminimal</module>
     <module>kpiall</module>
@@ -75,6 +76,16 @@
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
     <module>hierarchyhasalltruefalse</module>
+
+
     <module>database</module>
+    <module>access</module>
+    <module>cube</module>
+    <module>dimension</module>
+    <module>writeback</module>
+    <module>kpi</module>
+    <module>virtualcube</module>
+    <module>namedset</module>
+    <module>aggregation</module>
   </modules>
 </project>
