@@ -32,19 +32,19 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-                        ther are several Tables Types. The most common are PhysicalTable, ViewTable, and SystemTable. All of this, and thre upcoming table typed can be used to build cubes on.
+            There are several Tables Types. The most common are PhysicalTable, ViewTable, and SystemTable. All of this, and thre upcoming table typed can be used to build cubes on.
             """;
 
     private static final String physicaltableBody = """
-                        Physical Tables are the most common Tables.  They are used to store data in the Database.
+            Physical Tables are the most common Tables.  They are used to store data in the Database.
             """;
 
     private static final String viewtableBody = """
-                        View Tables ate Database views. Virtual tables that are the result of a query inside the underlaying Database. They are used to simplify complex queries and to hide the complexity.
+            View Tables ate Database views. Virtual tables that are the result of a query inside the underlaying Database. They are used to simplify complex queries and to hide the complexity.
             """;
 
     private static final String systenmtableBody = """
-                        Sytsem Tables are are used and managed by the underlaying Database Management System. They are used to store metadata and other information about the Database itsselfe. Please be carefill when using System Tables, this may cause secutiry issues.
+            Sytsem Tables are are used and managed by the underlaying Database Management System. They are used to store metadata and other information about the Database itsselfe. Please be carefill when using System Tables, this may cause secutiry issues.
             """;
 
     @Override

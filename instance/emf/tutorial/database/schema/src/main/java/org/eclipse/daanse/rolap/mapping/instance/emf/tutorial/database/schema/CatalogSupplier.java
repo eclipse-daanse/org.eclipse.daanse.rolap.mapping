@@ -33,15 +33,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The purpose of database schemas is to organize tables into logical groups.
 
             In the Daanse server, schemas can be referenced in the catalog. None or only a subset of the existing database schemas may be referenced. This reference is only required if the Daanse server needs to expose the schemas and their tables via an API, such as XMLA.
-                                    """;
+            """;
 
     private static final String schemaDefaultBody = """
             The name of a database schema is optional and can be left empty. In such cases, the server will query the default schema of the underlying database.
-                                                """;
+            """;
 
     private static final String schemaOtherBody = """
             It is more secure to explicitly define the schema using the `name` attribute. To provide a clearer description of the schema's contents, you can use the `description` attribute.
-                        """;
+            """;
 
     private static final String catalogBody = "Schema can be refernced in the catalog. You can see this by checking the `dbSchema attribute` in the catalog.";
 
