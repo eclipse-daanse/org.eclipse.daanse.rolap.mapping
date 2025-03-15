@@ -39,6 +39,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DocumentedElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -50,6 +51,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
 import org.gecko.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.BeforeAll;
@@ -152,8 +154,9 @@ public class ResourceSetWriteReadTest {
             }
 
         }
-
-        resourceCatalog.save(Map.of());
+        Map<Object, Object> options = new HashMap<>();
+        options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        resourceCatalog.save(options);
 
         System.out.println(baseDir);
         System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
@@ -220,6 +223,14 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
                 cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",
                         "");
+
+                cleaned = cleaned.replace("roma:TableQuery #", "#");
+                cleaned = cleaned.replace("roma:PhysicalTable #", "#");
+                cleaned = cleaned.replace("roma:PhysicalColumn #", "#");
+                cleaned = cleaned.replace("roma:Measure #", "#");
+
+
+
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
                 sbReadme.append("```xmi");
@@ -316,13 +327,13 @@ public class ResourceSetWriteReadTest {
         List<Documentation> docs = new ArrayList<Documentation>();
 
         for (EObject eo : sortedList) {
-            if (eo instanceof AbstractElement ae) {
-                for (Documentation documentation : ae.getDocumentations()) {
-                    map.put(documentation, ae);
+            if (eo instanceof DocumentedElement de) {
+                for (Documentation documentation : de.getDocumentations()) {
+                    map.put(documentation, de);
                     docs.add(documentation);
 
                 }
-                ae.getDocumentations().clear();
+                de.getDocumentations().clear();
             }
             List<EObject> list = new ArrayList<EObject>();
 
