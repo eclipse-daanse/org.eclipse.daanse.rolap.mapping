@@ -1,0 +1,176 @@
+/*
+ * Copyright (c) 2025 Contributors to the Eclipse Foundation.
+ *
+ * This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License 2.0
+ * which is available at https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *
+ */
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.physicaltable;
+
+import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
+
+import java.util.List;
+
+import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
+import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
+import org.osgi.service.component.annotations.Component;
+
+@Component(service = CatalogMappingSupplier.class)
+public class CatalogSupplier implements CatalogMappingSupplier {
+
+    private static final String introBody = """
+            Very often, the data of a cube is not stored in a single table, but in multiple tables. In this case, it must be defined one query for the Facts to store the values that be aggregated for the measures and one for the Levels. This example shows how this must be defined.
+            """;
+
+    private static final String databaseSchemaBody = """
+            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column.            .
+            """;
+
+    private static final String levelBody = """
+            The level used the `column` attribute to define the primary key column. It also defines the `nameColumn` attribute to define the column that contains the name of the level. The `nameColumn` attribute is optional, if it is not defined, the server will use the column defined in the `column` attribute as name column.
+            """;
+
+    private static final String hierarchyBody = """
+            This Hierarchy contains only one level. The `primaryKey` attribute defines the column that contains the primary key of the hierarchy. The `query` attribute references to the query that will be used to retrieve the data for the hierarchy.
+            """;
+
+    private static final String dimensionBody = """
+            The Dimenaion has only one hierarchy.
+            """;
+
+    private static final String cubeBody = """
+            The cube contains only one Measure in a unnamed MeasureGroup and references to the Dimension.
+
+            To connect the dimension to the cube, a DimensionConnector is used. The dimension has set the attribute `foreignKey` to define the column that contains the foreign key of the dimension in the fact table.
+            """;
+
+    private static final String queryLevelBody = """
+            The TableQuery for the Level, as it directly references the physical table `Town`.
+            """;
+
+    private static final String queryFactBody = """
+            The TableQuery for the Level, as it directly references the physical table `Fact`.
+            """;
+
+    @Override
+    public CatalogMapping get() {
+        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("_dbschema");
+
+        Column townIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        townIdColumn.setName("TOWN_ID");
+        townIdColumn.setId("_col_fact_townId");
+        townIdColumn.setType(ColumnType.INTEGER);
+
+        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        valueColumn.setName("VALUE");
+        valueColumn.setId("_col_fact_value");
+        valueColumn.setType(ColumnType.INTEGER);
+
+        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        table.setName("Fact");
+        table.setId("_tab_fact");
+        table.getColumns().addAll(List.of(townIdColumn, valueColumn));
+        databaseSchema.getTables().add(table);
+
+        Column keyDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        keyDim1Column.setName("ID");
+        keyDim1Column.setId("_col_town_id");
+        keyDim1Column.setType(ColumnType.INTEGER);
+
+        Column nameDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        nameDim1Column.setName("NAME");
+        nameDim1Column.setId("_col_town_name");
+        nameDim1Column.setType(ColumnType.VARCHAR);
+
+        PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        tableTown.setName("TOWN");
+        tableTown.setId("_tab_town");
+        tableTown.getColumns().addAll(List.of(keyDim1Column, nameDim1Column));
+        databaseSchema.getTables().add(tableTown);
+
+        TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryFact.setId("_query_Fact");
+        queryFact.setTable(table);
+
+        TableQuery queryHier = RolapMappingFactory.eINSTANCE.createTableQuery();
+        queryHier.setId("_Query_LevelTown");
+        queryHier.setTable(tableTown);
+
+        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure.setAggregator(MeasureAggregator.SUM);
+        measure.setName("theMeasure");
+        measure.setId("_measure");
+        measure.setColumn(valueColumn);
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+
+        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level.setName("Town");
+        level.setId("_level_town");
+        level.setColumn(keyDim1Column);
+        level.setNameColumn(nameDim1Column);
+
+        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        hierarchy.setName("TownHierarchy");
+        hierarchy.setId("_hierarchy_town");
+        hierarchy.setPrimaryKey(keyDim1Column);
+        hierarchy.setQuery(queryHier);
+        hierarchy.getLevels().add(level);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setName("Town");
+        dimension.setId("_dim_town");
+        dimension.getHierarchies().add(hierarchy);
+
+        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setDimension(dimension);
+        dimensionConnector1.setForeignKey(townIdColumn);
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setName("Cube Query linked Tables");
+        cube.setId("_cube");
+        cube.setQuery(queryFact);
+        cube.getMeasureGroups().add(measureGroup);
+        cube.getDimensionConnectors().add(dimensionConnector1);
+
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setName("Hierarchy - Querys with linked Physical tables");
+        catalog.getCubes().add(cube);
+
+        document(catalog, "Hierarchy - Query on Physical Cube", introBody, 1, 0, 0, false, 0);
+        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
+        document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
+        document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
+
+        document(level, "Level", levelBody, 1, 4, 0, true, 0);
+        document(hierarchy, "Hierarchy", hierarchyBody, 1, 4, 0, true, 0);
+        document(dimension, "Dimension", dimensionBody, 1, 5, 0, true, 0);
+
+        document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 7, 0, true, 2);
+
+        return catalog;
+    }
+
+}
