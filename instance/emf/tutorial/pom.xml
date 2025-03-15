@@ -36,9 +36,7 @@
     <module>dimensionwithlevelattribute</module>
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
-    <module>differentaggregators</module>
     <module>differentdatatypes</module>
-    <module>measureformats</module>
     <module>cellformatter</module>
     <module>calculatedmember</module>
     <module>calculatedmemberformatter</module>
