@@ -20,5 +20,5 @@
     <version>${revision}</version>
   </parent>
   <artifactId>
-    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.physicaltable</artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join</artifactId>
 </project>
