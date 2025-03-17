@@ -260,6 +260,13 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("```");
         sbReadme.append("\n");
 
+        sbReadme.append("## Documentation");
+        sbReadme.append("\n");
+        sbReadme.append("\n");
+        sbReadme.append("More information and visualisations about this Catalog you can find in the [Documentation](./DOCUMENTATION.MD).");
+        sbReadme.append("\n");
+        sbReadme.append("\n");
+
         sbReadme.append("## csv data");
         sbReadme.append("\n");
         sbReadme.append("\n");
