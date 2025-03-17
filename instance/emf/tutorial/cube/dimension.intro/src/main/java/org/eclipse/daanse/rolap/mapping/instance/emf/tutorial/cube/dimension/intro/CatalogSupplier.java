@@ -126,7 +126,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-//        dimensionConnector.setOverrideDimensionName("Dimension");
+        dimensionConnector.setOverrideDimensionName("theDimension");
         dimensionConnector.setDimension(dimension);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
@@ -139,6 +139,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Dimension - Introduction");
         catalog.setId("_catalog");
+        catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);
 
         document(catalog, "Dimension - Introduction", introBody, 1, 0, 0, false, 0);
