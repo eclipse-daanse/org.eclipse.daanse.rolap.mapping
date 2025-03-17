@@ -41,7 +41,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String inlineTableBody = """
             The InlineTable is a virtual table. The table and data does not exist in the datbase and will not be inserted. The inlinetable stores the data in the Row and RowValue elements completely in its definition. The RowValue elements are used to store the values of the columns. The Row element is used to store the values. the RowValue can store the atomic data and the reference to the columns. The InlineTable can have multiple Rows and columns. Inline tables should only be used exceptionally.
-             """;
+            """;
 
     @Override
     public CatalogMapping get() {
