@@ -63,8 +63,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkUtil;
+import org.osgi.framework.ServiceReference;
 import org.osgi.test.common.annotation.InjectBundleContext;
 import org.osgi.test.common.annotation.InjectService;
+import org.osgi.test.common.service.ServiceAware;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
@@ -90,19 +92,37 @@ public class ResourceSetWriteReadTest {
     public void writePopulation(@InjectBundleContext BundleContext bc,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
                     + RolapMappingPackage.eNAME + ")") ResourceSet resourceSet,
-            @InjectService List<CatalogMappingSupplier> mappingSuppiers)
+            @InjectService ServiceAware<CatalogMappingSupplier> mappingSuppiersSA)
             throws SQLException, InterruptedException, IOException {
 
         try {
 
-            for (CatalogMappingSupplier catalogMappingSupplier : mappingSuppiers) {
+            List<ServiceReference<CatalogMappingSupplier>> srs = mappingSuppiersSA.getServiceReferences();
+            StringBuilder parentReadme = new StringBuilder();
+            parentReadme.append("# Tutorials ");
+
+            srs.sort((o1, o2) -> {
+                Object s1 = o1.getProperty("number");
+                Object s2 = o2.getProperty("number");
+
+                String ss1 = s1 == null ? "" : s1.toString();
+                String ss2 = s2 == null ? "" : s2.toString();
+                return ss1.compareToIgnoreCase(ss2);
+            });
+            for (ServiceReference<CatalogMappingSupplier> sr : srs) {
 
                 try {
-                    serializeCatalog(resourceSet, catalogMappingSupplier);
+                    CatalogMappingSupplier catalogMappingSupplier = mappingSuppiersSA.getService(sr);
+
+                    parentReadme.append("\n");
+
+                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+            Path rootReadmeFile = Files.createFile(tempDir.resolve("README.MD"));
+            Files.writeString(rootReadmeFile, parentReadme);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,11 +131,12 @@ public class ResourceSetWriteReadTest {
 
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
 
-    private void serializeCatalog(ResourceSet resourceSet, CatalogMappingSupplier catalogMappingSupplier)
-            throws IOException {
+    private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
+            CatalogMappingSupplier catalogMappingSupplier) throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
         name = name.substring(46);
+
         Path baseDir = Files.createDirectories(tempDir.resolve(name));
         Path dataDir = Files.createDirectories(baseDir.resolve("data"));
         Path keepFile = Files.createFile(dataDir.resolve(".keep"));
@@ -123,6 +144,9 @@ public class ResourceSetWriteReadTest {
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
         CatalogMapping cm = catalogMappingSupplier.get();
+
+        parentReadme.append("\n");
+        parentReadme.append("- [" + cm.getName() + "](./" + name + "/README.MD)");
 
         Catalog c = (Catalog) cm;
 
@@ -192,6 +216,7 @@ public class ResourceSetWriteReadTest {
                 if (imic != 0) {
                     sbReadme.append("#");
                 }
+                sbReadme.append(" ");
                 sbReadme.append(title);
                 sbReadme.append("\n");
                 sbReadme.append("\n");
@@ -229,8 +254,6 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("roma:PhysicalColumn #", "#");
                 cleaned = cleaned.replace("roma:Measure #", "#");
 
-
-
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
                 sbReadme.append("```xmi");
@@ -263,7 +286,8 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("## Documentation");
         sbReadme.append("\n");
         sbReadme.append("\n");
-        sbReadme.append("More information and visualisations about this Catalog you can find in the [Documentation](./DOCUMENTATION.MD).");
+        sbReadme.append(
+                "More information and visualisations about this Catalog you can find in the [Documentation](./DOCUMENTATION.MD).");
         sbReadme.append("\n");
         sbReadme.append("\n");
 
