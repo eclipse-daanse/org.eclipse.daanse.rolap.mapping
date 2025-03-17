@@ -428,7 +428,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Art des Ganztagsangebots")
         .withColumn(ID_COLUMN_IN_GANZTAGS_ART)
         .withNameColumn(SCHUL_UMFANG_IN_GANZTAGS_ART)
-        .withTable(GANZTAGS_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL2 = LevelMappingImpl
@@ -437,7 +436,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
         .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
         .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
-        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL3 = LevelMappingImpl
@@ -445,7 +443,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulträger-Kategorie")
         .withColumn(ID_COLUMN_IN_TRAEGER_KATEGORIE)
         .withNameColumn(TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE)
-        .withTable(TRAEGER_KATEGORIE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL4 = LevelMappingImpl
@@ -453,7 +450,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulträger-Art")
         .withColumn(ID_COLUMN_IN_TRAEGER_ART)
         .withNameColumn(TRAEGER_ART_COLUMN_IN_TRAEGER_ART)
-        .withTable(TRAEGER_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL5 = LevelMappingImpl
@@ -461,7 +457,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulträger")
         .withColumn(ID_COLUMN_IN_TRAEGER_TABLE)
         .withNameColumn(TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE)
-        .withTable(TRAEGER_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL6 = LevelMappingImpl
@@ -470,7 +465,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
         .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
         .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
-        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL7 = LevelMappingImpl
@@ -478,7 +472,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulkategorie")
         .withColumn(ID_COLUMN_IN_SCHUL_KATEGORIE)
         .withNameColumn(SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE)
-        .withTable(SCHUL_KATEGORIE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL8 = LevelMappingImpl
@@ -486,7 +479,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Schulart")
         .withColumn(ID_COLUMN_IN_SCHUL_ART)
         .withNameColumn(SCHULART_NAME_COLUMN_IN_SCHUL_ART)
-        .withTable(SCHUL_ART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL9 = LevelMappingImpl
@@ -495,7 +487,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_SCHULE_TABLE)
         .withNameColumn(SCHUL_NAME_IN_SCHULE_TABLE)
         .withOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE)
-        .withTable(SCHULE_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL10 = LevelMappingImpl
@@ -560,7 +551,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Bundesland")
         .withColumn(ID_COLUMN_IN_BUNDESLAND)
         .withNameColumn(BEZEICHNUNG_COLUMN_IN_BUNDESLAND)
-        .withTable(BUNDESLAND_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL19 = LevelMappingImpl
@@ -568,7 +558,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName(WOHNLANDKREIS)
         .withColumn(ID_COLUMN_IN_WOHNORT_LANDKREIS)
         .withNameColumn(BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS)
-        .withTable(WOHNORT_LANDKREIS_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL20 = LevelMappingImpl
@@ -576,7 +565,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Förderbedarf")
         .withColumn(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART)
         .withNameColumn(SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART)
-        .withTable(SONDERPAED_FOERDERBEDART_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL21 = LevelMappingImpl
@@ -584,7 +572,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withName("Art der Förderung")
         .withColumn(ID_COLUMN_IN_FOERDERUNG_ART)
         .withNameColumn(FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART)
-        .withTable(FOERDERUNG_ART_TABLE)
         .build();
 
     private static final HierarchyMappingImpl HIERARCHY1 = HierarchyMappingImpl
@@ -593,7 +580,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Ganztagsangebot")
         .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
-        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN1)
         .withLevels(List.of(LEVEL1, LEVEL2))
         .build();
@@ -604,7 +590,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Trägerschaft")
         .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
-        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN2)
         .withLevels(List.of(LEVEL3, LEVEL4, LEVEL5, LEVEL6))
         .build();
@@ -615,7 +600,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(ALLE_SCHULEN)
         .withName("Schulen nach Art")
         .withPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE)
-        .withPrimaryKeyTable(SCHULE_TABLE)
         .withQuery(JOIN3)
         .withLevels(List.of(LEVEL7, LEVEL8, LEVEL9))
         .build();
@@ -625,7 +609,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(false)
         .withName("Schuljahre")
         .withPrimaryKey(ID_COLUMN_IN_SCHUL_JAHR)
-        .withPrimaryKeyTable(SCHUL_JAHR_TABLE)
         .withQuery(SCHUL_JAHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL10))
         .build();
@@ -636,7 +619,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName("Alle Altersgruppen")
         .withName("Altersgruppen")
         .withPrimaryKey(ID_COLUMN_IN_ALTERS_GRUPPE)
-        .withPrimaryKeyTable(ALTERS_GRUPPE_TABLE)
         .withQuery(ALTERS_GRUPPE_TABLE_QUERY)
         .withLevels(List.of(LEVEL11))
         .build();
@@ -647,7 +629,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName("Alle Geschlechter")
         .withName(GESCHLECHT)
         .withPrimaryKey(ID_COLUMN_IN_GESCHLECHT)
-        .withPrimaryKeyTable(GESCHLECHT_TABLE)
         .withQuery(GESCHLECHT_TABLE_QUERY)
         .withLevels(List.of(LEVEL12))
         .build();
@@ -658,7 +639,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName("Alle Berufsgruppen")
         .withName("Berufsgruppen")
         .withPrimaryKey(ID_COLUMN_IN_PERSONAL_ART)
-        .withPrimaryKeyTable(PERSONAL_ART_TABLE)
         .withQuery(PERSONAL_ART_TABLE_QUERY)
         .withLevels(List.of(LEVEL13))
         .build();
@@ -669,7 +649,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(GESAMT)
         .withName(EINSCHULUNG)
         .withPrimaryKey(ID_COLUMN_IN_EINSCHULUNG)
-        .withPrimaryKeyTable(EINSCHULUNG_TABLE)
         .withQuery(EINSCHULUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL14))
         .build();
@@ -680,7 +659,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(GESAMT)
         .withName(KLASSENWIEDERHOLUNG)
         .withPrimaryKey(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG)
-        .withPrimaryKeyTable(KLASSEN_WIEDERHOLUNG_TABLE)
         .withQuery(KLASSEN_WIEDERHOLUNG_TABLE_QUERY)
         .withLevels(List.of(LEVEL15))
         .build();
@@ -691,7 +669,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(GESAMT)
         .withName("Schulabschlüsse")
         .withPrimaryKey(ID_COLUMN_IN_SCHUL_ABSCHLUSS)
-        .withPrimaryKeyTable(SCHUL_ABSCHLUSS_TABLE)
         .withQuery(SCHUL_ABSCHLUSS_TABLE_QUERY)
         .withLevels(List.of(LEVEL16))
         .build();
@@ -702,7 +679,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(GESAMT)
         .withName(MIGRATIONSHINTERGRUND)
         .withPrimaryKey(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND)
-        .withPrimaryKeyTable(MIGRATIONS_HINTERGRUND_TABLE)
         .withQuery(MIGRATIONS_HINTERGRUND_TABLE_QUERY)
         .withLevels(List.of(LEVEL17))
         .build();
@@ -713,7 +689,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName("Alle Wohnlandkreise")
         .withName(WOHNLANDKREIS)
         .withPrimaryKey(ID_COLUMN_IN_WOHNORT_LANDKREIS)
-        .withPrimaryKeyTable(WOHNORT_LANDKREIS_TABLE)
         .withQuery(JOIN4)
         .withLevels(List.of(LEVEL18, LEVEL19))
         .build();
@@ -724,7 +699,6 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withAllMemberName(GESAMT)
         .withName("Sonderpädagogische Förderung")
         .withPrimaryKey(ID_COLUMN_IN_FOERDERUNG_ART)
-        .withPrimaryKeyTable(FOERDERUNG_ART_TABLE)
         .withQuery(JOIN5)
         .withLevels(List.of(LEVEL20, LEVEL21))
         .build();

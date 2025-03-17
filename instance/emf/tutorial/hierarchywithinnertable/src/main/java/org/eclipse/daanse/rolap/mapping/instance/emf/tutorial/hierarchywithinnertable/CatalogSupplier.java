@@ -165,7 +165,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setId("Hierarchy1");
         hierarchy.setPrimaryKey(htKeyColumn);
         hierarchy.setQuery(inlineTableQuery);
-        hierarchy.setPrimaryKeyTable(inlineTable);
         hierarchy.getLevels().addAll(List.of(level1));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();

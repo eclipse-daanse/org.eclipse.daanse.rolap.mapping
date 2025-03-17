@@ -249,20 +249,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         l1Level.setName("L1");
         l1Level.setId("L1Level");
         l1Level.setColumn(l1L1Column);
-        l1Level.setTable(l1Table);
 
         Level l2Level = RolapMappingFactory.eINSTANCE.createLevel();
         l2Level.setName("L2");
         l2Level.setId("L2Level");
         l2Level.setColumn(l2L2Column);
-        l2Level.setTable(l2Table);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
         hierarchy.setId("HierarchyWithHasAll");
         hierarchy.setPrimaryKey(l1L2Column);
-        hierarchy.setPrimaryKeyTable(l1Table);
         hierarchy.setQuery(join);
         hierarchy.getLevels().addAll(List.of(l1Level, l2Level));
 

@@ -44,8 +44,6 @@ public interface LevelMapping extends AbstractElementMapping{
 
     ColumnMapping getParentColumn();
 
-    TableMapping getTable();
-
     InternalDataType getDataType();
 
     boolean isUniqueMembers();

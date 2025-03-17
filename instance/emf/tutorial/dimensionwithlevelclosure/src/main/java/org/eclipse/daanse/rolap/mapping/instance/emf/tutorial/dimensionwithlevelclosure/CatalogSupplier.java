@@ -141,7 +141,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setColumn(hierarchyKeyColumn);
         level.setNameColumn(hierarchyNameColumn);
         level.setParentColumn(hierarchyParentKeyColumn);
-        level.setTable(hierarchyTable);
         level.setParentChildLink(parentChildLink);
 
         Hierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createHierarchy();
@@ -149,7 +148,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("Hierarchy1");
         hierarchy1.setPrimaryKey(hierarchyKeyColumn);
-        hierarchy1.setPrimaryKeyTable(hierarchyTable);
         hierarchy1.setQuery(queryHierarchy);
         hierarchy1.getLevels().add(level);
 

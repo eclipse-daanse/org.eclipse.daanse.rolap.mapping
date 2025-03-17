@@ -398,7 +398,6 @@ class MandantoriesVerifyerTest {
         when(hierarchy.getQuery()).thenReturn(joinQuery);
         TableMapping hierarchyTable = mock(TableMapping.class);
         when(hierarchyTable.getName()).thenReturn("hierarchyTable");
-        when(hierarchy.getPrimaryKeyTable()).thenReturn(hierarchyTable);
         when(joinQuery.getLeft()).thenReturn(left);
         when(joinQuery.getRight()).thenReturn(right);
         when(left.getQuery()).thenReturn(tableQuery);
@@ -418,7 +417,7 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(64);
+            .hasSize(38);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -428,7 +427,6 @@ class MandantoriesVerifyerTest {
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
-            .contains(String.format(HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN, "hierarchyTable", NOT_SET))
             .contains(String.format(LEVEL_NAME_MUST_BE_SET, NOT_SET))
             .contains(String.format(LEVEL_COLUMN_MUST_BE_SET, NOT_SET))
             .contains(JOIN_LEFT_KEY_MUST_BE_SET)
@@ -528,7 +526,7 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(20);
+            .hasSize(10);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -537,14 +535,12 @@ class MandantoriesVerifyerTest {
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
-            .contains(PROPERTY_COLUMN_MUST_BE_SET)
-            .contains(TABLE_VALUE_DOES_NOT_CORRESPOND_TO_HIERARCHY_RELATION);
+            .contains(PROPERTY_COLUMN_MUST_BE_SET);
 
         assertThat(result).extracting(VerificationResult::title)
             .contains(SCHEMA)
             .contains(CUBE)
             .contains(MEASURE)
-            .contains(LEVEL)
             .contains(TABLE)
             .contains(PROPERTY);
 
@@ -583,8 +579,7 @@ class MandantoriesVerifyerTest {
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(String.format(PRIMARY_KEY_TABLE_AND_PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, NOT_SET))
-            .contains(PROPERTY_COLUMN_MUST_BE_SET)
-            .contains(TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN);
+            .contains(PROPERTY_COLUMN_MUST_BE_SET);
 
         assertThat(result).extracting(VerificationResult::title)
             .contains(SCHEMA)

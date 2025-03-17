@@ -1078,7 +1078,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl LEVEL_STORE_COUNTRY_WITH_TABLE = LevelMappingImpl.builder()
         .withName(STORE_COUNTRY)
         .withColumn(STORE_COUNTRY_COLUMN_IN_STORE)
-        .withTable(STORE_TABLE)
         .withUniqueMembers(true)
         .build();
 
@@ -1097,7 +1096,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_CYTY_WITH_TABLE = LevelMappingImpl.builder()
         .withName(STORE_STATE)
-        .withTable(STORE_TABLE)
         .withColumn(STORE_STATE_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .build();
@@ -1117,7 +1115,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_CYTY_WITH_TABLE_COLUMN_STORE_CITY = LevelMappingImpl.builder()
         .withName(STORE_CITY)
-        .withTable(STORE_TABLE)
         .withColumn(STORE_CITY_COLUMN_IN_STORE)
         .withUniqueMembers(false)
         .build();
@@ -1163,7 +1160,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_NAME_WITH_TABLE = LevelMappingImpl.builder()
         .withName(STORE_NAME)
-        .withTable(STORE_TABLE)
         .withColumn(STORE_NAME_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .withMemberProperties(List.of(
@@ -1244,49 +1240,42 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl LEVEL_STORE_TYPE = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_STORE_TYPE)
-        .withTable(STORE_TABLE)
         .withColumn(STORE_TYPE_COLUMN_IN_STORE)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_productFamily = LevelMappingImpl.builder()
         .withName(PRODUCT_FAMILY)
-        .withTable(PRODUCT_CLASS_TABLE)
         .withColumn(PRODUCT_FAMILY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(true)
         .build();
 
     public static final LevelMappingImpl LEVEL_productDepartment = LevelMappingImpl.builder()
         .withName(PRODUCT_DEPARTMENT)
-        .withTable(PRODUCT_CLASS_TABLE)
         .withColumn(PRODUCT_DEPARTMENT_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_productCategory = LevelMappingImpl.builder()
         .withName(PRODUCT_CATEGORY)
-        .withTable(PRODUCT_CLASS_TABLE)
         .withColumn(PRODUCT_CATEGORY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_productSubcategory = LevelMappingImpl.builder()
         .withName(PRODUCT_SUBCATEGORY)
-        .withTable(PRODUCT_CLASS_TABLE)
         .withColumn(PRODUCT_SUBCATEGORY_COLUMN_IN_PRODUCT_CLASS)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_brandName = LevelMappingImpl.builder()
         .withName(BRAND_NAME)
-        .withTable(PRODUCT_TABLE)
         .withColumn(BRAND_NAME_COLUMN_IN_PRODUCT)
         .withUniqueMembers(false)
         .build();
 
     public static final LevelMappingImpl LEVEL_PRODUCT_NAME = LevelMappingImpl.builder()
         .withName(PRODUCT_NAME)
-        .withTable(PRODUCT_TABLE)
         .withColumn(PRODUCT_NAME_COLUMN_IN_PRODUCT)
         .withUniqueMembers(true)
         .build();
@@ -1519,7 +1508,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final LevelMappingImpl LEVEL_PAY_TYPE = LevelMappingImpl.builder()
         .withName(NAME_DIMENSION_PAY_TYPE)
         .withColumn(PAY_TYPE_COLUMN_IN_POSITION)
-        .withTable(POSITION_TABLE)
         .withUniqueMembers(true)
         .build();
 
@@ -1707,7 +1695,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl STORE_HIERARCHY_FOR_HR_CUBE = HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(EMPLOYEE_ID_COLUMN_IN_EMPLOYEE)
-            .withPrimaryKeyTable(EMPLOYEE_TABLE)
             .withQuery(JOIN_EMPLOYEE_STORE)
             .withLevels(List.of(LEVEL_STORE_COUNTRY_WITH_TABLE, LEVEL_STORE_CYTY_WITH_TABLE,
                 LEVEL_STORE_CYTY_WITH_TABLE_COLUMN_STORE_CITY, LEVEL_STORE_NAME_WITH_TABLE))
@@ -1759,7 +1746,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .withName(NAME_DIMENSION_STORE_TYPE)
             .withHierarchies(List.of(HierarchyMappingImpl.builder()
                 .withHasAll(true)
-                .withPrimaryKeyTable(EMPLOYEE_TABLE)
                 .withPrimaryKey(EMPLOYEE_ID_COLUMN_IN_EMPLOYEE)
                 .withQuery(JOIN_EMPLOYEE_STORE)
                 .withLevels(List.of(LEVEL_STORE_TYPE))
@@ -1799,7 +1785,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
     public static final HierarchyMappingImpl HIERARCHY_PRODUCT = HierarchyMappingImpl.builder()
         .withHasAll(true)
         .withPrimaryKey(PRODUCT_ID_COLUMN_IN_PRODUCT)
-        .withPrimaryKeyTable(PRODUCT_TABLE)
         .withQuery(JOIN_PRODUCT_PRODUCT_CLASS)
         .withLevels(List.of(LEVEL_productFamily, LEVEL_productDepartment, LEVEL_productCategory,
             LEVEL_productSubcategory, LEVEL_brandName, LEVEL_PRODUCT_NAME))
@@ -2005,7 +1990,6 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HierarchyMappingImpl.builder()
             .withHasAll(true)
             .withPrimaryKey(EMPLOYEE_ID_COLUMN_IN_EMPLOYEE)
-            .withPrimaryKeyTable(EMPLOYEE_TABLE)
             .withQuery(JOIN_EMPLOYEE_POSITION)
             .withLevels(List.of(LEVEL_PAY_TYPE))
             .build()))

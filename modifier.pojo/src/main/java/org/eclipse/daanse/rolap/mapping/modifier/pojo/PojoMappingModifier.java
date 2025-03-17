@@ -455,7 +455,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String description, String name,  List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
         String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-        String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping primaryKeyTable,
+        String memberReaderClass, String origin, ColumnMapping primaryKey,
         String uniqueKeyLevelName, boolean visible, QueryMapping query
     ) {
         return HierarchyMappingImpl.builder()
@@ -475,7 +475,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withMemberReaderClass(memberReaderClass)
             .withOrigin(origin)
             .withPrimaryKey((PhysicalColumnMappingImpl) primaryKey)
-            .withPrimaryKeyTable(primaryKeyTable)
             .withUniqueKeyLevelName(uniqueKeyLevelName)
             .withVisible(visible)
             .withQuery((QueryMappingImpl) query)
@@ -555,7 +554,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
 
@@ -571,7 +570,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withNullParentValue(nullParentValue)
             .withOrdinalColumn((ColumnMapping) ordinalColumn)
             .withParentColumn((ColumnMapping) parentColumn)
-            .withTable(table)
             .withType(type)
             .withUniqueMembers(uniqueMembers)
             .withVisible(visible)

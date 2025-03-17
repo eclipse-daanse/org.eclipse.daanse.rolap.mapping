@@ -41,8 +41,6 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
 
     private PhysicalColumnMappingImpl primaryKey;
 
-    private TableMapping primaryKeyTable;
-
     private String uniqueKeyLevelName;
 
     private boolean visible;
@@ -61,7 +59,6 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.memberReaderClass = builder.memberReaderClass;
         this.origin = builder.origin;
         this.primaryKey = builder.primaryKey;
-        this.primaryKeyTable = builder.primaryKeyTable;
         this.uniqueKeyLevelName = builder.uniqueKeyLevelName;
         this.visible = builder.visible;
         this.query = builder.query;
@@ -143,14 +140,6 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         this.primaryKey = primaryKey;
     }
 
-    public TableMapping getPrimaryKeyTable() {
-        return primaryKeyTable;
-    }
-
-    public void setPrimaryKeyTable(TableMapping primaryKeyTable) {
-        this.primaryKeyTable = primaryKeyTable;
-    }
-
     public String getUniqueKeyLevelName() {
         return uniqueKeyLevelName;
     }
@@ -207,7 +196,6 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
         private String memberReaderClass;
         private String origin;
         private PhysicalColumnMappingImpl primaryKey;
-        private TableMapping primaryKeyTable;
         private String uniqueKeyLevelName;
         private boolean visible;
         private QueryMappingImpl query;
@@ -271,11 +259,6 @@ public class HierarchyMappingImpl extends AbstractElementMappingImpl implements 
 
         public Builder withPrimaryKey(PhysicalColumnMappingImpl primaryKey) {
             this.primaryKey = primaryKey;
-            return this;
-        }
-
-        public Builder withPrimaryKeyTable(TableMapping primaryKeyTable) {
-            this.primaryKeyTable = primaryKeyTable;
             return this;
         }
 

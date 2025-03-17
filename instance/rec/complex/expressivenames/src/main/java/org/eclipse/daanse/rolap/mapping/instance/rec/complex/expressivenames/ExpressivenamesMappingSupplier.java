@@ -201,7 +201,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withOrdinalColumn(D2H1L1_ORDINAL_COLUMN)
         .withDescription("Level 1 Hierarchy 1 Dimension 2")
         .withType(InternalDataType.INTEGER)
-        .withTable(D2H1L1_TABLE)
         .build();
 
     private static final LevelMappingImpl LEVEL221 = LevelMappingImpl
@@ -240,7 +239,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(D3H2L1_NAME_COLUMN)
         .withOrdinalColumn(D3H2L1_ORDINAL_COLUMN)
         .withType(InternalDataType.INTEGER)
-        .withTable(D3H2L1_TABLE)
         .withDescription("Level 1 Hierarchy2 Dimension 3")
         .build();
 
@@ -251,7 +249,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(D3H2L2_NAME_COLUMN)
         .withOrdinalColumn(D3H2L2_ORDINAL_COLUMN)
         .withType(InternalDataType.INTEGER)
-        .withTable(D3H2L2_TABLE)
         .withDescription("Level 2 Hierarchy2 Dimension 3")
         .build();
 
@@ -262,7 +259,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(D3H3L1_NAME_COLUMN)
         .withOrdinalColumn(D3H3L1_ORDINAL_COLUMN)
         .withType(InternalDataType.INTEGER)
-        .withTable(D3H3L1_TABLE)
         .withDescription("Level 1 Hierarchy3 Dimension 3")
         .build();
 
@@ -273,7 +269,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(D3H3L2_NAME_COLUMN)
         .withOrdinalColumn(D3H3L2_ORDINAL_COLUMN)
         .withType(InternalDataType.INTEGER)
-        .withTable(D3H3L2_TABLE)
         .withDescription("Level 2 Hierarchy3 Dimension 3")
         .build();
 
@@ -284,7 +279,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(D3H3L3_NAME_COLUMN)
         .withOrdinalColumn(D3H3L3_ORDINAL_COLUMN)
         .withType(InternalDataType.INTEGER)
-        .withTable(D3H3L3_TABLE)
         .withDescription("Level 3 Hierarchy3 Dimension 3")
         .build();
 
@@ -334,7 +328,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName("D3H2")
         .withPrimaryKey(D3H2L2_COLUMN)
-        .withPrimaryKeyTable(D3H2L2_TABLE)
         .withDescription("Hierarchy 2 Dimension 3")
         .withQuery(JOIN0)
         .withLevels(List.of(LEVEL321, LEVEL322))
@@ -345,7 +338,6 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName("D3H3")
         .withPrimaryKey(D3H3L3_COLUMN)
-        .withPrimaryKeyTable(D3H3L3_TABLE)
         .withDescription("Hierarchy 1 Dimension 3")
         .withQuery(JOIN)
         .withLevels(List.of(LEVEL331, LEVEL332, LEVEL333))
