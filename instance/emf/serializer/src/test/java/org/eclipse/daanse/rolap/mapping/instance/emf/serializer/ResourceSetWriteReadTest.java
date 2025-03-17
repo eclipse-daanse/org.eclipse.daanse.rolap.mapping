@@ -165,7 +165,7 @@ public class ResourceSetWriteReadTest {
         System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
         System.out.println("-------");
 
-        Path fileReadme = Files.createFile(mappingDir.resolve("README.MD"));
+        Path fileReadme = Files.createFile(baseDir.resolve("README.MD"));
 
         StringBuilder sbReadme = new StringBuilder();
 
