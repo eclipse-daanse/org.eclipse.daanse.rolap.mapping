@@ -122,6 +122,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.setDefaultMeasure(measure3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Cube - Measures Multiple");
         catalog.getCubes().add(cube);
 

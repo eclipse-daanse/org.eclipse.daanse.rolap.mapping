@@ -142,6 +142,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Cube - Measures and Formats");
         catalog.getCubes().add(cube);
 

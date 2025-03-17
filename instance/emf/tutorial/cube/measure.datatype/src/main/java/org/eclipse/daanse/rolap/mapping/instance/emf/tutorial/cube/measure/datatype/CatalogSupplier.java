@@ -103,7 +103,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure2.setName("Measure - Datatype Numeric");
         measure2.setId("_measure2");
         measure2.setColumn(valueColumn);
-        measure2.setDataType(ColumnInternalDataType.INTEGER);
+        measure2.setDataType(ColumnInternalDataType.NUMERIC);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2));
@@ -115,6 +115,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Cube - Measures and Datatypes");
         catalog.getCubes().add(cube);
 
