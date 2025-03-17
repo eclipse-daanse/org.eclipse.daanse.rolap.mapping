@@ -48,8 +48,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private ColumnMapping parentColumn;
 
-    private TableMapping table;
-
     private InternalDataType dataType;
 
     private boolean uniqueMembers;
@@ -70,7 +68,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.nullParentValue = builder.nullParentValue;
         this.ordinalColumn = builder.ordinalColumn;
         this.parentColumn = builder.parentColumn;
-        this.table = builder.table;
         this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
@@ -183,14 +180,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.parentColumn = parentColumn;
     }
 
-    public TableMapping getTable() {
-        return table;
-    }
-
-    public void setTable(TableMapping table) {
-        this.table = table;
-    }
-
     public InternalDataType getDataType() {
         return this.dataType != null ? this.dataType : InternalDataType.STRING;
     }
@@ -232,7 +221,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private String nullParentValue;
         private ColumnMapping ordinalColumn;
         private ColumnMapping parentColumn;
-        private TableMapping table;
         private InternalDataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
@@ -301,11 +289,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
         public Builder withParentColumn (ColumnMapping parentColumn) {
             this.parentColumn = parentColumn;
-            return this;
-        }
-
-        public Builder withTable(TableMapping table) {
-            this.table = table;
             return this;
         }
 

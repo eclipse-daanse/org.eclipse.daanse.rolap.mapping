@@ -731,7 +731,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL1.setId("LEVEL1");
         LEVEL1.setColumn(ID_COLUMN_IN_GANZTAGS_ART);
         LEVEL1.setNameColumn(SCHUL_UMFANG_IN_GANZTAGS_ART);
-        LEVEL1.setTable(GANZTAGS_ART_TABLE);
 
         Level LEVEL2 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL2.setName(SCHULE2);
@@ -739,28 +738,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL2.setColumn(ID_COLUMN_IN_SCHULE_TABLE);
         LEVEL2.setNameColumn(SCHUL_NAME_IN_SCHULE_TABLE);
         LEVEL2.setOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE);
-        LEVEL2.setTable(SCHULE_TABLE);
 
         Level LEVEL3 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL3.setName("Schulträger-Kategorie");
         LEVEL3.setId("LEVEL3");
         LEVEL3.setColumn(ID_COLUMN_IN_TRAEGER_KATEGORIE);
         LEVEL3.setNameColumn(TRAEGER_KATEGORIE_COLUMN_IN_TRAEGER_KATEGORIE);
-        LEVEL3.setTable(TRAEGER_KATEGORIE_TABLE);
 
         Level LEVEL4 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL4.setName("Schulträger-Art");
         LEVEL4.setId("LEVEL4");
         LEVEL4.setColumn(ID_COLUMN_IN_TRAEGER_ART);
         LEVEL4.setNameColumn(TRAEGER_ART_COLUMN_IN_TRAEGER_ART);
-        LEVEL4.setTable(TRAEGER_ART_TABLE);
 
         Level LEVEL5 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL5.setName("Schulträger");
         LEVEL5.setId("LEVEL5");
         LEVEL5.setColumn(ID_COLUMN_IN_TRAEGER_TABLE);
         LEVEL5.setNameColumn(TRAEGER_NAME_COLUMN_IN_TRAEGER_TABLE);
-        LEVEL5.setTable(TRAEGER_TABLE);
 
         Level LEVEL6 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL6.setName(SCHULE2);
@@ -768,21 +763,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL6.setColumn(ID_COLUMN_IN_SCHULE_TABLE);
         LEVEL6.setNameColumn(SCHUL_NAME_IN_SCHULE_TABLE);
         LEVEL6.setOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE);
-        LEVEL6.setTable(SCHULE_TABLE);
 
         Level LEVEL7 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL7.setName("Schulkategorie");
         LEVEL7.setId("LEVEL7");
         LEVEL7.setColumn(ID_COLUMN_IN_SCHUL_KATEGORIE);
         LEVEL7.setNameColumn(SCHUL_KATEGORIE_NAME_COLUMN_IN_SCHUL_KATEGORIE);
-        LEVEL7.setTable(SCHUL_KATEGORIE_TABLE);
 
         Level LEVEL8 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL8.setName("Schulart");
         LEVEL8.setId("LEVEL8");
         LEVEL8.setColumn(ID_COLUMN_IN_SCHUL_ART);
         LEVEL8.setNameColumn(SCHULART_NAME_COLUMN_IN_SCHUL_ART);
-        LEVEL8.setTable(SCHUL_ART_TABLE);
 
         Level LEVEL9 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL9.setName(SCHULE2);
@@ -790,7 +782,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL9.setColumn(ID_COLUMN_IN_SCHULE_TABLE);
         LEVEL9.setNameColumn(SCHUL_NAME_IN_SCHULE_TABLE);
         LEVEL9.setOrdinalColumn(SCHUL_NUMMER_IN_SCHULE_TABLE);
-        LEVEL9.setTable(SCHULE_TABLE);
 
         Level LEVEL10 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL10.setName(SCHULJAHR);
@@ -846,28 +837,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL18.setId("LEVEL18");
         LEVEL18.setColumn(ID_COLUMN_IN_BUNDESLAND);
         LEVEL18.setNameColumn(BEZEICHNUNG_COLUMN_IN_BUNDESLAND);
-        LEVEL18.setTable(BUNDESLAND_TABLE);
 
         Level LEVEL19 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL19.setName(WOHNLANDKREIS);
         LEVEL19.setId("LEVEL19");
         LEVEL19.setColumn(ID_COLUMN_IN_WOHNORT_LANDKREIS);
         LEVEL19.setNameColumn(BEZEICHNUNG_COLUMN_IN_WOHNORT_LANDKREIS);
-        LEVEL19.setTable(WOHNORT_LANDKREIS_TABLE);
 
         Level LEVEL20 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL20.setName("Förderbedarf");
         LEVEL20.setId("LEVEL20");
         LEVEL20.setColumn(ID_COLUMN_IN_SONDERPAED_FOERDERBEDART);
         LEVEL20.setNameColumn(SONDERPAED_BEDARF_COLUMN_IN_SONDERPAED_FOERDERBEDART);
-        LEVEL20.setTable(SONDERPAED_FOERDERBEDART_TABLE);
 
         Level LEVEL21 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL21.setName("Art der Förderung");
         LEVEL21.setId("LEVEL21");
         LEVEL21.setColumn(ID_COLUMN_IN_FOERDERUNG_ART);
         LEVEL21.setNameColumn(FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART);
-        LEVEL21.setTable(FOERDERUNG_ART_TABLE);
 
         Hierarchy HIERARCHY1 = RolapMappingFactory.eINSTANCE.createHierarchy();
         HIERARCHY1.setId("HIERARCHY1");
@@ -875,7 +862,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY1.setAllMemberName(ALLE_SCHULEN);
         HIERARCHY1.setName("Schulen nach Ganztagsangebot");
         HIERARCHY1.setPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE);
-        HIERARCHY1.setPrimaryKeyTable(SCHULE_TABLE);
         HIERARCHY1.setQuery(JOIN1);
         HIERARCHY1.getLevels().addAll(List.of(LEVEL1, LEVEL2));
 
@@ -885,7 +871,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY2.setAllMemberName(ALLE_SCHULEN);
         HIERARCHY2.setName("Schulen nach Trägerschaft");
         HIERARCHY2.setPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE);
-        HIERARCHY2.setPrimaryKeyTable(SCHULE_TABLE);
         HIERARCHY2.setQuery(JOIN2);
         HIERARCHY2.getLevels().addAll(List.of(LEVEL3, LEVEL4, LEVEL5, LEVEL6));
 
@@ -895,7 +880,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY3.setAllMemberName(ALLE_SCHULEN);
         HIERARCHY3.setName("Schulen nach Art");
         HIERARCHY3.setPrimaryKey(ID_COLUMN_IN_SCHULE_TABLE);
-        HIERARCHY3.setPrimaryKeyTable(SCHULE_TABLE);
         HIERARCHY3.setQuery(JOIN3);
         HIERARCHY3.getLevels().addAll(List.of(LEVEL7, LEVEL8, LEVEL9));
 
@@ -904,7 +888,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY4.setHasAll(false);
         HIERARCHY4.setName("Schuljahre");
         HIERARCHY4.setPrimaryKey(ID_COLUMN_IN_SCHUL_JAHR);
-        HIERARCHY4.setPrimaryKeyTable(SCHUL_JAHR_TABLE);
         HIERARCHY4.setQuery(SCHUL_JAHT_TABLE_QUERY);
         HIERARCHY4.getLevels().addAll(List.of(LEVEL10));
 
@@ -914,7 +897,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY5.setAllMemberName("Alle Altersgruppen");
         HIERARCHY5.setName("Altersgruppen");
         HIERARCHY5.setPrimaryKey(ID_COLUMN_IN_ALTERS_GRUPPE);
-        HIERARCHY5.setPrimaryKeyTable(ALTERS_GRUPPE_TABLE);
         HIERARCHY5.setQuery(ALTERS_GRUPPE_TABLE_QUERY);
         HIERARCHY5.getLevels().addAll(List.of(LEVEL11));
 
@@ -924,7 +906,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY6.setAllMemberName("Alle Geschlechter");
         HIERARCHY6.setName(GESCHLECHT);
         HIERARCHY6.setPrimaryKey(ID_COLUMN_IN_GESCHLECHT);
-        HIERARCHY6.setPrimaryKeyTable(GESCHLECHT_TABLE);
         HIERARCHY6.setQuery(GESCHLECHT_TABLE_QUERY);
         HIERARCHY6.getLevels().addAll(List.of(LEVEL12));
 
@@ -934,7 +915,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY7.setAllMemberName("Alle Berufsgruppen");
         HIERARCHY7.setName("Berufsgruppen");
         HIERARCHY7.setPrimaryKey(ID_COLUMN_IN_PERSONAL_ART);
-        HIERARCHY7.setPrimaryKeyTable(PERSONAL_ART_TABLE);
         HIERARCHY7.setQuery(PERSONAL_ART_TABLE_QUERY);
         HIERARCHY7.getLevels().addAll(List.of(LEVEL13));
 
@@ -944,7 +924,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY8.setAllMemberName(GESAMT);
         HIERARCHY8.setName(EINSCHULUNG);
         HIERARCHY8.setPrimaryKey(ID_COLUMN_IN_EINSCHULUNG);
-        HIERARCHY8.setPrimaryKeyTable(EINSCHULUNG_TABLE);
         HIERARCHY8.setQuery(EINSCHULUNG_TABLE_QUERY);
         HIERARCHY8.getLevels().addAll(List.of(LEVEL14));
 
@@ -954,7 +933,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY9.setAllMemberName(GESAMT);
         HIERARCHY9.setName(KLASSENWIEDERHOLUNG);
         HIERARCHY9.setPrimaryKey(ID_COLUMN_IN_KLASSEN_WIEDERHOLUNG);
-        HIERARCHY9.setPrimaryKeyTable(KLASSEN_WIEDERHOLUNG_TABLE);
         HIERARCHY9.setQuery(KLASSEN_WIEDERHOLUNG_TABLE_QUERY);
         HIERARCHY9.getLevels().addAll(List.of(LEVEL15));
 
@@ -964,7 +942,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY10.setAllMemberName(GESAMT);
         HIERARCHY10.setName("Schulabschlüsse");
         HIERARCHY10.setPrimaryKey(ID_COLUMN_IN_SCHUL_ABSCHLUSS);
-        HIERARCHY10.setPrimaryKeyTable(SCHUL_ABSCHLUSS_TABLE);
         HIERARCHY10.setQuery(SCHUL_ABSCHLUSS_TABLE_QUERY);
         HIERARCHY10.getLevels().addAll(List.of(LEVEL16));
 
@@ -974,7 +951,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY11.setAllMemberName(GESAMT);
         HIERARCHY11.setName(MIGRATIONSHINTERGRUND);
         HIERARCHY11.setPrimaryKey(ID_COLUMN_IN_MIGRATIONS_HINTERGRUND);
-        HIERARCHY11.setPrimaryKeyTable(MIGRATIONS_HINTERGRUND_TABLE);
         HIERARCHY11.setQuery(MIGRATIONS_HINTERGRUND_TABLE_QUERY);
         HIERARCHY11.getLevels().addAll(List.of(LEVEL17));
 
@@ -984,7 +960,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY12.setAllMemberName("Alle Wohnlandkreise");
         HIERARCHY12.setName(WOHNLANDKREIS);
         HIERARCHY12.setPrimaryKey(ID_COLUMN_IN_WOHNORT_LANDKREIS);
-        HIERARCHY12.setPrimaryKeyTable(WOHNORT_LANDKREIS_TABLE);
         HIERARCHY12.setQuery(JOIN4);
         HIERARCHY12.getLevels().addAll(List.of(LEVEL18, LEVEL19));
 
@@ -994,7 +969,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY13.setAllMemberName(GESAMT);
         HIERARCHY13.setName("Sonderpädagogische Förderung");
         HIERARCHY13.setPrimaryKey(ID_COLUMN_IN_FOERDERUNG_ART);
-        HIERARCHY13.setPrimaryKeyTable(FOERDERUNG_ART_TABLE);
         HIERARCHY13.setQuery(JOIN5);
         HIERARCHY13.getLevels().addAll(List.of(LEVEL20, LEVEL21));
 

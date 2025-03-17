@@ -189,22 +189,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         h1Level1.setId("H1_Level1");
         h1Level1.setColumn(h1L1KeyColumn);
         h1Level1.setNameColumn(h1L1NameColumn);
-        h1Level1.setTable(h1L1Table);
-
 
         Level h1Level2 = RolapMappingFactory.eINSTANCE.createLevel();
         h1Level2.setName("H1_Level2");
         h1Level2.setId("H1_Level2");
         h1Level2.setColumn(hxL2KeyColumn);
         h1Level2.setNameColumn(hxL2NameColumn);
-        h1Level2.setTable(hxL2Table);
 
         Hierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("Hierarchy1");
         hierarchy1.setPrimaryKey(hxL2KeyColumn);
-        hierarchy1.setPrimaryKeyTable(hxL2Table);
         hierarchy1.setQuery(joinQuery1);
         hierarchy1.getLevels().add(h1Level1);
         hierarchy1.getLevels().add(h1Level2);
@@ -214,22 +210,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         h2Level1.setId("H2_Level1");
         h2Level1.setColumn(h2L1KeyColumn);
         h2Level1.setNameColumn(h2L1NameColumn);
-        h2Level1.setTable(h2L1Table);
-
 
         Level h2Level2 = RolapMappingFactory.eINSTANCE.createLevel();
         h2Level2.setName("H2_Level2");
         h2Level2.setId("H2_Level2");
         h2Level2.setColumn(hxL2KeyColumn);
         h2Level2.setNameColumn(hxL2NameColumn);
-        h2Level2.setTable(hxL2Table);
 
         Hierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy2.setHasAll(true);
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setId("Hierarchy2");
         hierarchy2.setPrimaryKey(hxL2KeyColumn);
-        hierarchy2.setPrimaryKeyTable(hxL2Table);
         hierarchy2.setQuery(joinQuery2);
         hierarchy2.getLevels().add(h2Level1);
         hierarchy2.getLevels().add(h2Level2);

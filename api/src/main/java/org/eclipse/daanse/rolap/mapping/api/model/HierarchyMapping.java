@@ -37,8 +37,6 @@ public interface HierarchyMapping extends AbstractElementMapping {
 
     ColumnMapping getPrimaryKey();
 
-    TableMapping getPrimaryKeyTable();
-
     String getUniqueKeyLevelName();
 
     boolean isVisible();

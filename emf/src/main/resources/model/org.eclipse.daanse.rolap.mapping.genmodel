@@ -281,7 +281,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/memberReaderClass"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/origin"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/primaryKey"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/primaryKeyTable"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/uniqueKeyLevelName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/visible"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/query"/>
@@ -299,7 +298,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/nullParentValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/ordinalColumn"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/parentColumn"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/table"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/columnType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/uniqueMembers"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/visible"/>

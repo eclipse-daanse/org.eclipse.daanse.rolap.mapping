@@ -474,7 +474,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name, List<? extends LevelMapping> levels,
             List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
             String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
-            String memberReaderClass, String origin, ColumnMapping primaryKey, TableMapping  primaryKeyTable,
+            String memberReaderClass, String origin, ColumnMapping primaryKey,
             String uniqueKeyLevelName, boolean visible, QueryMapping query) {
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
@@ -493,7 +493,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         hierarchy.setMemberReaderClass(memberReaderClass);
         hierarchy.setOrigin(origin);
         hierarchy.setPrimaryKey((Column) primaryKey);
-        hierarchy.setPrimaryKeyTable((Table) primaryKeyTable);
         hierarchy.setUniqueKeyLevelName(uniqueKeyLevelName);
         hierarchy.setVisible(visible);
         hierarchy.setQuery((Query) query);
@@ -564,7 +563,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-            TableMapping table, InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
+            InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
 
         level.setParentChildLink((ParentChildLink) parentChildLink);
@@ -579,7 +578,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setNullParentValue(nullParentValue);
         level.setOrdinalColumn((Column) ordinalColumn);
         level.setParentColumn((Column) parentColumn);
-        level.setTable((Table) table);
         level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);

@@ -209,7 +209,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl lineLevel = LevelMappingImpl.builder()
             .withName("Line")
-            .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTLINE_COLUMN_IN_PRODUCTS)
             .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
@@ -219,7 +218,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl vendorLevel = LevelMappingImpl.builder()
             .withName("Vendor")
-            .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTVENDOR_COLUMN_IN_PRODUCTS)
             .withType(InternalDataType.STRING)
             .withUniqueMembers(false)
@@ -229,7 +227,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
 
     public static final LevelMappingImpl productLevel = LevelMappingImpl.builder()
             .withName(PRODUCT)
-            .withTable(PRODUCTS_TABLE)
             .withColumn(PRODUCTNAME_COLUMN_IN_PRODUCTS)
             .withType(InternalDataType.STRING)
             .withUniqueMembers(true)
@@ -305,7 +302,6 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHasAll(true)
             .withAllMemberName("All Products")
             .withPrimaryKey(PRODUCTCODE_COLUMN_IN_PRODUCTS)
-            .withPrimaryKeyTable(PRODUCTS_TABLE)
             .withQuery(productsTable)
             .withLevels(List.of(lineLevel, vendorLevel, productLevel))
             .build();

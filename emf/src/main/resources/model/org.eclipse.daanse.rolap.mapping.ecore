@@ -221,8 +221,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
         eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKeyTable" lowerBound="1"
-        eType="#//Table"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
@@ -260,7 +258,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"

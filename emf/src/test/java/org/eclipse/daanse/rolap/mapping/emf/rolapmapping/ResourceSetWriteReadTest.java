@@ -455,7 +455,6 @@ public class ResourceSetWriteReadTest {
         hStadtPlanungsraumStatistischerBezirk.setName("Stadt - Planungsraum - statistischer Bezirk");
         hStadtPlanungsraumStatistischerBezirk.setId("hStadtPlanungsraumStatistischerBezirk");
         hStadtPlanungsraumStatistischerBezirk.setPrimaryKey(columnStatbezGid);
-        hStadtPlanungsraumStatistischerBezirk.setPrimaryKeyTable(tableStatbez);
         dStatistischerBezirk.getHierarchies().add(hStadtPlanungsraumStatistischerBezirk);
 
         JoinQuery queryStatistischerBezirk = RolapMappingFactory.eINSTANCE.createJoinQuery();
@@ -491,7 +490,6 @@ public class ResourceSetWriteReadTest {
         lStadt.setName("Stadt");
         lStadt.setId("Stadt");
         lStadt.setColumn(columnTownName);
-        lStadt.setTable(tableTown);
         lStadt.getMemberProperties().addAll(List.of(lStadtP));
 
         Level lPlanungsraum = RolapMappingFactory.eINSTANCE.createLevel();
@@ -510,7 +508,6 @@ public class ResourceSetWriteReadTest {
         lPlanungsraum.setName("Planungsraum");
         lPlanungsraum.setId("Planungsraum");
         lPlanungsraum.setColumn(columnPlraumGid);
-        lPlanungsraum.setTable(tablePlraum);
         lPlanungsraum.setNameColumn(columnPlraumPlraum);
         lPlanungsraum.getMemberProperties().addAll(List.of(lPlanungsraumP1, lPlanungsraumP2));
 
@@ -530,7 +527,6 @@ public class ResourceSetWriteReadTest {
         lStatistischerBezirk.setName("Statistischer Bezirk");
         lStatistischerBezirk.setId("lStatistischerBezirk");
         lStatistischerBezirk.setColumn(columnStatbezGid);
-        lStatistischerBezirk.setTable(tableStatbez);
         lStatistischerBezirk.setNameColumn(columnStatbezStatbezName);
         lStatistischerBezirk.getMemberProperties().addAll(List.of(lStatistischerBezirkP1, lStatistischerBezirkP2));
 

@@ -138,7 +138,6 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_CONTENT)
         .withNameColumn(NAME_COLUMN_IN_CONTENT)
         .withType(InternalDataType.INTEGER)
-        .withTable(CONTENT_TABLE)
         .withDescription("Continent")
         .build();
 
@@ -148,7 +147,6 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_COUNTRY)
         .withNameColumn(NAME_COLUMN_IN_COUNTRY)
         .withType(InternalDataType.INTEGER)
-        .withTable(COUNTRY_TABLE)
         .withDescription("Country")
         .build();
 
@@ -158,7 +156,6 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withColumn(ID_COLUMN_IN_STATE)
         .withNameColumn(NAME_COLUMN_IN_STATE)
         .withType(InternalDataType.INTEGER)
-        .withTable(STATE_TABLE)
         .withDescription("State")
         .build();
 
@@ -217,7 +214,6 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withHasAll(true)
         .withName(GEOGRAPHICAL)
         .withPrimaryKey(ID_COLUMN_IN_STATE)
-        .withPrimaryKeyTable(STATE_TABLE)
         .withDescription(GEOGRAPHICAL)
         .withQuery(JOIN1)
         .withLevels(List.of(LEVEL21, LEVEL22, LEVEL23))

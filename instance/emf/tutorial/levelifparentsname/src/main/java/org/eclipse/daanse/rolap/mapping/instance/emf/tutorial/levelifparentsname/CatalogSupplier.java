@@ -144,7 +144,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDimensionMembersHiddenIfParentsNameLevel1.setId("h1Level1");
         hierarchyDimensionMembersHiddenIfParentsNameLevel1.setColumn(level1KeyColumn);
         hierarchyDimensionMembersHiddenIfParentsNameLevel1.setNameColumn(level1NameColumn);
-        hierarchyDimensionMembersHiddenIfParentsNameLevel1.setTable(level1Table);
 
         Level hierarchyDimensionMembersHiddenIfParentsNameLevel2 = RolapMappingFactory.eINSTANCE.createLevel();
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setName("Level2");
@@ -152,14 +151,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setColumn(level2KeyColumn);
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setNameColumn(level2NameColumn);
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setHideMemberIf(HideMemberIf.IF_PARENTS_NAME);
-        hierarchyDimensionMembersHiddenIfParentsNameLevel2.setTable(level2Table);
 
         Hierarchy hierarchyDimensionMembersHiddenIfParentsName = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchyDimensionMembersHiddenIfParentsName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfParentsName.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenIfParentsName.setId("Hierarchy1");
         hierarchyDimensionMembersHiddenIfParentsName.setPrimaryKey(level2KeyColumn);
-        hierarchyDimensionMembersHiddenIfParentsName.setPrimaryKeyTable(level2Table);
         hierarchyDimensionMembersHiddenIfParentsName.setQuery(queryJoin1);
         hierarchyDimensionMembersHiddenIfParentsName.getLevels().addAll(List.of(hierarchyDimensionMembersHiddenIfParentsNameLevel1, hierarchyDimensionMembersHiddenIfParentsNameLevel2));
 
