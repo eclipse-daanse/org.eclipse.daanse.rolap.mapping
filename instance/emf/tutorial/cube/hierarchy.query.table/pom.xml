@@ -16,20 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>minimal</module>
-    <module>measure.multiple</module>
-    <module>measure.datatype</module>
-    <module>measure.format</module>
-    <module>measure.aggregator.base</module>
-    <module>measure.group</module>
-    <module>dimension.intro</module>
-    <module>hierarchy.query.table</module>
-    <module>hierarchy.query.join</module>
-  </modules>
+  <artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table</artifactId>
 </project>
