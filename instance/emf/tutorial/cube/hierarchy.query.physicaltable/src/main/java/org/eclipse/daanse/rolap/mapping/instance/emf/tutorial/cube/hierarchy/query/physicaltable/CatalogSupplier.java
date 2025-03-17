@@ -104,7 +104,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         nameDim1Column.setType(ColumnType.VARCHAR);
 
         PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
-        tableTown.setName("TOWN");
+        tableTown.setName("Town");
         tableTown.setId("_tab_town");
         tableTown.getColumns().addAll(List.of(keyDim1Column, nameDim1Column));
         databaseSchema.getTables().add(tableTown);
@@ -156,6 +156,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector1);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Hierarchy - Querys with linked Physical tables");
         catalog.getCubes().add(cube);
 

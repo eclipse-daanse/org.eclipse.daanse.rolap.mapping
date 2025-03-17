@@ -1,4 +1,4 @@
-"KEY","NAME"
+"ID","NAME"
 INTEGER,VARCHAR
 1,Berlin
 2,Paris

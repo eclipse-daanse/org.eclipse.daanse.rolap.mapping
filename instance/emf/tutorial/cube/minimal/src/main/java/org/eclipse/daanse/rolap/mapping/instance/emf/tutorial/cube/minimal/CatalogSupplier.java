@@ -91,6 +91,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setId("_cat");
         catalog.setName("Cube - Minimal");
         catalog.getCubes().add(cube);
