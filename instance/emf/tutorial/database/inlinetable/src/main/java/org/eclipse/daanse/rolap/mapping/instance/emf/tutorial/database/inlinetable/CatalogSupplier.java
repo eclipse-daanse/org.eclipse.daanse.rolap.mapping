@@ -26,8 +26,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
+import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
+import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
+import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
+@MappingInstance(kind = Kind.TUTORIAL, number = "1.3.3", source = Source.EMF)
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 

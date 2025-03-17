@@ -82,4 +82,14 @@
     <module>namedset</module>
     <module>aggregation</module>
   </modules>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.api</artifactId>
+      <version>${revision}</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
 </project>
+

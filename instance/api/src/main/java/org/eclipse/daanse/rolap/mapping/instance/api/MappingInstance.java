@@ -17,8 +17,6 @@ import org.osgi.service.component.annotations.ComponentPropertyType;
 @ComponentPropertyType
 public @interface MappingInstance {
 
-    public static final String _PREFIX = "org.eclipse.daanse.rolap.mapping";
-
     Kind kind();
 
     Source source();
