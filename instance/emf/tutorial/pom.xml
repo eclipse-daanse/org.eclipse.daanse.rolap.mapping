@@ -40,7 +40,6 @@
     <module>measureexpression</module>
     <module>timedimension</module>
     <module>hierarchywithview</module>
-    <module>hierarchywithinnerjoin</module>
     <module>hierarchywithinnertable</module>
     <module>virtualcube.min</module>
     <module>virtualcubedimensions</module>
