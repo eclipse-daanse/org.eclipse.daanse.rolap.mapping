@@ -71,11 +71,11 @@
 
 
     <module>database</module>
-    <module>access</module>
     <module>cube</module>
-    <module>writeback</module>
     <module>virtualcube</module>
+    <module>access</module>
     <module>aggregation</module>
+    <module>writeback</module>
   </modules>
 
   <dependencies>
