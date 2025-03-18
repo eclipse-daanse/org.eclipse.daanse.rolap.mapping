@@ -134,6 +134,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     private Map<QueryMapping, QueryMapping> queryMap = new HashMap<>();
 
+    private Map<TableMapping, TableMapping> tableMap = new HashMap<>();
+
+    private Map<ColumnMapping, ColumnMapping> columnMap = new HashMap<>();
+
     protected AbstractMappingModifier(CatalogMapping catalog) {
         super();
         this.catalog = catalog;
@@ -149,6 +153,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected CatalogMapping modifyCatalog(CatalogMapping catalog2) {
         if (catalog2 != null) {
 
+            List<? extends DatabaseSchemaMapping> dbschemas = catalogDatabaseSchemas(catalog2);
             List<? extends AnnotationMapping> annotations = catalogAnnotations(catalog2);
             String id = catalogId(catalog2);
             String description = catalogDescription(catalog2);
@@ -159,7 +164,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             List<? extends AccessRoleMapping> accessRoles = catalogAccessRoles(catalog2);
             AccessRoleMapping defaultAccessRole = catalogDefaultAccessRole(catalog2);
             String measuresDimensionName = catalogMeasuresDimensionName(catalog2);
-            List<? extends DatabaseSchemaMapping> dbschemas = catalogDatabaseSchemas(catalog2);
 
             return createCatalog(annotations, id, description, name, parameters, cubes, namedSets,
                 accessRoles, defaultAccessRole, measuresDimensionName, dbschemas);
@@ -212,47 +216,54 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected TableMapping table(TableMapping table) {
+        TableMapping t = null;
         if (table != null) {
-            String name = tableName(table);
-            List<? extends ColumnMapping> columns = tableColumns(table);
-            DatabaseSchemaMapping schema = tableSchema(table);
-            String description = tableDescription(table);
-            if (table instanceof PhysicalTableMapping pt) {
-                return physicalTable(pt);
-            }
-            if (table instanceof SystemTableMapping) {
-                return createSystemTable(name, columns, schema, description);
-            }
-            if (table instanceof ViewTableMapping) {
-                return createViewTable(name, columns, schema, description);
-            }
-            if (table instanceof InlineTableMapping it) {
-                return inlineTable(it);
-            }
-            if (table instanceof SqlViewMapping sv) {
-                List<? extends SqlStatementMapping> sqlStatements = sqlViewSqlStatements(sv);
-                return createSqlView(name, columns, schema, description, sqlStatements);
+            if (!tableMap.containsKey(table)) {
+                String name = tableName(table);
+                DatabaseSchemaMapping schema = tableSchema(table);
+                String description = tableDescription(table);
+                if (table instanceof PhysicalTableMapping pt) {
+                    t = physicalTable(pt);
+                }
+                if (table instanceof SystemTableMapping) {
+                    t = createSystemTable(name, schema, description);
+                }
+                if (table instanceof ViewTableMapping) {
+                    t = createViewTable(name, schema, description);
+                }
+                if (table instanceof InlineTableMapping it) {
+                    t = inlineTable(it);
+                }
+                if (table instanceof SqlViewMapping sv) {
+                    List<? extends SqlStatementMapping> sqlStatements = sqlViewSqlStatements(sv);
+                    t =  createSqlView(name, schema, description, sqlStatements);
+                }
+                if (t != null) {
+                    tableMap.put(table, t);
+                }
+            } else {
+                t = tableMap.get(table);
             }
         }
-        return null;
+        return t;
     }
 
     private PhysicalTableMapping physicalTable(TableMapping table) {
         String name = tableName(table);
-        List<? extends ColumnMapping> columns = tableColumns(table);
+        //List<? extends ColumnMapping> columns = tableColumns(table);
         DatabaseSchemaMapping schema = tableSchema(table);
         String description = tableDescription(table);
-        return createPhysicalTable(name, columns, schema, description);
+        return createPhysicalTable(name, schema, description);
     }
 
     protected SqlViewMapping sqlView(SqlViewMapping table) {
         if (table != null) {
             String name = tableName(table);
-            List<? extends ColumnMapping> columns = tableColumns(table);
+            //List<? extends ColumnMapping> columns = tableColumns(table);
             DatabaseSchemaMapping schema = tableSchema(table);
             String description = tableDescription(table);
             List<? extends SqlStatementMapping> sqlStatements = sqlViewSqlStatements(table);
-            return createSqlView(name, columns, schema, description, sqlStatements);
+            return createSqlView(name, schema, description, sqlStatements);
         }
         return null;
     }
@@ -260,11 +271,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected InlineTableMapping inlineTable(InlineTableMapping table) {
         if (table != null) {
             String name = tableName(table);
-            List<? extends ColumnMapping> columns = tableColumns(table);
+            //List<? extends ColumnMapping> columns = tableColumns(table);
             DatabaseSchemaMapping schema = tableSchema(table);
             String description = tableDescription(table);
             List<? extends RowMapping> rows = inlineTableRows(table);
-            return createInlineTable(name, columns, schema, description, rows);
+            return createInlineTable(name, schema, description, rows);
         }
         return null;
     }
@@ -294,12 +305,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract SqlViewMapping createSqlView(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends SqlStatementMapping> sqlStatements
     );
 
     protected abstract InlineTableMapping createInlineTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends RowMapping> rows
     );
 
@@ -358,17 +369,17 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract RowMapping createRow(List<? extends RowValueMapping> rowValues);
 
     protected abstract TableMapping createViewTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     );
 
     protected abstract TableMapping createSystemTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     );
 
     protected abstract PhysicalTableMapping createPhysicalTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     );
 
@@ -381,8 +392,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected List<? extends ColumnMapping> tableColumns(TableMapping table) {
-        return columns(table.getColumns());
+        List<? extends ColumnMapping> cs = columns(table.getColumns());
+        setTableInColumns(cs, table);
+        return cs;
     }
+
+    protected abstract void setTableInColumns(List<? extends ColumnMapping> cs, TableMapping table);
 
     protected List<ColumnMapping> columns(List<? extends ColumnMapping> columns) {
         if (columns != null) {
@@ -392,22 +407,29 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected ColumnMapping column(ColumnMapping column) {
-        if (column instanceof SQLExpressionColumnMapping sec) {
-            return sqlExpression(sec);
+        ColumnMapping c = null;
+        if (!columnMap.containsKey(column)) {
+            if (column instanceof SQLExpressionColumnMapping sec) {
+                c = sqlExpression(sec);
+                columnMap.put(column, c);
+            }
+            else if (column instanceof ColumnMapping) {
+                String name = columnName(column);
+                //TableMapping table = columnTable(column);
+                ColumnDataType type = columnDataType(column);
+                Integer columnSize = columnColumnSize(column);
+                Integer decimalDigits = columnDecimalDigits(column);
+                Integer numPrecRadix = columnNumPrecRadix(column);
+                Integer charOctetLength = columnCharOctetLength(column);
+                Boolean nullable = columnNullable(column);
+                String description = columnDescription(column);
+                c = createPhysicalColumn(name, null, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
+                columnMap.put(column, c);
+            }
+        } else {
+            return columnMap.get(column);
         }
-        else if (column instanceof ColumnMapping) {
-            String name = columnName(column);
-            TableMapping table = columnTable(column);
-            ColumnDataType type = columnDataType(column);
-            Integer columnSize = columnColumnSize(column);
-            Integer decimalDigits = columnDecimalDigits(column);
-            Integer numPrecRadix = columnNumPrecRadix(column);
-            Integer charOctetLength = columnCharOctetLength(column);
-            Boolean nullable = columnNullable(column);
-            String description = columnDescription(column);
-            return createPhysicalColumn(name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
-        }
-        return null;
+        return c;
     }
 
     protected Integer columnColumnSize(ColumnMapping column) {
@@ -1770,7 +1792,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         if (sqlExpression != null) {
             List<? extends SqlStatementMapping> sqls = sqlExpressionSqls(sqlExpression);
             String name = columnName(sqlExpression);
-            TableMapping table = columnTable(sqlExpression);
+            //TableMapping table = columnTable(sqlExpression);
             ColumnDataType type = columnDataType(sqlExpression);
             Integer columnSize = columnColumnSize(sqlExpression);
             Integer decimalDigits = columnDecimalDigits(sqlExpression);
@@ -1778,7 +1800,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             Integer charOctetLength = columnCharOctetLength(sqlExpression);
             Boolean nullable = columnNullable(sqlExpression);
             String description = columnDescription(sqlExpression);
-            return createSQLExpression(sqls, name, table, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
+            return createSQLExpression(sqls, name, null, type, columnSize, decimalDigits, numPrecRadix, charOctetLength, nullable, description);
         }
         return null;
     }
@@ -3094,4 +3116,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected CalculatedMemberMapping look(CalculatedMemberMapping cm) {
         return calculatedMemberMap.get(cm);
     }
+
+    protected TableMapping look(TableMapping t) {
+        return tableMap.get(t);
+    }
+
+    protected ColumnMapping look(ColumnMapping c) {
+        return columnMap.get(c);
+    }
+
 }

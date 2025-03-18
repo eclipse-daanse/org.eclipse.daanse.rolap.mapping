@@ -19,7 +19,7 @@ public class PhysicalTableMappingImpl extends AbstractTableMappingImpl implement
 
     public PhysicalTableMappingImpl(Builder builder) {
         setName(builder.getName());
-        setColumns(builder.getColumns());
+        setColumns(setTableInColumns(builder.getColumns()));
         setSchema(builder.getSchema());
         setDescription(builder.getDescription());
     }

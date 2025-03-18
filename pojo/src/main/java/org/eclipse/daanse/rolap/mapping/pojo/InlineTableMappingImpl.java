@@ -28,7 +28,7 @@ public class InlineTableMappingImpl extends AbstractTableMappingImpl implements 
 
     public InlineTableMappingImpl(Builder builder) {
         setName(builder.name);
-        setColumns(builder.columns);
+        setColumns(setTableInColumns(builder.columns));
         setSchema(builder.schema);
         setDescription(builder.description);
         setRows(builder.rows);
