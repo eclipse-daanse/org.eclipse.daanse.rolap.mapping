@@ -202,19 +202,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(tableContinent);
 
         TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryFact.setId("_query_Fact");
+        queryFact.setId("_query_fact");
         queryFact.setTable(table);
 
         TableQuery queryLevelTown = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelTown.setId("_query_LevelTown");
+        queryLevelTown.setId("_query_town");
         queryLevelTown.setTable(tableTown);
 
         TableQuery queryLevelCountry = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelCountry.setId("_query_LevelCountry");
+        queryLevelCountry.setId("_query_country");
         queryLevelCountry.setTable(tableContinent);
 
         TableQuery queryLevelContinent = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelContinent.setId("_query_LevelContinent");
+        queryLevelContinent.setId("_query_continent");
         queryLevelContinent.setTable(tableContinent);
 
         JoinedQueryElement joinQueryTCElementTown = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -226,7 +226,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinQueryTCElementCountry.setKey(columnTownCountryId);
 
         JoinQuery queryJoinTownToCountry = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoinTownToCountry.setId("_query_LevelTownToCountry");
+        queryJoinTownToCountry.setId("_query_TownToCountry");
         queryJoinTownToCountry.setLeft(joinQueryTCElementTown);
         queryJoinTownToCountry.setRight(joinQueryTCElementCountry);
 
@@ -239,7 +239,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinQueryCCElementContinent.setKey(columnContinentId);
 
         JoinQuery queryJoinCountryToContinent = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoinCountryToContinent.setId("_query_LevelCountryToContinent");
+        queryJoinCountryToContinent.setId("_query_CountryToContinent");
         queryJoinCountryToContinent.setLeft(joinQueryCCElementContinent);
         queryJoinCountryToContinent.setRight(joinQueryCCElementJoinCountry);
 
@@ -265,10 +265,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelCounty.setNameColumn(columnContinentName);
 
         Level levelContinent = RolapMappingFactory.eINSTANCE.createLevel();
-        levelCounty.setName("Continent");
-        levelCounty.setId("_level_continent");
-        levelCounty.setColumn(columnContinentId);
-        levelCounty.setNameColumn(columnContinentName);
+        levelContinent.setName("Continent");
+        levelContinent.setId("_level_continent");
+        levelContinent.setColumn(columnContinentId);
+        levelContinent.setNameColumn(columnContinentName);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setName("TownHierarchy");
@@ -280,8 +280,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.getLevels().add(levelContinent);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setName("Town");
-        dimension.setId("_dim_town");
+        dimension.setName("Continent - Country - Town");
+        dimension.setId("_dim");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
