@@ -97,20 +97,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(townIdColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
-        Column keyDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        keyDim1Column.setName("ID");
-        keyDim1Column.setId("_col_town_id");
-        keyDim1Column.setType(ColumnType.INTEGER);
+        Column keyColumnTown = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        keyColumnTown.setName("ID");
+        keyColumnTown.setId("_col_town_id");
+        keyColumnTown.setType(ColumnType.INTEGER);
 
-        Column nameDim1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        nameDim1Column.setName("NAME");
-        nameDim1Column.setId("_col_town_name");
-        nameDim1Column.setType(ColumnType.VARCHAR);
+        Column nameColumnTown = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        nameColumnTown.setName("NAME");
+        nameColumnTown.setId("_col_town_name");
+        nameColumnTown.setType(ColumnType.VARCHAR);
 
         PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableTown.setName("Town");
         tableTown.setId("_tab_town");
-        tableTown.getColumns().addAll(List.of(keyDim1Column, nameDim1Column));
+        tableTown.getColumns().addAll(List.of(keyColumnTown, nameColumnTown));
         databaseSchema.getTables().add(tableTown);
 
         TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -133,13 +133,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Town");
         level.setId("_level_town");
-        level.setColumn(keyDim1Column);
-        level.setNameColumn(nameDim1Column);
+        level.setColumn(keyColumnTown);
+        level.setNameColumn(nameColumnTown);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setName("TownHierarchy");
         hierarchy.setId("_hierarchy_town");
-        hierarchy.setPrimaryKey(keyDim1Column);
+        hierarchy.setPrimaryKey(keyColumnTown);
         hierarchy.setQuery(queryHier);
         hierarchy.getLevels().add(level);
 
@@ -170,8 +170,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
 
         document(level, "Level", levelBody, 1, 4, 0, true, 0);
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 4, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 5, 0, true, 0);
+        document(hierarchy, "Hierarchy", hierarchyBody, 1, 5, 0, true, 0);
+        document(dimension, "Dimension", dimensionBody, 1, 6, 0, true, 0);
 
         document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 7, 0, true, 2);
 
