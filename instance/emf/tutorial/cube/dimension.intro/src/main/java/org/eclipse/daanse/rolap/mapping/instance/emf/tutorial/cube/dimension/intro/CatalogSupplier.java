@@ -69,7 +69,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String dimensionBody = """
-            The Dimenaion is the main element of the cube. It defines the structure of the data in the cube. The dimension can contain one or multiple hierarchies. In this example we use one hierarchy, which contains one level.
+            The Dimension is the main element of the cube. It defines the structure of the data in the cube. The dimension can contain one or multiple hierarchies. In this example we use one hierarchy, which contains one level.
             """;
 
     private static final String cubeBody = """

@@ -168,6 +168,22 @@
       <version>${project.version}</version>
     </dependency>
 
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.multitable</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.singletable</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>

@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.base;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.multitable;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -38,24 +38,32 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.1", source = Source.EMF)//NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.2", source = Source.EMF)//NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Very often, the data of a cube is not stored in a single table, but in multiple tables. In this case, it must be defined one query for the Facts to store the values that be aggregated for the measures and one for the Levels. This example shows how this must be defined.
+            In some cases, a table for a lower-level entity also contains additional information for a higher-level entity. This often happens when no dedicated columns exist for the higher-level entity and the database designer decides that fully applying Third Normal Form (3NF) would involve more work than it seems to be worth, or they wish to optimize lookup speed. Although we strongly recommend using 3NF wherever possible, this tutorial demonstrates how to handle a scenario in which two levels share the same table.
+
+In this example, besides storing the town ID and town NAME, our table also includes information about the COUNTRY in a separate column.
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column.            .
+            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column. The Town table has the ID, NAME and COUNTRY.
             """;
 
-    private static final String levelBody = """
-            The level used the `column` attribute to define the primary key column. It also defines the `nameColumn` attribute to define the column that contains the name of the level. The `nameColumn` attribute is optional, if it is not defined, the server will use the column defined in the `column` attribute as name column.
+    private static final String levelTownBody = """
+            The level  of the Town used the `column` attribute to define the primary key column and the `nameColumn` attribute.
+
+
+            """;
+
+    private static final String levelCountryBody = """
+            The level  of the Country used the `column` attribute to define the primary key column on the Country table of the Town table.
             """;
 
     private static final String hierarchyBody = """
-            This Hierarchy contains only one level. The `primaryKey` attribute defines the column that contains the primary key of the hierarchy. The `query` attribute references to the query that will be used to retrieve the data for the hierarchy.
+            This Hierarchy contains both defined levels. The `primaryKey` attribute defines the column that contains the primary key of the hierarchy. The `query` attribute references to the query that will be used to retrieve the data for the hierarchy.
             """;
 
     private static final String dimensionBody = """
@@ -107,10 +115,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         nameColumnTown.setId("_col_town_name");
         nameColumnTown.setType(ColumnType.VARCHAR);
 
+        Column keyColumnCountry = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        keyColumnCountry.setName("COUNTRY");
+        keyColumnCountry.setId("_col_country");
+        keyColumnCountry.setType(ColumnType.VARCHAR);
+
         PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableTown.setName("Town");
         tableTown.setId("_tab_town");
-        tableTown.getColumns().addAll(List.of(keyColumnTown, nameColumnTown));
+        tableTown.getColumns().addAll(List.of(keyColumnTown, nameColumnTown, keyColumnCountry));
         databaseSchema.getTables().add(tableTown);
 
         TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -130,18 +143,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
-        level.setName("Town");
-        level.setId("_level_town");
-        level.setColumn(keyColumnTown);
-        level.setNameColumn(nameColumnTown);
+        Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
+        levelTown.setName("Town");
+        levelTown.setId("_level_town");
+        levelTown.setColumn(keyColumnTown);
+        levelTown.setNameColumn(nameColumnTown);
+
+        Level levelCountry = RolapMappingFactory.eINSTANCE.createLevel();
+        levelCountry.setName("Country");
+        levelCountry.setId("_level_country");
+        levelCountry.setColumn(keyColumnCountry);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setName("TownHierarchy");
         hierarchy.setId("_hierarchy_town");
-        hierarchy.setPrimaryKey(keyColumnTown);
+        hierarchy.setPrimaryKey(keyColumnCountry);
         hierarchy.setQuery(queryHier);
-        hierarchy.getLevels().add(level);
+        hierarchy.getLevels().add(levelTown);
+        hierarchy.getLevels().add(levelCountry);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Town");
@@ -164,14 +183,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Hierarchy - Querys based on a Tables");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query based on a Table", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Hierarchy - Query based on a Table with 2 Levels", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
 
-        document(level, "Level", levelBody, 1, 4, 0, true, 0);
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 5, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 6, 0, true, 0);
+        document(levelTown, "Level", levelTownBody, 1, 4, 0, true, 0);
+        document(levelCountry, "Level", levelCountryBody, 1, 5, 0, true, 0);
+        document(hierarchy, "Hierarchy", hierarchyBody, 1, 6, 0, true, 0);
+        document(dimension, "Dimension", dimensionBody, 1, 7, 0, true, 0);
 
         document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 7, 0, true, 2);
 
