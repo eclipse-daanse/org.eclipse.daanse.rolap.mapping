@@ -255,7 +255,6 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("roma:JoinQuery #", "#");
                 cleaned = cleaned.replace("roma:StandardDimension #", "#");
                 cleaned = cleaned.replace("roma:Measure #", "#");
-                
 
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
