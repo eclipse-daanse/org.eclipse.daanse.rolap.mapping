@@ -119,7 +119,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnDouble.setType(ColumnType.DOUBLE);
 
         Column columnInteger = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        columnInteger.setName("ColumnIneger");
+        columnInteger.setName("ColumnInteger");
         columnInteger.setId("_col8");
         columnInteger.setType(ColumnType.INTEGER);
 
