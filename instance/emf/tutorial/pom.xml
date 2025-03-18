@@ -30,7 +30,6 @@
     <module>dimensionwithlevelwithproperties</module>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
-    <module>dimensionmultiple</module>
     <module>dimensionwithmultiplehierarchies</module>
     <module>dimensionwithlevelattribute</module>
     <module>dimensionwithlevelparentcolumn</module>
