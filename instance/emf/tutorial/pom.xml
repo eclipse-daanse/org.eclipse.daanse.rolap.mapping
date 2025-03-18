@@ -74,7 +74,6 @@
     <module>database</module>
     <module>access</module>
     <module>cube</module>
-    <module>dimension</module>
     <module>writeback</module>
     <module>kpi</module>
     <module>virtualcube</module>
