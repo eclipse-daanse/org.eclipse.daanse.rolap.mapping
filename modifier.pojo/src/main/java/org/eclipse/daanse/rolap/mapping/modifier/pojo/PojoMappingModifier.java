@@ -15,12 +15,12 @@ package org.eclipse.daanse.rolap.mapping.modifier.pojo;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping;
@@ -77,25 +77,25 @@ import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AbstractTableMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessCubeGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessDimensionGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessHierarchyGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessMemberGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AccessRoleMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.AccessCatalogGrantMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ActionMappingMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationColumnNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationExcludeMappingImpl;
@@ -112,7 +112,6 @@ import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseCatalogImpl;
@@ -138,6 +137,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.QueryMappingImpl;
@@ -186,12 +186,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected PhysicalTableMapping createPhysicalTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     ) {
         PhysicalTableMappingImpl physicalTableImpl = PhysicalTableMappingImpl.builder().build();
         physicalTableImpl.setName(name);
-        physicalTableImpl.setColumns((List<ColumnMapping>) columns);
         physicalTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         physicalTableImpl.setDescription(description);
         return physicalTableImpl;
@@ -200,12 +199,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected TableMapping createSystemTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     ) {
         SystemTableMappingImpl systemTableImpl = SystemTableMappingImpl.builder().build();
         systemTableImpl.setName(name);
-        systemTableImpl.setColumns((List<ColumnMapping>) columns);
         systemTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         systemTableImpl.setDescription(description);
         return systemTableImpl;
@@ -214,12 +212,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected TableMapping createViewTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description
     ) {
         ViewTableMappingImpl viewTableImpl = ViewTableMappingImpl.builder().build();
         viewTableImpl.setName(name);
-        viewTableImpl.setColumns((List<ColumnMapping>) columns);
         viewTableImpl.setSchema((DatabaseSchemaMappingImpl) schema);
         viewTableImpl.setDescription(description);
         return viewTableImpl;
@@ -1046,12 +1043,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected SqlViewMapping createSqlView(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends SqlStatementMapping> sqlStatements
     ) {
         SqlViewMappingImpl sqlView = SqlViewMappingImpl.builder().build();
         sqlView.setName(name);
-        sqlView.setColumns((List<ColumnMapping>) columns);
         sqlView.setSchema((DatabaseSchemaMappingImpl) schema);
         sqlView.setDescription(description);
         sqlView.setSqlStatements(sqlStatements);
@@ -1061,12 +1057,11 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected InlineTableMapping createInlineTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends RowMapping> rows
     ) {
         InlineTableMappingImpl inlineTable = InlineTableMappingImpl.builder().build();
         inlineTable.setName(name);
-        inlineTable.setColumns((List<ColumnMapping>) columns);
         inlineTable.setSchema((DatabaseSchemaMappingImpl) schema);
         inlineTable.setDescription(description);
         inlineTable.setRows(rows);
@@ -1104,5 +1099,55 @@ public class PojoMappingModifier extends AbstractMappingModifier {
                 .withLinks((List<LinkMappingImpl>) links).build();
         return databaseCatalog;
     }
+
+    protected ColumnMapping column(ColumnMapping column) {
+        ColumnMapping c = super.column(column);
+        if (c instanceof PhysicalColumnMappingImpl pc) {
+            pc.setTable(super.table(column.getTable()));
+        }
+        return c;
+    }
+
+    protected TableMapping table(TableMapping table) {
+        TableMapping t = super.table(table);
+        if (t != null) {
+        List<? extends ColumnMapping> cs = columns(table.getColumns());
+        setTableInColumns(cs, t);
+        List<ColumnMapping> columns = cs != null ? cs.stream().map(ColumnMapping.class::cast).toList() : List.of();
+        if (t instanceof PhysicalTableMappingImpl pt) {
+            pt.setColumns(columns);
+        }
+        if (t instanceof SystemTableMappingImpl st) {
+            st.setColumns(columns);
+        }
+        if (t instanceof ViewTableMappingImpl vt) {
+            vt.setColumns(columns);
+        }
+        if (t instanceof InlineTableMappingImpl it) {
+            it.setColumns(columns);
+        }
+        if (t instanceof SqlViewMappingImpl sv) {
+            sv.setColumns(columns);
+        }
+        }
+        return t;
+    }
+
+    protected void setTableInColumns(List<? extends ColumnMapping> columns,
+            TableMapping tableMappingImpl) {
+        if (columns != null) {
+            for (ColumnMapping column : columns) {
+                if (column.getTable() == null) {
+                    if (column instanceof PhysicalColumnMappingImpl pc) {
+                        pc.setTable(tableMappingImpl);
+                    }
+                    if (column instanceof SQLExpressionMappingColumnImpl sec) {
+                        sec.setTable(tableMappingImpl);
+                    }
+                }
+            }
+        }
+    }
+
 
 }

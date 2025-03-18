@@ -19,7 +19,7 @@ public class SystemTableMappingImpl extends AbstractTableMappingImpl implements 
 
     public SystemTableMappingImpl(Builder builder) {
         setName(builder.getName());
-        setColumns(builder.getColumns());
+        setColumns(setTableInColumns(builder.getColumns()));
         setSchema(builder.getSchema());
         setDescription(builder.getDescription());
     }

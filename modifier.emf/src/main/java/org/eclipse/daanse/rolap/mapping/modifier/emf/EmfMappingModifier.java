@@ -168,6 +168,13 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.InlineTableImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.PhysicalColumnImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.PhysicalTableImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.SQLExpressionColumnImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.SqlViewImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.SystemTableImpl;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.impl.ViewTableImpl;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
 public class EmfMappingModifier extends AbstractMappingModifier {
@@ -178,13 +185,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected TableMapping createViewTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+    protected TableMapping createViewTable(String name, DatabaseSchemaMapping schema,
             String description) {
         ViewTable table = RolapMappingFactory.eINSTANCE
                 .createViewTable();
         table.setName(name);
-        table.getColumns()
-                .addAll((Collection<? extends Column>) columns);
         table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
@@ -192,12 +197,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected Table createSystemTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+    protected Table createSystemTable(String name, DatabaseSchemaMapping schema,
             String description) {
         SystemTable table = RolapMappingFactory.eINSTANCE.createSystemTable();
         table.setName(name);
-        table.getColumns()
-                .addAll((Collection<? extends Column>) columns);
         table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
@@ -205,12 +208,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected PhysicalTable createPhysicalTable(String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+    protected PhysicalTable createPhysicalTable(String name, DatabaseSchemaMapping schema,
             String description) {
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(name);
-        table.getColumns()
-                .addAll((Collection<? extends Column>) columns);
         table.setSchema((DatabaseSchema) schema);
         table.setDescription(description);
         return null;
@@ -1039,13 +1040,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected SqlView createSqlView(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends SqlStatementMapping> sqlStatements
     ) {
         SqlView sqlView = RolapMappingFactory.eINSTANCE
                 .createSqlView();
         sqlView.setName(name);
-        sqlView.getColumns().addAll((Collection<? extends Column>) columns);
         sqlView.setSchema((DatabaseSchema) schema);
         sqlView.setDescription(description);
         sqlView.getSqlStatements().addAll((Collection<? extends SqlStatement>) sqlStatements);
@@ -1055,13 +1055,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected InlineTable createInlineTable(
-        String name, List<? extends ColumnMapping> columns, DatabaseSchemaMapping schema,
+        String name, DatabaseSchemaMapping schema,
         String description, List<? extends RowMapping> rows
     ) {
         InlineTable inlineTable = RolapMappingFactory.eINSTANCE
                 .createInlineTable();
         inlineTable.setName(name);
-        inlineTable.getColumns().addAll((Collection<? extends Column>) columns);
         inlineTable.setSchema((DatabaseSchema) schema);
         inlineTable.setDescription(description);
         inlineTable.getRows().addAll((Collection<? extends Row>) rows);
@@ -1102,6 +1101,55 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         databaseCatalog.getSchemas().addAll((Collection<? extends DatabaseSchema>) schemas);
         databaseCatalog.getLinks().addAll((Collection<? extends Link>) links);
         return databaseCatalog;
+    }
+
+    protected ColumnMapping column(ColumnMapping column) {
+        ColumnMapping c = super.column(column);
+        if (c instanceof PhysicalColumnImpl pc) {
+            pc.setTable((Table) columnTable(column));
+        }
+        return c;
+    }
+
+    protected TableMapping table(TableMapping table) {
+        TableMapping t = super.table(table);
+        if (t != null) {
+        List<? extends ColumnMapping> cs = tableColumns(table);
+        setTableInColumns(cs, t);
+        List<Column> columns = cs != null ? cs.stream().map(Column.class::cast).toList() : List.of();
+        if (t instanceof PhysicalTableImpl pt) {
+            pt.getColumns().addAll(columns);
+        }
+        if (t instanceof SystemTableImpl st) {
+            st.getColumns().addAll(columns);
+        }
+        if (t instanceof ViewTableImpl vt) {
+            vt.getColumns().addAll(columns);
+        }
+        if (t instanceof InlineTableImpl it) {
+            it.getColumns().addAll(columns);
+        }
+        if (t instanceof SqlViewImpl sv) {
+            sv.getColumns().addAll(columns);
+        }
+        }
+        return t;
+    }
+
+    protected void setTableInColumns(List<? extends ColumnMapping> columns,
+            TableMapping tableMappingImpl) {
+        if (columns != null) {
+            for (ColumnMapping column : columns) {
+                if (column.getTable() == null) {
+                    if (column instanceof PhysicalColumnImpl pc) {
+                        pc.setTable((Table) tableMappingImpl);
+                    }
+                    if (column instanceof SQLExpressionColumnImpl sec) {
+                        sec.setTable((Table) tableMappingImpl);
+                    }
+                }
+            }
+        }
     }
 
 }

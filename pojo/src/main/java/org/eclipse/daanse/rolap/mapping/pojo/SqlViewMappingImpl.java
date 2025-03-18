@@ -23,7 +23,7 @@ public class SqlViewMappingImpl extends AbstractTableMappingImpl implements SqlV
 
     public SqlViewMappingImpl(Builder builder) {
         setName(builder.getName());
-        setColumns(builder.getColumns());
+        setColumns(setTableInColumns(builder.getColumns()));
         setSchema(builder.getSchema());
         setDescription(builder.getDescription());
         setSqlStatements(builder.sqlStatements);

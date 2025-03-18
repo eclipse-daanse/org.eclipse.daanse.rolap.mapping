@@ -19,7 +19,7 @@ public class ViewTableMappingImpl extends AbstractTableMappingImpl implements Vi
 
     public ViewTableMappingImpl(Builder builder) {
         setName(builder.getName());
-        setColumns(builder.getColumns());
+        setColumns(setTableInColumns(builder.getColumns()));
         setSchema(builder.getSchema());
         setDescription(builder.getDescription());
     }

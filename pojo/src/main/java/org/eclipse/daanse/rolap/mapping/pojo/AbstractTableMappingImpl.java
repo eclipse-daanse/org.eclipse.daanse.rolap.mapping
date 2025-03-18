@@ -52,6 +52,22 @@ public abstract class AbstractTableMappingImpl implements TableMapping {
         this.description = description;
     }
 
+    protected List<ColumnMapping> setTableInColumns(List<ColumnMapping> columns) {
+        if (columns != null) {
+            for (ColumnMapping column : columns) {
+                if (column.getTable() == null) {
+                    if (column instanceof PhysicalColumnMappingImpl pc) {
+                        pc.setTable(this);
+                    }
+                    if (column instanceof SQLExpressionMappingColumnImpl sec) {
+                        sec.setTable(this);
+                    }
+                }
+            }
+        }
+        return columns;
+    }
+
     private String name;
 
     private List<ColumnMapping> columns;
