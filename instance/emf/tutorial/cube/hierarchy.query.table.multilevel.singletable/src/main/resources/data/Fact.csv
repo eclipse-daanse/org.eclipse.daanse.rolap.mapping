@@ -1,0 +1,10 @@
+"KEY","VALUE","COUNTRY"
+VARCHAR,INTEGER,VARCHAR
+Berlin,65,Germany
+Paris,61,France
+Hamburg,64,Germany
+Berlin,38,Germany
+Paris,32,France
+Hamburg,36,Germany
+Lion,42,France
+New York,40,USA

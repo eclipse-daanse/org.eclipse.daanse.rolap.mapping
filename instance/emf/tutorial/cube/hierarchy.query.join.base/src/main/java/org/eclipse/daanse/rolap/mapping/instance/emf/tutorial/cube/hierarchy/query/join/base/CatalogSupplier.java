@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.4.2", source = Source.EMF)
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.3.1", source = Source.EMF)//NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -78,7 +78,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String dimensionBody = """
-            The Dimenaion has only one hierarchy.
+            The Dimension has only one hierarchy.
             """;
 
     private static final String cubeBody = """

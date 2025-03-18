@@ -1,0 +1,7 @@
+"ID","NAME","COUNTRY"
+INTEGER,VARCHAR,VARCHAR
+1,Berlin,Germany
+2,Paris,France
+3,Hamburg,Germany
+4,Lion,France
+5,New York,USA
