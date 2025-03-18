@@ -240,8 +240,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinQuery queryJoinCountryToContinent = RolapMappingFactory.eINSTANCE.createJoinQuery();
         queryJoinCountryToContinent.setId("_query_CountryToContinent");
-        queryJoinCountryToContinent.setLeft(joinQueryCCElementContinent);
-        queryJoinCountryToContinent.setRight(joinQueryCCElementJoinCountry);
+        queryJoinCountryToContinent.setLeft(joinQueryCCElementJoinCountry);
+        queryJoinCountryToContinent.setRight(joinQueryCCElementContinent);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.setAggregator(MeasureAggregator.SUM);
@@ -306,8 +306,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(queryLevelCountry, "Query - Level Country", queryLevelCountryBody, 1, 3, 0, true, 2);
         document(queryJoinTownToCountry, "Query - Join Town to Country", queryJoinTownToCountryBody, 1, 4, 0, true, 2);
         document(queryLevelContinent, "Query - Level Country", queryLevelContinentBody, 1, 5, 0, true, 2);
-        document(queryJoinCountryToContinent, "Query - Join Town to Country", queryJoinSubJoinToContinentBody, 1, 6, 0,
-                true, 2);
+        document(queryJoinCountryToContinent, "Query - Join Town-Country-Join to Continent",
+                queryJoinSubJoinToContinentBody, 1, 6, 0, true, 2);
 
         document(queryFact, "Query Fact", queryFactBody, 1, 7, 0, true, 2);
 
