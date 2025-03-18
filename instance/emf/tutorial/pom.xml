@@ -74,9 +74,7 @@
     <module>access</module>
     <module>cube</module>
     <module>writeback</module>
-    <module>kpi</module>
     <module>virtualcube</module>
-    <module>namedset</module>
     <module>aggregation</module>
   </modules>
 
