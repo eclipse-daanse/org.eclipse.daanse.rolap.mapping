@@ -38,7 +38,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.1", source = Source.EMF)//NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.1", source = Source.EMF) // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -161,10 +161,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Hierarchy - Querys based on a Tables");
+        catalog.setName("Hierarchy - Query based on seperate Tables for Fact and Dimension");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query based on a Table", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Hierarchy - Query based on seperate Tables for Fact and Dimension", introBody, 1, 0, 0,
+                false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
