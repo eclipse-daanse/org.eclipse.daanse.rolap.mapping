@@ -199,6 +199,14 @@
     </dependency>
 
 
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+
 
     <!-- other-->
 
