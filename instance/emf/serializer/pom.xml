@@ -210,6 +210,16 @@
     </dependency>
 
 
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+
+
     <!-- other-->
 
     <dependency>

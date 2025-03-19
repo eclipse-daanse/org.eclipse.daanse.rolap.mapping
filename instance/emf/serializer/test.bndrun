@@ -69,7 +69,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.singletable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.multi',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro'
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -86,6 +87,7 @@
 	org.eclipse.daanse.rolap.mapping.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.base;version='[0.0.1,0.0.2)',\
