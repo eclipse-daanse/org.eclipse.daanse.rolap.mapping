@@ -36,5 +36,6 @@
     <module>hierarchy.query.join.multi</module>
     <module>hierarchy.hasall</module>
     <module>level.member.property.intro</module>
+    <module>calculatedmember.intro</module>
   </modules>
 </project>
