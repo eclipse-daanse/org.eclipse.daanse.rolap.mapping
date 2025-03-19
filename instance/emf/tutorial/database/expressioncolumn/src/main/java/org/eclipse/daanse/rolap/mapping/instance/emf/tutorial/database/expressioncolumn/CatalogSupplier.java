@@ -65,6 +65,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SQLExpressionColumn columnSqlExp = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         columnSqlExp.setName("SqlExpressionColumn");
+        columnSqlExp.getSqls().add(sqlStatement1);
+        columnSqlExp.getSqls().add(sqlStatement2);
         columnSqlExp.setId("_col2");
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
