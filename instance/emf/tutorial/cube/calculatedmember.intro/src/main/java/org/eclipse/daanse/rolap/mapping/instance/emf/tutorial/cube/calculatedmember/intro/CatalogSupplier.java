@@ -165,11 +165,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal_Cubes_With_Two_Calculated_Members");
+        catalog.setName("Cube - Calculated Members Intro");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - Hierarchy - using hasAll Level", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Cube - Calculated Members Intro", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
