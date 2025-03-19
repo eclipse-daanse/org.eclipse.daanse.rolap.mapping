@@ -26,7 +26,6 @@
     <module>inlinetable</module>
     <module>dimensionwithsmallintbooleanlevel</module>
     <module>dimensionwithlevelexpressions</module>
-    <module>dimensionwithlevelwithproperties</module>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
     <module>dimensionwithlevelattribute</module>
@@ -65,7 +64,6 @@
     <module>accessallnonecustom</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
-
 
     <module>database</module>
     <module>cube</module>

@@ -1,4 +1,0 @@
-"KEY","VALUE","L","prop"
-VARCHAR,INTEGER,VARCHAR(100),VARCHAR(100)
-A,42,Level1,prop1
-B,21,Level2,prop2
