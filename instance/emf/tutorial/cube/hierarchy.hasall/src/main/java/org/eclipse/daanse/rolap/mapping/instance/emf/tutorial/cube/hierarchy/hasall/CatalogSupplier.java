@@ -47,11 +47,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
             To manage the creation of this top level, the hierarchy provides specific attributes:
 
-             - `hasAll` A Boolean attribute that indicates whether a so-called “HasAll” level is needed. If hasAll is set to true, a top level will be generated.
+            - `hasAll` A Boolean attribute that indicates whether a so-called “HasAll” level is needed. If hasAll is set to true, a top level will be generated.
 
-              - `allLevelName` Specifies the name for the top level itself.
+            - `allLevelName` Specifies the name for the top level itself.
 
-               - `allMemberName` Specifies the name of the member within this top level. If this attribute is not set, the default name is used in the form: “All <HierarchyName>”.
+            - `allMemberName` Specifies the name of the member within this top level. If this attribute is not set, the default name is used in the form: “All <HierarchyName>”.
 
             By configuring these attributes, you can control whether a top-level aggregation appears, as well as how it is labeled in your hierarchy.
 
