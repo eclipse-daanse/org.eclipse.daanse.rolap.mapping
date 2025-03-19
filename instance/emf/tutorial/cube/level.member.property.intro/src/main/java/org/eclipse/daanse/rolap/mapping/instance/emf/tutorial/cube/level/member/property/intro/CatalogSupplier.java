@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.base;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -20,6 +20,7 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
@@ -28,6 +29,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
@@ -38,20 +40,25 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.1", source = Source.EMF) // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.5.1", source = Source.EMF) // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Very often, the data of a cube is not stored in a single table, but in multiple tables. In this case, it must be defined one query for the Facts to store the values that be aggregated for the measures and one for the Levels. This example shows how this must be defined.
+            This Tutorial is about MemberProperties. MemberProperties are attributes of a hierarchy level’s members. They provide additional details about each member, such as a description or any other related value. The only requirement for defining a MemberProperty is that a corresponding column exists to store the property’s value.
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column.            .
+            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column. The Town Table also contains the Name and the value of the MemberPropery, in this case the `CAPITAL` flag.
+            """;
+
+    private static final String memberPropertyBody = """
+            The MemberProperty with a name `Capital`, the `propertyType` attribute `String`, and the reference to the `column` thats holds the values of the MemberProperty.
             """;
 
     private static final String levelBody = """
             The level used the `column` attribute to define the primary key column. It also defines the `nameColumn` attribute to define the column that contains the name of the level. The `nameColumn` attribute is optional, if it is not defined, the server will use the column defined in the `column` attribute as name column.
+            The `memberProperties` attribute is also set, to the before defines Capital-MemberProperty.
             """;
 
     private static final String hierarchyBody = """
@@ -107,6 +114,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnTownName.setId("_col_town_name");
         columnTownName.setType(ColumnType.VARCHAR);
 
+        Column columnTownCapital = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnTownCapital.setName("CAPITAL");
+        columnTownCapital.setId("_col_town_capital");
+        columnTownCapital.setType(ColumnType.VARCHAR);
+        columnTownCapital.setColumnSize(100);
+
         PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableTown.setName("Town");
         tableTown.setId("_tab_town");
@@ -130,11 +143,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
+        MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        memberProperty.setName("Capital");
+        memberProperty.setId("_memberprop");
+        memberProperty.setColumn(columnTownCapital);
+        memberProperty.setPropertyType(ColumnInternalDataType.STRING);
+
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Town");
         level.setId("_level_town");
         level.setColumn(columnTownId);
         level.setNameColumn(columnTownName);
+        level.getMemberProperties().add(memberProperty);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setName("TownHierarchy");
@@ -161,15 +181,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Hierarchy - Query based on seperate Tables for Fact and Dimension");
+        catalog.setName("Level - MemberProperties Intro");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query based on seperate Tables for Fact and Dimension", introBody, 1, 0, 0,
-                false, 0);
+        document(catalog, "Level - MemberProperties Intro", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
 
+        document(memberProperty, "MemberProperty", memberPropertyBody, 1, 4, 0, true, 0);
         document(level, "Level", levelBody, 1, 4, 0, true, 0);
         document(hierarchy, "Hierarchy", hierarchyBody, 1, 5, 0, true, 0);
         document(dimension, "Dimension", dimensionBody, 1, 6, 0, true, 0);
