@@ -175,10 +175,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector1);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Hierarchy - using hasAll Level");
+        catalog.setName("Hierarchy - HasAll-Level");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - using hasAll Level", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Hierarchy - HasAll-Level", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
