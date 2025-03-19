@@ -38,7 +38,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.3", source = Source.EMF)//NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.2.3", source = Source.EMF) // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -60,6 +60,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String hierarchyBody = """
             This Hierarchy contains both defined levels. The `primaryKey` attribute defines the column that contains the primary key of the hierarchy. The `query` attribute references to the query that will be used to retrieve the data for the hierarchy.
+
+            The order of the Levels in the hierarchy is important, as it determines the drill-down path for the hierarchy.
             """;
 
     private static final String dimensionBody = """
@@ -130,8 +132,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setId("_hierarchy_town");
         hierarchy.setPrimaryKey(columnKey);
         hierarchy.setQuery(query);
-        hierarchy.getLevels().add(levelTown);
         hierarchy.getLevels().add(levelCountry);
+        hierarchy.getLevels().add(levelTown);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Town");

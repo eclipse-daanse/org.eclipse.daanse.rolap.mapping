@@ -79,6 +79,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             This hierarchy consists of three levels: Town, Country and  Continent.
             - The primaryKey attribute specifies the column that contains the primary key of the hierarchy.
             - The query attribute references the Join-query used to retrieve the data for the hierarchy.
+
+            The order of the Levels in the hierarchy is important, as it determines the drill-down path for the hierarchy.
             """;
 
     private static final String dimensionBody = """
@@ -306,8 +308,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(queryLevelCountry, "Query - Level Country", queryLevelCountryBody, 1, 3, 0, true, 2);
         document(queryJoinTownToCountry, "Query - Join Town to Country", queryJoinTownToCountryBody, 1, 4, 0, true, 2);
         document(queryLevelContinent, "Query - Level Country", queryLevelContinentBody, 1, 5, 0, true, 2);
-        document(queryJoinTownToCountry, "Query - Join Town-Country-Join to Continent",
-                queryJoinSubJoinToContinentBody, 1, 6, 0, true, 2);
+        document(queryJoinTownToCountry, "Query - Join Town-Country-Join to Continent", queryJoinSubJoinToContinentBody,
+                1, 6, 0, true, 2);
 
         document(queryFact, "Query Fact", queryFactBody, 1, 7, 0, true, 2);
 
