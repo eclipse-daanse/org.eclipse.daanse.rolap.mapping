@@ -275,9 +275,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy.setId("_hierarchy_town");
         hierarchy.setPrimaryKey(columnTownId);
         hierarchy.setQuery(queryJoinTownToCountry);
-        hierarchy.getLevels().add(levelTown);
-        hierarchy.getLevels().add(levelCounty);
         hierarchy.getLevels().add(levelContinent);
+        hierarchy.getLevels().add(levelCounty);
+        hierarchy.getLevels().add(levelTown);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Continent - Country - Town");
