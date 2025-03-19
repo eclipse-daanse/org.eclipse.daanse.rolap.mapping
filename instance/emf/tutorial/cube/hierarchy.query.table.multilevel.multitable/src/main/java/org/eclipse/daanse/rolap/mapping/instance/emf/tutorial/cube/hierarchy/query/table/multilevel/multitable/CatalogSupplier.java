@@ -157,7 +157,7 @@ In this example, besides storing the town ID and town NAME, our table also inclu
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
         hierarchy.setName("TownHierarchy");
         hierarchy.setId("_hierarchy_town");
-        hierarchy.setPrimaryKey(keyColumnCountry);
+        hierarchy.setPrimaryKey(keyColumnTown);
         hierarchy.setQuery(queryHier);
         hierarchy.getLevels().add(levelTown);
         hierarchy.getLevels().add(levelCountry);

@@ -182,7 +182,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinQueryElementCountry = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
         joinQueryElementCountry.setQuery(queryLevelCountry);
-        joinQueryElementCountry.setKey(idTownCountryIdColumn);
+        joinQueryElementCountry.setKey(keyCountryColumn);
 
         JoinQuery queryJoinTownToCountry = RolapMappingFactory.eINSTANCE.createJoinQuery();
         queryJoinTownToCountry.setId("_query_LevelTownToCountry");
