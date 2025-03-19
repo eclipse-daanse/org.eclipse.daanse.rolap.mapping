@@ -64,7 +64,7 @@ In this example, besides storing the town ID and town NAME, our table also inclu
 
     private static final String hierarchyBody = """
             This Hierarchy contains both defined levels. The `primaryKey` attribute defines the column that contains the primary key of the hierarchy. The `query` attribute references to the query that will be used to retrieve the data for the hierarchy.
-            
+
             The order of the Levels in the hierarchy is important, as it determines the drill-down path for the hierarchy.
             """;
 
