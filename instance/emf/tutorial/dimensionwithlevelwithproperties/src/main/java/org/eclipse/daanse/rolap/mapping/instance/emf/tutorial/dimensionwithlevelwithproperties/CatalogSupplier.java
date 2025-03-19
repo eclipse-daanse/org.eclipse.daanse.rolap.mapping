@@ -105,7 +105,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroup.getMeasures().add(measure);
 
         MemberProperty prop = RolapMappingFactory.eINSTANCE.createMemberProperty();
-        prop.setName("Prop");
+        prop.setName("Capital");
         prop.setId("Prop");
         prop.setColumn(propColumn);
         prop.setPropertyType(ColumnInternalDataType.STRING);
