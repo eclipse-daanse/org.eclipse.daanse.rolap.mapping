@@ -25,12 +25,10 @@
     <module>aggexclude</module>
     <module>inlinetable</module>
     <module>dimensionwithsmallintbooleanlevel</module>
-    <module>dimensionwithmultylevels</module>
     <module>dimensionwithlevelexpressions</module>
     <module>dimensionwithlevelwithproperties</module>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
-    <module>dimensionwithmultiplehierarchies</module>
     <module>dimensionwithlevelattribute</module>
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
@@ -67,7 +65,6 @@
     <module>accessallnonecustom</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
-    <module>hierarchyhasalltruefalse</module>
 
 
     <module>database</module>
