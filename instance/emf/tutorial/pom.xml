@@ -32,8 +32,6 @@
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
     <module>cellformatter</module>
-    <module>calculatedmember</module>
-    <module>calculatedmemberformatter</module>
     <module>measureexpression</module>
     <module>timedimension</module>
     <module>hierarchywithview</module>
