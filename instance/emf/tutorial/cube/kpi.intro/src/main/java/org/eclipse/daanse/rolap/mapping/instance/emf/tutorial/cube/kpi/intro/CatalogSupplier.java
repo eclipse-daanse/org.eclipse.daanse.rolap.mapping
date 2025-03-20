@@ -119,8 +119,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getKpis().add(kpi1);
-        cube.getKpis().add(kpi3);
         cube.getKpis().add(kpi2);
+        cube.getKpis().add(kpi3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Cube - KPI Introduction");
@@ -130,9 +130,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         document(catalog, "Cube - KPI Introduction", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
-        document(kpi2, "KPI - value only", kpi1Body, 1, 2, 0, true, 0);
+        document(kpi1, "KPI - value only", kpi1Body, 1, 2, 0, true, 0);
         document(kpi2, "KPI - DisplayFolder", kpi2Body, 1, 3, 0, true, 0);
-        document(kpi2, "KPI - Parent", kpi3Body, 1, 4, 0, true, 0);
+        document(kpi3, "KPI - Parent", kpi3Body, 1, 4, 0, true, 0);
 
         document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 5, 0, true, 2);
 
