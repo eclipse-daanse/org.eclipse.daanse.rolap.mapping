@@ -175,6 +175,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector1);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Hierarchy - HasAll-Level");
         catalog.getCubes().add(cube);
 
