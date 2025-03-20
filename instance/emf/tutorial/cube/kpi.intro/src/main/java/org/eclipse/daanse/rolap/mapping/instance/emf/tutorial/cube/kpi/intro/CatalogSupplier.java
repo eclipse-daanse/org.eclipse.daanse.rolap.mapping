@@ -70,7 +70,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema");
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
