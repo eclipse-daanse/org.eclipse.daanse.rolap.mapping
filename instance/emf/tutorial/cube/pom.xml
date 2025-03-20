@@ -37,5 +37,6 @@
     <module>hierarchy.hasall</module>
     <module>level.member.property.intro</module>
     <module>calculatedmember.intro</module>
+    <module>kpi.intro</module>
   </modules>
 </project>
