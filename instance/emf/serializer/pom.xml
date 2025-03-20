@@ -234,31 +234,11 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.calculatedmember</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.calculatedmemberformatter</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.defaultmeasure</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -270,12 +250,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevel</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -291,19 +265,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionmultiple</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithmultiplehierarchies</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -336,28 +297,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithproperties</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithmultylevels</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.drillthroughaction</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnerjoin</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -382,47 +322,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiminimal</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivalue</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpigoal</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpistatus</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpitrend</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiparent</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -452,12 +351,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.multiplemeasure</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -578,12 +471,6 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchyhasalltruefalse</artifactId>
-      <version>${project.version}</version>
-    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
