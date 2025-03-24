@@ -38,6 +38,6 @@ public interface KpiMapping extends AbstractElementMapping {
 
     String getCurrentTimeMember();
 
-    String getParentKpiID();
+    KpiMapping getParentKpi();
 
 }

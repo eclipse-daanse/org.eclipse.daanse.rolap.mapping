@@ -41,7 +41,7 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
 
     private String currentTimeMember;
 
-    private String parentKpiID;
+    private KpiMappingImpl parentKpi;
 
     private KpiMappingImpl(Builder builder) {
         this.translations = builder.translations;
@@ -55,7 +55,7 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
         this.trendGraphic = builder.trendGraphic;
         this.statusGraphic = builder.statusGraphic;
         this.currentTimeMember = builder.currentTimeMember;
-        this.parentKpiID = builder.parentKpiID;
+        this.parentKpi = builder.parentKpi;
         super.setAnnotations(builder.annotations);
         super.setId(builder.id);
         super.setDescription(builder.description);
@@ -150,12 +150,12 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
         this.currentTimeMember = currentTimeMember;
     }
 
-    public String getParentKpiID() {
-        return parentKpiID;
+    public KpiMapping getParentKpi() {
+        return parentKpi;
     }
 
-    public void setParentKpiID(String parentKpiID) {
-        this.parentKpiID = parentKpiID;
+    public void setParentKpi(KpiMappingImpl parentKpi) {
+        this.parentKpi = parentKpi;
     }
 
     public static Builder builder() {
@@ -174,7 +174,7 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
         private String trendGraphic;
         private String statusGraphic;
         private String currentTimeMember;
-        private String parentKpiID;
+        private KpiMappingImpl parentKpi;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String id;
         private String description;
@@ -238,8 +238,8 @@ public class KpiMappingImpl extends AbstractElementMappingImpl implements KpiMap
             return this;
         }
 
-        public Builder withParentKpiID(String parentKpiID) {
-            this.parentKpiID = parentKpiID;
+        public Builder withParentKpi(KpiMappingImpl parentKpi) {
+            this.parentKpi = parentKpi;
             return this;
         }
 
