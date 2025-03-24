@@ -183,7 +183,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return column;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected PhysicalTableMapping createPhysicalTable(
         String name, DatabaseSchemaMapping schema,
@@ -196,7 +195,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return physicalTableImpl;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected TableMapping createSystemTable(
         String name, DatabaseSchemaMapping schema,
@@ -209,7 +207,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return systemTableImpl;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected TableMapping createViewTable(
         String name, DatabaseSchemaMapping schema,
@@ -747,7 +744,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String name,  List<? extends TranslationMapping> translations,
         String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
         String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
-        String parentKpiID
+        KpiMapping parentKpi
     ) {
         return KpiMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
@@ -766,7 +763,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withTrendGraphic(trendGraphic)
             .withStatusGraphic(statusGraphic)
             .withCurrentTimeMember(currentTimeMember)
-            .withParentKpiID(parentKpiID)
+            .withParentKpi((KpiMappingImpl) parentKpi)
             .build();
     }
 
@@ -1040,7 +1037,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
                 .build();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected SqlViewMapping createSqlView(
         String name, DatabaseSchemaMapping schema,
@@ -1054,7 +1050,6 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         return sqlView;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected InlineTableMapping createInlineTable(
         String name, DatabaseSchemaMapping schema,

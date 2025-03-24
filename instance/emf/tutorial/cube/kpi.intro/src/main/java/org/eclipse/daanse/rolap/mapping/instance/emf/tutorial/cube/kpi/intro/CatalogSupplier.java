@@ -105,7 +105,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         kpi2.setName("Kpi2");
         kpi2.setId("_kpi_2");
         kpi2.setValue("[Measures].[Measure1-Sum]");
-        kpi2.setParentKpiID("Kpi1");
+        kpi2.setParentKpi(kpi1);
 
         Kpi kpi3 = RolapMappingFactory.eINSTANCE.createKpi();
         kpi3.setName("Kpi3");

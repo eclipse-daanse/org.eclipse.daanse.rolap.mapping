@@ -886,7 +886,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String name, List<? extends TranslationMapping> translations,
             String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
             String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
-            String parentKpiID) {
+            KpiMapping parentKpi) {
         Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
         kpi.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         kpi.setId(id);
@@ -903,7 +903,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         kpi.setTrendGraphic(trendGraphic);
         kpi.setStatusGraphic(statusGraphic);
         kpi.setCurrentTimeMember(currentTimeMember);
-        kpi.setParentKpiID(parentKpiID);
+        kpi.setParentKpi((Kpi) parentKpi);
         return kpi;
     }
 

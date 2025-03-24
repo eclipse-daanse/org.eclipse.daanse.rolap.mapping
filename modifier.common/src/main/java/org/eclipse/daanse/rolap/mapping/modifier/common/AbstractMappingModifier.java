@@ -2682,7 +2682,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             String trendGraphic = kpiTrendGraphic(kpi);
             String statusGraphic = kpiStatusGraphic(kpi);
             String currentTimeMember = kpiCurrentTimeMember(kpi);
-            String parentKpiID = kpiParentKpiID(kpi);
+            KpiMapping parentKpiID = kpiParentKpi(kpi);
             return createKpi(annotations, id, description, name, translations, displayFolder,
                 associatedMeasureGroupID, value, goal, status, trend, weight, trendGraphic, statusGraphic,
                 currentTimeMember, parentKpiID);
@@ -2690,8 +2690,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected String kpiParentKpiID(KpiMapping kpi) {
-        return kpi.getParentKpiID();
+    protected KpiMapping kpiParentKpi(KpiMapping kpi) {
+        return kpi.getParentKpi();
     }
 
     protected String kpiCurrentTimeMember(KpiMapping kpi) {
@@ -2803,7 +2803,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String name, List<? extends TranslationMapping> translations,
         String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
         String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
-        String parentKpiID
+        KpiMapping parentKpi
     );
 
     protected List<? extends NamedSetMapping> cubeNamedSets(CubeMapping cube) {

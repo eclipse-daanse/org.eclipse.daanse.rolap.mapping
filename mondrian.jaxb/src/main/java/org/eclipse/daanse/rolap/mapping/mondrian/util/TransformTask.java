@@ -875,7 +875,8 @@ public class TransformTask {
         kpi.setTrendGraphic(kpiM.trend());
         kpi.setStatusGraphic(kpiM.statusGraphic());
         kpi.setCurrentTimeMember(kpiM.currentTimeMember());
-        kpi.setParentKpiID(kpiM.parentKpiID());
+        //TODO
+        //kpi.setParentKpi(kpiM.parentKpiID());
         return kpi;
     }
 
