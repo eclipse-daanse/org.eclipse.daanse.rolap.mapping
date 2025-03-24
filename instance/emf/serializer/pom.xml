@@ -224,6 +224,12 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.parent.ring</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <!-- other-->
 
