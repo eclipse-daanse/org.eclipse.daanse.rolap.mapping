@@ -282,9 +282,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         super.checkDimensionConnector(dimensionConnector, cube, schema);
 
         if (cube != null) {
-            if (isEmpty(dimensionConnector.getOverrideDimensionName())) {
-                String msg = String.format(DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET, orNotSet(cube.getName()));
-                results.add(new VerificationResultR(CUBE_DIMENSION, msg, ERROR, Cause.SCHEMA));
+            if (isEmpty(dimensionConnector.getOverrideDimensionName()) && dimensionConnector.getDimension() != null && dimensionConnector.getDimension().getName() != null) {
+                long countWithSameName = cube.getDimensionConnectors().stream().filter(dc ->
+                (dimensionConnector.getDimension().getName().equals(dc.getOverrideDimensionName())) ||
+                (dc.getOverrideDimensionName() == null && dc.getDimension() != null && dimensionConnector.getDimension().getName().equals(dc.getDimension().getName()))).count();
+                if (countWithSameName > 1) {
+                    String msg = String.format(DIMENSION_CONNECTOR_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES_IN_CUBE, dimensionConnector.getDimension().getName(), orNotSet(cube.getName()));
+                    results.add(new VerificationResultR(CUBE_DIMENSION, msg, ERROR, Cause.SCHEMA));
+                }
             } else {
                 if (cube.getDimensionConnectors() != null) {
                     long countWithSameName = cube.getDimensionConnectors().stream().filter(dc -> dc.getOverrideDimensionName().equals(dimensionConnector.getOverrideDimensionName())).count();
@@ -1025,18 +1030,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     private void checkHierarchyJoin(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
         if (hierarchy.getQuery() instanceof JoinQueryMapping) {
             if (hierarchy.getPrimaryKey() == null) {
-                String msg = String.format(PRIMARY_KEY_TABLE_AND_PRIMARY_KEY_MUST_BE_SET_FOR_JOIN,
-                    orNotSet(cubeDimension.getName()));
-                results.add(new VerificationResultR(
-                    HIERARCHY, msg, ERROR, Cause.SCHEMA));
-            } else {
-                String msg = String.format(PRIMARY_KEY_TABLE_MUST_BE_SET_FOR_JOIN,
-                    orNotSet(cubeDimension.getName()));
-                results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
-            }
-            if (hierarchy.getPrimaryKey() == null) {
                 String msg = String.format(PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
+            } else {
+                if (hierarchy.getPrimaryKey().getTable() == null) {
+                    String msg = String.format(PRIMARY_KEY_TABLE_MUST_BE_SET_FOR_JOIN,
+                            orNotSet(cubeDimension.getName()));
+                        results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
+                }
             }
         }
     }
@@ -1052,10 +1053,6 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkHierarchyTable(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
         if (hierarchy.getQuery() instanceof TableQueryMapping table) {
-            if (hierarchy.getPrimaryKey() != null && hierarchy.getPrimaryKey().getTable() != null) {
-                String msg = String.format(HIERARCHY_TABLE_FIELD_MUST_BE_EMPTY, orNotSet(cubeDimension.getName()));
-                results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
-            }
             checkTable(table);
         }
     }
@@ -1078,7 +1075,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                         .trim()
                         .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
-                if (!primaryKeyTable.equals(compareTo)) {
+                if (!primaryKeyTable.getName().equals(compareTo)) {
                     String msg = String.format(HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_HIERARCHY_RELATION,
                             orNotSet(cubeDimension.getName()));
                     results.add(new VerificationResultR(HIERARCHY,

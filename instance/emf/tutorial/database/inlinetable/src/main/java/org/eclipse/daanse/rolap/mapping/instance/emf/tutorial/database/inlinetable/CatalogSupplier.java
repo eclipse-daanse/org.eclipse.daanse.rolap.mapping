@@ -78,7 +78,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         row.getRowValues().addAll(List.of(rowValue1, rowValue2));
 
         Row row2 = RolapMappingFactory.eINSTANCE.createRow();
-        row.getRowValues().addAll(List.of(rowValue3, rowValue4));
+        row2.getRowValues().addAll(List.of(rowValue3, rowValue4));
 
         InlineTable table = RolapMappingFactory.eINSTANCE.createInlineTable();
         table.setName("FACT");
