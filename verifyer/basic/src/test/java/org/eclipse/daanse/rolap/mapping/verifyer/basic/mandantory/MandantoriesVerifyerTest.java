@@ -42,7 +42,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_USAGE_CUBE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.CUBE_WITH_NAME_MUST_CONTAIN;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_ATTRIBUTE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.DRILL_THROUGH_MEASURE;
@@ -393,6 +392,7 @@ class MandantoriesVerifyerTest {
         when(cube.getName()).thenReturn("cubeName");
         when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
         when(dimensionConnector.getDimension()).thenReturn(dimension);
+        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
         when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
         when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(level));
         when(hierarchy.getQuery()).thenReturn(joinQuery);
@@ -417,12 +417,11 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(38);
+            .hasSize(36);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
-            .contains(String.format(DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
@@ -474,6 +473,7 @@ class MandantoriesVerifyerTest {
         when(cube.getName()).thenReturn("cubeName");
         when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
         when(dimensionConnector.getDimension()).thenReturn(dimension);
+        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
         when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
         when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(level));
         when(hierarchy.getQuery()).thenReturn(joinQuery);
@@ -482,7 +482,7 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(16);
+            .hasSize(14);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -491,7 +491,6 @@ class MandantoriesVerifyerTest {
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
-            .contains(String.format(PRIMARY_KEY_TABLE_AND_PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, NOT_SET))
             .contains(String.format(LEVEL_NAME_MUST_BE_SET, NOT_SET))
             .contains(FORMATTER_EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED)
             .contains(PROPERTY_COLUMN_MUST_BE_SET);
@@ -519,6 +518,7 @@ class MandantoriesVerifyerTest {
         when(cube.getName()).thenReturn("cubeName");
         when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
         when(dimensionConnector.getDimension()).thenReturn(dimension);
+        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
         when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
         when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(l));
         when(hierarchy.getQuery()).thenReturn(tableQuery);
@@ -526,7 +526,7 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(10);
+            .hasSize(9);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -557,6 +557,7 @@ class MandantoriesVerifyerTest {
         when(cube.getName()).thenReturn("cubeName");
         when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
         when(dimensionConnector.getDimension()).thenReturn(dimension);
+        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
         when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
         when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(l));
         when(hierarchy.getQuery()).thenReturn(joinQuery);
@@ -569,7 +570,7 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(39);
+            .hasSize(37);
 
         assertThat(result)
             .extracting(VerificationResult::description)
@@ -578,7 +579,6 @@ class MandantoriesVerifyerTest {
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
-            .contains(String.format(PRIMARY_KEY_TABLE_AND_PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, NOT_SET))
             .contains(PROPERTY_COLUMN_MUST_BE_SET);
 
         assertThat(result).extracting(VerificationResult::title)

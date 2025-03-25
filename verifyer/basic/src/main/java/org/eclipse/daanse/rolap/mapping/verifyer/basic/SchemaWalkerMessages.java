@@ -157,8 +157,6 @@ public class SchemaWalkerMessages {
         "Formatter: either a Class Name or a Script are required";
     public static final String FORMATTER_CLASS_NAME_NOT_FOUND =
         "Formatter: Class Name %s not found";
-    public static final String DIMENSION_CONNECTOR_OVERRIDE_NAME_MUST_BE_SET =
-        "Dimension connector override name must be set for cube with name %s";
     public static final String DIMENSION_CONNECTOR_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES_IN_CUBE =
         "Cube Dimension with name %s meets more then one time in cube with name %s";
     public static final String SCHEMA_DIMENSION_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES =
@@ -180,8 +178,6 @@ public class SchemaWalkerMessages {
     public static final String JOIN_LEFT_KEY_MUST_BE_SET = "Join: Left key must be set";
     public static final String JOIN_RIGHT_KEY_MUST_BE_SET = "Join: Right key must be set";
     public static final String SCHEMA_MUST_BE_SET = "Table: Schema must be set";
-    public static final String HIERARCHY_TABLE_FIELD_MUST_BE_EMPTY =
-        "Hierarchy: Table field must be empty in dimension with name %s";
     public static final String HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN =
         "Hierarchy: Table %s does not correspond to any join in dimension with name %s";
     public static final String HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_HIERARCHY_RELATION =
