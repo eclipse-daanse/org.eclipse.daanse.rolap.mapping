@@ -298,7 +298,7 @@ public class SchemaWalkerMessages {
     public static final String SCHEMA_MUST_CONTAIN_DESCRIPTION = "Schema must contain description";
     public static final String WRONG_MEASURE_AGGREGATOR_FOR_MEASURE_IN_CUBE =
         "Wrong measure aggregator %s  for measure with name %s in cube with name %s";
-
+    public static final String KPIS_FROM_CUBE_WITH_NAME_HAS_RING_PARENT = "KPIs from cube with name %s has parent ring";
     private SchemaWalkerMessages() {
         //private constructor
     }

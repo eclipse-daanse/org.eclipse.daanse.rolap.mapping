@@ -18,6 +18,7 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.*;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
@@ -161,17 +162,31 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     @Override
     protected void checkKpiPhysicalCube(KpiMapping kpi, PhysicalCubeMapping cube) {
-        super.checkKpi(kpi, cube);
+        super.checkKpiPhysicalCube(kpi, cube);
         List<String> measureNames = cube.getMeasureGroups() != null ?
-            cube.getMeasureGroups().stream().map(MeasureGroupMapping::getName).toList() : List.of();
+            cube.getMeasureGroups().stream().map(MeasureGroupMapping::getMeasures).flatMap(Collection::stream).map(MeasureMapping::getName).toList() : List.of();
         List<String> calculatedMemberNames = cube.getCalculatedMembers() != null ?
             cube.getCalculatedMembers().stream().map(CalculatedMemberMapping::getName).toList() : List.of();
         checkKpi(kpi, cube.getName(), measureNames, calculatedMemberNames);
     }
 
     @Override
+    protected void checkKpiPrentRing(List<? extends KpiMapping> list, CubeMapping cube) {
+        for (KpiMapping kpi : list) {
+            if (kpi.getParentKpi() != null) {
+                if (hasRing(kpi)) {
+                    String msg = String.format(KPIS_FROM_CUBE_WITH_NAME_HAS_RING_PARENT, orNotSet(cube.getName()));
+                    results.add(new VerificationResultR(KPI, msg, WARNING,
+                            Cause.SCHEMA));
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
     protected void checkKpiVirtualCube(KpiMapping kpi, VirtualCubeMapping cube) {
-        super.checkKpi(kpi, cube);
+        super.checkKpiVirtualCube(kpi, cube);
         List<String> measureNames = cube.getReferencedMeasures() != null ?
             cube.getReferencedMeasures().stream().map(MeasureMapping::getName).toList() : List.of();
         List<String> calculatedMemberNames = cube.getCalculatedMembers() != null ?

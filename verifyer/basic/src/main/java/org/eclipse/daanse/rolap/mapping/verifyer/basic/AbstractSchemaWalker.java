@@ -16,7 +16,9 @@ package org.eclipse.daanse.rolap.mapping.verifyer.basic;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.NOT_SET;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
@@ -869,7 +871,26 @@ public abstract class AbstractSchemaWalker {
     private void checkKpiList(List<? extends KpiMapping> list, CubeMapping cube) {
         if (list != null) {
             list.forEach(k -> checkKpi(k, cube));
+            checkKpiPrentRing(list, cube);
         }
+    }
+
+    protected void checkKpiPrentRing(List<? extends KpiMapping> list, CubeMapping cube) {
+        //empty
+    }
+
+    public boolean hasRing(KpiMapping head) {
+        Set<KpiMapping> visited = new HashSet<>();
+        KpiMapping current = head;
+
+        while (current != null) {
+            if (visited.contains(current)) {
+                return true;
+            }
+            visited.add(current);
+            current = current.getParentKpi();
+        }
+        return false;
     }
 
     private void checkKpiList(List<? extends KpiMapping> list, VirtualCubeMapping cube) {
