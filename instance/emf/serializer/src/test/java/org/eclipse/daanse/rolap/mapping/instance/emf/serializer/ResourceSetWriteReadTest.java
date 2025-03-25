@@ -258,6 +258,9 @@ public class ResourceSetWriteReadTest {
 
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
+                cleaned = cleaned.replace("\"#", "\"");
+                cleaned = cleaned.replace(" #", " ");
+
                 sbReadme.append("```xmi");
                 sbReadme.append("\n");
                 sbReadme.append(cleaned);
