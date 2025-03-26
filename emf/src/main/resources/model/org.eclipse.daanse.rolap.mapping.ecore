@@ -485,6 +485,43 @@
         eType="#//CubeAccess"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessDatabaseSchemaGrant" eSuperTypes="#//IAccessDatabaseSchemaGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessDatabaseSchema">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return AccessDatabaseSchema.fromValue(getDatabaseSchemaAccess().getLiteral());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseSchemaAccess" lowerBound="1"
+        eType="#//DatabaseSchemaAccess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="tableGrants" lowerBound="1"
+        upperBound="-1" eType="#//AccessTableGrant" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="databaseSchema" lowerBound="1"
+        eType="#//DatabaseSchema"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessTableGrant" eSuperTypes="#//IAccessTableGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessTable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return AccessTable.fromValue(getTableAccess().getLiteral());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableAccess" lowerBound="1"
+        eType="#//TableAccess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columnGrants" lowerBound="1"
+        upperBound="-1" eType="#//AccessColumnGrant" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1"
+        eType="#//Table"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AccessColumnGrant" eSuperTypes="#//IAccessColumnGrant">
+    <eOperations name="getAccess" lowerBound="1" eType="#//AccessColumn">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return AccessColumn.fromValue(getColumnAccess().getLiteral());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnAccess" lowerBound="1"
+        eType="#//ColumnAccess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -542,6 +579,8 @@
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
         upperBound="-1" eType="#//AccessCubeGrant" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="databaseSchemaGrants" lowerBound="1"
+        upperBound="-1" eType="#//AccessDatabaseSchemaGrant" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="catalogAccess" lowerBound="1"
         eType="#//CatalogAccess"/>
   </eClassifiers>
@@ -626,6 +665,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IAccessCubeGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IAccessDatabaseSchemaGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessDatabaseSchemaGrantMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IAccessTableGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessTableGrantMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IAccessColumnGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessColumnGrantMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IAccessDimensionGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping"
       abstract="true" interface="true"/>
@@ -777,6 +822,20 @@
     <eLiterals name="CUSTOM" value="2" literal="custom"/>
     <eLiterals name="ALL_DIMENSIONS" value="3" literal="all_dimensions"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="DatabaseSchemaAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="TableAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ColumnAccess">
+    <eLiterals name="NONE" literal="none"/>
+    <eLiterals name="ALL" value="1" literal="all"/>
+  </eClassifiers>  
   <eClassifiers xsi:type="ecore:EEnum" name="CubeAccess">
     <eLiterals name="NONE" literal="none"/>
     <eLiterals name="ALL" value="1" literal="all"/>
@@ -1034,6 +1093,9 @@
     </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessCatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessDatabaseSchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDatabaseSchema"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessTable"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="AccessColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessColumn"/>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube"/>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension"/>
   <eClassifiers xsi:type="ecore:EDataType" name="AccessHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy"/>
