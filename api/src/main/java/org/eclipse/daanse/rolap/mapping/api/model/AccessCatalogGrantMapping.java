@@ -22,4 +22,5 @@ public interface AccessCatalogGrantMapping {
 
     AccessCatalog getAccess();
 
+    List<? extends AccessDatabaseSchemaGrantMapping> getDatabaseSchemaGrants();
 }

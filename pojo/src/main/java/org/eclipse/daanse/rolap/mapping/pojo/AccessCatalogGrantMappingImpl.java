@@ -22,13 +22,17 @@ public class AccessCatalogGrantMappingImpl implements AccessCatalogGrantMapping 
 
     private List<AccessCubeGrantMappingImpl> cubeGrant;
 
+    private List<AccessDatabaseSchemaGrantMappingImpl> databaseSchemaGrant;
     private AccessCatalog access;
+
 
     private AccessCatalogGrantMappingImpl(Builder builder) {
         this.cubeGrant = builder.cubeGrant;
         this.access = builder.access;
+        this.databaseSchemaGrant = builder.databaseSchemaGrant;
     }
 
+    @Override
     public List<AccessCubeGrantMappingImpl> getCubeGrants() {
         return cubeGrant;
     }
@@ -37,12 +41,22 @@ public class AccessCatalogGrantMappingImpl implements AccessCatalogGrantMapping 
         this.cubeGrant = cubeGrant;
     }
 
+    @Override
     public AccessCatalog getAccess() {
         return access;
     }
 
     public void setAccess(AccessCatalog access) {
         this.access = access;
+    }
+
+    @Override
+    public List<AccessDatabaseSchemaGrantMappingImpl> getDatabaseSchemaGrants() {
+        return databaseSchemaGrant;
+    }
+
+    public void setDatabaseSchemaGrants(List<AccessDatabaseSchemaGrantMappingImpl> databaseSchemaGrant) {
+        this.databaseSchemaGrant = databaseSchemaGrant;
     }
 
     public static Builder builder() {
@@ -52,12 +66,18 @@ public class AccessCatalogGrantMappingImpl implements AccessCatalogGrantMapping 
     public static final class Builder {
         private List<AccessCubeGrantMappingImpl> cubeGrant = new ArrayList<>();
         private AccessCatalog access;
+        private List<AccessDatabaseSchemaGrantMappingImpl> databaseSchemaGrant = new ArrayList<>();
 
         private Builder() {
         }
 
         public Builder withCubeGrant(List<AccessCubeGrantMappingImpl> cubeGrant) {
             this.cubeGrant = cubeGrant;
+            return this;
+        }
+
+        public Builder withDatabaseSchemaGrants(List<AccessDatabaseSchemaGrantMappingImpl> databaseSchemaGrant) {
+            this.databaseSchemaGrant = databaseSchemaGrant;
             return this;
         }
 
