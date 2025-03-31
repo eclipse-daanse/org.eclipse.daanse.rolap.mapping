@@ -53,6 +53,7 @@
     <module>accesscubegrand</module>
     <module>accesshierarchygrand</module>
     <module>accessschemagrand</module>
+    <module>accessdbschemagrand</module>
     <module>accessallnonecustom</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
