@@ -77,6 +77,19 @@
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MAX"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/AVG"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/DICTINCT_COUNT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/IPP"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/RND"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/FIRST"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/LAST"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MEDIAN"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MODE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MOVINGAVERAGE3"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/PERCENTILE90"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/QUARTILE3"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/RANGE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/STDDEV"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/VARIANCE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/TRUTH"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType">
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/STRING"/>

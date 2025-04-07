@@ -874,6 +874,19 @@
     <eLiterals name="MAX" value="4" literal="max"/>
     <eLiterals name="AVG" value="5" literal="avg"/>
     <eLiterals name="DICTINCT_COUNT" value="6" literal="distinct-count"/>
+    <eLiterals name="IPP" value="7" literal="Ipp"/>
+    <eLiterals name="RND" value="9" literal="Rnd"/>
+    <eLiterals name="FIRST" value="10" literal="first"/>
+    <eLiterals name="LAST" value="11" literal="last"/>
+    <eLiterals name="MEDIAN" value="11" literal="median"/>
+    <eLiterals name="MODE" value="12" literal="mode"/>
+    <eLiterals name="MOVINGAVERAGE3" value="13" literal="movingAverage3"/>
+    <eLiterals name="PERCENTILE90" value="14" literal="percentile90"/>
+    <eLiterals name="QUARTILE3" value="15" literal="quartile3"/>
+    <eLiterals name="RANGE" value="16" literal="range"/>
+    <eLiterals name="STDDEV" value="17" literal="stddev"/>
+    <eLiterals name="VARIANCE" value="18" literal="variance"/>
+    <eLiterals name="TRUTH" value="19" literal="truth"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>

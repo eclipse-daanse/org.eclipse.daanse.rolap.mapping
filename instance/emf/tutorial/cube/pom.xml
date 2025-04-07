@@ -27,6 +27,7 @@
     <module>measure.datatype</module>
     <module>measure.format</module>
     <module>measure.aggregator.base</module>
+    <module>measure.aggregator.levels</module>
     <module>measure.group</module>
     <module>dimension.intro</module>
     <module>hierarchy.query.table.base</module>

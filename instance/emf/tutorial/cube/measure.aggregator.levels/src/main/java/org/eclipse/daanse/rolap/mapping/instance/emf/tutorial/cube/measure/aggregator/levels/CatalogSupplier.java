@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.levels;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -22,13 +22,19 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -86,10 +92,35 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         valueColumn.setId("_col");
         valueColumn.setType(ColumnType.INTEGER);
 
+        Column columnCountry = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnCountry.setName("COUNTRY");
+        columnCountry.setId("_col_fact_country");
+        columnCountry.setType(ColumnType.VARCHAR);
+
+        Column columnContinent = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnContinent.setName("CONTINENT");
+        columnContinent.setId("_col_fact_cntinent");
+        columnContinent.setType(ColumnType.VARCHAR);
+
+        Column columnYear = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnYear.setName("YEAR");
+        columnYear.setId("_col_fact_year");
+        columnYear.setType(ColumnType.INTEGER);
+
+        Column columnMonth = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnMonth.setName("MONTH");
+        columnMonth.setId("_col_fact_month");
+        columnMonth.setType(ColumnType.INTEGER);
+
+        Column columnMonthName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnMonthName.setName("MONTH_NAME");
+        columnMonthName.setId("_col_fact_month_name");
+        columnMonthName.setType(ColumnType.VARCHAR);
+
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
         table.setId("_tab");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
+        table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -198,20 +229,91 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure17.setId("_measure17");
         measure17.setColumn(valueColumn);
 
+        Measure measure18 = RolapMappingFactory.eINSTANCE.createMeasure();
+        measure18.setAggregator(MeasureAggregator.TRUTH);
+        measure18.setName("truth of Value");
+        measure18.setId("_measure18");
+        measure18.setColumn(valueColumn);
+
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4,
                 measure5, measure6, measure7, measure8, measure9, measure10, measure11, measure12,
-                measure13, measure14, measure15, measure16, measure17));
+                measure13, measure14, measure15, measure16, measure17, measure18));
+
+        Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
+        levelTown.setName("Town");
+        levelTown.setId("_level_town");
+        levelTown.setColumn(keyColumn);
+
+        Level levelCountry = RolapMappingFactory.eINSTANCE.createLevel();
+        levelCountry.setName("Country");
+        levelCountry.setId("_level_country");
+        levelCountry.setColumn(columnCountry);
+
+        Level levelContinent = RolapMappingFactory.eINSTANCE.createLevel();
+        levelContinent.setName("Continent");
+        levelContinent.setId("_level_continent");
+        levelContinent.setColumn(columnContinent);
+
+        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        hierarchy.setName("TownHierarchy");
+        hierarchy.setId("_hierarchy_town");
+        hierarchy.setPrimaryKey(keyColumn);
+        hierarchy.setQuery(query);
+        hierarchy.getLevels().add(levelContinent);
+        hierarchy.getLevels().add(levelCountry);
+        hierarchy.getLevels().add(levelTown);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setName("Town");
+        dimension.setId("_dim_town");
+        dimension.getHierarchies().add(hierarchy);
+
+        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setDimension(dimension);
+        dimensionConnector1.setForeignKey(columnCountry);
+
+        Level levelYear = RolapMappingFactory.eINSTANCE.createLevel();
+        levelYear.setType(LevelDefinition.TIME_YEARS);
+        levelYear.setName("Year");
+        levelYear.setId("_level_year");
+        levelYear.setColumn(columnYear);
+
+        Level levelMonth = RolapMappingFactory.eINSTANCE.createLevel();
+        levelMonth.setType(LevelDefinition.TIME_MONTHS);
+        levelMonth.setName("Month");
+        levelMonth.setId("_level_month");
+        levelMonth.setColumn(columnMonth);
+        levelMonth.setNameColumn(columnMonthName);
+
+        Hierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        hierarchy1.setName("TimeHierarchy");
+        hierarchy1.setId("_hierarchy_time");
+        hierarchy1.setPrimaryKey(keyColumn);
+        hierarchy1.setQuery(query);
+        hierarchy1.getLevels().add(levelYear);
+        hierarchy1.getLevels().add(levelMonth);
+
+        TimeDimension dimensionTime = RolapMappingFactory.eINSTANCE.createTimeDimension();
+        dimensionTime.setName("Time");
+        dimensionTime.setId("_dim_time");
+        dimensionTime.getHierarchies().add(hierarchy1);
+
+        DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector2.setDimension(dimensionTime);
+        dimensionConnector2.setForeignKey(columnYear);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
         cube.setId("_cube");
         cube.setQuery(query);
+        cube.getDimensionConnectors().add(dimensionConnector1);
+        cube.getDimensionConnectors().add(dimensionConnector2);
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Aggregators");
+        catalog.setName("Cube - Measures and Aggregators with levels");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);

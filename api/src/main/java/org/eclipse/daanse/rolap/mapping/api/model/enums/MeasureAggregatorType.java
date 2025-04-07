@@ -15,7 +15,10 @@ package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
 public enum MeasureAggregatorType {
 
-    SUM("sum"), COUNT("count"), MIN("min"), MAX("max"), AVG("avg"), DICTINCT_COUNT("distinct-count");
+    SUM("sum"), COUNT("count"), MIN("min"), MAX("max"), AVG("avg"), DICTINCT_COUNT("distinct-count"),
+    IPP("Ipp"), NONE("None"), RND("Rnd"), FIRST("first"), LAST("last"), MEDIAN("median"), MODE("mode"),
+    MOVINGAVERAGE3("movingAverage3"), PERCENTILE90("percentile90"), QUARTILE3("quartile3"), RANGE("range"),
+    STDDEV("stddev"), VARIANCE("variance"), TRUTH("truth");
 
     private final String value;
 
