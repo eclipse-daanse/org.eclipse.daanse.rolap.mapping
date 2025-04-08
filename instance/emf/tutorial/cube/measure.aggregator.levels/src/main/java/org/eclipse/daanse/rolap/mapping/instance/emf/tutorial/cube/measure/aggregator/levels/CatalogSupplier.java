@@ -32,6 +32,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
@@ -123,6 +125,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName));
         databaseSchema.getTables().add(table);
 
+        SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        sqlStatement.setSql("SELECT \"Fact\".\"VALUE\" from \"Fact\" ORDER BY \"Fact\".\"KEY\" LIMIT 1"); // first value
+        sqlStatement.getDialects().add("generic");
+        sqlStatement.getDialects().add("h2");
+
+        SQLExpressionColumn c = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        c.setName("sql_expression");
+        c.setId("sql_expression");
+        c.getSqls().add(sqlStatement);
+
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
         query.setId("_query");
         query.setTable(table);
@@ -161,7 +173,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure6.setAggregator(MeasureAggregator.NONE);
         measure6.setName("None of Value");
         measure6.setId("_measure6");
-        measure6.setColumn(valueColumn);
+        measure6.setColumn(c);
 
         Measure measure7 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure7.setAggregator(MeasureAggregator.RND);
