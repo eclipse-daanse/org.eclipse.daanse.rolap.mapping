@@ -33,7 +33,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggColumnName;
 import org.eclipse.daanse.rolap.mapping.mondrian.model.AggExclude;
@@ -722,7 +721,7 @@ public class TransformTask {
 
     private MeasureMappingImpl transformMeasure(Measure measure) {
         MeasureMappingImpl m = MeasureMappingImpl.builder().build();
-        m.setAggregatorType(MeasureAggregatorType.fromValue(measure.aggregator()));
+        m.setAggregatorType(measure.aggregator());
         m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
         m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));

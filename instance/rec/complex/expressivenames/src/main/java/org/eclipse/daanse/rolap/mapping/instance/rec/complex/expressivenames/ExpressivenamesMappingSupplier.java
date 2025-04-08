@@ -18,7 +18,6 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -390,7 +389,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .builder()
         .withName("Measure1")
         .withColumn(M1_COLUMN)
-        .withAggregatorType(MeasureAggregatorType.SUM)
+        .withAggregatorType("sum")
         .withFormatString("Standard")
         .build();
 

@@ -69,15 +69,6 @@
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy/PARTIAL"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy/HIDDEN"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator">
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/NONE"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/SUM"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/COUNT"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MIN"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/MAX"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/AVG"/>
-      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregator/DICTINCT_COUNT"/>
-    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType">
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/STRING"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/NUMERIC"/>
@@ -156,7 +147,6 @@
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//HideMemberIfType"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//LevelType"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicyType"/>
-    <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//MeasureAggregatorType"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//ColumnDataType"/>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Documentation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/title"/>
@@ -243,12 +233,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Measure/column"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Measure/dataType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Measure/formatter"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Measure/aggregator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Measure/aggregatorType"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Measure/measureGroup"/>
       <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Measure/getDatatype"
           body="return InternalDataType.fromValue(getDataType().getLiteral());"/>
-      <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//Measure/getAggregatorType"
-          body="return MeasureAggregatorType.fromValue(getAggregator().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Kpi">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Kpi/translations"/>

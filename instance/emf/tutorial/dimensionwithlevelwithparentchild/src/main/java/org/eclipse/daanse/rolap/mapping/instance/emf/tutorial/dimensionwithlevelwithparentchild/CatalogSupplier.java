@@ -25,7 +25,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
@@ -143,7 +142,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         employeeClosureQuery.setTable(employeeClosureTable);
 
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        measure.setAggregatorType("sum");
         measure.setName("Measure");
         measure.setId("Measure");
         measure.setColumn(salaryColumn);

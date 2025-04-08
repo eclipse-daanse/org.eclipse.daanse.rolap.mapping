@@ -17,7 +17,6 @@ import java.util.List;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -48,7 +47,7 @@ public class TutorialMappingSupplierSupplier implements CatalogMappingSupplier {
     private final static MeasureMappingImpl measure = MeasureMappingImpl.builder()
             .withName("Measure-Sum")
             .withColumn(VALUE_COLUMN)
-            .withAggregatorType(MeasureAggregatorType.SUM)
+            .withAggregatorType("sum")
             .build();
 
     private final static MeasureGroupMappingImpl measureGroup = MeasureGroupMappingImpl.builder()

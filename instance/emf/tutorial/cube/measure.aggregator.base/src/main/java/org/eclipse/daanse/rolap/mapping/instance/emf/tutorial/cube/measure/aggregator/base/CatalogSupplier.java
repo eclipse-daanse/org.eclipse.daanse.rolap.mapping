@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -84,25 +83,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.SUM);
+        measure1.setAggregatorType("sum");
         measure1.setName("Sum of Value");
         measure1.setId("_measure1");
         measure1.setColumn(valueColumn);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure2.setAggregator(MeasureAggregator.MAX);
+        measure2.setAggregatorType("max");
         measure2.setName("Max of Value");
         measure2.setId("_measure2");
         measure2.setColumn(valueColumn);
 
         Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure3.setAggregator(MeasureAggregator.MIN);
+        measure3.setAggregatorType("min");
         measure3.setName("Min of Value");
         measure3.setId("_measure3");
         measure3.setColumn(valueColumn);
 
         Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure4.setAggregator(MeasureAggregator.AVG);
+        measure4.setAggregatorType("avg");
         measure4.setName("Avg of Value");
         measure4.setId("_measure4");
         measure4.setColumn(valueColumn);

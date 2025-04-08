@@ -85,7 +85,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
@@ -135,7 +134,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Link;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberFormatter;
@@ -820,7 +818,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
-            MeasureAggregatorType type) {
+            String type) {
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
@@ -834,7 +832,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setVisible(visible);
         measure.setName(name);
         measure.setId(id);
-        measure.setAggregator(toEmf(type));
+        measure.setAggregatorType(type);
         return measure;
     }
 
@@ -993,10 +991,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     }
 
     private CatalogAccess toEmf(AccessCatalog access) {
-        return null;
-    }
-
-    private MeasureAggregator toEmf(MeasureAggregatorType type) {
         return null;
     }
 

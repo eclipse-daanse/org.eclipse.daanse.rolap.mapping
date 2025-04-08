@@ -20,7 +20,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -340,14 +339,14 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withName("Quantity")
             .withColumn(QUANTITYORDERED_COLUMN_IN_ORDER_FACT)
             .withFormatString("#,###")
-            .withAggregatorType(MeasureAggregatorType.SUM)
+            .withAggregatorType("sum")
             .build();
 
     public static final MeasureMappingImpl salesMeasure = MeasureMappingImpl.builder()
             .withName("Sales")
             .withColumn(TOTALPRICE_COLUMN_IN_ORDER_FACT)
             .withFormatString("#,###")
-            .withAggregatorType(MeasureAggregatorType.SUM)
+            .withAggregatorType("sum")
             .build();
 
     public static final MeasureGroupMappingImpl steelWheelsSalesMeasureGroup = MeasureGroupMappingImpl.builder()

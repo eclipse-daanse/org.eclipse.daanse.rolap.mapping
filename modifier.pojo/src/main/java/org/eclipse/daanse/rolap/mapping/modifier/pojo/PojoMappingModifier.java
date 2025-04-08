@@ -86,7 +86,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AbstractTableMappingImpl;
@@ -672,7 +671,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     protected MeasureMapping createMeasure(
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
+        String formatString, String formatter, boolean visible, String name, String id, String type
     ) {
         return MeasureMappingImpl.builder()
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)

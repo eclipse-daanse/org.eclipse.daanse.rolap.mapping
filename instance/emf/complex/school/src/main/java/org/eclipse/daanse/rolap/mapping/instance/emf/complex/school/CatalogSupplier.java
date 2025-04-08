@@ -26,7 +26,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -1031,25 +1030,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure1.setName("Anzahl Schulen");
         measure1.setId("M_Anzahl_Schulen");
         measure1.setColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN);
-        measure1.setAggregator(MeasureAggregator.SUM);
+        measure1.setAggregatorType("sum");
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure2.setName("Anzahl Klassen");
         measure2.setId("M_Anzahl_Klassen");
         measure2.setColumn(ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN);
-        measure2.setAggregator(MeasureAggregator.SUM);
+        measure2.setAggregatorType("sum");
 
         Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure3.setName("Anzahl Personen");
         measure3.setId("M_Anzahl_Personen");
         measure3.setColumn(ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL);
-        measure3.setAggregator(MeasureAggregator.SUM);
+        measure3.setAggregatorType("sum");
 
         Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure4.setName("Anzahl Schüler:innen");
         measure4.setId("M_Anzahl_Schuler_innen");
         measure4.setColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER);
-        measure4.setAggregator(MeasureAggregator.SUM);
+        measure4.setAggregatorType("sum");
 
         MeasureGroup CUBE1_MEASURE_GROUP = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         CUBE1_MEASURE_GROUP.getMeasures().addAll(List.of(measure1, measure2));
