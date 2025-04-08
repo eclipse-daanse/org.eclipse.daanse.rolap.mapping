@@ -22,7 +22,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -110,13 +109,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.SUM);
+        measure1.setAggregatorType("sum");
         measure1.setName("Measure1");
         measure1.setId("Measure1");
         measure1.setColumn(valColumn);
 
         Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure2.setAggregator(MeasureAggregator.SUM);
+        measure2.setAggregatorType("sum");
         measure2.setName("Measure2");
         measure2.setId("Measure2");
         measure2.setColumn(val1Column);

@@ -144,17 +144,12 @@
         <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getAggregatorType" lowerBound="1" eType="#//MeasureAggregatorType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return MeasureAggregatorType.fromValue(getAggregator().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregator" eType="#//MeasureAggregator"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregatorType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroup" lowerBound="1"
         eType="#//MeasureGroup" eOpposite="#//MeasureGroup/measures"/>
   </eClassifiers>
@@ -866,15 +861,6 @@
     <eLiterals name="PARTIAL" value="1" literal="partial"/>
     <eLiterals name="HIDDEN" value="3" literal="hidden"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="MeasureAggregator">
-    <eLiterals name="NONE" literal="None"/>
-    <eLiterals name="SUM" value="1" literal="sum"/>
-    <eLiterals name="COUNT" value="2" literal="count"/>
-    <eLiterals name="MIN" value="3" literal="min"/>
-    <eLiterals name="MAX" value="4" literal="max"/>
-    <eLiterals name="AVG" value="5" literal="avg"/>
-    <eLiterals name="DICTINCT_COUNT" value="6" literal="distinct-count"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>
     <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
@@ -1104,6 +1090,5 @@
   <eClassifiers xsi:type="ecore:EDataType" name="HideMemberIfType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="MeasureAggregatorType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="ColumnDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType"/>
 </ecore:EPackage>

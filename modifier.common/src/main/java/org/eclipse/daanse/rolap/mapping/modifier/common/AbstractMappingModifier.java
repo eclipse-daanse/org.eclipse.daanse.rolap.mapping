@@ -98,7 +98,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
@@ -2484,7 +2483,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean visible = measureVisible(measure);
                 String name = measureName(measure);
                 String id = measureId(measure);
-                MeasureAggregatorType aggregatorType = aggregatorType(measure);
+                String aggregatorType = aggregatorType(measure);
                 MeasureMapping m = createMeasure( calculatedMemberProperty, cellFormatter, backColor,
                     column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
                 measureMap.put(measure, m);
@@ -2499,10 +2498,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected abstract MeasureMapping createMeasure(
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
+        String formatString, String formatter, boolean visible, String name, String id, String type
     );
 
-    protected MeasureAggregatorType aggregatorType(MeasureMapping measure) {
+    protected String aggregatorType(MeasureMapping measure) {
         return measure.getAggregatorType();
     }
 

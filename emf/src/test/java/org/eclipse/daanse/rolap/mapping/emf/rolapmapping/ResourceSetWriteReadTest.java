@@ -684,7 +684,7 @@ public class ResourceSetWriteReadTest {
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        measure.setAggregatorType("sum");
         measure.setName("Einwohnerzahl");
         measure.setColumn(columnEinwohnerAnzahl);
         measureGroup.getMeasures().add(measure);

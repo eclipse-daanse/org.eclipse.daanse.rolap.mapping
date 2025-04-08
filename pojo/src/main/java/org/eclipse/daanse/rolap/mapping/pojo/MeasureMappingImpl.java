@@ -19,7 +19,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapping {
 
@@ -31,7 +30,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
     private String formatter;
 
-    private MeasureAggregatorType aggregatorType;
+    private String aggregatorType;
 
     private MeasureGroupMapping measureGroup;
 
@@ -86,11 +85,11 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.formatter = formatter;
     }
 
-    public MeasureAggregatorType getAggregatorType() {
+    public String getAggregatorType() {
         return aggregatorType;
     }
 
-    public void setAggregatorType(MeasureAggregatorType type) {
+    public void setAggregatorType(String type) {
         this.aggregatorType = type;
     }
 
@@ -119,7 +118,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private boolean visible = true;
         private String name;
         private String id;
-        private MeasureAggregatorType aggregatorType;
+        private String aggregatorType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String description;
         private MeasureGroupMapping measureGroup;
@@ -183,7 +182,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
             return this;
         }
 
-        public Builder withAggregatorType(MeasureAggregatorType type) {
+        public Builder withAggregatorType(String type) {
             this.aggregatorType = type;
             return this;
         }
