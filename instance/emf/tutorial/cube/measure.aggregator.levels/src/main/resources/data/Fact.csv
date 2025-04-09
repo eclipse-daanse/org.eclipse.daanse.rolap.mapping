@@ -1,0 +1,34 @@
+"KEY","VALUE","COUNTRY","CONTINENT","YEAR","MONTH","MONTH_NAME"
+VARCHAR,INTEGER,VARCHAR,VARCHAR,INTEGER,INTEGER,VARCHAR
+Berlin,65,Germany,Europe,2024,1,January
+Paris,61,France,Europe,2024,1,January
+Hamburg,64,Germany,Europe,2024,1,January
+Berlin,38,Germany,Europe,2024,1,January
+Paris,32,France,Europe,2024,1,January
+Hamburg,36,Germany,Europe,2024,1,January
+Lion,42,France,Europe,2024,1,January
+New York,40,USA,America,2024,1,January
+Berlin,60,Germany,Europe,2024,2,February
+Paris,56,France,Europe,2024,2,February
+Hamburg,59,Germany,Europe,2024,2,February
+Berlin,33,Germany,Europe,2024,2,February
+Paris,27,France,Europe,2024,2,February
+Hamburg,31,Germany,Europe,2024,2,February
+Lion,37,France,Europe,2024,2,February
+New York,35,USA,America,2024,2,February
+Berlin,65,Germany,Europe,2024,3,March
+Paris,61,France,Europe,2024,3,March
+Hamburg,64,Germany,Europe,2024,3,March
+Berlin,38,Germany,Europe,2024,3,March
+Paris,32,France,Europe,2024,3,March
+Hamburg,36,Germany,Europe,2024,3,March
+Lion,42,France,Europe,2024,3,March
+New York,40,USA,America,2024,3,March
+Berlin,60,Germany,Europe,2024,4,April
+Paris,56,France,Europe,2024,4,April
+Hamburg,59,Germany,Europe,2024,4,April
+Berlin,33,Germany,Europe,2024,4,April
+Paris,27,France,Europe,2024,4,April
+Hamburg,31,Germany,Europe,2024,4,April
+Lion,37,France,Europe,2024,4,April
+New York,35,USA,America,2024,4,April
