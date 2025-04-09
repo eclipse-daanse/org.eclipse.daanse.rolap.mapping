@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.levels;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.listagg;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -42,7 +42,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.2.1", source = Source.EMF)
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.2.100", source = Source.EMF)
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -64,19 +64,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             - MIN – Retrieves the minimum value.
             - MAX – Retrieves the maximum value.
             - AVG – Computes the average of the values.
-            - IPP – Computes the ipp of the values.
             - NONE – None
-            - RND – Retrieves the rnd value.
-            - FIRST – Retrieves the first value.
-            - LAST – Retrieves the last value.
-            - MEDIAN – Retrieves the median value.
-            - MODE – Retrieves the mode value.
-            - MOVINGAVERAGE3 – Retrieves the movingAverage3 value.
-            - PERCENTILE90 – Retrieves the percentile90 value.
-            - QUARTILE3 – Retrieves the quartile3 value.
-            - RANGE – Retrieves the range value.
-            - STDDEV – Retrieves the stdDev value.
-            - VARIANCE – Retrieves the variance value.
             """;
 
     @Override
@@ -119,14 +107,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnMonthName.setId("_col_fact_month_name");
         columnMonthName.setType(ColumnType.VARCHAR);
 
+        Column columnUser = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnUser.setName("USER");
+        columnUser.setId("_col_fact_user");
+        columnUser.setType(ColumnType.VARCHAR);
+
+        Column columnComment = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnComment.setName("COMMENT");
+        columnComment.setId("_col_fact_comment");
+        columnComment.setType(ColumnType.VARCHAR);
+
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
         table.setId("_tab");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName));
+        table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName, columnUser, columnComment));
         databaseSchema.getTables().add(table);
 
+
         SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE.createSqlStatement();
-        sqlStatement.setSql("SELECT \"Fact\".\"VALUE\" from \"Fact\" ORDER BY \"Fact\".\"KEY\" LIMIT 1"); // first value
+        sqlStatement.setSql("LISTAGG( DISTINCT CONCAT(\"Fact\".\"USER\", ' : ',  \"Fact\".\"COMMENT\"), ', ') WITHIN GROUP (ORDER BY \"Fact\".\"CONTINENT\")");
         sqlStatement.getDialects().add("generic");
         sqlStatement.getDialects().add("h2");
 
@@ -171,92 +170,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Measure measure6 = RolapMappingFactory.eINSTANCE.createMeasure();
         measure6.setAggregator(MeasureAggregator.NONE);
-        measure6.setName("None of Value");
+        measure6.setName("Comment");
         measure6.setId("_measure6");
         measure6.setColumn(c);
 
-        Measure measure7 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure7.setAggregator(MeasureAggregator.RND);
-        measure7.setName("Rnd of Value");
-        measure7.setId("_measure7");
-        measure7.setColumn(valueColumn);
-
-        Measure measure8 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure8.setAggregator(MeasureAggregator.FIRST);
-        measure8.setName("first of Value");
-        measure8.setId("_measure8");
-        measure8.setColumn(valueColumn);
-
-        Measure measure9 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure9.setAggregator(MeasureAggregator.LAST);
-        measure9.setName("last of Value");
-        measure9.setId("_measure9");
-        measure9.setColumn(valueColumn);
-
-        Measure measure10 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure10.setAggregator(MeasureAggregator.MEDIAN);
-        measure10.setName("median of Value");
-        measure10.setId("_measure10");
-        measure10.setColumn(valueColumn);
-
-        Measure measure11 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure11.setAggregator(MeasureAggregator.MODE);
-        measure11.setName("mode of Value");
-        measure11.setId("_measure11");
-        measure11.setColumn(valueColumn);
-
-        Measure measure12 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure12.setAggregator(MeasureAggregator.MOVINGAVERAGE3);
-        measure12.setName("movingAverage3 of Value");
-        measure12.setId("_measure12");
-        measure12.setColumn(valueColumn);
-
-        Measure measure13 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure13.setAggregator(MeasureAggregator.PERCENTILE90);
-        measure13.setName("percentile90 of Value");
-        measure13.setId("_measure13");
-        measure13.setColumn(valueColumn);
-
-        Measure measure14 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure14.setAggregator(MeasureAggregator.QUARTILE3);
-        measure14.setName("quartile3 of Value");
-        measure14.setId("_measure14");
-        measure14.setColumn(valueColumn);
-
-        Measure measure15 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure15.setAggregator(MeasureAggregator.RANGE);
-        measure15.setName("range of Value");
-        measure15.setId("_measure15");
-        measure15.setColumn(valueColumn);
-
-        Measure measure16 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure16.setAggregator(MeasureAggregator.STDDEV);
-        measure16.setName("stddev of Value");
-        measure16.setId("_measure16");
-        measure16.setColumn(valueColumn);
-
-        Measure measure17 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure17.setAggregator(MeasureAggregator.VARIANCE);
-        measure17.setName("variance of Value");
-        measure17.setId("_measure17");
-        measure17.setColumn(valueColumn);
-
-        Measure measure18 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure18.setAggregator(MeasureAggregator.TRUTH);
-        measure18.setName("truth of Value");
-        measure18.setId("_measure18");
-        measure18.setColumn(valueColumn);
-
-        Measure measure19 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure19.setAggregator(MeasureAggregator.LISTAGG);
-        measure19.setName("list agg of Value");
-        measure19.setId("_measure19");
-        measure19.setColumn(columnMonthName);
-
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4,
-                measure5, measure6, measure7, measure8, measure9, measure10, measure11, measure12,
-                measure13, measure14, measure15, measure16, measure17, measure18, measure19));
+                measure5, measure6));
 
         Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
         levelTown.setName("Town");
@@ -331,7 +251,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Aggregators with levels");
+        catalog.setName("Cube - Measures and Aggregators with comments");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);

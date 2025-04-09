@@ -887,6 +887,7 @@
     <eLiterals name="STDDEV" value="17" literal="stddev"/>
     <eLiterals name="VARIANCE" value="18" literal="variance"/>
     <eLiterals name="TRUTH" value="19" literal="truth"/>
+    <eLiterals name="LISTAGG" value="20" literal="LISTAGG"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>

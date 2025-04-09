@@ -18,7 +18,7 @@ public enum MeasureAggregatorType {
     SUM("sum"), COUNT("count"), MIN("min"), MAX("max"), AVG("avg"), DICTINCT_COUNT("distinct-count"),
     IPP("Ipp"), NONE("None"), RND("Rnd"), FIRST("first"), LAST("last"), MEDIAN("median"), MODE("mode"),
     MOVINGAVERAGE3("movingAverage3"), PERCENTILE90("percentile90"), QUARTILE3("quartile3"), RANGE("range"),
-    STDDEV("stddev"), VARIANCE("variance"), TRUTH("truth");
+    STDDEV("stddev"), VARIANCE("variance"), TRUTH("truth"), LISTAGG("LISTAGG");
 
     private final String value;
 
