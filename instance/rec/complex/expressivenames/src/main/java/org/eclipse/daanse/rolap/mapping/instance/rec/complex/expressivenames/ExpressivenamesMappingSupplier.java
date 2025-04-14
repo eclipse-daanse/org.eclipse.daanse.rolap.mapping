@@ -18,7 +18,6 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -36,6 +35,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -386,11 +386,10 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withForeignKey(D3_COLUMN)
         .build();
 
-    private static final MeasureMappingImpl MEASURE_1_1 = MeasureMappingImpl
+    private static final SumMeasureMappingImpl MEASURE_1_1 = SumMeasureMappingImpl
         .builder()
         .withName("Measure1")
         .withColumn(M1_COLUMN)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withFormatString("Standard")
         .build();
 

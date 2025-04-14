@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
@@ -43,6 +42,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CountMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
@@ -61,6 +61,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.SQLExpressionMappingColumnImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.VirtualCubeMappingImpl;
@@ -2039,213 +2040,189 @@ public class FoodmartMappingSupplier implements CatalogMappingSupplier {
             .build()))
         .build();
 
-    public static final MeasureMappingImpl MEASURE_UNIT_SALES = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_UNIT_SALES = SumMeasureMappingImpl.builder()
         .withName(UNIT_SALES)
         .withColumn(UNIT_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STANDARD)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_UNIT_SALES_RAGGED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_UNIT_SALES_RAGGED = SumMeasureMappingImpl.builder()
         .withName(UNIT_SALES)
         .withColumn(UNIT_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STANDARD)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_UNIT_SALES_MEMBER_ORDINAL = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_UNIT_SALES_MEMBER_ORDINAL = SumMeasureMappingImpl.builder()
         .withName(UNIT_SALES)
         .withColumn(UNIT_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STANDARD)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("2").build()
         ))
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_COST = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_COST = SumMeasureMappingImpl.builder()
         .withName(STORE_COST)
         .withColumn(STORE_COST_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_COST_RAGGED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_COST_RAGGED = SumMeasureMappingImpl.builder()
         .withName(STORE_COST)
         .withColumn(STORE_COST_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_COST_WITH_PROPERTY = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_COST_WITH_PROPERTY = SumMeasureMappingImpl.builder()
         .withName(STORE_COST)
         .withColumn(STORE_COST_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("6").build()
         ))
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_SALES = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_SALES = SumMeasureMappingImpl.builder()
         .withName(STORE_SALES)
         .withColumn(STORE_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_SALES_RAGGED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_SALES_RAGGED = SumMeasureMappingImpl.builder()
         .withName(STORE_SALES)
         .withColumn(STORE_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_SALES_WITH_PROPERTY = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_SALES_WITH_PROPERTY = SumMeasureMappingImpl.builder()
         .withName(STORE_SALES)
         .withColumn(STORE_SALES_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("3").build()
         ))
         .build();
 
-    public static final MeasureMappingImpl MEASURE_SALES_COUNT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_SALES_COUNT = CountMeasureMappingImpl.builder()
         .withName(SALES_COUNT)
         .withColumn(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.COUNT)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_SALES_COUNT_RAGGED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_SALES_COUNT_RAGGED = CountMeasureMappingImpl.builder()
         .withName(SALES_COUNT)
         .withColumn(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.COUNT)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_SALES_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_SALES_COUNT_WITH_PROPERTY = CountMeasureMappingImpl.builder()
         .withName(SALES_COUNT)
         .withColumn(PRODUCT_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.COUNT)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("1").build()
         ))
         .build();
 
-    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT = CountMeasureMappingImpl.builder()
         .withName(CUSTOMER_COUNT)
         .withColumn(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
+        .withDistinct(true)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_RAGGED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_RAGGED = CountMeasureMappingImpl.builder()
         .withName(CUSTOMER_COUNT)
         .withColumn(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
+        .withDistinct(true)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_WITH_PROPERTY = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_CUSTOMER_COUNT_WITH_PROPERTY = CountMeasureMappingImpl.builder()
         .withName(CUSTOMER_COUNT)
         .withColumn(CUSTOMER_ID_COLUMN_IN_SALES_FACT_1997)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
+        .withDistinct(true)
         .withCalculatedMemberProperty(List.of(
             CalculatedMemberPropertyMappingImpl.builder().withName(MEMBER_ORDINAL).withValue("7").build()
         ))
         .build();
 
 
-    public static final MeasureMappingImpl MEASURE_PROMOTION_SALES = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_PROMOTION_SALES = SumMeasureMappingImpl.builder()
         .withName("Promotion Sales")
         .withFormatString(FORMAT_STRING_WITH_COMMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withColumn(MEASURE_PROMOTION_SALES_COL)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_INVOICE = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_INVOICE = SumMeasureMappingImpl.builder()
         .withName("Store Invoice")
         .withColumn(STORE_INVOICE_COLUMN_IN_INVENTORY_FACKT_1997)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_SUPPLY_TIME = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_SUPPLY_TIME = SumMeasureMappingImpl.builder()
         .withName("Supply Time")
         .withColumn(SUPPLY_TIME_COLUMN_IN_INVENTORY_FACKT_1997)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_WAREHOUSE_COST = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_WAREHOUSE_COST = SumMeasureMappingImpl.builder()
         .withName("Warehouse Cost")
         .withColumn(WAREHOUSE_COST_COLUMN_IN_INVENTORY_FACKT_1997)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_WAREHOUSE_SALES = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_WAREHOUSE_SALES = SumMeasureMappingImpl.builder()
         .withName("Warehouse Sales")
         .withColumn(WAREHOUSE_SALES_COLUMN_IN_INVENTORY_FACKT_1997)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_UNITS_SHIPPED = MeasureMappingImpl.builder()
+    public static final SumMeasureMappingImpl MEASURE_UNITS_SHIPPED = SumMeasureMappingImpl.builder()
         .withName("Units Shipped")
         .withColumn(UNITS_SHIPPED_COLUMN_IN_INVENTORY_FACKT_1997)
         .withFormatString("#.0")
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_UNITS_ORDERED = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_UNITS_ORDERED = SumMeasureMappingImpl.builder()
         .withName("Units Ordered")
         .withColumn(UNITS_ORDERED_COLUMN_IN_INVENTORY_FACKT_1997)
         .withFormatString("#.0")
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_WAREHOUSE_PROFIT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_WAREHOUSE_PROFIT = SumMeasureMappingImpl.builder()
         .withName("Warehouse Profit")
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .withColumn(
                 MEASURE_WAREHOUSE_PROFIT_COL
         )
         .build();
 
-    public static final MeasureMappingImpl MEASURE_STORE_SQFT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_STORE_SQFT = SumMeasureMappingImpl.builder()
         .withName(STORE_SQFT)
         .withColumn(STORE_SQFT_COLUMN_IN_STORE)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_GROCERY_SQFT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_GROCERY_SQFT = SumMeasureMappingImpl.builder()
         .withName(GROCERY_SQFT)
         .withColumn(GROCERY_SQFT_COLUMN_IN_STORE)
         .withFormatString(FORMAT_STRING_WITHOUT_COMMA)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_ORG_SALARY = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_ORG_SALARY = SumMeasureMappingImpl.builder()
         .withName("Org Salary")
         .withColumn(SALARY_PAID_COLUMN_IN_SALARY)
         .withFormatString(CURRENCY)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_COUNT = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_COUNT = CountMeasureMappingImpl.builder()
         .withName("Count")
         .withColumn(EMPLOYEE_ID_COLUMN_IN_SALARY)
         .withFormatString("#,#")
-        .withAggregatorType(MeasureAggregatorType.COUNT)
         .build();
 
-    public static final MeasureMappingImpl MEASURE_NUMBER_OF_EMPLOYEES = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl MEASURE_NUMBER_OF_EMPLOYEES = CountMeasureMappingImpl.builder()
         .withName("Number of Employees")
         .withColumn(EMPLOYEE_ID_COLUMN_IN_SALARY)
         .withFormatString("#,#")
-        .withAggregatorType(MeasureAggregatorType.DICTINCT_COUNT)
+        .withDistinct(true)
         .build();
 
     public static final MeasureGroupMappingImpl MEASURE_GROUP_FOR_CUBE_SALES = MeasureGroupMappingImpl.builder()

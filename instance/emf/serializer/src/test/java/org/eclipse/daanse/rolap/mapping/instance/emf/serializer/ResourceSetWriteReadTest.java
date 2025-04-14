@@ -475,7 +475,14 @@ public class ResourceSetWriteReadTest {
             add(RolapMappingPackage.Literals.ACTION);
 
             add(RolapMappingPackage.Literals.KPI);
-            add(RolapMappingPackage.Literals.MEASURE);
+            add(RolapMappingPackage.Literals.SUM_MEASURE);
+            add(RolapMappingPackage.Literals.MIN_MEASURE);
+            add(RolapMappingPackage.Literals.MAX_MEASURE);
+            add(RolapMappingPackage.Literals.AVG_MEASURE);
+            add(RolapMappingPackage.Literals.COUNT_MEASURE);
+            add(RolapMappingPackage.Literals.NONE_MEASURE);
+            add(RolapMappingPackage.Literals.CUSTOM_MEASURE);
+            add(RolapMappingPackage.Literals.TEXT_AGG_MEASURE);
             add(RolapMappingPackage.Literals.MEASURE_GROUP);
 
             add(RolapMappingPackage.Literals.PHYSICAL_CUBE);

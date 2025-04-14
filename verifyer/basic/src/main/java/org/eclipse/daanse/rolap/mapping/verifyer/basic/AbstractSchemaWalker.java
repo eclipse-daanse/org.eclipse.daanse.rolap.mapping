@@ -71,6 +71,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
@@ -166,11 +167,9 @@ public abstract class AbstractSchemaWalker {
             checkMeasureAggregation(measure, cube);
             checkAnnotationList(measure.getAnnotations());
             checkCalculatedMemberPropertyList(measure.getCalculatedMemberProperties());
-
-            if (measure.getColumn() instanceof SQLExpressionColumnMapping sec) {
-                checkExpressionView(sec);
+            if (measure instanceof SqlExpressionMeasureMapping semm) {
+                checkExpressionView(semm.getColumn());
             }
-
             checkCellFormatter(measure.getCellFormatter());
         }
     }

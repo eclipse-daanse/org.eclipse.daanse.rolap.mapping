@@ -22,17 +22,17 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
@@ -121,14 +121,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
 
-        Measure measureSum = RolapMappingFactory.eINSTANCE.createMeasure();
-        measureSum.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure1-Sum");
         measureSum.setId("Measure1-Sum");
         measureSum.setColumn(valueColumn);
 
-        Measure measureCount = RolapMappingFactory.eINSTANCE.createMeasure();
-        measureCount.setAggregator(MeasureAggregator.COUNT);
+        CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure2-Count");
         measureCount.setId("Measure2-Count");
         measureCount.setColumn(valueColumn);

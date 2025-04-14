@@ -57,6 +57,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -85,7 +86,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
@@ -105,6 +105,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationName;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationPattern;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Annotation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AvgMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BaseMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
@@ -113,9 +115,11 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Cube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CustomMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseCatalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Dimension;
@@ -134,15 +138,16 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Link;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MaxMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberPropertyFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MinMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Parameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -157,10 +162,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlSelectQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlView;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SystemTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Table;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TextAggMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Translation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ViewTable;
@@ -711,10 +718,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         virtualCube.getCalculatedMembers().addAll((Collection<? extends CalculatedMember>) calculatedMembers);
         virtualCube.getNamedSets().addAll((Collection<? extends NamedSet>) namedSets);
         virtualCube.getKpis().addAll((Collection<? extends Kpi>) kpis);
-        virtualCube.setDefaultMeasure((Measure) defaultMeasure);
+        virtualCube.setDefaultMeasure((BaseMeasure) defaultMeasure);
         virtualCube.setEnabled(enabled);
         virtualCube.setVisible(visible);
-        virtualCube.getReferencedMeasures().addAll((Collection<? extends Measure>) referencedMeasures);
+        virtualCube.getReferencedMeasures().addAll((Collection<? extends BaseMeasure>) referencedMeasures);
         virtualCube.getReferencedCalculatedMembers().addAll((Collection<? extends CalculatedMember>) referencedCalculatedMembers);
         virtualCube.getCubeUsages().addAll((Collection<? extends CubeConnector>) cubeUsages);
         return virtualCube;
@@ -738,7 +745,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         physicalCube.getCalculatedMembers().addAll((Collection<? extends CalculatedMember>) calculatedMembers);
         physicalCube.getNamedSets().addAll((Collection<? extends NamedSet>) namedSets);
         physicalCube.getKpis().addAll((Collection<? extends Kpi>) kpis);
-        physicalCube.setDefaultMeasure((Measure) defaultMeasure);
+        physicalCube.setDefaultMeasure((BaseMeasure) defaultMeasure);
         physicalCube.setEnabled(enabled);
         physicalCube.setVisible(visible);
         physicalCube.getMeasureGroups().addAll((Collection<? extends MeasureGroup>) measureGroups);
@@ -761,7 +768,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         action.setDescription(description);
         action.setName(name);
         action.getDrillThroughAttribute().addAll((Collection<? extends DrillThroughAttribute>) drillThroughAttribute);
-        action.getDrillThroughMeasure().addAll((Collection<? extends Measure>) drillThroughMeasure);
+        action.getDrillThroughMeasure().addAll((Collection<? extends BaseMeasure>) drillThroughMeasure);
         action.setDefault(def);
         return action;
     }
@@ -809,19 +816,18 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MeasureGroupMapping createMeasureGroup(List<? extends MeasureMapping> measures, String name) {
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll((Collection<? extends Measure>) measures);
+        measureGroup.getMeasures().addAll((Collection<? extends BaseMeasure>) measures);
         measureGroup.setName(name);
         return measureGroup;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MeasureMapping createMeasure(
+    protected MeasureMapping createSumMeasure(
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
-            String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
-            MeasureAggregatorType type) {
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -834,7 +840,95 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setVisible(visible);
         measure.setName(name);
         measure.setId(id);
-        measure.setAggregator(toEmf(type));
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createMaxMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
+        MaxMeasure measure = RolapMappingFactory.eINSTANCE.createMaxMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createMinMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
+        MinMeasure measure = RolapMappingFactory.eINSTANCE.createMinMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createAvgMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
+        AvgMeasure measure = RolapMappingFactory.eINSTANCE.createAvgMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createCountMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id, boolean distinct) {
+        CountMeasure measure = RolapMappingFactory.eINSTANCE.createCountMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setDistinct(distinct);
         return measure;
     }
 
@@ -996,10 +1090,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return null;
     }
 
-    private MeasureAggregator toEmf(MeasureAggregatorType type) {
-        return null;
-    }
-
     private ColumnInternalDataType toEmf(InternalDataType datatype) {
         return null;
     }
@@ -1150,6 +1240,90 @@ public class EmfMappingModifier extends AbstractMappingModifier {
                 }
             }
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createTextAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, boolean distinct, List<? extends OrderedColumnMapping> orderByColumns,
+            String separator, String coalesce, String onOverflowTruncate) {
+        TextAggMeasure measure = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setDistinct(distinct);
+        measure.getOrderByColumns().addAll((Collection<? extends OrderedColumn>) orderByColumns);
+        measure.setSeparator(separator);
+        measure.setCoalesce(coalesce);
+        measure.setOnOverflowTruncate(onOverflowTruncate);
+        return measure;
+    }
+
+    @Override
+    protected OrderedColumnMapping createOrderedColumn(ColumnMapping column, boolean ascend) {
+        OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn.setColumn((Column) column);
+        orderedColumn.setAscend(ascend);
+        return orderedColumn;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createCustomMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
+            String template, List<? extends ColumnMapping> columns, List<String> properties) {
+        CustomMeasure measure = RolapMappingFactory.eINSTANCE.createCustomMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setTemplate(template);
+        measure.getColumns().addAll((Collection<? extends Column>) columns);
+        measure.getProperties().addAll(properties);
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createNoneMeasure(List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id) {
+        TextAggMeasure measure = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        return measure;
     }
 
 }

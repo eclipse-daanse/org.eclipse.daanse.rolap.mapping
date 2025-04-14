@@ -683,8 +683,7 @@ public class ResourceSetWriteReadTest {
         cube.getDimensionConnectors().addAll(List.of(dcJahr, dcStatistischerBezirk, dcGeschlecht, dcAlter));
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Einwohnerzahl");
         measure.setColumn(columnEinwohnerAnzahl);
         measureGroup.getMeasures().add(measure);

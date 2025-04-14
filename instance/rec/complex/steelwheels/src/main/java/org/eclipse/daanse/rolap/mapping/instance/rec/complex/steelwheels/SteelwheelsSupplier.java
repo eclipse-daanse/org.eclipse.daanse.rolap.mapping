@@ -17,25 +17,25 @@ import java.util.List;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.osgi.service.component.annotations.Component;
@@ -336,18 +336,16 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(orderStatusHierarchy))
             .build();
 
-    public static final MeasureMappingImpl quantityMeasure = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl quantityMeasure = SumMeasureMappingImpl.builder()
             .withName("Quantity")
             .withColumn(QUANTITYORDERED_COLUMN_IN_ORDER_FACT)
             .withFormatString("#,###")
-            .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
-    public static final MeasureMappingImpl salesMeasure = MeasureMappingImpl.builder()
+    public static final MeasureMappingImpl salesMeasure = SumMeasureMappingImpl.builder()
             .withName("Sales")
             .withColumn(TOTALPRICE_COLUMN_IN_ORDER_FACT)
             .withFormatString("#,###")
-            .withAggregatorType(MeasureAggregatorType.SUM)
             .build();
 
     public static final MeasureGroupMappingImpl steelWheelsSalesMeasureGroup = MeasureGroupMappingImpl.builder()
