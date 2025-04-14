@@ -23,13 +23,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
@@ -95,8 +94,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setAlias(FACT);
         query.setTable(table);
 
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure-Sum");
         measure.setId("Measure-Sum");
         measure.setColumn(valueColumn);

@@ -36,13 +36,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.AvgMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CountMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CustomMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
@@ -58,6 +62,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LinkMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MaxMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
@@ -65,7 +70,10 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.MinMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -74,14 +82,17 @@ import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SumMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SystemTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ViewTableMapping;
@@ -98,7 +109,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
@@ -171,7 +181,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
 
     }
-
 
     protected List<? extends DatabaseSchemaMapping> catalogDatabaseSchemas(CatalogMapping catalog2) {
         return databaseSchemas(catalog2.getDbschemas());
@@ -2471,12 +2480,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected MeasureMapping measure(MeasureMapping measure) {
         if (measure != null) {
             if (!measureMap.containsKey(measure)) {
+
                 List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty =
                     measureCalculatedMemberProperty(
                         measure);
                 CellFormatterMapping cellFormatter = measureCellFormatter(measure);
                 String backColor = measureBackColor(measure);
-                ColumnMapping column = measureColumn(measure);
+                ColumnMapping column = null;
+                if (measure instanceof ColumnMeasureMapping cmm) {
+                    column = measureColumn(cmm);
+                }
+                if (measure instanceof SqlExpressionMeasureMapping semm) {
+                    column = sqlExpressionMeasureColumn(semm);
+                }
                 InternalDataType datatype = measureDatatype(measure);
                 String displayFolder = measureDisplayFolder(measure);
                 String formatString = measureFormatString(measure);
@@ -2484,10 +2500,53 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 boolean visible = measureVisible(measure);
                 String name = measureName(measure);
                 String id = measureId(measure);
-                MeasureAggregatorType aggregatorType = aggregatorType(measure);
-                MeasureMapping m = createMeasure( calculatedMemberProperty, cellFormatter, backColor,
-                    column, datatype, displayFolder, formatString, formatter, visible, name, id, aggregatorType);
-                measureMap.put(measure, m);
+                MeasureMapping m = null;
+                if (measure instanceof SumMeasureMapping) {
+                    m = createSumMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                        column, datatype, displayFolder, formatString, formatter, visible, name, id);
+                }
+                if (measure instanceof MinMeasureMapping) {
+                    m = createMinMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id);
+                }
+                if (measure instanceof MaxMeasureMapping) {
+                    m = createMaxMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id);
+                }
+                if (measure instanceof CountMeasureMapping cmm) {
+                    boolean distinct = countMeasureDistinct(cmm);
+                    m = createCountMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id, distinct);
+                }
+                if (measure instanceof AvgMeasureMapping) {
+                    m = createAvgMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id);
+                }
+                if (measure instanceof NoneMeasureMapping nmm) {
+                    m = createNoneMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            (SQLExpressionColumnMapping)column, datatype, displayFolder, formatString, formatter, visible, name, id);
+                }
+                if (measure instanceof CustomMeasureMapping cmm) {
+                    String template = customMeasureTemplate(cmm);
+                    List<? extends ColumnMapping> columns = customMeasureColumns(cmm);
+                    List<String> properties = customMeasureProperties(cmm);
+
+                    m = createCustomMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id, template, columns, properties);
+                }
+                if (measure instanceof TextAggMeasureMapping tam) {
+                    boolean distinct = textAggMeasureDistinct(tam);
+                    List<? extends OrderedColumnMapping> orderByColumns = textAggMeasureOrderByColumns(tam);
+                    String separator = textAggMeasureSseparator(tam);
+                    String coalesce = textAggMeasureCoalesce(tam);
+                    String onOverflowTruncate = textAggMeasureOnOverflowTruncate(tam);
+                    m = createTextAggMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            (SQLExpressionColumnMapping)column, datatype, displayFolder, formatString, formatter, visible, name, id, distinct, orderByColumns, separator, coalesce, onOverflowTruncate);
+
+                }
+                if (m != null) {
+                    measureMap.put(measure, m);
+                }
                 return m;
             } else {
                 return measureMap.get(measure);
@@ -2496,15 +2555,113 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected abstract MeasureMapping createMeasure(
+    protected abstract MeasureMapping createTextAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, boolean distinct, List<? extends OrderedColumnMapping> orderByColumns,
+            String separator, String coalesce, String onOverflowTruncate);
+
+    private List<? extends OrderedColumnMapping> textAggMeasureOrderByColumns(TextAggMeasureMapping tam) {
+        return orderByColumns(tam.getOrderByColumns());
+    }
+
+    private List<? extends OrderedColumnMapping> orderByColumns(List<? extends OrderedColumnMapping> orderByColumns) {
+        if (orderByColumns != null) {
+            return orderByColumns.stream().map(this::orderByColumn).toList();
+        }
+        return List.of();
+    }
+
+    private OrderedColumnMapping orderByColumn(OrderedColumnMapping orderByColumn) {
+        ColumnMapping column = orderByColumnColumn(orderByColumn);
+        boolean ascend = orderByColumnAscend(orderByColumn);
+        return createOrderedColumn(column, ascend);
+    }
+
+    protected abstract OrderedColumnMapping createOrderedColumn(ColumnMapping column, boolean ascend);
+
+    private boolean orderByColumnAscend(OrderedColumnMapping orderByColumn) {
+        return orderByColumn.isAscend();
+    }
+
+    private ColumnMapping orderByColumnColumn(OrderedColumnMapping orderByColumn) {
+        return column(orderByColumn.getColumn());
+    }
+
+    private String textAggMeasureOnOverflowTruncate(TextAggMeasureMapping tam) {
+        return tam.getOnOverflowTruncate();
+    }
+
+    private String textAggMeasureCoalesce(TextAggMeasureMapping tam) {
+        return tam.getCoalesce();
+    }
+
+    private String textAggMeasureSseparator(TextAggMeasureMapping tam) {
+        return tam.getSeparator();
+    }
+
+    private boolean textAggMeasureDistinct(TextAggMeasureMapping tam) {
+        return tam.isDistinct();
+    }
+
+    private List<? extends ColumnMapping> customMeasureColumns(CustomMeasureMapping cmm) {
+        return columns(cmm.getColumns());
+    }
+
+    protected abstract MeasureMapping createCustomMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
+            String template, List<? extends ColumnMapping> columns, List<String> properties);
+
+    private List<String> customMeasureProperties(CustomMeasureMapping cmm) {
+        return cmm.getProperties();
+    }
+
+    private String customMeasureTemplate(CustomMeasureMapping cmm) {
+        return cmm.getTemplate();
+    }
+
+    private boolean countMeasureDistinct(CountMeasureMapping measure) {
+        return measure.isDistinct();
+    }
+
+    protected abstract MeasureMapping createSumMeasure(
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
+        String formatString, String formatter, boolean visible, String name, String id
     );
 
-    protected MeasureAggregatorType aggregatorType(MeasureMapping measure) {
-        return measure.getAggregatorType();
-    }
+    protected abstract MeasureMapping createMinMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id
+        );
+
+    protected abstract MeasureMapping createMaxMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id
+        );
+
+    protected abstract MeasureMapping createAvgMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id
+        );
+
+    protected abstract MeasureMapping createCountMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id, boolean distinct
+        );
+
+    protected abstract MeasureMapping createNoneMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id
+        );
 
     protected String measureId(MeasureMapping measure) {
         return measure.getId();
@@ -2534,7 +2691,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return measure.getDatatype();
     }
 
-    protected ColumnMapping measureColumn(MeasureMapping measure) {
+    protected ColumnMapping measureColumn(ColumnMeasureMapping measure) {
+        return column(measure.getColumn());
+
+    }
+
+    protected ColumnMapping sqlExpressionMeasureColumn(SqlExpressionMeasureMapping measure) {
         return column(measure.getColumn());
 
     }

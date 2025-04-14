@@ -114,7 +114,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedCalculatedMembers"
         upperBound="-1" eType="#//CalculatedMember"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedMeasures" upperBound="-1"
-        eType="#//Measure"/>
+        eType="#//BaseMeasure"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CubeConnector" eSuperTypes="#//ICubeConnector">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreUnrelatedDimensions"
@@ -124,7 +124,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MeasureGroup" eSuperTypes="#//IMeasureGroup">
     <eStructuralFeatures xsi:type="ecore:EReference" name="measures" lowerBound="1"
-        upperBound="-1" eType="#//Measure" containment="true" eOpposite="#//Measure/measureGroup"/>
+        upperBound="-1" eType="#//BaseMeasure" containment="true" eOpposite="#//BaseMeasure/measureGroup"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
         eType="#//PhysicalCube" eOpposite="#//PhysicalCube/measureGroups"/>
@@ -138,23 +138,59 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Measure" eSuperTypes="#//IMeasure #//Member">
+  <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//SQLExpressionBaseMeasure">
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ColumnBaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ITextAggMeasure #//BaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1" upperBound="-1"
+        eType="#//OrderedColumn"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="coalesce"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="onOverflowTruncate"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//ICustomMeasure #//BaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="template"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1" upperBound="-1"
+        eType="#//Column"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="properties" lowerBound="1" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>  
+  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionBaseMeasure" eSuperTypes="#//ISqlExpressionBaseMeasure #//BaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//SQLExpressionColumn"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ColumnBaseMeasure" eSuperTypes="#//IColumnBaseMeasure #//BaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BaseMeasure" abstract="true" eSuperTypes="#//IBaseMeasure #//Member">
     <eOperations name="getDatatype" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eOperations name="getAggregatorType" lowerBound="1" eType="#//MeasureAggregatorType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return MeasureAggregatorType.fromValue(getAggregator().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggregator" eType="#//MeasureAggregator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroup" lowerBound="1"
         eType="#//MeasureGroup" eOpposite="#//MeasureGroup/measures"/>
   </eClassifiers>
@@ -370,7 +406,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="drillThroughAttribute"
         upperBound="-1" eType="#//DrillThroughAttribute" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drillThroughMeasure" upperBound="-1"
-        eType="#//Measure"/>
+        eType="#//BaseMeasure"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="false"/>
   </eClassifiers>
@@ -603,6 +639,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
   <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IOrderedColumn #//Column">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1" 
+        eType="#//Column"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ascend" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Column" abstract="true" eSuperTypes="#//IColumn #//AbstractElement">
     <eOperations name="getDataType" eType="#//ColumnDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -740,7 +782,15 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMeasureGroup" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping"
       abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping"
+  <eClassifiers xsi:type="ecore:EClass" name="IBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IColumnBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ColumnMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISqlExpressionBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ICustomMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CustomMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ITextAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberMapping"
       abstract="true" interface="true"/>
@@ -804,6 +854,8 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping"
       abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IOrderedColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping"
+      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ILink" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.LinkMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IInlineTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping"
@@ -865,15 +917,6 @@
     <eLiterals name="FULL" literal="full"/>
     <eLiterals name="PARTIAL" value="1" literal="partial"/>
     <eLiterals name="HIDDEN" value="3" literal="hidden"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="MeasureAggregator">
-    <eLiterals name="NONE" literal="None"/>
-    <eLiterals name="SUM" value="1" literal="sum"/>
-    <eLiterals name="COUNT" value="2" literal="count"/>
-    <eLiterals name="MIN" value="3" literal="min"/>
-    <eLiterals name="MAX" value="4" literal="max"/>
-    <eLiterals name="AVG" value="5" literal="avg"/>
-    <eLiterals name="DICTINCT_COUNT" value="6" literal="distinct-count"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>
@@ -1104,6 +1147,5 @@
   <eClassifiers xsi:type="ecore:EDataType" name="HideMemberIfType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="MeasureAggregatorType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="ColumnDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType"/>
 </ecore:EPackage>

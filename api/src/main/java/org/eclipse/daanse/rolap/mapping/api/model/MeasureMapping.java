@@ -13,17 +13,12 @@
 package org.eclipse.daanse.rolap.mapping.api.model;
 
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public interface MeasureMapping extends MemberMapping{
 
     String getBackColor();
 
-    ColumnMapping getColumn();
-
     InternalDataType getDatatype();
-
-    MeasureAggregatorType getAggregatorType();
 
     MeasureGroupMapping getMeasureGroup();
 

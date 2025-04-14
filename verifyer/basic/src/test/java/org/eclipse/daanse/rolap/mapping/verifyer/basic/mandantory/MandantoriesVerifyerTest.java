@@ -62,7 +62,6 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.LEVEL_COLUMN_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.LEVEL_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.MEASURE;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.MEASURE_AGGREGATOR_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.MEASURE_COLUMN_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.MEASURE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.NAMED_SET_FORMULA_MUST_BE_SET;
@@ -130,6 +129,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SumMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
@@ -166,7 +166,7 @@ class MandantoriesVerifyerTest {
     CalculatedMemberPropertyMapping calculatedMemberProperty = mock(CalculatedMemberPropertyMapping.class);
     CalculatedMemberMapping calculatedMember = mock(CalculatedMemberMapping.class);
     MeasureGroupMapping measureGroup = mock(MeasureGroupMapping.class);
-    MeasureMapping measure = mock(MeasureMapping.class);
+    SumMeasureMapping measure = mock(SumMeasureMapping.class);
     HierarchyMapping hierarchy = mock(HierarchyMapping.class);
     LevelMapping level = mock(LevelMapping.class);
     MemberPropertyMapping property = mock(MemberPropertyMapping.class);
@@ -365,14 +365,13 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(6);
+            .hasSize(5);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
-            .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(CALCULATED_MEMBER_PROPERTY_NAME_MUST_BE_SET);
         assertThat(result).extracting(VerificationResult::title)
@@ -417,14 +416,13 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(36);
+            .hasSize(35);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
-            .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(String.format(LEVEL_NAME_MUST_BE_SET, NOT_SET))
             .contains(String.format(LEVEL_COLUMN_MUST_BE_SET, NOT_SET))
@@ -482,14 +480,13 @@ class MandantoriesVerifyerTest {
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(14);
+            .hasSize(13);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
-            .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(String.format(LEVEL_NAME_MUST_BE_SET, NOT_SET))
             .contains(FORMATTER_EITHER_A_CLASS_NAME_OR_A_SCRIPT_ARE_REQUIRED)
@@ -526,14 +523,13 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(9);
+            .hasSize(8);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
-            .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(PROPERTY_COLUMN_MUST_BE_SET);
 
@@ -570,14 +566,13 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(37);
+            .hasSize(36);
 
         assertThat(result)
             .extracting(VerificationResult::description)
             .contains(SCHEMA_NAME_MUST_BE_SET)
             .contains(String.format(FACT_NAME_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_NAME_MUST_BE_SET, "cubeName"))
-            .contains(String.format(MEASURE_AGGREGATOR_MUST_BE_SET, "cubeName"))
             .contains(String.format(MEASURE_COLUMN_MUST_BE_SET, "cubeName"))
             .contains(PROPERTY_COLUMN_MUST_BE_SET);
 

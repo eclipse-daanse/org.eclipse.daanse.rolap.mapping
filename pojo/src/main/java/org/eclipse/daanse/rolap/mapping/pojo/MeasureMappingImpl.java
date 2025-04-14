@@ -19,28 +19,21 @@ import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 
 public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapping {
 
     private String backColor;
 
-    private ColumnMapping column;
-
     private InternalDataType datatype;
 
     private String formatter;
 
-    private MeasureAggregatorType aggregatorType;
-
     private MeasureGroupMapping measureGroup;
 
-    private MeasureMappingImpl(Builder builder) {
+    protected MeasureMappingImpl(Builder builder) {
         this.backColor = builder.backColor;
-        this.column = builder.column;
         this.datatype = builder.datatype;
         this.formatter = builder.formatter;
-        this.aggregatorType = builder.aggregatorType;
         this.measureGroup = builder.measureGroup;
         super.setName(builder.name);
         super.setId(builder.id);
@@ -62,14 +55,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.backColor = backColor;
     }
 
-    public ColumnMapping getColumn() {
-        return column;
-    }
-
-    public void setColumn(PhysicalColumnMappingImpl column) {
-        this.column = column;
-    }
-
     public InternalDataType getDatatype() {
         return datatype;
     }
@@ -86,14 +71,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         this.formatter = formatter;
     }
 
-    public MeasureAggregatorType getAggregatorType() {
-        return aggregatorType;
-    }
-
-    public void setAggregatorType(MeasureAggregatorType type) {
-        this.aggregatorType = type;
-    }
-
     public MeasureGroupMapping getMeasureGroup() {
         return measureGroup;
     }
@@ -106,7 +83,7 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         return new Builder();
     }
 
-    public static final class Builder {
+    public static class Builder {
 
         private List<CalculatedMemberPropertyMappingImpl> calculatedMemberProperties = new ArrayList<>();
         private CellFormatterMappingImpl cellFormatter;
@@ -119,12 +96,11 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
         private boolean visible = true;
         private String name;
         private String id;
-        private MeasureAggregatorType aggregatorType;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
         private String description;
         private MeasureGroupMapping measureGroup;
 
-        private Builder() {
+        protected Builder() {
         }
 
         public Builder withCalculatedMemberProperty(
@@ -140,11 +116,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
         public Builder withBackColor(String backColor) {
             this.backColor = backColor;
-            return this;
-        }
-
-        public Builder withColumn(ColumnMapping column) {
-            this.column = column;
             return this;
         }
 
@@ -180,11 +151,6 @@ public class MeasureMappingImpl extends MemberMappingImpl implements MeasureMapp
 
         public Builder withId(String id) {
             this.id = id;
-            return this;
-        }
-
-        public Builder withAggregatorType(MeasureAggregatorType type) {
-            this.aggregatorType = type;
             return this;
         }
 

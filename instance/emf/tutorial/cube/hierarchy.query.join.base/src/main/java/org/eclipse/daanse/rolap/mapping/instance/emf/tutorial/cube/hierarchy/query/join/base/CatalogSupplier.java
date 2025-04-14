@@ -27,13 +27,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
@@ -189,8 +188,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         queryJoinTownToCountry.setLeft(joinQueryElementTown);
         queryJoinTownToCountry.setRight(joinQueryElementCountry);
 
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("theMeasure");
         measure.setId("_measure");
         measure.setColumn(valueColumn);

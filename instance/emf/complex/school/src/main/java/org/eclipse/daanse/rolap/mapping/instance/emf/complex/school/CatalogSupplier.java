@@ -25,13 +25,12 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
@@ -1027,29 +1026,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Inklusion_DIMENSION.setId("Inklusion");
         Inklusion_DIMENSION.getHierarchies().addAll(List.of(HIERARCHY13));
 
-        Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
+        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Anzahl Schulen");
         measure1.setId("M_Anzahl_Schulen");
         measure1.setColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHULEN);
-        measure1.setAggregator(MeasureAggregator.SUM);
 
-        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
+        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Anzahl Klassen");
         measure2.setId("M_Anzahl_Klassen");
         measure2.setColumn(ANZAHL_KLASSEN_COLUMN_IN_FACT_SCHULEN);
-        measure2.setAggregator(MeasureAggregator.SUM);
 
-        Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
+        SumMeasure measure3 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure3.setName("Anzahl Personen");
         measure3.setId("M_Anzahl_Personen");
         measure3.setColumn(ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL);
-        measure3.setAggregator(MeasureAggregator.SUM);
 
-        Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
+        SumMeasure measure4 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure4.setName("Anzahl Schüler:innen");
         measure4.setId("M_Anzahl_Schuler_innen");
         measure4.setColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER);
-        measure4.setAggregator(MeasureAggregator.SUM);
 
         MeasureGroup CUBE1_MEASURE_GROUP = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         CUBE1_MEASURE_GROUP.getMeasures().addAll(List.of(measure1, measure2));

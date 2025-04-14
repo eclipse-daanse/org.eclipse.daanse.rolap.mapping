@@ -18,16 +18,18 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AvgMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MaxMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MinMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
@@ -83,26 +85,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setId("_query");
         query.setTable(table);
 
-        Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Sum of Value");
         measure1.setId("_measure1");
         measure1.setColumn(valueColumn);
 
-        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure2.setAggregator(MeasureAggregator.MAX);
+        MaxMeasure measure2 = RolapMappingFactory.eINSTANCE.createMaxMeasure();
         measure2.setName("Max of Value");
         measure2.setId("_measure2");
         measure2.setColumn(valueColumn);
 
-        Measure measure3 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure3.setAggregator(MeasureAggregator.MIN);
+        MinMeasure measure3 = RolapMappingFactory.eINSTANCE.createMinMeasure();
         measure3.setName("Min of Value");
         measure3.setId("_measure3");
         measure3.setColumn(valueColumn);
 
-        Measure measure4 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure4.setAggregator(MeasureAggregator.AVG);
+        AvgMeasure measure4 = RolapMappingFactory.eINSTANCE.createAvgMeasure();
         measure4.setName("Avg of Value");
         measure4.setId("_measure4");
         measure4.setColumn(valueColumn);

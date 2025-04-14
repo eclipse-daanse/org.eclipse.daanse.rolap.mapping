@@ -43,6 +43,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ColumnMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
@@ -64,6 +65,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
@@ -146,16 +148,21 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(MEASURE, msg, ERROR, Cause.SCHEMA));
 
             }
-            if (measure.getAggregatorType() == null) {
-                String msg = String.format(MEASURE_AGGREGATOR_MUST_BE_SET, orNotSet(cube.getName()));
-                results.add(new VerificationResultR(MEASURE, msg, ERROR, Cause.SCHEMA));
+            if (measure instanceof ColumnMeasureMapping cmm) {
+                if (cmm.getColumn() == null) {
+                    String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
+                    results.add(new VerificationResultR(MEASURE, msg, ERROR,
+                        Cause.SCHEMA));
+
+                }
             }
+            if (measure instanceof SqlExpressionMeasureMapping semm) {
+                if (semm.getColumn() == null) {
+                    String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
+                    results.add(new VerificationResultR(MEASURE, msg, ERROR,
+                        Cause.SCHEMA));
 
-            if (measure.getColumn() == null) {
-                String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
-                results.add(new VerificationResultR(MEASURE, msg, ERROR,
-                    Cause.SCHEMA));
-
+                }
             }
         }
     }

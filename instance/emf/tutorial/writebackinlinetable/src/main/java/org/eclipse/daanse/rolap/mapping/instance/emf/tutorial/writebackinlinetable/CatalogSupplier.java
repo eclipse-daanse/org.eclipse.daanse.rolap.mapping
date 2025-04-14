@@ -28,8 +28,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -37,6 +35,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.WritebackMeasure;
@@ -231,14 +230,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         join.setLeft(joinLeft);
         join.setRight(joinRight);
 
-        Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
         measure1.setId("Measure1");
         measure1.setColumn(valColumn);
 
-        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure2.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure2");
         measure2.setId("Measure2");
         measure2.setColumn(val1Column);

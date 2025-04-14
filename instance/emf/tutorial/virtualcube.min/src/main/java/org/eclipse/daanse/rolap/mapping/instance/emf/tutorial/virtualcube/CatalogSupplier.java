@@ -23,12 +23,11 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
 import org.osgi.service.component.annotations.Component;
@@ -91,14 +90,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query2.setId("c2TableQuery");
         query2.setTable(c2Table);
 
-        Measure measure1 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure1.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("C1-Measure-Sum");
         measure1.setId("C1-Measure-Sum");
         measure1.setColumn(value1Column);
 
-        Measure measure2 = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure2.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("C2-Measure-Sum");
         measure2.setId("C2-Measure-Sum");
         measure2.setColumn(value2Column);

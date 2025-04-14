@@ -138,7 +138,6 @@ public class SchemaWalkerMessages {
     public static final String CUBE_WITH_NAME_MUST_CONTAIN = "Cube with name %s must contain %s";
     public static final String MEASURE_NAME_MUST_BE_SET = "Measure name must be set for cube with name %s";
     public static final String KPI_NAME_MUST_BE_SET = "KPI name must be set for cube with name %s";
-    public static final String MEASURE_AGGREGATOR_MUST_BE_SET = "Measure Aggregator must be set for cube with name %s";
     public static final String KPI_VALUE_MUST_BE_SET = "KPI value must be set for KPI with name %s for cube with name %s";
     public static final String KPI_PARAM_WRONG = "KPI %s have wrong format for KPI with name %s for cube with name %s";
     public static final String KPI_PARAM_MUST_START_MEASURE = "KPI %s should start from '[measure].' for KPI with name %s for cube with name %s";

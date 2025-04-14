@@ -26,8 +26,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Measure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureAggregator;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -35,6 +33,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Row;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RowValue;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
@@ -144,8 +143,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         inlineTableQuery.setTable(inlineTable);
         inlineTableQuery.setAlias("HT");
 
-        Measure measure = RolapMappingFactory.eINSTANCE.createMeasure();
-        measure.setAggregator(MeasureAggregator.SUM);
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
         measure.setId("Measure1");
         measure.setColumn(valueColumn);

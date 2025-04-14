@@ -17,12 +17,10 @@ import java.util.List;
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
@@ -31,10 +29,12 @@ import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
@@ -769,28 +769,24 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withHierarchies(List.of(HIERARCHY13))
         .build();
 
-    private static final MeasureMappingImpl measure1 = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl measure1 = SumMeasureMappingImpl.builder()
         .withName("Anzahl Schulen")
         .withColumn(ANZAHL_SCHULEN_COLUMN_IN_FACT_SCHUELER)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    private static final MeasureMappingImpl measure2 = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl measure2 = SumMeasureMappingImpl.builder()
         .withName("Anzahl Klassen")
         .withColumn(KLASSEN_WDH_COLUMN_IN_FACT_SCHUELER)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    private static final MeasureMappingImpl measure3 = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl measure3 = SumMeasureMappingImpl.builder()
         .withName("Anzahl Personen")
         .withColumn(ANZAHL_PERSONEN_COLUMN_IN_FACT_PERSONAL)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
-    private static final MeasureMappingImpl measure4 = MeasureMappingImpl.builder()
+    private static final MeasureMappingImpl measure4 = SumMeasureMappingImpl.builder()
         .withName("Anzahl Schüler:innen")
         .withColumn(ANZAHL_SCHUELER_COLUMN_IN_FACT_SCHUELER)
-        .withAggregatorType(MeasureAggregatorType.SUM)
         .build();
 
     private static final MeasureGroupMappingImpl CUBE1_MEASURE_GROUP = MeasureGroupMappingImpl.builder()

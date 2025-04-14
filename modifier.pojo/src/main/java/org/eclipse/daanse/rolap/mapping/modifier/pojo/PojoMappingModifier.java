@@ -57,6 +57,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -86,7 +87,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.MeasureAggregatorType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AbstractTableMappingImpl;
@@ -108,12 +108,15 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationNameMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationPatternMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.AvgMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CellFormatterMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CountMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CubeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.CustomMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseCatalogImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
@@ -128,13 +131,17 @@ import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.KpiMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LinkMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.MaxMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MemberFormatterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MemberPropertyFormatterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.MinMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.NoneMeasureMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.OrderedColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
@@ -148,9 +155,11 @@ import org.eclipse.daanse.rolap.mapping.pojo.SqlSelectQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlStatementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SqlViewMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.StandardDimensionMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.SumMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.SystemTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TableQueryOptimizationHintMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.TextAggMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TimeDimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.TranslationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ViewTableMappingImpl;
@@ -669,12 +678,12 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected MeasureMapping createMeasure(
+    protected MeasureMapping createSumMeasure(
         List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
         CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
-        String formatString, String formatter, boolean visible, String name, String id, MeasureAggregatorType type
+        String formatString, String formatter, boolean visible, String name, String id
     ) {
-        return MeasureMappingImpl.builder()
+        return SumMeasureMappingImpl.builder()
             .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
             .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
             .withBackColor(backColor)
@@ -685,8 +694,169 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withVisible(visible)
             .withName(name)
             .withId(id)
-            .withAggregatorType(type)
             .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createMaxMeasure(
+        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id
+    ) {
+        return MaxMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn((ColumnMapping) column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createMinMeasure(
+        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id
+    ) {
+        return MinMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn((ColumnMapping) column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createAvgMeasure(
+        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id
+    ) {
+        return AvgMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn((ColumnMapping) column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createCountMeasure(
+        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+        CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id, boolean distinct
+    ) {
+        return CountMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn((ColumnMapping) column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .withDistinct(distinct)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createNoneMeasure(
+        List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+        CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column, InternalDataType datatype, String displayFolder,
+        String formatString, String formatter, boolean visible, String name, String id
+    ) {
+        return NoneMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn( column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createCustomMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
+            String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
+            String template, List<? extends ColumnMapping> columns, List<String> properties) {
+        return CustomMeasureMappingImpl.builder()
+                .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+                .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+                .withBackColor(backColor)
+                .withDatatype(datatype)
+                .withDisplayFolder(displayFolder)
+                .withFormatString(formatString)
+                .withVisible(visible)
+                .withName(name)
+                .withId(id)
+                .withTemplate(template)
+                .withColumns(columns)
+                .withProperties(properties)
+                .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createTextAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, boolean distinct, List<? extends OrderedColumnMapping> orderByColumns,
+            String separator, String coalesce, String onOverflowTruncate) {
+        return TextAggMeasureMappingImpl.builder()
+                .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+                .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+                .withBackColor(backColor)
+                .withDatatype(datatype)
+                .withDisplayFolder(displayFolder)
+                .withFormatString(formatString)
+                .withVisible(visible)
+                .withName(name)
+                .withId(id)
+                .withDistinct(distinct)
+                .withOrderedColumns(orderByColumns)
+                .withSeparator(separator)
+                .withCoalesce(coalesce)
+                .withOnOverflowTruncate(onOverflowTruncate)
+                .build();
+    }
+
+    @Override
+    protected OrderedColumnMapping createOrderedColumn(ColumnMapping column, boolean ascend) {
+        return OrderedColumnMappingImpl.builder()
+                .withColumn( column).withAscend(ascend)
+                .build();
     }
 
     @SuppressWarnings("unchecked")
