@@ -14,35 +14,24 @@ package org.eclipse.daanse.rolap.mapping.pojo;
 
 import java.util.List;
 
+import org.eclipse.daanse.rolap.mapping.api.model.BitAggMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 
-public class TextAggMeasureMappingImpl extends MeasureMappingImpl implements TextAggMeasureMapping{
+public class BitAggMeasureMappingImpl extends MeasureMappingImpl implements BitAggMeasureMapping{
 
-    private boolean distinct;
+    private boolean not;
 
     private ColumnMapping column;
 
-    private List<? extends OrderedColumnMapping> orderByColumns;
+    private BitAggregationType bitAggType;
 
-    private String separator;
-
-    private String coalesce;
-
-    private String onOverflowTruncate;
-
-
-
-    private TextAggMeasureMappingImpl(Builder builder) {
+    private BitAggMeasureMappingImpl(Builder builder) {
         super(builder);
         column = builder.column;
-        distinct = builder.distinct;
-        orderByColumns = builder.orderByColumns;
-        separator = builder.separator;
-        coalesce = builder.coalesce;
-        onOverflowTruncate = builder.onOverflowTruncate;
+        not = builder.not;
+        bitAggType = builder.bitAggType;
     }
 
     public ColumnMapping getColumn() {
@@ -50,28 +39,13 @@ public class TextAggMeasureMappingImpl extends MeasureMappingImpl implements Tex
     }
 
     @Override
-    public boolean isDistinct() {
-        return this.distinct;
+    public boolean isNot() {
+        return this.not;
     }
 
     @Override
-    public List<? extends OrderedColumnMapping> getOrderByColumns() {
-        return this.orderByColumns;
-    }
-
-    @Override
-    public String getSeparator() {
-        return this.separator;
-    }
-
-    @Override
-    public String getCoalesce() {
-        return this.coalesce;
-    }
-
-    @Override
-    public String getOnOverflowTruncate() {
-        return this.onOverflowTruncate;
+    public BitAggregationType getBitAggType() {
+        return this.bitAggType;
     }
 
     public static Builder builder() {
@@ -80,15 +54,27 @@ public class TextAggMeasureMappingImpl extends MeasureMappingImpl implements Tex
 
     public static final class Builder extends MeasureMappingImpl.Builder {
         private ColumnMapping column;
-        private boolean distinct;
-        private List<? extends OrderedColumnMapping> orderByColumns;
-        private String separator;
-        private String coalesce;
-        private String onOverflowTruncate;
+        private boolean not;
+        private BitAggregationType bitAggType;
 
 
         private Builder() {
             super();
+        }
+
+        public Builder withColumn(ColumnMapping column) {
+            this.column = column;
+            return this;
+        }
+
+        public Builder withNot(boolean not) {
+            this.not = not;
+            return this;
+        }
+
+        public Builder withBitAggType(BitAggregationType bitAggType) {
+            this.bitAggType = bitAggType;
+            return this;
         }
 
         public Builder withCalculatedMemberProperty(
@@ -104,36 +90,6 @@ public class TextAggMeasureMappingImpl extends MeasureMappingImpl implements Tex
 
         public Builder withBackColor(String backColor) {
             super.withBackColor(backColor);
-            return this;
-        }
-
-        public Builder withColumn(ColumnMapping column) {
-            this.column = column;
-            return this;
-        }
-
-        public Builder withDistinct(boolean distinct) {
-            this.distinct = distinct;
-            return this;
-        }
-
-        public Builder withOrderedColumns(List<? extends OrderedColumnMapping> orderByColumns) {
-            this.orderByColumns = orderByColumns;
-            return this;
-        }
-
-        public Builder withSeparator(String separator) {
-            this.separator = separator;
-            return this;
-        }
-
-        public Builder withCoalesce(String coalesce) {
-            this.coalesce = coalesce;
-            return this;
-        }
-
-        public Builder withOnOverflowTruncate(String onOverflowTruncate) {
-            this.onOverflowTruncate = onOverflowTruncate;
             return this;
         }
 
@@ -193,8 +149,8 @@ public class TextAggMeasureMappingImpl extends MeasureMappingImpl implements Tex
             return this;
         }
 
-        public TextAggMeasureMappingImpl build() {
-            return new TextAggMeasureMappingImpl(this);
+        public BitAggMeasureMappingImpl build() {
+            return new BitAggMeasureMappingImpl(this);
         }
 
     }

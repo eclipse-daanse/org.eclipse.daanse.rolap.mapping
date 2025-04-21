@@ -82,6 +82,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
@@ -107,6 +108,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Annotation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AvgMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BitAggMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BitAggType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
@@ -244,6 +247,11 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     private ColumnType toEmf(ColumnDataType type) {
         return ColumnType.valueOf(type.name().toUpperCase());
     }
+
+    private BitAggType toEmf(BitAggregationType type) {
+        return BitAggType.valueOf(type.name().toUpperCase());
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
@@ -840,6 +848,31 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setVisible(visible);
         measure.setName(name);
         measure.setId(id);
+        return measure;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createBitAggregationMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, BitAggregationType bitAggrigationType, boolean not) {
+        BitAggMeasure measure = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setNot(not);
+        measure.setAggType(toEmf(bitAggrigationType));
         return measure;
     }
 

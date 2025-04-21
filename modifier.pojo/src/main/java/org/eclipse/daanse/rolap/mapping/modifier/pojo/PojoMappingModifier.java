@@ -83,6 +83,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
@@ -109,6 +110,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.AggregationPatternMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AggregationTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AnnotationMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.AvgMeasureMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.BitAggMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberPropertyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
@@ -694,6 +696,29 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withVisible(visible)
             .withName(name)
             .withId(id)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createBitAggregationMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, BitAggregationType bitAggrigationType, boolean not) {
+        return BitAggMeasureMappingImpl.builder()
+            .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+            .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+            .withBackColor(backColor)
+            .withColumn((ColumnMapping) column)
+            .withDatatype(datatype)
+            .withDisplayFolder(displayFolder)
+            .withFormatString(formatString)
+            .withVisible(visible)
+            .withName(name)
+            .withId(id)
+            .withBitAggType(bitAggrigationType)
+            .withNot(not)
             .build();
     }
 

@@ -94,6 +94,11 @@
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/TIMESTAMP"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/BIGINT"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/XOR"/>
+    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition">
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/REGULAR"/>
       <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_YEARS"/>
@@ -148,6 +153,7 @@
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//LevelType"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicyType"/>
     <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//ColumnDataType"/>
+    <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//BitAggregationType"/>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Documentation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/title"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/value"/>
@@ -237,12 +243,17 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CountMeasure/distinct"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/column"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/orderByColumns"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/separator"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/distinct"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/coalesce"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/onOverflowTruncate"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure/aggType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure/not"/>
+      <genOperations ecoreOperation="org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure/getBitAggType"
+          body="return BitAggregationType.fromValue(getAggType().getLiteral());"/>
     </genClasses>
     <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure/template"/>
@@ -662,6 +673,7 @@
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ISqlExpressionBaseMeasure"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ICustomMeasure"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ITextAggMeasure"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IBitAggMeasure"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IMember"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IMemberProperty"/>
     <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//IMemberPropertyFormatter"/>
