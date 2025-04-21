@@ -58,6 +58,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.bit',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.multiple',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.format',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.datatype',\
@@ -103,6 +104,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.parent.ring;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.bit;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.datatype;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.format;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.group;version='[0.0.1,0.0.2)',\
@@ -118,7 +120,6 @@
 	org.eclipse.emf.common;version='[2.30.0,2.30.1)',\
 	org.eclipse.emf.ecore;version='[2.36.0,2.36.1)',\
 	org.eclipse.emf.ecore.xmi;version='[2.37.0,2.37.1)',\
-	org.gecko.emf.osgi.api;version='[6.2.0,6.2.1)',\
 	org.gecko.emf.osgi.component;version='[6.2.0,6.2.1)',\
 	org.opentest4j;version='[1.3.0,1.3.1)',\
 	org.osgi.service.cm;version='[1.6.1,1.6.2)',\
