@@ -12,17 +12,12 @@
  */
 package org.eclipse.daanse.rolap.mapping.api.model;
 
-import java.util.List;
 
-public interface TextAggMeasureMapping extends ColumnMeasureMapping{
+import org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType;
 
-    boolean isDistinct();
+public interface BitAggMeasureMapping extends ColumnMeasureMapping{
 
-    List<? extends OrderedColumnMapping> getOrderByColumns();
+    boolean isNot();
 
-    String getSeparator();
-
-    String getCoalesce();
-
-    String getOnOverflowTruncate();
+    BitAggregationType getBitAggType();
 }

@@ -37,6 +37,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.AvgMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.BitAggMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
@@ -104,6 +105,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
@@ -2544,6 +2546,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                             (SQLExpressionColumnMapping)column, datatype, displayFolder, formatString, formatter, visible, name, id, distinct, orderByColumns, separator, coalesce, onOverflowTruncate);
 
                 }
+                if (measure instanceof BitAggMeasureMapping bam) {
+                    boolean not = bitAggMeasureNot(bam);
+                    BitAggregationType bitAggrigationType =  bitAggMeasureBitAggType(bam);
+                    m = createBitAggregationMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            (SQLExpressionColumnMapping)column, datatype, displayFolder, formatString, formatter, visible, name, id, bitAggrigationType, not);
+
+                }
                 if (m != null) {
                     measureMap.put(measure, m);
                 }
@@ -2553,6 +2562,20 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             }
         }
         return null;
+    }
+
+    protected abstract MeasureMapping createBitAggregationMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, BitAggregationType bitAggrigationType, boolean not);
+
+    private BitAggregationType bitAggMeasureBitAggType(BitAggMeasureMapping bam) {
+        return bam.getBitAggType();
+    }
+
+    private boolean bitAggMeasureNot(BitAggMeasureMapping bam) {
+        return bam.isNot();
     }
 
     protected abstract MeasureMapping createTextAggMeasure(

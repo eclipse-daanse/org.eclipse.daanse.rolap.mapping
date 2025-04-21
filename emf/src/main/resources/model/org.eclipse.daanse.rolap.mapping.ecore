@@ -152,9 +152,7 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ITextAggMeasure #//BaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ITextAggMeasure #//ColumnBaseMeasure">
       <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1" upperBound="-1"
         eType="#//OrderedColumn"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator"
@@ -165,6 +163,16 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="onOverflowTruncate"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BitAggMeasure" eSuperTypes="#//IBitAggMeasure #//ColumnBaseMeasure">
+      <eOperations name="getBitAggType" lowerBound="1" eType="#//BitAggregationType">
+        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+          <details key="body" value="return BitAggregationType.fromValue(getAggType().getLiteral());"/>
+        </eAnnotations>
+      </eOperations>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggType" eType="#//BitAggType"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//ICustomMeasure #//BaseMeasure">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="template"
@@ -792,6 +800,8 @@
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ITextAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping"
       abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IBitAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.BitAggMeasureMapping"
+      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMemberProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping"
@@ -942,6 +952,11 @@
     <eLiterals name="TIME" value="12" literal="Time"/>
     <eLiterals name="TIMESTAMP" value="13" literal="Timestamp"/>
     <eLiterals name="BIGINT" value="14" literal="BinInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="BitAggType">
+    <eLiterals name="AND" literal="and"/>
+    <eLiterals name="OR" value="1" literal="or"/>
+    <eLiterals name="XOR" value="2" literal="xor"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LevelDefinition">
     <eLiterals name="REGULAR" literal="Regular">
@@ -1148,4 +1163,5 @@
   <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
   <eClassifiers xsi:type="ecore:EDataType" name="ColumnDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="BitAggregationType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType"/>
 </ecore:EPackage>
