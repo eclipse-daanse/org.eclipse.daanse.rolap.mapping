@@ -87,6 +87,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PercentileType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
@@ -153,6 +154,8 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Parameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PercentType;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PercentileMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Query;
@@ -250,6 +253,10 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     private BitAggType toEmf(BitAggregationType type) {
         return BitAggType.valueOf(type.name().toUpperCase());
+    }
+
+    private PercentType toEmf(PercentileType type) {
+        return PercentType.valueOf(type.name().toUpperCase());
     }
 
 
@@ -875,6 +882,32 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setAggType(toEmf(bitAggrigationType));
         return measure;
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createPercentileMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, Double percentile, PercentileType percentileType, OrderedColumnMapping ordColumn) {
+        PercentileMeasure measure = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setPercentile(percentile);
+        measure.setPercentType(toEmf(percentileType));
+        measure.setColumn((OrderedColumn) ordColumn);
+        return measure;
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
