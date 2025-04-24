@@ -77,6 +77,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.PercentileMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
@@ -111,6 +112,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PercentileType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
@@ -2553,6 +2555,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                             (SQLExpressionColumnMapping)column, datatype, displayFolder, formatString, formatter, visible, name, id, bitAggrigationType, not);
 
                 }
+                if (measure instanceof PercentileMeasureMapping pm) {
+                    Double percentile = percentileMeasurePercentile(pm);
+                    PercentileType percentileType = percentileMeasurePercentileType(pm);
+                    OrderedColumnMapping ordColumn = percentileMeasureOrderedColumn(pm);
+                    m = createPercentileMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            datatype, displayFolder, formatString, formatter, visible, name, id, percentile, percentileType, ordColumn);
+                }
                 if (m != null) {
                     measureMap.put(measure, m);
                 }
@@ -2562,6 +2571,24 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             }
         }
         return null;
+    }
+
+    protected abstract MeasureMapping createPercentileMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, Double percentile, PercentileType percentileType, OrderedColumnMapping ordColumn);
+
+    private OrderedColumnMapping percentileMeasureOrderedColumn(PercentileMeasureMapping pm) {
+        return orderByColumn(pm.getColumn());
+    }
+
+    private PercentileType percentileMeasurePercentileType(PercentileMeasureMapping pm) {
+        return pm.getPercentileType();
+    }
+
+    protected Double percentileMeasurePercentile(PercentileMeasureMapping pm) {
+        return pm.getPercentile();
     }
 
     protected abstract MeasureMapping createBitAggregationMeasure(

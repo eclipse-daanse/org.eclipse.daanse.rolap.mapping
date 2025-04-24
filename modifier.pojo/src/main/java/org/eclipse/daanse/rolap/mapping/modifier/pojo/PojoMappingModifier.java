@@ -88,6 +88,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.PercentileType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 import org.eclipse.daanse.rolap.mapping.pojo.AbstractTableMappingImpl;
@@ -146,6 +147,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.NoneMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.OrderedColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.PercentileMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
@@ -721,6 +723,30 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withNot(not)
             .build();
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createPercentileMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor,
+            InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
+            String name, String id, Double percentile, PercentileType percentileType, OrderedColumnMapping ordColumn) {
+        return PercentileMeasureMappingImpl.builder()
+                .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+                .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+                .withBackColor(backColor)
+                .withDatatype(datatype)
+                .withDisplayFolder(displayFolder)
+                .withFormatString(formatString)
+                .withVisible(visible)
+                .withName(name)
+                .withId(id)
+                .withPercentile(percentile)
+                .withColumn(ordColumn)
+                .withPercentileType(percentileType)
+                .build();
+    }
+
 
     @SuppressWarnings("unchecked")
     @Override
