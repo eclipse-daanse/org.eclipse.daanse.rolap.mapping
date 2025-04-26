@@ -1,0 +1,34 @@
+"KEY","VALUE","COUNTRY","CONTINENT","YEAR","MONTH","MONTH_NAME","USER","COMMENT"
+VARCHAR,INTEGER,VARCHAR,VARCHAR,INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR
+Berlin,65,Germany,Europe,2024,1,January,user1,comment1
+Paris,61,France,Europe,2024,1,January,user2,comment2
+Hamburg,64,Germany,Europe,2024,1,January,user1,comment1
+Berlin,38,Germany,Europe,2024,1,January,user3,comment3
+Paris,32,France,Europe,2024,1,January,user4,comment4
+Hamburg,36,Germany,Europe,2024,1,January,user1,comment1
+Lion,42,France,Europe,2024,1,January,user3,comment3
+New York,40,USA,America,2024,1,January,user1,comment1
+Berlin,60,Germany,Europe,2024,2,February,user4,comment4
+Paris,56,France,Europe,2024,2,February,user2,comment2
+Hamburg,59,Germany,Europe,2024,2,February,user2,comment2
+Berlin,33,Germany,Europe,2024,2,February,user1,comment1
+Paris,27,France,Europe,2024,2,February,user1,comment1
+Hamburg,31,Germany,Europe,2024,2,February,user3,comment3
+Lion,37,France,Europe,2024,2,February,user4,comment4
+New York,35,USA,America,2024,2,February,user1,comment1
+Berlin,65,Germany,Europe,2024,3,March,user1,comment1
+Paris,61,France,Europe,2024,3,March,user1,comment1
+Hamburg,64,Germany,Europe,2024,3,March,user1,comment1
+Berlin,38,Germany,Europe,2024,3,March,user1,comment1
+Paris,32,France,Europe,2024,3,March,user5,comment5
+Hamburg,36,Germany,Europe,2024,3,March,user4,comment4
+Lion,42,France,Europe,2024,3,March,user1,comment1
+New York,40,USA,America,2024,3,March,user1,comment1
+Berlin,60,Germany,Europe,2024,4,April,user3,comment3
+Paris,56,France,Europe,2024,4,April,user1,comment1
+Hamburg,59,Germany,Europe,2024,4,April,user1,comment1
+Berlin,33,Germany,Europe,2024,4,April,user5,comment5
+Paris,27,France,Europe,2024,4,April,user4,comment4
+Hamburg,31,Germany,Europe,2024,4,April,user1,comment1
+Lion,37,France,Europe,2024,4,April,user2,comment2
+New York,35,USA,America,2024,4,April,user1,comment1
