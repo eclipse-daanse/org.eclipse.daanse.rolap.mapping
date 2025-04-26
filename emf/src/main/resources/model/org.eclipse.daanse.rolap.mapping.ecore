@@ -138,17 +138,17 @@
         defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//IMinMeasure #//ColumnBaseMeasure">
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//IMaxMeasure #//ColumnBaseMeasure">
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ISumMeasure #//ColumnBaseMeasure">
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//IAvgMeasure #//ColumnBaseMeasure">
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//SQLExpressionBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//INoneMeasure #//SQLExpressionBaseMeasure">
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ICountMeasure #//ColumnBaseMeasure">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
   </eClassifiers>
@@ -809,6 +809,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="ISqlExpressionBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ICustomMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CustomMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMinMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MinMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IMaxMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MaxMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ISumMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SumMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IAvgMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AvgMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ICountMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CountMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="INoneMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ITextAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping"
       abstract="true" interface="true"/>
