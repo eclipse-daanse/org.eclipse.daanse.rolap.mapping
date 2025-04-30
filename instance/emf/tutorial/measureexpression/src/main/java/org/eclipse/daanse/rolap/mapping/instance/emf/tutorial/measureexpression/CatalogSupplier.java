@@ -94,9 +94,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sql2.setSql("(CASE WHEN \"FACT\".\"VALUE\" > 21 THEN 50 ELSE \"FACT\".\"VALUE\" END)");
 
         SQLExpressionColumn measureExpression1 = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        measureExpression1.setName("measureExpression1");
+        measureExpression1.setId("measureExpression1");
         measureExpression1.getSqls().addAll(List.of(sql1));
 
         SQLExpressionColumn measureExpression2 = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        measureExpression2.setName("measureExpression2");
+        measureExpression2.setId("measureExpression2");
         measureExpression2.getSqls().addAll(List.of(sql2));
 
         PhysicalTable table1 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
