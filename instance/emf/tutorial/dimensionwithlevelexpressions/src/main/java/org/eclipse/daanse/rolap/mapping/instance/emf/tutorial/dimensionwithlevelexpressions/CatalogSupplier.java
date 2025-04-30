@@ -82,6 +82,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         nameSql.setSql("\"KEY\" || ' ' || \"KEY1\"");
 
         SQLExpressionColumn nameExpressionColumn = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        nameExpressionColumn.setName("nameExpression");
+        nameExpressionColumn.setId("nameExpression");
         nameExpressionColumn.getSqls().add(nameSql);
 
         SqlStatement keySql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
@@ -92,6 +94,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         keySql2.setSql("\"KEY1\" || ' ' || \"KEY\"");
 
         SQLExpressionColumn keyExpression = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        keyExpression.setName("keyExpression");
+        keyExpression.setId("keyExpression");
         keyExpression.getSqls().addAll(List.of(keySql1, keySql2));
 
         SqlStatement captionSql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
@@ -102,6 +106,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         captionSql2.setSql("\"KEY1\" || '___' || \"KEY\"");
 
         SQLExpressionColumn captionExpression = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        captionExpression.setName("captionExpression");
+        captionExpression.setId("captionExpression");
         captionExpression.getSqls().addAll(List.of(captionSql1, captionSql2));
 
         SqlStatement ordinalSql1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
@@ -109,8 +115,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ordinalSql1.setSql("\"KEY\" || '___' || \"KEY1\"");
 
         SQLExpressionColumn ordinalExpression = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        ordinalExpression.setName("ordinalExpression");
+        ordinalExpression.setId("ordinalExpression");
         ordinalExpression.getSqls().addAll(List.of(ordinalSql1));
-
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);

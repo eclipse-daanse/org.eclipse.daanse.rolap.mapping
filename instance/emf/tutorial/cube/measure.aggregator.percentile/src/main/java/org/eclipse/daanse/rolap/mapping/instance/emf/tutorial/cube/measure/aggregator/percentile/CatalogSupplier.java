@@ -120,7 +120,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure3.setColumn(orderedColumn);
 
         PercentileMeasure measure4 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
-        measure4.setName("Percentile cont 0.25");
+        measure4.setName("Percentile cont 0.42");
         measure4.setId("_measure4");
         measure4.setPercentType(PercentType.CONT);
         measure4.setPercentile(0.42);
