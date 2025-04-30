@@ -82,6 +82,12 @@
       <version>${emf.ecore.xmi.version}</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>io.pebbletemplates</groupId>
+      <artifactId>pebble</artifactId>
+      <version>3.2.4</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
