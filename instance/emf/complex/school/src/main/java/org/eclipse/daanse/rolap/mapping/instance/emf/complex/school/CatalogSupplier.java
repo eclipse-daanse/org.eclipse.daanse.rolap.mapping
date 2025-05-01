@@ -32,9 +32,14 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
+import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
+import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
+import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
+@MappingInstance(kind = Kind.COMPLEX, number = "99.1.1", source = Source.EMF, group = "Full Examples") // NOSONAR
+
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String ALLE_SCHULEN = "Alle Schulen";

@@ -37,7 +37,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.4", source = Source.EMF) // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.4", source = Source.EMF, group = "Hierarchy") // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -50,7 +50,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
             - `allLevelName` Specifies the name for the top level itself.
 
-            - `allMemberName` Specifies the name of the member within this top level. If this attribute is not set, the default name is used in the form: “All <HierarchyName>”.
+            - `allMemberName` Specifies the name of the member within this top level. If this attribute is not set, the default name is used in the form: `All <HierarchyName>s`.
 
             By configuring these attributes, you can control whether a top-level aggregation appears, as well as how it is labeled in your hierarchy.
 
