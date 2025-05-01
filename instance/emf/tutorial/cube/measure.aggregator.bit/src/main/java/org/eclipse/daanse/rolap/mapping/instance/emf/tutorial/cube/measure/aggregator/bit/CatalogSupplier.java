@@ -18,27 +18,23 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AvgMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BitAggMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.BitAggType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MaxMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MinMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.2.6", source = Source.EMF)
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.2.6", source = Source.EMF, group = "Measure")
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 

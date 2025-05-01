@@ -34,7 +34,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.7.2", source = Source.EMF) // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.7.2", source = Source.EMF, group = "Kpi") // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -124,12 +124,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getKpis().add(kpi3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube - KPI parent ring");
+        catalog.setName("Kpi - parent ring");
         catalog.getCubes().add(cube);
 
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - KPI Introduction", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Kpi - Introduction", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
         document(kpi1, "KPI - value only", kpi1Body, 1, 2, 0, true, 0);
         document(kpi2, "KPI - DisplayFolder", kpi2Body, 1, 3, 0, true, 0);

@@ -43,15 +43,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-                A basic OLAP schema with a level
 
-                Data cubes (<Cube>) are defined in an OLAP schema (<Schema>). Within the schema the name of each data cube must be unique.
-                This example schema contains one cube named "Cube".
-
-            A closure table is a SQL table which contains a record for every employee/supervisor relationship,
-            regardless of depth. (In mathematical terms, this is called the 'reflexive transitive closure'
-            of the employee/supervisor relationship.
-            The distance column is not strictly required, but it makes it easier to populate the table.)
                     """;
 
     @Override

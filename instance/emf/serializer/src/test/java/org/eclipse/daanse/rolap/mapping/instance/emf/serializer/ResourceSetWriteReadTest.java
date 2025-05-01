@@ -26,11 +26,13 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -78,6 +80,7 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceSetWriteReadTest {
 
+    static int i = 0;
     static Path tempDir;
 
     @BeforeAll
@@ -116,12 +119,12 @@ public class ResourceSetWriteReadTest {
 
                     parentReadme.append("\n");
 
-                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier);
+                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier, sr.getProperties());
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            Path rootReadmeFile = Files.createFile(tempDir.resolve("README.MD"));
+            Path rootReadmeFile = Files.createFile(tempDir.resolve("index.md"));
             Files.writeString(rootReadmeFile, parentReadme);
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,10 +135,12 @@ public class ResourceSetWriteReadTest {
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
 
     private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
-            CatalogMappingSupplier catalogMappingSupplier) throws IOException {
+            CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary) throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
         name = name.substring(46);
+
+        Path fileReadme = Files.createFile(tempDir.resolve(name + ".md"));
 
         Path baseDir = Files.createDirectories(tempDir.resolve(name));
         Path dataDir = Files.createDirectories(baseDir.resolve("data"));
@@ -145,8 +150,41 @@ public class ResourceSetWriteReadTest {
 
         CatalogMapping cm = catalogMappingSupplier.get();
 
+        StringBuilder sbReadme = new StringBuilder();
+
+        sbReadme.append("---");
+        sbReadme.append("\n");
+
+        String grp = (String) dictionary.get("group");
+        grp = grp == null ? "Unstrutured" : grp;
+
+        String catName = cm.getName();
+
+        catName = catName.replaceFirst(grp + " - ", "");
+        sbReadme.append("title: " + catName);
+        sbReadme.append("\n");
+
+        sbReadme.append("group: " + grp);
+        sbReadme.append("\n");
+
+        String kind = (String) dictionary.get("kind");
+        kind = kind == null ? "other" : kind;
+        sbReadme.append("kind: " + kind);
+        sbReadme.append("\n");
+
+        String nr = (String) dictionary.get("number");
+        nr = nr == null ? "z" + i : nr;
+        sbReadme.append("number: " + nr);
+        sbReadme.append("\n");
+
+//        sbReadme.append("source: " + dictionary.get("source"));
+//        sbReadme.append("\n");
+
+        sbReadme.append("---");
+        sbReadme.append("\n");
+
         parentReadme.append("\n");
-        parentReadme.append("- [" + cm.getName() + "](./" + name + "/README.MD)");
+        parentReadme.append("- [" + cm.getName() + "](./" + name + ".md)");
 
         Catalog c = (Catalog) cm;
 
@@ -188,10 +226,6 @@ public class ResourceSetWriteReadTest {
         System.out.println(fileCatalog.toAbsolutePath());
         System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
         System.out.println("-------");
-
-        Path fileReadme = Files.createFile(baseDir.resolve("README.MD"));
-
-        StringBuilder sbReadme = new StringBuilder();
 
         for (Documentation documentation : docs) {
 
@@ -261,7 +295,7 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("\"#", "\"");
                 cleaned = cleaned.replace(" #", " ");
 
-                sbReadme.append("```xmi");
+                sbReadme.append("```xml");
                 sbReadme.append("\n");
                 sbReadme.append(cleaned);
                 sbReadme.append("\n");
@@ -281,7 +315,7 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("\n");
         sbReadme.append("\n");
 
-        sbReadme.append("```xmi");
+        sbReadme.append("```xml");
         sbReadme.append("\n");
         sbReadme.append(Files.readString(fileCatalog, StandardCharsets.UTF_8));
         sbReadme.append("\n");
@@ -320,7 +354,7 @@ public class ResourceSetWriteReadTest {
                 Files.write(p, csv, StandardOpenOption.CREATE);
 
                 String filename = p.getName(p.getNameCount() - 1).toString();
-                sbReadme.append("- [" + filename.replace(".csv", "") + "](./data/" + filename + ")");
+                sbReadme.append("- [" + filename.replace(".csv", "") + "](./data/" + name + "/" + filename + ")");
                 sbReadme.append("\n");
                 sbReadme.append("\n");
 

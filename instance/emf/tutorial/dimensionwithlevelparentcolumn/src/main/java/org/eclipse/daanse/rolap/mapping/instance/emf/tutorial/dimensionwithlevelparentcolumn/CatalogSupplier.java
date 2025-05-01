@@ -41,20 +41,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String FACT = "Fact";
 
     private static final String schemaDocumentationTxt = """
-    The parentColumn attribute is the name of the column which
-    links a member to its parent member; in this case,
-    it is the foreign key column which points to an employee's
-    supervisor. The ParentExpression child element of Level
-    is equivalent to the parentColumn attribute, but allows you to
-    define an arbitrary SQL expression, just like the Expression
-    element. The parentColumn attribute (or ParentExpression element)
-    is the only indication to Mondrian that a hierarchy has a
-    parent-child structure.
-    The nullParentValue attribute is the value which indicates
-    that a member has no parent. The default is
-    nullParentValue="null", but since many database don't index
-    null values, schema designers sometimes use values as the
-    empty string, 0, and -1 instead.
+
             """;
 
     @Override

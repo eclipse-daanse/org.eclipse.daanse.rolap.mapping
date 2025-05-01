@@ -25,4 +25,6 @@ public @interface MappingInstance {
 
     boolean failing() default false;
 
+    String group() default "";
+
 }

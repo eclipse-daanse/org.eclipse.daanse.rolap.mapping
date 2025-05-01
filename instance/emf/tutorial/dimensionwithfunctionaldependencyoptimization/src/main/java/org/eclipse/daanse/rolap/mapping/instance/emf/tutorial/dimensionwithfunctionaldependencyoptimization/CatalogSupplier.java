@@ -50,11 +50,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 of business rules associated with the systems producing the data, and often cannot be inferred
                 just by looking at the data itself.
             Functional dependencies are declared to Mondrian using the dependsOnLevelValue attribute of the
-            <Property> element and the uniqueKeyLevelName attribute of the <Hierarchy> element.
+            `<Property>` element and the uniqueKeyLevelName attribute of the `<Hierarchy>` element.
             The dependsOnLevelValue attribute of a member property is used to indicate that the value of the
-            member property is functionally dependent on the value of the <Level> in which the member property
+            member property is functionally dependent on the value of the `<Level>` in which the member property
             is defined. In other words, for a given value of the level, the value of the property is invariant.
-            The uniqueKeyLevelName attribute of a <Hierarchy> is used to indicate that the given level
+            The uniqueKeyLevelName attribute of a `<Hierarchy>` is used to indicate that the given level
             (if any) taken together with all higher levels in the hierarchy acts as a unique alternate key,
             ensuring that for any unique combination of those level values, there is exactly one combination
             of values for all levels below it.
