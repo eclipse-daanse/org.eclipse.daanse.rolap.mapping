@@ -338,7 +338,8 @@ A recommended reading order is provided below to help you build your understandi
         sbReadme.append("\n");
         sbReadme.append("```");
         sbReadme.append("\n");
-        sbReadme.append("[Mapping file](./"+name+"/mapping/catalog.xmi)");
+        sbReadme.append("<a href=\"./"+name+"/mapping/catalog.xmi\" download>Download Mapping File</a>");
+
         sbReadme.append("\n");
 
         sbReadme.append("\n");
