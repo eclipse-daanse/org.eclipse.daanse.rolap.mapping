@@ -32,7 +32,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -80,6 +79,24 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceSetWriteReadTest {
 
+
+    public static final String TEXT = """
+# 📘 Introduction: Data Cube Modeling Tutorials
+
+Welcome to our comprehensive tutorial series on data cube modeling. This collection is designed to guide you step by step through the core concepts and techniques used in modeling complex analytical data structures. Whether you're building a business intelligence solution or working on an OLAP engine, a solid understanding of the data cube, catalogs, schemas, and OLAP elements is essential.
+
+We start with the relational foundation – modeling catalogs, schemas, tables, and columns in a way that mirrors typical database systems. This layer serves as the cornerstone for everything that follows.
+
+From there, we transition into the world of OLAP modeling:
+You’ll learn how to define cubes, and how to enrich them with dimensions, hierarchies, and levels that reflect your business structure and enable powerful multidimensional queries.
+
+We strongly recommend beginning with the database tutorial, as it introduces the core data model that most of the other tutorials build upon. Before diving into advanced topics, it’s useful to revisit the introductions in each section, as they often highlight key transitions and modeling decisions.
+
+The Tutorials in the `unstructured` section agre bare Mapping descriptions and example files. They are designed for advaned users who are already familiar with the basics of data cube modeling. These tutorials provide a deeper dive into specific topics, showcasing advanced techniques and best practices for creating efficient and effective data models. Feel free to add Tutorial description and structure to this Tutotials.
+
+A recommended reading order is provided below to help you build your understanding progressively and systematically.
+
+            """;
     static int i = 0;
     static Path tempDir;
 
@@ -102,14 +119,14 @@ public class ResourceSetWriteReadTest {
 
             List<ServiceReference<CatalogMappingSupplier>> srs = mappingSuppiersSA.getServiceReferences();
             StringBuilder parentReadme = new StringBuilder();
-            parentReadme.append("# Tutorials ");
+            parentReadme.append(TEXT);
 
             srs.sort((o1, o2) -> {
                 Object s1 = o1.getProperty("number");
                 Object s2 = o2.getProperty("number");
 
-                String ss1 = s1 == null ? "" : s1.toString();
-                String ss2 = s2 == null ? "" : s2.toString();
+                String ss1 = s1 == null ? "9999.9.9" : s1.toString();
+                String ss2 = s2 == null ? "9999.9.9" : s2.toString();
                 return ss1.compareToIgnoreCase(ss2);
             });
             for (ServiceReference<CatalogMappingSupplier> sr : srs) {
@@ -184,7 +201,7 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("\n");
 
         parentReadme.append("\n");
-        parentReadme.append("- [" + cm.getName() + "](./" + name + ".md)");
+        parentReadme.append("[" + cm.getName() + "](./" + name + ".md)");
 
         Catalog c = (Catalog) cm;
 
@@ -321,13 +338,16 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("\n");
         sbReadme.append("```");
         sbReadme.append("\n");
+        sbReadme.append("[Mapping file](./"+name+"/mapping/catalog.xmi)");
+        sbReadme.append("\n");
+
+        sbReadme.append("\n");
 
         sbReadme.append("\n");
 
         sbReadme.append("## csv data");
         sbReadme.append("\n");
         sbReadme.append("\n");
-
         sbReadme.append("\n");
         sbReadme.append("This files represent the data in the tables.");
         sbReadme.append("\n");
@@ -348,7 +368,7 @@ public class ResourceSetWriteReadTest {
                 Files.write(p, csv, StandardOpenOption.CREATE);
 
                 String filename = p.getName(p.getNameCount() - 1).toString();
-                sbReadme.append("- [" + filename.replace(".csv", "") + "](./data/" + name + "/" + filename + ")");
+                sbReadme.append("- [" + filename.replace(".csv", "") + "](./"+name+"/data/"  + filename + ")");
                 sbReadme.append("\n");
                 sbReadme.append("\n");
 
