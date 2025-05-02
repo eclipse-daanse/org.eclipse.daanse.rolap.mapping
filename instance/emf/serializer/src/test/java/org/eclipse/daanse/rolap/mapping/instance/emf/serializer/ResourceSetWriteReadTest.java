@@ -14,6 +14,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.serializer;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -21,7 +22,6 @@ import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
-import java.nio.file.StandardOpenOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +34,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
@@ -79,24 +81,23 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceSetWriteReadTest {
 
-
     public static final String TEXT = """
-# 📘 Introduction: Data Cube Modeling Tutorials
+            # 📘 Introduction: Data Cube Modeling Tutorials
 
-Welcome to our comprehensive tutorial series on data cube modeling. This collection is designed to guide you step by step through the core concepts and techniques used in modeling complex analytical data structures. Whether you're building a business intelligence solution or working on an OLAP engine, a solid understanding of the data cube, catalogs, schemas, and OLAP elements is essential.
+            Welcome to our comprehensive tutorial series on data cube modeling. This collection is designed to guide you step by step through the core concepts and techniques used in modeling complex analytical data structures. Whether you're building a business intelligence solution or working on an OLAP engine, a solid understanding of the data cube, catalogs, schemas, and OLAP elements is essential.
 
-We start with the relational foundation – modeling catalogs, schemas, tables, and columns in a way that mirrors typical database systems. This layer serves as the cornerstone for everything that follows.
+            We start with the relational foundation – modeling catalogs, schemas, tables, and columns in a way that mirrors typical database systems. This layer serves as the cornerstone for everything that follows.
 
-From there, we transition into the world of OLAP modeling:
-You’ll learn how to define cubes, and how to enrich them with dimensions, hierarchies, and levels that reflect your business structure and enable powerful multidimensional queries.
+            From there, we transition into the world of OLAP modeling:
+            You’ll learn how to define cubes, and how to enrich them with dimensions, hierarchies, and levels that reflect your business structure and enable powerful multidimensional queries.
 
-We strongly recommend beginning with the database tutorial, as it introduces the core data model that most of the other tutorials build upon. Before diving into advanced topics, it’s useful to revisit the introductions in each section, as they often highlight key transitions and modeling decisions.
+            We strongly recommend beginning with the database tutorial, as it introduces the core data model that most of the other tutorials build upon. Before diving into advanced topics, it’s useful to revisit the introductions in each section, as they often highlight key transitions and modeling decisions.
 
-The Tutorials in the `unstructured` section agre bare Mapping descriptions and example files. They are designed for advaned users who are already familiar with the basics of data cube modeling. These tutorials provide a deeper dive into specific topics, showcasing advanced techniques and best practices for creating efficient and effective data models. Feel free to add Tutorial description and structure to this Tutotials.
+            The Tutorials in the `unstructured` section agre bare Mapping descriptions and example files. They are designed for advaned users who are already familiar with the basics of data cube modeling. These tutorials provide a deeper dive into specific topics, showcasing advanced techniques and best practices for creating efficient and effective data models. Feel free to add Tutorial description and structure to this Tutotials.
 
-A recommended reading order is provided below to help you build your understanding progressively and systematically.
+            A recommended reading order is provided below to help you build your understanding progressively and systematically.
 
-            """;
+                        """;
     static int i = 0;
     static Path tempDir;
 
@@ -159,9 +160,8 @@ A recommended reading order is provided below to help you build your understandi
 
         Path fileReadme = Files.createFile(tempDir.resolve(name + ".md"));
 
-        Path baseDir = Files.createDirectories(tempDir.resolve(name));
-        Path dataDir = Files.createDirectories(baseDir.resolve("data"));
-        Path keepFile = Files.createFile(dataDir.resolve(".keep"));
+        Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/tutorial/zip"));
+        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipDir.resolve(name + ".zip").toFile()));
 
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
@@ -205,11 +205,7 @@ A recommended reading order is provided below to help you build your understandi
 
         Catalog c = (Catalog) cm;
 
-        Path mappingDir = baseDir.resolve("mapping");
-        Files.createDirectories(mappingDir);
-        Path fileCatalog = Files.createFile(mappingDir.resolve("catalog.xmi"));
-
-        URI uriCatalog = URI.createFileURI(fileCatalog.toAbsolutePath().toString());
+        URI uriCatalog = URI.createFileURI("catalog.xmi");
         Resource resourceCatalog = resourceSet.createResource(uriCatalog);
 
         Set<EObject> set = new HashSet<>();
@@ -235,14 +231,14 @@ A recommended reading order is provided below to help you build your understandi
         }
         Map<Object, Object> options = new HashMap<>();
         options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-        resourceCatalog.save(options);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        resourceCatalog.save(baos, options);
 
-        System.out.println(baseDir);
-        System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
-        System.out.println("=======");
-        System.out.println(fileCatalog.toAbsolutePath());
-        System.out.println(Files.readString(fileCatalog, StandardCharsets.UTF_8));
-        System.out.println("-------");
+        ZipEntry entry = new ZipEntry(name + "/mapping/catalog.xmi");
+        zos.putNextEntry(entry);
+        zos.write(baos.toByteArray());
+        zos.closeEntry();
+        Files.createDirectories(zipDir);
 
         for (Documentation documentation : docs) {
 
@@ -291,10 +287,11 @@ A recommended reading order is provided below to help you build your understandi
 
                 Resource r = resourceSet.createResource(uro);
                 r.getContents().add(eoc);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                r.save(baos, null);
+                ByteArrayOutputStream baosDummy = new ByteArrayOutputStream();
+                r.save(baosDummy, null);
 
-                String cleaned = baos.toString().replace("file:" + fileCatalog.toAbsolutePath().toString(), "");
+                String cleaned = baosDummy.toString();
+                // .replace("file:" + fileCatalog.toAbsolutePath().toString(), "");
 
                 cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
                 cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",
@@ -334,11 +331,10 @@ A recommended reading order is provided below to help you build your understandi
 
         sbReadme.append("```xml");
         sbReadme.append("\n");
-        sbReadme.append(Files.readString(fileCatalog, StandardCharsets.UTF_8));
+        sbReadme.append(baos.toString(StandardCharsets.UTF_8));
         sbReadme.append("\n");
         sbReadme.append("```");
         sbReadme.append("\n");
-        sbReadme.append("<a href=\"./"+name+"/mapping/catalog.xmi\" download>Download Mapping File</a>");
 
         sbReadme.append("\n");
 
@@ -346,13 +342,12 @@ A recommended reading order is provided below to help you build your understandi
 
         sbReadme.append("\n");
 
-        sbReadme.append("## csv data");
+        sbReadme.append("## Turorial Zip");
+        sbReadme.append("\n");
+        sbReadme.append("This files contaisn the data-tables as csv and the mapping as xmi file.");
         sbReadme.append("\n");
         sbReadme.append("\n");
-        sbReadme.append("\n");
-        sbReadme.append("This files represent the data in the tables.");
-        sbReadme.append("\n");
-
+        sbReadme.append("<a href=\"./zip/" + name + ".zip\" download>Download Zip File</a>");
         sbReadme.append("\n");
 
         // List all XML files in the OSGI-INF directory and below
@@ -364,26 +359,15 @@ A recommended reading order is provided below to help you build your understandi
                 URL csvFile = eCsvs.nextElement();
                 byte[] csv = csvFile.openStream().readAllBytes();
 
-                Path p = baseDir.resolve(csvFile.getPath().substring(1));
-                Files.createDirectories(p.getParent());
-                Files.write(p, csv, StandardOpenOption.CREATE);
-
-                String filename = p.getName(p.getNameCount() - 1).toString();
-                sbReadme.append("- [" + filename.replace(".csv", "") + "](./"+name+"/data/"  + filename + ")");
-                sbReadme.append("\n");
-                sbReadme.append("\n");
-
-//            sbReadme.append("```csv");
-//            sbReadme.append("\n");
-//            sbReadme.append(new String(csv));
-//            sbReadme.append("\n");
-//            sbReadme.append("```");
-//            sbReadme.append("\n");
-//        System.out.println(fileDb.toAbsolutePath());
-//        System.out.println(Files.readString(fileDb, StandardCharsets.UTF_8));
+                ZipEntry entryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
+                zos.putNextEntry(entryCsv);
+                zos.write(csv);
+                zos.closeEntry();
             }
         }
+
         Files.writeString(fileReadme, sbReadme);
+        zos.close();
     }
 
     private void removeContentsOfLevel(EObject eoc, int contain) {
