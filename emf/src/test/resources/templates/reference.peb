@@ -1,0 +1,10 @@
+    <tr>
+      <td><strong>{{ ref.name }}</strong></td>
+      <td>{{ ref.eReferenceType.name }}<a href="./class-{{ ref.eReferenceType.name }}">🔗</a></td>
+      <td>{{ ref.lowerBound }}</td>
+      <td>{% if ref.upperBound == -1 %}&infin;{% else %}{{ ref.upperBound }}{% endif %}</td>
+      <td>{{ ref.containment }}</td>
+    </tr>
+    <tr>
+      <td colspan="5"><em>{{ doc(ref) }} here you will see the description.</em></td>
+    </tr>

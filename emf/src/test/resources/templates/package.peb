@@ -1,0 +1,34 @@
+## Package: {{ package.name }}
+
+URI: `{{ package.nsURI }}`
+Prefix: `{{ package.nsPrefix }}`
+
+{{ doc(package) }}
+
+
+## PackageDiagram
+
+A full overview of the package is given in the following diagram. It shows all classes and enums, their attributes and references. In the Pages of the Classes are diagrams with the Focus on the Class itself and only the related Classes.
+
+{% include "diagram-package.peb" with {"package": package} %}
+
+
+### All Classes and Enums
+
+
+{% for cls in package.eClassifiers%}
+{% if isEClass(cls) %}
+{% if not isEClassInterface(cls) %}
+- [Class {{ cls.name }}](#class-{{ cls.name | lower }})
+{% endif %}
+{% endif %}
+{% endfor %}
+
+
+{% for en in package.eClassifiers %}
+{% if isEEnum(en) %}
+- [Enum {{ en.name }}](#enum-{{ en.name | lower }})
+{% endif %}
+{% endfor %}
+
+

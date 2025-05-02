@@ -1,0 +1,14 @@
+---
+title: {{ enum.name }}
+
+group: Enum
+---
+
+# {{ enum.name }}
+<a name="enum-{{ enum.name | lower }}"></a>
+
+{{ doc(enum) }}
+
+{% for literal in enum.eLiterals %}
+- **{{ literal.name }}** ({{ literal.value }})
+{% endfor %}

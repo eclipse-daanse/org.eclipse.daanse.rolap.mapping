@@ -1,0 +1,76 @@
+---
+title: {{ class.name }}
+
+group: Class
+---
+
+# {{ class.name }}
+<a name="class-{{ class.name | lower }}"></a>
+
+{{ doc(class) }}
+
+{% if class.eSuperTypes.size > 0 %}
+## Extends
+{% for s in class.eSuperTypes %}
+{% if not isEClassInterface(s) %}
+- {{ s.name }} {% if s.EPackage == package %}[🔗](./class-{{ s.name }}){% endif %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+## Attributes
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Id</th>
+      <th>Typ</th>
+      <th>Lower</th>
+      <th>Upper</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for attr in class.eAttributes %}
+{% include "attribute.peb" with {"attr": attr} %}
+{% endfor %}
+  </tbody>
+</table>
+
+## References
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Typ</th>
+      <th>Lower</th>
+      <th>Upper</th>
+      <th>Containment</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for ref in class.eReferences %}
+{% include "reference.peb" with {"ref": ref, "class": class, "package": package} %}
+{% endfor %}
+  </tbody>
+</table>
+
+
+
+## Used by
+
+{% for other in allClasses %}
+{% if other != class %}
+{% for ref in other.eReferences %}
+{% if ref.eReferenceType == class %}
+- {{ other.name }}[🔗](./class-{{ other.name }}) → {{ ref.name }}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+## ClassDiagramm
+
+{% include "diagram-class.peb" with {"class": class} %}

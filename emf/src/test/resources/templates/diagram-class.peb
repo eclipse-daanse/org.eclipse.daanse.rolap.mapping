@@ -1,0 +1,21 @@
+```mermaid
+classDiagram
+  class {{ class.name }} {
+{% for attr in class.eAttributes %}
+    + {{ attr.name }} : {{ attr.eAttributeType.name }}
+
+{% endfor %}
+  }
+
+{% for super in class.eSuperTypes %}
+{% if not isEClassInterface(super) %}
+  {{ super.name }} <|-- {{ class.name }}
+{% endif %}
+{% endfor %}
+
+{% for ref in class.eReferences %}
+  {{ class.name }} --> {{ ref.eReferenceType.name }} : {{ ref.name }}
+
+{% endfor %}
+
+```

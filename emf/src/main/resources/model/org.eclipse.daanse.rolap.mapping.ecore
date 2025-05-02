@@ -19,6 +19,8 @@
   <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
     <details key="prefix" value="RolapMapping"/>
     <details key="basePackage" value="org.eclipse.daanse.rolap.mapping.emf"/>
+    <details key="documentation" value="Here will be the description for the package."/>
+
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
