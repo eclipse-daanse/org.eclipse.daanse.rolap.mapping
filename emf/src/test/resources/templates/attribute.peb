@@ -1,0 +1,10 @@
+    <tr>
+      <td><strong>{{ attr.name }}</strong></td>
+      <td>{{ attr.id }}</td>
+      <td><em>{{ attr.eAttributeType.name }}{% if isEEnum(attr.eAttributeType) %}<a href="./enum-{{ attr.eAttributeType.name }}">🔗</a>{% endif %}</em></td>
+      <td>{{ attr.lowerBound }}</td>
+      <td>{% if attr.upperBound == -1 %}&infin;{% else %}{{ attr.upperBound }}{% endif %}</td>
+    </tr>
+    <tr>
+      <td colspan="5"><em>{{ doc(attr) }} here you will see the description.</em></td>
+    </tr>

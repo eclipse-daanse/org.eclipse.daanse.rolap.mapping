@@ -46,7 +46,6 @@ header:
     - 'license.templates'
     - '**/logback-test.xml'
     - '**/*.svg'
-    - '**/rdb.xmi'
-    - '**/rolap.xmi'
+    - '**/*.peb'
 
   comment: always

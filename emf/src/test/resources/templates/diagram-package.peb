@@ -1,0 +1,20 @@
+```mermaid
+classDiagram
+{% for cls in package.eClassifiers  %}
+{% if isEClass(cls) %}
+{% if not isEClassInterface(cls) %}
+  class {{ cls.name }} {
+{% for attr in cls.eAttributes %}
+      + {{ attr.name }} : {{ attr.eAttributeType.name }}
+
+{% endfor %}
+  }
+{% for ref in cls.eReferences %}
+    {{ cls.name }} --> {{ ref.eReferenceType.name }} : {{ ref.name }}
+
+{% endfor %}
+{% endif %}
+{% endif %}
+
+{% endfor %}
+```
