@@ -291,7 +291,7 @@ public class ResourceSetWriteReadTest {
                 r.save(baosDummy, null);
 
                 String cleaned = baosDummy.toString();
-                // .replace("file:" + fileCatalog.toAbsolutePath().toString(), "");
+                cleaned=cleaned.replace("catalog.xmi#", "");
 
                 cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
                 cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",

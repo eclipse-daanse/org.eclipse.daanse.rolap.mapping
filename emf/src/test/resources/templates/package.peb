@@ -19,7 +19,7 @@ A full overview of the package is given in the following diagram. It shows all c
 {% for cls in package.eClassifiers%}
 {% if isEClass(cls) %}
 {% if not isEClassInterface(cls) %}
-- [Class {{ cls.name }}](#class-{{ cls.name | lower }})
+- [Class {{ cls.name }}](./class-{{ cls.name }}.md)
 {% endif %}
 {% endif %}
 {% endfor %}
@@ -27,7 +27,7 @@ A full overview of the package is given in the following diagram. It shows all c
 
 {% for en in package.eClassifiers %}
 {% if isEEnum(en) %}
-- [Enum {{ en.name }}](#enum-{{ en.name | lower }})
+- [Enum {{ en.name }}](./enum-{{ en.name }}.md)
 {% endif %}
 {% endfor %}
 
