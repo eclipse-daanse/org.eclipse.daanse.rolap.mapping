@@ -116,7 +116,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Aggregators");
+        catalog.setName("Measure - Basic Aggregators");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);

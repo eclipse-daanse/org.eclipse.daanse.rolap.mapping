@@ -304,6 +304,19 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("roma:StandardDimension #", "#");
                 cleaned = cleaned.replace("roma:Measure #", "#");
 
+
+                cleaned = cleaned.replace(" column=\"roma:PhysicalColumn ", " column=\"");
+                cleaned = cleaned.replace(" table=\"roma:PhysicalTable ", " table=\"");
+                cleaned = cleaned.replace(" primaryKey=\"roma:PhysicalColumn ", " primaryKey=\"");
+                cleaned = cleaned.replace(" query=\"roma:TableQuery ", " query=\"");
+                cleaned = cleaned.replace(" query=\"roma:JoinQuery ", " query=\"");
+                cleaned = cleaned.replace(" key=\"roma:PhysicalColumn ", " key=\"");
+                cleaned = cleaned.replace(" nameColumn=\"roma:PhysicalColumn ", " nameColumn=\"");
+
+
+                cleaned = cleaned.replace(" query=\"roma:JoinQuery ", " query=\"");
+
+
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
                 cleaned = cleaned.replace("\"#", "\"");
@@ -315,6 +328,8 @@ public class ResourceSetWriteReadTest {
                 sbReadme.append("\n");
                 sbReadme.append("```");
                 sbReadme.append("\n");
+                sbReadme.append("*<small>Note: This is only a symbolic example. For the exact definition, see the [Definition](#definition) section.</small>*");
+
                 sbReadme.append("\n");
 
             }

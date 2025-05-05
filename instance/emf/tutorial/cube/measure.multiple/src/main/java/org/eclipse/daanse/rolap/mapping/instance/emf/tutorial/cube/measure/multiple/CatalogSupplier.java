@@ -123,7 +123,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures Multiple");
+        catalog.setName("Measure - Multiple Measures");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures", introBody, 1, 0, 0, false, 0);

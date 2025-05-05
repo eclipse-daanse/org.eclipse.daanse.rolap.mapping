@@ -159,10 +159,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Hierarchy - Query based on seperate Tables for Fact and Dimension");
+        catalog.setName("Hierarchy - Query - seperate Tables, Fact and Dimension");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query based on seperate Tables for Fact and Dimension", introBody, 1, 0, 0,
+        document(catalog, "Hierarchy - Query - seperate Tables, Fact and Dimension", introBody, 1, 0, 0,
                 false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);

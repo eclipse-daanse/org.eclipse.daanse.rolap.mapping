@@ -177,7 +177,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Hierarchy - HasAll-Level");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - HasAll-Level", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Hierarchy - Level - HasAll", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
