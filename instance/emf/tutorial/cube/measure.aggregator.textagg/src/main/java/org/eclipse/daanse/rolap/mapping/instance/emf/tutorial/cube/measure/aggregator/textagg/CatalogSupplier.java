@@ -48,7 +48,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Data cubes can also have multiple measures when different aggregations are required for a column.
+            Data cubes have multiple measures when different aggregations are required for a column.
             """;
 
     private static final String databaseSchemaBody = """
@@ -68,7 +68,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
@@ -129,7 +129,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SQLExpressionColumn c = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         c.setName("sql_expression");
-        c.setId("sql_expression");
+        c.setId("_sql_expression");
         c.getSqls().add(sqlStatement);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -228,13 +228,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Text Aggregators with comments");
+        catalog.setName("Measure - Text Aggregator");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Measure with Text Aggregator", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);
+        document(cube, "Cube, MeasureGroup and Measure with Text Aggregator", cubeBody, 1, 3, 0, true, 2);
         return catalog;
 
     }
