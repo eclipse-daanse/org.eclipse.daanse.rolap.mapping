@@ -954,7 +954,7 @@
   <eClassifiers xsi:type="ecore:EEnum" name="RollupPolicy">
     <eLiterals name="FULL" literal="full"/>
     <eLiterals name="PARTIAL" value="1" literal="partial"/>
-    <eLiterals name="HIDDEN" value="3" literal="hidden"/>
+    <eLiterals name="HIDDEN" value="2" literal="hidden"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
     <eLiterals name="STRING" literal="String"/>
@@ -996,187 +996,187 @@
         <details key="documentation" value="Indicates that the level is not related to time."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_YEARS" literal="TimeYears">
+    <eLiterals name="TIME_YEARS" value="1" literal="TimeYears">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to years."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_HALF_YEARS" literal="TimeHalfYears">
+    <eLiterals name="TIME_HALF_YEARS" value="2" literal="TimeHalfYears">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to half years"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_QUARTERS" literal="TimeQuarters">
+    <eLiterals name="TIME_QUARTERS" value="3" literal="TimeQuarters">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to quarters"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_MONTHS" literal="TimeMonths">
+    <eLiterals name="TIME_MONTHS" value="4" literal="TimeMonths">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to months"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_WEEKS" literal="TimeWeeks">
+    <eLiterals name="TIME_WEEKS" value="5" literal="TimeWeeks">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to weeks"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_DAYS" literal="TimeDays">
+    <eLiterals name="TIME_DAYS" value="6" literal="TimeDays">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to days"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_HOURS" literal="TimeHours">
+    <eLiterals name="TIME_HOURS" value="7" literal="TimeHours">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to hours"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_MINUTES" literal="TimeMinutes">
+    <eLiterals name="TIME_MINUTES" value="8" literal="TimeMinutes">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to minutes"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_SECONDS" literal="TimeSeconds">
+    <eLiterals name="TIME_SECONDS" value="9" literal="TimeSeconds">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level refers to seconds"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="TIME_UNDEFINED" literal="TimeUndefined">
+    <eLiterals name="TIME_UNDEFINED" value="10" literal="TimeUndefined">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is an unspecified time period"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="NULL" literal="Null">
+    <eLiterals name="NULL" value="11" literal="Null">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the null member"/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_CONTINENT" literal="GeographicContinent">
+    <eLiterals name="GEO_CONTINENT" value="12" literal="GeographicContinent">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object Continent."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_REGION" literal="GeographicRegion">
+    <eLiterals name="GEO_REGION" value="13" literal="GeographicRegion">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object Region."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_COUNTRY" literal="GeographicCountry">
+    <eLiterals name="GEO_COUNTRY" value="14" literal="GeographicCountry">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object Country."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_STATE_OR_PROVINCE" literal="GeographicProvince">
+    <eLiterals name="GEO_STATE_OR_PROVINCE" value="15" literal="GeographicProvince">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical objects State or Province."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_COUNTY" literal="GeographicCounty">
+    <eLiterals name="GEO_COUNTY" value="16" literal="GeographicCounty">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object County."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_CITY" literal="GeographicCity">
+    <eLiterals name="GEO_CITY" value="17" literal="GeographicCity">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object City."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_POSTALCODE" literal="GeographicPostalCode">
+    <eLiterals name="GEO_POSTALCODE" value="18" literal="GeographicPostalCode">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object PostalCode."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="GEO_POINT" literal="GeographicPoint">
+    <eLiterals name="GEO_POINT" value="18" literal="GeographicPoint">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds the geographical object Point."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="ORG_UNIT" literal="OrganisationUnit">
+    <eLiterals name="ORG_UNIT" value="19" literal="OrganisationUnit">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds a OrganisationUnit."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="BOM_RESOURCE" literal="BomResource">
+    <eLiterals name="BOM_RESOURCE" value="20" literal="BomResource">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level holds a Bom Resource."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="QUANTITATIVE" literal="Quantitative">
+    <eLiterals name="QUANTITATIVE" value="21" literal="Quantitative">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a QUANTITATIVE."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="ACCOUNT" literal="Account">
+    <eLiterals name="ACCOUNT" value="22" literal="Account">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Account."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CUSTOMER" literal="Customer">
+    <eLiterals name="CUSTOMER" value="23" literal="Customer">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Customer."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CUSTOMER_GROUP" literal="CustomerGroup">
+    <eLiterals name="CUSTOMER_GROUP" value="24" literal="CustomerGroup">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a CustomerGroup."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CUSTOMER_HOUSEHOLD" literal="CustomerHouseHold">
+    <eLiterals name="CUSTOMER_HOUSEHOLD" value="25" literal="CustomerHouseHold">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a CustomerGroup."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="PRODUCT" literal="Product">
+    <eLiterals name="PRODUCT" value="26" literal="Product">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Product."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="PRODUCT_GROUP" literal="ProductGroup">
+    <eLiterals name="PRODUCT_GROUP" value="27" literal="ProductGroup">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a ProductGroup."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="SCENARIO" literal="Scenario">
+    <eLiterals name="SCENARIO" value="28" literal="Scenario">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Scenario."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="UTILITY" literal="Utility">
+    <eLiterals name="UTILITY" value="29" literal="Utility">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Utility."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="PERSON" literal="Person">
+    <eLiterals name="PERSON" value="30" literal="Person">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Person."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="COMPANY" literal="Company">
+    <eLiterals name="COMPANY" value="21" literal="Company">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Company."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CURRENCY_SOURCE" literal="CurrencySource">
+    <eLiterals name="CURRENCY_SOURCE" value="32" literal="CurrencySource">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a CurrencySource."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CURRENCY_DESTINATION" literal="CurrencyDestination">
+    <eLiterals name="CURRENCY_DESTINATION" value="33" literal="CurrencyDestination">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a CurrencyDestination."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="CHANNEL" literal="Channel">
+    <eLiterals name="CHANNEL" value="34" literal="Channel">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Channel."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="REPRESENTATIVE" literal="Representative">
+    <eLiterals name="REPRESENTATIVE" value="35" literal="Representative">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Representative."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="PROMOTION" literal="Promotion">
+    <eLiterals name="PROMOTION" value="36" literal="Promotion">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Promotion."/>
       </eAnnotations>
