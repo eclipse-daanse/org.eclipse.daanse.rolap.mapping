@@ -110,7 +110,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and MeasureGroups");
+        catalog.setName("Measure - MeasureGroups");
         catalog.getCubes().add(cube);
 
         document(catalog, "Cube - Measures and MeasureGroup", introBody, 1, 0, 0, false, 0);

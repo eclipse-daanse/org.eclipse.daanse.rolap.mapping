@@ -151,7 +151,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Hierarchy - Query based on all in one Table");
+        catalog.setName("Hierarchy - Query - all in 1 Table");
         catalog.getCubes().add(cube);
 
         document(catalog, "Hierarchy - Query based on all in one Table", introBody, 1, 0, 0, false, 0);

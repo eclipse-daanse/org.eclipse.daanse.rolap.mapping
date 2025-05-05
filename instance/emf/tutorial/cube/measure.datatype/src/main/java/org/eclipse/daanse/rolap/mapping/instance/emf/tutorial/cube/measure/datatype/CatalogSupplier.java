@@ -117,7 +117,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Datatypes");
+        catalog.setName("Measure - Datatypes");
         catalog.getCubes().add(cube);
 
         document(catalog, "Measures Formats", introBody, 1, 0, 0, false, 0);
