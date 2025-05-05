@@ -39,7 +39,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Data cubes can also have multiple measures when different aggregations are required for a column.
+            Data cubes have multiple measures with different bit aggregations are required for a column.
             """;
 
     private static final String databaseSchemaBody = """
@@ -135,13 +135,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Measures and Aggregators");
+        catalog.setName("Measure - Bit Aggragators");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Multiple Measures with Bit Aggragators", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);
+        document(cube, "Cube, MeasureGroup and Measures with Bit Aggragators", cubeBody, 1, 3, 0, true, 2);
         return catalog;
 
     }

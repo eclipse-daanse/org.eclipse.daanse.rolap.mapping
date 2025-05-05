@@ -44,7 +44,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            Data cubes can also have percentile measures.
+            Data cubes have percentile measures.
             """;
 
     private static final String databaseSchemaBody = """
@@ -72,7 +72,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
@@ -96,7 +96,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(valueColumn);
-        orderedColumn.setId("orderedColumn");
+        orderedColumn.setId("_orderedColumn");
 
         PercentileMeasure measure1 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
         measure1.setName("Percentile disc 0.25");
@@ -165,7 +165,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measure10.setName("Percentile cont 1.00");
         measure10.setId("_measure10");
         measure10.setPercentType(PercentType.CONT);
-        measure10.setPercentile(0.75);
+        measure10.setPercentile(1.00);
         measure10.setColumn(orderedColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -173,7 +173,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Level");
-        level.setId("Level");
+        level.setId("_level");
         level.setColumn(keyColumn);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
@@ -186,7 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Diml");
-        dimension.setId("Diml");
+        dimension.setId("_diml");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -203,13 +203,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Cube - Percentile");
+        catalog.setName("Measure - Percentile Aggragator");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Multiple Measures and Aggragators", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Multiple Percentile Aggragator Measures", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);
+        document(cube, "Cube, MeasureGroup and Multiple Percentile Aggragator Measures", cubeBody, 1, 3, 0, true, 2);
         return catalog;
     }
 
