@@ -380,6 +380,13 @@ public class ResourceSetWriteReadTest {
                 zos.closeEntry();
             }
         }
+        Enumeration<URL> keepCsvs = b.findEntries("data", "*.keep", true);
+        if (keepCsvs != null) {
+            URL keepFile = keepCsvs.nextElement();
+            ZipEntry entryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
+            zos.putNextEntry(entryKeep);
+            zos.closeEntry();
+        }
 
         Files.writeString(fileReadme, sbReadme);
         zos.close();
