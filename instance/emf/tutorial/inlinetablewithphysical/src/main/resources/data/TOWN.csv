@@ -1,0 +1,5 @@
+"KEY","KEY_COUNTRY","NAME"
+INTEGER,INTEGER,VARCHAR
+1,1,Berlin,
+2,1,Munich,
+3,2,Paris
