@@ -144,6 +144,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.MemberReaderParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MinMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NamedSetMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NoneMeasureMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.NthAggMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.OrderedColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
@@ -747,6 +748,29 @@ public class PojoMappingModifier extends AbstractMappingModifier {
                 .build();
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createNthAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id, boolean ignoreNulls,
+            Integer n, List<? extends OrderedColumnMapping> orderByColumns) {
+        return NthAggMeasureMappingImpl.builder()
+                .withCalculatedMemberProperty((List<CalculatedMemberPropertyMappingImpl>) calculatedMemberProperty)
+                .withCellFormatter((CellFormatterMappingImpl) cellFormatter)
+                .withBackColor(backColor)
+                .withColumn(column)
+                .withDatatype(datatype)
+                .withDisplayFolder(displayFolder)
+                .withFormatString(formatString)
+                .withVisible(visible)
+                .withName(name)
+                .withId(id)
+                .withIgnoreNulls(ignoreNulls)
+                .withN(n)
+                .withOrderedColumns(orderByColumns)
+                .build();
+    }
 
     @SuppressWarnings("unchecked")
     @Override

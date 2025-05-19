@@ -151,6 +151,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberPropertyFormatter
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberReaderParameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MinMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NthAggMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Parameter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
@@ -908,6 +909,31 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         return measure;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected MeasureMapping createNthAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id, boolean ignoreNulls,
+            Integer n, List<? extends OrderedColumnMapping> orderByColumns) {
+        NthAggMeasure measure = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        measure.getCalculatedMemberProperties()
+                .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
+        measure.setCellFormatter((CellFormatter) cellFormatter);
+        measure.setBackColor(backColor);
+        measure.setColumn((Column) column);
+        measure.setDataType(toEmf(datatype));
+        measure.setDisplayFolder(displayFolder);
+        measure.setFormatString(formatString);
+        measure.setFormatter(formatter);
+        measure.setVisible(visible);
+        measure.setName(name);
+        measure.setId(id);
+        measure.setIgnoreNulls(ignoreNulls);;
+        measure.setN(n);
+        measure.getOrderByColumns().addAll((Collection<? extends OrderedColumn>) orderByColumns);
+        return measure;
+    }
 
     @SuppressWarnings("unchecked")
     @Override

@@ -188,6 +188,13 @@
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentile" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
         defaultValueLiteral="1.0"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NthAggMeasure" eSuperTypes="#//INthAggMeasure #//ColumnBaseMeasure">
+      <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1" upperBound="-1"
+        eType="#//OrderedColumn"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreNulls" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
+      <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//ICustomMeasure #//BaseMeasure">
       <eStructuralFeatures xsi:type="ecore:EAttribute" name="template"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -829,6 +836,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="IBitAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.BitAggMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IPercentileMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PercentileMeasureMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="INthAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.NthAggMeasureMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberMapping"
       abstract="true" interface="true"/>

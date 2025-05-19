@@ -74,6 +74,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MinMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.NthAggMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
@@ -2562,6 +2563,13 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                     m = createPercentileMeasure( calculatedMemberProperty, cellFormatter, backColor,
                             datatype, displayFolder, formatString, formatter, visible, name, id, percentile, percentileType, ordColumn);
                 }
+                if (measure instanceof NthAggMeasureMapping nth) {
+                    boolean ignoreNulls = nthAggMeasureIgnoreNulls(nth);
+                    Integer n = nthAggMeasureN(nth);
+                    List<? extends OrderedColumnMapping> orderByColumns = nthAggMeasureOrderByColumns(nth);
+                    m = createNthAggMeasure( calculatedMemberProperty, cellFormatter, backColor,
+                            column, datatype, displayFolder, formatString, formatter, visible, name, id, ignoreNulls, n, orderByColumns);
+                }
                 if (m != null) {
                     measureMap.put(measure, m);
                 }
@@ -2571,6 +2579,25 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
             }
         }
         return null;
+    }
+
+
+    protected abstract MeasureMapping createNthAggMeasure(
+            List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperty,
+            CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
+            String formatString, String formatter, boolean visible, String name, String id, boolean ignoreNulls,
+            Integer n, List<? extends OrderedColumnMapping> orderByColumns);
+
+    private List<? extends OrderedColumnMapping> nthAggMeasureOrderByColumns(NthAggMeasureMapping nth) {
+        return orderByColumns(nth.getOrderByColumns());
+    }
+
+    private Integer nthAggMeasureN(NthAggMeasureMapping nth) {
+        return nth.getN();
+    }
+
+    private boolean nthAggMeasureIgnoreNulls(NthAggMeasureMapping nth) {
+        return nth.isIgnoreNulls();
     }
 
     protected abstract MeasureMapping createPercentileMeasure(
