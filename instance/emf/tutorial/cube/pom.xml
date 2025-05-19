@@ -29,6 +29,7 @@
     <module>measure.aggregator.base</module>
     <module>measure.aggregator.bit</module>
     <module>measure.aggregator.percentile</module>
+    <module>measure.aggregator.nth</module>
     <module>measure.aggregator.textagg</module>
     <module>measure.group</module>
     <module>dimension.intro</module>
