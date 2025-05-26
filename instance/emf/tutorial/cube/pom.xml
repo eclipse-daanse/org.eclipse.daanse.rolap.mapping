@@ -39,6 +39,9 @@
     <module>hierarchy.query.join.base</module>
     <module>hierarchy.query.join.multi</module>
     <module>hierarchy.hasall</module>
+    <module>hierarchy.parentchild.base</module>
+    <module>hierarchy.parentchild.closure</module>
+    <module>hierarchy.parentchild.nullparent</module>
     <module>level.member.property.intro</module>
     <module>calculatedmember.intro</module>
     <module>kpi.intro</module>
