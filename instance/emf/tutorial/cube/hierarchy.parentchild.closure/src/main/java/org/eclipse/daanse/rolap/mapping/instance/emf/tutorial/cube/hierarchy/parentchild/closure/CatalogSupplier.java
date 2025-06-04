@@ -86,8 +86,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         closureDistanceColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable closureTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
-        closureTable.setName("employee_closure");
-        closureTable.setId("employee_closure");
+        closureTable.setName("Closure");
+        closureTable.setId("_table_closure");
         closureTable.getColumns().addAll(List.of(closureNameColumn,
                 closureParentColumn, closureDistanceColumn));
         databaseSchema.getTables().add(closureTable);
@@ -121,13 +121,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setColumn(nameColumn);
         level.setNameColumn(nameColumn);
         level.setParentColumn(parentColumn);
-        level.setNullParentValue("all");
+        level.setNullParentValue("0");
         level.setParentChildLink(parentChildLink);
 
         Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
-        hierarchy.setHasAll(true);
         hierarchy.setId("hierarchy");
-        hierarchy.setAllMemberName("All");
         hierarchy.setPrimaryKey(nameColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
