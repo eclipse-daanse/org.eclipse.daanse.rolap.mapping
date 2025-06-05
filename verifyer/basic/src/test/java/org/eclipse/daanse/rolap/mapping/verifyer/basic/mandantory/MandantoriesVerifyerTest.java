@@ -228,7 +228,7 @@ class MandantoriesVerifyerTest {
         null,
         List.of(property),
         true,
-        null);
+        null, false, null);
 
     @Test
     void testSchema() {
@@ -613,7 +613,9 @@ class MandantoriesVerifyerTest {
                             ParentChildLinkMapping getParentChildLink,
                             List<MemberPropertyMapping> getMemberProperties,
                             boolean isVisible,
-                            MemberFormatterMapping getMemberFormatter
+                            MemberFormatterMapping getMemberFormatter,
+                            boolean isShowParentAsLeaf,
+                            String getNameFormat
     )
         implements LevelMapping {
 
