@@ -54,6 +54,10 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private boolean visible;
 
+    private boolean showParentAsLeaf;
+
+    private String nameFormat;
+
 
     private LevelMappingImpl(Builder builder) {
         this.parentChildLink = builder.parentChildLink;
@@ -71,6 +75,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
+        this.showParentAsLeaf = builder.showParentAsLeaf;
+        this.nameFormat = builder.nameFormat;
         super.setName(builder.name);
         super.setDescription(builder.description);
         super.setId(builder.id);
@@ -204,6 +210,16 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.visible = visible;
     }
 
+    @Override
+    public boolean isShowParentAsLeaf() {
+        return this.showParentAsLeaf;
+    }
+
+    @Override
+    public String getNameFormat() {
+        return this.nameFormat;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -224,6 +240,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private InternalDataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
+        private boolean showParentAsLeaf;
+        private String nameFormat;
         private String name;
         private String description;
         private String id;
@@ -322,6 +340,16 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
+        public Builder withShowParentAsLeaf(boolean showParentAsLeaf) {
+            this.showParentAsLeaf = showParentAsLeaf;
+            return this;
+        }
+
+        public Builder withNameFormat(String nameFormat) {
+            this.nameFormat = nameFormat;
+            return this;
+        }
+
         public Builder withAnnotations(List<AnnotationMappingImpl> annotations) {
             this.annotations = annotations;
             return this;
@@ -331,5 +359,4 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return new LevelMappingImpl(this);
         }
     }
-
 }

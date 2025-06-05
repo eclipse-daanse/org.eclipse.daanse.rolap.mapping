@@ -1537,14 +1537,24 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String name = levelName(level);
                 String id = levelId(level);
                 String description = levelDescription(level);
+                boolean showParentAsLeaf = levelShowParentAsLeaf(level);
+                String nameFormat = levelNameFormat(level);
                 return createLevel( parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
-                    parentColumn, type, uniqueMembers, visible, name, id, description);
+                    parentColumn, type, uniqueMembers, visible, name, id, description, showParentAsLeaf, nameFormat);
             } else {
                 return levelMap.get(level);
             }
         }
         return null;
+    }
+
+    private boolean levelShowParentAsLeaf(LevelMapping level) {
+        return level.isShowParentAsLeaf();
+    }
+
+    private String levelNameFormat(LevelMapping level) {
+        return level.getNameFormat();
     }
 
     private String levelDescription(LevelMapping level) {
@@ -1831,7 +1841,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
+        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
+        boolean createLevel, String nameFormat
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {
