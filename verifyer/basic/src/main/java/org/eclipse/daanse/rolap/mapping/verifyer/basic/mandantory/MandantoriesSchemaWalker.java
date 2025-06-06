@@ -50,6 +50,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
@@ -62,6 +63,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping
 import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
@@ -90,7 +92,7 @@ import org.slf4j.LoggerFactory;
 public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MandantoriesSchemaWalker.class);
-    private static final String[] DEF_LEVEL = {"getColumn", "getNameColumn", "getParentColumn", "getOrdinalColumn", "getCaptionColumn"};
+    private static final String[] DEF_LEVEL = {"getColumn", "getNameColumn", "getOrdinalColumn", "getCaptionColumn"};
 
     public MandantoriesSchemaWalker(MandantoriesVerifierConfig config) {
     }
@@ -1050,11 +1052,21 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     private void checkHierarchyLevels(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
-        List<? extends LevelMapping> levels = hierarchy.getLevels();
-        if (levels == null || levels.isEmpty()) {
-            String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
-            results.add(new VerificationResultR(HIERARCHY,
-                msg, ERROR, Cause.SCHEMA));
+        if (hierarchy instanceof ExplicitHierarchyMapping eh) {
+            List<? extends LevelMapping> levels = eh.getLevels();
+            if (levels == null || levels.isEmpty()) {
+                String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
+                results.add(new VerificationResultR(HIERARCHY,
+                        msg, ERROR, Cause.SCHEMA));
+            }
+        }
+        if (hierarchy instanceof ParentChildHierarchyMapping ph) {
+            LevelMapping level = ph.getLevel();
+            if (level == null) {
+                String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
+                results.add(new VerificationResultR(HIERARCHY,
+                        msg, ERROR, Cause.SCHEMA));
+            }
         }
     }
 

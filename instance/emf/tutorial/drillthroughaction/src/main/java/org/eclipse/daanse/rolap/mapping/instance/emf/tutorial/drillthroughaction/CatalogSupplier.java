@@ -24,6 +24,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -196,7 +197,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setColumn(hxL2KeyColumn);
         level2.setNameColumn(hxL2NameColumn);
 
-        Hierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("Hierarchy1");
@@ -216,7 +217,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level4.setColumn(hxL2KeyColumn);
         level4.setNameColumn(hxL2NameColumn);
 
-        Hierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy2.setHasAll(true);
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setId("Hierarchy2");

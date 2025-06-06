@@ -25,6 +25,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -138,16 +139,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setUniqueMembers(true);
         level.setColumn(hierarchyKeyColumn);
         level.setNameColumn(hierarchyNameColumn);
-        level.setParentColumn(hierarchyParentKeyColumn);
-        level.setParentChildLink(parentChildLink);
 
-        Hierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ParentChildHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createParentChildHierarchy();
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("Hierarchy1");
         hierarchy1.setPrimaryKey(hierarchyKeyColumn);
         hierarchy1.setQuery(queryHierarchy);
-        hierarchy1.getLevels().add(level);
+        hierarchy1.setLevel(level);
+        hierarchy1.setParentColumn(hierarchyParentKeyColumn);
+        hierarchy1.setParentChildLink(parentChildLink);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");

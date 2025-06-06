@@ -21,6 +21,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -952,7 +953,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL21.setColumn(ID_COLUMN_IN_FOERDERUNG_ART);
         LEVEL21.setNameColumn(FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART);
 
-        Hierarchy HIERARCHY1 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY1.setId("_hierarchy_HIERARCHY1");
         HIERARCHY1.setHasAll(true);
         HIERARCHY1.setAllMemberName(ALLE_SCHULEN);
@@ -961,7 +962,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY1.setQuery(JOIN1);
         HIERARCHY1.getLevels().addAll(List.of(LEVEL1, LEVEL2));
 
-        Hierarchy HIERARCHY2 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY2.setId("_hierarchy_HIERARCHY2");
         HIERARCHY2.setHasAll(true);
         HIERARCHY2.setAllMemberName(ALLE_SCHULEN);
@@ -970,7 +971,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY2.setQuery(JOIN2);
         HIERARCHY2.getLevels().addAll(List.of(LEVEL3, LEVEL4, LEVEL5, LEVEL6));
 
-        Hierarchy HIERARCHY3 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY3 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY3.setId("_hierarchy_HIERARCHY3");
         HIERARCHY3.setHasAll(true);
         HIERARCHY3.setAllMemberName(ALLE_SCHULEN);
@@ -979,7 +980,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY3.setQuery(JOIN3);
         HIERARCHY3.getLevels().addAll(List.of(LEVEL7, LEVEL8, LEVEL9));
 
-        Hierarchy HIERARCHY4 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY4 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY4.setId("_hierarchy_HIERARCHY4");
         HIERARCHY4.setHasAll(false);
         HIERARCHY4.setName("Schuljahre");
@@ -987,7 +988,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY4.setQuery(SCHUL_JAHT_TABLE_QUERY);
         HIERARCHY4.getLevels().addAll(List.of(LEVEL10));
 
-        Hierarchy HIERARCHY5 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY5 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY5.setId("_hierarchy_HIERARCHY5");
         HIERARCHY5.setHasAll(true);
         HIERARCHY5.setAllMemberName("Alle Altersgruppen");
@@ -996,7 +997,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY5.setQuery(ALTERS_GRUPPE_TABLE_QUERY);
         HIERARCHY5.getLevels().addAll(List.of(LEVEL11));
 
-        Hierarchy HIERARCHY6 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY6 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY6.setId("_hierarchy_HIERARCHY6");
         HIERARCHY6.setHasAll(true);
         HIERARCHY6.setAllMemberName("Alle Geschlechter");
@@ -1005,7 +1006,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY6.setQuery(GESCHLECHT_TABLE_QUERY);
         HIERARCHY6.getLevels().addAll(List.of(LEVEL12));
 
-        Hierarchy HIERARCHY7 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY7 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY7.setId("_hierarchy_HIERARCHY7");
         HIERARCHY7.setHasAll(true);
         HIERARCHY7.setAllMemberName("Alle Berufsgruppen");
@@ -1014,7 +1015,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY7.setQuery(PERSONAL_ART_TABLE_QUERY);
         HIERARCHY7.getLevels().addAll(List.of(LEVEL13));
 
-        Hierarchy HIERARCHY8 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY8 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY8.setId("_hierarchy_HIERARCHY8");
         HIERARCHY8.setHasAll(true);
         HIERARCHY8.setAllMemberName(GESAMT);
@@ -1023,7 +1024,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY8.setQuery(EINSCHULUNG_TABLE_QUERY);
         HIERARCHY8.getLevels().addAll(List.of(LEVEL14));
 
-        Hierarchy HIERARCHY9 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY9 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY9.setId("_hierarchy_HIERARCHY9");
         HIERARCHY9.setHasAll(true);
         HIERARCHY9.setAllMemberName(GESAMT);
@@ -1032,7 +1033,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY9.setQuery(KLASSEN_WIEDERHOLUNG_TABLE_QUERY);
         HIERARCHY9.getLevels().addAll(List.of(LEVEL15));
 
-        Hierarchy HIERARCHY10 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY10 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY10.setId("_hierarchy_HIERARCHY10");
         HIERARCHY10.setHasAll(true);
         HIERARCHY10.setAllMemberName(GESAMT);
@@ -1041,7 +1042,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY10.setQuery(SCHUL_ABSCHLUSS_TABLE_QUERY);
         HIERARCHY10.getLevels().addAll(List.of(LEVEL16));
 
-        Hierarchy HIERARCHY11 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY11 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY11.setId("_hierarchy_HIERARCHY11");
         HIERARCHY11.setHasAll(true);
         HIERARCHY11.setAllMemberName(GESAMT);
@@ -1050,7 +1051,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY11.setQuery(MIGRATIONS_HINTERGRUND_TABLE_QUERY);
         HIERARCHY11.getLevels().addAll(List.of(LEVEL17));
 
-        Hierarchy HIERARCHY12 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY12 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY12.setId("_hierarchy_HIERARCHY12");
         HIERARCHY12.setHasAll(true);
         HIERARCHY12.setAllMemberName("Alle Wohnlandkreise");
@@ -1059,7 +1060,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY12.setQuery(JOIN4);
         HIERARCHY12.getLevels().addAll(List.of(LEVEL18, LEVEL19));
 
-        Hierarchy HIERARCHY13 = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy HIERARCHY13 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY12.setId("_hierarchy_HIERARCHY12");
         HIERARCHY13.setHasAll(true);
         HIERARCHY13.setAllMemberName(GESAMT);

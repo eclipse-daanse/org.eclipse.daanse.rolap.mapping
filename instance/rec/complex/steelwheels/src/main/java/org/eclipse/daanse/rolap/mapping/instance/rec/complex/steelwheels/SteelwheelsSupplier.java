@@ -26,6 +26,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
@@ -272,7 +273,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHideMemberIfType(HideMemberIfType.NEVER)
             .build();
 
-    public static final HierarchyMappingImpl marketsHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl marketsHierarchy = ExplicitHierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Markets")
             .withPrimaryKey(CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER)
@@ -285,7 +286,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(marketsHierarchy))
             .build();
 
-    public static final HierarchyMappingImpl customersHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl customersHierarchy = ExplicitHierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Customers")
             .withPrimaryKey(CUSTOMERNUMBER_COLUMN_IN_CUSTOMER_W_TER)
@@ -298,7 +299,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(customersHierarchy))
             .build();
 
-    public static final HierarchyMappingImpl productHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl productHierarchy = ExplicitHierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Products")
             .withPrimaryKey(PRODUCTCODE_COLUMN_IN_PRODUCTS)
@@ -311,7 +312,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(productHierarchy))
             .build();
 
-    public static final HierarchyMappingImpl timeHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl timeHierarchy = ExplicitHierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Years")
             .withPrimaryKey(TIME_ID_COLUMN_IN_TIME)
@@ -324,7 +325,7 @@ public class SteelwheelsSupplier implements CatalogMappingSupplier {
             .withHierarchies(List.of(timeHierarchy))
             .build();
 
-    public static final HierarchyMappingImpl orderStatusHierarchy = HierarchyMappingImpl.builder()
+    public static final HierarchyMappingImpl orderStatusHierarchy = ExplicitHierarchyMappingImpl.builder()
             .withHasAll(true)
             .withAllMemberName("All Status Types")
             .withPrimaryKey(STATUS_COLUMN_IN_ORDER_FACT)

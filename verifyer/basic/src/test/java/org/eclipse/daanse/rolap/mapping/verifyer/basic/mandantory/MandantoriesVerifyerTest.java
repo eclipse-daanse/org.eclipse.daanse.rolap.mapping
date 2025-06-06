@@ -115,6 +115,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping;
@@ -167,7 +168,7 @@ class MandantoriesVerifyerTest {
     CalculatedMemberMapping calculatedMember = mock(CalculatedMemberMapping.class);
     MeasureGroupMapping measureGroup = mock(MeasureGroupMapping.class);
     SumMeasureMapping measure = mock(SumMeasureMapping.class);
-    HierarchyMapping hierarchy = mock(HierarchyMapping.class);
+    ExplicitHierarchyMapping hierarchy = mock(ExplicitHierarchyMapping.class);
     LevelMapping level = mock(LevelMapping.class);
     MemberPropertyMapping property = mock(MemberPropertyMapping.class);
     NamedSetMapping namedSet = mock(NamedSetMapping.class);
@@ -566,7 +567,7 @@ class MandantoriesVerifyerTest {
         when(tableQuery.getTable()).thenReturn(table);
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
-            .hasSize(36);
+            .hasSize(31);
 
         assertThat(result)
             .extracting(VerificationResult::description)

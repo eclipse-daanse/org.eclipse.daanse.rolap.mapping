@@ -53,6 +53,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
@@ -112,7 +113,7 @@ public class DescriptionVerifyerTest {
     MeasureGroupMapping measureGroup = mock(MeasureGroupMapping.class);
     MeasureMapping measure = mock(MeasureMapping.class);
 
-    HierarchyMapping hierarchy = mock(HierarchyMapping.class);
+    ExplicitHierarchyMapping hierarchy = mock(ExplicitHierarchyMapping.class);
     LevelMapping level = mock(LevelMapping.class);
     MemberPropertyMapping property = mock(MemberPropertyMapping.class);
     NamedSetMapping namedSet = mock(NamedSetMapping.class);
