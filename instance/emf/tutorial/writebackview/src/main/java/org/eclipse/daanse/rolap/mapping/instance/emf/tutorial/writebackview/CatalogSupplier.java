@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -196,7 +197,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         l2Level.setId("L2Level");
         l2Level.setColumn(l2L2Column);
 
-        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
         hierarchy.setId("HierarchyWithHasAll");

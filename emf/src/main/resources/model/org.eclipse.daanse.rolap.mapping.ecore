@@ -269,9 +269,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension"/>
   <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Hierarchy" eSuperTypes="#//AbstractElement #//IHierarchy">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="levels" lowerBound="1"
-        upperBound="-1" eType="#//Level"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Hierarchy" abstract="true" eSuperTypes="#//AbstractElement #//IHierarchy">
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberReaderParameters"
         upperBound="-1" eType="#//MemberReaderParameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="allLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -287,10 +285,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
         eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
     <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
@@ -308,8 +305,6 @@
         <details key="body" value="return LevelType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentChildLink" eType="#//ParentChildLink"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberProperties" upperBound="-1"
         eType="#//MemberProperty" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//MemberFormatter"/>
@@ -320,16 +315,25 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="#//HideMemberIf"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//LevelDefinition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnInternalDataType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExplicitHierarchy" eSuperTypes="#//AbstractElement #//IExplicitHierarchy #//Hierarchy">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="levels" lowerBound="1"
+        upperBound="-1" eType="#//Level"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParentChildHierarchy" eSuperTypes="#//AbstractElement #//IParentChildHierarchy #//Hierarchy">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentChildLink" eType="#//ParentChildLink"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentAsLeafEnable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentAsLeafNameFormat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
     <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
@@ -811,6 +815,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="IKpi" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.KpiMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ILevel" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.LevelMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IExplicitHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping"
+      abstract="true" interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IParentChildHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IMeasureGroup" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping"
       abstract="true" interface="true"/>

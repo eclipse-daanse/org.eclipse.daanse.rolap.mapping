@@ -23,6 +23,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -129,7 +130,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setId("_level");
         level.setColumn(keyColumn);
 
-        Hierarchy hierarchyHasAllSimple = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyHasAllSimple = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllSimple.setHasAll(true);
         hierarchyHasAllSimple.setName("Hierarchy - with HasAll");
         hierarchyHasAllSimple.setId("_hierarchy_hasall_simple");
@@ -137,7 +138,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyHasAllSimple.setQuery(query);
         hierarchyHasAllSimple.getLevels().add(level);
 
-        Hierarchy hierarchyHasAllComplex = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyHasAllComplex = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllComplex.setHasAll(true);
         hierarchyHasAllComplex.setAllLevelName("theAllLevelName");
         hierarchyHasAllComplex.setAllMemberName("theAllMemberName");
@@ -147,7 +148,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyHasAllComplex.setQuery(query);
         hierarchyHasAllComplex.getLevels().add(level);
 
-        Hierarchy hierarchyHasAllFalse = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyHasAllFalse = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllFalse.setHasAll(false);
         hierarchyHasAllFalse.setName("Hierarchy - Without HasAll");
         hierarchyHasAllFalse.setId("_hierarchy_hasall_no");

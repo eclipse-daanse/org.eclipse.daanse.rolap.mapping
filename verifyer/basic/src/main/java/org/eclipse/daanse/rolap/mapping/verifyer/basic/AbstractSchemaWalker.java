@@ -50,6 +50,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping;
@@ -65,6 +66,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.QueryMapping;
@@ -245,9 +247,23 @@ public abstract class AbstractSchemaWalker {
             checkAnnotationList(hierarchy.getAnnotations());
             checkMemberReaderParameterList(hierarchy.getMemberReaderParameters());
             checkQuery(hierarchy.getQuery());
-            // Level
-            if (hierarchy.getLevels() != null) {
-                hierarchy.getLevels().forEach(l -> checkLevel(l, hierarchy, cubeDimension, cube));
+            if (hierarchy instanceof ExplicitHierarchyMapping eh) {
+                // Level
+                if (eh.getLevels() != null) {
+                    eh.getLevels().forEach(l -> checkLevel(l, hierarchy, cubeDimension, cube));
+                }
+            }
+            if (hierarchy instanceof ParentChildHierarchyMapping pch) {
+                if (pch.getLevel() != null) {
+                    checkLevel(pch.getLevel(), hierarchy, cubeDimension, cube);
+                }
+                if (pch.getParentColumn() instanceof SQLExpressionColumnMapping sec) {
+                    checkSqlExpression(sec);
+
+                }
+
+                checkParentChildLink(pch.getParentChildLink());
+
             }
         }
     }
@@ -455,12 +471,6 @@ public abstract class AbstractSchemaWalker {
                 checkSqlExpression(sec);
 
             }
-            if (level.getParentColumn() instanceof SQLExpressionColumnMapping sec) {
-                checkSqlExpression(sec);
-
-            }
-
-            checkParentChildLink(level.getParentChildLink());
 
             checkMemberPropertyList(level.getMemberProperties(), level, hierarchy, cube);
 

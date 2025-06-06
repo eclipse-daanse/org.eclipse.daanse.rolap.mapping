@@ -20,8 +20,6 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
 public interface LevelMapping extends AbstractElementMapping{
 
-    ParentChildLinkMapping getParentChildLink();
-
     List<? extends MemberPropertyMapping> getMemberProperties();
 
     MemberFormatterMapping getMemberFormatter();
@@ -38,20 +36,12 @@ public interface LevelMapping extends AbstractElementMapping{
 
     ColumnMapping getNameColumn();
 
-    String getNullParentValue();
-
     ColumnMapping getOrdinalColumn();
-
-    ColumnMapping getParentColumn();
 
     InternalDataType getDataType();
 
     boolean isUniqueMembers();
 
     boolean isVisible();
-
-    boolean isParentAsLeafEnable();
-
-    String getParentAsLeafNameFormat();
 
 }

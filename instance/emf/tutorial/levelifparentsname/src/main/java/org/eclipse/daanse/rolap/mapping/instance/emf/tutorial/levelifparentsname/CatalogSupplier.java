@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
@@ -150,7 +151,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setNameColumn(level2NameColumn);
         hierarchyDimensionMembersHiddenIfParentsNameLevel2.setHideMemberIf(HideMemberIf.IF_PARENTS_NAME);
 
-        Hierarchy hierarchyDimensionMembersHiddenIfParentsName = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyDimensionMembersHiddenIfParentsName = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyDimensionMembersHiddenIfParentsName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfParentsName.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenIfParentsName.setId("Hierarchy1");

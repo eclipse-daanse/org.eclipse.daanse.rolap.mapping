@@ -126,6 +126,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughActionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DrillThroughAttributeMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
@@ -147,6 +148,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.NoneMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.NthAggMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.OrderedColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParameterMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ParentChildHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.ParentChildLinkMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PercentileMeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
@@ -458,7 +460,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected HierarchyMapping createHierarchy(
+    protected HierarchyMapping createExplicitHierarchy(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name,  List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
@@ -466,7 +468,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String memberReaderClass, String origin, ColumnMapping primaryKey,
         String uniqueKeyLevelName, boolean visible, QueryMapping query
     ) {
-        return HierarchyMappingImpl.builder()
+        return ExplicitHierarchyMappingImpl.builder()
             .withAnnotations((List<AnnotationMappingImpl>) annotations)
             .withId(id)
             .withId(description)
@@ -486,6 +488,45 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withUniqueKeyLevelName(uniqueKeyLevelName)
             .withVisible(visible)
             .withQuery((QueryMappingImpl) query)
+            .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected ParentChildHierarchyMappingImpl createParentChildHierarchy(
+            List<? extends AnnotationMapping> annotations,
+            String id, String description, String name,
+            List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
+            String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
+            String memberReaderClass, String origin, ColumnMapping primaryKey, String uniqueKeyLevelName,
+            boolean visible, QueryMapping query, LevelMapping level,
+            ParentChildLinkMapping parentChildLink, String nullParentValue, ColumnMapping parentColumn,
+            boolean parentAsLeafEnable, String parentAsLeafNameFormat
+    ) {
+        return ParentChildHierarchyMappingImpl.builder()
+            .withAnnotations((List<AnnotationMappingImpl>) annotations)
+            .withId(id)
+            .withId(description)
+            .withName(name)
+            .withMemberReaderParameters((List<MemberReaderParameterMappingImpl>) memberReaderParameters)
+            .withAllLevelName(allLevelName)
+            .withAllMemberCaption(allMemberCaption)
+            .withAllMemberName(allMemberName)
+            .withDefaultMember(defaultMember)
+            .withDisplayFolder(displayFolder)
+            .withHasAll(hasAll)
+            .withMemberReaderClass(memberReaderClass)
+            .withOrigin(origin)
+            .withPrimaryKey((PhysicalColumnMappingImpl) primaryKey)
+            .withUniqueKeyLevelName(uniqueKeyLevelName)
+            .withVisible(visible)
+            .withQuery((QueryMappingImpl) query)
+            .withLevel((LevelMappingImpl) level)
+            .withParentChildLink(parentChildLink)
+            .withNullParentValue(nullParentValue)
+            .withParentColumn((PhysicalColumnMappingImpl) parentColumn)
+            .withParentAsLeafEnable(parentAsLeafEnable)
+            .withParentAsLeafNameFormat(parentAsLeafNameFormat)
             .build();
     }
 
@@ -558,16 +599,12 @@ public class PojoMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected LevelMapping createLevel(
-        ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
-        LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
-        boolean parentAsLeafEnable, String parentAsLeafNameFormat
+        LevelType levelType, ColumnMapping nameColumn,ColumnMapping ordinalColumn,
+        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     ) {
         return LevelMappingImpl.builder()
-
-            .withParentChildLink((ParentChildLinkMappingImpl) parentChildLink)
             .withMemberProperties((List<MemberPropertyMappingImpl>) memberProperties)
             .withMemberFormatter((MemberFormatterMappingImpl) memberFormatter)
             .withApproxRowCount(approxRowCount)
@@ -576,17 +613,13 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withHideMemberIfType(hideMemberIf)
             .withLevelType(levelType)
             .withNameColumn((ColumnMapping) nameColumn)
-            .withNullParentValue(nullParentValue)
             .withOrdinalColumn((ColumnMapping) ordinalColumn)
-            .withParentColumn((ColumnMapping) parentColumn)
             .withType(type)
             .withUniqueMembers(uniqueMembers)
             .withVisible(visible)
             .withName(name)
             .withId(id)
             .withDescription(description)
-            .withParentAsLeafEnable(parentAsLeafEnable)
-            .withParentAsLeafNameFormat(parentAsLeafNameFormat)
             .build();
     }
 
