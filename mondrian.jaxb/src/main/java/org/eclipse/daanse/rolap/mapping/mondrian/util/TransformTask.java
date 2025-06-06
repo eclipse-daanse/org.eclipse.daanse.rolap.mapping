@@ -101,6 +101,7 @@ import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.EnviromentMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.InlineTableQueryMappingImpl;
@@ -562,7 +563,7 @@ public class TransformTask {
     }
 
     private HierarchyMappingImpl transformHierarchy(Hierarchy hierarchy) {
-        HierarchyMappingImpl h = HierarchyMappingImpl.builder().build();
+        ExplicitHierarchyMappingImpl h = ExplicitHierarchyMappingImpl.builder().build();
         h.setId("h_" + counterHierarchy.incrementAndGet());
         h.setName(hierarchy.name());
         h.setAllLevelName(hierarchy.allLevelName());
@@ -631,14 +632,17 @@ public class TransformTask {
         //TODO
         //l.setNameColumn(level.nameColumn());
         l.setNameColumn(transformSQLExpressionOfExpressionView(level.nameExpression()));
-        l.setNullParentValue(level.nullParentValue());
+        //TODO
+        //l.setNullParentValue(level.nullParentValue());
         //TODO
         //l.setOrdinalColumn(level.ordinalColumn());
         l.setOrdinalColumn(transformSQLExpressionOfExpressionView(level.ordinalExpression()));
-        l.setParentChildLink(transformParentChildLink(level.closure()));
+        //TODO
+        //l.setParentChildLink(transformParentChildLink(level.closure()));
         //TODO
         //l.setParentColumn(level.parentColumn());
-        l.setParentColumn(transformSQLExpressionOfExpressionView(level.parentExpression()));
+        //TODO
+        //l.setParentColumn(transformSQLExpressionOfExpressionView(level.parentExpression()));
         //TODO
         //l.setTable(level.table());
         l.setDataType(InternalDataType.fromValue(level.type().getValue()));

@@ -417,7 +417,7 @@ public class ResourceSetWriteReadTest {
         dcJahr.setDimension(dJahr);
         dJahr.setName("Jahr");
         dJahr.setId("dJahr");
-        Hierarchy hJahr = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hJahr = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
 
 
 
@@ -450,7 +450,7 @@ public class ResourceSetWriteReadTest {
         dStatistischerBezirk.setName("statistischer Bezirk");
         dStatistischerBezirk.setId("dStatistischerBezirk");
 
-        Hierarchy hStadtPlanungsraumStatistischerBezirk = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hStadtPlanungsraumStatistischerBezirk = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hStadtPlanungsraumStatistischerBezirk.setHasAll(true);
         hStadtPlanungsraumStatistischerBezirk.setName("Stadt - Planungsraum - statistischer Bezirk");
         hStadtPlanungsraumStatistischerBezirk.setId("hStadtPlanungsraumStatistischerBezirk");
@@ -541,7 +541,7 @@ public class ResourceSetWriteReadTest {
         dGeschlecht.setName("Geschlecht");
         dGeschlecht.setId("dGeschlecht");
 
-        Hierarchy hGeschlecht = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hGeschlecht = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hGeschlecht.setHasAll(true);
         hGeschlecht.setName("Geschlecht (m/w/d)");
         hGeschlecht.setId("hGeschlecht");
@@ -567,7 +567,7 @@ public class ResourceSetWriteReadTest {
         dAlter.setName("Alter");
         dAlter.setId("Alter");
 
-        Hierarchy hAlter = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAlter = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAlter.setHasAll(true);
         hAlter.setName("Alter (Einzeljahrgänge)");
         hAlter.setId("Alter (Einzeljahrgänge)");
@@ -580,7 +580,7 @@ public class ResourceSetWriteReadTest {
         lAlter.setColumn(columnAgeGroupsAge);
         hAlter.getLevels().add(lAlter);
 
-        Hierarchy hAltersgruppenStandard = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAltersgruppenStandard = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAltersgruppenStandard.setHasAll(true);
         hAltersgruppenStandard.setName("Altersgruppen (Standard)");
         hAltersgruppenStandard.setId("Altersgruppen (Standard)");
@@ -600,7 +600,7 @@ public class ResourceSetWriteReadTest {
         lAlterH1.setColumn(columnAgeGroupsAge);
         hAltersgruppenStandard.getLevels().add(lAlterH1);
 
-        Hierarchy hAltersgruppenKinder = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAltersgruppenKinder = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAltersgruppenKinder.setHasAll(true);
         hAltersgruppenKinder.setName("Altersgruppen (Kinder)");
         hAltersgruppenKinder.setId("Altersgruppen (Kinder)");
@@ -620,7 +620,7 @@ public class ResourceSetWriteReadTest {
         lAlterH2.setColumn(columnAgeGroupsAge);
         hAltersgruppenKinder.getLevels().add(lAlterH2);
 
-        Hierarchy hAltersgruppenSystematikRKI = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAltersgruppenSystematikRKI = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAltersgruppenSystematikRKI.setHasAll(true);
         hAltersgruppenSystematikRKI.setName("Altersgruppen (Systematik RKI)");
         hAltersgruppenSystematikRKI.setId("Altersgruppen (Systematik RKI)");
@@ -640,7 +640,7 @@ public class ResourceSetWriteReadTest {
         lAlterH7.setColumn(columnAgeGroupsAge);
         hAltersgruppenSystematikRKI.getLevels().add(lAlterH7);
 
-        Hierarchy hAltersgruppenCovidstatistik = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAltersgruppenCovidstatistik = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAltersgruppenCovidstatistik.setHasAll(true);
         hAltersgruppenCovidstatistik.setName("Altersgruppen (Systematik RKI)");
         hAltersgruppenCovidstatistik.setId("Altersgruppen (Systematik RKI)");
@@ -660,7 +660,7 @@ public class ResourceSetWriteReadTest {
         lAlterH8.setColumn(columnAgeGroupsAge);
         hAltersgruppenCovidstatistik.getLevels().add(lAlterH8);
 
-        Hierarchy hAltersgruppenJahresGruppen = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hAltersgruppenJahresGruppen = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hAltersgruppenJahresGruppen.setHasAll(true);
         hAltersgruppenJahresGruppen.setName("Altersgruppen (10-Jahres-Gruppen)");
         hAltersgruppenJahresGruppen.setId("Altersgruppen (10-Jahres-Gruppen)");

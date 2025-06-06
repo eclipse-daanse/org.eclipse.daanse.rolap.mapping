@@ -23,6 +23,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -574,7 +575,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withNameColumn(FOERDERUNG_ART_COLUMN_IN_FOERDERUNG_ART)
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY1 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY1 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
@@ -584,7 +585,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL1, LEVEL2))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY2 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY2 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
@@ -594,7 +595,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL3, LEVEL4, LEVEL5, LEVEL6))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY3 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY3 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(ALLE_SCHULEN)
@@ -604,7 +605,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL7, LEVEL8, LEVEL9))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY4 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY4 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(false)
         .withName("Schuljahre")
@@ -613,7 +614,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL10))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY5 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY5 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName("Alle Altersgruppen")
@@ -623,7 +624,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL11))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY6 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY6 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName("Alle Geschlechter")
@@ -633,7 +634,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL12))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY7 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY7 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName("Alle Berufsgruppen")
@@ -643,7 +644,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL13))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY8 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY8 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(GESAMT)
@@ -653,7 +654,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL14))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY9 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY9 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(GESAMT)
@@ -663,7 +664,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL15))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY10 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY10 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(GESAMT)
@@ -673,7 +674,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL16))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY11 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY11 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(GESAMT)
@@ -683,7 +684,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL17))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY12 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY12 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName("Alle Wohnlandkreise")
@@ -693,7 +694,7 @@ public class SchoolMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL18, LEVEL19))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY13 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY13 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withAllMemberName(GESAMT)

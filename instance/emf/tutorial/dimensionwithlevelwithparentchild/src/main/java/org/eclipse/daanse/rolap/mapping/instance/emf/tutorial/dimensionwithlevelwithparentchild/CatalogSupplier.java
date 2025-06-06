@@ -26,6 +26,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -182,19 +183,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level.setUniqueMembers(true);
         level.setColumn(employeeIdColumn);
         level.setNameColumn(fullNameColumn);
-        level.setParentColumn(supervisorIdColumn);
-        level.setNullParentValue("0");
-        level.setParentChildLink(parentChildLink);
         level.getMemberProperties().addAll(List.of(propMaritalStatus, propPositionTitle, propGender, propSalary,
                 propEducationLevel, propManagementRole));
 
-        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ParentChildHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createParentChildHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setId("hierarchy");
         hierarchy.setAllMemberName("All Employees");
         hierarchy.setPrimaryKey(employeeIdColumn);
         hierarchy.setQuery(query);
-        hierarchy.getLevels().add(level);
+        hierarchy.setLevel(level);
+        hierarchy.setParentColumn(supervisorIdColumn);
+        hierarchy.setNullParentValue("0");
+        hierarchy.setParentChildLink(parentChildLink);
+
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Employees");

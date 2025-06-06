@@ -24,7 +24,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 
 public class LevelMappingImpl extends AbstractElementMappingImpl implements LevelMapping {
 
-    private ParentChildLinkMappingImpl parentChildLink;
+    //private ParentChildLinkMappingImpl parentChildLink;
 
     private List<MemberPropertyMappingImpl> memberProperties;
 
@@ -42,11 +42,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private ColumnMapping nameColumn;
 
-    private String nullParentValue;
+    //private String nullParentValue;
 
     private ColumnMapping ordinalColumn;
 
-    private ColumnMapping parentColumn;
+    //private ColumnMapping parentColumn;
 
     private InternalDataType dataType;
 
@@ -54,13 +54,7 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private boolean visible;
 
-    private boolean parentAsLeafEnable;
-
-    private String parentAsLeafNameFormat;
-
-
     private LevelMappingImpl(Builder builder) {
-        this.parentChildLink = builder.parentChildLink;
         this.memberProperties = builder.memberProperties;
         this.memberFormatter = builder.memberFormatter;
         this.approxRowCount = builder.approxRowCount;
@@ -69,26 +63,14 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.hideMemberIfType = builder.hideMemberIfType;
         this.levelType = builder.levelType;
         this.nameColumn = builder.nameColumn;
-        this.nullParentValue = builder.nullParentValue;
         this.ordinalColumn = builder.ordinalColumn;
-        this.parentColumn = builder.parentColumn;
         this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
-        this.parentAsLeafEnable = builder.parentAsLeafEnable;
-        this.parentAsLeafNameFormat = builder.parentAsLeafNameFormat;
         super.setName(builder.name);
         super.setDescription(builder.description);
         super.setId(builder.id);
         super.setAnnotations(builder.annotations);
-    }
-
-    public ParentChildLinkMappingImpl getParentChildLink() {
-        return parentChildLink;
-    }
-
-    public void setParentChildLink(ParentChildLinkMappingImpl parentChildLink) {
-        this.parentChildLink = parentChildLink;
     }
 
     public List<MemberPropertyMappingImpl> getMemberProperties() {
@@ -162,28 +144,12 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.nameColumn = nameColumn;
     }
 
-    public String getNullParentValue() {
-        return nullParentValue;
-    }
-
-    public void setNullParentValue(String nullParentValue) {
-        this.nullParentValue = nullParentValue;
-    }
-
     public ColumnMapping getOrdinalColumn() {
         return ordinalColumn;
     }
 
     public void setOrdinalColumn (ColumnMapping ordinalColumn) {
         this.ordinalColumn = ordinalColumn;
-    }
-
-    public ColumnMapping getParentColumn() {
-        return parentColumn;
-    }
-
-    public void setParentColumn (ColumnMapping parentColumn) {
-        this.parentColumn = parentColumn;
     }
 
     public InternalDataType getDataType() {
@@ -210,22 +176,11 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.visible = visible;
     }
 
-    @Override
-    public boolean isParentAsLeafEnable() {
-        return this.parentAsLeafEnable;
-    }
-
-    @Override
-    public String getParentAsLeafNameFormat() {
-        return this.parentAsLeafNameFormat;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
     public static final class Builder {
-        private ParentChildLinkMappingImpl parentChildLink;
         private List<MemberPropertyMappingImpl> memberProperties = new ArrayList<>();
         private MemberFormatterMappingImpl memberFormatter;
         private String approxRowCount;
@@ -234,25 +189,16 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private HideMemberIfType hideMemberIfType;
         private LevelType levelType;
         private ColumnMapping nameColumn;
-        private String nullParentValue;
         private ColumnMapping ordinalColumn;
-        private ColumnMapping parentColumn;
         private InternalDataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
-        private boolean parentAsLeafEnable;
-        private String parentAsLeafNameFormat;
         private String name;
         private String description;
         private String id;
         private List<AnnotationMappingImpl> annotations = new ArrayList<>();
 
         private Builder() {
-        }
-
-        public Builder withParentChildLink(ParentChildLinkMappingImpl parentChildLink) {
-            this.parentChildLink = parentChildLink;
-            return this;
         }
 
         public Builder withMemberProperties(List<MemberPropertyMappingImpl> memberProperties) {
@@ -295,18 +241,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withNullParentValue(String nullParentValue) {
-            this.nullParentValue = nullParentValue;
-            return this;
-        }
-
         public Builder withOrdinalColumn (ColumnMapping ordinalColumn) {
             this.ordinalColumn = ordinalColumn;
-            return this;
-        }
-
-        public Builder withParentColumn (ColumnMapping parentColumn) {
-            this.parentColumn = parentColumn;
             return this;
         }
 
@@ -337,16 +273,6 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
         public Builder withId(String id) {
             this.id = id;
-            return this;
-        }
-
-        public Builder withParentAsLeafEnable(boolean parentAsLeafEnable) {
-            this.parentAsLeafEnable = parentAsLeafEnable;
-            return this;
-        }
-
-        public Builder withParentAsLeafNameFormat(String parentAsLeafNameFormat) {
-            this.parentAsLeafNameFormat = parentAsLeafNameFormat;
             return this;
         }
 

@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
@@ -210,7 +211,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelCountry.setColumn(countryKeyColumn);
         levelCountry.setNameColumn(countryNameColumn);
 
-        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("Hierarchy");
         hierarchy.setId("_hierarchy");
         hierarchy.setPrimaryKey(townKeyColumn);

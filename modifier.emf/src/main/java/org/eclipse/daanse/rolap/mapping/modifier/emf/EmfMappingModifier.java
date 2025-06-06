@@ -131,6 +131,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
@@ -154,6 +155,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NthAggMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Parameter;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PercentType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PercentileMeasure;
@@ -494,18 +496,51 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected HierarchyMapping createHierarchy(List<? extends AnnotationMapping> annotations, String id,
+    protected HierarchyMapping createExplicitHierarchy(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, List<? extends LevelMapping> levels,
             List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
             String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
             String memberReaderClass, String origin, ColumnMapping primaryKey,
             String uniqueKeyLevelName, boolean visible, QueryMapping query) {
-        Hierarchy hierarchy = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         hierarchy.setId(id);
         hierarchy.setDescription(description);
         hierarchy.setName(name);
         hierarchy.getLevels().addAll((Collection<? extends Level>) levels);
+        hierarchy.getMemberReaderParameters()
+                .addAll((Collection<? extends MemberReaderParameter>) memberReaderParameters);
+        hierarchy.setAllLevelName(allLevelName);
+        hierarchy.setAllMemberCaption(allMemberCaption);
+        hierarchy.setAllMemberName(allMemberName);
+        hierarchy.setDefaultMember(defaultMember);
+        hierarchy.setDisplayFolder(displayFolder);
+        hierarchy.setHasAll(hasAll);
+        hierarchy.setMemberReaderClass(memberReaderClass);
+        hierarchy.setOrigin(origin);
+        hierarchy.setPrimaryKey((Column) primaryKey);
+        hierarchy.setUniqueKeyLevelName(uniqueKeyLevelName);
+        hierarchy.setVisible(visible);
+        hierarchy.setQuery((Query) query);
+        return hierarchy;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected HierarchyMapping createParentChildHierarchy(List<? extends AnnotationMapping> annotations,
+            String id, String description, String name,
+            List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
+            String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
+            String memberReaderClass, String origin, ColumnMapping primaryKey, String uniqueKeyLevelName,
+            boolean visible, QueryMapping query, LevelMapping level,
+            ParentChildLinkMapping parentChildLink, String nullParentValue, ColumnMapping parentColumn,
+            boolean parentAsLeafEnable, String parentAsLeafNameFormat) {
+        ParentChildHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createParentChildHierarchy();
+        hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
+        hierarchy.setId(id);
+        hierarchy.setDescription(description);
+        hierarchy.setName(name);
+        hierarchy.setLevel((Level) level);
         hierarchy.getMemberReaderParameters()
                 .addAll((Collection<? extends MemberReaderParameter>) memberReaderParameters);
         hierarchy.setAllLevelName(allLevelName);
@@ -583,15 +618,12 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected LevelMapping createLevel(ParentChildLinkMapping parentChildLink,
+    protected LevelMapping createLevel(
             List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
-            LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-            InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
-            boolean parentAsLeafEnable, String parentAsLeafNameFormat) {
+            LevelType levelType, ColumnMapping nameColumn, ColumnMapping ordinalColumn,
+            InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
-
-        level.setParentChildLink((ParentChildLink) parentChildLink);
         level.getMemberProperties().addAll((Collection<? extends MemberProperty>) memberProperties);
         level.setMemberFormatter((MemberFormatter) memberFormatter);
         level.setApproxRowCount(approxRowCount);
@@ -600,17 +632,13 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setHideMemberIf(toEmf(hideMemberIf));
         level.setType(toEmf(levelType));
         level.setNameColumn((Column) nameColumn);
-        level.setNullParentValue(nullParentValue);
         level.setOrdinalColumn((Column) ordinalColumn);
-        level.setParentColumn((Column) parentColumn);
         level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);
         level.setId(id);
         level.setDescription(description);
-        level.setParentAsLeafEnable(parentAsLeafEnable);
-        level.setParentAsLeafNameFormat(parentAsLeafNameFormat);
         return level;
     }
 

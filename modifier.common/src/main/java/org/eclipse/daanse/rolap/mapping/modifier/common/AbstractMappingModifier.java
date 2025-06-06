@@ -54,6 +54,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
@@ -77,6 +78,7 @@ import org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.NthAggMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PercentileMeasureMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
@@ -700,8 +702,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String id = hierarchyId(hierarchy);
                 String description = hierarchyDescription(hierarchy);
                 String name = hierarchyName(hierarchy);
-
-                List<? extends LevelMapping> levels = hierarchyLevels(hierarchy);
                 List<? extends MemberReaderParameterMapping> memberReaderParameters = hierarchyMemberReaderParameters(
                     hierarchy);
                 String allLevelName = hierarchyAllLevelName(hierarchy);
@@ -716,12 +716,32 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String uniqueKeyLevelName = hierarchyUniqueKeyLevelName(hierarchy);
                 boolean visible = hierarchyVisible(hierarchy);
                 QueryMapping query = hierarchyQuery(hierarchy);
+                HierarchyMapping h = null;
+                if (hierarchy instanceof ExplicitHierarchyMapping eh) {
+                    List<? extends LevelMapping> levels = explicitHierarchyLevels(eh);
+                    h = createExplicitHierarchy(annotations, id, description, name, levels,
+                            memberReaderParameters,
+                            allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
+                            memberReaderClass, origin, primaryKey, uniqueKeyLevelName, visible, query);
+                    hierarchyMap.put(hierarchy, h);
+                }
+                if (hierarchy instanceof ParentChildHierarchyMapping pch) {
+                    LevelMapping level = parentChildHierarchyLevel(pch);
+                    ParentChildLinkMapping parentChildLink = parentChildHierarchyParentChildLink(pch);
+                    String nullParentValue = parentChildHierarchyNullParentValue(pch);
+                    ColumnMapping parentColumn = parentChildHierarchyParentColumn(pch);
+                    boolean parentAsLeafEnable = parentChildHierarchyParentAsLeafEnable(pch);
+                    String parentAsLeafNameFormat = parentChildHierarchyParentAsLeafNameFormat(pch);
 
-                HierarchyMapping h = createHierarchy(annotations, id, description, name, levels,
-                    memberReaderParameters,
-                    allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
-                    memberReaderClass, origin, primaryKey, uniqueKeyLevelName, visible, query);
-                hierarchyMap.put(hierarchy, h);
+                    h = createParentChildHierarchy(annotations, id, description, name,
+                            memberReaderParameters,
+                            allLevelName, allMemberCaption, allMemberName, defaultMember, displayFolder, hasAll,
+                            memberReaderClass, origin, primaryKey, uniqueKeyLevelName, visible, query, level,
+                            parentChildLink, nullParentValue, parentColumn, parentAsLeafEnable, parentAsLeafNameFormat
+                            );
+                    hierarchyMap.put(hierarchy, h);
+
+                }
                 return h;
             } else {
                 return hierarchyMap.get(hierarchy);
@@ -730,6 +750,19 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         }
         return null;
     }
+
+    private LevelMapping parentChildHierarchyLevel(ParentChildHierarchyMapping pch) {
+        return level(pch.getLevel());
+    }
+
+    protected abstract HierarchyMapping createParentChildHierarchy(List<? extends AnnotationMapping> annotations,
+            String id, String description, String name,
+            List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
+            String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
+            String memberReaderClass, String origin, ColumnMapping primaryKey, String uniqueKeyLevelName,
+            boolean visible, QueryMapping query, LevelMapping level,
+            ParentChildLinkMapping parentChildLink, String nullParentValue, ColumnMapping parentColumn,
+            boolean parentAsLeafEnable, String parentAsLeafNameFormat);
 
     protected QueryMapping hierarchyQuery(HierarchyMapping hierarchy) {
         return query(hierarchy.getQuery());
@@ -1468,7 +1501,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
 
     protected abstract MemberReaderParameterMapping createMemberReaderParameter(String name, String value);
 
-    protected List<? extends LevelMapping> hierarchyLevels(HierarchyMapping hierarchy) {
+    protected List<? extends LevelMapping> explicitHierarchyLevels(ExplicitHierarchyMapping hierarchy) {
         return levels(hierarchy.getLevels());
     }
 
@@ -1495,7 +1528,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(hierarchy.getAnnotations());
     }
 
-    protected abstract HierarchyMapping createHierarchy(
+    protected abstract HierarchyMapping createExplicitHierarchy(
         List<? extends AnnotationMapping> annotations, String id,
         String description, String name, List<? extends LevelMapping> levels,
         List<? extends MemberReaderParameterMapping> memberReaderParameters, String allLevelName,
@@ -1519,7 +1552,6 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     protected LevelMapping level(LevelMapping level) {
         if (level != null) {
             if (!levelMap.containsKey(level)) {
-                ParentChildLinkMapping parentChildLink = levelParentChildLink(level);
                 List<? extends MemberPropertyMapping> memberProperties = levelMemberProperties(level);
                 MemberFormatterMapping memberFormatter = levelMemberFormatter(level);
                 String approxRowCount = levelApproxRowCount(level);
@@ -1528,20 +1560,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 HideMemberIfType hideMemberIf = levelHideMemberIf(level);
                 LevelType levelType = levelLevelType(level);
                 ColumnMapping nameColumn = levelNameColumn(level);
-                String nullParentValue = levelNullParentValue(level);
                 ColumnMapping ordinalColumn = levelOrdinalColumn(level);
-                ColumnMapping parentColumn = levelParentColumn(level);
                 InternalDataType type = levelType(level);
                 boolean uniqueMembers = levelUniqueMembers(level);
                 boolean visible = levelVisible(level);
                 String name = levelName(level);
                 String id = levelId(level);
                 String description = levelDescription(level);
-                boolean parentAsLeafEnable = levelParentAsLeafEnable(level);
-                String parentAsLeafNameFormat = levelParentAsLeafNameFormat(level);
-                return createLevel( parentChildLink, memberProperties, memberFormatter, approxRowCount,
-                    captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
-                    parentColumn, type, uniqueMembers, visible, name, id, description, parentAsLeafEnable, parentAsLeafNameFormat);
+                return createLevel( memberProperties, memberFormatter, approxRowCount,
+                    captionColumn, column, hideMemberIf, levelType, nameColumn, ordinalColumn,
+                    type, uniqueMembers, visible, name, id, description);
             } else {
                 return levelMap.get(level);
             }
@@ -1549,12 +1577,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private boolean levelParentAsLeafEnable(LevelMapping level) {
-        return level.isParentAsLeafEnable();
+    private boolean parentChildHierarchyParentAsLeafEnable(ParentChildHierarchyMapping hierarchy) {
+        return hierarchy.isParentAsLeafEnable();
     }
 
-    private String levelParentAsLeafNameFormat(LevelMapping level) {
-        return level.getParentAsLeafNameFormat();
+    private String parentChildHierarchyParentAsLeafNameFormat(ParentChildHierarchyMapping hierarchy) {
+        return hierarchy.getParentAsLeafNameFormat();
     }
 
     private String levelDescription(LevelMapping level) {
@@ -1581,16 +1609,16 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return level.getDataType();
     }
 
-    protected ColumnMapping levelParentColumn(LevelMapping level) {
-        return column(level.getParentColumn());
+    protected ColumnMapping parentChildHierarchyParentColumn(ParentChildHierarchyMapping hierarchy) {
+        return column(hierarchy.getParentColumn());
     }
 
     protected ColumnMapping levelOrdinalColumn(LevelMapping level) {
         return column(level.getOrdinalColumn());
     }
 
-    protected String levelNullParentValue(LevelMapping level) {
-        return level.getNullParentValue();
+    protected String parentChildHierarchyNullParentValue(ParentChildHierarchyMapping hierarchy) {
+        return hierarchy.getNullParentValue();
     }
 
     protected ColumnMapping levelNameColumn(LevelMapping level) {
@@ -1781,8 +1809,8 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return annotations(memberProperty.getAnnotations());
     }
 
-    protected ParentChildLinkMapping levelParentChildLink(LevelMapping level) {
-        return parentChildLink(level.getParentChildLink());
+    protected ParentChildLinkMapping parentChildHierarchyParentChildLink(ParentChildHierarchyMapping hierarchy) {
+        return parentChildLink(hierarchy.getParentChildLink());
     }
 
     protected ParentChildLinkMapping parentChildLink(ParentChildLinkMapping parentChildLink) {
@@ -1837,12 +1865,10 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
     }
 
     protected abstract LevelMapping createLevel(
-        ParentChildLinkMapping parentChildLink,
         List<? extends MemberPropertyMapping> memberProperties, MemberFormatterMapping memberFormatter,
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
-        LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
-        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
-        boolean parentAsLeafEnable, String parentAsLeafNameFormat
+        LevelType levelType, ColumnMapping nameColumn, ColumnMapping ordinalColumn,
+        InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {

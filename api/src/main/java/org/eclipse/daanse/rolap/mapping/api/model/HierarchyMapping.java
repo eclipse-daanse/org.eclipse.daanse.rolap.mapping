@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.api.model;
 import java.util.List;
 
 public interface HierarchyMapping extends AbstractElementMapping {
-    List<? extends LevelMapping> getLevels();
 
     List<? extends MemberReaderParameterMapping> getMemberReaderParameters();
 
