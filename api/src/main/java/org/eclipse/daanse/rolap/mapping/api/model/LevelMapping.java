@@ -50,8 +50,8 @@ public interface LevelMapping extends AbstractElementMapping{
 
     boolean isVisible();
 
-    boolean isShowParentAsLeaf();
+    boolean isParentAsLeafEnable();
 
-    String getNameFormat();
+    String getParentAsLeafNameFormat();
 
 }

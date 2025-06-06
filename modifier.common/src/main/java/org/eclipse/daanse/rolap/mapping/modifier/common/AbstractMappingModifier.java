@@ -1537,11 +1537,11 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 String name = levelName(level);
                 String id = levelId(level);
                 String description = levelDescription(level);
-                boolean showParentAsLeaf = levelShowParentAsLeaf(level);
-                String nameFormat = levelNameFormat(level);
+                boolean parentAsLeafEnable = levelParentAsLeafEnable(level);
+                String parentAsLeafNameFormat = levelParentAsLeafNameFormat(level);
                 return createLevel( parentChildLink, memberProperties, memberFormatter, approxRowCount,
                     captionColumn, column, hideMemberIf, levelType, nameColumn, nullParentValue, ordinalColumn,
-                    parentColumn, type, uniqueMembers, visible, name, id, description, showParentAsLeaf, nameFormat);
+                    parentColumn, type, uniqueMembers, visible, name, id, description, parentAsLeafEnable, parentAsLeafNameFormat);
             } else {
                 return levelMap.get(level);
             }
@@ -1549,12 +1549,12 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    private boolean levelShowParentAsLeaf(LevelMapping level) {
-        return level.isShowParentAsLeaf();
+    private boolean levelParentAsLeafEnable(LevelMapping level) {
+        return level.isParentAsLeafEnable();
     }
 
-    private String levelNameFormat(LevelMapping level) {
-        return level.getNameFormat();
+    private String levelParentAsLeafNameFormat(LevelMapping level) {
+        return level.getParentAsLeafNameFormat();
     }
 
     private String levelDescription(LevelMapping level) {
@@ -1842,7 +1842,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
         InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
-        boolean createLevel, String nameFormat
+        boolean parentAsLeafEnable, String parentAsLeafNameFormat
     );
 
     protected AccessHierarchy accessHierarchyGrantAccess(AccessHierarchyGrantMapping accessHierarchyGrant) {

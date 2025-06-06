@@ -563,7 +563,7 @@ public class PojoMappingModifier extends AbstractMappingModifier {
         String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
         LevelType levelType, ColumnMapping nameColumn, String nullParentValue, ColumnMapping ordinalColumn, ColumnMapping parentColumn,
         InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description,
-        boolean showParentAsLeaf, String nameFormat
+        boolean parentAsLeafEnable, String parentAsLeafNameFormat
     ) {
         return LevelMappingImpl.builder()
 
@@ -585,8 +585,8 @@ public class PojoMappingModifier extends AbstractMappingModifier {
             .withName(name)
             .withId(id)
             .withDescription(description)
-            .withShowParentAsLeaf(showParentAsLeaf)
-            .withNameFormat(nameFormat)
+            .withParentAsLeafEnable(parentAsLeafEnable)
+            .withParentAsLeafNameFormat(parentAsLeafNameFormat)
             .build();
     }
 

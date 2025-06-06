@@ -54,9 +54,9 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
 
     private boolean visible;
 
-    private boolean showParentAsLeaf;
+    private boolean parentAsLeafEnable;
 
-    private String nameFormat;
+    private String parentAsLeafNameFormat;
 
 
     private LevelMappingImpl(Builder builder) {
@@ -75,8 +75,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         this.dataType = builder.dataType;
         this.uniqueMembers = builder.uniqueMembers;
         this.visible = builder.visible;
-        this.showParentAsLeaf = builder.showParentAsLeaf;
-        this.nameFormat = builder.nameFormat;
+        this.parentAsLeafEnable = builder.parentAsLeafEnable;
+        this.parentAsLeafNameFormat = builder.parentAsLeafNameFormat;
         super.setName(builder.name);
         super.setDescription(builder.description);
         super.setId(builder.id);
@@ -211,13 +211,13 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
     }
 
     @Override
-    public boolean isShowParentAsLeaf() {
-        return this.showParentAsLeaf;
+    public boolean isParentAsLeafEnable() {
+        return this.parentAsLeafEnable;
     }
 
     @Override
-    public String getNameFormat() {
-        return this.nameFormat;
+    public String getParentAsLeafNameFormat() {
+        return this.parentAsLeafNameFormat;
     }
 
     public static Builder builder() {
@@ -240,8 +240,8 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
         private InternalDataType dataType;
         private boolean uniqueMembers;
         private boolean visible;
-        private boolean showParentAsLeaf;
-        private String nameFormat;
+        private boolean parentAsLeafEnable;
+        private String parentAsLeafNameFormat;
         private String name;
         private String description;
         private String id;
@@ -340,13 +340,13 @@ public class LevelMappingImpl extends AbstractElementMappingImpl implements Leve
             return this;
         }
 
-        public Builder withShowParentAsLeaf(boolean showParentAsLeaf) {
-            this.showParentAsLeaf = showParentAsLeaf;
+        public Builder withParentAsLeafEnable(boolean parentAsLeafEnable) {
+            this.parentAsLeafEnable = parentAsLeafEnable;
             return this;
         }
 
-        public Builder withNameFormat(String nameFormat) {
-            this.nameFormat = nameFormat;
+        public Builder withParentAsLeafNameFormat(String parentAsLeafNameFormat) {
+            this.parentAsLeafNameFormat = parentAsLeafNameFormat;
             return this;
         }
 
