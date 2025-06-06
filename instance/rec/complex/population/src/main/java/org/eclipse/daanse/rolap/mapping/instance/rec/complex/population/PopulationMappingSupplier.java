@@ -24,6 +24,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
@@ -199,7 +200,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withDescription("Age Group H9")
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY1 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY1 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(false)
         .withName("Year")
@@ -209,7 +210,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL1))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY2 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY2 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName(GEOGRAPHICAL)
@@ -219,7 +220,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL21, LEVEL22, LEVEL23))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY3 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY3 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("Gender (m/f/d)")
@@ -229,7 +230,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL3))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY41 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY41 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("Age (single vintages)")
@@ -239,7 +240,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL41))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY42 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY42 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("Age group (Standard)")
@@ -249,7 +250,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL42, LEVEL41))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY43 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY43 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("Age group (children)")
@@ -259,7 +260,7 @@ public class PopulationMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL43, LEVEL41))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY44 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY44 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("Age group (10-year groups)")

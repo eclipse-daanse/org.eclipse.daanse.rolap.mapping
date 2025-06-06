@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
@@ -278,7 +279,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDdimensionMembersHiddenIfBlankNameLevel2.setNameColumn(level2NullNameColumn);
         hierarchyDdimensionMembersHiddenIfBlankNameLevel2.setHideMemberIf(HideMemberIf.IF_BLANK_NAME);
 
-        Hierarchy hierarchyDimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyDimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyDimensionMembersHiddenIfBlankName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfBlankName.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenIfBlankName.setId("Hierarchy1_1");
@@ -306,7 +307,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setNameColumn(level3MultipleNameColumn);
         hierarchyDimensionMembersHiddenMultipleLevelsLevel3.setHideMemberIf(HideMemberIf.IF_BLANK_NAME);
 
-        Hierarchy hierarchyDimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createHierarchy();
+        ExplicitHierarchy hierarchyDimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyDimensionMembersHiddenMultipleLevels.setHasAll(true);
         hierarchyDimensionMembersHiddenMultipleLevels.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenMultipleLevels.setId("Hierarchy1_2");

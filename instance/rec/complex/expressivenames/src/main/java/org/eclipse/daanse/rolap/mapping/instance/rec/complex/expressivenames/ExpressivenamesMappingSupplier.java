@@ -25,12 +25,12 @@ import org.eclipse.daanse.rolap.mapping.pojo.CatalogMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalColumnMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DatabaseSchemaMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.DimensionConnectorMappingImpl;
+import org.eclipse.daanse.rolap.mapping.pojo.ExplicitHierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.HierarchyMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinQueryMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.JoinedQueryElementMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.LevelMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;
-import org.eclipse.daanse.rolap.mapping.pojo.MeasureMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalCubeMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.PhysicalTableMappingImpl.Builder;
@@ -282,7 +282,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withDescription("Level 3 Hierarchy3 Dimension 3")
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY1 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY1 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D1H1")
@@ -292,7 +292,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL1))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY21 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY21 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D2H1")
@@ -302,7 +302,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL21))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY22 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY22 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D2H2")
@@ -313,7 +313,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL221, LEVEL222))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY31 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY31 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D3H1")
@@ -323,7 +323,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL31))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY32 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY32 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D3H2")
@@ -333,7 +333,7 @@ public class ExpressivenamesMappingSupplier implements CatalogMappingSupplier {
         .withLevels(List.of(LEVEL321, LEVEL322))
         .build();
 
-    private static final HierarchyMappingImpl HIERARCHY33 = HierarchyMappingImpl
+    private static final HierarchyMappingImpl HIERARCHY33 = ExplicitHierarchyMappingImpl
         .builder()
         .withHasAll(true)
         .withName("D3H3")
