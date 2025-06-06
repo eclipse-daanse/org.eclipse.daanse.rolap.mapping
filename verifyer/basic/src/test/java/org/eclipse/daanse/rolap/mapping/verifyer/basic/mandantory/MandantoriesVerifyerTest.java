@@ -614,8 +614,8 @@ class MandantoriesVerifyerTest {
                             List<MemberPropertyMapping> getMemberProperties,
                             boolean isVisible,
                             MemberFormatterMapping getMemberFormatter,
-                            boolean isShowParentAsLeaf,
-                            String getNameFormat
+                            boolean isParentAsLeafEnable,
+                            String getParentAsLeafNameFormat
     )
         implements LevelMapping {
 
