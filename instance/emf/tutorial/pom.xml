@@ -65,6 +65,7 @@
     <module>access</module>
     <module>aggregation</module>
     <module>writeback</module>
+    <module>functions</module>
   </modules>
 
   <dependencies>
