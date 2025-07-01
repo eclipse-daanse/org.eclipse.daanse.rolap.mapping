@@ -43,6 +43,7 @@
     <module>hierarchy.parentchild.closure</module>
     <module>hierarchy.parentchild.nullparent</module>
     <module>level.member.property.intro</module>
+    <module>calculatedmember.property</module>
     <module>calculatedmember.intro</module>
   </modules>
 </project>
