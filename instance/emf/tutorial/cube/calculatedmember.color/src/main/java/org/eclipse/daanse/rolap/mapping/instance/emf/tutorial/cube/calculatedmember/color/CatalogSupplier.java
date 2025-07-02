@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.property;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -27,7 +27,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -46,7 +45,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            This tutorial discusses Calculated Members with properties MEMBER_ORDINAL and FORMAT_STRING, which allow you to define members in the measure or dimension area of a cube without storing them directly in the database. Instead, these members are computed on the fly, often based on the values of other members or measures. This is particularly useful for creating derived measures or dimension members that are not present in the underlying data source.
+            This tutorial discusses Calculated Members and Measures with diferent colors.
 
             """;
 
@@ -66,10 +65,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The dimension is defined with the one hierarchy. The hierarchy is used in the cube and in the calculated member.
             """;
     private static final String cm1Body = """
-            This calculated member only coes a calculation with both of the existing Measures. The Forula holds the calculation instruction. The Formula Expression is a MDX expression. Member had properties MEMBER_ORDINAL = 1 and FORMAT_STRING
+            This calculated member have BACK_COLOR in format string. It show posibility to have different colors incal culated member
             """;
     private static final String cm2Body = """
-            This calculated member only coes a calculation with both of the existing Measures. The Forula holds the calculation instruction. The Formula Expression is a MDX expression. Member had properties MEMBER_ORDINAL = 2 and FORMAT_STRING
+            This calculated member have BACK_COLOR in format string. It show posibility to have different colors incal culated member
 
             """;
     private static final String cubeBody = """
@@ -123,40 +122,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
 
-        CalculatedMemberProperty memberOrdinalCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdinalCalculatedMemberProperty1.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty1.setId("_propertyMemberOrdinal1");
-        memberOrdinalCalculatedMemberProperty1.setValue("3");
 
         SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure-Sum");
         measureSum.setId("Measure-Sum");
         measureSum.setColumn(valueColumn);
-        measureSum.getCalculatedMemberProperties().add(memberOrdinalCalculatedMemberProperty1);
-
-        CalculatedMemberProperty memberOrdinalCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdinalCalculatedMemberProperty2.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty2.setId("_propertyMemberOrdinal2");
-        memberOrdinalCalculatedMemberProperty2.setValue("4");
+        measureSum.setFormatString("$#,##0.00;BACK_COLOR=32768;FORE_COLOR=0");//green
 
         CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure-Count");
         measureCount.setId("Measure-Count");
         measureCount.setColumn(valueColumn);
-        measureCount.getCalculatedMemberProperties().add(memberOrdinalCalculatedMemberProperty2);
+        measureCount.setFormatString("$#,##0.00;BACK_COLOR=16711680;FORE_COLOR=0");//red
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measureSum, measureCount));
 
-        CalculatedMemberProperty memberOrdinalCalculatedMemberProperty3 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdinalCalculatedMemberProperty3.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty3.setId("_propertyMemberOrdinal3");
-        memberOrdinalCalculatedMemberProperty3.setValue("1");
-
-        CalculatedMemberProperty memberOrdina1lCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdina1lCalculatedMemberProperty1.setName("FORMAT_STRING");
-        memberOrdina1lCalculatedMemberProperty1.setId("_format1");
-        memberOrdina1lCalculatedMemberProperty1.setValue("$#,##0.00");
+        CalculatedMemberProperty formatCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        formatCalculatedMemberProperty1.setName("FORMAT_STRING");
+        formatCalculatedMemberProperty1.setId("_format1");
+        formatCalculatedMemberProperty1.setValue("$#,##0.00;BACK_COLOR=65535;FORE_COLOR=13369395");
 
         CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Calculated Member 1");
@@ -164,28 +149,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         calculatedMember1.setId("_cm1");
         calculatedMember1.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember1.setDisplayFolder("folder");
-        calculatedMember1.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty3, memberOrdina1lCalculatedMemberProperty1));
+        calculatedMember1.getCalculatedMemberProperties().addAll(List.of(formatCalculatedMemberProperty1));
+        calculatedMember1.setHierarchy(hierarchy);
+        calculatedMember1.setParent("[theDimension].[theHierarchy].[All theHierarchys]");
 
-
-        CalculatedMemberProperty memberOrdinalCalculatedMemberProperty4 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdinalCalculatedMemberProperty4.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty4.setId("_propertyMemberOrdinal4");
-        memberOrdinalCalculatedMemberProperty4.setValue("2");
-
-        CalculatedMemberProperty memberOrdina1lCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        memberOrdina1lCalculatedMemberProperty2.setName("FORMAT_STRING");
-        memberOrdina1lCalculatedMemberProperty2.setId("_format2");
-        memberOrdina1lCalculatedMemberProperty2.setValue("$#,##");
+        CalculatedMemberProperty formatCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        formatCalculatedMemberProperty2.setName("FORMAT_STRING");
+        formatCalculatedMemberProperty2.setId("_format2");
+        formatCalculatedMemberProperty2.setValue("$#,##;BACK_COLOR=255;FORE_COLOR=13369395");
 
         CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Calculated Member 2");
         calculatedMember2.setId("_cm2");
         calculatedMember2.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember2.setDisplayFolder("folder");
-        calculatedMember2.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty4, memberOrdina1lCalculatedMemberProperty2));
+        calculatedMember2.getCalculatedMemberProperties().addAll(List.of(formatCalculatedMemberProperty2));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setName("Cube CalculatedMember with properties");
+        cube.setName("Cube CalculatedMember with different colors");
         cube.setId("_cube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
@@ -193,11 +174,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getCalculatedMembers().addAll(List.of(calculatedMember2,calculatedMember1));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube - CalculatedMembers with properties");
+        catalog.setName("Cube - CalculatedMembers with different colors");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - CalculatedMembers with properties", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Cube - CalculatedMembers with different colors", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
@@ -206,9 +187,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(hierarchy, "Hierarchy without hasAll Level", hierarchyBody, 1, 4, 0, true, 0);
         document(dimension, "Dimension", dimensionBody, 1, 5, 0, true, 0);
 
-        document(calculatedMember1, "Calculated Member in Measure with properties", cm1Body, 1, 6, 0, true, 0);
+        document(calculatedMember1, "Calculated Member in Measure with different colors properties", cm1Body, 1, 6, 0, true, 0);
 
-        document(calculatedMember2, "Calculated Member in Measure with properties", cm2Body, 1, 6, 0, true, 0);
+        document(calculatedMember2, "Calculated Member in Measure with different colors properties", cm2Body, 1, 6, 0, true, 0);
 
         document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 8, 0, true, 2);
 

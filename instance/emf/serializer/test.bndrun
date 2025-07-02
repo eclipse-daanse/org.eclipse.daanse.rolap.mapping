@@ -77,6 +77,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.school',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables',\
@@ -149,6 +150,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggexclude;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;version='[0.0.1,0.0.2)',\
