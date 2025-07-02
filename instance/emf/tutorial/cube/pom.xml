@@ -44,6 +44,7 @@
     <module>hierarchy.parentchild.nullparent</module>
     <module>level.member.property.intro</module>
     <module>calculatedmember.property</module>
+    <module>calculatedmember.color</module>
     <module>calculatedmember.intro</module>
   </modules>
 </project>
