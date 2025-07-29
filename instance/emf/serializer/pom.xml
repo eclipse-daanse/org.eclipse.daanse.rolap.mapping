@@ -464,30 +464,66 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesscubegrand</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.databaseschemagrand</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accesshierarchygrand</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.tablegrand</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessschemagrand</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessallnonecustom</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggrand</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.dimensiongrand</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.hierarchygrand</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.membergrand</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
@@ -514,12 +550,6 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.complex.school</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.accessdbschemagrand</artifactId>
       <version>${project.version}</version>
     </dependency>
 

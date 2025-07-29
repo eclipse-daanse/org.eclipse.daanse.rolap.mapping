@@ -22,4 +22,15 @@
   <packaging>pom</packaging>
 
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access</artifactId>
+
+  <modules>
+    <module>databaseschemagrand</module>
+    <module>tablegrand</module>
+    <module>columngrand</module>
+    <module>cataloggrand</module>
+    <module>cubegrand</module>
+    <module>dimensiongrand</module>
+    <module>hierarchygrand</module>
+    <module>membergrand</module>
+  </modules>
 </project>
