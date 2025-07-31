@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -101,7 +100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PhysicalTable tableFact = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableFact.setName("Fact");
         tableFact.setId("_tab_fact");
-        tableFact.getColumns().addAll(List.of(columnCountry, columnValue));
+        tableFact.getColumns().addAll(List.of(columnKey,columnCountry, columnValue));
         databaseSchema.getTables().add(tableFact);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
