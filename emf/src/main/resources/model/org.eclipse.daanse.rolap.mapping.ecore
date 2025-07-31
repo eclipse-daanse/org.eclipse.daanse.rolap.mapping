@@ -20,7 +20,6 @@
     <details key="prefix" value="RolapMapping"/>
     <details key="basePackage" value="org.eclipse.daanse.rolap.mapping.emf"/>
     <details key="documentation" value="Here will be the description for the package."/>
-
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Documentation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -36,260 +35,790 @@
         eType="#//Documentation" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Annotation" eSuperTypes="#//IAnnotation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//IAbstractElement #//DocumentedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
-        eType="#//Annotation" containment="true"/>
+        eType="#//Annotation" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        iD="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Enviroment" eSuperTypes="#//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
-        eType="#//Catalog" containment="true"/>
+        eType="#//Catalog" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" upperBound="-1"
-        eType="#//Cube" containment="true"/>
+        eType="#//Cube" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensions" upperBound="-1"
-        eType="#//Dimension" containment="true"/>
+        eType="#//Dimension" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchies" upperBound="-1"
-        eType="#//Hierarchy" containment="true"/>
+        eType="#//Hierarchy" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="levels" upperBound="-1"
-        eType="#//Level" containment="true"/>
+        eType="#//Level" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatters" upperBound="-1"
-        eType="#//Formatter" containment="true"/>
+        eType="#//Formatter" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="accessRoles" upperBound="-1"
-        eType="#//AccessRole" containment="true"/>
+        eType="#//AccessRole" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationTables" upperBound="-1"
-        eType="#//AggregationTable" containment="true"/>
+        eType="#//AggregationTable" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
-        eType="#//AggregationExclude" containment="true"/>
+        eType="#//AggregationExclude" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//ICatalog #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
-        eType="#//Parameter" containment="true"/>
+        eType="#//Parameter" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" lowerBound="1" upperBound="-1"
-        eType="#//Cube"/>
+        eType="#//Cube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedSets" upperBound="-1"
-        eType="#//NamedSet"/>
+        eType="#//NamedSet">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="accessRoles" upperBound="-1"
-        eType="#//AccessRole"/>
+        eType="#//AccessRole">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="measuresDimensionName"
-        ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole"/>
+        ordered="false" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
-        eType="#//DatabaseSchema"/>
+        eType="#//DatabaseSchema">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement #//ICube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMembers" upperBound="-1"
-        eType="#//CalculatedMember" containment="true"/>
+        eType="#//CalculatedMember" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="namedSets" upperBound="-1"
-        eType="#//NamedSet" containment="true"/>
+        eType="#//NamedSet" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="kpis" upperBound="-1" eType="#//Kpi"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="enabled" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Member"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultMeasure" eType="#//Member">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube #//IPhysicalCube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
-        eType="#//DimensionConnector" containment="true" eOpposite="#//DimensionConnector/physicalCube"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"/>
+        eType="#//DimensionConnector" containment="true" eOpposite="#//DimensionConnector/physicalCube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writebackTable" eType="#//WritebackTable"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="action" upperBound="-1"
-        eType="#//Action" containment="true"/>
+        eType="#//Action" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cache" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroups" lowerBound="1"
-        upperBound="-1" eType="#//MeasureGroup" containment="true" eOpposite="#//MeasureGroup/physicalCube"/>
+        upperBound="-1" eType="#//MeasureGroup" containment="true" eOpposite="#//MeasureGroup/physicalCube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualCube" eSuperTypes="#//Cube #//IVirtualCube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnectors" upperBound="-1"
-        eType="#//DimensionConnector"/>
+        eType="#//DimensionConnector">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeUsages" lowerBound="1"
-        upperBound="-1" eType="#//CubeConnector" containment="true"/>
+        upperBound="-1" eType="#//CubeConnector" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedCalculatedMembers"
-        upperBound="-1" eType="#//CalculatedMember"/>
+        upperBound="-1" eType="#//CalculatedMember">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedMeasures" upperBound="-1"
-        eType="#//BaseMeasure"/>
+        eType="#//BaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CubeConnector" eSuperTypes="#//ICubeConnector">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreUnrelatedDimensions"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"/>
+        defaultValueLiteral="false">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MeasureGroup" eSuperTypes="#//IMeasureGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measures" lowerBound="1"
-        upperBound="-1" eType="#//BaseMeasure" containment="true" eOpposite="#//BaseMeasure/measureGroup"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        upperBound="-1" eType="#//BaseMeasure" containment="true" eOpposite="#//BaseMeasure/measureGroup">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
-        eType="#//PhysicalCube" eOpposite="#//PhysicalCube/measureGroups"/>
+        eType="#//PhysicalCube" eOpposite="#//PhysicalCube/measureGroups">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Member" abstract="true" eSuperTypes="#//IMember #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMemberProperties"
-        upperBound="-1" eType="#//CalculatedMemberProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cellFormatter" eType="#//CellFormatter"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        upperBound="-1" eType="#//CalculatedMemberProperty" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cellFormatter" eType="#//CellFormatter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatString" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//IMinMeasure #//ColumnBaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//IMaxMeasure #//ColumnBaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ISumMeasure #//ColumnBaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//IAvgMeasure #//ColumnBaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//INoneMeasure #//SQLExpressionBaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ICountMeasure #//ColumnBaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ITextAggMeasure #//ColumnBaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1" upperBound="-1"
-        eType="#//OrderedColumn"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="coalesce"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="onOverflowTruncate"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1"
+        upperBound="-1" eType="#//OrderedColumn">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="separator" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="distinct" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="coalesce" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="onOverflowTruncate" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BitAggMeasure" eSuperTypes="#//IBitAggMeasure #//ColumnBaseMeasure">
-      <eOperations name="getBitAggType" lowerBound="1" eType="#//BitAggregationType">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="body" value="return BitAggregationType.fromValue(getAggType().getLiteral());"/>
-        </eAnnotations>
-      </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggType" eType="#//BitAggType"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="false"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eOperations name="getBitAggType" lowerBound="1" eType="#//BitAggregationType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return BitAggregationType.fromValue(getAggType().getLiteral());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggType" eType="#//BitAggType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="not" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="false">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PercentileMeasure" eSuperTypes="#//IPercentileMeasure #//BaseMeasure">
-      <eOperations name="getPercentileType" lowerBound="1" eType="#//PercentileType">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="body" value="return PercentileType.fromValue(getPercentType().getLiteral());"/>
-        </eAnnotations>
-      </eOperations>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//OrderedColumn"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentType" eType="#//PercentType"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentile" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eOperations name="getPercentileType" lowerBound="1" eType="#//PercentileType">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return PercentileType.fromValue(getPercentType().getLiteral());"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//OrderedColumn">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentType" eType="#//PercentType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="percentile" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Double"
         defaultValueLiteral="1.0"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NthAggMeasure" eSuperTypes="#//INthAggMeasure #//ColumnBaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1" upperBound="-1"
-        eType="#//OrderedColumn"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreNulls" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="orderByColumns" lowerBound="1"
+        upperBound="-1" eType="#//OrderedColumn">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignoreNulls" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="n" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//ICustomMeasure #//BaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="template"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-      <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1" upperBound="-1"
-        eType="#//Column"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="properties" lowerBound="1" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>  
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="template" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1"
+        upperBound="-1" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="properties" lowerBound="1"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionBaseMeasure" eSuperTypes="#//ISqlExpressionBaseMeasure #//BaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//SQLExpressionColumn"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//SQLExpressionColumn">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ColumnBaseMeasure" eSuperTypes="#//IColumnBaseMeasure #//BaseMeasure">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BaseMeasure" abstract="true" eSuperTypes="#//IBaseMeasure #//Member">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getDatatype" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnInternalDataType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" eType="#//ColumnInternalDataType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formatter" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="measureGroup" lowerBound="1"
-        eType="#//MeasureGroup" eOpposite="#//MeasureGroup/measures"/>
+        eType="#//MeasureGroup" eOpposite="#//MeasureGroup/measures">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Kpi" eSuperTypes="#//AbstractElement #//IKpi">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="translations" upperBound="-1"
-        eType="#//Translation" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//Translation" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="associatedMeasureGroupID"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="goal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trend" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trendGraphic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statusGraphic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentTimeMember" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentKpi" eType="#//Kpi"/>"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="goal" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="status" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trend" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trendGraphic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="statusGraphic" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="currentTimeMember" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentKpi" eType="#//Kpi">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NamedSet" eSuperTypes="#//AbstractElement #//INamedSet">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" eType="#//Formula"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" eType="#//Formula">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Dimension" abstract="true" eSuperTypes="#//AbstractElement #//IDimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchies" lowerBound="1"
-        upperBound="-1" eType="#//Hierarchy"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        upperBound="-1" eType="#//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultHierarchy" eType="#//Hierarchy"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="defaultHierarchy" eType="#//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector" eSuperTypes="#//IDimensionConnector">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
-        eType="#//Dimension"/>
+        eType="#//Dimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="overrideDimensionName"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
+        iD="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
-        eType="#//PhysicalCube" eOpposite="#//PhysicalCube/dimensionConnectors"/>
+        eType="#//PhysicalCube" eOpposite="#//PhysicalCube/dimensionConnectors">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Hierarchy" abstract="true" eSuperTypes="#//AbstractElement #//IHierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberReaderParameters"
-        upperBound="-1" eType="#//MemberReaderParameter" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allMemberCaption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allMemberName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultMember" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        upperBound="-1" eType="#//MemberReaderParameter" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allMemberCaption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="allMemberName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultMember" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasAll" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberReaderClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        defaultValueLiteral="false">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberReaderClass" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="origin" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueKeyLevelName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//Query">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return InternalDataType.fromValue(getColumnType().getLiteral());"/>
@@ -306,306 +835,928 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberProperties" upperBound="-1"
-        eType="#//MemberProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//MemberFormatter"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column"/>
+        eType="#//MemberProperty" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="memberFormatter" eType="#//MemberFormatter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="#//HideMemberIf"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//LevelDefinition"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnInternalDataType"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="hideMemberIf" eType="#//HideMemberIf">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//LevelDefinition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnType" eType="#//ColumnInternalDataType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="uniqueMembers" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="visible" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExplicitHierarchy" eSuperTypes="#//AbstractElement #//IExplicitHierarchy #//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="levels" lowerBound="1"
-        upperBound="-1" eType="#//Level"/>
+        upperBound="-1" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParentChildHierarchy" eSuperTypes="#//AbstractElement #//IParentChildHierarchy #//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentChildLink" eType="#//ParentChildLink"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullParentValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentAsLeafEnable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentAsLeafNameFormat" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
+        defaultValueLiteral="false">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parentAsLeafNameFormat"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return InternalDataType.fromValue(getPropertyType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnInternalDataType"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dependsOnLevelValue" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="propertyType" eType="#//ColumnInternalDataType">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//ICalculatedMember #//Member">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" eType="#//Formula"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" eType="#//Formula">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
-        eType="#//PhysicalCube"/>
+        eType="#//PhysicalCube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CalculatedMemberProperty" eSuperTypes="#//AbstractElement #//ICalculatedMemberProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="expression" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParentChildLink" eSuperTypes="#//IParentChildLink">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//TableQuery"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="childColumn" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RelationalQuery" abstract="true" eSuperTypes="#//Query #//IRelationalQuery">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineTableQuery" eSuperTypes="#//RelationalQuery #//IInlineTableQuery">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//InlineTable"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//InlineTable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JoinQuery" eSuperTypes="#//Query #//IJoinQuery">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" lowerBound="1" eType="#//JoinedQueryElement"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="right" lowerBound="1" eType="#//JoinedQueryElement"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JoinedQueryElement" eSuperTypes="#//IJoinedQueryElement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1" eType="#//Query">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableQuery" eSuperTypes="#//RelationalQuery #//ITableQuery">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqlWhereExpression" eType="#//SqlStatement"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationExcludes" upperBound="-1"
-        eType="#//AggregationExclude" containment="true"/>
+        eType="#//AggregationExclude" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="optimizationHints" upperBound="-1"
-        eType="#//TableQueryOptimizationHint" containment="true"/>
+        eType="#//TableQueryOptimizationHint" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationTables" upperBound="-1"
-        eType="#//AggregationTable"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table"/>
+        eType="#//AggregationTable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableQueryOptimizationHint" eSuperTypes="#//ITableQueryOptimizationHint">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlSelectQuery" eSuperTypes="#//RelationalQuery #//ISqlSelectQuery">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sql" lowerBound="1" eType="#//SqlView"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MemberReaderParameter" eSuperTypes="#//IMemberReaderParameter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Translation" eSuperTypes="#//ITranslation">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="language" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//UnsignedInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="caption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//UnsignedInt">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="caption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="displayFolder" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
-        eType="#//Annotation" containment="true"/>
+        eType="#//Annotation" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="Formula" instanceClassName="java.lang.String"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Formula" instanceClassName="java.lang.String">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Formatter" abstract="true" eSuperTypes="#//AbstractElement #//IFormatter">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ref" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ref" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CellFormatter" eSuperTypes="#//Formatter #//ICellFormatter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter"/>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter"/>
+  <eClassifiers xsi:type="ecore:EClass" name="CellFormatter" eSuperTypes="#//Formatter #//ICellFormatter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getType" eType="#//InternalDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="modifiable" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dataType" lowerBound="1"
-        eType="#//ColumnInternalDataType" defaultValueLiteral="String"/>
+        eType="#//ColumnInternalDataType" defaultValueLiteral="String">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action #//IDrillThroughAction">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drillThroughAttribute"
-        upperBound="-1" eType="#//DrillThroughAttribute" containment="true"/>
+        upperBound="-1" eType="#//DrillThroughAttribute" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="drillThroughMeasure" upperBound="-1"
-        eType="#//BaseMeasure"/>
+        eType="#//BaseMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="default" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="false"/>
+        defaultValueLiteral="false">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAttribute" eSuperTypes="#//IDrillThroughAttribute">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
-        eType="#//Dimension"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level"/>
+        eType="#//Dimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" eType="#//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="level" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackAttribute" eSuperTypes="#//IWritebackAttribute">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConnector" lowerBound="1"
-        eType="#//DimensionConnector"/>
+        eType="#//DimensionConnector">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure" eSuperTypes="#//IWritebackMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WritebackTable" eSuperTypes="#//IWritebackTable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writebackAttribute" upperBound="-1"
-        eType="#//WritebackAttribute" containment="true"/>
+        eType="#//WritebackAttribute" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="writebackMeasure" upperBound="-1"
-        eType="#//WritebackMeasure" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schema" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//WritebackMeasure" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="schema" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationExclude" eSuperTypes="#//IAggregationExclude">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
+        iD="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationForeignKey" eSuperTypes="#//IAggregationForeignKey">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationColumn" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationLevel" eSuperTypes="#//IAggregationLevel">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationLevelProperties"
-        upperBound="-1" eType="#//AggregationLevelProperty" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        upperBound="-1" eType="#//AggregationLevelProperty" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationLevelProperty" eSuperTypes="#//IAggregationLevelProperty">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasure" eSuperTypes="#//IAggregationMeasure">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasureFactCount" eSuperTypes="#//IAggregationMeasureFactCount">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationTable" abstract="true" eSuperTypes="#//IAggregationTable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationFactCount" lowerBound="1"
-        eType="#//AggregationColumnName" containment="true"/>
+        eType="#//AggregationColumnName" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationIgnoreColumns"
-        upperBound="-1" eType="#//AggregationColumnName" containment="true"/>
+        upperBound="-1" eType="#//AggregationColumnName" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationForeignKeys"
-        upperBound="-1" eType="#//AggregationForeignKey" containment="true"/>
+        upperBound="-1" eType="#//AggregationForeignKey" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationMeasures" lowerBound="1"
-        upperBound="-1" eType="#//AggregationMeasure" containment="true"/>
+        upperBound="-1" eType="#//AggregationMeasure" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationLevels" upperBound="-1"
-        eType="#//AggregationLevel" containment="true"/>
+        eType="#//AggregationLevel" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationMeasureFactCounts"
-        upperBound="-1" eType="#//AggregationMeasureFactCount" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+        upperBound="-1" eType="#//AggregationMeasureFactCount" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ignorecase" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
+        iD="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationName" eSuperTypes="#//AggregationTable #//IAggregationName">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Table"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="approxRowCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1" eType="#//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationPattern" eSuperTypes="#//AggregationTable #//IAggregationPattern">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="pattern" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="excludes" upperBound="-1"
-        eType="#//AggregationExclude"/>
+        eType="#//AggregationExclude">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AggregationColumnName" eSuperTypes="#//IAggregationColumnName">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessCube.fromValue(getCubeAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionGrants" upperBound="-1"
-        eType="#//AccessDimensionGrant" containment="true"/>
+        eType="#//AccessDimensionGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchyGrants" upperBound="-1"
-        eType="#//AccessHierarchyGrant" containment="true"/>
+        eType="#//AccessHierarchyGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="cubeAccess" lowerBound="1"
-        eType="#//CubeAccess"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"/>
+        eType="#//CubeAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessDatabaseSchemaGrant" eSuperTypes="#//IAccessDatabaseSchemaGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessDatabaseSchema">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessDatabaseSchema.fromValue(getDatabaseSchemaAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseSchemaAccess" lowerBound="1"
-        eType="#//DatabaseSchemaAccess"/>
+        eType="#//DatabaseSchemaAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tableGrants" lowerBound="1"
-        upperBound="-1" eType="#//AccessTableGrant" containment="true"/>
+        upperBound="-1" eType="#//AccessTableGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="databaseSchema" lowerBound="1"
-        eType="#//DatabaseSchema"/>
+        eType="#//DatabaseSchema">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessTableGrant" eSuperTypes="#//IAccessTableGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessTable">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessTable.fromValue(getTableAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableAccess" lowerBound="1"
-        eType="#//TableAccess"/>
+        eType="#//TableAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columnGrants" lowerBound="1"
-        upperBound="-1" eType="#//AccessColumnGrant" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1"
-        eType="#//Table"/>
+        upperBound="-1" eType="#//AccessColumnGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1" eType="#//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessColumnGrant" eSuperTypes="#//IAccessColumnGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessColumn">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessColumn.fromValue(getColumnAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnAccess" lowerBound="1"
-        eType="#//ColumnAccess"/>
+        eType="#//ColumnAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessDimension.fromValue(getDimensionAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimensionAccess" lowerBound="1"
-        eType="#//DimensionAccess"/>
+        eType="#//DimensionAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimension" lowerBound="1"
-        eType="#//Dimension"/>
+        eType="#//Dimension">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant" eSuperTypes="#//IAccessHierarchyGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessHierarchy">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessHierarchy.fromValue(getHierarchyAccess().getLiteral());"/>
@@ -617,128 +1768,356 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberGrants" upperBound="-1"
-        eType="#//AccessMemberGrant" containment="true"/>
+        eType="#//AccessMemberGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hierarchyAccess" lowerBound="1"
-        eType="#//HierarchyAccess"/>
+        eType="#//HierarchyAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rollupPolicy" lowerBound="1"
-        eType="#//RollupPolicy"/>
+        eType="#//RollupPolicy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="hierarchy" lowerBound="1"
-        eType="#//Hierarchy"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="bottomLevel" eType="#//Level"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevel" eType="#//Level"/>
+        eType="#//Hierarchy">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bottomLevel" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="topLevel" eType="#//Level">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessMember">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessMember.fromValue(getMemberAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberAccess" lowerBound="1"
-        eType="#//MemberAccess"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="member" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//MemberAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="member" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessRole" eSuperTypes="#//AbstractElement #//IAccessRole">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="accessCatalogGrants" upperBound="-1"
-        eType="#//AccessCatalogGrant" containment="true"/>
+        eType="#//AccessCatalogGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedAccessRoles"
-        upperBound="-1" eType="#//AccessRole" containment="true"/>
+        upperBound="-1" eType="#//AccessRole" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessCatalogGrant" eSuperTypes="#//IAccessCatalogGrant">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getAccess" lowerBound="1" eType="#//AccessCatalog">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return AccessCatalog.fromValue(getCatalogAccess().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
-        upperBound="-1" eType="#//AccessCubeGrant" containment="true"/>
+        upperBound="-1" eType="#//AccessCubeGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="databaseSchemaGrants" lowerBound="1"
-        upperBound="-1" eType="#//AccessDatabaseSchemaGrant" containment="true"/>
+        upperBound="-1" eType="#//AccessDatabaseSchemaGrant" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="catalogAccess" lowerBound="1"
-        eType="#//CatalogAccess"/>
+        eType="#//CatalogAccess">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
-        eType="#//DatabaseSchema" containment="true"/>
+        eType="#//DatabaseSchema" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
-        eType="#//Link" containment="true"/>
+        eType="#//Link" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//IDatabaseSchema #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
-        eType="#//Table" containment="true" eOpposite="#//Table/schema"/>
+        eType="#//Table" containment="true" eOpposite="#//Table/schema">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//ITable #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" upperBound="-1"
-        eType="#//Column" containment="true" eOpposite="#//Column/table"/>
+        eType="#//Column" containment="true" eOpposite="#//Column/table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//DatabaseSchema"
-        eOpposite="#//DatabaseSchema/tables"/>
+        eOpposite="#//DatabaseSchema/tables">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IOrderedColumn #//Column">
-      <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1" 
-        eType="#//Column"/>
-      <eStructuralFeatures xsi:type="ecore:EAttribute" name="ascend" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ascend" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Column" abstract="true" eSuperTypes="#//IColumn #//AbstractElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eOperations name="getDataType" eType="#//ColumnDataType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="body" value="return ColumnDataType.fromValue(getType().getLiteral());"/>
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"
-        defaultValueLiteral="Varchar"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+        defaultValueLiteral="Varchar">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//Table"
-        eOpposite="#//Table/columns"/>
+        eOpposite="#//Table/columns">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryLinks" upperBound="-1"
-        eType="#//Link"/>
+        eType="#//Link">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignLinks" upperBound="-1"
-        eType="#//Link" eOpposite="#//Link/primaryKey"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimalDigits" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="charOctetLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numPrecRadix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+        eType="#//Link" eOpposite="#//Link/primaryKey">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decimalDigits" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="charOctetLength" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="numPrecRadix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nullable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PhysicalColumn" eSuperTypes="#//Column #//IPhysicalColumn"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalColumn" eSuperTypes="#//Column #//IPhysicalColumn">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionColumn" eSuperTypes="#//ISQLExpressionColumn #//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1" upperBound="-1"
-        eType="#//SqlStatement" containment="true"/>
+        eType="#//SqlStatement" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery #//DocumentedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true"/>
+        iD="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentation" eType="#//Documentation"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//ILink">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
-        eType="#//Column" eOpposite="#//Column/foreignLinks"/>
+        eType="#//Column" eOpposite="#//Column/foreignLinks">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" lowerBound="1"
-        eType="#//Column"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="#//IInlineTable #//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rows" upperBound="-1" eType="#//Row"
-        containment="true"/>
+        containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Row" eSuperTypes="#//IRow">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rowValues" upperBound="-1"
-        eType="#//RowValue" containment="true"/>
+        eType="#//RowValue" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RowValue" eSuperTypes="#//IRowValue">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-        eType="#//Column"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="#//Column">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlStatement" eSuperTypes="#//ISqlStatement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dialects" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sql" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sql" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SqlView" eSuperTypes="#//ISqlView #//Table">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sqlStatements" lowerBound="1"
-        upperBound="-1" eType="#//SqlStatement" containment="true"/>
+        upperBound="-1" eType="#//SqlStatement" containment="true">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
       abstract="true" interface="true"/>
@@ -927,90 +2306,359 @@
   <eClassifiers xsi:type="ecore:EClass" name="ISqlView" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping"
       abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EEnum" name="CatalogAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
-    <eLiterals name="ALL_DIMENSIONS" value="3" literal="all_dimensions"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL_DIMENSIONS" value="3" literal="all_dimensions">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DatabaseSchemaAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TableAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-  </eClassifiers>  
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="CubeAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DimensionAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HierarchyAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="HideMemberIf">
-    <eLiterals name="NEVER" literal="Never"/>
-    <eLiterals name="IF_BLANK_NAME" value="1" literal="IfBlankName"/>
-    <eLiterals name="IF_PARENTS_NAME" value="2" literal="IfParentsName"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NEVER" literal="Never">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="IF_BLANK_NAME" value="1" literal="IfBlankName">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="IF_PARENTS_NAME" value="2" literal="IfParentsName">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="MemberAccess">
-    <eLiterals name="NONE" literal="none"/>
-    <eLiterals name="ALL" value="1" literal="all"/>
-    <eLiterals name="CUSTOM" value="2" literal="custom"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="NONE" literal="none">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="ALL" value="1" literal="all">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CUSTOM" value="2" literal="custom">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="RollupPolicy">
-    <eLiterals name="FULL" literal="full"/>
-    <eLiterals name="PARTIAL" value="1" literal="partial"/>
-    <eLiterals name="HIDDEN" value="2" literal="hidden"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="FULL" literal="full">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="PARTIAL" value="1" literal="partial">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="HIDDEN" value="2" literal="hidden">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnInternalDataType">
-    <eLiterals name="STRING" literal="String"/>
-    <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
-    <eLiterals name="INTEGER" value="2" literal="Integer"/>
-    <eLiterals name="BOOLEAN" value="3" literal="Boolean"/>
-    <eLiterals name="DATE" value="4" literal="Date"/>
-    <eLiterals name="TIME" value="5" literal="Time"/>
-    <eLiterals name="TIMESTAMP" value="6" literal="Timestamp"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="STRING" literal="String">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="NUMERIC" value="1" literal="Numeric">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="INTEGER" value="2" literal="Integer">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BOOLEAN" value="3" literal="Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DATE" value="4" literal="Date">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME" value="5" literal="Time">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIMESTAMP" value="6" literal="Timestamp">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ColumnType">
-    <eLiterals name="VARCHAR" literal="Varchar"/>
-    <eLiterals name="NUMERIC" value="1" literal="Numeric"/>
-    <eLiterals name="DECIMAL" value="2" literal="Decimal"/>
-    <eLiterals name="FLOAT" value="3" literal="Float"/>
-    <eLiterals name="REAL" value="4" literal="Real"/>
-    <eLiterals name="INTEGER" value="5" literal="Integer"/>
-    <eLiterals name="SMALLINT" value="6" literal="SmallInt"/>
-    <eLiterals name="DOUBLE" value="7" literal="Double"/>
-    <eLiterals name="OTHER" value="8" literal="Other"/>
-    <eLiterals name="BOOLEAN" value="10" literal="Boolean"/>
-    <eLiterals name="DATE" value="11" literal="Date"/>
-    <eLiterals name="TIME" value="12" literal="Time"/>
-    <eLiterals name="TIMESTAMP" value="13" literal="Timestamp"/>
-    <eLiterals name="BIGINT" value="14" literal="BinInt"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="VARCHAR" literal="Varchar">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="NUMERIC" value="1" literal="Numeric">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DECIMAL" value="2" literal="Decimal">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="FLOAT" value="3" literal="Float">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="REAL" value="4" literal="Real">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="INTEGER" value="5" literal="Integer">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="SMALLINT" value="6" literal="SmallInt">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DOUBLE" value="7" literal="Double">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OTHER" value="8" literal="Other">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BOOLEAN" value="10" literal="Boolean">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DATE" value="11" literal="Date">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIME" value="12" literal="Time">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="TIMESTAMP" value="13" literal="Timestamp">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="BIGINT" value="14" literal="BinInt">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BitAggType">
-    <eLiterals name="AND" literal="and"/>
-    <eLiterals name="OR" value="1" literal="or"/>
-    <eLiterals name="XOR" value="2" literal="xor"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="AND" literal="and">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="OR" value="1" literal="or">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="XOR" value="2" literal="xor">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PercentType">
-    <eLiterals name="DISC" literal="disc"/>
-    <eLiterals name="CONT" value="1" literal="cont"/>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    <eLiterals name="DISC" literal="disc">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
+    <eLiterals name="CONT" value="1" literal="cont">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
+    </eLiterals>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="LevelDefinition">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="todo"/>
+    </eAnnotations>
     <eLiterals name="REGULAR" literal="Regular">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that the level is not related to time."/>
