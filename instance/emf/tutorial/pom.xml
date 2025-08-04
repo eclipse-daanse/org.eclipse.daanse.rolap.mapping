@@ -44,10 +44,6 @@
     <module>virtualcubevisiblereferencecubes</module>
     <module>namedset.all</module>
     <module>aggregatetables</module>
-    <module>writebacktable</module>
-    <module>writebackwithoutdimension</module>
-    <module>writebackinlinetable</module>
-    <module>writebackview</module>
     <module>drillthroughaction</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
