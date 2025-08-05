@@ -574,6 +574,12 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
   </dependencies>
 
