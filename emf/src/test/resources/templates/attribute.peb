@@ -6,5 +6,5 @@
       <td>{% if attr.upperBound == -1 %}&infin;{% else %}{{ attr.upperBound }}{% endif %}</td>
     </tr>
     <tr>
-      <td colspan="5"><em>{{ doc(attr) }} here you will see the description.</em></td>
+      <td colspan="5"><em>{{ doc(attr) }}</em></td>
     </tr>

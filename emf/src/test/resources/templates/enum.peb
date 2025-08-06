@@ -9,6 +9,11 @@ group: Enum
 
 {{ doc(enum) }}
 
+## Enumeration Literals
+
 {% for literal in enum.eLiterals %}
-- **{{ literal.name }}** ({{ literal.value }})
+### {{ literal.name }} - ({{ literal.value }})
+
+<em>{{ doc(literal) }}</em>
+
 {% endfor %}
