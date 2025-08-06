@@ -248,14 +248,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.intro</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.parent.ring</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -366,14 +366,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube</artifactId>
       <version>${project.version}</version>
     </dependency>
 
