@@ -12,3 +12,24 @@ t4",4
 "ùâæçéèëïô","1ùâæçéèëïô",8
 "@€","1@€1",9
 "	Tabulation","	Tabulation",9
+"[test]
+[test].[test]
+te[st
+te]st ","[test]
+[test].[test]
+te[st
+te]st ",10
+"{test}
+{test}.{test}
+te{st
+te}st","{test}
+{test}.{test}
+te{st
+te}st",11
+"(test)
+(test).(test)
+te(st
+te)st","(test)
+(test).(test)
+te(st
+te)st",12
