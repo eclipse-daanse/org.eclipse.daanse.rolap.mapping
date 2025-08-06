@@ -6,5 +6,5 @@
       <td>{{ ref.containment }}</td>
     </tr>
     <tr>
-      <td colspan="5"><em>{{ doc(ref) }} here you will see the description.</em></td>
+      <td colspan="5"><em>{{ doc(ref) }}</em></td>
     </tr>
