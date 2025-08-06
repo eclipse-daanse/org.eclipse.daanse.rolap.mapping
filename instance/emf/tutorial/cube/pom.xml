@@ -44,7 +44,5 @@
     <module>hierarchy.parentchild.nullparent</module>
     <module>level.member.property.intro</module>
     <module>calculatedmember.intro</module>
-    <module>kpi.intro</module>
-    <module>kpi.parent.ring</module>
   </modules>
 </project>

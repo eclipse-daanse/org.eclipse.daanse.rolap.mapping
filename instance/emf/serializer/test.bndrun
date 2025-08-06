@@ -76,8 +76,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.intro',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.parent.ring',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.school',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter',\
@@ -92,8 +92,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnertable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset.all',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.timedimension',\
@@ -159,8 +159,6 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.base;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.multitable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.singletable;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.intro;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.kpi.parent.ring;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.bit;version='[0.0.1,0.0.2)',\
@@ -191,8 +189,10 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetablewithphysical;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpiall;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpivirtualcube;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression;version='[0.0.1,0.0.2)',\

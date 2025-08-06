@@ -44,8 +44,6 @@
     <module>virtualcubevisiblereferencecubes</module>
     <module>namedset.all</module>
     <module>aggregatetables</module>
-    <module>kpiall</module>
-    <module>kpivirtualcube</module>
     <module>writebacktable</module>
     <module>writebackwithoutdimension</module>
     <module>writebackinlinetable</module>
@@ -61,6 +59,7 @@
     <module>aggregation</module>
     <module>writeback</module>
     <module>member</module>
+    <module>kpi</module>
   </modules>
 
   <dependencies>
