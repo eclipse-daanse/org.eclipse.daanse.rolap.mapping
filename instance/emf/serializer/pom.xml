@@ -277,7 +277,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -555,7 +555,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggexclude</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggexclude</artifactId>
       <version>${project.version}</version>
     </dependency>
 
