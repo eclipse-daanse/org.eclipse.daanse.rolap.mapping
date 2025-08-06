@@ -10,7 +10,9 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregatetables;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables;
+
+import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -28,7 +30,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -39,20 +40,86 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
+import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
+import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
+import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.8.2", source = Source.EMF, group = "Aggregation") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
-    private static final String CATALOG = "tutorial_28_Cube_with_Aggregate_tables";
     private static final String SALES = "Sales";
     private static final String SALES_FACT_1997 = "SALES_FACT_1997";
 
+    private static final String catalogBody = """
+            This tutorial discusses TableQuery with AggregationExclude.
+            AggregationExclude defines exclusion rules that prevent specific tables from being used as aggregation tables,
+            even if they would otherwise match aggregation patterns or be considered suitable for aggregation optimization.
+            AggregationExclude is essential for maintaining aggregation accuracy and system reliability by providing explicit
+            control over which tables should be avoided during aggregation table discovery and selection.
+            """;
+
+    private static final String databaseSchemaBody = """
+            The cube defined in this example is based on
+
+            SALES_FACT_1997 table which contains two columns: `PRODUCT_ID` and `STORE_COST`.
+            PRODUCT table which contains 4 columns: `PRODUCT_CLASS_ID`,`PRODUCT_ID`,`brand_name`,`product_name`
+            PRODUCT_CLASS table which contains 3 columns: `PRODUCT_CLASS_ID`, `PRODUCT_ID` and `brand_name`.
+            AGG_C_SPECIAL_SALES_FACT_1997 table which contains 3 columns: `PRODUCT_ID`, `STORE_COST_SUM`, `FACT_COUNT`;
+            AGG_C_14_SALES_FACT_1997 this is exclude table
+            AGG_LC_100_SALES_FACT_1997 this is exclude table
+            """;
+
+    private static final String queryBody = """
+            The bridge between the cube and the database is the query element. In this case, it is a TableQuery, as it directly references the physical table `SALES_FACT_1997`.
+            The query element is not visible to users accessing the cube through the XMLA API, such as Daanse Dashboard, Power BI, or Excel.
+            this TableQuery have one AggregationTable with reference to 'AGG_C_SPECIAL_SALES_FACT_1997' the specific database table that contains the pre-computed aggregation data.
+            this tabele will use for calculate aggregation data for aggregationMeasure [Measures].[Store Cost] for level [Product].[Product Family].[Product Family].
+            """;
+
+    private static final String queryProductBody = """
+            The TableQuery for the PRODUCT table.
+            """;
+
+    private static final String queryProductClassBody = """
+            The TableQuery for the PRODUCT_CLASS table.
+            """;
+
+    private static final String queryJoinBody = """
+            The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
+
+            - In the PRODUCT the join uses the foreign key.
+            - In the PRODUCT_CLASS table, the join uses the primary key.
+            """;
+
+    private static final String cubeBody = """
+            The cube is the element visible to users in analysis tools. A cube is based on elements such as measures, dimensions, hierarchies, KPIs, and named sets.
+            In this case, we only define measures, which are the minimal required elements. The other elements are optional. To link a measure to the cube, we use the `MeasureGroup` element.
+            The `MeasureGroup` is useful for organizing multiple measures into logical groups. Measures are used to define the data that should be aggregated.
+            In this example, the measure is named Store Cost and references the `STORE_COST` column in the SALES_FACT_1997 table.
+            But fact table query has AggregationTable 'AGG_C_SPECIAL_SALES_FACT_1997'. The aggregation calculation will use AGG_C_SPECIAL_SALES_FACT_1997 table instead of SALES_FACT_1997.
+            The measure is aggregated using summation.
+            """;
+
     private static final String schemaDocumentationTxt = """
-            Aggregate tables are a way to improve Mondrian's performance when the fact table contains
+            Aggregate tables are a way to improve performance when the fact table contains
             a huge number of rows: a million or more. An aggregate table is essentially a pre-computed
             summary of the data in the fact table.
                     """;
+    private static final String levelBody = """
+            The Level Product Family uses the column attribute to specify the primary key column PRODUCT_FAMILE from table PRODUCT_CLASS.
+            """;
+
+    private static final String hierarchyBody = """
+            This hierarchy consists the level Product Family.
+            - The primaryKey attribute specifies the column that contains the primary key of the hierarchy.
+            - The query attribute references the Join-query used to retrieve the data for the hierarchy.
+            """;
+
+    private static final String dimensionBody = """
+            The Dimension has only one hierarchy.
+            """;
 
     @Override
     public CatalogMapping get() {
@@ -61,84 +128,84 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column productIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productIdColumn.setName("PRODUCT_ID");
-        productIdColumn.setId("SALES_FACT_1997_PRODUCT_ID");
+        productIdColumn.setId("_SALES_FACT_1997_PRODUCT_ID");
         productIdColumn.setType(ColumnType.INTEGER);
 
         Column storeCostColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         storeCostColumn.setName("STORE_COST");
-        storeCostColumn.setId("SALES_FACT_1997_STORE_COST");
+        storeCostColumn.setId("_SALES_FACT_1997_STORE_COST");
         storeCostColumn.setType(ColumnType.DECIMAL);
         storeCostColumn.setColumnSize(10);
         storeCostColumn.setDecimalDigits(4);
 
         PhysicalTable salesFact1997 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         salesFact1997.setName(SALES_FACT_1997);
-        salesFact1997.setId(SALES_FACT_1997);
+        salesFact1997.setId("_SALES_FACT_1997");
         salesFact1997.getColumns().addAll(List.of(productIdColumn, storeCostColumn));
         databaseSchema.getTables().add(salesFact1997);
 
         Column productProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productProductClassIdColumn.setId("PRODUCT_PRODUCT_CLASS_ID");
+        productProductClassIdColumn.setId("_PRODUCT_PRODUCT_CLASS_ID");
         productProductClassIdColumn.setType(ColumnType.INTEGER);
 
         Column productProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productProductIdColumn.setName("PRODUCT_ID");
-        productProductIdColumn.setId("PRODUCT_PRODUCT_ID");
+        productProductIdColumn.setId("_PRODUCT_PRODUCT_ID");
         productProductIdColumn.setType(ColumnType.INTEGER);
 
         Column productBrandNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productBrandNameColumn.setName("brand_name");
-        productBrandNameColumn.setId("PRODUCT_brand_name");
+        productBrandNameColumn.setId("_PRODUCT_brand_name");
         productBrandNameColumn.setType(ColumnType.VARCHAR);
         productBrandNameColumn.setColumnSize(60);
 
         Column productProductNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        productProductNameColumn.setName("brand_name");
-        productProductNameColumn.setId("PRODUCT_brand_name");
+        productProductNameColumn.setName("product_name");
+        productProductNameColumn.setId("_PRODUCT_product_name");
         productProductNameColumn.setType(ColumnType.VARCHAR);
         productProductNameColumn.setColumnSize(60);
 
         PhysicalTable productTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         productTable.setName("PRODUCT");
-        productTable.setId("PRODUCT");
+        productTable.setId("_PRODUCT");
         productTable.getColumns().addAll(List.of(productProductClassIdColumn, productProductIdColumn,
                 productBrandNameColumn, productProductNameColumn));
         databaseSchema.getTables().add(productTable);
 
         Column productClassProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productClassProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productClassProductClassIdColumn.setId("PRODUCT_CLASS_PRODUCT_CLASS_ID");
+        productClassProductClassIdColumn.setId("_PRODUCT_CLASS_PRODUCT_CLASS_ID");
         productClassProductClassIdColumn.setType(ColumnType.INTEGER);
 
         Column productClassProductFamileColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         productClassProductFamileColumn.setName("PRODUCT_FAMILE");
-        productClassProductFamileColumn.setId("PRODUCT_CLASS_PRODUCT_FAMILE");
+        productClassProductFamileColumn.setId("_PRODUCT_CLASS_PRODUCT_FAMILE");
         productClassProductFamileColumn.setType(ColumnType.VARCHAR);
         productClassProductFamileColumn.setColumnSize(60);
 
         PhysicalTable productClassTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         productClassTable.setName("PRODUCT_CLASS");
-        productClassTable.setId("PRODUCT_CLASS");
+        productClassTable.setId("_PRODUCT_CLASS");
         productClassTable.getColumns()
                 .addAll(List.of(productClassProductClassIdColumn, productClassProductFamileColumn));
         databaseSchema.getTables().add(productClassTable);
 
         Column aggCSpecialSalesFact1997ProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997ProductIdColumn.setName("PRODUCT_ID");
-        aggCSpecialSalesFact1997ProductIdColumn.setId("aggCSpecialSalesFact1997_PRODUCT_ID");
+        aggCSpecialSalesFact1997ProductIdColumn.setId("_aggCSpecialSalesFact1997_PRODUCT_ID");
         aggCSpecialSalesFact1997ProductIdColumn.setType(ColumnType.INTEGER);
 
         Column aggCSpecialSalesFact1997StoreCostSumColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997StoreCostSumColumn.setName("STORE_COST_SUM");
-        aggCSpecialSalesFact1997StoreCostSumColumn.setId("aggCSpecialSalesFact1997_STORE_COST_SUM");
+        aggCSpecialSalesFact1997StoreCostSumColumn.setId("_aggCSpecialSalesFact1997_STORE_COST_SUM");
         aggCSpecialSalesFact1997StoreCostSumColumn.setType(ColumnType.DECIMAL);
         aggCSpecialSalesFact1997StoreCostSumColumn.setColumnSize(10);
         aggCSpecialSalesFact1997StoreCostSumColumn.setDecimalDigits(4);
 
         Column aggCSpecialSalesFact1997FactCountColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggCSpecialSalesFact1997FactCountColumn.setName("FACT_COUNT");
-        aggCSpecialSalesFact1997FactCountColumn.setId("aggCSpecialSalesFact1997_FACT_COUNT");
+        aggCSpecialSalesFact1997FactCountColumn.setId("_aggCSpecialSalesFact1997_FACT_COUNT");
         aggCSpecialSalesFact1997FactCountColumn.setType(ColumnType.INTEGER);
 
         //PRODUCT_ID,STORE_COST_SUM,FACT_COUNT
@@ -146,20 +213,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalTable aggCSpecialSalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         aggCSpecialSalesFact1997Table.setName("AGG_C_SPECIAL_SALES_FACT_1997");
-        aggCSpecialSalesFact1997Table.setId("AGG_C_SPECIAL_SALES_FACT_1997");
+        aggCSpecialSalesFact1997Table.setId("_AGG_C_SPECIAL_SALES_FACT_1997");
         aggCSpecialSalesFact1997Table.getColumns().addAll(List.of(aggCSpecialSalesFact1997ProductIdColumn,
                 aggCSpecialSalesFact1997StoreCostSumColumn, aggCSpecialSalesFact1997FactCountColumn));
         databaseSchema.getTables().add(aggCSpecialSalesFact1997Table);
 
         PhysicalTable aggC14SalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         aggC14SalesFact1997Table.setName("AGG_C_14_SALES_FACT_1997");
-        aggC14SalesFact1997Table.setId("AGG_C_14_SALES_FACT_1997");
+        aggC14SalesFact1997Table.setId("_AGG_C_14_SALES_FACT_1997");
         aggC14SalesFact1997Table.getColumns().addAll(List.of());
         databaseSchema.getTables().add(aggC14SalesFact1997Table);
 
         PhysicalTable aggLc100SalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         aggLc100SalesFact1997Table.setName("AGG_LC_100_SALES_FACT_1997");
-        aggLc100SalesFact1997Table.setId("AGG_LC_100_SALES_FACT_1997");
+        aggLc100SalesFact1997Table.setId("_AGG_LC_100_SALES_FACT_1997");
         aggLc100SalesFact1997Table.getColumns().addAll(List.of());
         databaseSchema.getTables().add(aggLc100SalesFact1997Table);
 
@@ -224,13 +291,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Product Family");
-        level.setId("Product_Family_Level");
+        level.setId("_Product_Family_Level");
         level.setColumn(productClassProductFamileColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Product Family");
-        hierarchy.setId("Product_Family_Hierarchy");
+        hierarchy.setId("_Product_Family_Hierarchy");
         hierarchy.setPrimaryKey(productProductIdColumn);
         hierarchy.setDisplayFolder("Details");
         hierarchy.setQuery(joinQuery);
@@ -238,7 +305,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Product");
-        dimension.setId("ProductDimension");
+        dimension.setId("_ProductDimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -248,13 +315,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(SALES);
-        cube.setId(SALES);
+        cube.setId("_Sales");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube_with_Aggregate_tables");
+        catalog.setName("Cube with aggregate tables");
         catalog.setDescription("Schema with aggregate tables");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
@@ -265,6 +332,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         documentation.setValue("catalog with schema with aggregate tables");
         catalog.getDocumentations().add(documentation);
+
+        document(catalog, "Cube with aggregate tables", catalogBody, 1, 0, 0, false, 0);
+        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
+        document(query, "Query", queryBody, 1, 2, 0, true, 2);
+        document(productQuery, "Product Query", queryProductBody, 1, 3, 0, true, 2);
+        document(productClassQuery, "Product Class Query", queryProductClassBody, 1, 4, 0, true, 2);
+        document(joinQuery, "Product Class Query", queryJoinBody, 1, 5, 0, true, 2);
+        document(level, "Level - Product Family", levelBody, 1, 6, 0, true, 0);
+        document(hierarchy, "Hierarchy", hierarchyBody, 1, 7, 0, true, 0);
+        document(dimension, "Dimension", dimensionBody, 1, 8, 0, true, 0);
+        document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 9, 0, true, 2);
         return catalog;
     }
 

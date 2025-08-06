@@ -19,4 +19,10 @@
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation</artifactId>
   <packaging>pom</packaging>
+
+  <modules>
+    <module>aggexclude</module>
+    <module>aggregatetables</module>
+  </modules>
+
 </project>
