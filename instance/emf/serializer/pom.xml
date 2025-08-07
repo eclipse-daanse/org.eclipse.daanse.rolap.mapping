@@ -407,7 +407,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.timedimension</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension</artifactId>
       <version>${project.version}</version>
     </dependency>
 
