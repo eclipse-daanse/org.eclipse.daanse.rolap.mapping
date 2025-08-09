@@ -33,7 +33,6 @@
     <module>dimensionwithlevelclosure</module>
     <module>cellformatter</module>
     <module>measureexpression</module>
-    <module>timedimension</module>
     <module>hierarchywithview</module>
     <module>hierarchywithinnertable</module>
     <module>virtualcube.min</module>
@@ -41,7 +40,7 @@
     <module>virtualcubecalculatedmember</module>
     <module>virtualcubemeasureonly</module>
     <module>virtualcubevisiblereferencecubes</module>
-    <module>namedset.all</module>
+    <module>aggregatetables</module>
     <module>drillthroughaction</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
@@ -55,6 +54,8 @@
     <module>member</module>
     <module>kpi</module>
     <module>functions</module>
+    <module>namedset</module>
+    <module>dimension</module>
   </modules>
 
   <dependencies>

@@ -97,7 +97,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset.all',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.timedimension',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubecalculatedmember',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubedimensions',\
@@ -180,6 +180,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.schema;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.sqlview;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunctionaldependencyoptimization;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelattribute;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelclosure;version='[0.0.1,0.0.2)',\
@@ -202,7 +203,6 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measureexpression;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset.all;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.timedimension;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubecalculatedmember;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubedimensions;version='[0.0.1,0.0.2)',\
