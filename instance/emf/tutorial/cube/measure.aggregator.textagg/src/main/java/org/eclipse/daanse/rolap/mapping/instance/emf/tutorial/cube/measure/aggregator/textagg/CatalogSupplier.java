@@ -144,7 +144,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(columnComment);
-        orderedColumn.setId("orderedColumn");
 
         TextAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
         measure2.setName("Comment");

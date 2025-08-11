@@ -1879,7 +1879,7 @@
       <details key="documentation" value="Represents a database view that provides a logical table interface over underlying physical tables. ViewTable enables complex OLAP mappings that require data transformation or aggregation at the database level."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IOrderedColumn #//Column">
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IOrderedColumn">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a column with specific ordering information used in queries and result sets. OrderedColumn is typically used in OLAP contexts where explicit column ordering is required for query processing or result presentation."/>
     </eAnnotations>

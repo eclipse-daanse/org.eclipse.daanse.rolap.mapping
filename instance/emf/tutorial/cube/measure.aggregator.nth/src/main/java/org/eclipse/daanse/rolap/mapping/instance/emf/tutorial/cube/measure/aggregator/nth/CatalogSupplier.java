@@ -100,7 +100,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(valueColumn);
-        orderedColumn.setId("_orderedColumn");
 
         NthAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
         measure1.setName("NthAgg1");
