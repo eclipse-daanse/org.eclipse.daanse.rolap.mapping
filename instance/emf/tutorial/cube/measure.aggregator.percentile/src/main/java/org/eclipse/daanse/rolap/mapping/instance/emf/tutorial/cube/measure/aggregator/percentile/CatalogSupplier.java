@@ -97,7 +97,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(valueColumn);
-        orderedColumn.setId("_orderedColumn");
 
         PercentileMeasure measure1 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
         measure1.setName("Percentile disc 0.25");
