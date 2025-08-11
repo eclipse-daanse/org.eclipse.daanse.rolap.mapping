@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.modifier.emf</artifactId>
+  <name>Daanse ROLAP Mapping Modifier EMF</name>
+  <description>EMF-based implementation of ROLAP mapping modification operations. Provides concrete modifiers for altering EMF-based ROLAP mapping structures with advanced model transformation and manipulation capabilities.</description>
 
   <dependencies>
     <dependency>

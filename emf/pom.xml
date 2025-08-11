@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.emf</artifactId>
+  <name>Daanse ROLAP Mapping EMF Implementation</name>
+  <description>Eclipse Modeling Framework (EMF) implementation of ROLAP mapping models. This module provides EMF-based model classes and utilities for ROLAP schema definitions with JSON serialization and OSGi integration support.</description>
 
   <properties>
     <bnd.version>7.1.0-SNAPSHOT</bnd.version>

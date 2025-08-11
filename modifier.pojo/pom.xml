@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.modifier.pojo</artifactId>
+  <name>Daanse ROLAP Mapping Modifier POJO</name>
+  <description>POJO-based implementation of ROLAP mapping modification operations. Provides concrete modifiers for altering POJO-based ROLAP mapping structures with straightforward object manipulation and transformation capabilities.</description>
 
   <dependencies>
     <dependency>

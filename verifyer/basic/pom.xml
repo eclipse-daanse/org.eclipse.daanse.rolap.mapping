@@ -18,6 +18,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.verifyer.basic</artifactId>
+  <name>Daanse ROLAP Mapping Basic Verifier</name>
+  <description>Basic verification implementation for ROLAP mapping schemas. This module provides validation and verification services to ensure ROLAP mapping definitions are structurally correct and consistent with database schemas.</description>
   <dependencies>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>

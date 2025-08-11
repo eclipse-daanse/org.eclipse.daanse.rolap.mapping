@@ -20,5 +20,7 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.api</artifactId>
+  <name>Daanse ROLAP Mapping API</name>
+  <description>Core API interfaces for ROLAP (Relational OLAP) mapping definitions. This module defines the fundamental contracts and data structures for mapping multidimensional OLAP schemas to relational database structures.</description>
 
 </project>

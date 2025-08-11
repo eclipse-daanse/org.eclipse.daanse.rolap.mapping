@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.mondrian.jaxb</artifactId>
+  <name>Daanse ROLAP Mapping Mondrian JAXB</name>
+  <description>JAXB-based support for Mondrian ROLAP mapping schema. Provides XML binding capabilities for reading and writing Mondrian schema files, enabling integration with traditional Mondrian configurations and legacy schema formats.</description>
 
   <dependencies>
     <dependency>
