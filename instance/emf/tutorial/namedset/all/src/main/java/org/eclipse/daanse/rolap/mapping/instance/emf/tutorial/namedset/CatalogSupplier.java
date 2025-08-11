@@ -223,7 +223,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "catalog with Cube with NamedSets", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Cube with NamedSets", databaseSchemaBody, 1, 1, 0, true, 3);
+        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
         document(level, "Level1", levelBody, 1, 3, 0, true, 0);

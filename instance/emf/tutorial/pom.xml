@@ -40,7 +40,6 @@
     <module>virtualcubecalculatedmember</module>
     <module>virtualcubemeasureonly</module>
     <module>virtualcubevisiblereferencecubes</module>
-    <module>drillthroughaction</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
 
@@ -55,6 +54,7 @@
     <module>functions</module>
     <module>namedset</module>
     <module>dimension</module>
+    <module>action</module>
   </modules>
 
   <dependencies>
