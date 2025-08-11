@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance</artifactId>
+  <name>Daanse ROLAP Mapping Instance Modules</name>
+  <description>Parent module for ROLAP mapping instance implementations and examples. This aggregates concrete schema instances, tutorials, and sample mappings that demonstrate various ROLAP concepts and patterns.</description>
   <packaging>pom</packaging>
   <modules>
     <module>api</module>

@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.pojo</artifactId>
+  <name>Daanse ROLAP Mapping POJO Implementation</name>
+  <description>Plain Old Java Object (POJO) implementation of ROLAP mapping models. This module provides simple Java bean-style implementations of the ROLAP mapping API for lightweight usage without EMF dependencies.</description>
   <dependencies>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>

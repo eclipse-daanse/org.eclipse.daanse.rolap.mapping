@@ -18,6 +18,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.verifyer.api</artifactId>
+  <name>Daanse ROLAP Mapping Verifyer API</name>
+  <description>API definitions for ROLAP mapping verification services. Provides interfaces and contracts for validating ROLAP mapping configurations, ensuring consistency, completeness, and correctness of cube and dimension definitions.</description>
 
 
   <dependencies>

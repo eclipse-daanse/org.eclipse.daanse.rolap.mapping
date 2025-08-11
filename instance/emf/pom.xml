@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf</artifactId>
+  <name>Daanse ROLAP Mapping EMF Instance Modules</name>
+  <description>Parent module for EMF-based ROLAP mapping instances and examples. This aggregates EMF implementations of complex schemas, tutorials, and serialization utilities for demonstrating ROLAP mapping concepts.</description>
   <packaging>pom</packaging>
   <modules>
     <module>complex</module>

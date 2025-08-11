@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.modifier.common</artifactId>
+  <name>Daanse ROLAP Mapping Modifier Common</name>
+  <description>Common utilities and base functionality for ROLAP mapping modification operations. Provides shared components and abstract classes for implementing mapping transformations and modifications across different mapping implementations.</description>
 
   <dependencies>
     <dependency>

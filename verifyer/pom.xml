@@ -21,6 +21,8 @@
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.verifyer</artifactId>
   <packaging>pom</packaging>
+  <name>Daanse ROLAP Mapping Verifyer</name>
+  <description>Parent module for ROLAP mapping verification components. Contains verification APIs and implementations for validating ROLAP mapping structures, ensuring data integrity and mapping correctness.</description>
   <modules>
     <module>api</module>
     <module>basic</module>

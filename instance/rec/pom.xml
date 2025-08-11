@@ -20,6 +20,8 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec</artifactId>
+  <name>Daanse ROLAP Mapping Record Instance Modules</name>
+  <description>Parent module for record-based ROLAP mapping instances and examples. This aggregates Java record implementations of complex schemas and tutorials for demonstrating ROLAP mapping patterns with modern Java features.</description>
   <packaging>pom</packaging>
   <modules>
     <module>complex</module>

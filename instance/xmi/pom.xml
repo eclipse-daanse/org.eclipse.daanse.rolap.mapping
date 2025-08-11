@@ -18,5 +18,7 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.xmi</artifactId>
+  <name>Daanse ROLAP Mapping XMI Instance Modules</name>
+  <description>Parent module for XMI (XML Metadata Interchange) based ROLAP mapping instances. This provides XMI serialization support for EMF-based ROLAP mapping models and schema definitions.</description>
   <packaging>pom</packaging>
 </project>

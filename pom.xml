@@ -24,6 +24,8 @@
   <artifactId>org.eclipse.daanse.rolap.mapping</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
+  <name>Eclipse Daanse ROLAP Mapping Framework</name>
+  <description>Enterprise-grade EMF-based metamodel framework for defining comprehensive ROLAP (Relational OLAP) analytical schemas and multidimensional cube architectures. Provides complete modeling capabilities for dimensions, hierarchies, measures, security frameworks, aggregation optimization, and advanced OLAP features with extensive tutorial system and business intelligence integration patterns.</description>
 
   <properties>
     <revision>0.0.1-SNAPSHOT</revision>

@@ -18,4 +18,6 @@
     <version>${revision}</version>
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.api</artifactId>
+  <name>Daanse ROLAP Mapping Instance API</name>
+  <description>API definitions for ROLAP mapping instances. Provides interfaces and contracts for managing specific instances of ROLAP mapping configurations, including cube definitions, dimension mappings, and analytical metadata.</description>
 </project>
