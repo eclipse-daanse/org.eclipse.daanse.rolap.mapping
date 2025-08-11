@@ -22,7 +22,6 @@
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>aggexclude</module>
     <module>inlinetable</module>
     <module>inlinetablewithphysical</module>
     <module>dimensionwithsmallintbooleanlevel</module>
@@ -41,7 +40,6 @@
     <module>virtualcubecalculatedmember</module>
     <module>virtualcubemeasureonly</module>
     <module>virtualcubevisiblereferencecubes</module>
-    <module>aggregatetables</module>
     <module>drillthroughaction</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
