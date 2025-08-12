@@ -301,14 +301,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithsmallintbooleanlevel</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.smallintasbooleantype</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelexpressions</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.expressions</artifactId>
       <version>${project.version}</version>
     </dependency>
 
