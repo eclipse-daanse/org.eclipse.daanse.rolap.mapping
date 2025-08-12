@@ -22,8 +22,6 @@
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>dimensionwithsmallintbooleanlevel</module>
-    <module>dimensionwithlevelexpressions</module>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
     <module>dimensionwithlevelattribute</module>
@@ -45,6 +43,7 @@
     <module>action</module>
     <module>measure</module>
     <module>hierarchy</module>
+    <module>level</module>
   </modules>
 
   <dependencies>
