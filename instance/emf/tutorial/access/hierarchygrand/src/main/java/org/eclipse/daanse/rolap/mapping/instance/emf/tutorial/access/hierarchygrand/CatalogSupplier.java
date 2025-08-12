@@ -162,6 +162,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension1.getHierarchies().add(hierarchy2);
 
         DimensionConnector dimensionConnectorCube11 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnectorCube11.setId("_dc_dimension1");
         dimensionConnectorCube11.setOverrideDimensionName("Dimension1");
         dimensionConnectorCube11.setDimension(dimension1);
         dimensionConnectorCube11.setForeignKey(keyColumn);

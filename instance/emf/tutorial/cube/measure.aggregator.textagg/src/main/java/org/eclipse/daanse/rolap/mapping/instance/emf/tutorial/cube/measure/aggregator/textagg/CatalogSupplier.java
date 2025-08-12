@@ -185,6 +185,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setId("_dc_town");
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setForeignKey(columnCountry);
 
@@ -215,6 +216,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionTime.getHierarchies().add(hierarchy1);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector2.setId("_dc_time");
         dimensionConnector2.setDimension(dimensionTime);
         dimensionConnector2.setForeignKey(columnYear);
 

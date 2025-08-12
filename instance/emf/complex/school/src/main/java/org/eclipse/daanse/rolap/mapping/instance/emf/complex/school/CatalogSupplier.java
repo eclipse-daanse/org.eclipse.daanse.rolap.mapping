@@ -1158,11 +1158,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroupSchuelerInnen.getMeasures().addAll(List.of(measureAnzahlSchuelerInnen));
 
         DimensionConnector connectorSchulen1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        connectorSchulen1.setId("_dc_schulen");
         connectorSchulen1.setOverrideDimensionName(SCHULEN);
         connectorSchulen1.setDimension(dimensionSchulen);
         connectorSchulen1.setForeignKey(columnSchuleIdInFactSchulen);
 
         DimensionConnector connectorSchuljahr1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        connectorSchuljahr1.setId("_dc_schuljahr");
         connectorSchuljahr1.setOverrideDimensionName(SCHULJAHR);
         connectorSchuljahr1.setDimension(dimensionSchuljahre);
         connectorSchuljahr1.setForeignKey(columnSchulJahrIdInFactSchulen);

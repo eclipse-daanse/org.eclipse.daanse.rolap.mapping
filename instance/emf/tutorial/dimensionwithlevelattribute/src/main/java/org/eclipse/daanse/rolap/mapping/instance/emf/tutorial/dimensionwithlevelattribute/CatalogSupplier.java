@@ -173,12 +173,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.getHierarchies().add(hierarchy1);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setId("_dc_dim1");
         dimensionConnector1.setOverrideDimensionName("Dim1");
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setLevel(h1Level2);
         dimensionConnector1.setForeignKey(dimKeyColumn);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector2.setId("_dc_dim2");
         dimensionConnector2.setOverrideDimensionName("Dim2");
         dimensionConnector2.setDimension(dimension);
         dimensionConnector2.setLevel(h1Level1);
