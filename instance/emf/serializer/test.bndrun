@@ -122,7 +122,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.nullparent',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.closure',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formulas.logic'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic'
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
 -runbundles: \
@@ -189,7 +189,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelparentcolumn;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithparentchild;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithsmallintbooleanlevel;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formulas.logic;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnertable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.inlinetable;version='[0.0.1,0.0.2)',\

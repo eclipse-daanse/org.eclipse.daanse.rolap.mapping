@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.functions.logic;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 

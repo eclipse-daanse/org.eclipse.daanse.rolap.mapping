@@ -16,9 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.functions</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>
-    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formulas.logic</artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic</artifactId>
 </project>

@@ -51,7 +51,7 @@
     <module>writeback</module>
     <module>member</module>
     <module>kpi</module>
-    <module>functions</module>
+    <module>function</module>
     <module>namedset</module>
     <module>dimension</module>
     <module>action</module>
