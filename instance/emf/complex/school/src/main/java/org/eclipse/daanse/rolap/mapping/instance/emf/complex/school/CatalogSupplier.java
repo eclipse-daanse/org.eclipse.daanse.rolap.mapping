@@ -1144,7 +1144,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureAnzahlPersonen.setColumn(columnAnzahlPersonenInFactPersonal);
 
         SumMeasure measureAnzahlSchuelerInnen = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measureAnzahlSchuelerInnen.setName("Anzahl Schüler:innen");
+        measureAnzahlSchuelerInnen.setName("Anzahl SchülerInnen");
         measureAnzahlSchuelerInnen.setId("_measure_anzahl_schuler_innen");
         measureAnzahlSchuelerInnen.setColumn(columnAnzahlSchuelerInFactSchueler);
 
