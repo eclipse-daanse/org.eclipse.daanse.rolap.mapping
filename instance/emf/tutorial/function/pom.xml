@@ -19,7 +19,7 @@
     <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.functions</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function</artifactId>
   <packaging>pom</packaging>
   <modules>
     <module>logic</module>

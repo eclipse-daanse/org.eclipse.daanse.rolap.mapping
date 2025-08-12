@@ -596,7 +596,7 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formulas.logic</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic</artifactId>
       <version>${project.version}</version>
     </dependency>
 
