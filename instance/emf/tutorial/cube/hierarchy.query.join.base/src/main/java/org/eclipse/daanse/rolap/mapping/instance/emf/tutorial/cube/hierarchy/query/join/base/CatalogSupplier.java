@@ -224,6 +224,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setDimension(dimension);
+        dimensionConnector1.setId("_dc_town");
         dimensionConnector1.setForeignKey(townIdColumn);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();

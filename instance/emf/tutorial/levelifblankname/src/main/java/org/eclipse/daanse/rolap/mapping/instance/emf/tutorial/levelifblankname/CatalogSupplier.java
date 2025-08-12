@@ -327,11 +327,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionMembersHiddenMultipleLevels.getHierarchies().add(hierarchyDimensionMembersHiddenMultipleLevels);
 
         DimensionConnector dimensionMembersHiddenIfBlankNameConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionMembersHiddenIfBlankNameConnector.setId("_dc_dimensionMembersHiddenIfBlankName");
         dimensionMembersHiddenIfBlankNameConnector.setOverrideDimensionName("DimensionMembersHiddenIfBlankName");
         dimensionMembersHiddenIfBlankNameConnector.setDimension(dimensionMembersHiddenIfBlankName);
         dimensionMembersHiddenIfBlankNameConnector.setForeignKey(dimKeyColumn);
 
         DimensionConnector dimensionMembersHiddenMultipleLevelsConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionMembersHiddenMultipleLevelsConnector.setId("_dc_dimensionMembersHiddenMultipleLevels");
         dimensionMembersHiddenMultipleLevelsConnector.setOverrideDimensionName("DimensionMembersHiddenMultipleLevels");
         dimensionMembersHiddenMultipleLevelsConnector.setDimension(dimensionMembersHiddenMultipleLevels);
         dimensionMembersHiddenMultipleLevelsConnector.setForeignKey(dimKeyColumn);

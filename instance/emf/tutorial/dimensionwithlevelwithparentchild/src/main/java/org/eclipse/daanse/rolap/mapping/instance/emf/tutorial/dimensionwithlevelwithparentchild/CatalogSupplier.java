@@ -205,6 +205,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dc_employees");
         dimensionConnector.setOverrideDimensionName("Employees");
         dimensionConnector.setForeignKey(employeeIdColumn);
         dimensionConnector.setDimension(dimension);

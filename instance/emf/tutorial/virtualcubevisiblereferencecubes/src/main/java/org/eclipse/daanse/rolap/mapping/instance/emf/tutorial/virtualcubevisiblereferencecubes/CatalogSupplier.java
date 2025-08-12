@@ -92,10 +92,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension1.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setId("_dc_cube1Dimension1");
         dimensionConnector1.setOverrideDimensionName("Cube1Dimension1");
         dimensionConnector1.setDimension(dimension1);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector2.setId("_dc_cube2Dimension1");
         dimensionConnector2.setOverrideDimensionName("Cube2Dimension1");
         dimensionConnector2.setDimension(dimension1);
 

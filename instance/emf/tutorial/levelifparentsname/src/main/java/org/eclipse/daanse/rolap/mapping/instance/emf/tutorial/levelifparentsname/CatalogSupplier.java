@@ -165,6 +165,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionMembersHiddenIfParentsName.getHierarchies().add(hierarchyDimensionMembersHiddenIfParentsName);
 
         DimensionConnector dimensionMembersHiddenIfParentsNameConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionMembersHiddenIfParentsNameConnector.setId("_dc_dimensionMembersHiddenIfBlankName");
         dimensionMembersHiddenIfParentsNameConnector.setOverrideDimensionName("DimensionMembersHiddenIfBlankName");
         dimensionMembersHiddenIfParentsNameConnector.setDimension(dimensionMembersHiddenIfParentsName);
         dimensionMembersHiddenIfParentsNameConnector.setForeignKey(dimKeyColumn);

@@ -164,6 +164,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.getHierarchies().add(hierarchyHasAllFalse);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setId("_dc_dimension");
         dimensionConnector1.setDimension(dimension);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();

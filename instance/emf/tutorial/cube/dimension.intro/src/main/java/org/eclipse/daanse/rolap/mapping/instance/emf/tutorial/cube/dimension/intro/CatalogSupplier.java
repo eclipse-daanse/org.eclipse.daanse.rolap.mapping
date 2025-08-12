@@ -129,6 +129,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dc_dimension");
         dimensionConnector.setDimension(dimension);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();

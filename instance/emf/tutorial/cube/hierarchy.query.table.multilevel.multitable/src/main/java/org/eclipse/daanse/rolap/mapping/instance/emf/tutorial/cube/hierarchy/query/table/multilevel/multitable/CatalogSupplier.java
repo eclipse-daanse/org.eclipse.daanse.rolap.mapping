@@ -169,6 +169,7 @@ In this example, besides storing the town ID and town NAME, our table also inclu
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector1.setId("_dc_town");
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setForeignKey(townIdColumn);
 
