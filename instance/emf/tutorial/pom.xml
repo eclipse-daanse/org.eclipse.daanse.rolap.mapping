@@ -26,7 +26,6 @@
     <module>dimensionwithfunctionaldependencyoptimization</module>
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
-    <module>cellformatter</module>
 
     <module>database</module>
     <module>cube</module>
@@ -43,6 +42,7 @@
     <module>measure</module>
     <module>hierarchy</module>
     <module>level</module>
+    <module>formatter</module>
   </modules>
 
   <dependencies>

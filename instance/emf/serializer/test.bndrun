@@ -81,7 +81,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.school',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formatter.cell',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunctionaldependencyoptimization',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.smallintasbooleantype',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.expressions',\
@@ -150,7 +150,6 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.action.drillthrough;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggexclude;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cellformatter;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro;version='[0.0.1,0.0.2)',\
@@ -187,6 +186,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelclosure;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelparentcolumn;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithparentchild;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formatter.cell;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.view;version='[0.0.1,0.0.2)',\
