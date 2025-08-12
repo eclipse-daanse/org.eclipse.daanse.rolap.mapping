@@ -67,6 +67,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
+        cellFormatter.setId("_cellFormatter");
         cellFormatter.setRef("mondrian.rolap.format.CellFormatterImpl");
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();

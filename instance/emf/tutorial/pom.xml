@@ -22,8 +22,6 @@
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>inlinetable</module>
-    <module>inlinetablewithphysical</module>
     <module>dimensionwithsmallintbooleanlevel</module>
     <module>dimensionwithlevelexpressions</module>
     <module>dimensionwithlevelwithparentchild</module>
@@ -32,7 +30,6 @@
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
     <module>cellformatter</module>
-    <module>measureexpression</module>
     <module>hierarchywithview</module>
     <module>hierarchywithinnertable</module>
     <module>virtualcube.min</module>
@@ -55,6 +52,7 @@
     <module>namedset</module>
     <module>dimension</module>
     <module>action</module>
+    <module>measure</module>
   </modules>
 
   <dependencies>
