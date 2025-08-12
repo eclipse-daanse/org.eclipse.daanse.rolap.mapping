@@ -1,0 +1,44 @@
+gid,plraum,statbez_name
+INTEGER,INTEGER,VARCHAR
+12,6,Beutenberg / Winzerlaer Straße
+152,3,Remderoda
+151,3,Münchenroda
+201,3,Jenaprießnitz
+51,5,Lichtenhain Ort
+162,3,Vierzehnheiligen
+43,2,Jena-Nord
+42,5,Jena-West
+62,1,Lobeda-West
+191,3,Kunitz
+141,3,Maua
+83,4,Wenigenjena / Schlegelsberg
+44,5,Jena-Süd
+90,6,Winzerla
+120,2,Zwätzen
+11,3,Ammerbach Ort
+161,3,Krippendorf
+182,3,Lützeroda
+202,3,Wogau
+71,2,Löbstedt Ort
+22,6,Ringwiese Flur Burgau
+30,3,Göschwitz
+52,5,Mühlenstraße
+21,6,Burgau Ort
+142,3,Leutra
+133,3,Ilmnitz
+41,5,Jena-Zentrum
+181,3,Cospeda
+131,1,Drackendorf / Lobeda-Ost
+192,3,Laasan
+61,1,Lobeda-Altstadt
+183,3,Closewitz
+81,4,Wenigenjena / Kernberge
+170,3,Isserstedt
+100,3,Wöllnitz
+112,4,Ziegenhainer Tal
+111,3,Ziegenhain Ort
+132,3,Drackendorf
+82,4,Wenigenjena Ort
+72,2,Nord II
+63,1,Lobeda-Ost
+999,999,Unzugeordnet

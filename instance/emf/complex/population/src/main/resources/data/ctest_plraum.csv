@@ -1,0 +1,9 @@
+gid,plraum,plraum_nr,townid
+INTEGER,VARCHAR,INTEGER,INTEGER
+3,Ortschaften,6,1
+5,West/Zentrum,5,1
+6,Winzerla,2,1
+4,Ost,3,1
+1,Lobeda,1,1
+2,Nord,4,1
+999,Unzugeordnet,999,1

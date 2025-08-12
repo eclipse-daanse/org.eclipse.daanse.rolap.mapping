@@ -1,0 +1,3 @@
+continent_id,id,name
+INTEGER,INTEGER,VARCHAR
+1,1,Germany
