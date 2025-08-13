@@ -32,11 +32,6 @@
     <module>cellformatter</module>
     <module>hierarchywithview</module>
     <module>hierarchywithinnertable</module>
-    <module>virtualcube.min</module>
-    <module>virtualcubedimensions</module>
-    <module>virtualcubecalculatedmember</module>
-    <module>virtualcubemeasureonly</module>
-    <module>virtualcubevisiblereferencecubes</module>
     <module>levelifblankname</module>
     <module>levelifparentsname</module>
 
