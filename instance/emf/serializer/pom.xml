@@ -351,14 +351,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithinnertable</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchywithview</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.view</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -526,21 +526,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.levelifblankname</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifblankname</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.levelifparentsname</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.levelifparentsname</artifactId>
       <version>${project.version}</version>
     </dependency>
 

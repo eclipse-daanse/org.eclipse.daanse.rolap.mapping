@@ -30,10 +30,6 @@
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
     <module>cellformatter</module>
-    <module>hierarchywithview</module>
-    <module>hierarchywithinnertable</module>
-    <module>levelifblankname</module>
-    <module>levelifparentsname</module>
 
     <module>database</module>
     <module>cube</module>
@@ -48,6 +44,7 @@
     <module>dimension</module>
     <module>action</module>
     <module>measure</module>
+    <module>hierarchy</module>
   </modules>
 
   <dependencies>
