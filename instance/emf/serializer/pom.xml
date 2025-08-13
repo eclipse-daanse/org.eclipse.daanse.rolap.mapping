@@ -421,28 +421,21 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubecalculatedmember</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.calculatedmember</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubedimensions</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubemeasureonly</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcubevisiblereferencecubes</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes</artifactId>
       <version>${project.version}</version>
     </dependency>
 
