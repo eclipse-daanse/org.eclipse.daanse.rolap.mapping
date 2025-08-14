@@ -24,7 +24,6 @@
   <modules>
     <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
-    <module>dimensionwithlevelattribute</module>
     <module>dimensionwithlevelparentcolumn</module>
     <module>dimensionwithlevelclosure</module>
     <module>cellformatter</module>

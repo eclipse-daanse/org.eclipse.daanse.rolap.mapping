@@ -14,8 +14,8 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension</artifactId>
     <version>${revision}</version>
   </parent>
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelattribute</artifactId>
+  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute</artifactId>
 </project>
