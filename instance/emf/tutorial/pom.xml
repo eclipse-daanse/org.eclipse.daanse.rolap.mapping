@@ -22,10 +22,7 @@
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>dimensionwithlevelwithparentchild</module>
     <module>dimensionwithfunctionaldependencyoptimization</module>
-    <module>dimensionwithlevelparentcolumn</module>
-    <module>dimensionwithlevelclosure</module>
 
     <module>database</module>
     <module>cube</module>
@@ -42,6 +39,7 @@
     <module>measure</module>
     <module>hierarchy</module>
     <module>level</module>
+    <module>parentchild</module>
     <module>formatter</module>
   </modules>
 

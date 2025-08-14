@@ -86,9 +86,10 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.smallintasbooleantype',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.expressions',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelparentcolumn',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelclosure',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithparentchild',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.minimal',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.link',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.nullparent',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.parentasleaf',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.action.drillthrough',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.view',\
@@ -118,9 +119,6 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifblanknamemultiple',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifparentsname',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggexclude',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.base',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.nullparent',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.closure',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic'
 # -runbundles is calculated by the bnd-resolver-maven-plugin
@@ -154,9 +152,6 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.base;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.closure;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.nullparent;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.base;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.multi;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.base;version='[0.0.1,0.0.2)',\
@@ -183,9 +178,6 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunctionaldependencyoptimization;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelclosure;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelparentcolumn;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithparentchild;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formatter.cell;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable;version='[0.0.1,0.0.2)',\
@@ -204,6 +196,10 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measure.inlinetablewithphysical;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset.all;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.link;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.minimal;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.nullparent;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.parentasleaf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.calculatedmember;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min;version='[0.0.1,0.0.2)',\

@@ -1,8 +1,0 @@
-"employee_id","full_name","supervisor_id","marital_status","position_title","gender","salary","education_level","management_role"
-INTEGER,VARCHAR,INTEGER,VARCHAR,VARCHAR,VARCHAR,INTEGER,INTEGER,VARCHAR
-1,"John Smith",0,"good","CEO","M",100000,10,"CEO"
-2,"Tom Cruise",1,"good","Department head1","M",80000,10,"Department head1"
-3,"Samantha Smith",2,"good","TEAM LEAD1","M",50000,10,"TEAM LEAD1"
-4,"Petr Smith",1,"good","Department head2","M",80000,10,"Department head2"
-5,"Denis Smith",3,"good","Developer1","M",40000,10,"Developer"
-6,"Bill Smith",4,"good","TEAM LEAD2","M",50000,10,"TEAM LEAD2"
