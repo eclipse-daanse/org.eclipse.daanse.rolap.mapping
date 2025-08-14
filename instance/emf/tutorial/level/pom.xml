@@ -26,5 +26,8 @@
   <modules>
     <module>expressions</module>
     <module>smallintasbooleantype</module>
+    <module>ifblankname</module>
+    <module>ifblanknamemultiple</module>
+    <module>ifparentsname</module>
   </modules>
 </project>
