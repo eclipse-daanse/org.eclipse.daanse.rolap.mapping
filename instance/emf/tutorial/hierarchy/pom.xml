@@ -26,5 +26,6 @@
   <modules>
     <module>inlinetable</module>
     <module>view</module>
+    <module>uniquekeylevelname</module>
   </modules>
 </project>

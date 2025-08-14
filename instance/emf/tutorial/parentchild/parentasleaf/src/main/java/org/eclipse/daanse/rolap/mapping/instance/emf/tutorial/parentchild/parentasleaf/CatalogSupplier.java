@@ -78,7 +78,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Unlike explicit hierarchies with multiple levels, parent-child hierarchies use one level
             definition that describes the properties and behavior of all members regardless of their position in the tree structure.
             Also Hierarchy1 Hierarchy has parentAsLeafEnable true value
-             When true, parents can have their own measures and participate in aggregations at multiple levels.
+            When true, parents can have their own measures and participate in aggregations at multiple levels.
             """;
 
     private static final String dimensionBody = """

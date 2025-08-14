@@ -82,7 +82,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.school',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formatter.cell',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunctionaldependencyoptimization',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.uniquekeylevelname',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.smallintasbooleantype',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.expressions',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute',\
@@ -177,10 +177,10 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithfunctionaldependencyoptimization;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.formatter.cell;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.uniquekeylevelname;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.view;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro;version='[0.0.1,0.0.2)',\
