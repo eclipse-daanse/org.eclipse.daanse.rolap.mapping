@@ -25,5 +25,6 @@
 
   <modules>
     <module>timedimension</module>
+    <module>optimisationwithlevelattribute</module>
   </modules>
 </project>
