@@ -21,9 +21,8 @@
   </parent>
   <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
   <packaging>pom</packaging>
-  <modules>
-    <module>dimensionwithfunctionaldependencyoptimization</module>
 
+  <modules>
     <module>database</module>
     <module>cube</module>
     <module>virtualcube</module>
