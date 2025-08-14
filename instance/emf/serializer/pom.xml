@@ -321,21 +321,28 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelparentcolumn</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.minimal</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelclosure</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.nullparent</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimensionwithlevelwithparentchild</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.parentasleaf</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.link</artifactId>
       <version>${project.version}</version>
     </dependency>
 
@@ -552,27 +559,6 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.complex.school</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.base</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.nullparent</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.eclipse.daanse</groupId>
-      <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.parentchild.closure</artifactId>
       <version>${project.version}</version>
     </dependency>
 
