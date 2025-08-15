@@ -68,77 +68,77 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_writeback_withoutdimension");
 
         Column valColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valColumn.setName("VAL");
-        valColumn.setId("Fact_VAL");
+        valColumn.setId("_column_fact_val");
         valColumn.setType(ColumnType.INTEGER);
 
         Column val1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         val1Column.setName("VAL1");
-        val1Column.setId("Fact_VAL1");
+        val1Column.setId("_column_fact_val1");
         val1Column.setType(ColumnType.INTEGER);
 
         Column l2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         l2Column.setName("VALUE");
-        l2Column.setId("Fact_VALUE");
+        l2Column.setId("_column_fact_value");
         l2Column.setType(ColumnType.VARCHAR);
         l2Column.setColumnSize(100);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId(FACT);
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
         databaseSchema.getTables().add(table);
 
         Column factwbValColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbValColumn.setName("VAL");
-        factwbValColumn.setId("Factwb_VAL");
+        factwbValColumn.setId("_column_factwb_val");
         factwbValColumn.setType(ColumnType.INTEGER);
 
         Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbVal1Column.setName("VAL1");
-        factwbVal1Column.setId("Factwb_VAL1");
+        factwbVal1Column.setId("_column_factwb_val1");
         factwbVal1Column.setType(ColumnType.INTEGER);
 
         Column factwbL2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbL2Column.setName("VALUE");
-        factwbL2Column.setId("factwb_L2");
+        factwbL2Column.setId("_column_factwb_value");
         factwbL2Column.setType(ColumnType.VARCHAR);
         factwbL2Column.setColumnSize(100);
 
         Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbIdColumn.setName("ID");
-        factwbIdColumn.setId("factwb_ID");
+        factwbIdColumn.setId("_column_factwb_id");
         factwbIdColumn.setType(ColumnType.VARCHAR);
         factwbIdColumn.setColumnSize(100);
 
         Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factwbUserColumn.setName("USER");
-        factwbUserColumn.setId("factwb_USER");
+        factwbUserColumn.setId("_column_factwb_user");
         factwbUserColumn.setType(ColumnType.VARCHAR);
         factwbUserColumn.setColumnSize(100);
 
         PhysicalTable factwbTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factwbTable.setName("FACTWB");
-        factwbTable.setId("FACTWB");
+        factwbTable.setId("_table_factwb");
         factwbTable.getColumns()
                 .addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
         databaseSchema.getTables().add(factwbTable);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("FactQuery");
+        query.setId("_tableQuery_FactQuery");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("Measure1");
+        measure1.setId("_sumMeasure_Measure1");
         measure1.setColumn(valColumn);
 
         SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure2");
-        measure2.setId("Measure2");
+        measure2.setId("_sumMeasure_Measure2");
         measure2.setColumn(val1Column);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -158,7 +158,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId(CUBE);
+        cube.setId("_physicalCube_C");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.setWritebackTable(writebackTable);

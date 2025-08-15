@@ -179,7 +179,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("Hierarchy");
+        hierarchy.setId("_hierarchy_Hierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);

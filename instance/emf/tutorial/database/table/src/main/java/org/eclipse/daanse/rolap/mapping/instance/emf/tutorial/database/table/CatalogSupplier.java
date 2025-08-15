@@ -54,44 +54,44 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_tableTypes");
 
         Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("ColumnOne");
-        column.setId("_col");
+        column.setId("_column_tableOne_columnOne");
         column.setType(ColumnType.VARCHAR);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("TableOne");
-        table.setId("_tab");
+        table.setId("_table_tableOne");
         table.getColumns().addAll(List.of(column));
         databaseSchema.getTables().add(table);
 
         Column column2 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column2.setName("ColumnOne");
-        column2.setId("_col");
+        column2.setId("_column_viewOne_columnOne");
         column2.setType(ColumnType.VARCHAR);
 
         ViewTable table2 = RolapMappingFactory.eINSTANCE.createViewTable();
         table2.setName("ViewOne");
-        table2.setId("_tab");
+        table2.setId("_table_viewOne");
         table2.getColumns().addAll(List.of(column2));
         databaseSchema.getTables().add(table2);
 
         Column column3 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column3.setName("ColumnOne");
-        column3.setId("_col");
+        column3.setId("_column_systemTableOne_columnOne");
         column3.setType(ColumnType.VARCHAR);
 
         SystemTable table3 = RolapMappingFactory.eINSTANCE.createSystemTable();
         table3.setName("TableOne");
-        table3.setId("_tab");
+        table3.setId("_table_systemTableOne");
         table3.getColumns().addAll(List.of(column3));
         databaseSchema.getTables().add(table3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - Table");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseTable");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Tables and TableTypes", introBody, 1, 0, 0, false, 0);

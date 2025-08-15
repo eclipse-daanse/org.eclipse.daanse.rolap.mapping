@@ -89,31 +89,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_ColumnGrand");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("_Measure1");
+        measure1.setId("_measure_sum");
         measure1.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -121,7 +121,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setId("_Cube1");
+        cube1.setId("_cube_main");
         cube1.setQuery(query);
         cube1.getMeasureGroups().add(measureGroup);
 
@@ -178,12 +178,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         AccessRole roleAll = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleAll.setName("roleAll");
-        roleAll.setId("_roleAll");
+        roleAll.setId("_accessRole_all");
         roleAll.getAccessCatalogGrants().add(accessCatalogGrantAll);
 
         AccessRole roleNone = RolapMappingFactory.eINSTANCE.createAccessRole();
         roleNone.setName("roleNone");
-        roleNone.setId("_roleNone");
+        roleNone.setId("_accessRole_none");
         roleNone.getAccessCatalogGrants().add(accessCatalogGrantNone);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();

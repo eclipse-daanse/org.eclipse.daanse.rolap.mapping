@@ -100,37 +100,37 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_min");
 
         Column key1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         key1Column.setName("KEY");
-        key1Column.setId("_C1_Fact_KEY");
+        key1Column.setId("_c1_fact_key");
         key1Column.setType(ColumnType.VARCHAR);
 
         Column value1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value1Column.setName("VALUE");
-        value1Column.setId("_C1_Fact_VALUE");
+        value1Column.setId("_c1_fact_value");
         value1Column.setType(ColumnType.INTEGER);
 
         PhysicalTable c1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         c1Table.setName(C1_FACT);
-        c1Table.setId("_C1_Fact");
+        c1Table.setId("_c1_fact");
         c1Table.getColumns().addAll(List.of(key1Column, value1Column));
         databaseSchema.getTables().add(c1Table);
 
         Column key2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         key2Column.setName("KEY");
-        key2Column.setId("_C2_Fact_KEY");
+        key2Column.setId("_c2_fact_key");
         key2Column.setType(ColumnType.VARCHAR);
 
         Column value2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value2Column.setName("VALUE");
-        value2Column.setId("_C2_Fact_VALUE");
+        value2Column.setId("_c2_fact_value");
         value2Column.setType(ColumnType.INTEGER);
 
         PhysicalTable c2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         c2Table.setName(C2_FACT);
-        c2Table.setId("_C2_Fact");
+        c2Table.setId("_c2_fact");
         c2Table.getColumns().addAll(List.of(key2Column, value2Column));
         databaseSchema.getTables().add(c2Table);
 
@@ -144,12 +144,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("C1-Measure-Sum");
-        measure1.setId("_C1-Measure-Sum");
+        measure1.setId("_c1-measure-sum");
         measure1.setColumn(value1Column);
 
         SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("C2-Measure-Sum");
-        measure2.setId("_C2-Measure-Sum");
+        measure2.setId("_c2-measure-sum");
         measure2.setColumn(value2Column);
 
         MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -160,13 +160,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setId("_Cube1");
+        cube1.setId("_cube1");
         cube1.setQuery(query1);
         cube1.getMeasureGroups().add(measureGroup1);
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
-        cube2.setId("_Cube2");
+        cube2.setId("_cube2");
         cube2.setQuery(query2);
         cube2.getMeasureGroups().add(measureGroup2);
 
@@ -178,12 +178,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.setName("Calculation1");
-        calculatedMember.setId("_Calculation1");
+        calculatedMember.setId("_calculation1");
         calculatedMember.setFormula("[Measures].[C1-Measure-Sum] + [Measures].[C2-Measure-Sum]");
 
         VirtualCube vCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
         vCube.setName("VirtualCubeMeasureOnly");
-        vCube.setId("_VirtualCubeMeasureOnly");
+        vCube.setId("_virtualcubemeasureonly");
         vCube.getCubeUsages().addAll(List.of(cubeConnector1, cubeConnector2));
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
         vCube.getCalculatedMembers().add(calculatedMember);

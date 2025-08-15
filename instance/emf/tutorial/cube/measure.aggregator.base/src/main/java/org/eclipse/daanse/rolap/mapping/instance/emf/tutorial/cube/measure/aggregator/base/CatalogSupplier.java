@@ -63,58 +63,59 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_measureAggregatorBase");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Sum of Value");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_sumOfValue");
         measure1.setColumn(valueColumn);
 
         MaxMeasure measure2 = RolapMappingFactory.eINSTANCE.createMaxMeasure();
         measure2.setName("Max of Value");
-        measure2.setId("_measure2");
+        measure2.setId("_measure_maxOfValue");
         measure2.setColumn(valueColumn);
 
         MinMeasure measure3 = RolapMappingFactory.eINSTANCE.createMinMeasure();
         measure3.setName("Min of Value");
-        measure3.setId("_measure3");
+        measure3.setId("_measure_minOfValue");
         measure3.setColumn(valueColumn);
 
         AvgMeasure measure4 = RolapMappingFactory.eINSTANCE.createAvgMeasure();
         measure4.setName("Avg of Value");
-        measure4.setId("_measure4");
+        measure4.setId("_measure_avgOfValue");
         measure4.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4));
+        measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3, measure4));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setId("_cube");
+        cube.setId("_cube_measuresAggregatorsCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_measureBasicAggregators");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Measure - Basic Aggregators");
         catalog.getCubes().add(cube);

@@ -69,56 +69,56 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema");
+        databaseSchema.setId("_databaseSchema_main");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         Column columnCountry = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnCountry.setName("COUNTRY");
-        columnCountry.setId("_col_fact_country");
+        columnCountry.setId("_column_fact_country");
         columnCountry.setType(ColumnType.VARCHAR);
 
         Column columnContinent = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnContinent.setName("CONTINENT");
-        columnContinent.setId("_col_fact_cntinent");
+        columnContinent.setId("_column_fact_continent");
         columnContinent.setType(ColumnType.VARCHAR);
 
         Column columnYear = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnYear.setName("YEAR");
-        columnYear.setId("_col_fact_year");
+        columnYear.setId("_column_fact_year");
         columnYear.setType(ColumnType.INTEGER);
 
         Column columnMonth = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnMonth.setName("MONTH");
-        columnMonth.setId("_col_fact_month");
+        columnMonth.setId("_column_fact_month");
         columnMonth.setType(ColumnType.INTEGER);
 
         Column columnMonthName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnMonthName.setName("MONTH_NAME");
-        columnMonthName.setId("_col_fact_month_name");
+        columnMonthName.setId("_column_fact_monthName");
         columnMonthName.setType(ColumnType.VARCHAR);
 
         Column columnUser = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnUser.setName("USER");
-        columnUser.setId("_col_fact_user");
+        columnUser.setId("_column_fact_user");
         columnUser.setType(ColumnType.VARCHAR);
 
         Column columnComment = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnComment.setName("COMMENT");
-        columnComment.setId("_col_fact_comment");
+        columnComment.setId("_column_fact_comment");
         columnComment.setType(ColumnType.VARCHAR);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName, columnUser, columnComment));
         databaseSchema.getTables().add(table);
 
@@ -130,16 +130,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SQLExpressionColumn c = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         c.setName("sql_expression");
-        c.setId("_sql_expression");
+        c.setId("_sqlExpressionColumn_userComment");
         c.getSqls().add(sqlStatement);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Sum of Value");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_sumValue");
         measure1.setColumn(valueColumn);
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
@@ -147,7 +147,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TextAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
         measure2.setName("Comment");
-        measure2.setId("_measure6");
+        measure2.setId("_measure_comment");
         measure2.setSeparator(", ");
         measure2.setColumn(c);
         measure2.getOrderByColumns().add(orderedColumn);
@@ -172,7 +172,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
-        hierarchy.setId("_hierarchy_town");
+        hierarchy.setId("_hierarchy_townHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(levelContinent);
@@ -181,11 +181,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Town");
-        dimension.setId("_dim_town");
+        dimension.setId("_dimension_town");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dc_town");
+        dimensionConnector1.setId("_dimensionConnector_town");
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setForeignKey(columnCountry);
 
@@ -204,7 +204,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setName("TimeHierarchy");
-        hierarchy1.setId("_hierarchy_time");
+        hierarchy1.setId("_hierarchy_timeHierarchy");
         hierarchy1.setPrimaryKey(keyColumn);
         hierarchy1.setQuery(query);
         hierarchy1.getLevels().add(levelYear);
@@ -212,17 +212,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TimeDimension dimensionTime = RolapMappingFactory.eINSTANCE.createTimeDimension();
         dimensionTime.setName("Time");
-        dimensionTime.setId("_dim_time");
+        dimensionTime.setId("_dimension_time");
         dimensionTime.getHierarchies().add(hierarchy1);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dc_time");
+        dimensionConnector2.setId("_dimensionConnector_time");
         dimensionConnector2.setDimension(dimensionTime);
         dimensionConnector2.setForeignKey(columnYear);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresTextAggregatorsCube");
-        cube.setId("_cube");
+        cube.setId("_cube_measuresTextAggregators");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);

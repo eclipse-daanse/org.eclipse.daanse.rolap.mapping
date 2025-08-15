@@ -69,26 +69,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema");
+        databaseSchema.setId("_databaseSchema_KpiIntro");
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_fact_value");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_factQuery");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1-Sum");
-        measure.setId("Measure1-Sum");
+        measure.setId("_measure_Measure1Sum");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -96,24 +96,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Kpi kpi1 = RolapMappingFactory.eINSTANCE.createKpi();
         kpi1.setName("Kpi1");
-        kpi1.setId("_kpi_1");
+        kpi1.setId("_kpi_Kpi1");
         kpi1.setValue("[Measures].[Measure1-Sum]");
 
         Kpi kpi2 = RolapMappingFactory.eINSTANCE.createKpi();
         kpi2.setName("Kpi2");
-        kpi2.setId("_kpi_2");
+        kpi2.setId("_kpi_Kpi2");
         kpi2.setValue("[Measures].[Measure1-Sum]");
         kpi2.setParentKpi(kpi1);
 
         Kpi kpi3 = RolapMappingFactory.eINSTANCE.createKpi();
         kpi3.setName("Kpi3");
-        kpi3.setId("_kpi_4");
+        kpi3.setId("_kpi_Kpi3");
         kpi3.setValue("[Measures].[Measure1-Sum]");
         kpi3.setDisplayFolder("theDisplayFolder\\otherDisplayFolder");
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube Kpi");
-        cube.setId("_cube");
+        cube.setId("_cube_CubeKpi");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getKpis().add(kpi1);

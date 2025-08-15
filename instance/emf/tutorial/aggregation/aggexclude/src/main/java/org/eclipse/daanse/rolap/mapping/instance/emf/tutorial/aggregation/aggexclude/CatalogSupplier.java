@@ -72,21 +72,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_AggExclude");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
@@ -95,32 +95,32 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column aggKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggKeyColumn.setName("KEY");
-        aggKeyColumn.setId("_agg_01_Fact_KEY");
+        aggKeyColumn.setId("_column_agg_01_fact_key");
         aggKeyColumn.setType(ColumnType.VARCHAR);
 
         Column aggValueCountColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         aggValueCountColumn.setName("KEY");
-        aggValueCountColumn.setId("_agg_01_Fact_VALUE_count");
+        aggValueCountColumn.setId("_column_agg_01_Fact_VALUE_count");
         aggValueCountColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable aggTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         aggTable.setName("agg_01_Fact");
-        aggTable.setId("_agg_01_Fact");
+        aggTable.setId("_table_agg_01_Fact");
         aggTable.getColumns().addAll(List.of(aggKeyColumn, aggValueCountColumn));
         databaseSchema.getTables().add(aggTable);
 
         AggregationExclude aggregationExclude = RolapMappingFactory.eINSTANCE.createAggregationExclude();
-        aggregationExclude.setId("_aggregationExclude");
+        aggregationExclude.setId("_aggregationExclude_agg_01_Fact");
         aggregationExclude.setName("agg_01_Fact");
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_query_factQuery");
         query.setTable(table);
         query.getAggregationExcludes().add(aggregationExclude);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure");
-        measure.setId("_Measure");
+        measure.setId("_measure_Measure");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -128,7 +128,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube_Cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 

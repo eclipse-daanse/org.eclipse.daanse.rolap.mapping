@@ -102,42 +102,42 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_view");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setId("_Fact_DIM_KEY");
+        dimKeyColumn.setId("_column_fact_dimKey");
         dimKeyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_HT_KEY");
+        keyColumn.setId("_column_ht_key");
         keyColumn.setType(ColumnType.INTEGER);
 
         Column nameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameColumn.setName("NAME");
-        nameColumn.setId("_HT_NAME");
+        nameColumn.setId("_column_ht_name");
         nameColumn.setType(ColumnType.VARCHAR);
 
         Column htValueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueColumn.setName("VALUE");
-        htValueColumn.setId("_HT_VALUE");
+        htValueColumn.setId("_column_ht_value");
         htValueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable htTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         htTable.setName("HT");
-        htTable.setId("_HT");
+        htTable.setId("_table_ht");
         htTable.getColumns().addAll(List.of(keyColumn, nameColumn, htValueColumn));
         databaseSchema.getTables().add(htTable);
 
@@ -146,22 +146,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sqlStatement.setSql("select * from HT");
         SqlView sqlView = RolapMappingFactory.eINSTANCE.createSqlView();
         sqlView.setName("HT_VIEW");
-        sqlView.setId("_HT_VIEW");
+        sqlView.setId("_sqlView_htView");
         sqlView.getSqlStatements().add(sqlStatement);
 
         Column keyViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyViewColumn.setName("KEY");
-        keyViewColumn.setId("_View_KEY");
+        keyViewColumn.setId("_column_view_key");
         keyViewColumn.setType(ColumnType.INTEGER);
 
         Column nameViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameViewColumn.setName("NAME");
-        nameViewColumn.setId("_View_NAME");
+        nameViewColumn.setId("_column_view_name");
         nameViewColumn.setType(ColumnType.VARCHAR);
 
         Column htValueViewColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueViewColumn.setName("VALUE");
-        htValueViewColumn.setId("_View_VALUE");
+        htValueViewColumn.setId("_column_view_value");
         htValueViewColumn.setType(ColumnType.INTEGER);
 
         sqlView.getColumns().addAll(List.of(keyViewColumn, nameViewColumn, htValueViewColumn));
@@ -169,17 +169,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(sqlView);
 
         SqlSelectQuery sqlSelectQuery = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
-        sqlSelectQuery.setId("_sqlSelectQuery");
+        sqlSelectQuery.setId("_query_htViewSelect");
         sqlSelectQuery.setAlias("HT_VIEW");
         sqlSelectQuery.setSql(sqlView);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("FactQuery");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
-        measure.setId("_Measure1");
+        measure.setId("_measure_measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -187,31 +187,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Level1");
-        level.setId("_Level1");
+        level.setId("_level_level1");
         level.setColumn(keyViewColumn);
         level.setNameColumn(nameViewColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("_Hierarchy");
+        hierarchy.setId("_hierarchy_hierarchy");
         hierarchy.setPrimaryKey(keyViewColumn);
         hierarchy.setQuery(sqlSelectQuery);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension");
-        dimension.setId("_Dimension");
+        dimension.setId("_dimension_dimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dimension");
+        dimensionConnector.setId("_dimensionConnector_dimension");
         dimensionConnector.setOverrideDimensionName("Dimension");
         dimensionConnector.setDimension(dimension);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube_cube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);

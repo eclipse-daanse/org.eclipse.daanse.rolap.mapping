@@ -78,16 +78,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseschema");
+        databaseSchema.setId("_databaseSchema_calculatedMemberIntro");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_fact_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_fact_value");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -97,40 +97,40 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("theLevel");
-        level.setId("_level");
+        level.setId("_level_theLevel");
         level.setColumn(keyColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("theHierarchy");
-        hierarchy.setId("_hierarchy");
+        hierarchy.setId("_hierarchy_theHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("theDimension");
-        dimension.setId("_dimension");
+        dimension.setId("_dimension_theDimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dimension");
+        dimensionConnector.setId("_dimensionConnector_theDimension");
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
 
         SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure1-Sum");
-        measureSum.setId("Measure1-Sum");
+        measureSum.setId("_measure_measure1Sum");
         measureSum.setColumn(valueColumn);
 
         CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure2-Count");
-        measureCount.setId("Measure2-Count");
+        measureCount.setId("_measure_measure2Count");
         measureCount.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -144,13 +144,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Calculated Member 1");
-        calculatedMember1.setId("_cm1");
+        calculatedMember1.setId("_calculatedMember_calculatedMember1");
         calculatedMember1.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 //        calculatedMember1.getCalculatedMemberProperties().add(calculatedMemberProperty);
 
         CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Calculated Member 2");
-        calculatedMember2.setId("_cm2");
+        calculatedMember2.setId("_calculatedMember_calculatedMember2");
         calculatedMember2.setHierarchy(hierarchy);
         calculatedMember2.setParent("[theDimension].[theHierarchy].[All theHierarchys]");
         calculatedMember2.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
@@ -158,7 +158,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube CalculatedMember");
-        cube.setId("_cube");
+        cube.setId("_cube_calculatedMemberCube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);

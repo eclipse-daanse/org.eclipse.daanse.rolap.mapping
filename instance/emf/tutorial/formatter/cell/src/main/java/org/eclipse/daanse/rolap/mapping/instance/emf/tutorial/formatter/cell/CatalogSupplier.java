@@ -75,26 +75,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_cell");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId(FACT);
+        table.setId("_table_" + FACT.toLowerCase());
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("FactQuery");
+        query.setId("_query_fact");
         query.setTable(table);
 
         CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
@@ -103,7 +103,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("Measure1");
+        measure1.setId("_measure_Measure1");
         measure1.setColumn(valueColumn);
         measure1.setFormatString("Standard");
         measure1.setCellFormatter(cellFormatter);
@@ -113,7 +113,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE_NAME);
-        cube.setId(CUBE_NAME);
+        cube.setId("_cube_cellFormatter");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 

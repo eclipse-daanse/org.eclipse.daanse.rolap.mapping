@@ -76,63 +76,63 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_columnTypes");
 
         Column columnCommon = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnCommon.setName("ColumnWithDescription");
-        columnCommon.setId("_col1");
+        columnCommon.setId("_column_tableWithColumnTypes_columnWithDescription");
         columnCommon.setNullable(true);
         columnCommon.setDescription("Non nullable Column with description");
         columnCommon.setType(ColumnType.VARCHAR);
 
         Column columnVarchar = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnVarchar.setName("ColumnVarchar");
-        columnVarchar.setId("_col2");
+        columnVarchar.setId("_column_tableWithColumnTypes_columnVarchar");
         columnVarchar.setColumnSize(255);
         columnVarchar.setType(ColumnType.VARCHAR);
 
         Column columnDecimal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnDecimal.setName("ColumnDecimal");
-        columnDecimal.setId("_col3");
+        columnDecimal.setId("_column_tableWithColumnTypes_columnDecimal");
         columnDecimal.setDecimalDigits(2);
         columnDecimal.setNumPrecRadix(3);
         columnDecimal.setType(ColumnType.DECIMAL);
 
         Column columnNumeric = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnNumeric.setName("ColumnNumeric");
-        columnNumeric.setId("_col4");
+        columnNumeric.setId("_column_tableWithColumnTypes_columnNumeric");
         columnNumeric.setType(ColumnType.NUMERIC);
 
         Column columnFloat = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnFloat.setName("ColumnFloat");
-        columnFloat.setId("_col5");
+        columnFloat.setId("_column_tableWithColumnTypes_columnFloat");
         columnFloat.setType(ColumnType.FLOAT);
 
         Column columnReal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnReal.setName("ColumnReal");
-        columnReal.setId("_col6");
+        columnReal.setId("_column_tableWithColumnTypes_columnReal");
         columnReal.setType(ColumnType.REAL);
 
         Column columnDouble = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnDouble.setName("ColumnDouble");
-        columnDouble.setId("_col7");
+        columnDouble.setId("_column_tableWithColumnTypes_columnDouble");
         columnDouble.setType(ColumnType.DOUBLE);
 
         Column columnInteger = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         columnInteger.setName("ColumnInteger");
-        columnInteger.setId("_col8");
+        columnInteger.setId("_column_tableWithColumnTypes_columnInteger");
         columnInteger.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("TableWithColumnTypes");
-        table.setId("_tab");
+        table.setId("_table_tableWithColumnTypes");
         table.getColumns().addAll(List.of(columnCommon, columnVarchar, columnDecimal, columnNumeric, columnFloat,
                 columnReal, columnDouble, columnInteger));
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - ColumnTypes");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseColumnTypes");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Introduction into Columns", introBody, 1, 0, 0, false, 0);

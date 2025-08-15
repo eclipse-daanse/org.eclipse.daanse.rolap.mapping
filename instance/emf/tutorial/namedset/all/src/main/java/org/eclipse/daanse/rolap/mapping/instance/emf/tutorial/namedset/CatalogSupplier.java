@@ -108,31 +108,31 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_namedSet");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
-        measure.setId("_Measure1");
+        measure.setId("_measure_sum");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -140,34 +140,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("Level2");
-        level.setId("_Level2");
+        level.setId("_level_dimension");
         level.setColumn(keyColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("_Hierarchy");
+        hierarchy.setId("_hierarchy_dimension");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension1.setName("Dimension1");
-        dimension1.setId("_Dimension1");
+        dimension1.setId("_dimension_first");
         dimension1.getHierarchies().add(hierarchy);
 
         StandardDimension dimension2 = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension2.setName("Dimension2");
-        dimension2.setId("_Dimension2");
+        dimension2.setId("_dimension_second");
         dimension2.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dc_dimension1");
+        dimensionConnector1.setId("_dimensionConnector_first");
         dimensionConnector1.setOverrideDimensionName("Dimension1");
         dimensionConnector1.setDimension(dimension1);
 
         DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dc_dimension2");
+        dimensionConnector2.setId("_dimensionConnector_second");
         dimensionConnector2.setOverrideDimensionName("Dimension2");
         dimensionConnector2.setDimension(dimension1);
 
@@ -176,7 +176,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         NamedSet namedSet1 = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet1.getDocumentations().add(namedSet1Documentation);
         namedSet1.setName("NsWithFolderDimension1");
-        namedSet1.setId("_NsWithFolderDimension1");
+        namedSet1.setId("_namedSet_withFolderDimension1");
         namedSet1.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
         namedSet1.setDisplayFolder("Folder1");
 
@@ -185,7 +185,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         NamedSet namedSet2 = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet2.getDocumentations().add(namedSet2Documentation);
         namedSet2.setName("NsWithoutFolderDimension1");
-        namedSet2.setId("_NsWithoutFolderDimension1");
+        namedSet2.setId("_namedSet_withoutFolderDimension1");
         namedSet2.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
 
         Documentation namedSet3Documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
@@ -193,7 +193,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         NamedSet namedSet3 = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet3.getDocumentations().add(namedSet3Documentation);
         namedSet3.setName("NSInCubeWithFolder");
-        namedSet3.setId("_NSInCubeWithFolder");
+        namedSet3.setId("_namedSet_inCubeWithFolder");
         namedSet3.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
         namedSet3.setDisplayFolder("Folder2");
 
@@ -202,12 +202,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         NamedSet namedSet4 = RolapMappingFactory.eINSTANCE.createNamedSet();
         namedSet4.getDocumentations().add(namedSet4Documentation);
         namedSet4.setName("NSInCubeWithoutFolder");
-        namedSet4.setId("_NSInCubeWithoutFolder");
+        namedSet4.setId("_namedSet_inCubeWithoutFolder");
         namedSet4.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube_namedSet");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);

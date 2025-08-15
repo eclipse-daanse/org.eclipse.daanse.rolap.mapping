@@ -48,11 +48,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_expressionColumn");
 
         Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("column1");
-        column.setId("_col1");
+        column.setId("_column_tableWithExpressionColumn_column1");
 
         SqlStatement sqlStatement1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         sqlStatement1.setSql("column1 + column1");
@@ -67,17 +67,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnSqlExp.setName("SqlExpressionColumn");
         columnSqlExp.getSqls().add(sqlStatement1);
         columnSqlExp.getSqls().add(sqlStatement2);
-        columnSqlExp.setId("_col2");
+        columnSqlExp.setId("_column_tableWithExpressionColumn_sqlExpressionColumn");
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("TableWithExpressionColumn");
-        table.setId("_tab");
+        table.setId("_table_tableWithExpressionColumn");
         table.getColumns().addAll(List.of(column, columnSqlExp));
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - SQL Expression Column");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseSqlExpressionColumn");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Introduction into SqlExpressionColumn", introBody, 1, 0, 0, false, 0);

@@ -122,7 +122,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_inlinetablewithphysical");
 
         Column townKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         townKeyColumn.setName("KEY");

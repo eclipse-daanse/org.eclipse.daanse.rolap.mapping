@@ -64,51 +64,51 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_measureMultiple");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column value1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value1Column.setName("VALUE1");
-        value1Column.setId("_col_value1");
+        value1Column.setId("_column_fact_value1");
         value1Column.setType(ColumnType.INTEGER);
 
         Column value2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value2Column.setName("VALUE2");
-        value2Column.setId("_col_value2");
+        value2Column.setId("_column_fact_value2");
         value2Column.setType(ColumnType.INTEGER);
 
         Column value3Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         value3Column.setName("VALUE3");
-        value3Column.setId("_col_value3");
+        value3Column.setId("_column_fact_value3");
         value3Column.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, value1Column, value2Column, value3Column));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Sum of Value1");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_sumOfValue1");
         measure1.setColumn(value1Column);
 
         SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Sum of Value2");
-        measure2.setId("_measure2");
+        measure2.setId("_measure_sumOfValue2");
         measure2.setColumn(value2Column);
 
         SumMeasure measure3 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure3.setName("Sum of Value3");
-        measure3.setId("_measure3");
+        measure3.setId("_measure_sumOfValue3");
         measure3.setColumn(value3Column);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -116,12 +116,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MultipleMeasuresCube");
-        cube.setId("_cube");
+        cube.setId("_cube_multipleMeasuresCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.setDefaultMeasure(measure3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_measureMultipleMeasures");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Measure - Multiple Measures");
         catalog.getCubes().add(cube);

@@ -105,37 +105,37 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_inlinetable");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setId("_Fact_DIM_KEY");
+        dimKeyColumn.setId("_column_fact_dim_key");
         dimKeyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         Column htKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htKeyColumn.setName("KEY");
-        htKeyColumn.setId("_HT_KEY");
+        htKeyColumn.setId("_ht_key");
         htKeyColumn.setType(ColumnType.VARCHAR);
 
         Column htValueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htValueColumn.setName("VALUE");
-        htValueColumn.setId("_HT_VALUE");
+        htValueColumn.setId("_ht_value");
         htValueColumn.setType(ColumnType.NUMERIC);
 
         Column htNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         htNameColumn.setName("NAME");
-        htNameColumn.setId("_HT_NAME");
+        htNameColumn.setId("_ht_name");
         htNameColumn.setType(ColumnType.VARCHAR);
 
         RowValue r1v1 = RolapMappingFactory.eINSTANCE.createRowValue();
@@ -184,7 +184,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
-        measure.setId("_Measure1");
+        measure.setId("_measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -192,21 +192,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("Level1");
-        level1.setId("_Level1");
+        level1.setId("_level1");
         level1.setColumn(htKeyColumn);
         level1.setNameColumn(htNameColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy1");
-        hierarchy.setId("_Hierarchy1");
+        hierarchy.setId("_hierarchy1");
         hierarchy.setPrimaryKey(htKeyColumn);
         hierarchy.setQuery(inlineTableQuery);
         hierarchy.getLevels().addAll(List.of(level1));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
-        dimension.setId("_Dimension1");
+        dimension.setId("_dimension1");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -217,7 +217,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);

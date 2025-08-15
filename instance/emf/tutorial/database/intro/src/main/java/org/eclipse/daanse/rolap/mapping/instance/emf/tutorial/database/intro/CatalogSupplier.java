@@ -63,22 +63,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_intro");
 
         Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("ColumnOne");
-        column.setId("_col");
+        column.setId("_column_tableOne_columnOne");
         column.setType(ColumnType.VARCHAR);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("TableOne");
-        table.setId("_tab");
+        table.setId("_table_tableOne");
         table.getColumns().addAll(List.of(column));
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - Intro");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseIntro");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Introduction into DataBase", introBody, 1, 0, 0, false, 0);

@@ -146,79 +146,79 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_ifblanknamemultiple");
 
         Column factMultipleDimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factMultipleDimKeyColumn.setName("DIM_KEY");
-        factMultipleDimKeyColumn.setId("_FactMultiple_DIM_KEY");
+        factMultipleDimKeyColumn.setId("_column_factmultiple_dim_key");
         factMultipleDimKeyColumn.setType(ColumnType.INTEGER);
 
         Column factMultipleValueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         factMultipleValueColumn.setName("VALUE");
-        factMultipleValueColumn.setId("_Fact_VALUE");
+        factMultipleValueColumn.setId("_column_fact_value");
         factMultipleValueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable factMultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factMultipleTable.setName("Fact_Multiple");
-        factMultipleTable.setId("_Fact_Multiple");
+        factMultipleTable.setId("_table_fact_Multiple");
         factMultipleTable.getColumns().addAll(List.of(factMultipleDimKeyColumn, factMultipleValueColumn));
         databaseSchema.getTables().add(factMultipleTable);
 
         Column level1MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1MultipleKeyColumn.setName("KEY");
-        level1MultipleKeyColumn.setId("_Level_1_Multiple_KEY");
+        level1MultipleKeyColumn.setId("_level_1_multiple_key");
         level1MultipleKeyColumn.setType(ColumnType.INTEGER);
 
         Column level1MultipleNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1MultipleNameColumn.setName("NAME");
-        level1MultipleNameColumn.setId("_Level_1_Multiple_NAME");
+        level1MultipleNameColumn.setId("_level_1_multiple_name");
         level1MultipleNameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable level1MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level1MultipleTable.setName("Level_1_Multiple");
-        level1MultipleTable.setId("_Level_1_Multiple");
+        level1MultipleTable.setId("_level_1_multiple");
         level1MultipleTable.getColumns().addAll(List.of(level1MultipleKeyColumn, level1MultipleNameColumn));
         databaseSchema.getTables().add(level1MultipleTable);
 
         Column level2MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2MultipleKeyColumn.setName("KEY");
-        level2MultipleKeyColumn.setId("_Level_2_Multiple_KEY");
+        level2MultipleKeyColumn.setId("_level_2_multiple_key");
         level2MultipleKeyColumn.setType(ColumnType.INTEGER);
 
         Column level2MultipleNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2MultipleNameColumn.setName("NAME");
-        level2MultipleNameColumn.setId("_Level_2_Multiple_NAME");
+        level2MultipleNameColumn.setId("_level_2_multiple_name");
         level2MultipleNameColumn.setType(ColumnType.VARCHAR);
 
         Column level2MultipleL1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2MultipleL1KeyColumn.setName("L1_KEY");
-        level2MultipleL1KeyColumn.setId("_Level_2_Multiple_L1_KEY");
+        level2MultipleL1KeyColumn.setId("_level_2_multiple_l1_key");
         level2MultipleL1KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable level2MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level2MultipleTable.setName("Level_2_Multiple");
-        level2MultipleTable.setId("_Level_2_Multiple");
+        level2MultipleTable.setId("_level_2_multiple");
         level2MultipleTable.getColumns().addAll(List.of(level2MultipleKeyColumn, level2MultipleNameColumn, level2MultipleL1KeyColumn));
         databaseSchema.getTables().add(level2MultipleTable);
 
         Column level3MultipleKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level3MultipleKeyColumn.setName("KEY");
-        level3MultipleKeyColumn.setId("_Level_3_Multiple_KEY");
+        level3MultipleKeyColumn.setId("_level_3_multiple_key");
         level3MultipleKeyColumn.setType(ColumnType.INTEGER);
 
         Column level3MultipleNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level3MultipleNameColumn.setName("NAME");
-        level3MultipleNameColumn.setId("_Level_3_Multiple_NAME");
+        level3MultipleNameColumn.setId("_level_3_multiple_name");
         level3MultipleNameColumn.setType(ColumnType.VARCHAR);
 
         Column level3MultipleL2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level3MultipleL2KeyColumn.setName("L2_KEY");
-        level3MultipleL2KeyColumn.setId("_Level_3_Multiple_L2_KEY");
+        level3MultipleL2KeyColumn.setId("_level_3_multiple_l2_key");
         level3MultipleL2KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable level3MultipleTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level3MultipleTable.setName("Level_3_Multiple");
-        level3MultipleTable.setId("_Level_3_Multiple");
+        level3MultipleTable.setId("_level_3_multiple");
         level3MultipleTable.getColumns().addAll(List.of(level3MultipleKeyColumn, level3MultipleNameColumn, level3MultipleL2KeyColumn));
         databaseSchema.getTables().add(level3MultipleTable);
 
@@ -266,7 +266,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure");
-        measure.setId("_Measure");
+        measure.setId("_measure");
         measure.setColumn(factMultipleValueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -295,7 +295,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ExplicitHierarchy hierarchyDimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyDimensionMembersHiddenMultipleLevels.setHasAll(true);
         hierarchyDimensionMembersHiddenMultipleLevels.setName("Hierarchy1");
-        hierarchyDimensionMembersHiddenMultipleLevels.setId("_Hierarchy1_2");
+        hierarchyDimensionMembersHiddenMultipleLevels.setId("_hierarchy1_2");
         hierarchyDimensionMembersHiddenMultipleLevels.setPrimaryKey(level3MultipleKeyColumn);
         hierarchyDimensionMembersHiddenMultipleLevels.setQuery(queryJoin);
         hierarchyDimensionMembersHiddenMultipleLevels.getLevels().addAll(List.of(level1,
@@ -303,7 +303,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimensionMembersHiddenMultipleLevels = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimensionMembersHiddenMultipleLevels.setName("DimensionMembersHiddenMultipleLevels");
-        dimensionMembersHiddenMultipleLevels.setId("_DimensionMembersHiddenMultipleLevels");
+        dimensionMembersHiddenMultipleLevels.setId("_dimensionmembershiddenmultiplelevels");
         dimensionMembersHiddenMultipleLevels.getHierarchies().add(hierarchyDimensionMembersHiddenMultipleLevels);
 
         DimensionConnector dimensionMembersHiddenMultipleLevelsConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -314,7 +314,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_HiddenMembersMultipleLevels");
+        cube.setId("_hiddenmembersmultiplelevels");
         cube.setQuery(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionMembersHiddenMultipleLevelsConnector);
