@@ -56,41 +56,41 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_measureGroup");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure A");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_measureA");
         measure1.setColumn(valueColumn);
 
         SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure B");
-        measure2.setId("_measure2");
+        measure2.setId("_measure_measureB");
         measure2.setColumn(valueColumn);
 
         SumMeasure measure3 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure3.setName("Measure 1");
-        measure3.setId("_measure3");
+        measure3.setId("_measure_measure1");
         measure3.setColumn(valueColumn);
 
         MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -103,12 +103,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasureGroupCube");
-        cube.setId("_cube");
+        cube.setId("_cube_measureGroupCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup1);
         cube.getMeasureGroups().add(measureGroup2);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_measureMeasureGroups");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Measure - MeasureGroups");
         catalog.getCubes().add(cube);

@@ -63,77 +63,78 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_measureAggregatorBit");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         BitAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure1.setName("BitAgg AND");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_bitAggAnd");
         measure1.setAggType(BitAggType.AND);
         measure1.setColumn(valueColumn);
 
         BitAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure2.setName("BitAgg OR");
-        measure2.setId("_measure2");
+        measure2.setId("_measure_bitAggOr");
         measure2.setAggType(BitAggType.OR);
         measure2.setColumn(valueColumn);
 
         BitAggMeasure measure3 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure3.setName("BitAgg XOR");
-        measure3.setId("_measure3");
+        measure3.setId("_measure_bitAggXor");
         measure3.setAggType(BitAggType.XOR);
         measure3.setColumn(valueColumn);
 
         BitAggMeasure measure4 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure4.setName("BitAgg NAND");
-        measure4.setId("_measure4");
+        measure4.setId("_measure_bitAggNand");
         measure4.setAggType(BitAggType.AND);
         measure4.setNot(true);
         measure4.setColumn(valueColumn);
 
         BitAggMeasure measure5 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure5.setName("BitAgg NOR");
-        measure5.setId("_measure2");
+        measure5.setId("_measure_bitAggNor");
         measure5.setAggType(BitAggType.OR);
         measure5.setNot(true);
         measure5.setColumn(valueColumn);
 
         BitAggMeasure measure6 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
         measure6.setName("BitAgg NXOR");
-        measure6.setId("_measure3");
+        measure6.setId("_measure_bitAggNxor");
         measure6.setAggType(BitAggType.XOR);
         measure6.setNot(true);
         measure6.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4, measure5, measure6));
+        measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3, measure4, measure5, measure6));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setId("_cube");
+        cube.setId("_cube_measureAggregatorsCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_measureBitAggregators");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Measure - Bit Aggragators");
         catalog.getCubes().add(cube);

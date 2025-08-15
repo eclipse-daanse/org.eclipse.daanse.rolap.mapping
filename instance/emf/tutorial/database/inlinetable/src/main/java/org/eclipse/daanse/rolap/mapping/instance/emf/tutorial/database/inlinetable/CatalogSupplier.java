@@ -46,16 +46,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_inlineTable");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         RowValue rowValue1 = RolapMappingFactory.eINSTANCE.createRowValue();
@@ -82,7 +82,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         InlineTable table = RolapMappingFactory.eINSTANCE.createInlineTable();
         table.setName("FACT");
-        table.setId("_table");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         table.getRows().add(row);
         table.getRows().add(row2);
@@ -91,7 +91,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - InlineTable");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseInlineTable");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Special Table -  Inline Table", introBody, 1, 0, 0, false, 0);

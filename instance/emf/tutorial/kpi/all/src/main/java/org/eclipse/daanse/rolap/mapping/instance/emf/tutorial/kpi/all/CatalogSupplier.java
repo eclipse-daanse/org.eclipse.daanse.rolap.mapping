@@ -82,64 +82,64 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_KpiAll");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
-        valueNumericColumn.setId("_Fact_VALUE_NUMERIC");
+        valueNumericColumn.setId("_column_fact_value_numeric");
         valueNumericColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn, valueNumericColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("FactQuery");
+        query.setId("_query_factQuery");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1-Sum");
-        measure.setId("_Measure1-Sum");
+        measure.setId("_measure1-sum");
         measure.setColumn(valueColumn);
 
         CountMeasure measure1 = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measure1.setName("Measure2-Count");
-        measure1.setId("_Measure2-Count");
+        measure1.setId("_measure2-count");
         measure1.setColumn(valueColumn);
 
         CalculatedMember calculatedValue = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedValue.setName("CalculatedValue");
-        calculatedValue.setId("_CalculatedValue");
+        calculatedValue.setId("_calculatedvalue");
         calculatedValue.setVisible(false);
         calculatedValue.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
         CalculatedMember calculatedGoal = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedGoal.setName("CalculatedGoal");
-        calculatedGoal.setId("_CalculatedGoal");
+        calculatedGoal.setId("_calculatedgoal");
         calculatedGoal.setVisible(false);
         calculatedGoal.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
         CalculatedMember calculatedStatus = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedStatus.setName("CalculatedStatus");
-        calculatedStatus.setId("_CalculatedStatus");
+        calculatedStatus.setId("_calculatedstatus");
         calculatedStatus.setVisible(false);
         calculatedStatus.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
         CalculatedMember calculatedTrend = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedTrend.setName("CalculatedTrend");
-        calculatedTrend.setId("_CalculatedTrend");
+        calculatedTrend.setId("_calculatedtrend");
         calculatedTrend.setVisible(false);
         calculatedTrend.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
@@ -148,7 +148,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroup.getMeasures().add(measure1);
         Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
         kpi.setName("Kpi1");
-        kpi.setId("_Kpi1");
+        kpi.setId("_kpi1");
         kpi.setDescription("Kpi with all parameters");
         kpi.setAssociatedMeasureGroupID("Kpi1MeasureGroupID");
         kpi.setValue("[Measures].[CalculatedValue]");
@@ -163,7 +163,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_CubeKPI");
+        cube.setId("_cubekpi");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedGoal, calculatedStatus, calculatedTrend));

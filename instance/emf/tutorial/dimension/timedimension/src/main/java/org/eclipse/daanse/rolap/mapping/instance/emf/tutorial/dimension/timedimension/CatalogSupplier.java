@@ -127,66 +127,66 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema");
+        databaseSchema.setId("_databaseSchema_timeDimension");
 
         Column dateKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dateKeyColumn.setName("DATE_KEY");
-        dateKeyColumn.setId("_Fact_DATE_KEY");
+        dateKeyColumn.setId("_column_fact_dateKey");
         dateKeyColumn.setType(ColumnType.TIMESTAMP);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         Column yearIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         yearIdColumn.setName("YEAR_ID");
-        yearIdColumn.setId("_Fact_YEAR_ID");
+        yearIdColumn.setId("_column_fact_yearId");
         yearIdColumn.setType(ColumnType.INTEGER);
 
         Column qtrIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         qtrIdColumn.setName("QTR_ID");
-        qtrIdColumn.setId("_Fact_QTR_ID");
+        qtrIdColumn.setId("_column_fact_qtrId");
         qtrIdColumn.setType(ColumnType.VARCHAR);
 
         Column qtrNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         qtrNameColumn.setName("QTR_NAME");
-        qtrNameColumn.setId("_Fact_QTR_NAME");
+        qtrNameColumn.setId("_column_fact_qtrName");
         qtrNameColumn.setType(ColumnType.VARCHAR);
 
         Column monthIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         monthIdColumn.setName("MONTH_ID");
-        monthIdColumn.setId("_Fact_MONTH_ID");
+        monthIdColumn.setId("_column_fact_monthId");
         monthIdColumn.setType(ColumnType.VARCHAR);
 
         Column monthNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         monthNameColumn.setName("MONTH_NAME");
-        monthNameColumn.setId("_Fact_MONTH_NAME");
+        monthNameColumn.setId("_column_fact_monthName");
         monthNameColumn.setType(ColumnType.VARCHAR);
 
         Column weekInMonthColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         weekInMonthColumn.setName("WEEK_IN_MONTH");
-        weekInMonthColumn.setId("_Fact_WEEK_IN_MONTH");
+        weekInMonthColumn.setId("_column_fact_weekInMonth");
         weekInMonthColumn.setType(ColumnType.INTEGER);
 
         Column dayInMonthColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dayInMonthColumn.setName("DAY_IN_MONTH");
-        dayInMonthColumn.setId("_Fact_DAY_IN_MONTH");
+        dayInMonthColumn.setId("_column_fact_dayInMonth");
         dayInMonthColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(dateKeyColumn, valueColumn, yearIdColumn, qtrIdColumn, qtrNameColumn, monthIdColumn, monthNameColumn, weekInMonthColumn, dayInMonthColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure-Sum");
-        measure.setId("_Measure-Sum");
+        measure.setId("_measure_sum");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -194,7 +194,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelYears = RolapMappingFactory.eINSTANCE.createLevel();
         levelYears.setName("Years");
-        levelYears.setId("_Years");
+        levelYears.setId("_level_years");
         levelYears.setColumn(yearIdColumn);
         levelYears.setType(LevelDefinition.TIME_YEARS);
         levelYears.setUniqueMembers(true);
@@ -202,7 +202,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelQuarters = RolapMappingFactory.eINSTANCE.createLevel();
         levelQuarters.setName("Quarters");
-        levelQuarters.setId("_Quarters");
+        levelQuarters.setId("_level_quarters");
         levelQuarters.setColumn(qtrNameColumn);
         levelQuarters.setOrdinalColumn(qtrIdColumn);
         levelQuarters.setType(LevelDefinition.TIME_QUARTERS);
@@ -211,7 +211,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelMonths = RolapMappingFactory.eINSTANCE.createLevel();
         levelMonths.setName("Months");
-        levelMonths.setId("_Months");
+        levelMonths.setId("_level_months");
         levelMonths.setColumn(monthNameColumn);
         levelMonths.setOrdinalColumn(monthIdColumn);
         levelMonths.setType(LevelDefinition.TIME_MONTHS);
@@ -220,21 +220,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level levelWeek = RolapMappingFactory.eINSTANCE.createLevel();
         levelWeek.setName("Week");
-        levelWeek.setId("_Week");
+        levelWeek.setId("_level_week");
         levelWeek.setColumn(weekInMonthColumn);
         levelWeek.setType(LevelDefinition.TIME_WEEKS);
         levelWeek.setUniqueMembers(false);
 
         Level levelDay = RolapMappingFactory.eINSTANCE.createLevel();
         levelDay.setName("Day");
-        levelDay.setId("_Day");
+        levelDay.setId("_level_day");
         levelDay.setColumn(dayInMonthColumn);
         levelDay.setType(LevelDefinition.TIME_DAYS);
         levelDay.setUniqueMembers(false);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
-        hierarchy.setId("_hierarchy");
+        hierarchy.setId("_hierarchy_time");
         hierarchy.setAllMemberName("All Years");
         hierarchy.setPrimaryKey(dateKeyColumn);
         hierarchy.setQuery(query);
@@ -242,16 +242,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TimeDimension dimension = RolapMappingFactory.eINSTANCE.createTimeDimension();
         dimension.setName("Time");
-        dimension.setId("_TimeDimension");
+        dimension.setId("_dimension_time");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_time");
+        dimensionConnector.setId("_dimensionConnector_time");
         dimensionConnector.setOverrideDimensionName("Time");
         dimensionConnector.setDimension(dimension);
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_CubeTimeDimension");
+        cube.setId("_cube_timeDimension");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);

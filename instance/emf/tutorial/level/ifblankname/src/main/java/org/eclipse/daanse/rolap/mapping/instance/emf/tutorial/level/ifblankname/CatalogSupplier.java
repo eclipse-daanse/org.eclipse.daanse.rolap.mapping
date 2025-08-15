@@ -125,58 +125,58 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_ifblankname");
 
         Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setId("_Fact_DIM_KEY");
+        dimKeyColumn.setId("_column_fact_dim_key");
         dimKeyColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable factTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         factTable.setName(FACT);
-        factTable.setId("_Fact");
+        factTable.setId("_table_fact");
         factTable.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
         databaseSchema.getTables().add(factTable);
 
         Column level2NullKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2NullKeyColumn.setName("KEY");
-        level2NullKeyColumn.setId("_Level_2_NULL_KEY");
+        level2NullKeyColumn.setId("_level_2_null_key");
         level2NullKeyColumn.setType(ColumnType.INTEGER);
 
         Column level2NullNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2NullNameColumn.setName("NAME");
-        level2NullNameColumn.setId("_Level_2_NULL_NAME");
+        level2NullNameColumn.setId("_level_2_null_name");
         level2NullNameColumn.setType(ColumnType.VARCHAR);
 
         Column level2NullL1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level2NullL1KeyColumn.setName("L1_KEY");
-        level2NullL1KeyColumn.setId("_Level_2_NULL_L1_KEY");
+        level2NullL1KeyColumn.setId("_level_2_null_l1_key");
         level2NullL1KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable level2NullTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level2NullTable.setName("Level_2_NULL");
-        level2NullTable.setId("_Level_2_NULL");
+        level2NullTable.setId("_level_2_null");
         level2NullTable.getColumns().addAll(List.of(level2NullKeyColumn, level2NullNameColumn, level2NullL1KeyColumn));
         databaseSchema.getTables().add(level2NullTable);
 
         Column level1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1KeyColumn.setName("KEY");
-        level1KeyColumn.setId("_Level_1_KEY");
+        level1KeyColumn.setId("_level_1_key");
         level1KeyColumn.setType(ColumnType.INTEGER);
 
         Column level1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         level1NameColumn.setName("NAME");
-        level1NameColumn.setId("_Level_1_NAME");
+        level1NameColumn.setId("_level_1_name");
         level1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable level1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         level1Table.setName("Level_1");
-        level1Table.setId("_Level_1");
+        level1Table.setId("_level_1");
         level1Table.getColumns().addAll(List.of(level1KeyColumn, level1NameColumn));
         databaseSchema.getTables().add(level1Table);
 
@@ -207,7 +207,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("_Measure1");
+        measure1.setId("_measure1");
         measure1.setColumn(valueColumn);
 
         MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -229,14 +229,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ExplicitHierarchy hierarchyDimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyDimensionMembersHiddenIfBlankName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfBlankName.setName("Hierarchy1");
-        hierarchyDimensionMembersHiddenIfBlankName.setId("_Hierarchy1_1");
+        hierarchyDimensionMembersHiddenIfBlankName.setId("_hierarchy1_1");
         hierarchyDimensionMembersHiddenIfBlankName.setPrimaryKey(level2NullKeyColumn);
         hierarchyDimensionMembersHiddenIfBlankName.setQuery(queryJoin);
         hierarchyDimensionMembersHiddenIfBlankName.getLevels().addAll(List.of(hierarchyDdimensionMembersHiddenIfBlankNameLevel1, hierarchyDdimensionMembersHiddenIfBlankNameLevel2));
 
         StandardDimension dimensionMembersHiddenIfBlankName = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimensionMembersHiddenIfBlankName.setName("DimensionMembersHiddenIfBlankName");
-        dimensionMembersHiddenIfBlankName.setId("_DimensionMembersHiddenIfBlankName");
+        dimensionMembersHiddenIfBlankName.setId("_dimensionmembershiddenifblankname");
         dimensionMembersHiddenIfBlankName.getHierarchies().add(hierarchyDimensionMembersHiddenIfBlankName);
 
         DimensionConnector dimensionMembersHiddenIfBlankNameConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -247,7 +247,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setId("_HiddenMembersIfBlankName");
+        cube1.setId("_hiddenmembersifblankname");
         cube1.setQuery(queryFact);
         cube1.getMeasureGroups().add(measureGroup1);
         cube1.getDimensionConnectors().add(dimensionMembersHiddenIfBlankNameConnector);

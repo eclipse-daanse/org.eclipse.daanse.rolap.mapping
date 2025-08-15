@@ -105,7 +105,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_link");
 
         Column nameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameColumn.setName("NAME");
@@ -151,11 +151,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(closureTable);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_table_factQuery");
         query.setTable(table);
 
         TableQuery closureQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        closureQuery.setId("_closureQuery");
+        closureQuery.setId("_query_closure");
         closureQuery.setTable(closureTable);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();

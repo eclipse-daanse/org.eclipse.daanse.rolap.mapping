@@ -109,71 +109,71 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_main");
 
         Column townIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         townIdColumn.setName("TOWN_ID");
-        townIdColumn.setId("_col_fact_townId");
+        townIdColumn.setId("_column_fact_townId");
         townIdColumn.setType(ColumnType.INTEGER);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_fact_value");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab_fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(townIdColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         Column keyTownColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyTownColumn.setName("ID");
-        keyTownColumn.setId("_col_town_id");
+        keyTownColumn.setId("_column_town_id");
         keyTownColumn.setType(ColumnType.INTEGER);
 
         Column nameTownColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameTownColumn.setName("NAME");
-        nameTownColumn.setId("_col_town_name");
+        nameTownColumn.setId("_column_town_name");
         nameTownColumn.setType(ColumnType.VARCHAR);
 
         Column idTownCountryIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         idTownCountryIdColumn.setName("COUNTRY_ID");
-        idTownCountryIdColumn.setId("_col_town_countryid");
+        idTownCountryIdColumn.setId("_column_town_countryId");
         idTownCountryIdColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableTown.setName("Town");
-        tableTown.setId("_tab_town");
+        tableTown.setId("_table_town");
         tableTown.getColumns().addAll(List.of(keyTownColumn, nameTownColumn, idTownCountryIdColumn));
         databaseSchema.getTables().add(tableTown);
 
         Column keyCountryColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyCountryColumn.setName("ID");
-        keyCountryColumn.setId("_col_country_id");
+        keyCountryColumn.setId("_column_country_id");
         keyCountryColumn.setType(ColumnType.INTEGER);
 
         Column nameCountryColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         nameCountryColumn.setName("NAME");
-        nameCountryColumn.setId("_col_country_name");
+        nameCountryColumn.setId("_column_country_name");
         nameCountryColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable tableCountry = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         tableCountry.setName("Country");
-        tableCountry.setId("_tab_country");
+        tableCountry.setId("_table_country");
         tableCountry.getColumns().addAll(List.of(keyCountryColumn, nameCountryColumn));
         databaseSchema.getTables().add(tableCountry);
 
         TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryFact.setId("_query_Fact");
+        queryFact.setId("_query_fact");
         queryFact.setTable(table);
 
         TableQuery queryLevelTown = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelTown.setId("_query_LevelTown");
+        queryLevelTown.setId("_query_town");
         queryLevelTown.setTable(tableTown);
 
         TableQuery queryLevelCountry = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelCountry.setId("_query_LevelCountry");
+        queryLevelCountry.setId("_query_country");
         queryLevelCountry.setTable(tableCountry);
 
         JoinedQueryElement joinQueryElementTown = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -185,13 +185,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinQueryElementCountry.setKey(keyCountryColumn);
 
         JoinQuery queryJoinTownToCountry = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoinTownToCountry.setId("_query_LevelTownToCountry");
+        queryJoinTownToCountry.setId("_query_townToCountry");
         queryJoinTownToCountry.setLeft(joinQueryElementTown);
         queryJoinTownToCountry.setRight(joinQueryElementCountry);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("theMeasure");
-        measure.setId("_measure");
+        measure.setId("_measure_theMeasure");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -211,7 +211,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
-        hierarchy.setId("_hierarchy_town");
+        hierarchy.setId("_hierarchy_townHierarchy");
         hierarchy.setPrimaryKey(keyTownColumn);
         hierarchy.setQuery(queryJoinTownToCountry);
         hierarchy.getLevels().add(levelTown);
@@ -219,17 +219,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Town");
-        dimension.setId("_dim_town");
+        dimension.setId("_dimension_town");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setDimension(dimension);
-        dimensionConnector1.setId("_dc_town");
+        dimensionConnector1.setId("_dimensionConnector_town");
         dimensionConnector1.setForeignKey(townIdColumn);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube Query linked Tables");
-        cube.setId("_cube");
+        cube.setId("_cube_queryLinkedTables");
         cube.setQuery(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);

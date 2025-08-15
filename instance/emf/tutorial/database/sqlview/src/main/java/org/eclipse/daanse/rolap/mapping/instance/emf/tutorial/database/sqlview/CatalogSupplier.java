@@ -45,16 +45,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_dbschema");
+        databaseSchema.setId("_databaseSchema_sqlView");
 
         Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         column.setName("ColumnOne");
-        column.setId("_col");
+        column.setId("_column_sqlview_columnOne");
         column.setType(ColumnType.VARCHAR);
 
         SqlView sqlview = RolapMappingFactory.eINSTANCE.createSqlView();
         sqlview.setName("sqlview");
-        sqlview.setId("_tab");
+        sqlview.setId("_table_sqlview");
         sqlview.getColumns().addAll(List.of(column));
         databaseSchema.getTables().add(sqlview);
 
@@ -65,7 +65,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Database - SqlView");
-        catalog.setId("_cat");
+        catalog.setId("_catalog_databaseSqlView");
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Special Table -  SqlView", introBody, 1, 0, 0, false, 0);

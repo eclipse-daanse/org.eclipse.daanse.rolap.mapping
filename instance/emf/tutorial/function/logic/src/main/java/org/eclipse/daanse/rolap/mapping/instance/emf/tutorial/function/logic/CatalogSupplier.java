@@ -83,12 +83,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure-Sum");
-        measureSum.setId("Measure-Sum");
+        measureSum.setId("_measure_MeasureSum");
         measureSum.setColumn(valueColumn);
 
         CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure-Count");
-        measureCount.setId("Measure-Count");
+        measureCount.setId("_measure_MeasureCount");
         measureCount.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();

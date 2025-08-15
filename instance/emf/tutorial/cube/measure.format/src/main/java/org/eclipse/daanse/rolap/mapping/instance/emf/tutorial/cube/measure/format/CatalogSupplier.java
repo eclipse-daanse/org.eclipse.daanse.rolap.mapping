@@ -92,43 +92,43 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_measureFormat");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName("Fact");
-        table.setId("_tab");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Format #,##0.00");
-        measure1.setId("_measure1");
+        measure1.setId("_measure_formatTwoDecimals");
         measure1.setColumn(valueColumn);
         measure1.setFormatString("#,##0.00");
 
         SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Format #,##0");
-        measure2.setId("_measure2");
+        measure2.setId("_measure_formatNoDecimals");
         measure2.setColumn(valueColumn);
         measure2.setFormatString("#,##0");
 
         SumMeasure measure3 = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure3.setName("Format #,##0.");
-        measure3.setId("_measure3");
+        measure3.setId("_measure_formatOneDecimal");
         measure3.setColumn(valueColumn);
         measure3.setFormatString("#,##0.");
 
@@ -137,11 +137,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresFormatCube");
-        cube.setId("_cube");
+        cube.setId("_cube_measuresFormatCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_measureFormats");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Measure - Formats");
         catalog.getCubes().add(cube);

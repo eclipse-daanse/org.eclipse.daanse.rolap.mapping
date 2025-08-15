@@ -100,32 +100,32 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         Column flagColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         flagColumn.setName("FLAG");
-        flagColumn.setId("_Fact_FLAG");
+        flagColumn.setId("_column_fact_flag");
         flagColumn.setType(ColumnType.SMALLINT);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn, flagColumn));
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_table_factQuery");
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure");
-        measure.setId("_Measure");
+        measure.setId("_measure");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -133,21 +133,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("_Level");
-        level.setId("Level");
+        level.setId("_level_Level");
         level.setColumnType(ColumnInternalDataType.BOOLEAN);
         level.setColumn(flagColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
-        hierarchy.setId("_HierarchyWithHasAll");
+        hierarchy.setId("_hierarchywithhasall");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension");
-        dimension.setId("_Dimension");
+        dimension.setId("_dimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
@@ -157,7 +157,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);

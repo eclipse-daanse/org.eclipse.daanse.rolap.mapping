@@ -79,16 +79,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseschema");
+        databaseSchema.setId("_databaseSchema_calculatedMemberProperty");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_fact_key");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_fact_value");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -98,51 +98,51 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query.setId("_query_fact");
         query.setTable(table);
 
         Level level = RolapMappingFactory.eINSTANCE.createLevel();
         level.setName("theLevel");
-        level.setId("_level");
+        level.setId("_level_theLevel");
         level.setColumn(keyColumn);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("theHierarchy");
-        hierarchy.setId("_hierarchy");
+        hierarchy.setId("_hierarchy_theHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("theDimension");
-        dimension.setId("_dimension");
+        dimension.setId("_dimension_theDimension");
         dimension.getHierarchies().add(hierarchy);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dimension");
+        dimensionConnector.setId("_dimensionConnector_theDimension");
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
 
         CalculatedMemberProperty memberOrdinalCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdinalCalculatedMemberProperty1.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty1.setId("_propertyMemberOrdinal1");
+        memberOrdinalCalculatedMemberProperty1.setId("_calculatedMemberProperty_memberOrdinal1");
         memberOrdinalCalculatedMemberProperty1.setValue("3");
 
         SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure-Sum");
-        measureSum.setId("Measure-Sum");
+        measureSum.setId("_measure_measureSum");
         measureSum.setColumn(valueColumn);
         measureSum.getCalculatedMemberProperties().add(memberOrdinalCalculatedMemberProperty1);
 
         CalculatedMemberProperty memberOrdinalCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdinalCalculatedMemberProperty2.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty2.setId("_propertyMemberOrdinal2");
+        memberOrdinalCalculatedMemberProperty2.setId("_calculatedMemberProperty_memberOrdinal2");
         memberOrdinalCalculatedMemberProperty2.setValue("4");
 
         CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure-Count");
-        measureCount.setId("Measure-Count");
+        measureCount.setId("_measure_measureCount");
         measureCount.setColumn(valueColumn);
         measureCount.getCalculatedMemberProperties().add(memberOrdinalCalculatedMemberProperty2);
 
@@ -151,18 +151,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CalculatedMemberProperty memberOrdinalCalculatedMemberProperty3 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdinalCalculatedMemberProperty3.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty3.setId("_propertyMemberOrdinal3");
+        memberOrdinalCalculatedMemberProperty3.setId("_calculatedMemberProperty_memberOrdinal3");
         memberOrdinalCalculatedMemberProperty3.setValue("1");
 
         CalculatedMemberProperty memberOrdina1lCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdina1lCalculatedMemberProperty1.setName("FORMAT_STRING");
-        memberOrdina1lCalculatedMemberProperty1.setId("_format1");
+        memberOrdina1lCalculatedMemberProperty1.setId("_calculatedMemberProperty_format1");
         memberOrdina1lCalculatedMemberProperty1.setValue("$#,##0.00");
 
         CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Calculated Member 1");
         calculatedMember1.setDisplayFolder("folder");
-        calculatedMember1.setId("_cm1");
+        calculatedMember1.setId("_calculatedMember_calculatedMember1");
         calculatedMember1.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember1.setDisplayFolder("folder");
         calculatedMember1.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty3, memberOrdina1lCalculatedMemberProperty1));
@@ -170,24 +170,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CalculatedMemberProperty memberOrdinalCalculatedMemberProperty4 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdinalCalculatedMemberProperty4.setName("MEMBER_ORDINAL");
-        memberOrdinalCalculatedMemberProperty4.setId("_propertyMemberOrdinal4");
+        memberOrdinalCalculatedMemberProperty4.setId("_calculatedMemberProperty_memberOrdinal4");
         memberOrdinalCalculatedMemberProperty4.setValue("2");
 
         CalculatedMemberProperty memberOrdina1lCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         memberOrdina1lCalculatedMemberProperty2.setName("FORMAT_STRING");
-        memberOrdina1lCalculatedMemberProperty2.setId("_format2");
+        memberOrdina1lCalculatedMemberProperty2.setId("_calculatedMemberProperty_format2");
         memberOrdina1lCalculatedMemberProperty2.setValue("$#,##");
 
         CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Calculated Member 2");
-        calculatedMember2.setId("_cm2");
+        calculatedMember2.setId("_calculatedMember_calculatedMember2");
         calculatedMember2.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember2.setDisplayFolder("folder");
         calculatedMember2.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty4, memberOrdina1lCalculatedMemberProperty2));
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube CalculatedMember with properties");
-        cube.setId("_cube");
+        cube.setId("_cube_calculatedMemberPropertyCube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);

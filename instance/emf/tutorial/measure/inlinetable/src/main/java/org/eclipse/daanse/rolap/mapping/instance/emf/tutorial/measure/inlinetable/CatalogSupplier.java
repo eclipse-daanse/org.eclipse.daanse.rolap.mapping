@@ -74,16 +74,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_inlinetable");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         RowValue rowValue1 = RolapMappingFactory.eINSTANCE.createRowValue();
@@ -99,20 +99,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         InlineTable table = RolapMappingFactory.eINSTANCE.createInlineTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         table.getRows().add(row);
 
         databaseSchema.getTables().add(table);
 
         InlineTableQuery query = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
-        query.setId("FactQuery");
+        query.setId("_query_fact");
         query.setAlias(FACT);
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure-Sum");
-        measure.setId("_Measure-Sum");
+        measure.setId("_measure-sum");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();

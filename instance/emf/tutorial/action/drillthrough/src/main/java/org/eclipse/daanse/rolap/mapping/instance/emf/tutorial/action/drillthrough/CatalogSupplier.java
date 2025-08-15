@@ -147,21 +147,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("databaseSchema");
+        databaseSchema.setId("_databaseSchema_DrillThrough");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_Fact_KEY");
+        keyColumn.setId("_column_fact_key");
         keyColumn.setType(ColumnType.VARCHAR);
 
         Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_Fact_VALUE");
+        valueColumn.setId("_column_fact_value");
         valueColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
-        table.setId("_Fact");
+        table.setId("_table_fact");
         table.getColumns().addAll(List.of(keyColumn, valueColumn));
         databaseSchema.getTables().add(table);
 
@@ -170,77 +170,77 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h1L1KeyColumn.setName("KEY");
-        h1L1KeyColumn.setId("_H1_L1_VALUE");
+        h1L1KeyColumn.setId("_column_h1_l1_key");
         h1L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column h1L1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h1L1NameColumn.setName("NAME");
-        h1L1NameColumn.setId("_H1_L1_NAME");
+        h1L1NameColumn.setId("_column_h1_l1_name");
         h1L1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable h1L1table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         h1L1table.setName("H1_L1");
-        h1L1table.setId("_H1_L1");
+        h1L1table.setId("_table_h1_l1");
         h1L1table.getColumns().addAll(List.of(h1L1KeyColumn, h1L1NameColumn));
         databaseSchema.getTables().add(h1L1table);
 
         Column h2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h2L1KeyColumn.setName("KEY");
-        h2L1KeyColumn.setId("_H2_L1_VALUE");
+        h2L1KeyColumn.setId("_column_h2_l1_key");
         h2L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column h2L1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         h2L1NameColumn.setName("NAME");
-        h2L1NameColumn.setId("_H2_L1_NAME");
+        h2L1NameColumn.setId("_column_h2_l1_name");
         h2L1NameColumn.setType(ColumnType.VARCHAR);
 
         PhysicalTable h2L1table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         h2L1table.setName("H2_L1");
-        h2L1table.setId("_H2_L1");
+        h2L1table.setId("_table_h2_l1");
         h2L1table.getColumns().addAll(List.of(h2L1KeyColumn, h2L1NameColumn));
         databaseSchema.getTables().add(h2L1table);
 
         Column hxL2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2KeyColumn.setName("KEY");
-        hxL2KeyColumn.setId("_HX_L2_KEY");
+        hxL2KeyColumn.setId("_column_hx_l2_key");
         hxL2KeyColumn.setType(ColumnType.INTEGER);
 
         Column hxL2NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2NameColumn.setName("NAME");
-        hxL2NameColumn.setId("_HX_L2_NAME");
+        hxL2NameColumn.setId("_column_hx_l2_name");
         hxL2NameColumn.setType(ColumnType.VARCHAR);
 
         Column hxL2H1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2H1L1KeyColumn.setName("H1L1_KEY");
-        hxL2H1L1KeyColumn.setId("_HX_L2_H1L1_KEY");
+        hxL2H1L1KeyColumn.setId("_column_hx_l2_h1l1_key");
         hxL2H1L1KeyColumn.setType(ColumnType.INTEGER);
 
         Column hxL2H2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         hxL2H2L1KeyColumn.setName("H2L1_KEY");
-        hxL2H2L1KeyColumn.setId("_HX_L2_H2L1_KEY");
+        hxL2H2L1KeyColumn.setId("_column_hx_l2_h2l1_key");
         hxL2H2L1KeyColumn.setType(ColumnType.INTEGER);
 
         PhysicalTable hxL2table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         hxL2table.setName("HX_L2");
-        hxL2table.setId("_HX_L2");
+        hxL2table.setId("_table_hx_l2");
         hxL2table.getColumns().addAll(List.of(hxL2KeyColumn, hxL2NameColumn, hxL2H1L1KeyColumn, hxL2H2L1KeyColumn));
         databaseSchema.getTables().add(hxL2table);
 
         TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_FactQuery");
+        query.setId("_query_factQuery");
         query.setTable(table);
 
         TableQuery hxL2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        hxL2Query.setId("_HxL2Query");
+        hxL2Query.setId("_query_HxL2Query");
         hxL2Query.setTable(hxL2table);
 
 
         TableQuery h1L1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        h1L1Query.setId("_H1L1Query");
+        h1L1Query.setId("_query_H1L1Query");
         h1L1Query.setTable(h1L1table);
 
         TableQuery h2L1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        h2L1Query.setId("_H2L1Query");
+        h2L1Query.setId("_query_H2L1Query");
         h2L1Query.setTable(h2L1table);
 
         JoinedQueryElement join1Left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -252,7 +252,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         join1Right.setQuery(h1L1Query);
 
         JoinQuery join1 = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        join1.setId("_join1");
+        join1.setId("_joinQuery_join1");
         join1.setLeft(join1Left);
         join1.setRight(join1Right);
 
@@ -265,13 +265,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         join2Right.setQuery(h2L1Query);
 
         JoinQuery join2 = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        join2.setId("_join2");
+        join2.setId("_joinQuery_join2");
         join2.setLeft(join2Left);
         join2.setRight(join2Right);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
-        measure.setId("_Measure1");
+        measure.setId("_measure_Measure1");
         measure.setColumn(valueColumn);
 
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
@@ -279,52 +279,52 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
         level1.setName("H1_Level1");
-        level1.setId("_H1_Level1");
+        level1.setId("_level_H1_Level1");
         level1.setColumn(h1L1KeyColumn);
         level1.setNameColumn(h1L1NameColumn);
 
         Level level2 = RolapMappingFactory.eINSTANCE.createLevel();
         level2.setName("H1_Level2");
-        level2.setId("_H1_Level2");
+        level2.setId("_level_H1_Level2");
         level2.setColumn(hxL2KeyColumn);
         level2.setNameColumn(hxL2NameColumn);
 
         ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
-        hierarchy1.setId("_Hierarchy1");
+        hierarchy1.setId("_hierarchy_Hierarchy1");
         hierarchy1.setPrimaryKey(hxL2KeyColumn);
         hierarchy1.setQuery(join1);
         hierarchy1.getLevels().addAll(List.of(level1, level2));
 
         Level level3 = RolapMappingFactory.eINSTANCE.createLevel();
         level3.setName("H2_Level1");
-        level3.setId("_H2_Level1");
+        level3.setId("_level_H2_Level1");
         level3.setColumn(h2L1KeyColumn);
         level3.setNameColumn(h2L1NameColumn);
 
         Level level4 = RolapMappingFactory.eINSTANCE.createLevel();
         level4.setName("H2_Level2");
-        level4.setId("_H2_Level2");
+        level4.setId("_level_H2_Level2");
         level4.setColumn(hxL2KeyColumn);
         level4.setNameColumn(hxL2NameColumn);
 
         ExplicitHierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy2.setHasAll(true);
         hierarchy2.setName("Hierarchy2");
-        hierarchy2.setId("_Hierarchy2");
+        hierarchy2.setId("_hierarchy_Hierarchy2");
         hierarchy2.setPrimaryKey(hxL2KeyColumn);
         hierarchy2.setQuery(join2);
         hierarchy2.getLevels().addAll(List.of(level3, level4));
 
         StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
-        dimension.setId("_Dimension1");
+        dimension.setId("_dimension_Dimension1");
         dimension.getHierarchies().add(hierarchy1);
         dimension.getHierarchies().add(hierarchy2);
 
         DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dimension1");
+        dimensionConnector.setId("_dimensionConnector_dimension1");
         dimensionConnector.setOverrideDimensionName("Dimension1");
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
@@ -343,20 +343,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         DrillThroughAction drillThroughAction1 = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
         drillThroughAction1.setName("DrillthroughH1L1");
-        drillThroughAction1.setId("_DrillthroughH1L1");
+        drillThroughAction1.setId("_drillThroughAction_DrillthroughH1L1");
         drillThroughAction1.setDefault(true);
         drillThroughAction1.getDrillThroughAttribute().add(drillThroughAttribute1);
         drillThroughAction1.getDrillThroughMeasure().add(measure);
 
         DrillThroughAction drillThroughAction2 = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
         drillThroughAction2.setName("DrillthroughH2L1");
-        drillThroughAction2.setId("_DrillthroughH2L1");
+        drillThroughAction2.setId("_drillThroughAction_DrillthroughH2L1");
         drillThroughAction2.getDrillThroughAttribute().add(drillThroughAttribute2);
         drillThroughAction2.getDrillThroughMeasure().add(measure);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_Cube");
+        cube.setId("_cube_Cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
