@@ -90,7 +90,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//Parameter" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Collection of schema-level parameters that provide dynamic behavior and configuration within the schema. Parameters enable runtime customization of schema elements, user-specific settings, and conditional logic in calculations. These parameters are available throughout the schema for use in calculated members, named sets, security expressions, and custom formatting. Common uses include date ranges for time intelligence, user preferences, locale settings, and business rule toggles."/>
+        <details key="documentation" value="Collection of catalog-level parameters that provide dynamic behavior and configuration within the catalog. Parameters enable runtime customization of schema elements, user-specific settings, and conditional logic in calculations. These parameters are available throughout the catalog for use in calculated members, named sets, security expressions, and custom formatting. Common uses include date ranges for time intelligence, user preferences, locale settings, and business rule toggles."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubes" lowerBound="1" upperBound="-1"
@@ -108,7 +108,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="accessRoles" upperBound="-1"
         eType="#//AccessRole">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Collection of security roles that define access control policies for the schema and its contents. Each role specifies what cubes, dimensions, hierarchies, levels, and members a user or group can access, along with the specific permissions (read, write, drill-through) for each resource. Roles can be combined to create complex security scenarios and support both broad organizational permissions and fine-grained data restrictions. These roles are enforced by the OLAP engine during query execution and metadata discovery."/>
+        <details key="documentation" value="Collection of security roles that define access control policies for the catalog and its contents. Each role specifies what cubes, dimensions, hierarchies, levels, and members a user or group can access, along with the specific permissions (read, write, drill-through) for each resource. Roles can be combined to create complex security scenarios and support both broad organizational permissions and fine-grained data restrictions. These roles are enforced by the OLAP engine during query execution and metadata discovery."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="measuresDimensionName"
@@ -119,7 +119,7 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="defaultAccessRole" eType="#//AccessRole">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Reference to the access role that should be applied by default when users connect without explicit role assignment. This provides a baseline security policy for the schema, typically configured to allow basic read access to public data while restricting sensitive information. If not specified, Daanse does not assign a built-in default role, and access will be denied unless a role is explicitly provided. This setting is particularly useful for public reporting scenarios, shared dashboards, or development environments where default read access is desirable."/>
+        <details key="documentation" value="Reference to the access role that should be applied by default when users connect without explicit role assignment. This provides a baseline security policy for the catalog, typically configured to allow basic read access to public data while restricting sensitive information. If not specified, Daanse does not assign a built-in default role, and access will be denied unless a role is explicitly provided. This setting is particularly useful for public reporting scenarios, shared dashboards, or development environments where default read access is desirable."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
@@ -637,7 +637,7 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" eType="#//Column">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Optional reference to  to foreign key column in the fact table that references the primary key of the dimension table, establishing the relational link between fact data and dimensional context for OLAP analysis."/>
+        <details key="documentation" value="Optional reference to  to foreign key column in the fact table that references the primary key of the dimension table, establishing the relational link between fact data and dimensional context for OLAP analysis. Foreign key can be absent if dimension hierarchies and Cube fact table use same table"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="usagePrefix" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
