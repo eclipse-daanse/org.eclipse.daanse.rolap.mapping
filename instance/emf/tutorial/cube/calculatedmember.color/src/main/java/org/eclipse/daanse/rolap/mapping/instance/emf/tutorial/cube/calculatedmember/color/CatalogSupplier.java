@@ -175,7 +175,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getCalculatedMembers().addAll(List.of(calculatedMember2,calculatedMember1));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube - CalculatedMembers with different colors");
+        catalog.setName("Daanse Tutorial - Cube Calculated Member Color");
+        catalog.setDescription("Color properties for calculated members");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 

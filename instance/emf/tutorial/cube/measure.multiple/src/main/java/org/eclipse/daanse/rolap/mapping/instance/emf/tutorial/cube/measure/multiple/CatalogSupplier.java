@@ -124,7 +124,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureMultipleMeasures");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Measure - Multiple Measures");
+        catalog.setName("Daanse Tutorial - Cube Measure Multiple");
+        catalog.setDescription("Multiple measures in cubes");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures", introBody, 1, 0, 0, false, 0);

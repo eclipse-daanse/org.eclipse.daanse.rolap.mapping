@@ -118,8 +118,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube With Measures CellFormatter");
-        catalog.setDescription("Schema of a minimal cube with CellFormatter with class name");
+        catalog.setName("Daanse Tutorial - Formatter Cell");
+        catalog.setDescription("Cell formatter configurations");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

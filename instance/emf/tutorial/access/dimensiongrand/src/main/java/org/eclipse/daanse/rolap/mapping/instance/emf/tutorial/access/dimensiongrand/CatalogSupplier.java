@@ -211,8 +211,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         role.getAccessCatalogGrants().add(accessCatalogGrant);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with role access DimensionGrant");
-        catalog.setDescription("Schema with access DimensionGrant with access to Dimension1 only and no access to Dimension2 of Cube1");
+        catalog.setName("Daanse Tutorial - Access Dimension Grant");
+        catalog.setDescription("Access control with dimension-level grants");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(role);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();

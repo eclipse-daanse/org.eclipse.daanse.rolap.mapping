@@ -153,7 +153,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Catalog with cube with different member identifiers");
+        catalog.setName("Daanse Tutorial - Member Identifier");
+        catalog.setDescription("Member identifier configurations");
         catalog.getCubes().add(cube);
 
         document(catalog, "Catalog with cube with different member identifiers", introBody, 1, 0, 0, false, 0);

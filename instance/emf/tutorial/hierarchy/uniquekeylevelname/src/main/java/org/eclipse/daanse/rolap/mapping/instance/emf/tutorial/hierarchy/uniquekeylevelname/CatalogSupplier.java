@@ -323,8 +323,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with hierarchy with functional dependency optimizations");
-        catalog.setDescription("Schema with hierarchy with functional dependency optimizations");
+        catalog.setName("Daanse Tutorial - Hierarchy Unique Key Level Name");
+        catalog.setDescription("Hierarchy with unique key level name optimizations");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

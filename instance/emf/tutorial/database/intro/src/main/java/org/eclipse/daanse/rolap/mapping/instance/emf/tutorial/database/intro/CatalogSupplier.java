@@ -77,7 +77,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - Intro");
+        catalog.setName("Daanse Tutorial - Database Intro");
+        catalog.setDescription("Basic introduction to database schema configuration");
         catalog.setId("_catalog_databaseIntro");
         catalog.getDbschemas().add(databaseSchema);
 

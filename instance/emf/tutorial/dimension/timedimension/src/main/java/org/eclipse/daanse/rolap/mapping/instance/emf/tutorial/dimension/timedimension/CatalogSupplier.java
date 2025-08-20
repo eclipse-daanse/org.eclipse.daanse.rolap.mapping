@@ -257,8 +257,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with Time_Dimension");
-        catalog.setDescription("Schema with cube with Time Dimension");
+        catalog.setName("Daanse Tutorial - Dimension Time Dimension");
+        catalog.setDescription("Time dimension configuration");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

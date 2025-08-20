@@ -181,7 +181,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Level - MemberProperties Intro");
+        catalog.setName("Daanse Tutorial - Cube Level Member Property Intro");
+        catalog.setDescription("Introduction to member properties");
         catalog.getCubes().add(cube);
 
         document(catalog, "Level - MemberProperties Intro", introBody, 1, 0, 0, false, 0);

@@ -198,8 +198,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with virtual cube with un visible reference cubes");
-        catalog.setDescription("Catalog of a minimal virtual cube with unvisible reference cubes");
+        catalog.setName("Daanse Tutorial - Virtual Cube Unvisible Reference Cubes");
+        catalog.setDescription("Virtual cubes with invisible reference cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

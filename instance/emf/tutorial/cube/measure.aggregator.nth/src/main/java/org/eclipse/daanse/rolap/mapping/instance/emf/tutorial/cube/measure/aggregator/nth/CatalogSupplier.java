@@ -193,7 +193,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Measure - NTH value Aggragator");
+        catalog.setName("Daanse Tutorial - Cube Measure Aggregator Nth");
+        catalog.setDescription("Nth value aggregation functions");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple NTH Value Aggragator Measures", introBody, 1, 0, 0, false, 0);

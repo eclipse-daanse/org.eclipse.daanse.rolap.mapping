@@ -252,8 +252,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube1.getDimensionConnectors().add(dimensionMembersHiddenIfParentsNameConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube Hidden Members with IfParentsName");
-        catalog.setDescription("Schema of a minimal cube with single Hierarchy Hidden Members with IfParentsName");
+        catalog.setName("Daanse Tutorial - Level If Parents Name");
+        catalog.setDescription("Level handling parent name references");
         catalog.getCubes().add(cube1);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

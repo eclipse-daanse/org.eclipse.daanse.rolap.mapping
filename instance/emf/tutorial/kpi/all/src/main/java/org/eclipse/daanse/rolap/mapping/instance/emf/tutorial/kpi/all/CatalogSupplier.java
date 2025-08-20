@@ -169,8 +169,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedGoal, calculatedStatus, calculatedTrend));
         cube.getKpis().add(kpi);
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with KPI with all properties");
-        catalog.setDescription("Minimal Cube with KPI with all properties");
+        catalog.setName("Daanse Tutorial - KPI All");
+        catalog.setDescription("Complete KPI implementation examples");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

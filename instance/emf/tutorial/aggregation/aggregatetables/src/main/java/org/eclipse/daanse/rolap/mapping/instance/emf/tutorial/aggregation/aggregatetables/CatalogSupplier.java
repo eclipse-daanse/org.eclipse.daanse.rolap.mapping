@@ -322,8 +322,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with aggregate tables");
-        catalog.setDescription("Schema with aggregate tables");
+        catalog.setName("Daanse Tutorial - Aggregation Aggregate Tables");
+        catalog.setDescription("Aggregate table optimization techniques");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

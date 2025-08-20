@@ -88,7 +88,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String TAB_NAME_SCHULE = "schule";
 
-    private static final String CATALOG_NAME = "Schulwesen";
+    private static final String CATALOG_NAME = "Daanse Example - Schulwesen";
 
     @Override
     public CatalogMapping get() {

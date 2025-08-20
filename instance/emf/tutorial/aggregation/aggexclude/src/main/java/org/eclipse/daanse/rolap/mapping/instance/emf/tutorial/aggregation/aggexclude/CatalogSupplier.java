@@ -133,8 +133,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with table reference with AggExclude");
-        catalog.setDescription("Schema of a minimal cube with table reference with AggExclude");
+        catalog.setName("Daanse Tutorial - Aggregation Agg Exclude");
+        catalog.setDescription("Aggregate exclusion patterns");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

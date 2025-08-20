@@ -216,8 +216,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getNamedSets().addAll(List.of(namedSet1, namedSet2, namedSet3, namedSet4));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with NamedSets");
-        catalog.setDescription("Schema of a minimal cube with namedSet");
+        catalog.setName("Daanse Tutorial - Namedset All");
+        catalog.setDescription("Named set configurations");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

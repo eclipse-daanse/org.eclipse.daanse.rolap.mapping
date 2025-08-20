@@ -320,8 +320,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionMembersHiddenMultipleLevelsConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with Hidden Members with IfBlankName with multiple levels");
-        catalog.setDescription("Schema of a minimal cube with Hidden Members with IfBlankNamewith multiple levels");
+        catalog.setName("Daanse Tutorial - Level If Blank Name Multiple");
+        catalog.setDescription("Multiple levels handling blank names");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

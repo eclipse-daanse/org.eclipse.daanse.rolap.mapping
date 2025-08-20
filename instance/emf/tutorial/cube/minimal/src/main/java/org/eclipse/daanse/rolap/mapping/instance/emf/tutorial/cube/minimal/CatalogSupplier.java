@@ -95,7 +95,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setId("_catalog_minimal");
-        catalog.setName("Cube - Minimal");
+        catalog.setName("Daanse Tutorial - Cube Minimal");
+        catalog.setDescription("Basic cube structure with measures only");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 

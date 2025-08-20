@@ -217,8 +217,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with dimension with hierarchy with SQL view reference");
-        catalog.setDescription("Catalog of a minimal cube with hierarchy with SQL view reference");
+        catalog.setName("Daanse Tutorial - Hierarchy View");
+        catalog.setDescription("Hierarchy with SQL view references");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

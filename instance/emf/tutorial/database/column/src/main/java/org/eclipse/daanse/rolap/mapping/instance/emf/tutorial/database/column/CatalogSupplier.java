@@ -131,7 +131,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - ColumnTypes");
+        catalog.setName("Daanse Tutorial - Database Column");
+        catalog.setDescription("Database column types and configuration");
         catalog.setId("_catalog_databaseColumnTypes");
         catalog.getDbschemas().add(databaseSchema);
 
