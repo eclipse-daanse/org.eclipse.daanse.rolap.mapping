@@ -215,8 +215,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getKpis().add(kpi);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with virtual cube with kpi");
-        catalog.setDescription("Cube with virtual cube with kpi");
+        catalog.setName("Daanse Tutorial - KPI Virtual Cube");
+        catalog.setDescription("KPI implementation in virtual cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

@@ -176,7 +176,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Hierarchy - HasAll-Level");
+        catalog.setName("Daanse Tutorial - Cube Hierarchy Has All");
+        catalog.setDescription("Hierarchy with all-member configuration");
         catalog.getCubes().add(cube);
 
         document(catalog, "Hierarchy - Level - HasAll", introBody, 1, 0, 0, false, 0);

@@ -226,8 +226,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         roleAllDimWithoutCubeGrand.getAccessCatalogGrants().add(accessCatalogGrantAllDimWithoutCubeGrand);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with roles access catalog");
-        catalog.setDescription("Schema with roles access catalog");
+        catalog.setName("Daanse Tutorial - Access Catalog Grant");
+        catalog.setDescription("Demonstrates access control with catalog grants and roles");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(roleAll);
         catalog.getAccessRoles().add(roleNone);

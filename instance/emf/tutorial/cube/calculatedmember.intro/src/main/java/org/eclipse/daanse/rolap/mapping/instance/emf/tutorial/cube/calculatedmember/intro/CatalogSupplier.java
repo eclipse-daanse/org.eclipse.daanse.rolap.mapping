@@ -165,7 +165,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube - CalculatedMembers Intro");
+        catalog.setName("Daanse Tutorial - Cube Calculated Member Intro");
+        catalog.setDescription("Introduction to calculated members in cubes");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 

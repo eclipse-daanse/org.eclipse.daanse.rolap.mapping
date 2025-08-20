@@ -136,7 +136,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureBitAggregators");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Measure - Bit Aggragators");
+        catalog.setName("Daanse Tutorial - Cube Measure Aggregator Bit");
+        catalog.setDescription("Bitwise aggregation functions");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Measures with Bit Aggragators", introBody, 1, 0, 0, false, 0);

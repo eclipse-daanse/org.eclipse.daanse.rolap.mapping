@@ -64,7 +64,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         sqlview.getSqlStatements().add(sqlStatement);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - SqlView");
+        catalog.setName("Daanse Tutorial - Database SQL View");
+        catalog.setDescription("SQL view definitions and usage");
         catalog.setId("_catalog_databaseSqlView");
         catalog.getDbschemas().add(databaseSchema);
 

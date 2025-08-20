@@ -363,8 +363,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getAction().addAll(List.of(drillThroughAction1, drillThroughAction2));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with DrillThroughAction");
-        catalog.setDescription("Schema of a minimal cube with DrillThroughAction");
+        catalog.setName("Daanse Tutorial - Action Drillthrough");
+        catalog.setDescription("Drill-through action configuration");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

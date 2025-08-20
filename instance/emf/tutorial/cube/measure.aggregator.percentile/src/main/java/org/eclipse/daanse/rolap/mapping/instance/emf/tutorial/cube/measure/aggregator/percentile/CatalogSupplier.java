@@ -204,7 +204,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Measure - Percentile Aggragator");
+        catalog.setName("Daanse Tutorial - Cube Measure Aggregator Percentile");
+        catalog.setDescription("Percentile aggregation functions");
         catalog.getCubes().add(cube);
 
         document(catalog, "Multiple Percentile Aggragator Measures", introBody, 1, 0, 0, false, 0);

@@ -171,8 +171,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with Parent Child Hierarchy with parentAsLeafEnable.");
-        catalog.setDescription("Minimal Cube with Parent Child Hierarchy with parentAsLeafEnable.");
+        catalog.setName("Daanse Tutorial - Parent Child Parent As Leaf");
+        catalog.setDescription("Parent-child hierarchy with parent as leaf enabled");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

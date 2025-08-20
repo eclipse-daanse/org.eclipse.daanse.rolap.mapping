@@ -169,7 +169,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 calculatedMember11, calculatedMember12, calculatedMember13 ));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube - logic functions");
+        catalog.setName("Daanse Tutorial - Function Logic");
+        catalog.setDescription("Logic function implementations");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 

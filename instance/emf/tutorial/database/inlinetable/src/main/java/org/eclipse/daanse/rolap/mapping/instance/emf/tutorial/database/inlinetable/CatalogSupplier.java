@@ -90,7 +90,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - InlineTable");
+        catalog.setName("Daanse Tutorial - Database Inline Table");
+        catalog.setDescription("Inline table definitions with row data");
         catalog.setId("_catalog_databaseInlineTable");
         catalog.getDbschemas().add(databaseSchema);
 

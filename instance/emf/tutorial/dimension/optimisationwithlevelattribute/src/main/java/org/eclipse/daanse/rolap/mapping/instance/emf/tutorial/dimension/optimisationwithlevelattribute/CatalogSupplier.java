@@ -260,8 +260,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector2);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with cube with two dimension connectors with level attribute");
-        catalog.setDescription("Schema of a minimal cube with level attribute");
+        catalog.setName("Daanse Tutorial - Dimension Optimisation With Level Attribute");
+        catalog.setDescription("Dimension optimization with level attributes");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

@@ -76,7 +76,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - SQL Expression Column");
+        catalog.setName("Daanse Tutorial - Database Expression Column");
+        catalog.setDescription("SQL expression columns and computed fields");
         catalog.setId("_catalog_databaseSqlExpressionColumn");
         catalog.getDbschemas().add(databaseSchema);
 

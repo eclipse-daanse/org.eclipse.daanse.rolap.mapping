@@ -164,8 +164,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.setWritebackTable(writebackTable);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with Writeback without dimension");
-        catalog.setDescription("Schema with writeback without dimension");
+        catalog.setName("Daanse Tutorial - Writeback Without Dimension");
+        catalog.setDescription("Writeback without dimension constraints");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

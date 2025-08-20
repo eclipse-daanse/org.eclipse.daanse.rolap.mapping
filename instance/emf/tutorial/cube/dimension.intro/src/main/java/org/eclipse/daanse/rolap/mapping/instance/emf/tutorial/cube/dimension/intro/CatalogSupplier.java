@@ -140,7 +140,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Dimension - Introduction");
+        catalog.setName("Daanse Tutorial - Cube Dimension Intro");
+        catalog.setDescription("Introduction to cube dimensions");
         catalog.setId("_catalog_dimensionIntro");
         catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);

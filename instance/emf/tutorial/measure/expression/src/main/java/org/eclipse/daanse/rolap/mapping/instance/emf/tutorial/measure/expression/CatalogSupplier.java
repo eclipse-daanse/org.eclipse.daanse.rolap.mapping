@@ -174,8 +174,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube With SQLExpressionColumn");
-        catalog.setDescription("Minimal Cube With SQLExpressionColumn");
+        catalog.setName("Daanse Tutorial - Measure Expression");
+        catalog.setDescription("Measure with expression-based calculations");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

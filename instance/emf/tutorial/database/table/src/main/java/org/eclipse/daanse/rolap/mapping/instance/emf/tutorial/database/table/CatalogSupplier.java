@@ -90,7 +90,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         databaseSchema.getTables().add(table3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Database - Table");
+        catalog.setName("Daanse Tutorial - Database Table");
+        catalog.setDescription("Physical table definitions and types");
         catalog.setId("_catalog_databaseTable");
         catalog.getDbschemas().add(databaseSchema);
 

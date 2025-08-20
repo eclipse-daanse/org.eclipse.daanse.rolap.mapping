@@ -286,8 +286,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.setWritebackTable(writebackTable);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with writeback with fact Table");
-        catalog.setDescription("Schema with writeback with fact Table");
+        catalog.setName("Daanse Tutorial - Writeback Table");
+        catalog.setDescription("Table-based writeback functionality");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

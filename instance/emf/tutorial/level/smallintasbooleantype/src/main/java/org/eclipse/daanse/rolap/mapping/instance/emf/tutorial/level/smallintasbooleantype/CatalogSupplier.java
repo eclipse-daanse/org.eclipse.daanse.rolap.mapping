@@ -163,8 +163,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Cube with level with smallInt boolan type");
-        catalog.setDescription("Schema of a minimal cube with level with smallInt boolan type");
+        catalog.setName("Daanse Tutorial - Level Small Int As Boolean Type");
+        catalog.setDescription("Level using small integer as boolean type");
         catalog.getCubes().add(cube);
         Documentation catalogDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         catalogDocumentation.setValue(catalogDocumentationTxt);

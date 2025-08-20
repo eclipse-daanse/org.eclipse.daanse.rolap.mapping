@@ -125,9 +125,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with one measure with inline table");
-        catalog.setDescription(
-                "Schema of a minimal cube consisting of one measurement and based on an virtual inline table");
+        catalog.setName("Daanse Tutorial - Measure Inline Table");
+        catalog.setDescription("Measure with inline table data");
         catalog.getCubes().add(cube);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

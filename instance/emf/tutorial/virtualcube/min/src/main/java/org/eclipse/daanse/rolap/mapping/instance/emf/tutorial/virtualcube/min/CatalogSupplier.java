@@ -189,8 +189,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getCalculatedMembers().add(calculatedMember);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Minimal Virtual Cubes With Measures");
-        catalog.setDescription("Schema of a minimal virtual cube with measures");
+        catalog.setName("Daanse Tutorial - Virtual Cube Minimal");
+        catalog.setDescription("Minimal virtual cube configuration");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);

@@ -199,8 +199,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getCalculatedMembers().add(calculatedMember);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with virtual cube with calculatedMember");
-        catalog.setDescription("Schema with virtual cube with calculatedMember");
+        catalog.setName("Daanse Tutorial - Virtual Cube Calculated Member");
+        catalog.setDescription("Calculated members in virtual cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(schemaDocumentationTxt);

@@ -211,8 +211,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         role.getAccessCatalogGrants().add(accessCatalogGrant);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with HierarchyGrant");
-        catalog.setDescription("Schema with HierarchyGrant access to Hierarchy1 and not access to Hierarchy2");
+        catalog.setName("Daanse Tutorial - Access Hierarchy Grant");
+        catalog.setDescription("Access control with hierarchy-level grants");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(role);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();

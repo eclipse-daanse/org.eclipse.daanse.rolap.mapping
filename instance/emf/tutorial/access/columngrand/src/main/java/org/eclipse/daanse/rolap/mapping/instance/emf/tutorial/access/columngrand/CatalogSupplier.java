@@ -187,8 +187,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         roleNone.getAccessCatalogGrants().add(accessCatalogGrantNone);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with roles access column");
-        catalog.setDescription("Schema with roles access column");
+        catalog.setName("Daanse Tutorial - Access Column Grant");
+        catalog.setDescription("Demonstrates access control with column-level grants");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(roleAll);
         catalog.getAccessRoles().add(roleNone);

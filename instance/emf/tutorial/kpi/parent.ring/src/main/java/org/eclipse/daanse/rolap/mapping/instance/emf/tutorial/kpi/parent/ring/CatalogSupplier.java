@@ -124,7 +124,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getKpis().add(kpi3);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Kpi - parent ring");
+        catalog.setName("Daanse Tutorial - KPI Parent Ring");
+        catalog.setDescription("KPI parent-child ring relationships");
         catalog.getCubes().add(cube);
 
         catalog.getDbschemas().add(databaseSchema);

@@ -187,8 +187,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Cube with virtual cube with dimension references from other cubes");
-        catalog.setDescription("Schema with virtual cube with dimension references from other cubes");
+        catalog.setName("Daanse Tutorial - Virtual Cube Dimensions");
+        catalog.setDescription("Dimension configuration in virtual cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
         schemaDocumentation.setValue(catalogDocumentationTxt);
