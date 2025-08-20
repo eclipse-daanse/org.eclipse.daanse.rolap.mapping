@@ -89,7 +89,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String measure1Body = """
             Measure1 use Fact table VALUE column with sum aggregation in Cube.
-    """;
+            """;
 
     private static final String cubeBody = """
             In this example uses cube with fact table Fact as data. This example shows combine phisical table as fact and SqlView for hierarchy
@@ -97,7 +97,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String catalogDocumentationTxt = """
             Catalog of a minimal cube with hierarchy with SQL view reference.
-                    """;
+            """;
 
     @Override
     public CatalogMapping get() {

@@ -91,7 +91,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String measure1Body = """
             Measure1 use Fact table VALUE column with sum aggregation in Cube.
-    """;
+            """;
 
     private static final String cubeBody = """
             In this example uses cube with fact table Fact as data. This example shows combine phisical table as fact and Inline table for hierarchy
@@ -100,7 +100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String catalogDocumentationTxt = """
                 A basic OLAP schema with a level with reference with inner table
-                                    """;
+                """;
 
     @Override
     public CatalogMapping get() {

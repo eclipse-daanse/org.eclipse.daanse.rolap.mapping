@@ -97,14 +97,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String role1Body = """
             The role1 use CatalogGrant access all; CubeGrant cube1 access all; dimensionGrant dimension1 access all;
-    hierarchyGrant hierarchy1 access custom with member grants [Dimension1].[A] -all, [Dimension1].[B] -none, [Dimension1].[C] -none;
-    (Cube1 - access to "A" Cube2 - no access)
+            hierarchyGrant hierarchy1 access custom with member grants [Dimension1].[A] -all, [Dimension1].[B] -none, [Dimension1].[C] -none;
+            (Cube1 - access to "A" Cube2 - no access)
             """;
 
     private static final String schemaDocumentationTxt = """
-    Cube with examples of roles with MemberGrant
-    Cube1 - access to 'A'
-                    """;
+            Cube with examples of roles with MemberGrant
+            Cube1 - access to 'A'
+            """;
 
     @Override
     public CatalogMapping get() {

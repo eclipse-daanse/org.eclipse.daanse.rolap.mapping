@@ -71,15 +71,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String measure1Body = """
             Measure uses C1_Fact table VALUE column with sum aggregation in Cube1.
-    """;
+            """;
 
     private static final String measure2Body = """
             Measure uses Fact table VALUE column with sum aggregation in Cube2.
-    """;
+            """;
 
     private static final String calculatedMemberBody = """
             CalculatedMember uses MeasureCube1 from Cube1 and MeasureCube2 from Cube2 in formula.
-    """;
+            """;
 
     private static final String cube1Body = """
             In this example uses cube with fact table Fact as data.

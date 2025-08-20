@@ -102,7 +102,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String schemaDocumentationTxt = """
-            Cube with with CatalogGrant.
+    Cube with with CatalogGrant.
     roleAll role                   : use CatalogGrant access all; (access cube1)
     roleNone role                  : use CatalogGrant access none; (no access cube1)
     roleAllDimWithCubeGrand role   : use CatalogGrant access all_dimensions; CubeGrant cube1 access all; cube2 access none (access cube1)
@@ -234,6 +234,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getAccessRoles().add(roleAllDimWithCubeGrand);
         catalog.getAccessRoles().add(roleAllDimWithoutCubeGrand);
         Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
+        schemaDocumentation.setTitle(CUBE1);;
         schemaDocumentation.setValue(schemaDocumentationTxt);
         catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
