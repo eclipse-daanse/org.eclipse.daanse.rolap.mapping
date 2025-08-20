@@ -177,7 +177,7 @@ public class ResourceSetWriteReadTest {
 
         String catName = cm.getName();
 
-        catName = catName.replaceFirst(grp + " - ", "");
+        catName = catName.replaceFirst(grp + " - ", "").replaceFirst("Daanse Tutorial - ", "");
         sbReadme.append("title: " + catName);
         sbReadme.append("\n");
 
@@ -201,7 +201,7 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("\n");
 
         parentReadme.append("\n");
-        parentReadme.append("[" + cm.getName() + "](./" + name + ".md)");
+        parentReadme.append("[" + cm.getName().replaceFirst("Daanse Tutorial - ", "") + "](./" + name + ".md)");
 
         Catalog c = (Catalog) cm;
 
@@ -291,7 +291,7 @@ public class ResourceSetWriteReadTest {
                 r.save(baosDummy, null);
 
                 String cleaned = baosDummy.toString();
-                cleaned=cleaned.replace("catalog.xmi#", "");
+                cleaned = cleaned.replace("catalog.xmi#", "");
 
                 cleaned = cleaned.substring(cleaned.indexOf("\n") + 1);
                 cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",
@@ -304,7 +304,6 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("roma:StandardDimension #", "#");
                 cleaned = cleaned.replace("roma:Measure #", "#");
 
-
                 cleaned = cleaned.replace(" column=\"roma:PhysicalColumn ", " column=\"");
                 cleaned = cleaned.replace(" table=\"roma:PhysicalTable ", " table=\"");
                 cleaned = cleaned.replace(" primaryKey=\"roma:PhysicalColumn ", " primaryKey=\"");
@@ -313,9 +312,7 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace(" key=\"roma:PhysicalColumn ", " key=\"");
                 cleaned = cleaned.replace(" nameColumn=\"roma:PhysicalColumn ", " nameColumn=\"");
 
-
                 cleaned = cleaned.replace(" query=\"roma:JoinQuery ", " query=\"");
-
 
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
@@ -328,7 +325,8 @@ public class ResourceSetWriteReadTest {
                 sbReadme.append("\n");
                 sbReadme.append("```");
                 sbReadme.append("\n");
-                sbReadme.append("*<small>Note: This is only a symbolic example. For the exact definition, see the [Definition](#definition) section.</small>*");
+                sbReadme.append(
+                        "*<small>Note: This is only a symbolic example. For the exact definition, see the [Definition](#definition) section.</small>*");
 
                 sbReadme.append("\n");
 
@@ -357,7 +355,7 @@ public class ResourceSetWriteReadTest {
 
         sbReadme.append("\n");
 
-        sbReadme.append("## Turorial Zip");
+        sbReadme.append("## Tutorial Zip");
         sbReadme.append("\n");
         sbReadme.append("This files contaisn the data-tables as csv and the mapping as xmi file.");
         sbReadme.append("\n");
