@@ -84,11 +84,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
 
     private static final String schemaDocumentationTxt = """
-            Cube with examples of roles with TableGrant
+    Cube with examples of roles with TableGrant
     roleAll    role: use TableGrant access all; (access all database all tables)
     roleNone   role: use TableGrant access none; (no access to database tables)
     roleCustom role: use TableGrant access custom; (access to database table Fact)
-                    """;
+     """;
 
     @Override
     public CatalogMapping get() {

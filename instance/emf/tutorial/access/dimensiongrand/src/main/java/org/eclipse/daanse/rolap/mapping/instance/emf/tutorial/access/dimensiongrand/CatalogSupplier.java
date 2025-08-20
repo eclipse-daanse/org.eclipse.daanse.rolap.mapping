@@ -93,7 +93,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Cube with examples of roles with DimensionGrant
             Cube1 - Dimension1 all access
             Cube1 - Dimension2 no access
-                    """;
+            """;
 
     @Override
     public CatalogMapping get() {

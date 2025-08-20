@@ -71,11 +71,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String measure1Body = """
             Measure use C1_Fact table VALUE column with sum aggregation in Cube1.
-    """;
+            """;
 
     private static final String measure2Body = """
             Measure use Fact table VALUE column with sum aggregation in Cube2.
-    """;
+            """;
 
     private static final String cube1Body = """
             In this example uses cube with fact table Fact as data.
@@ -94,8 +94,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String catalogDocumentationTxt = """
-        A basic OLAP schema with virtual cube which have reference to Cube1, Cube2 with visible = false
-        Virtual cube only visible in excel
+            A basic OLAP schema with virtual cube which have reference to Cube1, Cube2 with visible = false
+            Virtual cube only visible in excel
             """;
 
     @Override

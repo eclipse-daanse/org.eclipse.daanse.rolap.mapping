@@ -96,7 +96,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Cube with examples of roles with SchemaGrant all_dimensions
             Cube1 - all access
             Cube2 - no access
-                    """;
+            """;
 
     @Override
     public CatalogMapping get() {

@@ -53,9 +53,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     NsWithoutFolderDimension1 : NamedSet use only Dimension1 in formula. By this reason it connected to Dimension1 on excel.
     NSInCubeWithFolder        : NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube on excel. NamedSet have folder
     NSInCubeWithoutFolder     : NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube.
-
-
-            """;
+    """;
 
     private static final String databaseSchemaBody = """
             The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
@@ -103,7 +101,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String schemaDocumentationTxt = """
             Cube with NamedSet.
-                    """;
+            """;
 
     @Override
     public CatalogMapping get() {
