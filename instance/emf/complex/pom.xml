@@ -21,5 +21,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>school</module>
+    <module>population</module>
   </modules>
 </project>
