@@ -95,7 +95,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseTable");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Tables and TableTypes", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database Table", introBody, 1, 0, 0, false, 0);
         document(table, "Physical Table", physicaltableBody, 1, 1, 0, true, 0);
         document(table2, "View Table", viewtableBody, 1, 2, 0, true, 0);
         document(table3, "System Table", systenmtableBody, 1, 3, 0, true, 0);

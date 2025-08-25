@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -234,7 +233,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Text aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Measure with Text Aggregator", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Measure Aggregator Text Agg", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and Measure with Text Aggregator", cubeBody, 1, 3, 0, true, 2);

@@ -115,7 +115,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Measure group organization");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Cube - Measures and MeasureGroup", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Measure Group", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Grouping Measures", cubeBody, 1, 3, 0, true, 2);

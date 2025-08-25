@@ -25,7 +25,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
@@ -185,7 +184,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Introduction to member properties");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Level - MemberProperties Intro", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Level Member Property Intro", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);

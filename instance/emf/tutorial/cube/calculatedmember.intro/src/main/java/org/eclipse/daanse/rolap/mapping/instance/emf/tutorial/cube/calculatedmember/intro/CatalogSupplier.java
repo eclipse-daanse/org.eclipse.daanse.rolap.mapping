@@ -26,7 +26,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -170,7 +169,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - CalculatedMembers Intro", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Calculated Member Intro", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

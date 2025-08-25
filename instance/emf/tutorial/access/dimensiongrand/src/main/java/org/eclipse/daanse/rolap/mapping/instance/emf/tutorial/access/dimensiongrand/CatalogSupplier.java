@@ -32,7 +32,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -87,12 +86,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String role1Body = """
             The role1 use CatalogGrant access all_dimensions; CubeGrant cube1 access all; cube2 access none (access cube1)
-            """;
-
-    private static final String schemaDocumentationTxt = """
-            Cube with examples of roles with DimensionGrant
-            Cube1 - Dimension1 all access
-            Cube1 - Dimension2 no access
             """;
 
     @Override
@@ -215,12 +208,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Access control with dimension-level grants");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(role);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with role with DimensionGtant", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access Dimension Grant", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

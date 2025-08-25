@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
@@ -96,11 +95,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             In this example uses cube with fact table Fact as data. This example shows combine phisical table as fact and Inline table for hierarchy
             """;
-
-
-    private static final String catalogDocumentationTxt = """
-                A basic OLAP schema with a level with reference with inner table
-                """;
 
     @Override
     public CatalogMapping get() {
@@ -226,16 +220,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Hierarchy Inline Table");
         catalog.setDescription("Hierarchy with inline table data");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("Catalog with schema with hierarchy with table reference with inner table");
-        catalog.getDocumentations().add(documentation);
-
-        document(catalog, "Catalog with schema with hierarchy with table reference with inner table", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Hierarchy Inline Table", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(inlineTableQuery, "InlineTableQuery", inlineTableQueryBody, 1, 3, 0, true, 2);

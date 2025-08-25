@@ -127,7 +127,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Kpi - Introduction", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - KPI Intro", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
         document(kpi1, "KPI - value only", kpi1Body, 1, 2, 0, true, 0);
         document(kpi2, "KPI - DisplayFolder", kpi2Body, 1, 3, 0, true, 0);

@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
@@ -116,11 +115,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             In this example uses cube with fact table Fact as data.
             """;
-
-    private static final String catalogDocumentationTxt = """
-            A basic OLAP schema with a level with property Level has attribute HideMemberIf.IF_BLANK_NAME
-            Catalog has two cubes with one level with HideMemberIf atribut and with multiple levels
-                """;
 
     @Override
     public CatalogMapping get() {
@@ -256,12 +250,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Level If Blank Name");
         catalog.setDescription("Level handling blank names");
         catalog.getCubes().add(cube1);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube with Hidden Members with IfBlankName", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Level If Blank Name", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryFact, "Query Fact", queryBody, 1, 2, 0, true, 2);
         document(queryLevel1, "Query Level1", queryLevel1Body, 1, 3, 0, true, 2);

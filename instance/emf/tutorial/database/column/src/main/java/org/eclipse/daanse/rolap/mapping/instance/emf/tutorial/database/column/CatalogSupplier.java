@@ -136,7 +136,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseColumnTypes");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Introduction into Columns", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database Column", introBody, 1, 0, 0, false, 0);
         document(columnCommon, "Common column fields", colDescr, 1, 1, 0, true, 0);
         document(catalog, "Types of Columns", colTypes, 1, 2, 0, false, 0);
 

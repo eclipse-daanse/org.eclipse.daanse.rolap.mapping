@@ -220,12 +220,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Hierarchy View");
         catalog.setDescription("Hierarchy with SQL view references");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Catalog of a minimal cube with hierarchy with SQL view reference", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Hierarchy View", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(sqlSelectQuery, "HT_VIEW", sqlSelectQueryBody, 1, 3, 0, true, 2);

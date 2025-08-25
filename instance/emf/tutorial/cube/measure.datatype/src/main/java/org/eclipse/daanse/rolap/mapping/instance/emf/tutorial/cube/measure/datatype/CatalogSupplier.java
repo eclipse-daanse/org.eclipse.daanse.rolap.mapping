@@ -122,7 +122,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Measure data types");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Measures Formats", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Measure Datatype", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Defining the Data Type of a Measure", cubeBody, 1, 3, 0, true, 2);

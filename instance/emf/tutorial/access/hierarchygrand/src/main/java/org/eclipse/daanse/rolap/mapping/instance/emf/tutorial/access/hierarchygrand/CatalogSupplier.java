@@ -33,7 +33,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -90,10 +89,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The role1 use CatalogGrant access all; CubeGrant cube1 access all; dimensionGrant dimension1 access all;
             hierarchyGrant hierarchy1 access custom with member grants [Dimension1].[A] -all, [Dimension1].[B] -none, [Dimension1].[C] -none;
             (Cube1 - access to "A" Cube2 - no access)
-            """;
-
-    private static final String schemaDocumentationTxt = """
-            Cube with examples of role use HierarchyGrant hierarchy1 access all hierarchy2 access none;
             """;
 
     @Override
@@ -215,12 +210,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Access control with hierarchy-level grants");
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(role);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with HierarchyGrant", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access Hierarchy Grant", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

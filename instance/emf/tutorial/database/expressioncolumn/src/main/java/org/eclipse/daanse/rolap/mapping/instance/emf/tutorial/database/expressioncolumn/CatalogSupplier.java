@@ -81,7 +81,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseSqlExpressionColumn");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Introduction into SqlExpressionColumn", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database Expression Column", introBody, 1, 0, 0, false, 0);
         document(columnSqlExp, "The Column", sqlExpColDescr, 1, 1, 0, true, 0);
 
         return catalog;

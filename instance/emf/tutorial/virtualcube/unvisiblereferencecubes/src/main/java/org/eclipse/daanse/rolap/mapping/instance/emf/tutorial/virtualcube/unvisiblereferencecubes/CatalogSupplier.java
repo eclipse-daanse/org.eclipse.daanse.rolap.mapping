@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -91,11 +90,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Virtual cube uses mesures from Cube1 and Cube2. Virtual cube has references for them.
             Also virtual cube has references to dimensions from Cube1 and Cube2
             Cube1 and Cube2 are un visible in client side.
-            """;
-
-    private static final String catalogDocumentationTxt = """
-            A basic OLAP schema with virtual cube which have reference to Cube1, Cube2 with visible = false
-            Virtual cube only visible in excel
             """;
 
     @Override
@@ -196,17 +190,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         vCube.getDimensionConnectors().add(dimensionConnector2);
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
 
-
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Unvisible Reference Cubes");
         catalog.setDescription("Virtual cubes with invisible reference cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Schema with virtual cube with dimension references from other cubes with un visible reference cubes ", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Virtual Cube Unvisible Reference Cubes", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(measure1, "MeasureCube1", measure1Body, 1, 4, 0, true, 2);

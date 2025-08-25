@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DrillThroughAttribute;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
@@ -139,11 +138,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             The cube with DrillThroughAction
             """;
-
-    private static final String schemaDocumentationTxt = """
-            Schema of a minimal cube with DrillThroughAction
-            """;
-
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
@@ -366,12 +360,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Action Drillthrough");
         catalog.setDescription("Drill-through action configuration");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube with DrillThroughAction", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Action Drillthrough", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(hxL2Query, "HxL2Query", hxL2QueryBody, 1, 3, 0, true, 2);

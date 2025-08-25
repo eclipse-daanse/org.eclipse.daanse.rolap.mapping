@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildHierarchy;
@@ -88,10 +87,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             The cube with with Parent Child Hierarchy.
             """;
-
-    private static final String catalogDocumentationTxt = """
-            Minimal Cube with Parent Child Hierarchy with null parent value.
-                    """;
 
     @Override
     public CatalogMapping get() {
@@ -172,12 +167,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Parent Child Null Parent");
         catalog.setDescription("Parent-child hierarchy with null parent values");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Catalog with Minimal Cube with Parent Child Hierarchy with null parent value", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Parent Child Null Parent", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Fact Query", queryBody, 1, 2, 0, true, 2);
         document(level, "Level", levelBody, 1, 3, 0, true, 0);

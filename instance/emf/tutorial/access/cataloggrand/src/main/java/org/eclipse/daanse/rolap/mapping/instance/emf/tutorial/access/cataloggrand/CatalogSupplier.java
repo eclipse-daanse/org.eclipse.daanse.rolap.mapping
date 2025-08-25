@@ -30,7 +30,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -101,7 +100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The roleAll use CatalogGrant access all_dimensions without CubeGrant; (no access cube1)
             """;
 
-    private static final String schemaDocumentationTxt = """
+    private static final String catalogDocumentationTxt = """
     Cube with with CatalogGrant.
     roleAll role                   : use CatalogGrant access all; (access cube1)
     roleNone role                  : use CatalogGrant access none; (no access cube1)
@@ -233,13 +232,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getAccessRoles().add(roleNone);
         catalog.getAccessRoles().add(roleAllDimWithCubeGrand);
         catalog.getAccessRoles().add(roleAllDimWithoutCubeGrand);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setTitle(CUBE1);;
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with roles access catalog", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access Catalog Grant", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

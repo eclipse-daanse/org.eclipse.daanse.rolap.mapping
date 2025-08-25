@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -102,24 +101,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             The cube with hierarchy with functional dependency optimizations.
             """;
-
-    private static final String catalogDocumentationTxt = """
-                A basic OLAP schema with a level with with functional dependency optimizations
-
-                In some circumstances, it may be possible to optimize performance by taking advantage of known
-                functional dependencies in the data being processed. Such dependencies are typically the result
-                of business rules associated with the systems producing the data, and often cannot be inferred
-                just by looking at the data itself.
-            Functional dependencies are declared using the dependsOnLevelValue attribute of the
-            `<Property>` element and the uniqueKeyLevelName attribute of the `<Hierarchy>` element.
-            The dependsOnLevelValue attribute of a member property is used to indicate that the value of the
-            member property is functionally dependent on the value of the `<Level>` in which the member property
-            is defined. In other words, for a given value of the level, the value of the property is invariant.
-            The uniqueKeyLevelName attribute of a `<Hierarchy>` is used to indicate that the given level
-            (if any) taken together with all higher levels in the hierarchy acts as a unique alternate key,
-            ensuring that for any unique combination of those level values, there is exactly one combination
-            of values for all levels below it.
-                    """;
 
     @Override
     public CatalogMapping get() {
@@ -326,12 +307,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Hierarchy Unique Key Level Name");
         catalog.setDescription("Hierarchy with unique key level name optimizations");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube with hierarchy with functional dependency optimizations", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Hierarchy Unique Key Level Name", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(dimension, "Automotive", dimensionBody, 1, 3, 0, true, 2);

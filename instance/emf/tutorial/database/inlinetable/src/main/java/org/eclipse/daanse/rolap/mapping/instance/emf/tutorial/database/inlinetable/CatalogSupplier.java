@@ -95,7 +95,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseInlineTable");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Special Table -  Inline Table", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database Inline Table", introBody, 1, 0, 0, false, 0);
         document(table, "InlineTable, Row and RowValue", inlineTableBody, 1, 1, 0, true, 2);
 
         return catalog;

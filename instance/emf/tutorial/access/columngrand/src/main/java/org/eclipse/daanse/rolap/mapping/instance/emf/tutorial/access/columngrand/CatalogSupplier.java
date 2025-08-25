@@ -32,7 +32,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -78,13 +77,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String roleNoneBody = """
             The roleNone use ColumnGrant access none; (no access to all tables columns)
             """;
-
-    private static final String schemaDocumentationTxt = """
-    Cube with examples of roles with TableGrant
-    roleAll    role: use TableGrant access all; (access all database all tables)
-    roleNone   role: use TableGrant access none; (no access to database tables)
-    roleCustom role: use TableGrant access custom; (access to database table Fact)
-                    """;
 
     @Override
     public CatalogMapping get() {
@@ -192,12 +184,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(roleAll);
         catalog.getAccessRoles().add(roleNone);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with role access column", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access Column Grant", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
