@@ -57,8 +57,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The Database Schema contains the Fact table with two columns: DIM_KEY and VALUE.
             The DATE_KEY column is used as the discriminator in the Hierarchy definitions.
 
-            H1_L1 table with two columns: KEY and NAME
-            HX_L2 table with 3 columns: KEY, NAME, H1L1_KEY, H2L1_KEY
+            - `H1_L1` table with two columns: `KEY` and `NAME`
+            - `HX_L2` table with 3 columns: `KEY`, `NAME`, `H1L1_KEY`, `H2L1_KEY`
             """;
 
     private static final String queryBody = """
@@ -76,21 +76,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String joinQueryBody = """
             The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
-            - In the lower-level table (Hx_L2), the join uses the foreign key H1L1_KEY.
-            - In the upper-level table (H1_L1), the join uses the primary key KEY.
+            - In the lower-level table (`Hx_L2`), the join uses the foreign key `H1L1_KEY`.
+            - In the upper-level table (`H1_L1`), the join uses the primary key `KEY`.
 
             """;
 
     private static final String h1Level1Body = """
-            This Example uses H1_Level1 level bases on the KEY column and name column NAME of table H1_L1.
+            This Example uses `H1_Level1` level bases on the `KEY` column and name column `NAME` of table `H1_L1`.
             """;
 
     private static final String h1Level2Body = """
-            This Example uses H1_Level2 level bases on the KEY column and name column NAME of table HX_L2.
+            This Example uses `H1_Level2` level bases on the `KEY` column and name column `NAME` of table `HX_L2`.
             """;
 
     private static final String hierarchyBody = """
-            The Hierarchy1 is defined with the hasAll property set to false and the two levels H1_Level1 and H1_Level2.
+            The Hierarchy1 is defined with the hasAll property set to false and the two levels `H1_Level1` and `H1_Level2`.
             """;
 
     private static final String dimensionBody = """

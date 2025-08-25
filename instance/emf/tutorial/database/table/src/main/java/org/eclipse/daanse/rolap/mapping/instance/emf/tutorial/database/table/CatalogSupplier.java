@@ -36,7 +36,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            There are several Tables Types. The most common are PhysicalTable, ViewTable, and SystemTable. All of this, and thre upcoming table typed can be used to build cubes on.
+            There are several Tables Types. The most common are `PhysicalTable`, `ViewTable`, and `SystemTable`. All of this, and thre upcoming table typed can be used to build cubes on.
             """;
 
     private static final String physicaltableBody = """

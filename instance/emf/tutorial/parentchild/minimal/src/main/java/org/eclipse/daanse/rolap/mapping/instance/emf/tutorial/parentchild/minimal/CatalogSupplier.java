@@ -51,10 +51,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: DIM_KEY and VALUE.
-            The DATE_KEY column is used as the discriminator in the Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `DIM_KEY` and `VALUE`.
+            The `DATE_KEY` column is used as the discriminator in the Hierarchy definitions.
 
-            Hier_One_Top_Member table with 3 columns: KEY, NAME, PARENT_KEY
+            `Hier_One_Top_Member` table with 3 columns: `KEY`, `NAME`, `PARENT_KEY`
             """;
 
     private static final String queryBody = """
@@ -62,11 +62,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String query1Body = """
-            The Query is a simple TableQuery that selects all columns from the Hier_One_Top_Member table.
+            The Query is a simple TableQuery that selects all columns from the `Hier_One_Top_Member` table.
             """;
 
     private static final String levelBody = """
-            This Example uses Level1 level bases on the KEY column and name column NAME of table Hier_One_Top_Member.
+            This Example uses Level1 level bases on the KEY column and name column `NAME` of table `Hier_One_Top_Member`.
             """;
 
     private static final String hierarchyBody = """

@@ -62,11 +62,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String kpiBody = """
             This KPI is defined
-            value             expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
-            trend             expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedTrend]`
-            weight            expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
-            currentTimeMember expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
-            DisplayFolder     Kpi1Folder1\\Kpi1Folder3 - folder tree of kpi item
+            - value             expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
+            - trend             expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedTrend]`
+            - weight            expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
+            - currentTimeMember expression, which in this example references the following CalculatedMember: `[Measures].[CalculatedValue]`
+            - DisplayFolder     Kpi1Folder1\\Kpi1Folder3 - folder tree of kpi item
             """;
 
     private static final String cube1Body = """

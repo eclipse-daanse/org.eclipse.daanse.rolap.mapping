@@ -48,9 +48,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on a single table that stores all the data.
-            The table, named `Fact`, contains two columns: `KEY` and `VALUE`.
-            The table, named `MEASURE_TABLE`, contains 3 columns: `ID`, `VALUE` and 'FLAG'.
+            The cube defined in this example is based on a two tables that stores all the data.
+            - The table, named `Fact`, contains two columns: `KEY` and `VALUE`.
+            - The table, named `MEASURE_TABLE`, contains 3 columns: `ID`, `VALUE` and 'FLAG'.
             """;
 
     private static final String queryBody = """

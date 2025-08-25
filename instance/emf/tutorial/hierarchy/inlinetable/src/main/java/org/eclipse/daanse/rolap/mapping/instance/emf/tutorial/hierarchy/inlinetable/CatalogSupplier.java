@@ -55,9 +55,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on a two tables that stores all the data.
-            The phisical table is named `Fact` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`.
-            The DIM_KEY column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
-            The InlineTable is named `HT` uses for Hierarchy and contains 3 columns: `KEY`, `VALUE`,`NAME` .
+
+            - The phisical table is named `Fact` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`. The `DIM_KEY` column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
+            - The InlineTable is named `HT` uses for Hierarchy and contains 3 columns: `KEY`, `VALUE`,`NAME` .
+
             InlineTable represents a table with data embedded directly in the schema.
             InlineTable uses for hierarchy.
             """;

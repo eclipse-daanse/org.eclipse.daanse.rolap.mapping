@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -55,10 +54,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on a two tables and and SqlView that stores all the data.
-            The phisical table is named `Fact` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`.
-            The KEY column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
-            The phisical table is named `HT` uses for Hierarchy and contains 3 columns: `KEY`, `VALUE`,`NAME` .
-            SqlView represents a virtual table defined by SQL query expressions rather than physical database tables.
+
+            - The phisical table is named `Fact` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`.
+              The `KEY` column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
+            - The phisical table is named `HT` uses for Hierarchy and contains 3 columns: `KEY`, `VALUE`,`NAME` .
+            - SqlView represents a virtual table defined by SQL query expressions rather than physical database tables.
             """;
 
     private static final String queryBody = """
@@ -67,7 +67,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String sqlSelectQueryBody = """
-            The bridge between the cube and SqlView HT_VIEW.
+            The bridge between the cube and SqlView `HT_VIEW`.
             """;
 
     private static final String level1Body = """
@@ -93,10 +93,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String cubeBody = """
             In this example uses cube with fact table Fact as data. This example shows combine phisical table as fact and SqlView for hierarchy
-            """;
-
-    private static final String catalogDocumentationTxt = """
-            Catalog of a minimal cube with hierarchy with SQL view reference.
             """;
 
     @Override

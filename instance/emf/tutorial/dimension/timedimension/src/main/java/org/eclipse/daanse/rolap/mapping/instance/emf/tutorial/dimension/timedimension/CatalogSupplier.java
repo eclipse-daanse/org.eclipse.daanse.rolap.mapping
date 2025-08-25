@@ -49,15 +49,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
             This tutorial discusses NamedSets.
 
-            NsWithFolderDimension1    : NamedSet use only Dimension1 in formula. By this reason it connected to Dimension1 on excel. NamedSet have folder
-            NsWithoutFolderDimension1 : NamedSet use only Dimension1 in formula. By this reason it connected to Dimension1 on excel.
-            NSInCubeWithFolder        : NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube on excel. NamedSet have folder
-            NSInCubeWithoutFolder     : NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube.
+            - NsWithFolderDimension1    : NamedSet use only `Dimension1` in formula. By this reason it connected to `Dimension1` on excel. NamedSet have folder
+            - NsWithoutFolderDimension1 : NamedSet use only `Dimension1` in formula. By this reason it connected to `Dimension1` on excel.
+            - NSInCubeWithFolder        : NamedSet use `Dimension1` and `Dimension2` in formula. By this reason it connected to Cube on excel. NamedSet have folder
+            - NSInCubeWithoutFolder     : NamedSet use `Dimension1` and `Dimension2` in formula. By this reason it connected to Cube.
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with 9 columns: DATE_KEY, YEAR_ID, QTR_ID, QTR_NAME, MONTH_ID, MONTH_NAME, WEEK_IN_MONTH, DAY_IN_MONTH and VALUE.
-            The DATE_KEY column is used as the discriminator in the Hierarchy definitions.
+            The Database Schema contains the `Fact` table with 9 columns: `DATE_KEY`, `YEAR_ID`, `QTR_ID`, `QTR_NAME`, `MONTH_ID`, `MONTH_NAME`, `WEEK_IN_MONTH`, `DAY_IN_MONTH` and `VALUE`.
+            The `DATE_KEY` column is used as the discriminator in the Hierarchy definitions.
             """;
 
     private static final String queryBody = """
@@ -96,11 +96,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The cube with TimeDimension
             Time cube have TimeDimension. The role of a level in a time dimension is indicated by the level's levelType attribute, whose allowable values are as follows:
 
-            TimeYears   Level is a year
-            TimeQuarters    Level is a quarter
-            TimeMonths  Level is a month
-            TimeWeeks   Level is a week
-            TimeDays    Level represents days
+            - TimeYears   Level is a year
+            - TimeQuarters    Level is a quarter
+            - TimeMonths  Level is a month
+            - TimeWeeks   Level is a week
+            - TimeDays    Level represents days
             """;
 
     @Override

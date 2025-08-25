@@ -44,21 +44,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String introBody = """
             In some cases, a table for a lower-level entity also contains additional information for a higher-level entity. This often happens when no dedicated columns exist for the higher-level entity and the database designer decides that fully applying Third Normal Form (3NF) would involve more work than it seems to be worth, or they wish to optimize lookup speed. Although we strongly recommend using 3NF wherever possible, this tutorial demonstrates how to handle a scenario in which two levels share the same table.
 
-In this example, besides storing the town ID and town NAME, our table also includes information about the COUNTRY in a separate column.
+In this example, besides storing the town `ID` and town `NAME`, our table also includes information about the `COUNTRY` in a separate column.
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on two tables. Fact and Town. The Fact table contains a measures and a reference to the Town table. The Fact table is linked with its ID column to the Town table by the TOWN_ID column. The Town table has the ID, NAME and COUNTRY.
+            The cube defined in this example is based on two tables. `Fact` and `Town`. The `Fact` table contains a measures and a reference to the `Town` table. The `Fact` table is linked with its `ID` column to the `Town` table by the `TOWN_ID` column. The Town table has the `ID`, `NAME` and `COUNTRY`.
             """;
 
     private static final String levelTownBody = """
-            The level  of the Town used the `column` attribute to define the primary key column and the `nameColumn` attribute.
+            The level  of the `Town` used the `column` attribute to define the primary key column and the `nameColumn` attribute.
 
 
             """;
 
     private static final String levelCountryBody = """
-            The level  of the Country used the `column` attribute to define the primary key column on the Country table of the Town table.
+            The level  of the `Country` used the `column` attribute to define the primary key column on the `Country` table of the `Town` table.
             """;
 
     private static final String hierarchyBody = """

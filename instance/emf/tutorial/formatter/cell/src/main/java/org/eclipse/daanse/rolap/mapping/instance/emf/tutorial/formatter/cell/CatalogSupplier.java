@@ -60,11 +60,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     """;
 
     private static final String measureBody = """
-            Measure with CellFormatter. measure reference the `VALUE` column and use the following SUM aggregation function.
+            Measure with CellFormatter. measure reference the `VALUE` column and use the following `SUM` aggregation function.
     """;
 
     private static final String cubeBody = """
-            In this example, measure with CellFormatter. measure reference the `VALUE` column and use the following SUM aggregation function.
+            In this example, measure with CellFormatter. measure reference the `VALUE` column and use the following `SUM` aggregation function.
             """;
 
     @Override

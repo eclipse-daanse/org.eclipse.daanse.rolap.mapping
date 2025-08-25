@@ -59,9 +59,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             DatabaseSchema includes InlineTable with data embedded directly in the schema definition and Physical table from database.
-            Physical table TOWN contains 3 columns: `KEY`, `KEY_COUNTRY` and `NAME`.
-            InlineTable, named `COUNTRY`, contains two columns: `KEY` and `NAME`.
-            InlineTable, named `Fact`, contains two columns: `KEY` and `VALUE`.
+            - Physical table `TOWN` contains 3 columns: `KEY`, `KEY_COUNTRY` and `NAME`.
+            - InlineTable, named `COUNTRY`, contains two columns: `KEY` and `NAME`.
+            - InlineTable, named `Fact`, contains two columns: `KEY` and `VALUE`.
             """;
 
     private static final String queryFactBody = """

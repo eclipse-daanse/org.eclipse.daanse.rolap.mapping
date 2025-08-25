@@ -55,22 +55,22 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Parent table with 3 columns: NAME, PARENT and VALUE.
-            The NAME column is used as the discriminator in the Hierarchy definitions.
+            The Database Schema contains the `Parent` table with 3 columns: `NAME`, `PARENT` and `VALUE`.
+            The `NAME` column is used as the discriminator in the Hierarchy definitions.
 
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Parent table to use in the measures.
+            The Query is a simple TableQuery that selects all columns from the `Parent` table to use in the measures.
             """;
 
     private static final String levelBody = """
-            This Example uses 'Name' level bases on the NAME column as key and name column NAME of table Parent.
+            This Example uses 'Name' level bases on the `NAME` column as key and name column `NAME` of table `Parent`.
             """;
 
     private static final String hierarchyBody = """
-            The Hierarchy1 defined parentColumn to NAME column of Parent table.
-            ParentColumn containing the parent reference for each member, establishing the self-referencing relationship.
+            The Hierarchy1 defined parentColumn to `NAME` column of `Parent` table.
+            `ParentColumn` containing the parent reference for each member, establishing the self-referencing relationship.
             This column typically contains the primary key value of the parent member, or the nullParentValue for root members. The column enables the recursive traversal that defines the hierarchy structure.
             Also Hierarchy1 defined the level 'Name'.
             Level is Single level definition that applies to all members in this parent-child hierarchy.

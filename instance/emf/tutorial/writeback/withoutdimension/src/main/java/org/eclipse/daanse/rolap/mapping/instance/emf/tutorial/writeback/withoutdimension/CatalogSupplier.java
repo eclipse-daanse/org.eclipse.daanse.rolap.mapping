@@ -48,8 +48,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             The Database Schema contains the
-            FACT table with 3 columns VAL, VAL1, VALUE.
-            FACTWB table with 5 columns: VAL, VAL1, VALUE, ID, USER.
+            - `FACT` table with 3 columns `VAL`, `VAL1`, `VALUE`.
+            - `FACTWB` table with 5 columns: `VAL`, `VAL1`, `VALUE`, `ID`, `USER`.
             """;
 
     private static final String queryBody = """
@@ -57,7 +57,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String cubeBody = """
-            Cube C is defined a FACTWB WritebackTable configuration with two WritebackMeasures: WbMeasure1 and WbMeasure2.
+            Cube `C` is defined a `FACTWB` WritebackTable configuration with two WritebackMeasures: WbMeasure1 and WbMeasure2.
             """;
 
     @Override

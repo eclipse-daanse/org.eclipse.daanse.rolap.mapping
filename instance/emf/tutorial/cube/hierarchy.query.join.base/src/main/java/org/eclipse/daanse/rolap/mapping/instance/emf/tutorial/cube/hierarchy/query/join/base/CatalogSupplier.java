@@ -52,26 +52,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on three tables: Fact, Town, and Country.
+            The cube defined in this example is based on three tables: `Fact`, `Town`, and `Country`.
 
-            - The Fact table contains measures and a reference to the Town table.
-            - The Fact table is linked to the Town table through the TOWN_ID column, which corresponds to the ID column in the Town table.
-            - The Town table includes a column that references the primary key of the Country table.
+            - The `Fact` table contains measures and a reference to the `Town` table.
+            - The `Fact` table is linked to the `Town` table through the TOWN_ID column, which corresponds to the `ID` column in the `Town` table.
+            - The `Town` table includes a column that references the primary key of the `Country` table.
             - The Country table consists of two columns: ID (primary key) and Name.
 
             This structure ensures that the hierarchy is properly normalized, following the Third Normal Form (3NF).
             """;
 
     private static final String levelTownBody = """
-            The Level uses the column attribute to specify the primary key column. Additionally, it defines the nameColumn attribute to specify the column that contains the name of the level.
+            The `Town` level uses the column attribute to specify the primary key column. Additionally, it defines the nameColumn attribute to specify the column that contains the name of the level.
             """;
 
     private static final String levelCountryBody = """
-            The Country level follows the same pattern as the Town level.
+            The `Country` level follows the same pattern as the `Town` level.
             """;
 
     private static final String hierarchyBody = """
-            This hierarchy consists of two levels: Town and Country.
+            This hierarchy consists of two levels: `Town` and `Country`.
             - The primaryKey attribute specifies the column that contains the primary key of the hierarchy.
             - The query attribute references the query used to retrieve the data for the hierarchy.
             """;
