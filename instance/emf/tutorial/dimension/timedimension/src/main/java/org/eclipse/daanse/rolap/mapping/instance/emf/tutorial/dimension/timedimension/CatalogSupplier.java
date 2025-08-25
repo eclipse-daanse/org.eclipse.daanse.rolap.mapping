@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -103,26 +102,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             TimeWeeks   Level is a week
             TimeDays    Level represents days
             """;
-
-    private static final String schemaDocumentationTxt = """
-            Time dimensions based on year/month/week/day are coded differently in the catalog due to the MDX time related functions such as:
-
-            ParallelPeriod([level[, index[, member]]])
-            PeriodsToDate([level[, member]])
-            WTD([member])
-            MTD([member])
-            QTD([member])
-            YTD([member])
-            LastPeriod(index[, member])
-
-            Cube have TimeDimension. The role of a level in a time dimension is indicated by the level's levelType attribute, whose allowable values are as follows:
-
-            TimeYears   Level is a year
-            TimeQuarters    Level is a quarter
-            TimeMonths  Level is a month
-            TimeWeeks   Level is a week
-            TimeDays    Level represents days
-                    """;
 
     @Override
     public CatalogMapping get() {
@@ -260,9 +239,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Dimension Time Dimension");
         catalog.setDescription("Time dimension configuration");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Daanse Tutorial - Dimension Time Dimension", catalogBody, 1, 0, 0, false, 0);

@@ -28,7 +28,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -102,11 +101,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The measure is aggregated using summation.
             """;
 
-    private static final String schemaDocumentationTxt = """
-            Aggregate tables are a way to improve performance when the fact table contains
-            a huge number of rows: a million or more. An aggregate table is essentially a pre-computed
-            summary of the data in the fact table.
-                    """;
     private static final String levelBody = """
             The Level Product Family uses the column attribute to specify the primary key column PRODUCT_FAMILE from table PRODUCT_CLASS.
             """;
@@ -325,10 +319,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Aggregation Aggregate Tables");
         catalog.setDescription("Aggregate table optimization techniques");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
-        catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Daanse Tutorial - Aggregation Aggregate Tables", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
