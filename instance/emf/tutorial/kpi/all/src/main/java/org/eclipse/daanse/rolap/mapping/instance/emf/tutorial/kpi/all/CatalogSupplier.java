@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -74,10 +73,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             This cube holds references to the KPI, and does not use any dimensions.
             Cube have two measures (Measure1-Sum, Measure2-Count) and 4 CalculatedMembers (CalculatedValue, CalculatedGoal, CalculatedStatus, CalculatedTrend)
             """;
-
-    private static final String schemaDocumentationTxt = """
-        A minimal cube with Kpi with all kpi properties
-                """;
 
     @Override
     public CatalogMapping get() {
@@ -172,12 +167,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - KPI All");
         catalog.setDescription("Complete KPI implementation examples");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Kpi with all parameters", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - KPI All", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
         document(kpi, "Kpi with all parameters", kpiBody, 1, 2, 0, true, 0);
 

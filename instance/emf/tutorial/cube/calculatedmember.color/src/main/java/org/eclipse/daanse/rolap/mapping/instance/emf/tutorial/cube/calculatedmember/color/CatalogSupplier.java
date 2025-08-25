@@ -180,7 +180,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - CalculatedMembers with different colors", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Calculated Member Color", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

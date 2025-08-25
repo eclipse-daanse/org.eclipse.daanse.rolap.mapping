@@ -22,7 +22,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -59,10 +58,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String cubeBody = """
             Cube C is defined a FACTWB WritebackTable configuration with two WritebackMeasures: WbMeasure1 and WbMeasure2.
-            """;
-
-    private static final String schemaDocumentationTxt = """
-            writeback with fact as table with only measure
             """;
 
     @Override
@@ -167,12 +162,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Writeback Without Dimension");
         catalog.setDescription("Writeback without dimension constraints");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with writeback without dimension", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Writeback Without Dimension", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "FactQuery", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cubec C ", cubeBody, 1, 10, 0, true, 2);

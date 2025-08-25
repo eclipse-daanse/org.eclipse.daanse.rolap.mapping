@@ -69,7 +69,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseSqlView");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Special Table -  SqlView", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database SQL View", introBody, 1, 0, 0, false, 0);
         document(sqlview, "SqlView and SqlStatement", sqlviewBody, 1, 1, 0, true, 2);
 
         return catalog;

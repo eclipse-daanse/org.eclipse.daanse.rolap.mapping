@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -66,10 +65,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String cubeBody = """
             In this example, measure with CellFormatter. measure reference the `VALUE` column and use the following SUM aggregation function.
-            """;
-
-    private static final String schemaDocumentationTxt = """
-            A minimal cube with CellFormatter with class name
             """;
 
     @Override
@@ -121,11 +116,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Formatter Cell");
         catalog.setDescription("Cell formatter configurations");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
-        document(catalog, "Minimal Cube With Measures CellFormatter", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Formatter Cell", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cellFormatter, "CellFormatter", cellFormatterBody, 1, 3, 0, true, 2);

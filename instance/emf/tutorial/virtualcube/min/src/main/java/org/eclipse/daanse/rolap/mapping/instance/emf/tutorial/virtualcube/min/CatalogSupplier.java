@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -91,10 +90,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String vCubeBody = """
             Virtual cube uses mesures from Cube1 and Cube2. Virtual cube has references for them.
             Also virtual cube has calculatedMember which uses measures from Cube1 and Cube2.
-            """;
-
-    private static final String catalogDocumentationTxt = """
-            Virtual cube example with measures.
             """;
 
     @Override
@@ -192,12 +187,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Virtual Cube Minimal");
         catalog.setDescription("Minimal virtual cube configuration");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Virtual Cubes With Measures", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Virtual Cube Minimal", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query1, "Query1", query1Body, 1, 2, 0, true, 2);
         document(query2, "Query2", query2Body, 1, 3, 0, true, 2);

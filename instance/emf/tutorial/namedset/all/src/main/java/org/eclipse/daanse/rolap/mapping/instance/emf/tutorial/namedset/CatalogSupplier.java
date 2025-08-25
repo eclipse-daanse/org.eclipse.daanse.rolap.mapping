@@ -99,10 +99,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube.
             """;
 
-    private static final String schemaDocumentationTxt = """
-            Cube with NamedSet.
-            """;
-
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
@@ -217,12 +213,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Namedset All");
         catalog.setDescription("Named set configurations");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "catalog with Cube with NamedSets", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Namedset All", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

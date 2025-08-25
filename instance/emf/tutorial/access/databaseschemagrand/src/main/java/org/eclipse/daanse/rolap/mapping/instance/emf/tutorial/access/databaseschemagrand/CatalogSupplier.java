@@ -76,7 +76,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
 
-    private static final String schemaDocumentationTxt = """
+    private static final String catalogDocumentationTxt = """
             Cube with examples of roles with SchemaGrant all_dimensions
             Cube1 - all access
             Cube2 - no access
@@ -163,9 +163,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(roleAll);
         catalog.getAccessRoles().add(roleNone);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
+        Documentation catalogDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
+        catalogDocumentation.setTitle("Daanse Tutorial - Access Database Schema Grant");
+        catalogDocumentation.setValue(catalogDocumentationTxt);
+        catalog.getDocumentations().add(catalogDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Cube with role access database schema", catalogBody, 1, 0, 0, false, 0);

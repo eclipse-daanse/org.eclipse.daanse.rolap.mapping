@@ -174,7 +174,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube - logic functions", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Function Logic", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

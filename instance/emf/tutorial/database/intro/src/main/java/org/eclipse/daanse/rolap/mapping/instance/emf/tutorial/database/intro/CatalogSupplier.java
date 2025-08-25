@@ -82,7 +82,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setId("_catalog_databaseIntro");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Introduction into DataBase", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Database Intro", introBody, 1, 0, 0, false, 0);
         document(catalog, "Catalog", catalogBody, 1, 1, 0, true, 0);
         document(databaseSchema, "Schema", schemaBody, 1, 2, 0, true, 0);
         document(table, "Table", tableBody, 1, 3, 0, true, 0);

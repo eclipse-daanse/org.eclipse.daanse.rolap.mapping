@@ -268,7 +268,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Catalog with Cube with two dimension connectors with level_attribute", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Dimension Optimisation With Level Attribute", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(queryH1L1, "H1L1Query", queryH1L1Body, 1, 2, 0, true, 2);

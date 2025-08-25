@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Hierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -240,7 +239,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Basic hierarchy with joined tables");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query - 1 Join", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Hierarchy Query Join Base", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryLevelTown, "Query - Level Town", queryLevelTownBody, 1, 2, 0, true, 2);
         document(queryLevelCountry, "Query - Level Country", queryLevelCountryBody, 1, 3, 0, true, 2);

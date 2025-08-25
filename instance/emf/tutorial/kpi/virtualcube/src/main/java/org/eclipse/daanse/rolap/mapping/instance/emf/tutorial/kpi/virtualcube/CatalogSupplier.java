@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Kpi;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
@@ -84,12 +83,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             CalculatedMembers uses measures from Cube1 and Cube2.
             Cube have KPI which use CalculatedMembers for parameters Value, Trend.
             """;
-
-
-    private static final String schemaDocumentationTxt = """
-                A basic OLAP schema with virtual cube which have reference to Cube1, Cube2 and with KPI
-
-                """;
 
     @Override
     public CatalogMapping get() {
@@ -218,12 +211,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - KPI Virtual Cube");
         catalog.setDescription("KPI implementation in virtual cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(schemaDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with virtual cube with kpi", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - KPI Virtual Cube", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
         document(kpi, "Kpi with parameters", kpiBody, 1, 2, 0, true, 0);
 

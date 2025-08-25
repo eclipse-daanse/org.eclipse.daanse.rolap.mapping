@@ -156,7 +156,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setDescription("Multi-level hierarchy in single table");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Hierarchy - Query based on all in one Table", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Hierarchy Query Table Multilevel Singletable", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
 

@@ -100,7 +100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Introduction into Cubes", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Cube Minimal", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);

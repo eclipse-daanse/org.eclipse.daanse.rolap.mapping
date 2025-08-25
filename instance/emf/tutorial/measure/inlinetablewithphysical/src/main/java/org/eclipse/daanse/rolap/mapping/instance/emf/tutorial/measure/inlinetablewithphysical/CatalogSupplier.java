@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.InlineTableQuery;
@@ -112,12 +111,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             In this example uses cube with InlineTable as data.
             """;
-
-    private static final String catalogDocumentationTxt = """
-            A minimal cube based on an inline table and phisical table
-            with levels with phisical and inline tables
-
-                """;
 
     @Override
     public CatalogMapping get() {
@@ -315,12 +308,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Measure Inline Table With Physical");
         catalog.setDescription("Measure with inline table and physical table");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube With Phisical and Inline Tables", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Inline Table With Physical", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryFact, "Query Fact", queryFactBody, 1, 2, 0, true, 2);
         document(queryTown, "Query Town", queryTownBody, 1, 3, 0, true, 2);

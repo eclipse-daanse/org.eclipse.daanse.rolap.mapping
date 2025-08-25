@@ -22,7 +22,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -78,10 +77,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String cubeBody = """
             In this example, measure with SQLExpressionColumn. Measures use SQL expression as column.
-            """;
-
-    private static final String catalogDocumentationTxt = """
-            A mininmal cube with a simple measure with SQLExpressionColumn.
             """;
 
     @Override
@@ -177,12 +172,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Measure Expression");
         catalog.setDescription("Measure with expression-based calculations");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube With SQLExpressionColumn", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Expression", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(measureExpression1, "MeasureExpression1", measureExpression1Body, 1, 3, 0, true, 2);

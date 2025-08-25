@@ -330,11 +330,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        Documentation documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        documentation.setValue("catalog with schema with aggregate tables");
-        catalog.getDocumentations().add(documentation);
-
-        document(catalog, "Cube with aggregate tables", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Aggregation Aggregate Tables", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(productQuery, "Product Query", queryProductBody, 1, 3, 0, true, 2);

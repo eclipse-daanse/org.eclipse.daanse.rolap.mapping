@@ -24,7 +24,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -83,14 +82,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String cubeBody = """
             In this example uses cube with level which have "boolean" type. But in database we have "smallInt".
             This makes it possible to use level as boolean.
-            """;
-
-    private static final String catalogDocumentationTxt = """
-            cube with level which have "boolean" type. But in database we have "smallInt"
-            In this case both query is work
-            SELECT NON EMPTY [Dimension].[HierarchyWithHasAll].[Measure].members on COLUMNS FROM [Cube] WHERE [Level].[true]
-            and
-            SELECT NON EMPTY [Dimension].[HierarchyWithHasAll].[Measure].members on COLUMNS FROM [Cube] WHERE [Level].[1]
             """;
 
     @Override
@@ -166,12 +157,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Level Small Int As Boolean Type");
         catalog.setDescription("Level using small integer as boolean type");
         catalog.getCubes().add(cube);
-        Documentation catalogDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        catalogDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(catalogDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Minimal Cube with level with smallInt boolan type", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Level Small Int As Boolean Type", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query Fact", queryFactBody, 1, 2, 0, true, 2);
         document(level, "Level", levelBody, 1, 3, 0, true, 0);
