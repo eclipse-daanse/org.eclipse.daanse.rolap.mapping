@@ -447,28 +447,28 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackinlinetable</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.inlinetable</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebacktable</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.table</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackview</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view</artifactId>
       <version>${project.version}</version>
     </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writebackwithoutdimension</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.withoutdimension</artifactId>
       <version>${project.version}</version>
     </dependency>
 
