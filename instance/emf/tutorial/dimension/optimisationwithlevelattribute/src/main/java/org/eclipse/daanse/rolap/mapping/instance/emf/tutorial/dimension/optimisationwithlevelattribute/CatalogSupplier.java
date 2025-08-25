@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
@@ -106,13 +105,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Level attribute in DimensionConnector uses for optimize sql inner join
             Level attribute is name of the level to join to
             If not specified joins to the lowest level of the dimension
-            """;
-
-    private static final String catalogDocumentationTxt = """
-    A basic OLAP schema with DimensionConnector with level attribute
-    Level attribute in DimensionConnector uses for optimize sql inner join
-    Level attribute is name of the level to join to
-    If not specified joins to the lowest level of the dimension
             """;
 
     @Override
@@ -263,9 +255,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.setName("Daanse Tutorial - Dimension Optimisation With Level Attribute");
         catalog.setDescription("Dimension optimization with level attributes");
         catalog.getCubes().add(cube);
-        Documentation schemaDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        schemaDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(schemaDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
         document(catalog, "Daanse Tutorial - Dimension Optimisation With Level Attribute", catalogBody, 1, 0, 0, false, 0);
