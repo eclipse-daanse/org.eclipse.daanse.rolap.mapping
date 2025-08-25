@@ -59,9 +59,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Parent table with 3 columns: NAME, PARENT and VALUE.
-            The NAME column is used as the discriminator in the Hierarchy definitions.
-            The Database Schema also contains the Closure  table with 3 columns: NAME, PARENT and DISTANCE.
+            The Database Schema contains the `Parent` table with 3 columns: `NAME`, `PARENT` and `VALUE`.
+            The `NAME` column is used as the discriminator in the Hierarchy definitions.
+            The Database Schema also contains the Closure  table with 3 columns: `NAME`, `PARENT` and `DISTANCE`.
             """;
 
     private static final String queryBody = """
@@ -69,11 +69,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String closureQueryBody = """
-            The ClosureQuery is a simple TableQuery that selects all columns from the Parent table to use in the parent child link.
+            The ClosureQuery is a simple TableQuery that selects all columns from the `Parent` table to use in the parent child link.
             """;
 
     private static final String levelBody = """
-            This Example uses 'Name' level bases on the NAME column as key and name column NAME of table Parent.
+            This Example uses 'Name' level bases on the `NAME` column as key and name column `NAME` of table `Parent`.
             """;
 
     private static final String hierarchyBody = """

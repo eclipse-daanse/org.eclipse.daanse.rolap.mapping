@@ -46,15 +46,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on only one tables. The Fact table contains a measures the name of the Town and the Country.
+            The cube defined in this example is based on only one tables. The `Fact` table contains a measures the name of the `Town` and the `Country`.
             """;
 
     private static final String levelTownBody = """
-            The level of the Town used the `column` attribute to define the column that holds the name, wich is also the key Column.
+            The level of the `Town` used the `column` attribute to define the column that holds the name, wich is also the key Column.
             """;
 
     private static final String levelCountryBody = """
-            The level  of the Country used the `column` attribute to define the column that holds the name, wich is also the key Column.
+            The level  of the `Country` used the `column` attribute to define the column that holds the name, wich is also the key Column.
             """;
 
     private static final String hierarchyBody = """

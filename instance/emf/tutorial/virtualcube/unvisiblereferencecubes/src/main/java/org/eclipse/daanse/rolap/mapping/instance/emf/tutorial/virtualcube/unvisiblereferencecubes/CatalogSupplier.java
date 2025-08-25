@@ -59,7 +59,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on a table that stores all the data.
             The table is named `Fact` uses for Cube1 and contains two columns: `KEY` and `VALUE`.
-            The KEY column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
+            The `KEY` column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
             """;
 
     private static final String queryBody = """
@@ -69,11 +69,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
 
     private static final String measure1Body = """
-            Measure use C1_Fact table VALUE column with sum aggregation in Cube1.
+            Measure use `C1_Fact` table VALUE column with sum aggregation in Cube1.
             """;
 
     private static final String measure2Body = """
-            Measure use Fact table VALUE column with sum aggregation in Cube2.
+            Measure use `Fact` table `VALUE` column with sum aggregation in Cube2.
             """;
 
     private static final String cube1Body = """

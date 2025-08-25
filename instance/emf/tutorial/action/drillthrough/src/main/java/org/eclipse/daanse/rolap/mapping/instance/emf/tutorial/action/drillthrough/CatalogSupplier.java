@@ -56,45 +56,45 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE.
-            H1_L1 table with two columns: KEY and NAME.
-            H2_L1 table with two columns: KEY and NAME.
-            HX_L2 table with 4 columns: KEY, NAME, H1L1_KEY, H2L1_KEY.
-            The KEY column of Fact table is used as the discriminator in the the dimension.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`.<br />
+            - `H1_L1` table with two columns: `KEY` and `NAME`.<br />
+            - `H2_L1` table with two columns: `KEY` and `NAME`.<br />
+            - `HX_L2` table with 4 columns: `KEY`, `NAME`, `H1L1_KEY`, `H2L1_KEY`.<br />
+            The `KEY` column of `Fact` table is used as the discriminator in the the dimension.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
     private static final String h1L1QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the H1_L1 table table.
+            The Query is a simple TableQuery that selects all columns from the `H1_L1` table table.
             """;
 
     private static final String h2L1QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the H2_L1 table table.
+            The Query is a simple TableQuery that selects all columns from the `H2_L1` table table.
             """;
 
     private static final String hxL2QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the HX_L2 table table.
+            The Query is a simple TableQuery that selects all columns from the `HX_L2` table table.
             """;
 
     private static final String join1Body = """
             The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
-            - In the lower-level table (HX_L2), the join uses the foreign key H1L1_KEY.
-            - In the upper-level table (H1_L1), the join uses the primary key KEY.
+            - In the lower-level table (`HX_L2`), the join uses the foreign key `H1L1_KEY`.<br />
+            - In the upper-level table (`H1_L1`), the join uses the primary key `KEY`.<br />
             """;
 
     private static final String join2Body = """
             The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
-            - In the lower-level table (HX_L2), the join uses the foreign key H2L1_KEY.
-            - In the upper-level table (H2_L1), the join uses the primary key KEY.
+            - In the lower-level table (`HX_L2`), the join uses the foreign key `H2L1_KEY`.<br />
+            - In the upper-level table (`H2_L1`), the join uses the primary key `KEY`.<br />
             """;
 
     private static final String level1Body = """
-            This Example uses H1_Level1 level bases on the KEY column as kew and NAME column as name from H1_L1 table.
+            This Example uses H1_Level1 level bases on the `KEY` column as kew and `NAME` column as name from `H1_L1` table.
             """;
 
     private static final String level2Body = """

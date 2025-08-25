@@ -55,7 +55,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String kpi2Body = """
-            This KPI is additionally using a ParentKpiID.
+            This KPI is additionally using a `ParentKpiID`.
             """;
 
     private static final String kpi3Body = """

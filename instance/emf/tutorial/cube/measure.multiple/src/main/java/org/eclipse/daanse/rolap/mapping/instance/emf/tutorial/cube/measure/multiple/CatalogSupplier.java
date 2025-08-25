@@ -42,7 +42,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on a single table that stores all the data. The table, named Fact, contains four columns: KEY, VALUE1, VALUE2, and VALUE3. The KEY column acts as a discriminator, while the VALUE1, VALUE2, and VALUE3 columns contain the measurements to be aggregated.
+            The cube defined in this example is based on a single table that stores all the data. The table, named `Fact`, contains four columns: `KEY`, `VALUE1`, `VALUE2`, and `VALUE3`. The `KEY` column acts as a discriminator, while the `VALUE1`, `VALUE2`, and `VALUE3` columns contain the measurements to be aggregated.
             """;
 
     private static final String queryBody = """

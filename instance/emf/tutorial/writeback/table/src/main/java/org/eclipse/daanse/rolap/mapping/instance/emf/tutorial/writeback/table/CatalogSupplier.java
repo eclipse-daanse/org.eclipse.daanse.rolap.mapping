@@ -55,33 +55,33 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             The Database Schema contains the
-            FACT table with 3 columns VAL, VAL1, L2. The L2 column is used as the discriminator in the the Level and Hierarchy definitions
-            L1 table with two columns: L1 and L2.
-            L2 table with one column: L2.
-            FACTWB table with 4 columns: VAL, VAL1, ID, USER.
+            - `FACT` table with 3 columns `VAL`, `VAL1`, `L2`. The `L2` column is used as the discriminator in the the Level and Hierarchy definitions
+            - `L1` table with two columns: `L1` and `L2`.
+            - `L2` table with one column: `L2`.
+            - `FACTWB` table with 4 columns: `VAL`, `VAL1`, `ID`, `USER`.
             """;
 
     private static final String queryBody = """
-            The FactQuery is a simple TableQuery that selects all columns from the Fact table to use in the cube for the measures.
+            The `FactQuery` is a simple TableQuery that selects all columns from the `Fact` table to use in the cube for the measures.
             """;
 
     private static final String query1Body = """
-            The l1TableQuery is a simple TableQuery that selects all columns from the L1 table to use in the cube for the L1 level.
+            The `l1TableQuery` is a simple TableQuery that selects all columns from the `L1` table to use in the cube for the `L1` level.
             """;
 
     private static final String query2Body = """
-            The l2TableQuery is a simple TableQuery that selects all columns from the L2 table to use in the cube for the L2 level.
+            The `l2TableQuery` is a simple TableQuery that selects all columns from the `L2` table to use in the cube for the `L2` level.
             """;
 
     private static final String joinBody = """
-            The join is a simple JoinedQuery that unites l1TableQuery and l2TableQuery by L2 column.
+            The join is a simple JoinedQuery that unites `l1TableQuery` and l2TableQuery by `L2` column.
             """;
 
     private static final String level1Body = """
-            This Example uses one simple L1 level bases on the L1 column. L2 column to use for connection to level L2
+            This Example uses one simple `L1` level bases on the `L1` column. `L2` column to use for connection to level `L2`
             """;
     private static final String level2Body = """
-            This Example uses one simple L2 level bases on the L2 column. L2 column to use for connection to level L1
+            This Example uses one simple `L2` level bases on the `L2` column. `L2` column to use for connection to level `L1`
             """;
 
     private static final String hierarchyBody = """
@@ -93,8 +93,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String cubeBody = """
-            Cube C is defined by DimensionConnector D1 and a MeasureGroup containing two measures using SUM aggregation.
-            The cube also contains a FACTWB WritebackTable configuration with a WritebackAttribute mapped to the VAL column from the fact table, along with two WritebackMeasures: Measure1 and Measure2.
+            Cube `C` is defined by DimensionConnector `D1` and a MeasureGroup containing two measures using `SUM` aggregation.
+            The cube also contains a `FACTWB` WritebackTable configuration with a WritebackAttribute mapped to the `VAL` column from the fact table, along with two WritebackMeasures: Measure1 and Measure2.
             """;
 
     @Override

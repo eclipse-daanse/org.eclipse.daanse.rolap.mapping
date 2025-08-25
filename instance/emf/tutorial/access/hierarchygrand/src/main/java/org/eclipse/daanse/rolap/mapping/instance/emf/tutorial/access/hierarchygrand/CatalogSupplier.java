@@ -58,15 +58,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
     This tutorial discusses role with HierarchyGrant
 
-    role1 role:   use HierarchyGrant hierarchy1 access all hierarchy2 access none;
+    - `role1` role:   use HierarchyGrant hierarchy1 access `all` hierarchy2 access `none`;
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
     private static final String level2Body = """
@@ -86,8 +86,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String role1Body = """
-            The role1 use CatalogGrant access all; CubeGrant cube1 access all; dimensionGrant dimension1 access all;
-            hierarchyGrant hierarchy1 access custom with member grants [Dimension1].[A] -all, [Dimension1].[B] -none, [Dimension1].[C] -none;
+            The `role1` use CatalogGrant access `all`; CubeGrant cube1 access `all`; dimensionGrant dimension1 access `all`;
+            hierarchyGrant hierarchy1 access custom with member grants<br />
+            [Dimension1].[A] -all,<br />
+            [Dimension1].[B] -none,<br />
+            [Dimension1].[C] -none;<br />
             (Cube1 - access to "A" Cube2 - no access)
             """;
 

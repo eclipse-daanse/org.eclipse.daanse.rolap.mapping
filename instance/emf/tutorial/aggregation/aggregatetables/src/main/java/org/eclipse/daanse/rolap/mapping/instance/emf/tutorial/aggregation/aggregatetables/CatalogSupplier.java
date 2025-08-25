@@ -62,12 +62,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on
 
-            SALES_FACT_1997 table which contains two columns: `PRODUCT_ID` and `STORE_COST`.
-            PRODUCT table which contains 4 columns: `PRODUCT_CLASS_ID`,`PRODUCT_ID`,`brand_name`,`product_name`
-            PRODUCT_CLASS table which contains 3 columns: `PRODUCT_CLASS_ID`, `PRODUCT_ID` and `brand_name`.
-            AGG_C_SPECIAL_SALES_FACT_1997 table which contains 3 columns: `PRODUCT_ID`, `STORE_COST_SUM`, `FACT_COUNT`;
-            AGG_C_14_SALES_FACT_1997 this is exclude table
-            AGG_LC_100_SALES_FACT_1997 this is exclude table
+            - `SALES_FACT_1997 `table which contains two columns: `PRODUCT_ID` and `STORE_COST`.<br />
+            - `PRODUCT` table which contains 4 columns: `PRODUCT_CLASS_ID`,`PRODUCT_ID`,`brand_name`,`product_name`<br />
+            - `PRODUCT_CLASS` table which contains 3 columns: `PRODUCT_CLASS_ID`, `PRODUCT_ID` and `brand_name`.<br />
+            - `AGG_C_SPECIAL_SALES_FACT_1997` table which contains 3 columns: `PRODUCT_ID`, `STORE_COST_SUM`, `FACT_COUNT`;<br />
+            - `AGG_C_14_SALES_FACT_1997` this is exclude table<br />
+            - `AGG_LC_100_SALES_FACT_1997` this is exclude table<br />
             """;
 
     private static final String queryBody = """

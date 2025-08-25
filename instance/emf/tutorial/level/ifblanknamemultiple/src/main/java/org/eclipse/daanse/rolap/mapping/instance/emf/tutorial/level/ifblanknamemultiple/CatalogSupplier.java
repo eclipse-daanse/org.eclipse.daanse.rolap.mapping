@@ -54,11 +54,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on a 4 tables that stores all the data.
-            The phisical table is named `Fact_Multiple` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`.
-            The DIM_KEY column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
-            The phisical table is named `Level_1_Multiple` uses for Level1 and contains 2 columns: `KEY`, `NAME` .
-            The phisical table is named `Level_2_Multiple` uses for Level2 and contains 3 columns: `KEY`, `NAME`, `L1_KEY`.
-            The phisical table is named `Level_3_Multiple` uses for Level2 and contains 3 columns: `KEY`, `NAME`, `L2_KEY`.
+            - The phisical table is named `Fact_Multiple` uses for Cube1 and contains two columns: `DIM_KEY` and `VALUE`.
+            The `DIM_KEY` column serves as a discriminator, while the `VALUE` column contains the measurements to be aggregated.
+            - The phisical table is named `Level_1_Multiple` uses for Level1 and contains 2 columns: `KEY`, `NAME` .
+            - The phisical table is named `Level_2_Multiple` uses for Level2 and contains 3 columns: `KEY`, `NAME`, `L1_KEY`.
+            - The phisical table is named `Level_3_Multiple` uses for Level2 and contains 3 columns: `KEY`, `NAME`, `L2_KEY`.
             """;
 
     private static final String queryBody = """

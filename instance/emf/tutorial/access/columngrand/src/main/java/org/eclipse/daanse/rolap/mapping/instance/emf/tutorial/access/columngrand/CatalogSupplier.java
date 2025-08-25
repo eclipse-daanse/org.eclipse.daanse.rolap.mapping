@@ -54,28 +54,28 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
     This tutorial discusses roles with ColumnGrant.
 
-    roleAll    role: use TableGrant access all; (access all database all tables all columns)
-    roleNone   role: use TableGrant access none; (no access to database columns)
+    - `roleAll`    role: use TableGrant access `all`; (access all database all tables all columns)
+    - `roleNone`   role: use TableGrant access `none`; (no access to database columns)
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
     private static final String cube1Body = """
-            The cube1 is defines by the DimensionConnector1 and the DimensionConnector2  and the MeasureGroup with measure with aggregation sum.
+            The `cube1` is defines by the DimensionConnector1 and the DimensionConnector2  and the MeasureGroup with measure with aggregation sum.
             """;
 
     private static final String roleAllBody = """
-            The roleAll use TableGrant access all; (access all tables columns)
+            The `roleAll` use TableGrant access `all`; (access all tables columns)
             """;
 
     private static final String roleNoneBody = """
-            The roleNone use ColumnGrant access none; (no access to all tables columns)
+            The `roleNone` use ColumnGrant access `none`; (no access to all tables columns)
             """;
 
     @Override

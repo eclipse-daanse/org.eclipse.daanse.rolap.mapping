@@ -35,7 +35,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            The SqlView Table is a special Table that is used to reference columns of an SQL Query. The differenxe to the ViewTable is that the SqlView Table is not a view in the Database, but it holds the SQLStatement inside the mapping.
+            The `SqlView` Table is a special Table that is used to reference columns of an SQL Query. The differenxe to the ViewTable is that the `SqlView` Table is not a view in the Database, but it holds the SQLStatement inside the mapping.
             """;
 
     private static final String sqlviewBody = """

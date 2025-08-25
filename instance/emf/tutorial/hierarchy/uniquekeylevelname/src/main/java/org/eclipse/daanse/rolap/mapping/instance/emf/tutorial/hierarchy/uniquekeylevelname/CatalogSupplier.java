@@ -51,34 +51,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the AUTOMOTIVE_DIM table with 16 columns:
-            AUTO_DIM_ID, MAKE_ID, MAKE, MODEL_ID, MODEL, PLANT_ID, PLANT, PLANT_STATE_ID,
-            PLANT_CITY_ID, VEHICLE_ID, COLOR_ID, TRIM_ID, LICENSE_ID,LICENSE,LICENSE_STATE_ID,PRICE.
-            The AUTO_DIM_ID column is used as the discriminator in the Hierarchy definitions.
+            The Database Schema contains the `AUTOMOTIVE_DIM` table with 16 columns:
+            `AUTO_DIM_ID`, `MAKE_ID`, `MAKE`, `MODEL_ID`, `MODEL`, `PLANT_ID`, `PLANT`, `PLANT_STATE_ID`,
+            `PLANT_CITY_ID`, `VEHICLE_ID`, `COLOR_ID`, `TRIM_ID`, `LICENSE_ID`, `LICENSE`, `LICENSE_STATE_ID`, `PRICE`.
+            The `AUTO_DIM_ID` column is used as the discriminator in the Hierarchy definitions.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the AUTOMOTIVE_DIM table to use in the measures.
+            The Query is a simple TableQuery that selects all columns from the `AUTOMOTIVE_DIM` table to use in the measures.
             """;
 
     private static final String levelMakeBody = """
-            This Example uses 'Make' level bases on the MAKE_ID column as key and name column MAKE of table AUTOMOTIVE_DIM.
+            This Example uses 'Make' level bases on the `MAKE_ID` column as key and name column `MAKE` of table `AUTOMOTIVE_DIM`.
             """;
 
     private static final String levelModelBody = """
-            This Example uses 'Model' level bases on the MODEL_ID column as key and name column MODEL of table AUTOMOTIVE_DIM.
+            This Example uses 'Model' level bases on the `MODEL_ID` column as key and name column `MODEL` of table `AUTOMOTIVE_DIM`.
             """;
 
     private static final String levelPlantBody = """
-            This Example uses 'ManufacturingPlant' level bases on the PLANT_ID column as key and name column PLANT of table AUTOMOTIVE_DIM.
+            This Example uses 'ManufacturingPlant' level bases on the `PLANT_ID` column as key and name column `PLANT` of table `AUTOMOTIVE_DIM`.
             """;
 
     private static final String levelVehicleBody = """
-            This Example uses 'Vehicle Identification Number' level bases on the VEHICLE_ID column as key of table AUTOMOTIVE_DIM.
+            This Example uses 'Vehicle Identification Number' level bases on the `VEHICLE_ID` column as key of table `AUTOMOTIVE_DIM`.
             """;
 
     private static final String levelLicenseBody = """
-            This Example uses 'LicensePlateNum' level bases on the LICENSE_ID column as key and name column LICENSE of table AUTOMOTIVE_DIM.
+            This Example uses 'LicensePlateNum' level bases on the `LICENSE_ID` column as key and name column `LICENSE` of table `AUTOMOTIVE_DIM`.
             """;
 
     private static final String hierarchyBody = """

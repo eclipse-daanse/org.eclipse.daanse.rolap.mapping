@@ -56,36 +56,36 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
     This tutorial discusses roles with DimensionGrant.
 
-    role1 role:   use DimensionGrant access to Dimension1 and not access to Dimension2 of cube1
+    - `role1` role:   use DimensionGrant access to `Dimension1` and not access to `Dimension2` of `cube1`
 
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
     private static final String levelBody = """
-            This Example uses one simple Level1 bases on the KEY column.
+            This Example uses one simple Level1 bases on the `KEY` column.
             """;
 
     private static final String hierarchyBody = """
-            The Hierarchy1 is defined with the hasAll property set to false and the one level1.
+            The Hierarchy1 is defined with the hasAll property set to false and the one `level1`.
             """;
 
     private static final String dimension1Body = """
-            The dimension1 is defined with the one hierarchy1.
+            The `dimension1` is defined with the one `hierarchy1`.
             """;
 
     private static final String cube1Body = """
-            The cube1 is defines by the DimensionConnector1 and the DimensionConnector2  and the MeasureGroup with measure with aggregation sum.
+            The `cube1` is defines by the DimensionConnector1 and the DimensionConnector2  and the MeasureGroup with measure with aggregation sum.
             """;
 
     private static final String role1Body = """
-            The role1 use CatalogGrant access all_dimensions; CubeGrant cube1 access all; cube2 access none (access cube1)
+            The `role1` use CatalogGrant access `all_dimensions`; CubeGrant `cube1` access `all`; `cube2` access `none` (access `cube1`)
             """;
 
     @Override

@@ -29,7 +29,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -51,12 +50,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
     This tutorial discusses roles with with DatabaseSchemaGrant.
 
-    roleAll role : use DatabaseSchemaGrant access all; (access all database)
-    roleNone role: use CatalogGrant access none; (no access to database)
+    - `roleAll` role : use DatabaseSchemaGrant access `all`; (access all database)
+    - `roleNone` role: use CatalogGrant access `none`; (no access to database)
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
 
     private static final String queryBody = """
@@ -68,18 +67,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String roleAllBody = """
-            The roleAll use DatabaseSchemaGrant access all; (access all database)
+            The `roleAll` use DatabaseSchemaGrant access `all`; (access all database)
             """;
 
     private static final String roleNoneBody = """
-            The roleNone use DatabaseSchemaGrant access none; (no access to database)
-            """;
-
-
-    private static final String catalogDocumentationTxt = """
-            Cube with examples of roles with SchemaGrant all_dimensions
-            Cube1 - all access
-            Cube2 - no access
+            The `roleNone` use DatabaseSchemaGrant access `none`; (no access to database)
             """;
 
     @Override
@@ -163,13 +155,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getCubes().add(cube1);
         catalog.getAccessRoles().add(roleAll);
         catalog.getAccessRoles().add(roleNone);
-        Documentation catalogDocumentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        catalogDocumentation.setTitle("Daanse Tutorial - Access Database Schema Grant");
-        catalogDocumentation.setValue(catalogDocumentationTxt);
-        catalog.getDocumentations().add(catalogDocumentation);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Cube with role access database schema", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access Database Schema Grant", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

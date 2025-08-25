@@ -45,18 +45,18 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            This tutorial discusses Calculated Members with properties MEMBER_ORDINAL and FORMAT_STRING, which allow you to define members in the measure or dimension area of a cube without storing them directly in the database. Instead, these members are computed on the fly, often based on the values of other members or measures. This is particularly useful for creating derived measures or dimension members that are not present in the underlying data source.
+            This tutorial discusses Calculated Members with properties `MEMBER_ORDINAL` and `FORMAT_STRING`, which allow you to define members in the measure or dimension area of a cube without storing them directly in the database. Instead, these members are computed on the fly, often based on the values of other members or measures. This is particularly useful for creating derived measures or dimension members that are not present in the underlying data source.
 
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with three columns: KEY and VALUE and VALUE_NUMERIC. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with three columns: `KEY` and `VALUE` and `VALUE_NUMERIC`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
     private static final String levelBody = """
-            This Example uses one simple Level bases on the KEY column.
+            This Example uses one simple Level bases on the `KEY` column.
             """;
     private static final String hierarchyBody = """
             The Hierarchy is defined with the hasAll property set to true and the one level.

@@ -54,28 +54,28 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String databaseSchemaBody = """
             The cube defined in this example is based on three tables: Fact, Town, and Country.
 
-            - The Fact table contains measures and a reference to the Town table.
-            - The Fact table is linked to the Town table through the TOWN_ID column, which corresponds to the ID column in the Town table.
-            - The Town table includes a column that references the primary key of the Country table.
-            - The Country table consists of two columns: ID (primary key) and Name as well as  referenct to the Continent.
-            - The Continent table consists of two columns: ID (primary key) and Name.
+            - The `Fact` table contains measures and a reference to the `Town` table.
+            - The `Fact` table is linked to the `Town` table through the `TOWN_ID` column, which corresponds to the `ID` column in the `Town` table.
+            - The `Town` table includes a column that references the primary key of the `Country` table.
+            - The `Country` table consists of two columns: `ID` (primary key) and Name as well as  referenct to the `Continent`.
+            - The `Continent` table consists of two columns: `ID` (primary key) and Name.
 
             This structure ensures that the hierarchy is properly normalized, following the Third Normal Form (3NF).
             """;
 
     private static final String levelTownBody = """
-            The Level uses the column attribute to specify the primary key column. Additionally, it defines the nameColumn attribute to specify the column that contains the name of the level.
+            The `Town` level uses the column attribute to specify the primary key column. Additionally, it defines the nameColumn attribute to specify the column that contains the name of the level.
             """;
 
     private static final String levelCountryBody = """
-            The Country level follows the same pattern as the Town level.
+            The `Country` level follows the same pattern as the `Town` level.
             """;
     private static final String levelContinentBody = """
-            The Continent level follows the same pattern as the Town ans Country level.
+            The `Continent` level follows the same pattern as the `Town` and `Country` level.
             """;
 
     private static final String hierarchyBody = """
-            This hierarchy consists of three levels: Town, Country and  Continent.
+            This hierarchy consists of three levels: `Town`, `Country` and  `Continent`.
             - The primaryKey attribute specifies the column that contains the primary key of the hierarchy.
             - The query attribute references the Join-query used to retrieve the data for the hierarchy.
 
@@ -107,8 +107,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String queryJoinTownToCountryBody = """
             The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
-            - In the lower-level table (Town), the join uses the foreign key.
-            - In the upper-level table (Country), the join uses the primary key.
+            - In the lower-level table (`Town`), the join uses the foreign key.
+            - In the upper-level table (`Country`), the join uses the primary key.
             """;
 
     private static final String queryJoinSubJoinToContinentBody = """

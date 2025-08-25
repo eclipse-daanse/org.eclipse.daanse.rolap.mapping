@@ -52,17 +52,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String catalogBody = """
     This tutorial discusses roles with TableGrant.
 
-    roleAll    role: use TableGrant access all; (access all database all tables)
-    roleNone   role: use TableGrant access none; (no access to database tables)
-    roleCustom role: use TableGrant access custom; (access to database table Fact)
+    - `roleAll`    role: use TableGrant access `all`; (access all database all tables)<br />
+    - `roleNone`   role: use TableGrant access `none`; (no access to database tables)<br />
+    - `roleCustom` role: use TableGrant access `custom`; (access to database table Fact)<br />
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the Fact table with two columns: KEY and VALUE. The KEY column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with two columns: `KEY` and `VALUE`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
     private static final String cube1Body = """
@@ -70,15 +70,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String roleAllBody = """
-            The roleAll use TableGrant access all; (access all tables)
+            The `roleAll` use TableGrant access `all`; (access all tables)
             """;
 
     private static final String roleNoneBody = """
-            The roleNone use TableGrant access none; (no access to all tables)
+            The `roleNone` use TableGrant access `none`; (no access to all tables)
             """;
 
     private static final String roleCustomBody = """
-            The roleNone use TableGrant access custom; (access to Fact table only)
+            The `roleCustom` use TableGrant access `custom`; (access to Fact table only)
             """;
 
     @Override
