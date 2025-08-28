@@ -268,11 +268,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         writebackAttribute.setColumn(l2Column);
 
         WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure1.setName("WbMeasure1");
+        writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
         WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure2.setName("WbMeasure2");
+        writebackMeasure2.setName("Measure2");
         writebackMeasure2.setColumn(val1Column);
 
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
