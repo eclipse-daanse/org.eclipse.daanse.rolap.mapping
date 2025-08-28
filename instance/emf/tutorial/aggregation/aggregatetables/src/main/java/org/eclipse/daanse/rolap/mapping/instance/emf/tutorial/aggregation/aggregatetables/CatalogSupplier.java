@@ -318,6 +318,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Aggregation Aggregate Tables");
         catalog.setDescription("Aggregate table optimization techniques");
+        catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);
 
         document(catalog, "Daanse Tutorial - Aggregation Aggregate Tables", catalogBody, 1, 0, 0, false, 0);

@@ -140,11 +140,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroup.getMeasures().addAll(List.of(measure1, measure2));
 
         WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure1.setName("WbMeasure1");
+        writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
         WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
-        writebackMeasure2.setName("WbMeasure2");
+        writebackMeasure2.setName("Measure2");
         writebackMeasure2.setColumn(val1Column);
 
         WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
