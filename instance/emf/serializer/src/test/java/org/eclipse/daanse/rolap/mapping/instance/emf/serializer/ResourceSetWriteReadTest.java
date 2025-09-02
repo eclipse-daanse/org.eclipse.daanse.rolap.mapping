@@ -523,6 +523,9 @@ public class ResourceSetWriteReadTest {
 
             add(RolapMappingPackage.Literals.LEVEL);
             add(RolapMappingPackage.Literals.HIERARCHY);
+            add(RolapMappingPackage.Literals.EXPLICIT_HIERARCHY);
+            add(RolapMappingPackage.Literals.PARENT_CHILD_HIERARCHY);
+
             add(RolapMappingPackage.Literals.STANDARD_DIMENSION);
             add(RolapMappingPackage.Literals.TIME_DIMENSION);
 
@@ -592,7 +595,7 @@ public class ResourceSetWriteReadTest {
                 s2 = "";
             }
 
-            return s1.toString().compareToIgnoreCase(s1.toString());
+            return s1.toString().compareToIgnoreCase(s2.toString());
         }
     };
 
