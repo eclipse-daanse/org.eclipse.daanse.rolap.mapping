@@ -122,6 +122,10 @@ public class ResourceSetWriteReadTest {
             StringBuilder parentReadme = new StringBuilder();
             parentReadme.append(TEXT);
 
+            // Create combined ZIP directory structure
+            Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/tutorial/zip"));
+            ZipOutputStream combinedZos = new ZipOutputStream(new FileOutputStream(zipDir.resolve("all-tutorials.zip").toFile()));
+
             srs.sort((o1, o2) -> {
                 Object s1 = o1.getProperty("number");
                 Object s2 = o2.getProperty("number");
@@ -137,11 +141,15 @@ public class ResourceSetWriteReadTest {
 
                     parentReadme.append("\n");
 
-                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier, sr.getProperties());
+                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier, sr.getProperties(), combinedZos);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+            
+            // Close combined ZIP
+            combinedZos.close();
+            
             Path rootReadmeFile = Files.createFile(tempDir.resolve("index.md"));
             Files.writeString(rootReadmeFile, parentReadme);
         } catch (Exception e) {
@@ -153,7 +161,7 @@ public class ResourceSetWriteReadTest {
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
 
     private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
-            CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary) throws IOException {
+            CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos) throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
         name = name.substring(46);
@@ -238,6 +246,13 @@ public class ResourceSetWriteReadTest {
         zos.putNextEntry(entry);
         zos.write(baos.toByteArray());
         zos.closeEntry();
+        
+        // Add to combined ZIP
+        ZipEntry combinedEntry = new ZipEntry(name + "/mapping/catalog.xmi");
+        combinedZos.putNextEntry(combinedEntry);
+        combinedZos.write(baos.toByteArray());
+        combinedZos.closeEntry();
+        
         Files.createDirectories(zipDir);
 
         for (Documentation documentation : docs) {
@@ -376,6 +391,12 @@ public class ResourceSetWriteReadTest {
                 zos.putNextEntry(entryCsv);
                 zos.write(csv);
                 zos.closeEntry();
+                
+                // Add to combined ZIP
+                ZipEntry combinedEntryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
+                combinedZos.putNextEntry(combinedEntryCsv);
+                combinedZos.write(csv);
+                combinedZos.closeEntry();
             }
         }
         Enumeration<URL> keepCsvs = b.findEntries("data", "*.keep", true);
@@ -384,6 +405,11 @@ public class ResourceSetWriteReadTest {
             ZipEntry entryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
             zos.putNextEntry(entryKeep);
             zos.closeEntry();
+            
+            // Add to combined ZIP
+            ZipEntry combinedEntryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
+            combinedZos.putNextEntry(combinedEntryKeep);
+            combinedZos.closeEntry();
         }
 
         Files.writeString(fileReadme, sbReadme);
