@@ -97,6 +97,8 @@ public class ResourceSetWriteReadTest {
 
             A recommended reading order is provided below to help you build your understanding progressively and systematically.
 
+            Download the full [Tutorial-Package](./zip/all-tutorials.zip) as zip.
+
                         """;
     static int i = 0;
     static Path tempDir;
@@ -146,10 +148,10 @@ public class ResourceSetWriteReadTest {
                     e.printStackTrace();
                 }
             }
-            
+
             // Close combined ZIP
             combinedZos.close();
-            
+
             Path rootReadmeFile = Files.createFile(tempDir.resolve("index.md"));
             Files.writeString(rootReadmeFile, parentReadme);
         } catch (Exception e) {
@@ -246,13 +248,13 @@ public class ResourceSetWriteReadTest {
         zos.putNextEntry(entry);
         zos.write(baos.toByteArray());
         zos.closeEntry();
-        
+
         // Add to combined ZIP
         ZipEntry combinedEntry = new ZipEntry(name + "/mapping/catalog.xmi");
         combinedZos.putNextEntry(combinedEntry);
         combinedZos.write(baos.toByteArray());
         combinedZos.closeEntry();
-        
+
         Files.createDirectories(zipDir);
 
         for (Documentation documentation : docs) {
@@ -391,7 +393,7 @@ public class ResourceSetWriteReadTest {
                 zos.putNextEntry(entryCsv);
                 zos.write(csv);
                 zos.closeEntry();
-                
+
                 // Add to combined ZIP
                 ZipEntry combinedEntryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
                 combinedZos.putNextEntry(combinedEntryCsv);
@@ -405,7 +407,7 @@ public class ResourceSetWriteReadTest {
             ZipEntry entryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
             zos.putNextEntry(entryKeep);
             zos.closeEntry();
-            
+
             // Add to combined ZIP
             ZipEntry combinedEntryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
             combinedZos.putNextEntry(combinedEntryKeep);
