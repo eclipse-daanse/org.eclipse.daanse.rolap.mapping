@@ -1,3 +1,6 @@
+<ClientOnly>
+<MermaidZoom>
+
 ```mermaid
 classDiagram
 {% for cls in package.eClassifiers  %}
@@ -13,8 +16,17 @@ classDiagram
     {{ cls.name }} --> {{ ref.eReferenceType.name }} : {{ ref.name }}
 
 {% endfor %}
+
+{% for superType in cls.getESuperTypes %}
+    {{ cls.name }} <|-- {{ superType.name }} : inherit
+
+{% endfor %}
+
 {% endif %}
 {% endif %}
 
 {% endfor %}
 ```
+
+</MermaidZoom>
+</ClientOnly>
