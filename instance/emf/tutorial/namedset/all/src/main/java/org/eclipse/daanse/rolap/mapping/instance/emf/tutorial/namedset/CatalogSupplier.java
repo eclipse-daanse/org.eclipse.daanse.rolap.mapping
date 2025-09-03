@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
@@ -165,36 +164,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector2.setOverrideDimensionName("Dimension2");
         dimensionConnector2.setDimension(dimension1);
 
-        Documentation namedSet1Documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        namedSet1Documentation.setValue("NamedSet use only Dimension1 in formula. By this reason it connected to Dimension1. NamedSet have folder");
         NamedSet namedSet1 = RolapMappingFactory.eINSTANCE.createNamedSet();
-        namedSet1.getDocumentations().add(namedSet1Documentation);
         namedSet1.setName("NsWithFolderDimension1");
         namedSet1.setId("_namedSet_withFolderDimension1");
         namedSet1.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
         namedSet1.setDisplayFolder("Folder1");
 
-        Documentation namedSet2Documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        namedSet2Documentation.setValue("NamedSet use only Dimension1 in formula. By this reason it connected to Dimension1.");
         NamedSet namedSet2 = RolapMappingFactory.eINSTANCE.createNamedSet();
-        namedSet2.getDocumentations().add(namedSet2Documentation);
         namedSet2.setName("NsWithoutFolderDimension1");
         namedSet2.setId("_namedSet_withoutFolderDimension1");
         namedSet2.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
 
-        Documentation namedSet3Documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        namedSet3Documentation.setValue("NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube. NamedSet have folder");
         NamedSet namedSet3 = RolapMappingFactory.eINSTANCE.createNamedSet();
-        namedSet3.getDocumentations().add(namedSet3Documentation);
         namedSet3.setName("NSInCubeWithFolder");
         namedSet3.setId("_namedSet_inCubeWithFolder");
         namedSet3.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
         namedSet3.setDisplayFolder("Folder2");
 
-        Documentation namedSet4Documentation = RolapMappingFactory.eINSTANCE.createDocumentation();
-        namedSet4Documentation.setValue("NamedSet use Dimension1 and Dimension2 in formula. By this reason it connected to Cube.");
         NamedSet namedSet4 = RolapMappingFactory.eINSTANCE.createNamedSet();
-        namedSet4.getDocumentations().add(namedSet4Documentation);
         namedSet4.setName("NSInCubeWithoutFolder");
         namedSet4.setId("_namedSet_inCubeWithoutFolder");
         namedSet4.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
