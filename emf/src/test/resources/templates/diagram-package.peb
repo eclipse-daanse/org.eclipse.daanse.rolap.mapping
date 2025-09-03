@@ -18,8 +18,9 @@ classDiagram
 {% endfor %}
 
 {% for superType in cls.getESuperTypes %}
+{% if not isEClassInterface(superType) %}
     {{ cls.name }} <|-- {{ superType.name }} : inherit
-
+{% endif %}
 {% endfor %}
 
 {% endif %}
