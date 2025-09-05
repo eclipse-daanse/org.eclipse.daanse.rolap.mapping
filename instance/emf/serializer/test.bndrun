@@ -115,6 +115,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.dimensiongrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.hierarchygrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.membergrand',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.defaultrole',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifblankname',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifblanknamemultiple',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifparentsname',\
@@ -141,6 +142,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.databaseschemagrand;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.defaultrole;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.dimensiongrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.hierarchygrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.membergrand;version='[0.0.1,0.0.2)',\

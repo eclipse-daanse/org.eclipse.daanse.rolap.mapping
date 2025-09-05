@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.membergrand;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.defaultrole;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -23,7 +23,6 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDatabaseSchemaGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
@@ -38,11 +37,9 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
@@ -52,25 +49,22 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.4.8", source = Source.EMF, group = "Access") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.4.7", source = Source.EMF, group = "Access") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE1 = "Cube1";
     private static final String FACT = "Fact";
 
     private static final String catalogBody = """
-    This tutorial discusses role with MemberGrant
+    This tutorial discusses role with HierarchyGrant
 
-    role1 role: with member grants <br />
-    - [Dimension1].[A] -all;
-    - [Dimension1].[B] -none;
-    - [Dimension1].[C] -none;
-    (Cube1 - access to 'A' only)
-
-    Rollup policy: (Full. Partial. Hidden.)<br />
-    - Full. The total for that member includes all children. This is the default policy if you don't specify the rollupPolicy attribute.
-    - Partial. The total for that member includes only accessible children.
-    - Hidden. If any of the children are inaccessible, the total is hidden.
+    - `role1` role:   use HierarchyGrant hierarchy1 access `all` hierarchy2 access `none`;
+    Catalog has property default access role - role1;
+    This role that should be applied by default when users connect without explicit role assignment.
+    This provides a baseline security policy for the catalog, typically configured to allow basic read access
+    to public data while restricting sensitive information. If not specified, Daanse does not assign a built-in default role,
+    and access will be denied unless a role is explicitly provided.
+    This setting is particularly useful for public reporting scenarios, shared dashboards, or development environments where default read access is desirable.
             """;
 
     private static final String databaseSchemaBody = """
@@ -81,8 +75,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
             """;
 
-    private static final String level1Body = """
-            This Example uses one simple Level1 bases on the `KEY` column.
+    private static final String level2Body = """
+            This Example uses one simple Level2 bases on the KEY column.
             """;
 
     private static final String hierarchy1Body = """
@@ -94,7 +88,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String cube1Body = """
-            The cube1 is defines by the DimensionConnector1 and the DimensionConnector2  and the MeasureGroup with measure with aggregation sum.
+            The cube1 is defines by the DimensionConnector1 and the MeasureGroup with measure with aggregation sum.
             """;
 
     private static final String role1Body = """
@@ -109,7 +103,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     @Override
     public CatalogMapping get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_MemberGrand");
+        databaseSchema.setId("_databaseSchema_HierarchyGrand");
 
         Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         keyColumn.setName("KEY");
@@ -144,83 +138,77 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level1.setId("_level_Level1");
         level1.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setName("Hierarchy1");
-        hierarchy.setId("_hierarchy_Hierarchy1");
-        hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
-        hierarchy.getLevels().add(level1);
+        Level level2 = RolapMappingFactory.eINSTANCE.createLevel();
+        level2.setName("Level2");
+        level2.setId("_level_Level2");
+        level2.setColumn(keyColumn);
+
+        ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy1.setName("Hierarchy1");
+        hierarchy1.setId("_hierarchy_Hierarchy1");
+        hierarchy1.setPrimaryKey(keyColumn);
+        hierarchy1.setQuery(query);
+        hierarchy1.getLevels().add(level1);
+
+        ExplicitHierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy2.setName("Hierarchy2");
+        hierarchy2.setId("_hierarchy_Hierarchy2");
+        hierarchy2.setPrimaryKey(keyColumn);
+        hierarchy2.setQuery(query);
+        hierarchy2.getLevels().add(level2);
 
         StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
         dimension1.setName("Dimension1");
         dimension1.setId("_dimension_Dimension1");
-        dimension1.getHierarchies().add(hierarchy);
+        dimension1.getHierarchies().add(hierarchy1);
+        dimension1.getHierarchies().add(hierarchy2);
 
         DimensionConnector dimensionConnectorCube11 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnectorCube11.setId("_dimensionConnector_dimension11");
+        dimensionConnectorCube11.setId("_dimensionConnector_dimension1");
         dimensionConnectorCube11.setOverrideDimensionName("Dimension1");
         dimensionConnectorCube11.setDimension(dimension1);
         dimensionConnectorCube11.setForeignKey(keyColumn);
 
-        DimensionConnector dimensionConnectorCube12 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnectorCube12.setId("_dimensionConnector_dimension12");
-        dimensionConnectorCube12.setOverrideDimensionName("Dimension2");
-        dimensionConnectorCube12.setDimension(dimension1);
-        dimensionConnectorCube12.setForeignKey(keyColumn);
-
-        DimensionConnector dimensionConnectorCube2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnectorCube2.setId("_dimensionConnector_dimension1");
-        dimensionConnectorCube2.setOverrideDimensionName("Dimension1");
-        dimensionConnectorCube2.setDimension(dimension1);
-        dimensionConnectorCube2.setForeignKey(keyColumn);
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
         cube1.setId("_cube_Cube1");
         cube1.setQuery(query);
         cube1.getMeasureGroups().add(measureGroupC1);
-        cube1.getDimensionConnectors().addAll(List.of(dimensionConnectorCube11, dimensionConnectorCube12));
+        cube1.getDimensionConnectors().addAll(List.of(dimensionConnectorCube11));
 
         AccessDatabaseSchemaGrant accessDatabaseSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
         accessDatabaseSchemaGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         accessDatabaseSchemaGrant.setDatabaseSchema(databaseSchema);
 
         AccessDimensionGrant dimensionGrant = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
-        dimensionGrant.setDimensionAccess(DimensionAccess.ALL);
+        dimensionGrant.setDimensionAccess(DimensionAccess.CUSTOM);
         dimensionGrant.setDimension(dimension1);
-
-        AccessMemberGrant memberGrant1 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
-        memberGrant1.setMemberAccess(MemberAccess.ALL);
-        memberGrant1.setMember("[Dimension1].[Hierarchy1].[A]");
-
-        AccessMemberGrant memberGrant2 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
-        memberGrant2.setMemberAccess(MemberAccess.NONE);
-        memberGrant2.setMember("[Dimension1].[Hierarchy1].[B]");
-
-        AccessMemberGrant memberGrant3 = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
-        memberGrant3.setMemberAccess(MemberAccess.NONE);
-        memberGrant3.setMember("[Dimension1].[Hierarchy1].[C]");
 
         AccessHierarchyGrant hierarchyGrant0 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant0.setHierarchyAccess(HierarchyAccess.ALL);
 
-        AccessHierarchyGrant hierarchyGrant = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
-        hierarchyGrant.setHierarchy(hierarchy);
-        hierarchyGrant.setHierarchyAccess(HierarchyAccess.CUSTOM);
-        hierarchyGrant.setTopLevel(level1);
-        hierarchyGrant.setBottomLevel(level1);
-        hierarchyGrant.setRollupPolicy(RollupPolicy.FULL);
-        hierarchyGrant.getMemberGrants().addAll(List.of(memberGrant1, memberGrant2, memberGrant3));
+        AccessHierarchyGrant hierarchyGrant1 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
+        hierarchyGrant1.setHierarchy(hierarchy1);
+        hierarchyGrant1.setHierarchyAccess(HierarchyAccess.ALL);
+        hierarchyGrant1.setTopLevel(level1);
+        hierarchyGrant1.setBottomLevel(level1);
+
+        AccessHierarchyGrant hierarchyGrant2 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
+        hierarchyGrant2.setHierarchy(hierarchy2);
+        hierarchyGrant2.setHierarchyAccess(HierarchyAccess.NONE);
+        hierarchyGrant2.setTopLevel(level2);
+        hierarchyGrant2.setBottomLevel(level2);
 
         AccessCubeGrant cube1Grant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         cube1Grant.setCube(cube1);
         cube1Grant.getDimensionGrants().add(dimensionGrant);
-        cube1Grant.getHierarchyGrants().addAll(List.of(hierarchyGrant0, hierarchyGrant));
+        cube1Grant.getHierarchyGrants().addAll(List.of(hierarchyGrant0, hierarchyGrant1, hierarchyGrant2));
         cube1Grant.setCubeAccess(CubeAccess.CUSTOM);
 
         AccessCatalogGrant accessCatalogGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
-        accessCatalogGrant.setCatalogAccess(CatalogAccess.ALL);
-        accessCatalogGrant.getCubeGrants().addAll(List.of(cube1Grant));
+        accessCatalogGrant.setCatalogAccess(CatalogAccess.CUSTOM);
         accessCatalogGrant.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
+        accessCatalogGrant.getCubeGrants().addAll(List.of(cube1Grant));
 
         AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
         role.setName("role1");
@@ -228,19 +216,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         role.getAccessCatalogGrants().add(accessCatalogGrant);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Daanse Tutorial - Access Member Grant");
-        catalog.setDescription("Access control with member-level grants");
+        catalog.setName("Daanse Tutorial - Access With Default Role");
+        catalog.setDescription("Access control with default role");
         catalog.getCubes().add(cube1);
+        catalog.setDefaultAccessRole(role);
         catalog.getAccessRoles().add(role);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Access Member Grant", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Access With Default Role", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(level1, "Level1", level1Body, 1, 3, 0, true, 0);
+        document(level1, "Level2", level2Body, 1, 3, 0, true, 0);
 
-        document(hierarchy, "Hierarchy1 without hasAll Level1", hierarchy1Body, 1, 4, 0, true, 0);
+        document(hierarchy1, "Hierarchy1 without hasAll Level1", hierarchy1Body, 1, 4, 0, true, 0);
         document(dimension1, "Dimension1", dimension1Body, 1, 5, 0, true, 0);
 
         document(cube1, "Cube1 with access all", cube1Body, 1, 6, 0, true, 2);

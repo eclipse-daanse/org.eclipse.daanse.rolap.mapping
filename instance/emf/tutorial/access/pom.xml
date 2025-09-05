@@ -32,5 +32,6 @@
     <module>dimensiongrand</module>
     <module>hierarchygrand</module>
     <module>membergrand</module>
+    <module>defaultrole</module>
   </modules>
 </project>

@@ -22,6 +22,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDatabaseSchemaGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDimensionGrant;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
@@ -33,6 +34,7 @@ import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
@@ -132,7 +134,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setColumn(keyColumn);
 
         ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy1.setHasAll(false);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("_hierarchy_Hierarchy1");
         hierarchy1.setPrimaryKey(keyColumn);
@@ -140,7 +141,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy1.getLevels().add(level1);
 
         ExplicitHierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy2.setHasAll(false);
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setId("_hierarchy_Hierarchy2");
         hierarchy2.setPrimaryKey(keyColumn);
@@ -180,6 +180,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         accessDatabaseSchemaGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         accessDatabaseSchemaGrant.setDatabaseSchema(databaseSchema);
 
+        AccessDimensionGrant accessDimensionGrantDimension0 = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
+        accessDimensionGrantDimension0.setDimensionAccess(DimensionAccess.ALL);
+
         AccessDimensionGrant accessDimensionGrantDimension1 = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
         accessDimensionGrantDimension1.setDimension(dimension1);
         accessDimensionGrantDimension1.setDimensionAccess(DimensionAccess.ALL);
@@ -188,10 +191,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         accessDimensionGrantDimension2.setDimension(dimension2);
         accessDimensionGrantDimension2.setDimensionAccess(DimensionAccess.NONE);
 
+        AccessHierarchyGrant accessHierarchyGrant0 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
+        accessHierarchyGrant0.setHierarchyAccess(HierarchyAccess.ALL);
+
         AccessCubeGrant cube1Grant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         cube1Grant.setCube(cube1);
         cube1Grant.setCubeAccess(CubeAccess.CUSTOM);
-        cube1Grant.getDimensionGrants().addAll(List.of(accessDimensionGrantDimension1, accessDimensionGrantDimension2));
+        cube1Grant.getDimensionGrants().addAll(List.of(accessDimensionGrantDimension0, accessDimensionGrantDimension1, accessDimensionGrantDimension2));
+        cube1Grant.getHierarchyGrants().add(accessHierarchyGrant0);
 
         AccessCatalogGrant accessCatalogGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrant.setCatalogAccess(CatalogAccess.CUSTOM);
