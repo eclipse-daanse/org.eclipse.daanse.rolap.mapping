@@ -138,7 +138,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setColumn(keyColumn);
 
         ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy1.setHasAll(false);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setId("_hierarchy_Hierarchy1");
         hierarchy1.setPrimaryKey(keyColumn);
@@ -146,7 +145,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchy1.getLevels().add(level1);
 
         ExplicitHierarchy hierarchy2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy2.setHasAll(false);
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setId("_hierarchy_Hierarchy2");
         hierarchy2.setPrimaryKey(keyColumn);
@@ -180,6 +178,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionGrant.setDimensionAccess(DimensionAccess.CUSTOM);
         dimensionGrant.setDimension(dimension1);
 
+        AccessHierarchyGrant hierarchyGrant0 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
+        hierarchyGrant0.setHierarchyAccess(HierarchyAccess.ALL);
+
         AccessHierarchyGrant hierarchyGrant1 = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant1.setHierarchy(hierarchy1);
         hierarchyGrant1.setHierarchyAccess(HierarchyAccess.ALL);
@@ -195,7 +196,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         AccessCubeGrant cube1Grant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
         cube1Grant.setCube(cube1);
         cube1Grant.getDimensionGrants().add(dimensionGrant);
-        cube1Grant.getHierarchyGrants().addAll(List.of(hierarchyGrant1));
+        cube1Grant.getHierarchyGrants().addAll(List.of(hierarchyGrant0, hierarchyGrant1, hierarchyGrant2));
         cube1Grant.setCubeAccess(CubeAccess.CUSTOM);
 
         AccessCatalogGrant accessCatalogGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
