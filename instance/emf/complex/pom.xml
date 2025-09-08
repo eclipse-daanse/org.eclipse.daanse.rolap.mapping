@@ -21,5 +21,6 @@
   <packaging>pom</packaging>
   <modules>
     <module>school</module>
+    <module>foodmart</module>
   </modules>
 </project>
