@@ -1509,8 +1509,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CONNECTOR_STORE_STORE.setId("_connector_store_store");
 
         CONNECTOR_STORE_HAS_COFFEE_BAR = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        CONNECTOR_STORE_HAS_COFFEE_BAR.setDimension(DIMENSION_STORE); // This would need a coffee bar dimension, but for
-                                                                      // now using store
+        CONNECTOR_STORE_HAS_COFFEE_BAR.setDimension(DIMENSION_STORE);
+        // This would need a coffee bar dimension, but for now using store
         CONNECTOR_STORE_HAS_COFFEE_BAR.setId("_connector_store_has_coffee_bar");
 
         // Initialize calculated members
