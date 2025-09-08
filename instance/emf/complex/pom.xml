@@ -23,5 +23,6 @@
     <module>school</module>
     <module>foodmart</module>
     <module>steelwheels</module>
+    <module>expressivenames</module>
   </modules>
 </project>
