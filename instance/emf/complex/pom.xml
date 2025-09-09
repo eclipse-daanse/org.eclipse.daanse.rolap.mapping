@@ -24,5 +24,6 @@
     <module>foodmart</module>
     <module>steelwheels</module>
     <module>expressivenames</module>
+    <module>population.jena</module>
   </modules>
 </project>
