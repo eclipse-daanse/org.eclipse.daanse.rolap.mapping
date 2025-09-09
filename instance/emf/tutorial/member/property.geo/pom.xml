@@ -16,9 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member</artifactId>
     <version>${revision}</version>
   </parent>
   <artifactId>
-    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro</artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.geo</artifactId>
 </project>

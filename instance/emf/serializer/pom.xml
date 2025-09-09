@@ -233,7 +233,14 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
-        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro</artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.intro</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.geo</artifactId>
       <version>${project.version}</version>
     </dependency>
 
