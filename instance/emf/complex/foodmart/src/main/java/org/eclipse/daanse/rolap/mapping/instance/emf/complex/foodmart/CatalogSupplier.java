@@ -20,18 +20,14 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
@@ -48,7 +44,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "3")
+@MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.4", group = "Full Examples")
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
