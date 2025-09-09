@@ -577,10 +577,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TABLEQUERY_AGEGROUPS.setId("_query_agegroups");
 
         TABLEQUERY_FACT = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_FACT.setId("_query_fact");
         TABLEQUERY_FACT.setTable(TABLE_EINWOHNER);
 
         // Initialize join query for Stadt-Planungsraum-Statistischer Bezirk hierarchy
         JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK.setId("_joinquery_stadt_planungsraum_statbezirk");
 
         // Left side: statbez table
         JoinedQueryElement leftStatbez = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
@@ -590,6 +592,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         // Right side: join of plraum and town tables
         JoinQuery joinPlraumTown = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        joinPlraumTown.setId("_joinquery_plraum_town");
 
         JoinedQueryElement leftPlraum = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
         leftPlraum.setKey(COLUMN_TOWNID_PLRAUM);

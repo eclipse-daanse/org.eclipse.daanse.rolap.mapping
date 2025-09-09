@@ -433,21 +433,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         // Initialize table queries
         TABLEQUERY_CUSTOMER = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_CUSTOMER.setId("_query_customer");
         TABLEQUERY_CUSTOMER.setTable(TABLE_CUSTOMER);
 
         TABLEQUERY_CUSTOMERS = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_CUSTOMERS.setId("_query_customers");
         TABLEQUERY_CUSTOMERS.setTable(TABLE_CUSTOMER);
 
         TABLEQUERY_PRODUCTS = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_PRODUCTS.setId("_query_products");
         TABLEQUERY_PRODUCTS.setTable(TABLE_PRODUCTS);
 
         TABLEQUERY_TIME = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_TIME.setId("_query_time");
         TABLEQUERY_TIME.setTable(TABLE_TIME);
 
         TABLEQUERY_ORDERSTATUS = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_ORDERSTATUS.setId("_query_orderstatus");
         TABLEQUERY_ORDERSTATUS.setTable(TABLE_ORDERFACT);
 
         TABLEQUERY_FACT = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_FACT.setId("_query_fact");
         TABLEQUERY_FACT.setTable(TABLE_ORDERFACT);
 
         // Initialize hierarchies
