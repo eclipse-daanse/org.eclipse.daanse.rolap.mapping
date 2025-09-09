@@ -1,0 +1,8 @@
+"ID","NAME","LOCATION","LATITUDE","LONGITUDE","DESCRIPTION"
+INTEGER,VARCHAR,VARCHAR,DECIMAL,DECIMAL,VARCHAR
+1,"San Francisco","{""type"":""Polygon"",""coordinates"":[[[-122.514,37.707],[-122.357,37.707],[-122.357,37.812],[-122.514,37.812],[-122.514,37.707]]]}",37.7749,-122.4194,"Technology hub and cultural center on the West Coast"
+2,"New York City","{""type"":""Polygon"",""coordinates"":[[[-74.047,40.679],[-73.906,40.679],[-73.906,40.882],[-74.047,40.882],[-74.047,40.679]]]}",40.7128,-74.0060,"Major financial and cultural center in the Northeast"
+3,"Chicago","{""type"":""Polygon"",""coordinates"":[[[-87.723,41.644],[-87.524,41.644],[-87.524,42.023],[-87.723,42.023],[-87.723,41.644]]]}",41.8781,-87.6298,"Industrial and transportation hub in the Midwest"
+4,"Los Angeles","{""type"":""Polygon"",""coordinates"":[[[-118.668,33.704],[-118.155,33.704],[-118.155,34.337],[-118.668,34.337],[-118.668,33.704]]]}",34.0522,-118.2437,"Entertainment capital and largest city on the West Coast"
+5,"Miami","{""type"":""Polygon"",""coordinates"":[[[-80.320,25.761],[-80.130,25.761],[-80.130,25.855],[-80.320,25.855],[-80.320,25.761]]]}",25.7617,-80.1918,"International gateway and tropical business center"
+6,"Seattle","{""type"":""Polygon"",""coordinates"":[[[-122.459,47.481],[-122.224,47.481],[-122.224,47.734],[-122.459,47.734],[-122.459,47.481]]]}",47.6062,-122.3321,"Pacific Northwest tech hub surrounded by natural beauty"

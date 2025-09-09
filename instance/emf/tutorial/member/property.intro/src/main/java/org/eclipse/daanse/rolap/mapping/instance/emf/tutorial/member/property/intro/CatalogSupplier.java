@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.level.member.property.intro;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.intro;
 
 import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
 
@@ -39,7 +39,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.5.1", source = Source.EMF, group = "Member") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.6.2.1", source = Source.EMF, group = "Member") // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 

@@ -16,16 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member</artifactId>
     <version>${revision}</version>
   </parent>
-  <packaging>pom</packaging>
-
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member</artifactId>
-
-  <modules>
-    <module>identifier</module>
-    <module>property.intro</module>
-    <module>property.geo</module>
-  </modules>
+  <artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.intro</artifactId>
 </project>
