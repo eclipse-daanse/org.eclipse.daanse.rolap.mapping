@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
-@MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "4")
+@MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.2", group = "Full Examples")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
