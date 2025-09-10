@@ -1,0 +1,6 @@
+defect_id,defect_name
+INTEGER,VARCHAR
+1,no
+2,yes_small
+3,yes_medium
+4,yes_large
