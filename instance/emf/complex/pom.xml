@@ -25,5 +25,6 @@
     <module>steelwheels</module>
     <module>expressivenames</module>
     <module>population.jena</module>
+    <module>parcel</module>
   </modules>
 </project>

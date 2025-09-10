@@ -1,0 +1,8 @@
+type_id,type_name
+INTEGER,VARCHAR
+1,letter
+2,package
+3,postcard
+4,parcel
+5,telex
+6,registered_mail

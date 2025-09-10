@@ -1,0 +1,62 @@
+address_id,continent,country,city,postal_code,street
+INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR
+1,Europe,Germany,Berlin,10115,Unter den Linden 1
+2,Europe,Germany,Munich,80331,Marienplatz 8
+3,Europe,Germany,Hamburg,20095,Speicherstadt 15
+4,Europe,Germany,Frankfurt,60311,Zeil 42
+5,Europe,France,Paris,75001,Rue de Rivoli 10
+6,Europe,France,Lyon,69001,Place Bellecour 7
+7,Europe,France,Marseille,13001,Vieux Port 23
+8,Europe,United Kingdom,London,SW1A 1AA,Buckingham Palace Road
+9,Europe,United Kingdom,Manchester,M1 1AA,Market Street 88
+10,Europe,United Kingdom,Edinburgh,EH1 1YZ,Royal Mile 45
+11,Europe,Italy,Rome,00118,Via del Corso 100
+12,Europe,Italy,Milan,20121,Via Montenapoleone 12
+13,Europe,Spain,Madrid,28001,Gran Via 28
+14,Europe,Spain,Barcelona,08001,Las Ramblas 67
+15,Europe,Netherlands,Amsterdam,1012,Damrak 95
+16,Europe,Netherlands,Rotterdam,3011,Coolsingel 77
+17,North America,United States,New York,10001,Broadway 1500
+18,North America,United States,Los Angeles,90210,Sunset Boulevard 9000
+19,North America,United States,Chicago,60601,Michigan Avenue 875
+20,North America,United States,Houston,77002,Main Street 1200
+21,North America,United States,Phoenix,85001,Central Avenue 455
+22,North America,United States,Philadelphia,19102,Broad Street 1234
+23,North America,United States,San Francisco,94102,Market Street 789
+24,North America,United States,Miami,33101,Biscayne Boulevard 555
+25,North America,Canada,Toronto,M5H 2N2,Bay Street 100
+26,North America,Canada,Vancouver,V6B 1A1,Robson Street 888
+27,North America,Canada,Montreal,H3A 0G4,Sainte-Catherine Street 1500
+28,North America,Mexico,Mexico City,06000,Reforma Avenue 234
+29,North America,Mexico,Guadalajara,44100,Avenida Vallarta 789
+30,South America,Brazil,São Paulo,01310,Avenida Paulista 1000
+31,South America,Brazil,Rio de Janeiro,20040,Copacabana Beach 456
+32,South America,Argentina,Buenos Aires,C1000,Florida Street 750
+33,South America,Chile,Santiago,7500000,Alameda 1234
+34,South America,Colombia,Bogotá,110111,Carrera 7 456
+35,Asia,Japan,Tokyo,100-0001,Chiyoda 1-1
+36,Asia,Japan,Osaka,530-0001,Umeda 2-2
+37,Asia,Japan,Kyoto,600-0000,Gion District 88
+38,Asia,China,Shanghai,200001,Nanjing Road 88
+39,Asia,China,Beijing,100000,Wangfujing Street 123
+40,Asia,China,Guangzhou,510000,Beijing Road 567
+41,Asia,China,Shenzhen,518000,Huaqiang North 789
+42,Asia,South Korea,Seoul,04524,Gangnam-daero 456
+43,Asia,South Korea,Busan,48058,Haeundae Beach Road 234
+44,Asia,India,Mumbai,400001,Marine Drive 777
+45,Asia,India,Delhi,110001,Connaught Place 456
+46,Asia,India,Bangalore,560001,MG Road 123
+47,Asia,Singapore,Singapore,018956,Orchard Road 313
+48,Asia,Thailand,Bangkok,10500,Sukhumvit Road 999
+49,Asia,Malaysia,Kuala Lumpur,50088,Petronas Twin Towers 1
+50,Oceania,Australia,Sydney,2000,George Street 456
+51,Oceania,Australia,Melbourne,3000,Collins Street 789
+52,Oceania,Australia,Brisbane,4000,Queen Street 234
+53,Oceania,New Zealand,Auckland,1010,Queen Street 567
+54,Oceania,New Zealand,Wellington,6011,Lambton Quay 123
+55,Africa,South Africa,Cape Town,8001,Long Street 88
+56,Africa,South Africa,Johannesburg,2000,Sandton Drive 456
+57,Africa,Egypt,Cairo,11511,Tahrir Square 123
+58,Africa,Morocco,Casablanca,20000,Mohammed V Avenue 789
+59,Africa,Nigeria,Lagos,101001,Victoria Island 234
+60,Africa,Kenya,Nairobi,00100,Kenyatta Avenue 567
