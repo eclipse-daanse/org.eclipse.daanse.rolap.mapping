@@ -722,7 +722,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // Initialize database schema and catalog
         DATABASE_SCHEMA_EXPRESSIVENAMES = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         DATABASE_SCHEMA_EXPRESSIVENAMES.setId("_databaseschema_expressivenames");
-        DATABASE_SCHEMA_EXPRESSIVENAMES.setName(CATALOG_NAME);
         DATABASE_SCHEMA_EXPRESSIVENAMES.getTables()
                 .addAll(List.of(TABLE_CUBE1FACT, TABLE_D1H1L1TABLE, TABLE_D2H1L1TABLE, TABLE_D2H2L2TABLE,
                         TABLE_D3H1L1TABLE, TABLE_D3H2L2TABLE, TABLE_D3H2L1TABLE, TABLE_D3H3L3TABLE, TABLE_D3H3L2TABLE,
