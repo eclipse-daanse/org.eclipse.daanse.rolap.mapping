@@ -190,6 +190,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube2.setQuery(query);
         cube2.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
+        cube2.getCalculatedMembers().add(calculatedMember2);
 
         CalculatedMember calculatedMemberVC = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMemberVC.setName("Sum_Cub");
