@@ -20,6 +20,6 @@ public interface CalculatedMemberMapping extends MemberMapping {
 
     String getParent();
 
-    PhysicalCubeMapping getPhysicalCube();
+    CubeMapping getPhysicalCube();
 
 }

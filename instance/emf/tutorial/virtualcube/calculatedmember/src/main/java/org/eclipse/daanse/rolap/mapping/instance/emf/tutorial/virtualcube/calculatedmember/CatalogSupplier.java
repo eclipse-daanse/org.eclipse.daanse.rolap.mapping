@@ -167,7 +167,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Sum_Cub1");
         calculatedMember1.setId("_cm_Sum_Cub1");
-        calculatedMember1.setHierarchy(hierarchy);
         calculatedMember1.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube1]");
 
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
@@ -181,7 +180,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Sum_Cub2");
         calculatedMember2.setId("_cm_Sum_Cub2");
-        calculatedMember2.setHierarchy(hierarchy);
         calculatedMember2.setFormula("[Measures].[MeasureCube2] + [Measures].[MeasureCube2]");
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
