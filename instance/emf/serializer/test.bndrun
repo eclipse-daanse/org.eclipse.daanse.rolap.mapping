@@ -125,6 +125,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.intro',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel'
 # -runbundles is calculated by the bnd-resolver-maven-plugin
 
@@ -143,6 +144,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.school;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggrand;version='[0.0.1,0.0.2)',\

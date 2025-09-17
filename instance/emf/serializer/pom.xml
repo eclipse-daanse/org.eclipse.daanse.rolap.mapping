@@ -584,13 +584,11 @@
     <!--      <version>${project.version}</version>-->
     <!--    </dependency>-->
 
-    <!--    <dependency>-->
-    <!--      <groupId>org.eclipse.daanse</groupId>-->
-    <!--      <artifactId>-->
-    <!--
-    org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels</artifactId>-->
-    <!--      <version>${project.version}</version>-->
-    <!--    </dependency>-->
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
