@@ -134,7 +134,7 @@
       <details key="documentation" value="Abstract base class for all cube types in the OLAP model. A cube represents a multidimensional data structure that enables analytical queries across multiple business dimensions. It serves as the primary analytical object that users interact with to perform OLAP operations like slicing, dicing, drilling down, and rolling up. Cubes contain measures (the numeric facts to be analyzed) and are connected to dimensions (the analytical perspectives for viewing the data). The abstract Cube class defines common properties and behaviors shared by both PhysicalCube (backed by fact tables) and VirtualCube (combining multiple physical cubes) implementations."/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="calculatedMembers" upperBound="-1"
-        eType="#//CalculatedMember" containment="true" eOpposite="#//CalculatedMember/physicalCube">
+        eType="#//CalculatedMember" containment="true" eOpposite="#//CalculatedMember/cube">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Collection of calculated members defined at the cube level. Calculated members are virtual members that are computed using MDX expressions rather than being stored in the database. They can represent complex business calculations (like profit margins, growth rates, or variance analysis), derived measures, or custom dimension members. Each calculated member must belong to a specific dimension — most commonly the Measures dimension for calculated measures. Cube-level calculated members are available in all queries against this cube and provide a way to extend the analytical model without modifying the underlying data structures."/>
       </eAnnotations>
@@ -949,10 +949,10 @@
         <details key="documentation" value="Reference to the Hierarchy within which this calculated member should be positioned, establishing the dimensional context that determines the member's analytical scope, navigational placement, and integration with existing hierarchical structures. The hierarchy reference defines the analytical domain where the calculated member will be available for selection, filtering, and navigation operations, ensuring that computed members integrate seamlessly with dimensional browsing, member selection, and hierarchical drill-down capabilities provided by OLAP client applications and business intelligence tools."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="physicalCube" lowerBound="1"
-        eType="#//Cube" eOpposite="#//Cube/calculatedMembers">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="cube" lowerBound="1" eType="#//Cube"
+        eOpposite="#//Cube/calculatedMembers">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Required reference to the PhysicalCube that contains and manages this calculated member, establishing the analytical context and data scope within which the calculated member operates and ensuring proper integration with the cube's dimensional structure, measure definitions, and query processing capabilities. The physical cube reference defines the analytical environment where the calculated member can access fact data, reference other measures and members, and participate in multidimensional analysis operations including slicing, dicing, drilling, and pivoting across the cube's dimensional space."/>
+        <details key="documentation" value="Required reference to the Cube that contains and manages this calculated member, establishing the analytical context and data scope within which the calculated member operates and ensuring proper integration with the cube's dimensional structure, measure definitions, and query processing capabilities. The cube reference defines the analytical environment where the calculated member can access fact data, reference other measures and members, and participate in multidimensional analysis operations including slicing, dicing, drilling, and pivoting across the cube's dimensional space."/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
