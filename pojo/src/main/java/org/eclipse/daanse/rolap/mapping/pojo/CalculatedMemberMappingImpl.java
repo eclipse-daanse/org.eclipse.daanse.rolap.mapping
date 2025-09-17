@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
 import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
 
 public class CalculatedMemberMappingImpl extends MemberMappingImpl implements CalculatedMemberMapping {
@@ -76,7 +77,7 @@ public class CalculatedMemberMappingImpl extends MemberMappingImpl implements Ca
     }
 
     @Override
-    public PhysicalCubeMapping getPhysicalCube() {
+    public CubeMapping getCube() {
         return physicalCube;
     }
 
