@@ -20,11 +20,14 @@ import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
+import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
@@ -374,62 +377,110 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_MARKETS_TERRITORY = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_MARKETS_TERRITORY.setName("Territory");
         LEVEL_MARKETS_TERRITORY.setColumn(COLUMN_TERRITORY_CUSTOMER);
+        LEVEL_MARKETS_TERRITORY.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_MARKETS_TERRITORY.setUniqueMembers(true);
+        LEVEL_MARKETS_TERRITORY.setType(LevelDefinition.REGULAR);
         LEVEL_MARKETS_TERRITORY.setId("_level_markets_territory");
+        LEVEL_MARKETS_TERRITORY.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_MARKETS_COUNTRY = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_MARKETS_COUNTRY.setName("Country");
         LEVEL_MARKETS_COUNTRY.setColumn(COLUMN_COUNTRY_CUSTOMER);
+        LEVEL_MARKETS_COUNTRY.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_MARKETS_COUNTRY.setUniqueMembers(false);
+        LEVEL_MARKETS_COUNTRY.setType(LevelDefinition.REGULAR);
         LEVEL_MARKETS_COUNTRY.setId("_level_markets_country");
+        LEVEL_MARKETS_COUNTRY.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_MARKETS_STATE = RolapMappingFactory.eINSTANCE.createLevel();
-        LEVEL_MARKETS_STATE.setName("State");
+        LEVEL_MARKETS_STATE.setName("State Province");
         LEVEL_MARKETS_STATE.setColumn(COLUMN_STATE_CUSTOMER);
+        LEVEL_MARKETS_STATE.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_MARKETS_STATE.setUniqueMembers(true);
+        LEVEL_MARKETS_STATE.setType(LevelDefinition.REGULAR);
         LEVEL_MARKETS_STATE.setId("_level_markets_state");
+        LEVEL_MARKETS_STATE.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_MARKETS_CITY = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_MARKETS_CITY.setName("City");
         LEVEL_MARKETS_CITY.setColumn(COLUMN_CITY_CUSTOMER);
+        LEVEL_MARKETS_CITY.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_MARKETS_CITY.setUniqueMembers(true);
+        LEVEL_MARKETS_CITY.setType(LevelDefinition.REGULAR);
         LEVEL_MARKETS_CITY.setId("_level_markets_city");
+        LEVEL_MARKETS_CITY.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_CUSTOMERS_CUSTOMER = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_CUSTOMERS_CUSTOMER.setName("Customer");
         LEVEL_CUSTOMERS_CUSTOMER.setColumn(COLUMN_CUSTOMERNAME_CUSTOMER);
+        LEVEL_CUSTOMERS_CUSTOMER.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_CUSTOMERS_CUSTOMER.setUniqueMembers(true);
+        LEVEL_CUSTOMERS_CUSTOMER.setType(LevelDefinition.REGULAR);
         LEVEL_CUSTOMERS_CUSTOMER.setId("_level_customers_customer");
+        LEVEL_CUSTOMERS_CUSTOMER.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_PRODUCT_LINE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_PRODUCT_LINE.setName("Line");
         LEVEL_PRODUCT_LINE.setColumn(COLUMN_PRODUCTLINE_PRODUCTS);
+        LEVEL_PRODUCT_LINE.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_PRODUCT_LINE.setUniqueMembers(true);
+        LEVEL_PRODUCT_LINE.setType(LevelDefinition.REGULAR);
         LEVEL_PRODUCT_LINE.setId("_level_product_line");
+        LEVEL_PRODUCT_LINE.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_PRODUCT_VENDOR = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_PRODUCT_VENDOR.setName("Vendor");
         LEVEL_PRODUCT_VENDOR.setColumn(COLUMN_PRODUCTVENDOR_PRODUCTS);
+        LEVEL_PRODUCT_VENDOR.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_PRODUCT_VENDOR.setUniqueMembers(true);
+        LEVEL_PRODUCT_VENDOR.setType(LevelDefinition.REGULAR);
         LEVEL_PRODUCT_VENDOR.setId("_level_product_vendor");
+        LEVEL_PRODUCT_VENDOR.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_PRODUCT_PRODUCT = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_PRODUCT_PRODUCT.setName("Product");
         LEVEL_PRODUCT_PRODUCT.setColumn(COLUMN_PRODUCTNAME_PRODUCTS);
+        LEVEL_PRODUCT_PRODUCT.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_PRODUCT_PRODUCT.setUniqueMembers(true);
+        LEVEL_PRODUCT_PRODUCT.setType(LevelDefinition.REGULAR);
         LEVEL_PRODUCT_PRODUCT.setId("_level_product_product");
+        LEVEL_PRODUCT_PRODUCT.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_TIME_YEARS = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_TIME_YEARS.setName("Years");
         LEVEL_TIME_YEARS.setColumn(COLUMN_YEAR_ID_TIME);
+        LEVEL_TIME_YEARS.setColumnType(ColumnInternalDataType.INTEGER);
+        LEVEL_TIME_YEARS.setUniqueMembers(true);
+        LEVEL_TIME_YEARS.setType(LevelDefinition.TIME_YEARS);
         LEVEL_TIME_YEARS.setId("_level_time_years");
+        LEVEL_TIME_YEARS.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_TIME_QUARTERS = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_TIME_QUARTERS.setName("Quarters");
         LEVEL_TIME_QUARTERS.setColumn(COLUMN_QTR_NAME_TIME);
+        LEVEL_TIME_QUARTERS.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_TIME_QUARTERS.setUniqueMembers(false);
+        LEVEL_TIME_QUARTERS.setType(LevelDefinition.TIME_QUARTERS);
         LEVEL_TIME_QUARTERS.setId("_level_time_quarters");
+        LEVEL_TIME_QUARTERS.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_TIME_MONTHS = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_TIME_MONTHS.setName("Months");
         LEVEL_TIME_MONTHS.setColumn(COLUMN_MONTH_NAME_TIME);
+        LEVEL_TIME_MONTHS.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_TIME_MONTHS.setUniqueMembers(false);
+        LEVEL_TIME_MONTHS.setType(LevelDefinition.TIME_MONTHS);
         LEVEL_TIME_MONTHS.setId("_level_time_months");
+        LEVEL_TIME_MONTHS.setHideMemberIf(HideMemberIf.NEVER);
 
         LEVEL_ORDERSTATUS_TYPE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ORDERSTATUS_TYPE.setName("Type");
         LEVEL_ORDERSTATUS_TYPE.setColumn(COLUMN_STATUS_ORDERFACT);
+        LEVEL_ORDERSTATUS_TYPE.setColumnType(ColumnInternalDataType.STRING);
+        LEVEL_ORDERSTATUS_TYPE.setUniqueMembers(true);
+        LEVEL_ORDERSTATUS_TYPE.setType(LevelDefinition.REGULAR);
         LEVEL_ORDERSTATUS_TYPE.setId("_level_orderstatus_type");
+        LEVEL_ORDERSTATUS_TYPE.setHideMemberIf(HideMemberIf.NEVER);
 
         // Initialize table queries
         TABLEQUERY_CUSTOMER = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -458,44 +509,49 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         // Initialize hierarchies
         HIERARCHY_MARKETS = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_MARKETS.setName("Markets Hierarchy");
+        //HIERARCHY_MARKETS.setName("Markets Hierarchy");
         HIERARCHY_MARKETS.setId("_hierarchy_markets");
         HIERARCHY_MARKETS.setHasAll(true);
+        HIERARCHY_MARKETS.setPrimaryKey(COLUMN_CUSTOMERNUMBER_CUSTOMER);
         HIERARCHY_MARKETS.setAllMemberName("All Markets");
         HIERARCHY_MARKETS.setQuery(TABLEQUERY_CUSTOMER);
         HIERARCHY_MARKETS.getLevels().addAll(
                 List.of(LEVEL_MARKETS_TERRITORY, LEVEL_MARKETS_COUNTRY, LEVEL_MARKETS_STATE, LEVEL_MARKETS_CITY));
 
         HIERARCHY_CUSTOMERS = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_CUSTOMERS.setName("Customers Hierarchy");
+        //HIERARCHY_CUSTOMERS.setName("Customers Hierarchy");
         HIERARCHY_CUSTOMERS.setId("_hierarchy_customers");
         HIERARCHY_CUSTOMERS.setHasAll(true);
         HIERARCHY_CUSTOMERS.setAllMemberName("All Customers");
+        HIERARCHY_CUSTOMERS.setPrimaryKey(COLUMN_CUSTOMERNUMBER_CUSTOMER);
         HIERARCHY_CUSTOMERS.setQuery(TABLEQUERY_CUSTOMERS);
         HIERARCHY_CUSTOMERS.getLevels().add(LEVEL_CUSTOMERS_CUSTOMER);
 
         HIERARCHY_PRODUCT = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_PRODUCT.setName("Product Hierarchy");
+        //HIERARCHY_PRODUCT.setName("Product Hierarchy");
         HIERARCHY_PRODUCT.setId("_hierarchy_product");
         HIERARCHY_PRODUCT.setHasAll(true);
         HIERARCHY_PRODUCT.setAllMemberName("All Products");
+        HIERARCHY_PRODUCT.setPrimaryKey(COLUMN_PRODUCTCODE_PRODUCTS);
         HIERARCHY_PRODUCT.setQuery(TABLEQUERY_PRODUCTS);
         HIERARCHY_PRODUCT.getLevels().addAll(List.of(LEVEL_PRODUCT_LINE, LEVEL_PRODUCT_VENDOR, LEVEL_PRODUCT_PRODUCT));
 
         HIERARCHY_TIME = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_TIME.setName("Time Hierarchy");
+        //HIERARCHY_TIME.setName("Time Hierarchy");
         HIERARCHY_TIME.setId("_hierarchy_time");
         HIERARCHY_TIME.setHasAll(true);
         HIERARCHY_TIME.setAllMemberName("All Years");
+        HIERARCHY_TIME.setPrimaryKey(COLUMN_TIME_ID_TIME);
         HIERARCHY_TIME.setQuery(TABLEQUERY_TIME);
         HIERARCHY_TIME.getLevels().addAll(List.of(LEVEL_TIME_YEARS, LEVEL_TIME_QUARTERS, LEVEL_TIME_MONTHS));
 
         HIERARCHY_ORDERSTATUS = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_ORDERSTATUS.setName("Order Status Hierarchy");
+        //HIERARCHY_ORDERSTATUS.setName("Order Status Hierarchy");
         HIERARCHY_ORDERSTATUS.setId("_hierarchy_orderstatus");
         HIERARCHY_ORDERSTATUS.setHasAll(true);
         HIERARCHY_ORDERSTATUS.setAllMemberName("All Status Types");
-        HIERARCHY_ORDERSTATUS.setQuery(TABLEQUERY_ORDERSTATUS);
+        HIERARCHY_ORDERSTATUS.setPrimaryKey(COLUMN_STATUS_ORDERFACT);
+        //HIERARCHY_ORDERSTATUS.setQuery(TABLEQUERY_ORDERSTATUS);
         HIERARCHY_ORDERSTATUS.getLevels().add(LEVEL_ORDERSTATUS_TYPE);
 
         // Initialize dimensions
@@ -583,7 +639,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // Initialize database schema and catalog
         DATABASE_SCHEMA_STEELWHEELS = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         DATABASE_SCHEMA_STEELWHEELS.setId("_databaseSchema_steelwheels");
-        DATABASE_SCHEMA_STEELWHEELS.setName("steelwheels");
+        //DATABASE_SCHEMA_STEELWHEELS.setName("steelwheels");
         DATABASE_SCHEMA_STEELWHEELS.getTables()
                 .addAll(List.of(TABLE_ORDERFACT, TABLE_CUSTOMER, TABLE_PRODUCTS, TABLE_TIME));
 
