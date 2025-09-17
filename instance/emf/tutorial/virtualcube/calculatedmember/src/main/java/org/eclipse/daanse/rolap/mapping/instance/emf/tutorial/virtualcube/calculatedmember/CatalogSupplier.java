@@ -164,13 +164,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector2.setForeignKey(keyColumn);
         dimensionConnector2.setDimension(dimension);
 
+        CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember1.setName("Sum_Cub1");
+        calculatedMember1.setId("_cm_Sum_Cub1");
+        calculatedMember1.setHierarchy(hierarchy);
+        calculatedMember1.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube1]");
+
         PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
         cube1.setId("_cube1");
         cube1.setQuery(query);
         cube1.getDimensionConnectors().add(dimensionConnector1);
         cube1.getMeasureGroups().add(measureGroup1);
-        dimensionConnector1.setPhysicalCube(cube1);
+        cube1.getCalculatedMembers().add(calculatedMember1);
+
+        CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember2.setName("Sum_Cub2");
+        calculatedMember2.setId("_cm_Sum_Cub2");
+        calculatedMember2.setHierarchy(hierarchy);
+        calculatedMember2.setFormula("[Measures].[MeasureCube2] + [Measures].[MeasureCube2]");
 
         PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
@@ -178,20 +190,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube2.setQuery(query);
         cube2.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
-        dimensionConnector2.setPhysicalCube(cube2);
 
-        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedMember.setName("Sum_Cub");
-        calculatedMember.setId("_cm_Sum_Cub");
-        calculatedMember.setHierarchy(hierarchy);
-        calculatedMember.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
+        CalculatedMember calculatedMemberVC = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMemberVC.setName("Sum_Cub");
+        calculatedMemberVC.setId("_cm_Sum_Cub");
+        calculatedMemberVC.setHierarchy(hierarchy);
+        calculatedMemberVC.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
 
         VirtualCube vCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
         vCube.setName("Cube1Cube2");
         vCube.setId("_cube1cube2");
         vCube.getDimensionConnectors().addAll(List.of(dimensionConnector1, dimensionConnector2));
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
-        vCube.getCalculatedMembers().add(calculatedMember);
+        vCube.getReferencedCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2));
+        vCube.getCalculatedMembers().add(calculatedMemberVC);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Calculated Member");
@@ -204,7 +216,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(measure1, "MeasureCube1", measure1Body, 1, 4, 0, true, 2);
         document(measure2, "MeasureCube2", measure2Body, 1, 5, 0, true, 2);
-        document(calculatedMember, "Sum_Cub", calculatedMemberBody, 1, 5, 0, true, 2);
+        document(calculatedMember1, "Sum_Cub", calculatedMemberBody, 1, 5, 0, true, 2);
         document(cube1, "Cube1", cube1Body, 1, 6, 0, true, 2);
         document(cube1, "Cube1", cube2Body, 1, 7, 0, true, 2);
         document(vCube, "VirtualCubeMeasureOnly", vCubeBody, 1, 7, 0, true, 2);
