@@ -124,7 +124,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     // Static table queries
     public static final TableQuery TABLEQUERY_CUSTOMER;
-    public static final TableQuery TABLEQUERY_CUSTOMERS;
     public static final TableQuery TABLEQUERY_PRODUCTS;
     public static final TableQuery TABLEQUERY_TIME;
     public static final TableQuery TABLEQUERY_ORDERSTATUS;
@@ -150,6 +149,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             SteelWheels is a sample database representing a classic car and motorcycle sales company.
             It contains order data with product information, customer details, and time-based sales transactions
             for analyzing business performance across different markets and product lines.
+            """;
+
+    private static final String queryCustomerBody = """
+            The Query selects all columns from the customer_w_ter table.
+            """;
+
+    private static final String queryProductBody = """
+            The Query selects all columns from the products table.
+            """;
+
+    private static final String queryTimeBody = """
+            The Query selects all columns from the time table.
+            """;
+
+    private static final String queryStatusBody = """
+            The Query selects all columns from the orderfact table.
+            """;
+
+    private static final String queryBody = """
+            The Query selects all columns from the orderfact table for cube measures and dimension connections.
             """;
 
     private static final String salesCubeBody = """
@@ -487,10 +506,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TABLEQUERY_CUSTOMER.setId("_query_customer");
         TABLEQUERY_CUSTOMER.setTable(TABLE_CUSTOMER);
 
-        TABLEQUERY_CUSTOMERS = RolapMappingFactory.eINSTANCE.createTableQuery();
-        TABLEQUERY_CUSTOMERS.setId("_query_customers");
-        TABLEQUERY_CUSTOMERS.setTable(TABLE_CUSTOMER);
-
         TABLEQUERY_PRODUCTS = RolapMappingFactory.eINSTANCE.createTableQuery();
         TABLEQUERY_PRODUCTS.setId("_query_products");
         TABLEQUERY_PRODUCTS.setTable(TABLE_PRODUCTS);
@@ -524,7 +539,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY_CUSTOMERS.setHasAll(true);
         HIERARCHY_CUSTOMERS.setAllMemberName("All Customers");
         HIERARCHY_CUSTOMERS.setPrimaryKey(COLUMN_CUSTOMERNUMBER_CUSTOMER);
-        HIERARCHY_CUSTOMERS.setQuery(TABLEQUERY_CUSTOMERS);
+        HIERARCHY_CUSTOMERS.setQuery(TABLEQUERY_CUSTOMER);
         HIERARCHY_CUSTOMERS.getLevels().add(LEVEL_CUSTOMERS_CUSTOMER);
 
         HIERARCHY_PRODUCT = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
@@ -651,15 +666,63 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CATALOG_STEELWHEELS.getCubes().add(CUBE_STEELWHEELSSALES);
 
         // Add documentation
-        document(CATALOG_STEELWHEELS, "SteelWheels Database", steelWheelsBody, 1, 0, 0, false, 0);
-        document(CUBE_STEELWHEELSSALES, "Sales Cube", salesCubeBody, 1, 1, 0, true, 0);
-        document(DIMENSION_MARKETS, "Markets Dimension", marketsBody, 1, 2, 0, true, 0);
-        document(DIMENSION_CUSTOMERS, "Customers Dimension", customersBody, 1, 3, 0, true, 0);
-        document(DIMENSION_PRODUCT, "Product Dimension", productBody, 1, 4, 0, true, 0);
-        document(DIMENSION_TIME, "Time Dimension", timeBody, 1, 5, 0, true, 0);
+        document(CATALOG_STEELWHEELS, "SteelWheels Database", steelWheelsBody, 1, 0, 1, false, 0);
+
+        document(TABLEQUERY_CUSTOMER, "Customer Query", queryCustomerBody, 1, 1, 1, true, 0);
+        document(TABLEQUERY_PRODUCTS, "Product Query", queryProductBody, 1, 2, 1, true, 0);
+        document(TABLEQUERY_TIME, "Time Query", queryTimeBody, 1, 3, 1, true, 0);
+        document(TABLEQUERY_ORDERSTATUS, "Status Query", queryStatusBody, 1, 4, 1, true, 0);
+        document(TABLEQUERY_FACT, "Fact Query", queryBody, 1, 5, 1, true, 0);
+
+        document(DIMENSION_MARKETS, "Markets Dimension", marketsBody, 1, 6, 1, true, 0);
+        document(DIMENSION_CUSTOMERS, "Customers Dimension", customersBody, 1, 7, 1, true, 0);
+        document(DIMENSION_PRODUCT, "Product Dimension", productBody, 1, 8, 1, true, 0);
+        document(DIMENSION_TIME, "Time Dimension", timeBody, 1, 9, 1, true, 0);
         document(DIMENSION_ORDERSTATUS, "Order Status Dimension",
                 "The Order Status dimension represents the current state of orders for tracking fulfillment progress.",
-                1, 6, 0, true, 0);
+                1, 10, 0, true, 0);
+
+        document(HIERARCHY_MARKETS, "Markets Hierarchy",
+                "The Markets hierarchy organizes geographic territories with hasAll enabled and primary key on customer number.", 1, 11, 1, true, 0);
+        document(HIERARCHY_CUSTOMERS, "Customers Hierarchy",
+                "The Customers hierarchy provides customer-level analysis with hasAll enabled.", 1, 12, 1, true, 0);
+        document(HIERARCHY_PRODUCT, "Product Hierarchy",
+                "The Product hierarchy organizes products by line, vendor, and individual product with hasAll enabled.", 1, 13, 1, true, 0);
+        document(HIERARCHY_TIME, "Time Hierarchy",
+                "The Time hierarchy provides temporal analysis with years, quarters, and months with hasAll enabled.", 1, 14, 1, true, 0);
+        document(HIERARCHY_ORDERSTATUS, "Order Status Hierarchy",
+                "The Time hierarchy provides temporal analysis with product status with hasAll enabled.", 1, 15, 1, true, 0);
+
+        document(LEVEL_MARKETS_TERRITORY, "Territory Level",
+                "Territory level represents geographic territories for market analysis.", 1, 16, 1, true, 0);
+        document(LEVEL_MARKETS_COUNTRY, "Country Level",
+                "Country level represents country for market analysis.", 1, 17, 1, true, 0);
+        document(LEVEL_MARKETS_STATE, "State Level",
+                "Country level represents state for market analysis.", 1, 18, 1, true, 0);
+        document(LEVEL_MARKETS_CITY, "State City",
+                "Country level represents city for market analysis.", 1, 19, 1, true, 0);
+        document(LEVEL_CUSTOMERS_CUSTOMER, "Customer Level",
+                "Customer level provides individual customer details for analysis.", 1, 20, 1, true, 0);
+        document(LEVEL_PRODUCT_LINE, "Product Line Level",
+                "Product line level categorizes products into major product categories.", 1, 21, 1, true, 0);
+        document(LEVEL_PRODUCT_VENDOR, "Vendor Level",
+                "Vendor level into major product categories.", 1, 22, 1, true, 0);
+        document(LEVEL_PRODUCT_PRODUCT, "Product Level",
+                "Product name into major product categories.", 1, 23, 1, true, 0);
+        document(LEVEL_TIME_YEARS, "Years Level",
+                "Years level provides temporal analysis by year periods.", 1, 24, 1, true, 0);
+        document(LEVEL_TIME_QUARTERS, "Quarters Level",
+                "Quarters level provides temporal analysis by quarter periods.", 1, 25, 1, true, 0);
+        document(LEVEL_TIME_MONTHS, "Months Level",
+                "Months level provides temporal analysis by month periods.", 1, 26, 1, true, 0);
+        document(LEVEL_ORDERSTATUS_TYPE, "Status Level",
+                "Products status products into major product categories.", 1, 27, 1, true, 0);
+
+        document(MEASURE_QUANTITY, "Measure Quantity", "Measure Quantity use orderfact table QUANTITYORDERED column with sum aggregation in Cube.", 1, 28, 1, true, 0);
+
+        document(MEASURE_SALES, "Measure Sales", "Measure Sales is sum of product sales.", 1, 29, 1, true, 0);
+
+        document(CUBE_STEELWHEELSSALES, "Sales Cube", salesCubeBody, 1, 30, 1, true, 0);
     }
 
     @Override
