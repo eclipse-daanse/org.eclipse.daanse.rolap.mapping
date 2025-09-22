@@ -698,9 +698,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(LEVEL_MARKETS_COUNTRY, "Country Level",
                 "Country level represents country for market analysis.", 1, 17, 1, true, 0);
         document(LEVEL_MARKETS_STATE, "State Level",
-                "Country level represents state for market analysis.", 1, 18, 1, true, 0);
+                "State level represents state for market analysis.", 1, 18, 1, true, 0);
         document(LEVEL_MARKETS_CITY, "State City",
-                "Country level represents city for market analysis.", 1, 19, 1, true, 0);
+                "City level represents city for market analysis.", 1, 19, 1, true, 0);
         document(LEVEL_CUSTOMERS_CUSTOMER, "Customer Level",
                 "Customer level provides individual customer details for analysis.", 1, 20, 1, true, 0);
         document(LEVEL_PRODUCT_LINE, "Product Line Level",
