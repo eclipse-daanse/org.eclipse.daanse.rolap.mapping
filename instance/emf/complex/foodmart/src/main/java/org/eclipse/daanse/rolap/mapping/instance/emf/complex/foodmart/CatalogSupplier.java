@@ -286,7 +286,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final AggregationExclude AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997;
 
     // Static table queries
-    public static final TableQuery QUERY_TIME;
+    //public static final TableQuery QUERY_TIME;
     public static final TableQuery QUERY_STORE;
     public static final TableQuery QUERY_CUSTOMER;
     public static final TableQuery QUERY_PRODUCT;
@@ -678,10 +678,99 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The FoodMart database is a classic example of a data warehouse schema used for demonstrating OLAP and business intelligence concepts.
             It contains sales data for a fictional food retail chain with multiple stores, products, customers, and time periods.
             """;
+    private static final String databaseSchemaBody = """
+            FoodMart is a sample database representing a classic sales company.
+            It contains order data with product information, customer details, and time-based sales transactions
+            for analyzing business performance across different markets and product lines.
+            """;
+
+    private static final String querySalesBody = """
+            SalesFactQuery it directly references the physical table `sales_fact_1997`.
+            """;
+
+    private static final String queryIventoryFactBody = """
+            InventoryFactQuery it directly references the physical table `inventory_fact_1997`.
+            """;
+
+    private static final String queryStoreBody = """
+            StoreQuery it directly references the physical table `store`.
+            """;
+    private static final String queryCustomerBody = """
+            CustomerQuery it directly references the physical table `customer`.
+            """;
+    private static final String queryProductBody = """
+            ProductQuery it directly references the physical table `product`.
+            """;
+    private static final String queryWarehouseBody = """
+            WarehouseQuery it directly references the physical table `warehouse`.
+            """;
+    private static final String queryPromotionBody = """
+            PromotionQuery it directly references the physical table `promotion`.
+            """;
+    private static final String queryEmployeeBody = """
+            EmployeeQuery it directly references the physical table `employee`.
+            """;
+    private static final String queryDepartamentBody = """
+            DepartmentQuery it directly references the physical table `department`.
+            """;
+    private static final String queryPositionBody = """
+            PositionQuery it directly references the physical table `position`.
+            """;
+    private static final String querySalaryBody = """
+            SalaryQuery it directly references the physical table `salary`.
+            """;
+    private static final String queryEmployeeClosureBody = """
+            EmployeeClosureQuery it directly references the physical table `employee_closure`.
+            """;
+    private static final String queryProductClassBody = """
+            ProductClassQuery it directly references the physical table `product_class`.
+            """;
+    private static final String queryTimeByDayBody = """
+            TimeByDayQuery it directly references the physical table `time_by_day`.
+            """;
+    private static final String queryStoreRaggedBody = """
+            StoreRaggedQuery it directly references the physical table `store_ragged`.
+            """;
 
     private static final String salesCubeBody = """
-            The Sales cube is the primary fact table containing detailed sales transactions.
-            It includes measures for unit sales, store sales, and store cost, along with dimensions for time, customers, products, and stores.
+            The Sales cube is the sales_fact_1997 table containing detailed sales transactions.
+            It includes measures for Unit Sales, Store Sales and Store Cost, Sales Count, Promotion Sales along with dimensions for Stores,
+            Store Size, Store Type, Time, Products, Promotion Media, Promotions, Customers, Education Level, Gender, Marital Status, Yearly Income.
+            """;
+
+    private static final String warehouseCubeBody = """
+    The Warehouse cube is the inventory_fact_1997 table containing detailed warehouse sales transactions.
+    It includes measures for Store Invoice, Supply Time, Warehouse Cost, Warehouse Sales, Units Shipped, Units Ordered and Warehouse Profit,
+    along with dimensions for Store, Store Size in SQFT, Store Type, Time, Product and Warehouse.
+    """;
+
+    private static final String storeCubeBody = """
+            The Store cube is the store table containing detailed store information.
+            It includes measures for Store Sqft and Grocery Sqft, along with dimensions for Store Type, Store and Has coffee bar.
+            """;
+
+    private static final String hrCubeBody = """
+            The HR cube is the salary table containing detailed employees information.
+            It includes measures for Org Salary, Count and Number of Employees, along with dimensions for Time, Store, Pay Type, Store Type,
+             Position, Departament and Employees.
+            """;
+
+    private static final String salesRaggedCubeBody = """
+            The Sales Ragged cube is the sales_fact_1997 table containing detailed sales transactions.
+            It includes measures for Unit Sales, Store Cost, Store Sales, Store Count, CustomerStore Count along with dimensions for Store, Geography, Store Size,
+            Store Type, and Time, Product, Promotion Media, Promotions, Customers, Education Level, Gender, Status, Yearly Income.
+            """;
+
+    private static final String sales2CubeBody = """
+            The Sales cube is the sales_fact_1997 table containing detailed sales transactions.
+            It includes measures for Sales Count, Unit Sales, Store Sales, Store Cost, and Customer Count, along with dimensions for Time, Products, and Gender.
+            """;
+
+    private static final String warehouseSalesCubeBody = """
+            The Warehouse and Sales virual cube detailed sales transactions. This Cube unions Warehouse and Sales cubes.
+            It includes measures for Sales Count, Store Cost, Store Sales, Unit Sales, Store Invoice,
+            Supply Time, Units Ordered, Units Shipped, Warehouse Cost, Warehouse Profit, Warehouse Sales with dimensions for Customers, Education Level,
+            Gender, Material Status, Products, Promotion Media, Promotions, Stores, Time, Yearly Income, Warehouse.
             """;
 
     private static final String timeBody = """
@@ -702,6 +791,77 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String productBody = """
             The Product dimension organizes products into a hierarchy including product family,
             department, category, subcategory, brand, and individual product details.
+            """;
+
+    private static final String payTypeBody = """
+            The Pay Type dimension show pay type into a hierarchy of pay type.
+            """;
+
+    private static final String storeTypeBody = """
+            The Store Type dimension show store type into a hierarchy of store type.
+            """;
+
+    private static final String storeSizeBody = """
+            The Store Size dimension show store size into a hierarchy of store size.
+            """;
+
+    private static final String promotionsBody = """
+            The Promotions dimension show promotions into a promotions hierarchy.
+            """;
+
+    private static final String educationLevelBody = """
+            The Education Level show education level of customer.
+            """;
+
+    private static final String genderBody = """
+            The Gender dimension  show gender type of customer.
+            """;
+
+    private static final String maritalStatusBody = """
+            The Marital Status dimension show marital status of customer.
+            """;
+
+    private static final String yearlyIncomeBody = """
+            The YearlyIncome dimension show yearly income of customer.
+            """;
+
+    private static final String hasCoffeeBarBody = """
+            The HasCoffeeBar dimension show coffee bar on store.
+            """;
+
+    private static final String geographyBody = """
+            The Geography dimension show geography on store (city, state, country).
+            """;
+
+    private static final String warehouseBody = """
+            The Warehouse dimension show information of warehouse (city, state, country, name).
+            """;
+
+    private static final String promotionMediaBody = """
+            The Promotion Media dimension show promotion media type into a promotion media hierarchy.
+            """;
+
+    private static final String employeeBody = """
+            The Employee dimension show employees structure into a employee hierarchy.
+            """;
+
+    private static final String departmentBody = """
+            The Department dimension show department name into a department hierarchy.
+            """;
+
+    private static final String positionBody = """
+            The Position dimension show employees role and position into a position hierarchy.
+            """;
+    private static final String roleAdministratorBody = """
+            The `Administrator` use CatalogGrant access all;
+            """;
+    private static final String roleNoHRCubeBody = """
+            The `No HR Cube` use CatalogGrant access all except Cube HR. CubeGrant has HR cube access none;
+            """;
+    private static final String roleCaliforniaManagerBody = """
+            The `California manager` use CatalogGrant access none. CatalogGrant has Sales cube access All
+            with HierarchyGrant Store and Customers access custom with member grants of caligornia
+            with HierarchyGrant Gender access none
             """;
 
     static {
@@ -1686,10 +1846,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997.setName("agg_pc_10_sales_fact_1997");
 
         // Initialize table queries
-        QUERY_TIME = RolapMappingFactory.eINSTANCE.createTableQuery();
-        QUERY_TIME.setTable(TABLE_TIME);
-        QUERY_TIME.setId("_query_time");
-
         QUERY_STORE = RolapMappingFactory.eINSTANCE.createTableQuery();
         QUERY_STORE.setTable(TABLE_STORE);
         QUERY_STORE.setId("_query_store");
@@ -3555,11 +3711,279 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         // Add documentation
         document(CATALOG_FOODMART, "FoodMart Database", foodMartBody, 1, 0, 0, false, 0);
-        document(CUBE_SALES, "Sales Cube", salesCubeBody, 1, 1, 0, true, 0);
-        document(DIMENSION_TIME, "Time Dimension", timeBody, 1, 2, 0, true, 0);
-        document(DIMENSION_STORE, "Store Dimension", storeBody, 1, 3, 0, true, 0);
-        document(DIMENSION_CUSTOMERS, "Customers Dimension", customersBody, 1, 4, 0, true, 0);
-        document(DIMENSION_PRODUCT, "Product Dimension", productBody, 1, 5, 0, true, 0);
+        document(DATABASE_SCHEMA_FOODMART, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 0);
+        document(QUERY_SALES_FACT, "Sales Fact Query", querySalesBody, 1, 2, 0, true, 0);
+        document(QUERY_INVENTORY_FACT, "Inventory Fact Query", queryIventoryFactBody, 1, 3, 0, true, 0);
+        document(QUERY_STORE, "Store Query", queryStoreBody, 1, 4, 0, true, 0);
+        document(QUERY_CUSTOMER, "Customer Query", queryCustomerBody, 1, 5, 0, true, 0);
+        document(QUERY_PRODUCT, "Product Query", queryProductBody, 1, 6, 0, true, 0);
+        document(QUERY_WAREHOUSE, "Warehouse Query", queryWarehouseBody, 1, 7, 0, true, 0);
+        document(QUERY_PROMOTION, "Promotion Query", queryPromotionBody, 1, 8, 0, true, 0);
+        document(QUERY_EMPLOYEE, "Employee Query", queryEmployeeBody, 1, 9, 0, true, 0);
+        document(QUERY_DEPARTMENT, "Departament Query", queryDepartamentBody, 1, 10, 0, true, 0);
+        document(QUERY_POSITION, "Position Query", queryPositionBody, 1, 11, 0, true, 0);
+        document(QUERY_SALARY, "Salary Query", querySalaryBody, 1, 12, 0, true, 0);
+        document(QUERY_EMPLOYEE_CLOSURE, "Employee Closure Query", queryEmployeeClosureBody, 1, 13, 0, true, 0);
+        document(QUERY_PRODUCT_CLASS, "Product Class Query", queryProductClassBody, 1, 14, 0, true, 0);
+        document(QUERY_TIME_BY_DAY, "Time By Day Query", queryTimeByDayBody, 1, 15, 0, true, 0);
+        document(QUERY_STORE_RAGGED, "Store Ragged Query", queryStoreRaggedBody, 1, 16, 0, true, 0);
+
+        document(CUBE_SALES, "Sales Cube", salesCubeBody, 1, 17, 0, true, 0);
+        document(CUBE_WAREHOUSE, "Warehouse Cube", warehouseCubeBody, 1, 18, 0, true, 0);
+        document(CUBE_STORE, "Store Cube", storeCubeBody, 1, 19, 0, true, 0);
+        document(CUBE_HR, "HR Cube", hrCubeBody, 1, 20, 0, true, 0);
+        document(CUBE_SALES_RAGGED, "Sales Ragged Cube", salesRaggedCubeBody, 1, 21, 0, true, 0);
+        document(CUBE_SALES_2, "Sales2 Cube", sales2CubeBody, 1, 22, 0, true, 0);
+        document(CUBE_VIRTIAL_WAREHOUSE_AND_SALES, "Warehouse and Sales Cube", warehouseSalesCubeBody, 1, 22, 0, true, 0);
+
+        document(DIMENSION_TIME, "Time Dimension", timeBody, 1, 23, 0, true, 0);
+        document(DIMENSION_HR_TIME, "Time Dimension", timeBody, 1, 24, 0, true, 0);
+        document(DIMENSION_STORE, "Store Dimension", storeBody, 1, 25, 0, true, 0);
+        document(DIMENSION_STORE_SALES_RAGGED, "Store Dimension", storeBody, 1, 26, 0, true, 0);
+        document(DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE, "Store Dimension", storeBody, 1, 27, 0, true, 0);
+        document(DIMENSION_PAY_TYPE, "Pay Type Dimension", payTypeBody, 1, 28, 0, true, 0);
+        document(DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE, "Store Type Dimension", storeTypeBody, 1, 29, 0, true, 0);
+        document(DIMENSION_STORE_TYPE_WITH_QUERY_STORE, "Store Type Dimension", storeTypeBody, 1, 30, 0, true, 0);
+        document(DIMENSION_STORE_TYPE_WITHOUT_QUERY, "Store Type Dimension", storeTypeBody, 1, 31, 0, true, 0);
+        document(DIMENSION_STORE_TYPE, "Store Type Dimension", storeTypeBody, 1, 32, 0, true, 0);
+        document(DIMENSION_CUSTOMERS, "Customers Dimension", customersBody, 1, 33, 0, true, 0);
+        document(DIMENSION_PRODUCT, "Product Dimension", productBody, 1, 34, 0, true, 0);
+        document(DIMENSION_STORE_SIZE_IN_SQFT, "Store Size Dimension", storeSizeBody, 1, 35, 0, true, 0);
+        document(DIMENSION_PROMOTIONS, "Promotions Dimension", promotionsBody, 1, 36, 0, true, 0);
+        document(DIMENSION_EDUCATION_LEVEL, "Education Level Dimension", educationLevelBody, 1, 37, 0, true, 0);
+        document(DIMENSION_GENDER, "Gender Dimension", genderBody, 1, 38, 0, true, 0);
+        document(DIMENSION_MARITAL_STATUS, "Marital Status Dimension", maritalStatusBody, 1, 39, 0, true, 0);
+        document(DIMENSION_YEARLY_INCOME, "Yearly Income Dimension", yearlyIncomeBody, 1, 40, 0, true, 0);
+        document(DIMENSION_STORE_HAS_COFFEE_BAR, "Has coffee bar Dimension", hasCoffeeBarBody, 1, 41, 0, true, 0);
+        document(DIMENSION_GEOGRAPHY, "Geography Dimension", geographyBody, 1, 42, 0, true, 0);
+        document(DIMENSION_WAREHOUSE, "Warehouse Dimension", warehouseBody, 1, 43, 0, true, 0);
+        document(DIMENSION_PROMOTION_MEDIA, "Promotion Media Dimension", promotionMediaBody, 1, 44, 0, true, 0);
+        document(DIMENSION_EMPLOYEE, "Employee Dimension", employeeBody, 1, 45, 0, true, 0);
+        document(DIMENSION_DEPARTMENT, "Department Dimension", departmentBody, 1, 46, 0, true, 0);
+        document(DIMENSION_POSITION, "Position Dimension", positionBody, 1, 47, 0, true, 0);
+        document(DIMENSION_HR_POSITION, "Position Dimension", positionBody, 1, 48, 0, true, 0);
+
+        document(HIERARCHY_TIME, "Time Hierarchy",
+                "The Time hierarchy provides temporal analysis with years, quarters, and months with hasAll enabled.", 1, 49, 0, true, 0);
+        document(HIERARCHY_HR_TIME, "Time Hierarchy",
+                "The Time hierarchy provides temporal analysis with years, quarters, and months with hasAll enabled.", 1, 50, 0, true, 0);
+        document(HIERARCHY_TIME2, "Time Hierarchy",
+                "The Time hierarchy provides temporal analysis with years, quarters, and months with hasAll enabled.", 1, 51, 0, true, 0);
+        document(HIERARCHY_STORE, "Store Hierarchy",
+                "The Store hierarchy provides store analysis with country, state, city and name of story with hasAll enabled.", 1, 52, 0, true, 0);
+        document(HIERARCHY_STORE_SALES_RAGGED, "Store Hierarchy",
+                "The Store hierarchy provides store analysis with country, state, city and name of story with hasAll enabled.", 1, 53, 0, true, 0);
+        document(HIERARCHY_HR_STORE, "Store Hierarchy",
+                "The Store hierarchy provides store analysis with country, state, city and name of story with hasAll enabled.", 1, 54, 0, true, 0);
+        document(HIERARCHY_PAY_TYPE, "Pay Type Hierarchy",
+                "The Pay Type provides pay type analysis for employee.", 1, 55, 0, true, 0);
+        document(HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE, "Store Type Hierarchy",
+                "The Store Type provides store type analysis for store.", 1, 56, 0, true, 0);
+        document(HIERARCHY_CUSTOMER, "Customer Hierarchy",
+                "The Customer provides customer analysis by country, state, cyty, name of customer.", 1, 57, 0, true, 0);
+        document(HIERARCHY_CUSTOMERS_GEO, "Geography Hierarchy",
+                "The Geography provides customer analysis by country, state, cyty, name of customer.", 1, 58, 0, true, 0);
+        document(HIERARCHY_CUSTOMERS_GENDER, "Gender Hierarchy",
+                "The Gender provides customer analysis by gender identity.", 1, 59, 0, true, 0);
+        document(HIERARCHY_PRODUCT, "Product Hierarchy",
+                "The Product provides product analysis by product family, product departament, category, subcategory, brand, product name.", 1, 60, 0, true, 0);
+        document(HIERARCHY_STORE_SIZE_IN_SQFT, "Store Size Hierarchy",
+                "The Store Size provides store analysis by size.", 1, 61, 0, true, 0);
+        document(HIERARCHY_PROMOTIONS, "Promotions Hierarchy",
+                "The Promotions provides sales analysis by promotions.", 1, 62, 0, true, 0);
+        document(HIERARCHY_STORE_TYPE, "Store Type Hierarchy",
+                "The Store Type provides store analysis by type.", 1, 63, 0, true, 0);
+        document(HIERARCHY_STORE_TYPE_WITHOUT_TABLE, "Store Type Hierarchy",
+                "The Store Type provides store analysis by type.", 1, 64, 0, true, 0);
+        document(HIERARCHY_EDUCATION_LEVEL, "Education Level",
+                "The Education Level provides customer analysis by education level.", 1, 65, 0, true, 0);
+        document(HIERARCHY_GENDER, "Gender Hierarchy",
+                "The Gender provides customer analysis by gender identity.", 1, 65, 0, true, 0);
+        document(HIERARCHY_MARITAL_STATUS, "Marital Status Hierarchy",
+                "The Marital Status provides customer analysis by marital status.", 1, 66, 0, true, 0);
+        document(HIERARCHY_MARITAL_STATUS, "Marital Status Hierarchy",
+                "The Marital Status provides customer analysis by marital status.", 1, 67, 0, true, 0);
+        document(HIERARCHY_YEARLY_INCOME, "Yerly Income Hierarchy",
+                "The Yerly Income provides customer analysis by yerly income.", 1, 68, 0, true, 0);
+        document(HIERARCHY_STORE_HAS_COFFEE_BAR, "Has Coffe Bar Hierarchy",
+                "The Has Coffe Bar provides store analysis by availability сoffe bar.", 1, 69, 0, true, 0);
+        document(HIERARCHY_GEOGRAPHY, "Has Coffe Bar Hierarchy",
+                "The Has Coffe Bar provides store analysis by geography country, state, city.", 1, 70, 0, true, 0);
+        document(HIERARCHY_GEOGRAPHY, "Has Coffe Bar Hierarchy",
+                "The Has Coffe Bar provides store analysis by geography country, state, city.", 1, 71, 0, true, 0);
+        document(HIERARCHY_GEOGRAPHY, "Has Coffe Bar Hierarchy",
+                "The Has Coffe Bar provides store analysis by geography country, state, city.", 1, 72, 0, true, 0);
+        document(HIERARCHY_WAREHOUSE, "Warehouse Hierarchy",
+                "The Warehouse provides warehouse analysis by geography country, state, city and name of warehouse.", 1, 73, 0, true, 0);
+        document(HIERARCHY_PROMOTION_MEDIA, "Promotion Media Hierarchy",
+                "The Promotion Media provides sales analysis by promotion media type.", 1, 74, 1, true, 0);
+        document(HIERARCHY_EMPLOYEE, "Employee Hierarchy",
+                "The Employee provides organisation structure analysis by employees.", 1, 75, 0, true, 0);
+        document(HIERARCHY_DEPARTMENT, "Department Hierarchy",
+                "The Department provides sales analysis by departoment of employees.", 1, 76, 0, true, 0);
+        document(HIERARCHY_POSITION, "Position Hierarchy",
+                "The Position provides employee analysis by role and position.", 1, 77, 0, true, 0);
+        document(HIERARCHY_HR_POSITION, "Position Hierarchy",
+                "The Position provides employee analysis by role and position.", 1, 78, 0, true, 0);
+        document(HIERARCHY_CUSTOMERS_EDUCATION, "Customers Education Hierarchy",
+                "The Customers Education provides customer analysis by education level.", 1, 79, 0, true, 0);
+        document(HIERARCHY_CUSTOMERS_MARITAL, "Customers Marital Status",
+                "The Customers Marital Status provides customer analysis by marital status.", 1, 80, 0, true, 0);
+
+        document(LEVEL_YEAR, "Year Level",
+                "Year level represents year for sales analysis.", 1, 81, 0, true, 0);
+        document(LEVEL_QUARTER, "Quarter Level",
+                "Quarter level represents quarter for sales analysis.", 1, 82, 0, true, 0);
+        document(LEVEL_MONTH, "Month Level",
+                "Month level represents month for sales analysis.", 1, 83, 0, true, 0);
+        document(LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR, "Month Level",
+                "Month level represents month for sales analysis.", 1, 84, 0, true, 0);
+        document(LEVEL_WEEK, "Week Level",
+                "Week level represents week for sales analysis.", 1, 85, 0, true, 0);
+        document(LEVEL_DAY, "Day Level",
+                "Day level represents date for sales analysis.", 1, 86, 0, true, 0);
+        document(LEVEL_STORE_COUNTRY, "Store Country Level",
+                "Store Country level represents country for store.", 1, 87, 0, true, 0);
+        document(LEVEL_STORE_STATE, "Store State Level",
+                "Store State level represents state for store.", 1, 88, 0, true, 0);
+        document(LEVEL_STORE_CITY, "Store State Level",
+                "Store City level represents city for store.", 1, 89, 0, true, 0);
+        document(LEVEL_STORE_NAME, "Store State Level",
+                "Store Name level represents name of store.", 1, 90, 0, true, 0);
+        document(LEVEL_STORE_HAS_COFFEE_BAR, "Has coffee bar Level",
+                "Has coffee bar level represents tag that store has coffe bar.", 1, 91, 0, true, 0);
+        document(LEVEL_CUSTOMER_COUNTRY, "Customer Country Level",
+                "Customer Country level represents country for customer.", 1, 92, 0, true, 0);
+        document(LEVEL_CUSTOMER_STATE, "Customer State Level",
+                "Customer State level represents state for customer.", 1, 93, 0, true, 0);
+        document(LEVEL_CUSTOMER_CITY, "Customer City Level",
+                "Customer City level represents city for customer.", 1, 94, 0, true, 0);
+        document(LEVEL_CUSTOMER_NAME, "Customer Name Level",
+                "Customer Name level represents name for customer.", 1, 95, 0, true, 0);
+        document(LEVEL_CUSTOMER_GENDER, "Customer Gender Level",
+                "Customer Gender level represents gender identification for customer.", 1, 96, 0, true, 0);
+        document(LEVEL_PRODUCT_FAMILY, "Product Family Level",
+                "Product Family level represents family of product.", 1, 97, 0, true, 0);
+        document(LEVEL_PRODUCT_FAMILY, "Product Departament Level",
+                "Product Departament level represents departament of product.", 1, 98, 0, true, 0);
+        document(LEVEL_PRODUCT_CATEGORY, "Product Category Level",
+                "Product Category level represents category of product.", 1, 99, 0, true, 0);
+        document(LEVEL_PRODUCT_SUBCATEGORY, "Product Category Level",
+                "Product Subcategory level represents subcategory of product.", 1, 100, 0, true, 0);
+        document(LEVEL_PRODUCT_BRAND, "Product Brand Level",
+                "Product Brand level represents brand of product.", 1, 101, 0, true, 0);
+        document(LEVEL_PRODUCT_NAME, "Product Name Level",
+                "Product Name level represents name of product.", 1, 102, 0, true, 0);
+        document(LEVEL_PROMOTION_NAME, "Promotions Level",
+                "Promotions level represents promotions of sales.", 1, 103, 0, true, 0);
+        document(LEVEL_STORE_SQFT, "Store Sqft",
+                "Store Sqft level represents sqft of store.", 1, 104, 0, true, 0);
+        document(LEVEL_STORE_TYPE_WITHOUT_TABLE, "Store Type",
+                "Store Type level represents type of store.", 1, 105, 0, true, 0);
+        document(LEVEL_EDUCATION, "Education Level",
+                "Education Level level represents education level of customer.", 1, 106, 0, true, 0);
+        document(LEVEL_GENDER, "Gender",
+                "Gender Level level represents gender identification of customer.", 1, 107, 0, true, 0);
+        document(LEVEL_MARITAL_STATUS, "Marital Status",
+                "Marital Status level represents marital status of customer.", 1, 108, 0, true, 0);
+        document(LEVEL_YEARLY_INCOME, "Yearly Income",
+                "Yearly Income level represents yearly income of customer.", 1, 109, 0, true, 0);
+        document(LEVEL_PAY_TYPE, "Pay Type",
+                "Pay Type level represents pay type of sales.", 1, 110, 0, true, 0);
+        document(LEVEL_STORE_TYPE, "Store Type",
+                "Store Type level represents type of store.", 1, 111, 0, true, 0);
+        document(LEVEL_STORE_COUNTRY_WITH_NEVER, "Store Country",
+                "Store Country level represents country of store.", 1, 112, 0, true, 0);
+        document(LEVEL_STORE_CYTY_IF_PARENTS_NAME, "Store City",
+                "Store City level represents city of store.", 1, 113, 0, true, 0);
+        document(LEVEL_STORE_CYTY_IF_BLANK_NAME, "Store City",
+                "Store City level represents city of store. with property hide member if blank name", 1, 114, 0, true, 0);
+        document(LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER, "Store Name",
+                "Store Name level represents name of store. with property hide member if never", 1, 115, 0, true, 0);
+        document(LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY, "Country",
+                "Country level represents name of customer.", 1, 116, 0, true, 0);
+        document(LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE, "State Province",
+                "State Province level represents state province of customer.", 1, 117, 0, true, 0);
+        document(LEVEL_CITY_TABLE_COLUMN_CITY, "City",
+                "City level represents city of customer.", 1, 118, 0, true, 0);
+        document(LEVEL_NAME, "Name",
+                "Name level represents name of customer with properties (gender, marital status, education, yearly income) .", 1, 119, 0, true, 0);
+        document(LEVEL_WAREHOUSE_COUNTRY, "Country",
+                "Country level represents name of warehouse.", 1, 120, 0, true, 0);
+        document(LEVEL_WAREHOUSE_STATE, "State",
+                "State level represents state of warehouse.", 1, 121, 0, true, 0);
+        document(LEVEL_WAREHOUSE_CITY, "City",
+                "City level represents city of warehouse.", 1, 122, 0, true, 0);
+        document(LEVEL_WAREHOUSE_NAME, "Warehouse Name",
+                "Warehouse Name level represents name of warehouse.", 1, 123, 0, true, 0);
+        document(LEVEL_PROMOTION_MEDIA, "Media Type",
+                "Media Type level represents promotions media type of sales.", 1, 124, 0, true, 0);
+        document(LEVEL_EMPLOYEE_MANAGEMENT_ROLE, "Management Role",
+                "Management Role level represents role of employee.", 1, 125, 0, true, 0);
+        document(LEVEL_EMPLOYEE_POSITION, "Position Title",
+                "Position Title level represents position title of employee.", 1, 126, 0, true, 0);
+        document(LEVEL_EMPLOYEE_DEPARTMENT, "Position ID",
+                "Position ID level represents position ID of employee.", 1, 127, 0, true, 0);
+        document(LEVEL_EMPLOYEE_FULL_NAME, "Employee Name",
+                "Employee Name level represents full name of employee.", 1, 128, 0, true, 0);
+        document(LEVEL_EMPLOYEE_FULL_NAME, "Employee Name",
+                "Employee Name level represents full name of employee.", 1, 129, 0, true, 0);
+        document(LEVEL_DEPARTMENT_DESCRIPTION, "Department Description",
+                "Department Description level represents department description of sales.", 1, 130, 0, true, 0);
+        document(LEVEL_POSITION_TITLE, "Position Title",
+                "Position Title level represents position title of employee.", 1, 131, 0, true, 0);
+        document(LEVEL_MANAGEMENT_ROLE, "Management Role",
+                "Management Role level represents management role of employee.", 1, 132, 0, true, 0);
+        document(LEVEL_HR_POSITION_TITLE, "Position Title",
+                "Position Title level represents position title of employee.", 1, 133, 0, true, 0);
+        document(LEVEL_CUSTOMER_EDUCATION, "Education Level",
+                "Education Level level represents education level of customer.", 1, 134, 0, true, 0);
+        document(LEVEL_CUSTOMER_MARITAL_STATUS, "Marital Status",
+                "Marital Status level represents marital status of customer.", 1, 135, 0, true, 0);
+        document(LEVEL_EMPLOYEE_ID, "Employee Id",
+                "Employee Id level represents Id of employee.", 1, 136, 0, true, 0);
+        document(LEVEL_COUNTRY_WITH_NEVER, "Country",
+                "Country level represents country of regged store.", 1, 137, 0, true, 0);
+        document(LEVEL_STATE, "State",
+                "State level represents state of regged store.", 1, 138, 0, true, 0);
+        document(LEVEL_CITY_TABLE_COLUMN_STORE_CITY, "City",
+                "City level represents city of regged store.", 1, 139, 0, true, 0);
+
+        document(MEASURE_UNIT_SALES, "Unit Sales", "Measure Unit Sales use sales_fact_1997 table unit_sales column with sum aggregation.", 1, 140, 0, true, 0);
+        document(MEASURE_STORE_SALES, "Store Sales", "Measure Store Sales use sales_fact_1997 table store_sales column with sum aggregation.", 1, 141, 0, true, 0);
+        document(MEASURE_STORE_COST, "Store Cost", "Measure Store Cost use sales_fact_1997 table store_cost column with sum aggregation.", 1, 142, 0, true, 0);
+        document(MEASURE_SALES_COUNT, "Store Count", "Measure Store Count use sales_fact_1997 table product_id column with count aggregation.", 1, 143, 0, true, 0);
+        document(MEASURE_CUSTOMER_COUNT, "Customer Count", "Measure Customer Count use sales_fact_1997 table customer_id column with count aggregation.", 1, 144, 0, true, 0);
+        document(MEASURE_PROMOTION_SALES, "Promotion Sales", "Measure Promotion Sales use (case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`.`store_sales` end) expression with sum aggregation.", 1, 145, 0, true, 0);
+
+        document(MEASURE_WAREHOUSE_SALES, "Warehouse Sales", "Measure Warehouse Sales use inventory_fact_1997 table warehouse_sales column with sum aggregation.", 1, 146, 0, true, 0);
+        document(MEASURE_WAREHOUSE_STORE_INVOICE, "Store Invoice", "Measure Store Invoice use inventory_fact_1997 table store_invoice column with sum aggregation.", 1, 147, 0, true, 0);
+        document(MEASURE_WAREHOUSE_SUPPLY_TIME, "Supply Time", "Measure Supply Time use inventory_fact_1997 table supply_time column with sum aggregation.", 1, 148, 0, true, 0);
+        document(MEASURE_WAREHOUSE_PROFIT, "Warehouse Profit", "Measure Warehouse Profit use warehouse_sales - warehouse_cost expression with sum aggregation.", 1, 149, 0, true, 0);
+        document(MEASURE_WAREHOUSE_COST, "Warehouse Cost", "Measure Warehouse Cost use inventory_fact_1997 table warehouse_cost column with sum aggregation.", 1, 150, 0, true, 0);
+        document(MEASURE_UNITS_SHIPPED, "Units Shipped", "Measure Units Shipped use inventory_fact_1997 table units_shipped column with sum aggregation.", 1, 151, 0, true, 0);
+        document(MEASURE_UNITS_ORDERED, "Units Ordered", "Measure Units Ordered use inventory_fact_1997 table units_ordered column with sum aggregation.", 1, 152, 0, true, 0);
+        document(MEASURE_STORE_SQFT, "Store Sqft", "Measure Store Sqft use store table store_sqft column with sum aggregation.", 1, 153, 0, true, 0);
+        document(MEASURE_GROCERY_SQFT, "Grocery Sqft", "Measure Grocery Sqft use store table grocery_sqft column with sum aggregation.", 1, 154, 0, true, 0);
+        document(MEASURE_ORG_SALARY, "Org Salary", "Measure Warehouse Cost use salary table salary_paid column with sum aggregation.", 1, 155, 0, true, 0);
+        document(MEASURE_COUNT, "Count", "Measure Count use salary table employee_id column with count aggregation.", 1, 156, 0, true, 0);
+        document(MEASURE_NUMBER_OF_EMPLOYEES, "Count", "Measure Count use salary table employee_id column with count aggregation.", 1, 157, 0, true, 0);
+        document(MEASURE_UNIT_SALES_RAGGED, "Unit Sales", "Measure Unit Sales use sales_fact_1997 table unit_sales column with sum aggregation.", 1, 158, 0, true, 0);
+        document(MEASURE_STORE_COST_RAGGED, "Store Cost", "Measure Store Cost use sales_fact_1997 table store_cost column with sum aggregation.", 1, 159, 0, true, 0);
+        document(MEASURE_STORE_SALES_RAGGED, "Store Sales", "Measure Store Sales use sales_fact_1997 table store_sales column with sum aggregation.", 1, 160, 0, true, 0);
+        document(MEASURE_SALES_COUNT_RAGGED, "Sales Count", "Measure Sales Count use sales_fact_1997 table product_id column with count aggregation.", 1, 161, 0, true, 0);
+        document(MEASURE_CUSTOMER_COUNT_RAGGED, "Customer Count", "Measure Customer Count use sales_fact_1997 table customer_id column with count aggregation.", 1, 162, 0, true, 0);
+
+        document(MEASURE_SALES_COUNT_WITH_PROPERTY, "Sales Count", "Measure Sales Count use sales_fact_1997 table product_id column with count aggregation. with MEMBER_ORDINAL property", 1, 163, 0, true, 0);
+        document(MEASURE_UNIT_SALES_MEMBER_ORDINAL, "Unit Sales", "Measure Unit Sales use sales_fact_1997 table unit_sales column with sum aggregation. with MEMBER_ORDINAL property", 1, 164, 0, true, 0);
+        document(MEASURE_STORE_SALES_WITH_PROPERTY, "Store Sales", "Measure Store Sales use sales_fact_1997 table store_sales column with sum aggregation. with MEMBER_ORDINAL property", 1, 165, 0, true, 0);
+        document(MEASURE_STORE_COST_WITH_PROPERTY, "Store Cost", "Measure Store Cost use sales_fact_1997 table store_cost column with sum aggregation. with MEMBER_ORDINAL property", 1, 165, 0, true, 0);
+        document(MEASURE_CUSTOMER_COUNT_WITH_PROPERTY, "Customer Count", "Measure Customer Count use sales_fact_1997 table customer_id column with count aggregation. with MEMBER_ORDINAL property", 1, 166, 0, true, 0);
+
+        document(ROLE_ADMINISTRATOR, "Administrator Role", roleAdministratorBody, 1, 167, 0, true, 0);
+        document(ROLE_CALIFORNIA_MANAGER, "California manager Role", roleCaliforniaManagerBody, 1, 168, 0, true, 0);
+        document(ROLE_NO_HR_CUBE, "No HR Cube Role", roleNoHRCubeBody, 1, 169, 0, true, 0);
+
     }
 
     @Override
