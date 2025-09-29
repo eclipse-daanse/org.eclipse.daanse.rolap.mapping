@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDatabaseSchemaGrant;
@@ -85,6 +86,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_STORE_SALES_SALESFACT;
     public static final Column COLUMN_STORE_COST_SALESFACT;
 
+    public static final Column COLUMN_PRODUCT_ID_SALESFACT1998;
+    public static final Column COLUMN_TIME_ID_SALESFACT1998;
+    public static final Column COLUMN_CUSTOMER_ID_SALESFACT1998;
+    public static final Column COLUMN_PROMOTION_ID_SALESFACT1998;
+    public static final Column COLUMN_STORE_ID_SALESFACT1998;
+    public static final Column COLUMN_STORE_SALES_SALESFACT1998;
+    public static final Column COLUMN_STORE_COST_SALESFACT1998;
+    public static final Column COLUMN_UNIT_SALES_SALESFACT1998;
+
     // Static columns - Time Table
     public static final Column COLUMN_TIME_ID_TIME;
     public static final Column COLUMN_THE_DATE_TIME;
@@ -106,6 +116,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_COUNTRY_CUSTOMER;
     public static final Column COLUMN_STATE_PROVINCE_CUSTOMER;
     public static final Column COLUMN_CITY_CUSTOMER;
+    public static final Column COLUMN_LNAME_CUSTOMER;
+    public static final Column COLUMN_FNAME_CUSTOMER;
+    public static final Column COLUMN_ACCOUNT_NUM_CUSTOMER;
+    public static final Column COLUMN_CUSTOMER_REGION_ID_CUSTOMER;
+    public static final Column COLUMN_NUM_CARS_OWNED_CUSTOMER;
+    public static final Column COLUMN_TOTAL_CHILDREN_CUSTOMER;
 
     // Static columns - Product Table
     //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
@@ -170,9 +186,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_MAX_SCALE_POSITION;
 
     // Salary table columns
+    //pay_date,employee_id,department_id,currency_id,salary_paid,overtime_paid,vacation_accrued,vacation_used
+    //TIMESTAMP,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),REAL,REAL
     public static final Column COLUMN_EMPLOYEE_ID_SALARY;
+    public static final Column COLUMN_DEPARTMENT_ID_SALARY;
+    public static final Column COLUMN_CURRENCY_ID_SALARY;
     public static final Column COLUMN_PAY_DATE_SALARY;
     public static final Column COLUMN_SALARY_PAID_SALARY;
+    public static final Column COLUMN_OVERTIME_PAID_SALARY;
+    public static final Column COLUMN_VACATION_ACCRUED_SALARY;
+    public static final Column COLUMN_VACATION_USED_SALARY;
 
     // Employee closure table columns
     public static final Column COLUMN_SUPERVISOR_ID_EMPLOYEE_CLOSURE;
@@ -220,6 +243,57 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_UNIT_SALES_SUM_AGG_C_SPECIAL_SALES_FACT_1997;
     public static final Column COLUMN_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997;
 
+    public static final Column COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997;
+
+    public static final Column COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997;
+
+    public static final Column COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997;
+
+    public static final Column COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997;
+
+    public static final Column COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997;
+
     public static final Column COLUMN_TIME_ID_TIME_BY_DAY;
     public static final Column COLUMN_THE_DATE_TIME_BY_DAY;
     public static final Column COLUMN_THE_DAY_TIME_BY_DAY;
@@ -258,6 +332,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     // Static tables
     public static final PhysicalTable TABLE_SALES_FACT;
+    public static final PhysicalTable TABLE_SALES_FACT1998;
     public static final PhysicalTable TABLE_TIME;
     public static final PhysicalTable TABLE_STORE;
     public static final PhysicalTable TABLE_CUSTOMER;
@@ -272,6 +347,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final PhysicalTable TABLE_EMPLOYEE_CLOSURE;
     public static final PhysicalTable TABLE_PRODUCT_CLASS;
     public static final PhysicalTable TABLE_AGG_C_SPECIAL_SALES_FACT_1997;
+    public static final PhysicalTable TABLE_AGG_C_10_SALES_FACT_1997;
+    public static final PhysicalTable TABLE_AGG_L_05_SALES_FACT;
+    public static final PhysicalTable TABLE_AGG_L_03_SALES_FACT;
+    public static final PhysicalTable TABLE_AGG_G_MS_PCAT_SALES_FACT;
+    public static final PhysicalTable TABLE_AGG_C_14_SALES_FACT;
     public static final PhysicalTable TABLE_TIME_BY_DAY;
     public static final PhysicalTable TABLE_STORE_RAGGED;
 
@@ -664,6 +744,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final CalculatedMemberProperty MEASURE_STORE_COST_PROP;
     public static final CalculatedMemberProperty MEASURE_CUSTOMER_COUNT_PROP;
 
+    public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP0;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP1;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP2;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP3;
@@ -752,7 +833,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String hrCubeBody = """
             The HR cube is the salary table containing detailed employees information.
             It includes measures for Org Salary, Count and Number of Employees, along with dimensions for Time, Store, Pay Type, Store Type,
-             Position, Departament and Employees.
+            Position, Departament and Employees.
             """;
 
     private static final String salesRaggedCubeBody = """
@@ -894,17 +975,69 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_UNIT_SALES_SALESFACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_UNIT_SALES_SALESFACT.setName("unit_sales");
         COLUMN_UNIT_SALES_SALESFACT.setId("_column_salesFact_unitSales");
-        COLUMN_UNIT_SALES_SALESFACT.setType(ColumnType.NUMERIC);
+        COLUMN_UNIT_SALES_SALESFACT.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_SALESFACT.setColumnSize(10);
+        COLUMN_UNIT_SALES_SALESFACT.setDecimalDigits(4);
 
         COLUMN_STORE_SALES_SALESFACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_STORE_SALES_SALESFACT.setName("store_sales");
         COLUMN_STORE_SALES_SALESFACT.setId("_column_salesFact_storeSales");
-        COLUMN_STORE_SALES_SALESFACT.setType(ColumnType.NUMERIC);
+        COLUMN_STORE_SALES_SALESFACT.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_SALESFACT.setColumnSize(10);
+        COLUMN_STORE_SALES_SALESFACT.setDecimalDigits(4);
 
         COLUMN_STORE_COST_SALESFACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_STORE_COST_SALESFACT.setName("store_cost");
         COLUMN_STORE_COST_SALESFACT.setId("_column_salesFact_storeCost");
-        COLUMN_STORE_COST_SALESFACT.setType(ColumnType.NUMERIC);
+        COLUMN_STORE_COST_SALESFACT.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_SALESFACT.setColumnSize(10);
+        COLUMN_STORE_COST_SALESFACT.setDecimalDigits(4);
+
+        COLUMN_PRODUCT_ID_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_ID_SALESFACT1998.setName("product_id");
+        COLUMN_PRODUCT_ID_SALESFACT1998.setId("_column_salesFact1998_productId");
+        COLUMN_PRODUCT_ID_SALESFACT1998.setType(ColumnType.INTEGER);
+
+        COLUMN_TIME_ID_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TIME_ID_SALESFACT1998.setName("time_id");
+        COLUMN_TIME_ID_SALESFACT1998.setId("_column_salesFact1998_timeId");
+        COLUMN_TIME_ID_SALESFACT1998.setType(ColumnType.INTEGER);
+
+        COLUMN_CUSTOMER_ID_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_ID_SALESFACT1998.setName("customer_id");
+        COLUMN_CUSTOMER_ID_SALESFACT1998.setId("_column_salesFact1998_customerId");
+        COLUMN_CUSTOMER_ID_SALESFACT1998.setType(ColumnType.INTEGER);
+
+        COLUMN_PROMOTION_ID_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PROMOTION_ID_SALESFACT1998.setName("promotion_id");
+        COLUMN_PROMOTION_ID_SALESFACT1998.setId("_column_salesFact1998_promotionId");
+        COLUMN_PROMOTION_ID_SALESFACT1998.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_ID_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_ID_SALESFACT1998.setName("store_id");
+        COLUMN_STORE_ID_SALESFACT1998.setId("_column_salesFact1998_storeId");
+        COLUMN_STORE_ID_SALESFACT1998.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_SALES_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_SALESFACT1998.setName("store_sales");
+        COLUMN_STORE_SALES_SALESFACT1998.setId("_column_salesFact1998_storeSales");
+        COLUMN_STORE_SALES_SALESFACT1998.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_SALESFACT1998.setColumnSize(10);
+        COLUMN_STORE_SALES_SALESFACT1998.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_SALESFACT1998.setName("store_cost");
+        COLUMN_STORE_COST_SALESFACT1998.setId("_column_salesFact1998_storeCost");
+        COLUMN_STORE_COST_SALESFACT1998.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_SALESFACT1998.setColumnSize(10);
+        COLUMN_STORE_COST_SALESFACT1998.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_SALESFACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_SALESFACT1998.setName("unit_sales");
+        COLUMN_UNIT_SALES_SALESFACT1998.setId("_column_salesFact1998_unitSales");
+        COLUMN_UNIT_SALES_SALESFACT1998.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_SALESFACT1998.setColumnSize(10);
+        COLUMN_UNIT_SALES_SALESFACT1998.setDecimalDigits(4);
 
         // Time table columns
         COLUMN_TIME_ID_TIME = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
@@ -988,6 +1121,38 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_CITY_CUSTOMER.setName("city");
         COLUMN_CITY_CUSTOMER.setId("_column_customer_city");
         COLUMN_CITY_CUSTOMER.setType(ColumnType.VARCHAR);
+
+        COLUMN_LNAME_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_LNAME_CUSTOMER.setName("lname");
+        COLUMN_LNAME_CUSTOMER.setId("_column_customer_lname");
+        COLUMN_LNAME_CUSTOMER.setType(ColumnType.VARCHAR);
+        COLUMN_LNAME_CUSTOMER.setColumnSize(30);
+
+        COLUMN_FNAME_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FNAME_CUSTOMER.setName("fname");
+        COLUMN_FNAME_CUSTOMER.setId("_column_customer_fname");
+        COLUMN_FNAME_CUSTOMER.setType(ColumnType.VARCHAR);
+        COLUMN_FNAME_CUSTOMER.setColumnSize(30);
+
+        COLUMN_ACCOUNT_NUM_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_ACCOUNT_NUM_CUSTOMER.setName("account_num");
+        COLUMN_ACCOUNT_NUM_CUSTOMER.setId("_column_customer_account_num");
+        COLUMN_ACCOUNT_NUM_CUSTOMER.setType(ColumnType.BIGINT);
+
+        COLUMN_CUSTOMER_REGION_ID_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_REGION_ID_CUSTOMER.setName("customer_region_id");
+        COLUMN_CUSTOMER_REGION_ID_CUSTOMER.setId("_column_customer_customer_region_id");
+        COLUMN_CUSTOMER_REGION_ID_CUSTOMER.setType(ColumnType.INTEGER);
+
+        COLUMN_NUM_CARS_OWNED_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_NUM_CARS_OWNED_CUSTOMER.setName("num_cars_owned");
+        COLUMN_NUM_CARS_OWNED_CUSTOMER.setId("_column_customer_num_cars_owned");
+        COLUMN_NUM_CARS_OWNED_CUSTOMER.setType(ColumnType.INTEGER);
+
+        COLUMN_TOTAL_CHILDREN_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TOTAL_CHILDREN_CUSTOMER.setName("total_children");
+        COLUMN_TOTAL_CHILDREN_CUSTOMER.setId("_column_customer_total_children");
+        COLUMN_TOTAL_CHILDREN_CUSTOMER.setType(ColumnType.SMALLINT);
 
         // Product table columns
         COLUMN_PRODUCT_CLASS_ID_PRODUCT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
@@ -1234,6 +1399,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_EMPLOYEE_ID_SALARY.setId("_column_salary_employeeId");
         COLUMN_EMPLOYEE_ID_SALARY.setType(ColumnType.INTEGER);
 
+        COLUMN_DEPARTMENT_ID_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DEPARTMENT_ID_SALARY.setName("department_id");
+        COLUMN_DEPARTMENT_ID_SALARY.setId("_column_salary_departmentId");
+        COLUMN_DEPARTMENT_ID_SALARY.setType(ColumnType.INTEGER);
+
+        COLUMN_CURRENCY_ID_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CURRENCY_ID_SALARY.setName("currency_id");
+        COLUMN_CURRENCY_ID_SALARY.setId("_column_salary_currencyId");
+        COLUMN_CURRENCY_ID_SALARY.setType(ColumnType.INTEGER);
+
         COLUMN_PAY_DATE_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_PAY_DATE_SALARY.setName("pay_date");
         COLUMN_PAY_DATE_SALARY.setId("_column_salary_payDate");
@@ -1242,7 +1417,26 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_SALARY_PAID_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_SALARY_PAID_SALARY.setName("salary_paid");
         COLUMN_SALARY_PAID_SALARY.setId("_column_salary_salaryPaid");
-        COLUMN_SALARY_PAID_SALARY.setType(ColumnType.NUMERIC);
+        COLUMN_SALARY_PAID_SALARY.setType(ColumnType.DECIMAL);
+        COLUMN_SALARY_PAID_SALARY.setColumnSize(10);
+        COLUMN_SALARY_PAID_SALARY.setDecimalDigits(4);
+
+        COLUMN_OVERTIME_PAID_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_OVERTIME_PAID_SALARY.setName("overtime_paid");
+        COLUMN_OVERTIME_PAID_SALARY.setId("_column_salary_overtimePaid");
+        COLUMN_OVERTIME_PAID_SALARY.setType(ColumnType.NUMERIC);
+        COLUMN_OVERTIME_PAID_SALARY.setColumnSize(10);
+        COLUMN_OVERTIME_PAID_SALARY.setDecimalDigits(4);
+
+        COLUMN_VACATION_ACCRUED_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_VACATION_ACCRUED_SALARY.setName("vacation_accrued");
+        COLUMN_VACATION_ACCRUED_SALARY.setId("_column_salary_vacationAccrued");
+        COLUMN_VACATION_ACCRUED_SALARY.setType(ColumnType.REAL);
+
+        COLUMN_VACATION_USED_SALARY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_VACATION_USED_SALARY.setName("vacation_used");
+        COLUMN_VACATION_USED_SALARY.setId("_column_salary_vacationUsed");
+        COLUMN_VACATION_USED_SALARY.setType(ColumnType.REAL);
 
         // Initialize employee closure columns
         COLUMN_SUPERVISOR_ID_EMPLOYEE_CLOSURE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
@@ -1440,6 +1634,282 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997.setId("_column_agg_c_special_sales_fact_1997_fact_count");
         COLUMN_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
+        //unit_sales,customer_count,fact_count
+        //DECIMAL(10.4),INTEGER,INTEGER
+        COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997.setName("month_of_year");
+        COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_month_of_year");
+        COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997.setName("quarter");
+        COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_quarter");
+        COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997.setName("the_year");
+        COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_the_year");
+        COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997.setName("store_sales");
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_store_sales");
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997.setName("store_cost");
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_store_cost");
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997.setName("unit_sales");
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_unit_sales");
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997.setName("customer_count");
+        COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_customer_count");
+        COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997.setId("_column_agg_c_10_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        //store_sales,store_cost,unit_sales,fact_count
+        //DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997.setName("product_id");
+        COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_product_id");
+        COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997.setName("customer_id");
+        COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_customer_id");
+        COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setName("promotion_id");
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_promotion_id");
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setName("store_id");
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_store_id");
+        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setName("store_sales");
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_store_sales");
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997.setName("store_cost");
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_store_cost");
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997.setName("unit_sales");
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_unit_sales");
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setName("time_id");
+        COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_time_id");
+        COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997.setName("customer_id");
+        COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_customer_id");
+        COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997.setName("store_sales");
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_store_sales");
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997.setName("store_cost");
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_store_cost");
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997.setName("unit_sales");
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_unit_sales");
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        //store_cost,unit_sales,customer_count,fact_count
+        //DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+        COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setName("gender");
+        COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_gender");
+        COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997.setName("marital_status");
+        COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_marital_status");
+        COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997.setName("product_family");
+        COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_product_family");
+        COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997.setName("product_department");
+        COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_product_department");
+        COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997.setName("product_category");
+        COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_product_category");
+        COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setName("month_of_year");
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_month_of_year");
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997.setName("quarter");
+        COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_quarter");
+        COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setName("the_year");
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_the_year");
+        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setName("store_sales");
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_store_sales");
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997.setName("store_cost");
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_store_cost");
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setName("unit_sales");
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_unit_sales");
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setName("customer_count");
+        COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_customer_count");
+        COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        //store_sales,store_cost,unit_sales,fact_count
+        //DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997.setName("product_id");
+        COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_product_id");
+        COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997.setName("customer_id");
+        COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_customer_id");
+        COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997.setName("store_id");
+        COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_store_id");
+        COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997.setName("promotion_id");
+        COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_promotion_id");
+        COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997.setName("month_of_year");
+        COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_month_of_year");
+        COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997.setName("quarter");
+        COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_quarter");
+        COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997.setType(ColumnType.VARCHAR);
+        COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997.setColumnSize(30);
+
+        COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997.setName("the_year");
+        COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_the_year");
+        COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997.setName("store_sales");
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_store_sales");
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997.setColumnSize(30);
+        COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997.setName("store_cost");
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_store_cost");
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997.setColumnSize(30);
+        COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997.setName("unit_sales");
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_unit_sales");
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997.setColumnSize(30);
+        COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997.setId("_column_agg_c_14_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
         //quarter,fiscal_period
         //VARCHAR(30),VARCHAR(30)
         COLUMN_TIME_ID_TIME_BY_DAY = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
@@ -1620,6 +2090,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         COLUMN_PROMOTION_ID_SALESFACT, COLUMN_PRODUCT_ID_SALESFACT, COLUMN_UNIT_SALES_SALESFACT, COLUMN_STORE_SALES_SALESFACT,
                         COLUMN_STORE_COST_SALESFACT));
 
+        //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
+        //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
+        TABLE_SALES_FACT1998 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_SALES_FACT1998.setName("sales_fact_1998");
+        TABLE_SALES_FACT1998.setId("_table_salesFact1998");
+        TABLE_SALES_FACT1998.getColumns()
+                .addAll(List.of(COLUMN_PRODUCT_ID_SALESFACT1998, COLUMN_TIME_ID_SALESFACT1998, COLUMN_CUSTOMER_ID_SALESFACT1998,
+                        COLUMN_PROMOTION_ID_SALESFACT1998,  COLUMN_STORE_ID_SALESFACT1998, COLUMN_STORE_SALES_SALESFACT1998,
+                        COLUMN_STORE_COST_SALESFACT1998, COLUMN_UNIT_SALES_SALESFACT1998));
+
         TABLE_TIME = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_TIME.setName("time_by_day");
         TABLE_TIME.setId("_table_timeByDay");
@@ -1643,7 +2123,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         COLUMN_COUNTRY_CUSTOMER, COLUMN_STATE_PROVINCE_CUSTOMER, COLUMN_CITY_CUSTOMER,
                         COLUMN_MARITAL_STATUS_CUSTOMER, COLUMN_EDUCATION_CUSTOMER, COLUMN_YEARLY_INCOME_CUSTOMER,
                         COLUMN_MEMBER_CARD_CUSTOMER, COLUMN_OCCUPATION_CUSTOMER, COLUMN_HOUSEOWNER_CUSTOMER,
-                        COLUMN_NUM_CHILDREN_AT_HOME_CUSTOMER));
+                        COLUMN_NUM_CHILDREN_AT_HOME_CUSTOMER, COLUMN_LNAME_CUSTOMER, COLUMN_FNAME_CUSTOMER,
+                        COLUMN_ACCOUNT_NUM_CUSTOMER, COLUMN_CUSTOMER_REGION_ID_CUSTOMER, COLUMN_NUM_CARS_OWNED_CUSTOMER,
+                        COLUMN_TOTAL_CHILDREN_CUSTOMER));
 
         TABLE_PRODUCT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_PRODUCT.setName("product");
@@ -1703,7 +2185,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TABLE_SALARY.setName("salary");
         TABLE_SALARY.setId("_table_salary");
         TABLE_SALARY.getColumns()
-                .addAll(List.of(COLUMN_EMPLOYEE_ID_SALARY, COLUMN_PAY_DATE_SALARY, COLUMN_SALARY_PAID_SALARY));
+                .addAll(List.of(COLUMN_EMPLOYEE_ID_SALARY, COLUMN_DEPARTMENT_ID_SALARY, COLUMN_CURRENCY_ID_SALARY, COLUMN_PAY_DATE_SALARY,
+                        COLUMN_SALARY_PAID_SALARY, COLUMN_OVERTIME_PAID_SALARY, COLUMN_VACATION_ACCRUED_SALARY, COLUMN_VACATION_USED_SALARY));
 
         TABLE_EMPLOYEE_CLOSURE = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_EMPLOYEE_CLOSURE.setName("employee_closure");
@@ -1733,6 +2216,65 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 COLUMN_STORE_COST_SUM_AGG_C_SPECIAL_SALES_FACT_1997,
                 COLUMN_UNIT_SALES_SUM_AGG_C_SPECIAL_SALES_FACT_1997,
                 COLUMN_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997));
+
+        //month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
+        //SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+        TABLE_AGG_C_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_C_10_SALES_FACT_1997.setName("agg_c_10_sales_fact_1997");
+        TABLE_AGG_C_10_SALES_FACT_1997.getColumns()
+        .addAll(List.of(COLUMN_MONTH_YEAR_AGG_C_10_SALES_FACT_1997,
+                COLUMN_QUARTER_AGG_C_10_SALES_FACT_1997, COLUMN_THE_YEAR_AGG_C_10_SALES_FACT_1997,
+                COLUMN_STORE_SALES_AGG_C_10_SALES_FACT_1997, COLUMN_STORE_COST_AGG_C_10_SALES_FACT_1997,
+                COLUMN_UNIT_SALES_AGG_C_10_SALES_FACT_1997, COLUMN_CUSTOMER_COUNT_AGG_C_10_SALES_FACT_1997,
+                COLUMN_FACT_COUNT_AGG_C_10_SALES_FACT_1997));
+
+        //product_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales,fact_count
+        //INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        TABLE_AGG_L_05_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_L_05_SALES_FACT.setName("agg_l_05_sales_fact_1997");
+        TABLE_AGG_L_05_SALES_FACT.getColumns()
+        .addAll(List.of(COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997,
+                COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997, COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997,
+                COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997, COLUMN_STORE_COST_AGG_L_05_SALES_FACT_1997, COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997,
+                COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997
+                ));
+
+        //time_id,customer_id,store_sales,store_cost,unit_sales,fact_count
+        //INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        TABLE_AGG_L_03_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_L_03_SALES_FACT.setName("agg_l_03_sales_fact_1997");
+        TABLE_AGG_L_03_SALES_FACT.getColumns()
+        .addAll(List.of(COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997,
+                COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997, COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997,
+                COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997, COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997
+                ));
+
+        //gender,marital_status,product_family,product_department,product_category,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
+        //VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+        TABLE_AGG_G_MS_PCAT_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_G_MS_PCAT_SALES_FACT.setName("agg_g_ms_pcat_sales_fact_1997");
+        TABLE_AGG_G_MS_PCAT_SALES_FACT.getColumns()
+        .addAll(List.of(COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_PRODUCT_CATEGORY_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_STORE_COST_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_UNIT_SALES_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_CUSTOMER_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997,
+                COLUMN_FACT_COUNT_AGG_G_MS_PCAT_SALES_FACT_1997
+                ));
+
+        //product_id,customer_id,store_id,promotion_id,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,fact_count
+        //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        TABLE_AGG_C_14_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_C_14_SALES_FACT.setName("agg_c_14_sales_fact_1997");
+        TABLE_AGG_C_14_SALES_FACT.getColumns()
+        .addAll(List.of(COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997,
+                COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997, COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997,
+                COLUMN_MONTH_YEAR_AGG_C_14_SALES_FACT_1997, COLUMN_QUARTER_AGG_C_14_SALES_FACT_1997,
+                COLUMN_THE_YEAR_AGG_C_14_SALES_FACT_1997, COLUMN_STORE_SALES_AGG_C_14_SALES_FACT_1997,
+                COLUMN_STORE_COST_AGG_C_14_SALES_FACT_1997, COLUMN_UNIT_SALES_AGG_C_14_SALES_FACT_1997,
+                COLUMN_FACT_COUNT_AGG_C_14_SALES_FACT_1997
+                ));
 
         TABLE_TIME_BY_DAY = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_TIME_BY_DAY.setName("time_by_day");
@@ -1953,8 +2495,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // Initialize levels
         LEVEL_YEAR = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_YEAR.setName("Year");
+        LEVEL_YEAR.setUniqueMembers(true);
         LEVEL_YEAR.setColumn(COLUMN_THE_YEAR_TIME_BY_DAY);
         LEVEL_YEAR.setType(LevelDefinition.TIME_YEARS);
+        LEVEL_YEAR.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_YEAR.setId("_level_time_year");
 
         LEVEL_QUARTER = RolapMappingFactory.eINSTANCE.createLevel();
@@ -1967,6 +2511,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_MONTH.setName("Month");
         LEVEL_MONTH.setColumn(COLUMN_MONTH_OF_YEAR_TIME_BY_DAY);
         LEVEL_MONTH.setId("_level_time_month");
+        LEVEL_MONTH.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_MONTH.setType(LevelDefinition.TIME_MONTHS);
 
         LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR = RolapMappingFactory.eINSTANCE.createLevel();
@@ -1982,6 +2527,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_WEEK.setName("Week");
         LEVEL_WEEK.setColumn(COLUMN_WEEK_OF_YEAR_TIME_BY_DAY);
         LEVEL_WEEK.setId("_level_time_week");
+        LEVEL_WEEK.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_WEEK.setType(LevelDefinition.TIME_WEEKS);
 
         LEVEL_DAY = RolapMappingFactory.eINSTANCE.createLevel();
@@ -2371,6 +2917,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_EMPLOYEE_ID.setName("Employee Id");
         LEVEL_EMPLOYEE_ID.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_EMPLOYEE_ID.setColumn(COLUMN_EMPLOYEE_ID_EMPLOYEE);
+        LEVEL_EMPLOYEE_ID.setNameColumn(COLUMN_FULL_NAME_EMPLOYEE);
         LEVEL_EMPLOYEE_ID.setId("_level_employe_id");
         LEVEL_EMPLOYEE_ID.setUniqueMembers(true);
         LEVEL_EMPLOYEE_ID.getMemberProperties().addAll(List.of(LEVEL_EMPLOYEE_PROP1, LEVEL_EMPLOYEE_PROP2, LEVEL_EMPLOYEE_PROP3,
@@ -2933,13 +3480,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_STORE_SALES.setName("Store Sales");
         MEASURE_STORE_SALES.setId("_measure_storeSales");
         MEASURE_STORE_SALES.setColumn(COLUMN_STORE_SALES_SALESFACT);
-        MEASURE_STORE_SALES.setFormatString("$#,##0.00");
+        MEASURE_STORE_SALES.setFormatString("#,###.00");
 
         MEASURE_STORE_COST = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_COST.setName("Store Cost");
         MEASURE_STORE_COST.setId("_measure_storeCost");
         MEASURE_STORE_COST.setColumn(COLUMN_STORE_COST_SALESFACT);
-        MEASURE_STORE_COST.setFormatString("$#,##0.00");
+        MEASURE_STORE_COST.setFormatString("#,###.00");
 
         MEASURE_SALES_COUNT = RolapMappingFactory.eINSTANCE.createCountMeasure();
         MEASURE_SALES_COUNT.setName("Sales Count");
@@ -3399,12 +3946,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CONNECTOR_SALES_RAGGED_YEARLY_INCOME.setForeignKey(COLUMN_CUSTOMER_ID_SALESFACT);
         CONNECTOR_SALES_RAGGED_YEARLY_INCOME.setId("_connector_ragged_yearly_income");
 
+        CALCULATED_MEMBER_PROP0 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CALCULATED_MEMBER_PROP0.setName("FORMAT_STRING");
+        CALCULATED_MEMBER_PROP0.setValue("$#,##0.00");
+
         // Initialize calculated members
         CALCULATED_MEMBER_PROFIT = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT.setName("Profit");
         CALCULATED_MEMBER_PROFIT.setId("_calculated_member_profit");
         CALCULATED_MEMBER_PROFIT.setFormula("[Measures].[Store Sales] - [Measures].[Store Cost]");
-        CALCULATED_MEMBER_PROFIT.setFormatString("$#,##0.00");
+        CALCULATED_MEMBER_PROFIT.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROP0));
 
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setName("Profit last Period");
@@ -3695,7 +4246,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(TABLE_SALES_FACT, TABLE_TIME, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
                         TABLE_WAREHOUSE, TABLE_INVENTORY_FACT, TABLE_PROMOTION, TABLE_EMPLOYEE, TABLE_DEPARTMENT,
                         TABLE_POSITION, TABLE_SALARY, TABLE_EMPLOYEE_CLOSURE, TABLE_PRODUCT_CLASS, TABLE_AGG_C_SPECIAL_SALES_FACT_1997,
-                        TABLE_TIME_BY_DAY, TABLE_STORE_RAGGED));
+                        TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT,
+                        TABLE_TIME_BY_DAY, TABLE_STORE_RAGGED ));
 
         GRANT_DATABASE_SCHEMA_ADMIN.setDatabaseSchema(DATABASE_SCHEMA_FOODMART);
         GRANT_DATABASE_SCHEMA_HR.setDatabaseSchema(DATABASE_SCHEMA_FOODMART);
