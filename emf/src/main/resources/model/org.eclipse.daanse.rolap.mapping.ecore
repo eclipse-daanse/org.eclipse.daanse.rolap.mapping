@@ -2565,7 +2565,7 @@
         <details key="documentation" value="Timestamp type combining date and time for precise temporal data and event tracking."/>
       </eAnnotations>
     </eLiterals>
-    <eLiterals name="BIGINT" value="14" literal="BinInt">
+    <eLiterals name="BIGINT" value="14" literal="BigInt">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Large integer type for high-volume identifiers and big integer calculations."/>
       </eAnnotations>
