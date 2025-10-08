@@ -122,6 +122,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_CUSTOMER_REGION_ID_CUSTOMER;
     public static final Column COLUMN_NUM_CARS_OWNED_CUSTOMER;
     public static final Column COLUMN_TOTAL_CHILDREN_CUSTOMER;
+    public static final Column COLUMN_ADDRESS2_CUSTOMER;
 
     // Static columns - Product Table
     //product_class_id,product_id,brand_name,product_name,SKU,SRP,gross_weight,net_weight,recyclable_package,low_fat,units_per_case,cases_per_pallet,shelf_width,shelf_height,shelf_depth
@@ -140,6 +141,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_WAREHOUSE_CITY_WAREHOUSE;
     public static final Column COLUMN_WAREHOUSE_STATE_PROVINCE_WAREHOUSE;
     public static final Column COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE;
+    public static final Column COLUMN_STORES_ID_WAREHOUSE;
 
     // Inventory fact table columns
     //product_id,time_id,warehouse_id,store_id,units_ordered,units_shipped,warehouse_sales,warehouse_cost,supply_time,store_invoice
@@ -230,6 +232,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_COFFEE_BAR_STORE;
     public static final Column COLUMN_STORE_POSTAL_CODE_STORE;
     public static final Column COLUMN_STORE_NUMBER_STORE;
+    public static final Column COLUMN_STREET_ADDRESS_STORE;
 
     public static final Column COLUMN_PRODUCT_ID_AGG_C_SPECIAL_SALES_FACT_1997;
     public static final Column COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997;
@@ -1154,6 +1157,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_TOTAL_CHILDREN_CUSTOMER.setId("_column_customer_total_children");
         COLUMN_TOTAL_CHILDREN_CUSTOMER.setType(ColumnType.SMALLINT);
 
+        COLUMN_ADDRESS2_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_ADDRESS2_CUSTOMER.setName("address2");
+        COLUMN_ADDRESS2_CUSTOMER.setId("_column_customer_address2");
+        COLUMN_ADDRESS2_CUSTOMER.setType(ColumnType.VARCHAR);
+        COLUMN_ADDRESS2_CUSTOMER.setColumnSize(30);
+
         // Product table columns
         COLUMN_PRODUCT_CLASS_ID_PRODUCT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_PRODUCT_CLASS_ID_PRODUCT.setName("product_class_id");
@@ -1220,6 +1229,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE.setName("warehouse_country");
         COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE.setId("_column_warehouse_warehouseCountry");
         COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE.setType(ColumnType.VARCHAR);
+
+        COLUMN_STORES_ID_WAREHOUSE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORES_ID_WAREHOUSE.setName("stores_id");
+        COLUMN_STORES_ID_WAREHOUSE.setId("_column_warehouse_stores_id");
+        COLUMN_STORES_ID_WAREHOUSE.setType(ColumnType.INTEGER);
 
         // Initialize inventory fact columns
         COLUMN_WAREHOUSE_ID_INVENTORY_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
@@ -1571,6 +1585,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_STORE_NUMBER_STORE.setName("store_number");
         COLUMN_STORE_NUMBER_STORE.setId("_column_store_storeNumber");
         COLUMN_STORE_NUMBER_STORE.setType(ColumnType.INTEGER);
+
+        COLUMN_STREET_ADDRESS_STORE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STREET_ADDRESS_STORE.setName("store_street_address");
+        COLUMN_STREET_ADDRESS_STORE.setId("_column_store_store_street_address");
+        COLUMN_STREET_ADDRESS_STORE.setType(ColumnType.VARCHAR);
+        COLUMN_STREET_ADDRESS_STORE.setColumnSize(30);
 
         COLUMN_PRODUCT_ID_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_PRODUCT_ID_AGG_C_SPECIAL_SALES_FACT_1997.setName("product_id");
@@ -2113,7 +2133,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 COLUMN_STORE_COUNTRY_STORE, COLUMN_STORE_STATE_STORE, COLUMN_STORE_CITY_STORE, COLUMN_STORE_TYPE_STORE,
                 COLUMN_REGION_ID_STORE, COLUMN_STORE_STREET_ADDRESS_STORE, COLUMN_STORE_MANAGER_STORE,
                 COLUMN_STORE_SQFT_STORE, COLUMN_GROCERY_SQFT_STORE, COLUMN_FROZEN_SQFT_STORE, COLUMN_MEAT_SQFT_STORE,
-                COLUMN_COFFEE_BAR_STORE, COLUMN_STORE_POSTAL_CODE_STORE, COLUMN_STORE_NUMBER_STORE));
+                COLUMN_COFFEE_BAR_STORE, COLUMN_STORE_POSTAL_CODE_STORE, COLUMN_STORE_NUMBER_STORE, COLUMN_STREET_ADDRESS_STORE));
 
         TABLE_CUSTOMER = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_CUSTOMER.setName("customer");
@@ -2125,7 +2145,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         COLUMN_MEMBER_CARD_CUSTOMER, COLUMN_OCCUPATION_CUSTOMER, COLUMN_HOUSEOWNER_CUSTOMER,
                         COLUMN_NUM_CHILDREN_AT_HOME_CUSTOMER, COLUMN_LNAME_CUSTOMER, COLUMN_FNAME_CUSTOMER,
                         COLUMN_ACCOUNT_NUM_CUSTOMER, COLUMN_CUSTOMER_REGION_ID_CUSTOMER, COLUMN_NUM_CARS_OWNED_CUSTOMER,
-                        COLUMN_TOTAL_CHILDREN_CUSTOMER));
+                        COLUMN_TOTAL_CHILDREN_CUSTOMER, COLUMN_ADDRESS2_CUSTOMER));
 
         TABLE_PRODUCT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_PRODUCT.setName("product");
@@ -2142,7 +2162,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TABLE_WAREHOUSE.getColumns()
                 .addAll(List.of(COLUMN_WAREHOUSE_ID_WAREHOUSE, COLUMN_WAREHOUSE_NAME_WAREHOUSE,
                         COLUMN_WAREHOUSE_CITY_WAREHOUSE, COLUMN_WAREHOUSE_STATE_PROVINCE_WAREHOUSE,
-                        COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE));
+                        COLUMN_WAREHOUSE_COUNTRY_WAREHOUSE, COLUMN_STORES_ID_WAREHOUSE));
 
         TABLE_INVENTORY_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_INVENTORY_FACT.setName("inventory_fact_1997");
@@ -3099,7 +3119,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         HIERARCHY_TIME2 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_TIME2.setId("_hierarchy_time1");
-        HIERARCHY_TIME2.setHasAll(false);
+        HIERARCHY_TIME2.setHasAll(true);
         HIERARCHY_TIME2.setPrimaryKey(COLUMN_TIME_ID_TIME_BY_DAY);
         HIERARCHY_TIME2.setName("Weekly");
         HIERARCHY_TIME2.setQuery(QUERY_TIME_BY_DAY);
@@ -3511,7 +3531,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_WAREHOUSE_SALES.setName("Warehouse Sales");
         MEASURE_WAREHOUSE_SALES.setId("_measure_warehouseSales");
         MEASURE_WAREHOUSE_SALES.setColumn(COLUMN_WAREHOUSE_SALES_INVENTORY_FACT);
-        MEASURE_WAREHOUSE_SALES.setFormatString("$#,##0.00");
 
         MEASURE_WAREHOUSE_STORE_INVOICE = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_WAREHOUSE_STORE_INVOICE.setName("Store Invoice");
