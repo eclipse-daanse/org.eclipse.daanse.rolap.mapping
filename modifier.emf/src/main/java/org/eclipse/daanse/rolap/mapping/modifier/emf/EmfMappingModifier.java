@@ -195,7 +195,7 @@ import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
 public class EmfMappingModifier extends AbstractMappingModifier {
 
-    protected EmfMappingModifier(CatalogMapping catalog) {
+    public EmfMappingModifier(CatalogMapping catalog) {
         super(catalog);
     }
 
