@@ -15,6 +15,7 @@ package org.eclipse.daanse.rolap.mapping.api.model.enums;
 
 public enum InternalDataType {
 
+    UNDEFINED("Undefined"),
     STRING("String"),
     NUMERIC("Numeric"),
     INTEGER("Integer"),
