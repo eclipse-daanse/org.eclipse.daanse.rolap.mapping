@@ -1721,9 +1721,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
         COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setName("store_id");
-        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_store_id");
-        COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
+        COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997.setName("store_id");
+        COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_store_id");
+        COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
         COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_STORE_SALES_AGG_L_05_SALES_FACT_1997.setName("store_sales");
@@ -1831,9 +1831,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_QUARTER_AGG_G_MS_PCAT_SALES_FACT_1997.setColumnSize(30);
 
         COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setName("the_year");
-        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_the_year");
-        COLUMN_MONTH_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+        COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setName("the_year");
+        COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_the_year");
+        COLUMN_THE_YEAR_AGG_G_MS_PCAT_SALES_FACT_1997.setType(ColumnType.SMALLINT);
 
         COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_STORE_SALES_AGG_G_MS_PCAT_SALES_FACT_1997.setName("store_sales");
