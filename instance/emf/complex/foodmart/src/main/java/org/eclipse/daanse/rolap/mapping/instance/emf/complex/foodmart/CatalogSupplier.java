@@ -2086,6 +2086,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_PROMOTION_SALES_COL.getSqls().addAll(List.of(MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1, MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2,
                 MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT3, MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT4));
         MEASURE_PROMOTION_SALES_COL.setType(ColumnType.DECIMAL);
+        MEASURE_PROMOTION_SALES_COL.setId("_sqlExpressionColumn_promotionSales");
 
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1.getDialects().addAll(List.of("mysql", "mariadb", "infobright"));
@@ -2099,6 +2100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_WAREHOUSE_PROFIT_COL = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         MEASURE_WAREHOUSE_PROFIT_COL.getSqls().addAll(List.of(MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1, MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2));
         MEASURE_WAREHOUSE_PROFIT_COL.setType(ColumnType.DECIMAL);
+        MEASURE_WAREHOUSE_PROFIT_COL.setId("_sqlExpressionColumn_warehouseProfit");
 
         // Initialize tables
         TABLE_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -2223,6 +2225,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997.setName("agg_c_special_sales_fact_1997");
+        TABLE_AGG_C_SPECIAL_SALES_FACT_1997.setId("_table_agg_c_special_sales_fact_1997");
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997.getColumns()
         .addAll(List.of(COLUMN_PRODUCT_ID_AGG_C_SPECIAL_SALES_FACT_1997,
                 COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997,
@@ -2251,6 +2254,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         //INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
         TABLE_AGG_L_05_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_L_05_SALES_FACT.setName("agg_l_05_sales_fact_1997");
+        TABLE_AGG_L_05_SALES_FACT.setId("_table_agg_l_05_sales_fact_1997");
         TABLE_AGG_L_05_SALES_FACT.getColumns()
         .addAll(List.of(COLUMN_PRODUCT_ID_AGG_L_05_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_L_05_SALES_FACT_1997,
                 COLUMN_PROMOTION_ID_AGG_L_05_SALES_FACT_1997, COLUMN_STORE_ID_AGG_L_05_SALES_FACT_1997,
@@ -2262,6 +2266,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         //INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
         TABLE_AGG_L_03_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_L_03_SALES_FACT.setName("agg_l_03_sales_fact_1997");
+        TABLE_AGG_L_03_SALES_FACT.setId("_table_agg_l_03_sales_fact_1997");
         TABLE_AGG_L_03_SALES_FACT.getColumns()
         .addAll(List.of(COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997,
                 COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997, COLUMN_STORE_COST_AGG_L_03_SALES_FACT_1997,
@@ -2297,6 +2302,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TABLE_TIME_BY_DAY = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_TIME_BY_DAY.setName("time_by_day");
+        TABLE_TIME_BY_DAY.setId("_table_time_by_day");
         TABLE_TIME_BY_DAY.getColumns()
         .addAll(List.of(COLUMN_TIME_ID_TIME_BY_DAY,
                 COLUMN_THE_DATE_TIME_BY_DAY,
@@ -2311,6 +2317,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         TABLE_STORE_RAGGED = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_STORE_RAGGED.setName("store_ragged");
+        TABLE_STORE_RAGGED.setId("_table_store_ragged");
         TABLE_STORE_RAGGED.getColumns()
         .addAll(List.of(
                 COLUMN_STORE_ID_STORE_RAGGED,
@@ -2396,15 +2403,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // Initialize AggregationExcludes
         AGGREGATION_EXCLUDE_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         AGGREGATION_EXCLUDE_AGG_C_SPECIAL_SALES_FACT_1997.setName("agg_c_special_sales_fact_1997");
+        AGGREGATION_EXCLUDE_AGG_C_SPECIAL_SALES_FACT_1997.setId("_aggregationExclude_agg_c_special_sales_fact_1997");
 
         AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997.setName("agg_lc_100_sales_fact_1997");
+        AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997.setId("_aggregationExclude_agg_lc_100_sales_fact_1997");
 
         AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997.setName("agg_lc_10_sales_fact_1997");
+        AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997.setId("_aggregationExclude_agg_lc_10_sales_fact_1997");
 
         AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
         AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997.setName("agg_pc_10_sales_fact_1997");
+        AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997.setId("_aggregationExclude_agg_pc_10_sales_fact_1997");
 
         // Initialize table queries
         QUERY_STORE = RolapMappingFactory.eINSTANCE.createTableQuery();
@@ -2577,37 +2588,45 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STORE_PROP1 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP1.setName("Store Type");
         LEVEL_STORE_PROP1.setColumn(COLUMN_STORE_TYPE_STORE);
+        LEVEL_STORE_PROP1.setId("_memberProperty_store_storeType");
 
         LEVEL_STORE_PROP2 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP2.setName("Store Manager");
         LEVEL_STORE_PROP2.setColumn(COLUMN_STORE_MANAGER_STORE);
+        LEVEL_STORE_PROP2.setId("_memberProperty_store_storeManager");
 
         LEVEL_STORE_PROP3 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP3.setName("Store Sqft");
         LEVEL_STORE_PROP3.setColumn(COLUMN_STORE_SQFT_STORE);
+        LEVEL_STORE_PROP3.setId("_memberProperty_store_storeSqft");
 
         LEVEL_STORE_PROP4 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP4.setName("Grocery Sqft");
         LEVEL_STORE_PROP4.setColumn(COLUMN_GROCERY_SQFT_STORE);
+        LEVEL_STORE_PROP4.setId("_memberProperty_store_grocerySqft");
 
         LEVEL_STORE_PROP5 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP5.setName("Frozen Sqft");
         LEVEL_STORE_PROP5.setColumn(COLUMN_FROZEN_SQFT_STORE);
+        LEVEL_STORE_PROP5.setId("_memberProperty_store_frozenSqft");
 
         LEVEL_STORE_PROP6 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP6.setName("Meat Sqft");
         LEVEL_STORE_PROP6.setColumn(COLUMN_MEAT_SQFT_STORE);
         LEVEL_STORE_PROP6.setPropertyType(ColumnInternalDataType.NUMERIC);
+        LEVEL_STORE_PROP6.setId("_memberProperty_store_meatSqft");
 
         LEVEL_STORE_PROP7 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP7.setName("Has coffee bar");
         LEVEL_STORE_PROP7.setColumn(COLUMN_COFFEE_BAR_STORE);
         LEVEL_STORE_PROP7.setPropertyType(ColumnInternalDataType.BOOLEAN);
+        LEVEL_STORE_PROP7.setId("_memberProperty_store_hasCoffeeBar");
 
         LEVEL_STORE_PROP8 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP8.setName("Street address");
         LEVEL_STORE_PROP8.setColumn(COLUMN_STORE_STREET_ADDRESS_STORE);
         LEVEL_STORE_PROP8.setPropertyType(ColumnInternalDataType.BOOLEAN);
+        LEVEL_STORE_PROP8.setId("_memberProperty_store_streetAddress");
 
         LEVEL_STORE_NAME = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_STORE_NAME.setName("Store Name");
@@ -2762,34 +2781,42 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP1 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP1.setName("Store Type");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP1.setColumn(COLUMN_STORE_TYPE_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP1.setId("_memberProperty_storeRagged_storeType");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP2 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP2.setName("Store Manager");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP2.setColumn(COLUMN_STORE_MANAGER_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP2.setId("_memberProperty_storeRagged_storeManager");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP3 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP3.setName("Store Sqft");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP3.setColumn(COLUMN_STORE_SQFT_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP3.setId("_memberProperty_storeRagged_storeSqft");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP4 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP4.setName("Grocery Sqft");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP4.setColumn(COLUMN_GROCERY_SQFT_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP4.setId("_memberProperty_storeRagged_grocerySqft");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP5 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP5.setName("Frozen Sqft");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP5.setColumn(COLUMN_FROZEN_SQFT_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP5.setId("_memberProperty_storeRagged_frozenSqft");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP6 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP6.setName("Meat Sqft");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP6.setColumn(COLUMN_MEAT_SQFT_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP6.setId("_memberProperty_storeRagged_meatSqft");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP7 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP7.setName("Has coffee bar");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP7.setColumn(COLUMN_COFFEE_BAR_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP7.setId("_memberProperty_storeRagged_hasCoffeeBar");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP8 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP8.setName("Street address");
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP8.setColumn(COLUMN_STREET_ADDRESS_STORE_RAGGED);
+        LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER_PROP8.setId("_memberProperty_storeRagged_streetAddress");
 
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER.setName("Store Name");
@@ -2911,26 +2938,32 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_EMPLOYEE_PROP1 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP1.setName("Marital Status");
         LEVEL_EMPLOYEE_PROP1.setColumn(COLUMN_MARITAL_STATUS_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP1.setId("_memberProperty_employee_maritalStatus");
 
         LEVEL_EMPLOYEE_PROP2 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP2.setName("Position Title");
         LEVEL_EMPLOYEE_PROP2.setColumn(COLUMN_POSITION_TITLE_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP2.setId("_memberProperty_employee_positionTitle");
 
         LEVEL_EMPLOYEE_PROP3 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP3.setName("Gender");
         LEVEL_EMPLOYEE_PROP3.setColumn(COLUMN_GENDER_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP3.setId("_memberProperty_employee_gender");
 
         LEVEL_EMPLOYEE_PROP4 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP4.setName("Salary");
         LEVEL_EMPLOYEE_PROP4.setColumn(COLUMN_SALARY_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP4.setId("_memberProperty_employee_salary");
 
         LEVEL_EMPLOYEE_PROP5 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP5.setName("Education Level");
         LEVEL_EMPLOYEE_PROP5.setColumn(COLUMN_EDUCATION_LEVEL_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP5.setId("_memberProperty_employee_educationLevel");
 
         LEVEL_EMPLOYEE_PROP6 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_EMPLOYEE_PROP6.setName("Management Role");
         LEVEL_EMPLOYEE_PROP6.setColumn(COLUMN_MANAGEMENT_ROLE_EMPLOYEE);
+        LEVEL_EMPLOYEE_PROP6.setId("_memberProperty_employee_managementRole");
 
         LEVEL_EMPLOYEE_ID = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_EMPLOYEE_ID.setName("Employee Id");
@@ -2964,17 +2997,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_NAME_PROP1 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_NAME_PROP1.setName("Gender");
         LEVEL_NAME_PROP1.setColumn(COLUMN_GENDER_CUSTOMER);
+        LEVEL_NAME_PROP1.setId("_memberProperty_name_gender");
 
         LEVEL_NAME_PROP2 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_NAME_PROP2.setName("Marital Status");
         LEVEL_NAME_PROP2.setColumn(COLUMN_MARITAL_STATUS_CUSTOMER);
+        LEVEL_NAME_PROP2.setId("_memberProperty_name_maritalStatus");
 
         LEVEL_NAME_PROP3 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_NAME_PROP3.setName("Education");
         LEVEL_NAME_PROP3.setColumn(COLUMN_EDUCATION_CUSTOMER);
+        LEVEL_NAME_PROP3.setId("_memberProperty_name_education");
 
         LEVEL_NAME_PROP4 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_NAME_PROP4.setName("Yearly Income");
+        LEVEL_NAME_PROP4.setId("_memberProperty_name_yearlyIncome");
         LEVEL_NAME_PROP4.setColumn(COLUMN_YEARLY_INCOME_CUSTOMER);
 
         LEVEL_NAME = RolapMappingFactory.eINSTANCE.createLevel();
@@ -2982,6 +3019,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_NAME.setColumn(COLUMN_CUSTOMER_ID_CUSTOMER);
         LEVEL_NAME.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_NAME.setUniqueMembers(true);
+        LEVEL_NAME.setId("_level_name");
         LEVEL_NAME.setNameColumn(COLUMN_FULLNAME_CUSTOMER); //TODO
         LEVEL_NAME.getMemberProperties().addAll(List.of(LEVEL_NAME_PROP1, LEVEL_NAME_PROP2, LEVEL_NAME_PROP3, LEVEL_NAME_PROP4));
 
@@ -3354,6 +3392,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         HIERARCHY_GEOGRAPHY = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_GEOGRAPHY.setHasAll(true);
+        HIERARCHY_GEOGRAPHY.setId("_hierarchy_geography");
         HIERARCHY_GEOGRAPHY.setPrimaryKey(COLUMN_STORE_ID_STORE_RAGGED);
         HIERARCHY_GEOGRAPHY.setQuery(QUERY_STORE_RAGGED);
         HIERARCHY_GEOGRAPHY.getLevels().addAll(List.of(LEVEL_COUNTRY_WITH_NEVER, LEVEL_STATE, LEVEL_CITY_TABLE_COLUMN_STORE_CITY));
@@ -3482,10 +3521,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         DIMENSION_STORE_TYPE = RolapMappingFactory.eINSTANCE.createStandardDimension();
         DIMENSION_STORE_TYPE.setName("Store Type");
+        DIMENSION_STORE_TYPE.setId("_dimension_store_type_ragged");
         DIMENSION_STORE_TYPE.getHierarchies().add(HIERARCHY_STORE_TYPE);
 
         DIMENSION_GEOGRAPHY = RolapMappingFactory.eINSTANCE.createStandardDimension();
         DIMENSION_GEOGRAPHY.setName("Geography");
+        DIMENSION_GEOGRAPHY.setId("_dimension_geography");
         DIMENSION_GEOGRAPHY.getHierarchies().add(HIERARCHY_GEOGRAPHY);
 
         // Initialize measures
@@ -3601,31 +3642,37 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_UNIT_SALES_RAGGED.setName("Unit Sales");
         MEASURE_UNIT_SALES_RAGGED.setColumn(COLUMN_UNIT_SALES_SALESFACT);
         MEASURE_UNIT_SALES_RAGGED.setFormatString("Standard");
+        MEASURE_UNIT_SALES_RAGGED.setId("_measure_unitSales_ragged");
 
         MEASURE_STORE_COST_RAGGED = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_COST_RAGGED.setName("Store Cost");
         MEASURE_STORE_COST_RAGGED.setColumn(COLUMN_STORE_COST_SALESFACT);
         MEASURE_STORE_COST_RAGGED.setFormatString("#,###");
+        MEASURE_STORE_COST_RAGGED.setId("_measure_storeCost_ragged");
 
         MEASURE_STORE_SALES_RAGGED = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_SALES_RAGGED.setName("Store Sales");
         MEASURE_STORE_SALES_RAGGED.setColumn(COLUMN_STORE_SALES_SALESFACT);
         MEASURE_STORE_SALES_RAGGED.setFormatString("#,###");
+        MEASURE_STORE_SALES_RAGGED.setId("_measure_storeSales_ragged");
 
         MEASURE_SALES_COUNT_RAGGED = RolapMappingFactory.eINSTANCE.createCountMeasure();
         MEASURE_SALES_COUNT_RAGGED.setName("Sales Count");
         MEASURE_SALES_COUNT_RAGGED.setColumn(COLUMN_PRODUCT_ID_SALESFACT);
         MEASURE_SALES_COUNT_RAGGED.setFormatString("#,###");
+        MEASURE_SALES_COUNT_RAGGED.setId("_measure_salesCount_ragged");
 
         MEASURE_CUSTOMER_COUNT_RAGGED = RolapMappingFactory.eINSTANCE.createCountMeasure();
         MEASURE_CUSTOMER_COUNT_RAGGED.setName("Customer Count");
         MEASURE_CUSTOMER_COUNT_RAGGED.setColumn(COLUMN_CUSTOMER_ID_SALESFACT);
         MEASURE_CUSTOMER_COUNT_RAGGED.setFormatString("#,###");
         MEASURE_CUSTOMER_COUNT_RAGGED.setDistinct(true);
+        MEASURE_CUSTOMER_COUNT_RAGGED.setId("_measure_customerCount_ragged");
 
         MEASURE_SALES_COUNT_PROP = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         MEASURE_SALES_COUNT_PROP.setName("MEMBER_ORDINAL");
         MEASURE_SALES_COUNT_PROP.setValue("1");
+        MEASURE_SALES_COUNT_PROP.setId("_calculatedMemberProperty_salesCount_memberOrdinal");
 
         MEASURE_SALES_COUNT_WITH_PROPERTY = RolapMappingFactory.eINSTANCE.createCountMeasure();
         MEASURE_SALES_COUNT_WITH_PROPERTY.setName("Sales Count");
@@ -3635,6 +3682,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_UNIT_SALES_PROP = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         MEASURE_UNIT_SALES_PROP.setName("MEMBER_ORDINAL");
         MEASURE_UNIT_SALES_PROP.setValue("2");
+        MEASURE_UNIT_SALES_PROP.setId("_calculatedMemberProperty_unitSales_memberOrdinal");
 
         MEASURE_UNIT_SALES_MEMBER_ORDINAL = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_UNIT_SALES_MEMBER_ORDINAL.setName("Unit Sales");
@@ -3644,6 +3692,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_STORE_SALES_PROP = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         MEASURE_STORE_SALES_PROP.setName("MEMBER_ORDINAL");
         MEASURE_STORE_SALES_PROP.setValue("3");
+        MEASURE_STORE_SALES_PROP.setId("_calculatedMemberProperty_storeSales_memberOrdinal");
 
         MEASURE_STORE_SALES_WITH_PROPERTY = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_SALES_WITH_PROPERTY.setName("Store Sales");
@@ -3653,6 +3702,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_STORE_COST_PROP = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         MEASURE_STORE_COST_PROP.setName("MEMBER_ORDINAL");
         MEASURE_STORE_COST_PROP.setValue("6");
+        MEASURE_STORE_COST_PROP.setId("_calculatedMemberProperty_storeCost_memberOrdinal");
 
         MEASURE_STORE_COST_WITH_PROPERTY = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_COST_WITH_PROPERTY.setName("Store Cost");
@@ -3663,6 +3713,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_CUSTOMER_COUNT_PROP = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         MEASURE_CUSTOMER_COUNT_PROP.setName("MEMBER_ORDINAL");
         MEASURE_CUSTOMER_COUNT_PROP.setValue("7");
+        MEASURE_CUSTOMER_COUNT_PROP.setId("_calculatedMemberProperty_customerCount_memberOrdinal");
 
         MEASURE_CUSTOMER_COUNT_WITH_PROPERTY = RolapMappingFactory.eINSTANCE.createCountMeasure();
         MEASURE_CUSTOMER_COUNT_WITH_PROPERTY.setName("Customer Count");
@@ -3968,6 +4019,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CALCULATED_MEMBER_PROP0 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         CALCULATED_MEMBER_PROP0.setName("FORMAT_STRING");
         CALCULATED_MEMBER_PROP0.setValue("$#,##0.00");
+        CALCULATED_MEMBER_PROP0.setId("_calculatedMemberProperty_profit_formatString");
 
         // Initialize calculated members
         CALCULATED_MEMBER_PROFIT = RolapMappingFactory.eINSTANCE.createCalculatedMember();
@@ -3994,6 +4046,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setName("FORMAT_STRING");
         PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setValue("$#,##0.00");
+        PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setId("_calculatedMemberProperty_averageWarehouseSale_formatString");
 
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setName("Average Warehouse Sale");
@@ -4023,14 +4076,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CALCULATED_MEMBER_PROP1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         CALCULATED_MEMBER_PROP1.setName("FORMAT_STRING");
         CALCULATED_MEMBER_PROP1.setValue("$#,##0.00");
+        CALCULATED_MEMBER_PROP1.setId("_calculatedMemberProperty_profit_formatString2");
 
         CALCULATED_MEMBER_PROP2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         CALCULATED_MEMBER_PROP2.setName("MEMBER_ORDINAL");
         CALCULATED_MEMBER_PROP2.setValue("4");
+        CALCULATED_MEMBER_PROP2.setId("_calculatedMemberProperty_memberOrdinal4");
 
         CALCULATED_MEMBER_PROP3 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         CALCULATED_MEMBER_PROP3.setName("MEMBER_ORDINAL");
         CALCULATED_MEMBER_PROP3.setValue("5");
+        CALCULATED_MEMBER_PROP3.setId("_calculatedMemberProperty_memberOrdinal5");
 
         CALCULATED_MEMBER_PROFIT_WITH_ORDER = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_WITH_ORDER.setName("Profit");
