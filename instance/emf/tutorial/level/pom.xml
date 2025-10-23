@@ -29,5 +29,6 @@
     <module>ifblankname</module>
     <module>ifblanknamemultiple</module>
     <module>ifparentsname</module>
+    <module>unique</module>
   </modules>
 </project>
