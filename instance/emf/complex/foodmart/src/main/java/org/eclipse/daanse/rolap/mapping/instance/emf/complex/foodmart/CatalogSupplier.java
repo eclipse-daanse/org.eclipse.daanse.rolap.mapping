@@ -263,6 +263,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_UNIT_SALES_AGG_L_05_SALES_FACT_1997;
     public static final Column COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997;
 
+    public static final Column COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997;
+    public static final Column COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997;
+
     public static final Column COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997;
     public static final Column COLUMN_CUSTOMER_ID_AGG_L_03_SALES_FACT_1997;
     public static final Column COLUMN_STORE_SALES_AGG_L_03_SALES_FACT_1997;
@@ -354,6 +362,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final PhysicalTable TABLE_AGG_L_03_SALES_FACT;
     public static final PhysicalTable TABLE_AGG_G_MS_PCAT_SALES_FACT;
     public static final PhysicalTable TABLE_AGG_C_14_SALES_FACT;
+    public static final PhysicalTable TABLE_AGG_PL_01_SALES_FACT;
     public static final PhysicalTable TABLE_TIME_BY_DAY;
     public static final PhysicalTable TABLE_STORE_RAGGED;
 
@@ -750,6 +759,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP1;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP2;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP3;
+    public static final CalculatedMemberProperty CALCULATED_MEMBER_PROFIT_GROWTH_PROP0;
 
     public static final ParentChildLink HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK;
 
@@ -1750,6 +1760,49 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997.setId("_column_agg_l_05_sales_fact_1997_fact_count");
         COLUMN_FACT_COUNT_AGG_L_05_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
+        COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997.setName("product_id");
+        COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_product_id");
+        COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997.setName("time_id");
+        COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_time_id");
+        COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997.setName("customer_id");
+        COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_customer_id");
+        COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.INTEGER);
+
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setName("store_sales_sum");
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_store_sales_sum");
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997.setName("store_cost_sum");
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_store_cost_sum");
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setName("unit_sales_sum");
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_unit_sales_sum");
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997.setDecimalDigits(4);
+
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setName("fact_count");
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setId("_column_agg_pl_01_sales_fact_1997_fact_count");
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setType(ColumnType.DECIMAL);
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setColumnSize(10);
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setDecimalDigits(4);
+
         COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setName("time_id");
         COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_time_id");
@@ -2273,6 +2326,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 COLUMN_UNIT_SALES_AGG_L_03_SALES_FACT_1997, COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997
                 ));
 
+        //product_id,time_id,customer_id,store_sales_sum,store_cost_sum,unit_sales_sum,fact_count
+        //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
+        TABLE_AGG_PL_01_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_AGG_PL_01_SALES_FACT.setName("agg_pl_01_sales_fact_1997");
+        TABLE_AGG_PL_01_SALES_FACT.getColumns()
+        .addAll(List.of(COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997, COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997,
+                COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997, COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997,
+                COLUMN_STORE_COST_SUM_AGG_PL_01_SALES_FACT_1997, COLUMN_UNIT_SALES_SUM_AGG_PL_01_SALES_FACT_1997,
+                COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997
+                ));
+
+
         //gender,marital_status,product_family,product_department,product_category,month_of_year,quarter,the_year,store_sales,store_cost,unit_sales,customer_count,fact_count
         //VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
         TABLE_AGG_G_MS_PCAT_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
@@ -2578,6 +2643,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STORE_STATE.setName("Store State");
         LEVEL_STORE_STATE.setColumn(COLUMN_STORE_STATE_STORE);
         LEVEL_STORE_STATE.setId("_level_store_state");
+        LEVEL_STORE_STATE.setUniqueMembers(true);
 
         LEVEL_STORE_CITY = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_STORE_CITY.setName("Store City");
@@ -2630,6 +2696,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         LEVEL_STORE_NAME = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_STORE_NAME.setName("Store Name");
+        LEVEL_STORE_NAME.setUniqueMembers(true);
         LEVEL_STORE_NAME.setColumn(COLUMN_STORE_NAME_STORE);
         LEVEL_STORE_NAME.setId("_level_store_name");
         LEVEL_STORE_NAME.getMemberProperties().addAll(List.of(LEVEL_STORE_PROP1, LEVEL_STORE_PROP2, LEVEL_STORE_PROP3,
@@ -3592,7 +3659,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_WAREHOUSE_COST.setName("Warehouse Cost");
         MEASURE_WAREHOUSE_COST.setId("_measure_warehouseCost");
         MEASURE_WAREHOUSE_COST.setColumn(COLUMN_WAREHOUSE_COST_INVENTORY_FACT);
-        MEASURE_WAREHOUSE_COST.setFormatString("$#,##0.00");
+        //MEASURE_WAREHOUSE_COST.setFormatString("$#,##0.00");
 
         MEASURE_UNITS_SHIPPED = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_UNITS_SHIPPED.setName("Units Shipped");
@@ -3869,7 +3936,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CONNECTOR_HR_STORE = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HR_STORE.setOverrideDimensionName("Store");
-        CONNECTOR_HR_STORE.setDimension(DIMENSION_STORE);
+        CONNECTOR_HR_STORE.setDimension(DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE);
         CONNECTOR_HR_STORE.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
         CONNECTOR_HR_STORE.setId("_connector_hr_store");
 
@@ -3893,7 +3960,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         CONNECTOR_HR_POSITION = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HR_POSITION.setOverrideDimensionName("Position");
-        CONNECTOR_HR_POSITION.setDimension(DIMENSION_POSITION);
+        CONNECTOR_HR_POSITION.setDimension(DIMENSION_HR_POSITION);
         CONNECTOR_HR_POSITION.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
         CONNECTOR_HR_POSITION.setId("_connector_hr_position");
 
@@ -4035,12 +4102,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .setFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER), Measures.[Profit])");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setFormatString("$#,##0.00");
 
+        CALCULATED_MEMBER_PROFIT_GROWTH_PROP0 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CALCULATED_MEMBER_PROFIT_GROWTH_PROP0.setName("FORMAT_STRING");
+        CALCULATED_MEMBER_PROFIT_GROWTH_PROP0.setValue("0.0%");
+        CALCULATED_MEMBER_PROFIT_GROWTH_PROP0.setId("_calculatedMemberProperty_profit_growth_formatString");
+
         CALCULATED_MEMBER_PROFIT_GROWTH = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_GROWTH.setName("Profit Growth");
         CALCULATED_MEMBER_PROFIT_GROWTH.setId("_calculated_member_profit_growth");
         CALCULATED_MEMBER_PROFIT_GROWTH.setFormula(
                 "([Measures].[Profit] - [Measures].[Profit last Period]) / [Measures].[Profit last Period]");
-        CALCULATED_MEMBER_PROFIT_GROWTH.setFormatString("0.0%");
+        CALCULATED_MEMBER_PROFIT_GROWTH.getCalculatedMemberProperties().add(CALCULATED_MEMBER_PROFIT_GROWTH_PROP0);
         CALCULATED_MEMBER_PROFIT_GROWTH.setVisible(true);
 
         PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
@@ -4137,7 +4209,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         CONNECTOR_PRODUCT, CONNECTOR_PROMOTION_MEDIA, CONNECTOR_PROMOTIONS, CONNECTOR_CUSTOMER,
                         CONNECTOR_EDUCATION_LEVEL, CONNECTOR_GENDER, CONNECTOR_MARITAL_STATUS, CONNECTOR_YEARLY_INCOME ));
         CUBE_SALES.getMeasureGroups().add(MEASUREGROUP_SALES);
-        //CUBE_SALES.setDefaultMeasure(MEASURE_UNIT_SALES);
         CUBE_SALES.getAnnotations().addAll(List.of(ANNOTATION_SALES1, ANNOTATION_SALES2, ANNOTATION_SALES3, ANNOTATION_SALES4, ANNOTATION_SALES5));
         CUBE_SALES.getCalculatedMembers().addAll(List.of(CALCULATED_MEMBER_PROFIT, CALCULATED_MEMBER_PROFIT_LAST_PERIOD,
                 CALCULATED_MEMBER_PROFIT_GROWTH));
@@ -4322,7 +4393,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(TABLE_SALES_FACT, TABLE_TIME, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
                         TABLE_WAREHOUSE, TABLE_INVENTORY_FACT, TABLE_PROMOTION, TABLE_EMPLOYEE, TABLE_DEPARTMENT,
                         TABLE_POSITION, TABLE_SALARY, TABLE_EMPLOYEE_CLOSURE, TABLE_PRODUCT_CLASS, TABLE_AGG_C_SPECIAL_SALES_FACT_1997,
-                        TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT,
+                        TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT, TABLE_AGG_PL_01_SALES_FACT,
                         TABLE_TIME_BY_DAY, TABLE_STORE_RAGGED ));
 
         GRANT_DATABASE_SCHEMA_ADMIN.setDatabaseSchema(DATABASE_SCHEMA_FOODMART);
