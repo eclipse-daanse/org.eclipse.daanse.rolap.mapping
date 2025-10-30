@@ -1609,7 +1609,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997.setName("promotion_id");
         COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997.setId("_column_agg_c_special_sales_fact_1997_promotion_id");
-        COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997.setType(ColumnType.SMALLINT);
+        COLUMN_PROMOTION_ID_AGG_C_SPECIAL_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
         COLUMN_CUSTOMER_ID_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_CUSTOMER_ID_AGG_C_SPECIAL_SALES_FACT_1997.setName("customer_id");
@@ -2275,7 +2275,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(COLUMN_PRODUCT_CLASS_ID_PRODUCT_CLASS, COLUMN_PRODUCT_SUBCATEGORY_PRODUCT_CLASS,
                         COLUMN_PRODUCT_CATEGORY_PRODUCT_CLASS, COLUMN_PRODUCT_DEPARTMENT_PRODUCT_CLASS,
                         COLUMN_PRODUCT_FAMILY_PRODUCT_CLASS));
-
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997.setName("agg_c_special_sales_fact_1997");
         TABLE_AGG_C_SPECIAL_SALES_FACT_1997.setId("_table_agg_c_special_sales_fact_1997");
@@ -2497,8 +2496,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         QUERY_SALES_FACT = RolapMappingFactory.eINSTANCE.createTableQuery();
         QUERY_SALES_FACT.setTable(TABLE_SALES_FACT);
-        QUERY_SALES_FACT.getAggregationExcludes().addAll(List.of(AGGREGATION_EXCLUDE_AGG_C_SPECIAL_SALES_FACT_1997,
-                AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997, AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997,
+        QUERY_SALES_FACT.getAggregationExcludes().addAll(List.of(AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997,
+                AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997,
                 AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997));
         QUERY_SALES_FACT.getAggregationTables().add(AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997);
         QUERY_SALES_FACT.setId("_query_sales_fact");
@@ -2598,6 +2597,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         LEVEL_QUARTER = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_QUARTER.setName("Quarter");
+        LEVEL_QUARTER.setUniqueMembers(false);
         LEVEL_QUARTER.setColumn(COLUMN_QUARTER_TIME_BY_DAY);
         LEVEL_QUARTER.setType(LevelDefinition.TIME_QUARTERS);
         LEVEL_QUARTER.setId("_level_time_quarter");
@@ -2606,6 +2606,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_MONTH.setName("Month");
         LEVEL_MONTH.setColumn(COLUMN_MONTH_OF_YEAR_TIME_BY_DAY);
         LEVEL_MONTH.setId("_level_time_month");
+        LEVEL_MONTH.setUniqueMembers(false);
         LEVEL_MONTH.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_MONTH.setType(LevelDefinition.TIME_MONTHS);
 
@@ -3434,7 +3435,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         HIERARCHY_HR_POSITION.setName("Position");
         HIERARCHY_HR_POSITION.setId("_hierarchy_hr_position");
         HIERARCHY_HR_POSITION.setHasAll(true);
-        HIERARCHY_HR_POSITION.setAllMemberName("All Positions");
+        HIERARCHY_HR_POSITION.setAllMemberName("All Position");
         HIERARCHY_HR_POSITION.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
         HIERARCHY_HR_POSITION.setQuery(QUERY_EMPLOYEE);
         HIERARCHY_HR_POSITION.getLevels().addAll(List.of(LEVEL_MANAGEMENT_ROLE, LEVEL_HR_POSITION_TITLE));
@@ -3601,7 +3602,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_UNIT_SALES.setName("Unit Sales");
         MEASURE_UNIT_SALES.setId("_measure_unitSales");
         MEASURE_UNIT_SALES.setColumn(COLUMN_UNIT_SALES_SALESFACT);
-        MEASURE_UNIT_SALES.setFormatString("#,###");
+        MEASURE_UNIT_SALES.setFormatString("Standard");
 
         MEASURE_STORE_SALES = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_STORE_SALES.setName("Store Sales");
@@ -3704,6 +3705,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_NUMBER_OF_EMPLOYEES.setId("_measure_numberOfEmployees");
         MEASURE_NUMBER_OF_EMPLOYEES.setColumn(COLUMN_EMPLOYEE_ID_SALARY);
         MEASURE_NUMBER_OF_EMPLOYEES.setFormatString("#,#");
+        MEASURE_NUMBER_OF_EMPLOYEES.setDistinct(true);
 
         MEASURE_UNIT_SALES_RAGGED = RolapMappingFactory.eINSTANCE.createSumMeasure();
         MEASURE_UNIT_SALES_RAGGED.setName("Unit Sales");
@@ -3967,7 +3969,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CONNECTOR_HR_DEPARTMENT = RolapMappingFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HR_DEPARTMENT.setOverrideDimensionName("Department");
         CONNECTOR_HR_DEPARTMENT.setDimension(DIMENSION_DEPARTMENT);
-        CONNECTOR_HR_DEPARTMENT.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
+        CONNECTOR_HR_DEPARTMENT.setForeignKey(COLUMN_DEPARTMENT_ID_SALARY);
         CONNECTOR_HR_DEPARTMENT.setId("_connector_hr_department");
 
         // Initialize Store cube connectors

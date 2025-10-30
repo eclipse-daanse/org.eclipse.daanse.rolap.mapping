@@ -637,7 +637,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_SALES.setName("Sales");
         MEASURE_SALES.setId("_measure_sales");
         MEASURE_SALES.setColumn(COLUMN_TOTALPRICE_ORDERFACT);
-        MEASURE_SALES.setFormatString("$#,##0.00");
+        MEASURE_SALES.setFormatString("#,###");
 
         MEASUREGROUP_STEELWHEELSSALES = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         MEASUREGROUP_STEELWHEELSSALES.getMeasures().addAll(List.of(MEASURE_QUANTITY, MEASURE_SALES));
