@@ -340,6 +340,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final SqlStatement MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2;
     public static final SQLExpressionColumn MEASURE_WAREHOUSE_PROFIT_COL;
 
+    public static final SqlStatement NAME_COL_SQL_STATEMENT1;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT2;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT3;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT4;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT5;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT6;
+    public static final SqlStatement NAME_COL_SQL_STATEMENT7;
+    public static final SQLExpressionColumn SQL_EXPRESSION_COLUMN_NAME;
+
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT1;
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT2;
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT3;
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT4;
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT5;
+    public static final SqlStatement NAME_ORDER_COL_SQL_STATEMENT6;
+    public static final SQLExpressionColumn SQL_EXPRESSION_COLUMN_NAME_ORDER;
+
     // Static tables
     public static final PhysicalTable TABLE_SALES_FACT;
     public static final PhysicalTable TABLE_SALES_FACT1998;
@@ -761,6 +778,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROP3;
     public static final CalculatedMemberProperty CALCULATED_MEMBER_PROFIT_GROWTH_PROP0;
 
+    public static final CalculatedMemberProperty CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0;
+    public static final CalculatedMemberProperty CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1;
+
     public static final ParentChildLink HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK;
 
     public static final CalculatedMemberProperty PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE;
@@ -959,6 +979,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     static {
         // Initialize columns
+        //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
+        //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
+
         COLUMN_TIME_ID_SALESFACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_TIME_ID_SALESFACT.setName("time_id");
         COLUMN_TIME_ID_SALESFACT.setId("_column_salesFact_timeId");
@@ -1839,8 +1862,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997.setId("_column_agg_l_03_sales_fact_1997_fact_count");
         COLUMN_FACT_COUNT_AGG_L_03_SALES_FACT_1997.setType(ColumnType.INTEGER);
 
-        //store_cost,unit_sales,customer_count,fact_count
-        //DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
+        //fact_count
+        //INTEGER
         COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setName("gender");
         COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997.setId("_column_agg_g_ms_pcat_sales_fact_1997_gender");
@@ -2156,13 +2179,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MEASURE_WAREHOUSE_PROFIT_COL.setId("_sqlExpressionColumn_warehouseProfit");
 
         // Initialize tables
+        //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
+        //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
         TABLE_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_SALES_FACT.setName("sales_fact_1997");
         TABLE_SALES_FACT.setId("_table_salesFact1997");
         TABLE_SALES_FACT.getColumns()
-                .addAll(List.of(COLUMN_TIME_ID_SALESFACT, COLUMN_STORE_ID_SALESFACT, COLUMN_CUSTOMER_ID_SALESFACT,
-                        COLUMN_PROMOTION_ID_SALESFACT, COLUMN_PRODUCT_ID_SALESFACT, COLUMN_UNIT_SALES_SALESFACT, COLUMN_STORE_SALES_SALESFACT,
-                        COLUMN_STORE_COST_SALESFACT));
+                .addAll(List.of(COLUMN_PRODUCT_ID_SALESFACT, COLUMN_TIME_ID_SALESFACT, COLUMN_CUSTOMER_ID_SALESFACT,
+                        COLUMN_PROMOTION_ID_SALESFACT, COLUMN_STORE_ID_SALESFACT, COLUMN_STORE_SALES_SALESFACT,
+                        COLUMN_STORE_COST_SALESFACT, COLUMN_UNIT_SALES_SALESFACT));
 
         //product_id,time_id,customer_id,promotion_id,store_id,store_sales,store_cost,unit_sales
         //INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4)
@@ -2329,6 +2354,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         //INTEGER,INTEGER,INTEGER,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
         TABLE_AGG_PL_01_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_PL_01_SALES_FACT.setName("agg_pl_01_sales_fact_1997");
+        TABLE_AGG_PL_01_SALES_FACT.setId("_table_agg_pl_01_sales_fact_1997");
         TABLE_AGG_PL_01_SALES_FACT.getColumns()
         .addAll(List.of(COLUMN_PRODUCT_ID_AGG_PL_01_SALES_FACT_1997, COLUMN_TIME_ID_AGG_PL_01_SALES_FACT_1997,
                 COLUMN_CUSTOMER_ID_AGG_PL_01_SALES_FACT_1997, COLUMN_STORE_SALES_SUM_AGG_PL_01_SALES_FACT_1997,
@@ -2341,6 +2367,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         //VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30),SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER,INTEGER
         TABLE_AGG_G_MS_PCAT_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_G_MS_PCAT_SALES_FACT.setName("agg_g_ms_pcat_sales_fact_1997");
+        TABLE_AGG_G_MS_PCAT_SALES_FACT.setId("_table_agg_g_ms_pcat_sales_fact_1997");
         TABLE_AGG_G_MS_PCAT_SALES_FACT.getColumns()
         .addAll(List.of(COLUMN_GENDER_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_MARITAL_STATUS_AGG_G_MS_PCAT_SALES_FACT_1997,
                 COLUMN_PRODUCT_FAMILY_AGG_G_MS_PCAT_SALES_FACT_1997, COLUMN_PRODUCT_DEPARTMENT_AGG_G_MS_PCAT_SALES_FACT_1997,
@@ -2355,6 +2382,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         //INTEGER,INTEGER,INTEGER,INTEGER,SMALLINT,VARCHAR(30),SMALLINT,DECIMAL(10.4),DECIMAL(10.4),DECIMAL(10.4),INTEGER
         TABLE_AGG_C_14_SALES_FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         TABLE_AGG_C_14_SALES_FACT.setName("agg_c_14_sales_fact_1997");
+        TABLE_AGG_C_14_SALES_FACT.setId("_table_agg_c_14_sales_fact_1997");
         TABLE_AGG_C_14_SALES_FACT.getColumns()
         .addAll(List.of(COLUMN_PRODUCT_ID_AGG_C_14_SALES_FACT_1997, COLUMN_CUSTOMER_ID_AGG_C_14_SALES_FACT_1997,
                 COLUMN_STORE_ID_AGG_C_14_SALES_FACT_1997, COLUMN_PROMOTION_ID_AGG_C_14_SALES_FACT_1997,
@@ -2666,16 +2694,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STORE_PROP3.setName("Store Sqft");
         LEVEL_STORE_PROP3.setColumn(COLUMN_STORE_SQFT_STORE);
         LEVEL_STORE_PROP3.setId("_memberProperty_store_storeSqft");
+        LEVEL_STORE_PROP3.setPropertyType(ColumnInternalDataType.NUMERIC);
 
         LEVEL_STORE_PROP4 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP4.setName("Grocery Sqft");
         LEVEL_STORE_PROP4.setColumn(COLUMN_GROCERY_SQFT_STORE);
         LEVEL_STORE_PROP4.setId("_memberProperty_store_grocerySqft");
+        LEVEL_STORE_PROP4.setPropertyType(ColumnInternalDataType.NUMERIC);
 
         LEVEL_STORE_PROP5 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP5.setName("Frozen Sqft");
         LEVEL_STORE_PROP5.setColumn(COLUMN_FROZEN_SQFT_STORE);
         LEVEL_STORE_PROP5.setId("_memberProperty_store_frozenSqft");
+        LEVEL_STORE_PROP5.setPropertyType(ColumnInternalDataType.NUMERIC);
 
         LEVEL_STORE_PROP6 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP6.setName("Meat Sqft");
@@ -2692,7 +2723,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STORE_PROP8 = RolapMappingFactory.eINSTANCE.createMemberProperty();
         LEVEL_STORE_PROP8.setName("Street address");
         LEVEL_STORE_PROP8.setColumn(COLUMN_STORE_STREET_ADDRESS_STORE);
-        LEVEL_STORE_PROP8.setPropertyType(ColumnInternalDataType.BOOLEAN);
+        LEVEL_STORE_PROP8.setPropertyType(ColumnInternalDataType.STRING);
         LEVEL_STORE_PROP8.setId("_memberProperty_store_streetAddress");
 
         LEVEL_STORE_NAME = RolapMappingFactory.eINSTANCE.createLevel();
@@ -3082,130 +3113,79 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_NAME_PROP4.setId("_memberProperty_name_yearlyIncome");
         LEVEL_NAME_PROP4.setColumn(COLUMN_YEARLY_INCOME_CUSTOMER);
 
+        NAME_COL_SQL_STATEMENT1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT1.getDialects().addAll(List.of("oracle", "h2", "hsqldb", "postgres", "luciddb", "teradata"));
+        NAME_COL_SQL_STATEMENT1.setSql("\"fname\" || ' ' || \"lname\"");
+
+        NAME_COL_SQL_STATEMENT2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT2.getDialects().addAll(List.of("hive"));
+        NAME_COL_SQL_STATEMENT2.setSql("`customer`.`fullname`");
+
+        NAME_COL_SQL_STATEMENT3 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT3.getDialects().addAll(List.of("access", "mssql"));
+        NAME_COL_SQL_STATEMENT3.setSql("fname + ' ' + lname");
+
+        NAME_COL_SQL_STATEMENT4 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT4.getDialects().addAll(List.of("mysql", "mariadb"));
+        NAME_COL_SQL_STATEMENT4.setSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
+
+        NAME_COL_SQL_STATEMENT5 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT5.getDialects().addAll(List.of("derby", "neoview", "snowflake"));
+        NAME_COL_SQL_STATEMENT5.setSql("\"customer\".\"fullname\"");
+
+        NAME_COL_SQL_STATEMENT6 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT6.getDialects().addAll(List.of("db2"));
+        NAME_COL_SQL_STATEMENT6.setSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
+
+        NAME_COL_SQL_STATEMENT7 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_COL_SQL_STATEMENT7.getDialects().addAll(List.of("generic"));
+        NAME_COL_SQL_STATEMENT7.setSql("fullname");
+
+        SQL_EXPRESSION_COLUMN_NAME = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        SQL_EXPRESSION_COLUMN_NAME.getSqls().addAll(List.of(NAME_COL_SQL_STATEMENT1, NAME_COL_SQL_STATEMENT2, NAME_COL_SQL_STATEMENT3, NAME_COL_SQL_STATEMENT4,
+                NAME_COL_SQL_STATEMENT5, NAME_COL_SQL_STATEMENT6, NAME_COL_SQL_STATEMENT7));
+        SQL_EXPRESSION_COLUMN_NAME.setType(ColumnType.VARCHAR);
+        SQL_EXPRESSION_COLUMN_NAME.setId("_sqlExpressionColumn_name");
+
+        NAME_ORDER_COL_SQL_STATEMENT1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT1.getDialects().addAll(List.of("oracle", "h2", "hsqldb", "postgres", "luciddb"));
+        NAME_ORDER_COL_SQL_STATEMENT1.setSql("\"fname\" || ' ' || \"lname\"");
+
+        NAME_ORDER_COL_SQL_STATEMENT2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT2.getDialects().addAll(List.of("access", "mssql"));
+        NAME_ORDER_COL_SQL_STATEMENT2.setSql("fname + ' ' + lname");
+
+        NAME_ORDER_COL_SQL_STATEMENT3 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT3.getDialects().addAll(List.of("mysql", "mariadb"));
+        NAME_ORDER_COL_SQL_STATEMENT3.setSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
+
+        NAME_ORDER_COL_SQL_STATEMENT4 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT4.getDialects().addAll(List.of("derby", "neoview", "snowflake"));
+        NAME_ORDER_COL_SQL_STATEMENT4.setSql("\"customer\".\"fullname\"");
+
+        NAME_ORDER_COL_SQL_STATEMENT5 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT5.getDialects().addAll(List.of("db2"));
+        NAME_ORDER_COL_SQL_STATEMENT5.setSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
+
+        NAME_ORDER_COL_SQL_STATEMENT6 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        NAME_ORDER_COL_SQL_STATEMENT6.getDialects().addAll(List.of("generic"));
+        NAME_ORDER_COL_SQL_STATEMENT6.setSql("fullname");
+
+        SQL_EXPRESSION_COLUMN_NAME_ORDER = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        SQL_EXPRESSION_COLUMN_NAME_ORDER.getSqls().addAll(List.of(NAME_ORDER_COL_SQL_STATEMENT1, NAME_ORDER_COL_SQL_STATEMENT2, NAME_ORDER_COL_SQL_STATEMENT3, NAME_ORDER_COL_SQL_STATEMENT4));
+        SQL_EXPRESSION_COLUMN_NAME_ORDER.setType(ColumnType.VARCHAR);
+        SQL_EXPRESSION_COLUMN_NAME_ORDER.setId("_sqlExpressionColumn_name_order");
+
+
         LEVEL_NAME = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_NAME.setName("Name");
         LEVEL_NAME.setColumn(COLUMN_CUSTOMER_ID_CUSTOMER);
         LEVEL_NAME.setColumnType(ColumnInternalDataType.NUMERIC);
         LEVEL_NAME.setUniqueMembers(true);
         LEVEL_NAME.setId("_level_name");
-        LEVEL_NAME.setNameColumn(COLUMN_FULLNAME_CUSTOMER); //TODO
+        LEVEL_NAME.setNameColumn(SQL_EXPRESSION_COLUMN_NAME);
+        LEVEL_NAME.setOrdinalColumn(SQL_EXPRESSION_COLUMN_NAME_ORDER);
         LEVEL_NAME.getMemberProperties().addAll(List.of(LEVEL_NAME_PROP1, LEVEL_NAME_PROP2, LEVEL_NAME_PROP3, LEVEL_NAME_PROP4));
-
-        /*
-                .withNameColumn(SQLExpressionMappingColumnImpl.builder()
-                    .withSqls(List.of(
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_ORACLE,
-                                DIALECT_H2,
-                                DIALECT_HSQLDB,
-                                DIALECT_POSTGRES,
-                                DIALECT_LUCIDDB,
-                                DIALECT_TERADATA
-                            ))
-                            .withSql("\"fname\" || ' ' || \"lname\"")
-                            .build(),
-                            SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_HIVE
-                            ))
-                            .withSql("`customer`.`fullname`")
-                            .build(),
-                            SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_ACCESS,
-                                DIALECT_MSSQL
-                            ))
-                            .withSql("fname + ' ' + lname")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_MYSQL,
-                                DIALECT_MARIADB
-                            ))
-                            .withSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_DERBY,
-                                DIALECT_NEOVIEW,
-                                DIALECT_SNOWFLAKE
-                            ))
-                            .withSql("\"customer\".\"fullname\"")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_DB2
-                            ))
-                            .withSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_GENERIC
-                            ))
-                            .withSql("fullname")
-                            .build()
-                    ))
-                    .withDataType(ColumnDataType.VARCHAR)
-                    .build())
-                .withOrdinalColumn(SQLExpressionMappingColumnImpl.builder()
-                    .withSqls(List.of(
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_ORACLE,
-                                DIALECT_H2,
-                                DIALECT_HSQLDB,
-                                DIALECT_POSTGRES,
-                                DIALECT_LUCIDDB
-                            ))
-                            .withSql("\"fname\" || ' ' || \"lname\"")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_ACCESS,
-                                DIALECT_MSSQL
-                            ))
-                            .withSql("fname + ' ' + lname")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_MYSQL,
-                                DIALECT_MARIADB
-                            ))
-                            .withSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_NEOVIEW,
-                                DIALECT_DERBY,
-                                DIALECT_SNOWFLAKE
-                            ))
-                            .withSql("\"customer\".\"fullname\"")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_DB2
-                            ))
-                            .withSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")")
-                            .build(),
-                        SqlStatementMappingImpl.builder()
-                            .withDialects(List.of(
-                                DIALECT_GENERIC
-                            ))
-                            .withSql("fullname")
-                            .build()
-                    ))
-                    .withDataType(ColumnDataType.VARCHAR)
-                    .build())
-                .withMemberProperties(List.of(
-                    MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_GENDER).withColumn(GENDER_COLUMN_IN_CUSTOMER).build(),
-                    MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_MARITAL_STATUS).withColumn(MARITAL_STATUS_COLUMN_IN_CUSTOMER).build(),
-                    MemberPropertyMappingImpl.builder().withName("Education").withColumn(EDUCATION_COLUMN_IN_CUSTOMER).build(),
-                    MemberPropertyMappingImpl.builder().withName(NAME_DIMENSION_YEARLY_INCOME).withColumn(YEARLY_INCOME_COLUMN_IN_CUSTOMER).build()
-                ))
-                .build();
-            */
-
 
         // Initialize hierarchies
         HIERARCHY_TIME = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
@@ -4097,12 +4077,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CALCULATED_MEMBER_PROFIT.setFormula("[Measures].[Store Sales] - [Measures].[Store Cost]");
         CALCULATED_MEMBER_PROFIT.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROP0));
 
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0.setName("FORMAT_STRING");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0.setValue("$#,##0.00");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0.setId("_calculatedMemberProperty_profit__last_period_formatString");
+
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1.setName("MEMBER_ORDINAL");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1.setValue("18");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1.setId("_calculatedMemberProperty_profit__last_period_member_ordinal");
+
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD = RolapMappingFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setName("Profit last Period");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setId("_calculated_member_profit_last_period");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD
                 .setFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER), Measures.[Profit])");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setFormatString("$#,##0.00");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0,
+                CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1));
 
         CALCULATED_MEMBER_PROFIT_GROWTH_PROP0 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
         CALCULATED_MEMBER_PROFIT_GROWTH_PROP0.setName("FORMAT_STRING");
@@ -4395,7 +4387,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(TABLE_SALES_FACT, TABLE_TIME, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
                         TABLE_WAREHOUSE, TABLE_INVENTORY_FACT, TABLE_PROMOTION, TABLE_EMPLOYEE, TABLE_DEPARTMENT,
                         TABLE_POSITION, TABLE_SALARY, TABLE_EMPLOYEE_CLOSURE, TABLE_PRODUCT_CLASS, TABLE_AGG_C_SPECIAL_SALES_FACT_1997,
-                        TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT, TABLE_AGG_PL_01_SALES_FACT,
+                        TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT, TABLE_AGG_PL_01_SALES_FACT, TABLE_AGG_G_MS_PCAT_SALES_FACT,
+                        TABLE_AGG_C_14_SALES_FACT, TABLE_AGG_C_10_SALES_FACT_1997,
                         TABLE_TIME_BY_DAY, TABLE_STORE_RAGGED ));
 
         GRANT_DATABASE_SCHEMA_ADMIN.setDatabaseSchema(DATABASE_SCHEMA_FOODMART);

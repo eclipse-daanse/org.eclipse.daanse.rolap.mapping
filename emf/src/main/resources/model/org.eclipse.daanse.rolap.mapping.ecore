@@ -1397,9 +1397,10 @@
         <details key="documentation" value="Optional reference to the column in the aggregation table that contains member caption values for this level. Caption columns provide user-friendly display names that can be shown in analytical interfaces instead of the technical key values."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collapsed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
+        defaultValueLiteral="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Boolean flag indicating whether this aggregation level represents a collapsed hierarchy level. When true, intermediate hierarchy levels are omitted in the aggregation table, allowing queries to roll up directly to higher levels without requiring intermediate level data."/>
+        <details key="documentation" value="Boolean flag indicating whether this aggregation level represents a collapsed hierarchy level. When true, intermediate hierarchy levels are omitted in the aggregation table, allowing queries to roll up directly to higher levels without requiring intermediate level data. Default value is true."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
