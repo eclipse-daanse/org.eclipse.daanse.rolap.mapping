@@ -41,7 +41,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Annotation" eSuperTypes="#//IAnnotation">
+  <eClassifiers xsi:type="ecore:EClass" name="Annotation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a custom annotation that can be attached to any AbstractElement to provide additional metadata, configuration hints, or processing instructions. Annotations enable extensibility of the OLAP schema without modifying the core model, allowing for vendor-specific extensions, optimization hints, caching directives, or integration parameters. These are commonly used for custom aggregation rules, display formatting, security policies, or ETL processing instructions."/>
     </eAnnotations>
@@ -56,7 +56,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//IAbstractElement #//DocumentedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//DocumentedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The fundamental base class for all named elements in the ROLAP mapping model. This abstract class provides the essential identity, naming, and extensibility infrastructure that all OLAP schema components require. It establishes the core patterns for element identification, user-friendly naming, descriptive content, custom annotations, and documentation integration. Every major schema component (Catalog, Cube, Dimension, Hierarchy, Level, Measure, etc.) inherits from this class, ensuring consistent identity management and extensibility across the entire OLAP framework."/>
     </eAnnotations>
@@ -83,7 +83,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//ICatalog #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Catalog" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The root container of an OLAP schema that defines a complete analytical database. A Catalog represents a logical grouping of related cubes, dimensions, and data sources that together form a cohesive analytical model for a specific business domain or application. It serves as the top-level entry point for OLAP connections and contains all the metadata necessary to perform multidimensional analysis. The Catalog manages shared resources like dimension hierarchies, access roles, parameters, and database schema references, ensuring consistency and reusability across all contained analytical objects. In XMLA terms, this corresponds to a database or catalog that clients can connect to and browse."/>
     </eAnnotations>
@@ -129,7 +129,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement #//ICube">
+  <eClassifiers xsi:type="ecore:EClass" name="Cube" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for all cube types in the OLAP model. A cube represents a multidimensional data structure that enables analytical queries across multiple business dimensions. It serves as the primary analytical object that users interact with to perform OLAP operations like slicing, dicing, drilling down, and rolling up. Cubes contain measures (the numeric facts to be analyzed) and are connected to dimensions (the analytical perspectives for viewing the data). The abstract Cube class defines common properties and behaviors shared by both PhysicalCube (backed by fact tables) and VirtualCube (combining multiple physical cubes) implementations."/>
     </eAnnotations>
@@ -169,7 +169,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube #//IPhysicalCube">
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalCube" eSuperTypes="#//Cube">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A concrete cube implementation that maps directly to one or more fact tables in the underlying database. PhysicalCube represents the most common type of OLAP cube, where measures are derived from numeric columns in fact tables and dimensions provide different analytical perspectives on that factual data. Each PhysicalCube is built around a central fact table (or fact view) that contains the quantitative data to be analyzed, connected to dimension tables through foreign key relationships. The PhysicalCube handles the mapping between the logical OLAP model and the physical relational database structure, enabling the OLAP engine to generate efficient SQL queries for analysis operations."/>
     </eAnnotations>
@@ -209,7 +209,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualCube" eSuperTypes="#//Cube #//IVirtualCube">
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualCube" eSuperTypes="#//Cube">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A virtual cube that combines measures and dimensions from multiple physical cubes into a unified analytical view. Virtual cubes enable cross-cube analysis by creating a logical integration layer over existing physical cubes, allowing users to analyze related metrics from different business processes in a single query. For example, a virtual cube might combine sales data from a Sales cube with inventory data from an Inventory cube to enable integrated sales and stock analysis. Virtual cubes don't have their own fact tables but instead reference and aggregate data from their constituent physical cubes."/>
     </eAnnotations>
@@ -238,7 +238,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CubeConnector" eSuperTypes="#//ICubeConnector">
+  <eClassifiers xsi:type="ecore:EClass" name="CubeConnector">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A connector that defines how a physical cube is integrated into a virtual cube, specifying the configuration for data aggregation, dimensional handling, and cross-cube analysis rules. CubeConnector serves as the bridge between virtual cubes and their constituent physical cubes, providing fine-grained control over how multiple cubes are combined into unified analytical views. Each connector references a specific physical cube and defines policies for handling dimensional inconsistencies, measure integration, and query processing behavior. This enables virtual cubes to aggregate data from heterogeneous physical cubes while maintaining analytical coherence and performance optimization."/>
     </eAnnotations>
@@ -255,7 +255,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MeasureGroup" eSuperTypes="#//IMeasureGroup">
+  <eClassifiers xsi:type="ecore:EClass" name="MeasureGroup">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A logical container that organizes related measures within a physical cube, providing grouping for measures that share common characteristics, business context, or data sources. MeasureGroup serves as both an organizational and metadata management mechanism, enabling better structure for complex cubes with many measures. For example, a sales cube might have separate measure groups for 'Revenue Metrics' (containing sales amounts, discounts, taxes) and 'Volume Metrics' (containing quantities, units, counts). Each measure group belongs to exactly one physical cube and contains one or more measures that are processed and displayed together in OLAP clients and XMLA metadata. A MeasureGroup is typically based on a single fact table in the data warehouse, ensuring that all its measures share the same granularity and relationship to dimensions. This alignment simplifies processing, querying, and maintenance."/>
     </eAnnotations>
@@ -277,7 +277,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Member" abstract="true" eSuperTypes="#//IMember #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Member" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class representing a member in the OLAP multidimensional model. A Member is a specific point or value within a dimension that can be used for slicing, dicing, and filtering data in analytical queries. Members exist within hierarchies and levels, forming the navigational structure that users traverse when exploring data. Examples include [Time].[1997].[January], [Customer].[USA].[California], or [Measures].[Sales Amount]. Members can have parent-child relationships, properties, and various types including regular dimensional values, calculated formulas, or special system members like All members. This abstract class provides the foundation for both regular dimension members and measures, which are special members of the [Measures] dimension."/>
     </eAnnotations>
@@ -309,32 +309,32 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//IMinMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="MinMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that calculates the minimum value from the referenced column across the aggregated data set. MinMeasure uses the SQL MIN() aggregate function to find the smallest value in the grouped data, making it ideal for metrics like lowest price, earliest date, minimum temperature, or smallest quantity. The measure provides non-additive aggregation behavior, meaning the minimum of a set of minimums is simply the overall minimum value. This measure type supports fast database-optimized aggregation and is commonly used for trend analysis, quality control, and boundary condition monitoring."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//IMaxMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="MaxMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that calculates the maximum value from the referenced column across the aggregated data set. MaxMeasure uses the SQL MAX() aggregate function to find the largest value in the grouped data, making it ideal for metrics like highest price, latest date, peak temperature, or largest quantity. The measure provides non-additive aggregation behavior, meaning the maximum of a set of maximums is simply the overall maximum value. This measure type supports fast database-optimized aggregation and is commonly used for performance tracking, capacity planning, and threshold monitoring."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ISumMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="SumMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that calculates the sum of all values from the referenced column across the aggregated data set. SumMeasure uses the SQL SUM() aggregate function and represents the most common type of OLAP measure for additive metrics like sales amounts, quantities, costs, and revenues. The measure provides fully additive behavior, meaning values can be meaningfully summed across all dimensions. SumMeasure supports fast aggregation for INTEGER and NUMERIC data types and is optimized for pre-aggregated table usage, making it the highest-performance measure type for typical business metrics."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//IAvgMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="AvgMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that calculates the arithmetic mean (average) of all values from the referenced column across the aggregated data set. AvgMeasure uses the SQL AVG() aggregate function and is ideal for metrics like average price, mean rating, typical duration, or average temperature. The measure provides semi-additive behavior - averages cannot be simply summed across dimensions but must be recalculated using the underlying sum and count values. This measure type is commonly used for performance indicators, quality metrics, and statistical analysis in business intelligence scenarios."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//INoneMeasure #//SQLExpressionBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="NoneMeasure" eSuperTypes="#//SQLExpressionBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that performs no aggregation and returns raw values from the data source without any mathematical operation. NoneMeasure is used when you need to display individual data values rather than aggregated summaries, such as showing transaction details, individual records, or when drill-through functionality needs to display the exact source data. This measure type is particularly useful for detailed reporting scenarios where aggregation would obscure important individual data points or when the data itself represents already-aggregated values that should not be further processed."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ICountMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="CountMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A measure that counts the number of non-null values in the referenced column across the aggregated data set. CountMeasure uses the SQL COUNT() aggregate function and is essential for metrics like number of transactions, customer count, product count, or event frequency. The measure provides fully additive behavior - counts can be meaningfully summed across all dimensions. CountMeasure offers excellent performance characteristics and supports fast aggregation, making it ideal for dashboard KPIs and summary statistics in analytical applications."/>
     </eAnnotations>
@@ -345,7 +345,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ITextAggMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="TextAggMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A specialized measure that concatenates text values from the referenced column across the aggregated data set, creating a single string result from multiple text entries. TextAggMeasure is ideal for combining comments, descriptions, tags, or other textual data into unified displays. The measure supports custom separators, ordering of concatenated values, duplicate handling, and null value management. Common use cases include creating summary comment fields, combining product features, aggregating customer feedback, or building comma-separated lists of related items for analytical reporting."/>
     </eAnnotations>
@@ -377,15 +377,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BitAggMeasure" eSuperTypes="#//IBitAggMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="BitAggMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A specialized measure that performs bitwise operations (AND, OR, XOR) on integer values from the referenced column across the aggregated data set. BitAggMeasure is designed for scenarios involving flag combinations, permission masks, feature toggles, or binary state aggregations. The measure supports different bitwise operations and optional negation (NOT) to create complex boolean logic evaluations. Common use cases include combining user permissions, aggregating feature flags, analyzing system status bits, or creating composite boolean indicators from multiple binary conditions."/>
     </eAnnotations>
-    <eOperations name="getBitAggType" lowerBound="1" eType="#//BitAggregationType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return BitAggregationType.fromValue(getAggType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="aggType" eType="#//BitAggType">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the type of bitwise operation to perform during aggregation. Supported operations include AND (all bits must be set), OR (any bit can be set), and XOR (exclusive or for detecting unique combinations). The choice of operation determines how individual bit values are combined across the aggregated data set, enabling different logical interpretations of the binary data."/>
@@ -398,15 +393,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PercentileMeasure" eSuperTypes="#//IPercentileMeasure #//BaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="PercentileMeasure" eSuperTypes="#//BaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="An advanced statistical measure that calculates percentile values from the referenced column across the aggregated data set. PercentileMeasure uses SQL percentile functions (PERCENTILE_DISC or PERCENTILE_CONT) to determine values at specific percentage points in the data distribution. This measure is essential for statistical analysis, distribution studies, quartile calculations, and performance benchmarking. Common use cases include median calculations (50th percentile), quartile analysis (25th, 75th percentiles), or identifying values at specific distribution points for outlier detection and performance analysis."/>
     </eAnnotations>
-    <eOperations name="getPercentileType" lowerBound="1" eType="#//PercentileType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return PercentileType.fromValue(getPercentType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
         eType="#//OrderedColumn">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -425,7 +415,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NthAggMeasure" eSuperTypes="#//INthAggMeasure #//ColumnBaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="NthAggMeasure" eSuperTypes="#//ColumnBaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="An advanced measure that returns the Nth value from an ordered set of values in the referenced column across the aggregated data set. NthAggMeasure is useful for retrieving specific positioned values such as the first occurrence, second highest value, last entry, or any specific rank within ordered data. The measure supports custom ordering criteria and null value handling, making it ideal for ranking analysis, top/bottom value identification, and position-specific data retrieval in business intelligence scenarios."/>
     </eAnnotations>
@@ -447,7 +437,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//ICustomMeasure #//BaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="CustomMeasure" eSuperTypes="#//BaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="A flexible measure that allows custom aggregation implementations through configurable templates and properties. CustomMeasure enables advanced business logic, complex calculations, or integration with external systems that cannot be achieved through standard aggregation functions. The measure uses templates with placeholders that are populated from referenced columns and custom properties, providing a powerful extension mechanism for specialized analytical requirements while maintaining the standard measure interface."/>
     </eAnnotations>
@@ -469,7 +459,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionBaseMeasure" eSuperTypes="#//ISqlExpressionBaseMeasure #//BaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionBaseMeasure" eSuperTypes="#//BaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Advanced measure implementation that enables sophisticated analytical calculations through custom SQL expressions, providing powerful capabilities for implementing complex business logic, mathematical computations, and data transformations that cannot be achieved through standard column-based measures or simple aggregation functions."/>
     </eAnnotations>
@@ -480,7 +470,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ColumnBaseMeasure" eSuperTypes="#//IColumnBaseMeasure #//BaseMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="ColumnBaseMeasure" eSuperTypes="#//BaseMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for measures that derive their values from direct column references in the database. ColumnBaseMeasure represents the most common and highest-performance type of measure where aggregation functions (SUM, COUNT, AVG, etc.) are applied directly to specific table columns. This provides optimal query performance, supports fast aggregation capabilities, and enables efficient use of database indexes and pre-computed aggregation tables."/>
     </eAnnotations>
@@ -491,15 +481,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BaseMeasure" abstract="true" eSuperTypes="#//IBaseMeasure #//Member">
+  <eClassifiers xsi:type="ecore:EClass" name="BaseMeasure" abstract="true" eSuperTypes="#//Member">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for all measure types in the OLAP model, representing quantitative facts that can be analyzed and aggregated in multidimensional queries. BaseMeasure extends Member to leverage the OLAP member infrastructure while adding measure-specific capabilities like data type specification, formatting rules, and aggregation behavior. All concrete measure implementations (SumMeasure, CountMeasure, etc.) inherit from this class, ensuring consistent measure behavior and enabling polymorphic measure handling throughout the OLAP framework. Measures are special members that belong to the [Measures] dimension and provide the numeric values for analytical operations."/>
     </eAnnotations>
-    <eOperations name="getDatatype" lowerBound="1" eType="#//InternalDataType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Background color specification for this measure when displayed in OLAP clients and reporting tools. The color value should follow standard color notation (e.g., hex colors like '#FF0000', RGB values, or color names). This visual formatting helps users quickly identify and differentiate measures in pivot tables, charts, and other analytical displays, particularly useful for highlighting important KPIs or categorizing related measures."/>
@@ -522,7 +507,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Kpi" eSuperTypes="#//AbstractElement #//IKpi">
+  <eClassifiers xsi:type="ecore:EClass" name="Kpi" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a Key Performance Indicator (KPI) that provides sophisticated business performance monitoring capabilities by combining multiple analytical expressions with visual indicators, targets, and trend analysis to deliver executive-level business intelligence insights. KPI represents a high-level business monitoring construct that transforms raw analytical data into actionable business intelligence by evaluating performance against strategic goals, visualizing trends and status through graphical indicators, and providing contextual information that enables rapid decision-making at executive and management levels."/>
     </eAnnotations>
@@ -589,7 +574,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="NamedSet" eSuperTypes="#//AbstractElement #//INamedSet">
+  <eClassifiers xsi:type="ecore:EClass" name="NamedSet" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a reusable collection of dimensional members that can be referenced by name in MDX queries, calculated members, and other analytical expressions, providing powerful capabilities for creating sophisticated analytical logic that operates on predefined sets of business entities. NamedSet represents a fundamental building block for advanced OLAP applications where complex business concepts need to be encapsulated into reusable analytical components that can be consistently applied across multiple queries, reports, and calculations."/>
     </eAnnotations>
@@ -604,7 +589,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Dimension" abstract="true" eSuperTypes="#//AbstractElement #//IDimension">
+  <eClassifiers xsi:type="ecore:EClass" name="Dimension" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract foundational class for all dimensional structures in OLAP modeling, representing the core concept of analytical dimensions that provide the contextual framework for multidimensional analysis by organizing business entities into hierarchical structures that enable slicing, dicing, drilling, and pivoting operations across different perspectives of business data. Dimension serves as the architectural foundation for the entire dimensional modeling paradigm, encapsulating the essential characteristics and behaviors that all dimensional structures must support including hierarchical organization of members from detailed to aggregated levels, support for multiple alternative hierarchies that provide different analytical perspectives on the same business domain, integration with security frameworks that can restrict access at dimensional and member levels, and compatibility with various analytical operations that form the basis of OLAP functionality."/>
     </eAnnotations>
@@ -631,7 +616,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector" eSuperTypes="#//IDimensionConnector">
+  <eClassifiers xsi:type="ecore:EClass" name="DimensionConnector">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Connects a cube to a dimension, establishing the relationship between fact table and dimensional data through foreign key references and enabling dimensional analysis within the cube's multidimensional space."/>
     </eAnnotations>
@@ -681,17 +666,17 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension #//ITimeDimension">
+  <eClassifiers xsi:type="ecore:EClass" name="TimeDimension" eSuperTypes="#//Dimension">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialized dimension for temporal analysis, providing built-in support for time-based hierarchies (Year-Quarter-Month-Day), time intelligence calculations, and temporal navigation. TimeDimensions enable sophisticated time-based analytics including period-over-period comparisons, year-to-date calculations, and time-based filtering. The dimension automatically understands temporal relationships and provides optimized query performance for time-based operations."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension #//IStandardDimension">
+  <eClassifiers xsi:type="ecore:EClass" name="StandardDimension" eSuperTypes="#//Dimension">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="General-purpose dimension for non-temporal analytical axes such as Geography, Product Categories, Customer Segments, or any other business classification hierarchy. StandardDimensions provide flexible hierarchical structures with configurable levels, member properties, and ordering rules that can model complex business taxonomies and support drill-down/drill-up navigation patterns."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Hierarchy" abstract="true" eSuperTypes="#//AbstractElement #//IHierarchy">
+  <eClassifiers xsi:type="ecore:EClass" name="Hierarchy" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for OLAP hierarchies that organize dimension members into structured levels, enabling multidimensional analysis through drill-down, roll-up, and slice-and-dice operations. Hierarchies serve as navigational pathways through dimension data, organizing members from most detailed (leaf) to most aggregated (all member) levels. They support both explicit level-based structures and parent-child self-referencing relationships."/>
     </eAnnotations>
@@ -766,25 +751,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//ILevel #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Level" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a group of members in a hierarchy, all at the same depth and sharing the same attributes and behavior patterns. Levels define the fundamental granularity layers within a dimension hierarchy that enable multidimensional analysis and navigation. For example, a Time dimension might contain levels like Year-Quarter-Month-Day, while a Geography dimension could have Country-State-City-ZipCode levels. Each level maps to specific database columns that provide member identification (key column), human-readable display (name column), localized captions (caption column), and custom sorting (ordinal column). Levels support various advanced features including member properties for additional attributes, custom formatters for display logic, data type specifications for proper SQL generation, uniqueness constraints for optimization, visibility controls for user interface management, and hiding conditions for handling ragged hierarchies and data quality issues. The level type attribute provides semantic meaning for specialized processing in time intelligence, geographic analysis, and business domain-specific operations."/>
     </eAnnotations>
-    <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return InternalDataType.fromValue(getColumnType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getHideMemberIfType" lowerBound="1" eType="#//HideMemberIfType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return HideMemberIfType.fromValue(getHideMemberIf().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getLevelType" lowerBound="1" eType="#//LevelType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return LevelType.fromValue(getType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberProperties" upperBound="-1"
         eType="#//MemberProperty" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -849,7 +819,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExplicitHierarchy" eSuperTypes="#//AbstractElement #//IExplicitHierarchy #//Hierarchy">
+  <eClassifiers xsi:type="ecore:EClass" name="ExplicitHierarchy" eSuperTypes="#//AbstractElement #//Hierarchy">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Hierarchy with explicitly defined levels organized in a fixed, predetermined structure. This is the most common hierarchy type, mapping to star schema and snowflake schema designs where levels correspond to dimension tables or normalized structures. ExplicitHierarchies provide optimal performance for predictable hierarchical structures and support complex multi-level drill-down operations with explicit level relationships defined through foreign keys."/>
     </eAnnotations>
@@ -860,7 +830,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParentChildHierarchy" eSuperTypes="#//AbstractElement #//IParentChildHierarchy #//Hierarchy">
+  <eClassifiers xsi:type="ecore:EClass" name="ParentChildHierarchy" eSuperTypes="#//AbstractElement #//Hierarchy">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Self-referencing hierarchy where members can have parent-child relationships within the same table, creating variable-depth structures. This hierarchy type is ideal for organizational charts, account hierarchies, or any structure where the depth varies by branch and members reference other members as parents. ParentChildHierarchies support recursive relationships and dynamic navigation without requiring fixed level definitions."/>
     </eAnnotations>
@@ -898,15 +868,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement #//IMemberProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines an additional attribute that can be associated with dimension members to provide supplementary information beyond the basic member identification, naming, and captioning. Member properties enable rich analytical capabilities by exposing detailed member characteristics such as demographic data, geographic coordinates, financial metrics, temporal attributes, or any domain-specific descriptive information. These properties are fully integrated into the OLAP infrastructure, appearing in MDX query results, client tool member browsers, and XMLA metadata discovery."/>
     </eAnnotations>
-    <eOperations name="getDataType" lowerBound="1" eType="#//InternalDataType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return InternalDataType.fromValue(getPropertyType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="formatter" eType="#//MemberPropertyFormatter"
         containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -930,7 +895,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//ICalculatedMember #//Member">
+  <eClassifiers xsi:type="ecore:EClass" name="CalculatedMember" eSuperTypes="#//Member">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents sophisticated computed members that are dynamically calculated using MDX expressions, enabling powerful analytical capabilities including complex business logic, mathematical computations, conditional calculations, and cross-dimensional analysis that extend far beyond the capabilities of standard dimensional members stored in database tables. CalculatedMember provides the foundation for advanced analytical modeling where business requirements necessitate dynamic member creation based on complex formulas, business rules, or computational logic that cannot be pre-calculated and stored in traditional dimensional tables."/>
     </eAnnotations>
@@ -956,7 +921,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CalculatedMemberProperty" eSuperTypes="#//AbstractElement #//ICalculatedMemberProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="CalculatedMemberProperty" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines additional metadata properties and behavioral characteristics for calculated members, providing sophisticated customization capabilities that control how computed members appear, behave, and integrate within analytical applications and business intelligence tools. CalculatedMemberProperty enables advanced calculated member configuration where computed members can be enhanced with specialized attributes, formatting rules, display characteristics, and behavioral modifiers that optimize their presentation and functionality within different analytical contexts and user interface environments."/>
     </eAnnotations>
@@ -971,7 +936,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParentChildLink" eSuperTypes="#//IParentChildLink">
+  <eClassifiers xsi:type="ecore:EClass" name="ParentChildLink">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines closure table configuration for parent-child hierarchies that dramatically improves query performance by pre-computing and storing all ancestor-descendant relationships in a separate table structure, enabling efficient recursive queries and aggregations without requiring complex recursive SQL operations."/>
     </eAnnotations>
@@ -994,7 +959,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RelationalQuery" abstract="true" eSuperTypes="#//Query #//IRelationalQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="RelationalQuery" abstract="true" eSuperTypes="#//Query">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for queries that produce relational result sets suitable for SQL generation and relational database operations. RelationalQuery extends the base Query with SQL aliasing capabilities, enabling proper table and column reference management in generated SQL statements. This class serves as the foundation for concrete query implementations that interact with relational databases, including direct table access, custom SQL views, and in-memory relational data structures. The relational nature enables standard SQL operations like joins, filtering, grouping, and sorting, while maintaining compatibility with OLAP-specific requirements like dimension member loading, hierarchy navigation, and measure aggregation."/>
     </eAnnotations>
@@ -1004,7 +969,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InlineTableQuery" eSuperTypes="#//RelationalQuery #//IInlineTableQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="InlineTableQuery" eSuperTypes="#//RelationalQuery">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Provides access to in-memory tabular data that is embedded directly within the OLAP model definition, eliminating the need for external database tables for small, static datasets. InlineTableQuery is ideal for configuration data, lookup tables, reference lists, and small dimensional data that rarely changes and can be efficiently stored within the model itself. This query type enables self-contained OLAP models that don't require external database dependencies for certain data sources, simplifying deployment and maintenance while providing optimal performance for frequently accessed small datasets that can be cached in memory."/>
     </eAnnotations>
@@ -1014,7 +979,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JoinQuery" eSuperTypes="#//Query #//IJoinQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="JoinQuery" eSuperTypes="#//Query">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a JOIN operation between two queries, enabling the combination of data from multiple sources through relational key-based connections. JoinQuery is essential for implementing snowflake schema patterns, multi-table hierarchies, and complex dimensional relationships where dimension data is normalized across multiple tables. The query supports composable join trees where the left or right side can itself be another JoinQuery, enabling arbitrarily complex multi-table relationships. JoinQuery automatically generates appropriate SQL JOIN syntax (typically INNER JOIN) based on the key columns specified in the left and right query elements, ensuring proper relational connectivity while maintaining optimal query performance through the OLAP engine's SQL generation and optimization capabilities."/>
     </eAnnotations>
@@ -1031,7 +996,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="JoinedQueryElement" eSuperTypes="#//IJoinedQueryElement">
+  <eClassifiers xsi:type="ecore:EClass" name="JoinedQueryElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents one side of a JOIN operation, encapsulating the query source, join key column, and optional table alias needed for proper SQL JOIN generation. JoinedQueryElement serves as the fundamental building block for composing complex multi-table queries in OLAP dimensional modeling, enabling the connection of normalized dimension tables, fact tables, and lookup tables through foreign key relationships. Each element specifies exactly how its query participates in the JOIN operation, including which column serves as the join key and what alias should be used in the generated SQL to avoid naming conflicts and ensure query clarity."/>
     </eAnnotations>
@@ -1051,7 +1016,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TableQuery" eSuperTypes="#//RelationalQuery #//ITableQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="TableQuery" eSuperTypes="#//RelationalQuery">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a direct query against a physical database table, providing the most common and straightforward data access pattern in OLAP applications. TableQuery serves as the foundation for fact table access, dimension table queries, and lookup table operations, enabling the OLAP engine to generate optimized SQL SELECT statements with appropriate filtering, grouping, and sorting. The query supports advanced performance features including custom WHERE clauses for data filtering, aggregation table specifications for pre-computed summaries, database-specific optimization hints for query tuning, and aggregation exclusion rules for controlling when summary tables should not be used. TableQuery is essential for both star schema and snowflake schema implementations, providing the direct table access needed for member loading, measure aggregation, and dimensional navigation."/>
     </eAnnotations>
@@ -1085,7 +1050,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TableQueryOptimizationHint" eSuperTypes="#//ITableQueryOptimizationHint">
+  <eClassifiers xsi:type="ecore:EClass" name="TableQueryOptimizationHint">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Provides database-specific optimization hints that can be embedded in generated SQL queries to influence query execution plans, performance characteristics, and resource utilization patterns for optimal analytical query performance."/>
     </eAnnotations>
@@ -1100,7 +1065,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SqlSelectQuery" eSuperTypes="#//RelationalQuery #//ISqlSelectQuery">
+  <eClassifiers xsi:type="ecore:EClass" name="SqlSelectQuery" eSuperTypes="#//RelationalQuery">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Wraps custom SQL SELECT statements as query sources, enabling the integration of complex business logic, database views, stored procedures, and advanced SQL constructs that cannot be expressed through standard table or join queries. SqlSelectQuery provides the flexibility to incorporate sophisticated data transformations, conditional logic, window functions, and database-specific features while maintaining compatibility with the OLAP engine's SQL generation and optimization capabilities. This query type is essential for scenarios requiring custom data preparation, complex calculations, legacy system integration, or advanced analytical functions that extend beyond standard relational operations."/>
     </eAnnotations>
@@ -1111,7 +1076,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberReaderParameter" eSuperTypes="#//IMemberReaderParameter">
+  <eClassifiers xsi:type="ecore:EClass" name="MemberReaderParameter">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines configuration parameters that are passed to custom MemberReader implementations to control specialized member loading behavior, caching strategies, performance optimization, and integration with external data sources or business logic systems. MemberReaderParameter represents a flexible configuration mechanism that enables sophisticated customization of how dimensional members are loaded, cached, and presented within OLAP hierarchies, supporting advanced scenarios where standard member loading approaches are insufficient for complex business requirements, performance constraints, or integration needs."/>
     </eAnnotations>
@@ -1126,7 +1091,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Translation" eSuperTypes="#//ITranslation">
+  <eClassifiers xsi:type="ecore:EClass" name="Translation">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Provides comprehensive internationalization and localization support for OLAP metadata elements, enabling multi-language deployments where analytical content can be presented in different languages based on user preferences, regional requirements, or organizational policies. Translation represents a fundamental component of the OLAP globalization framework, supporting complex multinational enterprise scenarios where the same analytical model must serve users who speak different languages and operate within different cultural contexts."/>
     </eAnnotations>
@@ -1163,7 +1128,7 @@
       <details key="documentation" value="Specialized string data type that represents MDX (Multidimensional Expressions) formulas and computational expressions used throughout the OLAP framework for defining sophisticated analytical calculations, business logic, and data transformation rules. Formula provides a strongly-typed foundation for MDX expressions that enables precise analytical modeling where complex business calculations can be expressed using the full power of the MDX language including hierarchical navigation, set operations, statistical functions, conditional logic, and cross-dimensional analysis capabilities."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Formatter" abstract="true" eSuperTypes="#//AbstractElement #//IFormatter">
+  <eClassifiers xsi:type="ecore:EClass" name="Formatter" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for sophisticated display formatting components that control how analytical values, dimensional members, and other OLAP elements are presented to users in client applications, reports, and dashboards."/>
     </eAnnotations>
@@ -1173,30 +1138,25 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CellFormatter" eSuperTypes="#//Formatter #//ICellFormatter">
+  <eClassifiers xsi:type="ecore:EClass" name="CellFormatter" eSuperTypes="#//Formatter">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialized formatter for controlling the presentation of cell values in analytical grids, pivot tables, and other tabular presentations, providing sophisticated capabilities for transforming raw measure values into compelling, contextually appropriate visual displays that enhance user comprehension and support effective business communication."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter #//IMemberFormatter">
+  <eClassifiers xsi:type="ecore:EClass" name="MemberFormatter" eSuperTypes="#//Formatter">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialized formatter for controlling how dimensional members are displayed in hierarchical browsers, filter lists, axis labels, and other dimensional navigation interfaces, enabling sophisticated member presentation that can include custom naming schemes, contextual information, visual indicators, and hierarchical styling that enhances dimensional navigation and member selection experiences."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter #//IMemberPropertyFormatter">
+  <eClassifiers xsi:type="ecore:EClass" name="MemberPropertyFormatter" eSuperTypes="#//Formatter">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialized formatter for controlling the presentation of member properties in dimensional browsers, tooltip displays, drill-through results, and other contexts where additional member attributes need to be presented in user-friendly, contextually appropriate formats."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//IParameter">
+  <eClassifiers xsi:type="ecore:EClass" name="Parameter">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a parameterized input mechanism that enables dynamic, user-driven customization of analytical queries, calculated members, and other OLAP expressions, providing sophisticated capabilities for creating flexible, interactive analytical applications that can adapt to user preferences and changing business requirements."/>
     </eAnnotations>
-    <eOperations name="getType" eType="#//InternalDataType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return InternalDataType.fromValue(getDataType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultValue" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Default parameter value that is automatically applied when users do not explicitly specify a parameter value, ensuring that parameterized analytical applications function correctly and provide meaningful results even when parameters are not explicitly set by end users."/>
@@ -1225,12 +1185,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement #//IAction">
+  <eClassifiers xsi:type="ecore:EClass" name="Action" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for interactive actions that provide sophisticated user engagement capabilities within OLAP applications, enabling context-sensitive operations that can launch external applications, navigate to related content, execute business processes, or provide additional analytical functionality based on the user's current analytical context."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action #//IDrillThroughAction">
+  <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAction" eSuperTypes="#//Action">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specialized action that enables users to drill through from aggregated analytical views to the underlying detailed transaction data that contributed to specific measure values, providing powerful capabilities for data exploration, validation, and detailed investigation of analytical results. DrillThroughAction represents one of the most valuable interactive features in modern OLAP applications, enabling users to seamlessly transition from high-level analytical summaries to detailed operational data without losing analytical context or requiring technical knowledge of underlying data structures."/>
     </eAnnotations>
@@ -1253,7 +1213,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAttribute" eSuperTypes="#//IDrillThroughAttribute">
+  <eClassifiers xsi:type="ecore:EClass" name="DrillThroughAttribute">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a dimensional attribute or member property that should be included in drill-through result sets, providing sophisticated control over the contextual information that accompanies detailed transactional data when users drill through from aggregated analytical views. DrillThroughAttribute enables rich drill-through experiences where users can access not only the underlying fact data but also relevant dimensional context that provides business meaning and analytical insight into the detailed results."/>
     </eAnnotations>
@@ -1279,7 +1239,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WritebackAttribute" eSuperTypes="#//IWritebackAttribute">
+  <eClassifiers xsi:type="ecore:EClass" name="WritebackAttribute">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a dimensional attribute that participates in writeback operations, enabling sophisticated data modification scenarios where users can update dimensional context information alongside measure values through interactive OLAP applications. WritebackAttribute represents a critical component of advanced business intelligence systems that support collaborative planning, budgeting, forecasting, and other scenarios where analytical applications must enable direct data modification rather than read-only consumption."/>
     </eAnnotations>
@@ -1296,7 +1256,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure" eSuperTypes="#//IWritebackMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a measure that participates in writeback operations, enabling sophisticated collaborative planning, budgeting, forecasting, and analytical data modification scenarios where business users can directly update measure values through OLAP client applications and have those changes automatically persisted to designated database tables."/>
     </eAnnotations>
@@ -1312,7 +1272,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="WritebackTable" eSuperTypes="#//IWritebackTable">
+  <eClassifiers xsi:type="ecore:EClass" name="WritebackTable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines the physical database table structure that receives modified analytical data when users perform writeback operations. Maps cube measures and dimensional attributes to specific database columns where user modifications are persisted. Required for cubes that support data modification through OLAP interfaces. Integrates with WritebackUtil for SQL generation and allocation policy processing."/>
     </eAnnotations>
@@ -1339,7 +1299,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationExclude" eSuperTypes="#//IAggregationExclude">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationExclude">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines exclusion rules that prevent specific tables from being used as aggregation tables, even if they would otherwise match aggregation patterns or be considered suitable for aggregation optimization. AggregationExclude is essential for maintaining aggregation accuracy and system reliability by providing explicit control over which tables should be avoided during aggregation table discovery and selection."/>
     </eAnnotations>
@@ -1365,7 +1325,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationForeignKey" eSuperTypes="#//IAggregationForeignKey">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationForeignKey">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines column relationships between aggregation tables and fact tables that enable query optimization through transparent fact-to-aggregation table substitution. Maps foreign key columns in aggregation tables to their corresponding columns in fact tables, maintaining referential integrity and dimensional relationships for performance-optimized OLAP query processing."/>
     </eAnnotations>
@@ -1382,7 +1342,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationLevel" eSuperTypes="#//IAggregationLevel">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationLevel">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Maps a dimension level to a column in an aggregation table, defining how dimensional data is represented in pre-computed aggregation structures. AggregationLevel is fundamental to the aggregation matching algorithm, enabling the OLAP engine to determine whether a specific aggregation table contains the appropriate dimensional granularity to satisfy query requirements. Each mapping specifies the relationship between a logical dimension level (such as Product Category, Time Month, or Customer Region) and the physical column in the aggregation table that stores the corresponding dimension key values."/>
     </eAnnotations>
@@ -1425,7 +1385,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationLevelProperty" eSuperTypes="#//IAggregationLevelProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationLevelProperty">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Maps a level property to its corresponding column in an aggregation table, enabling access to dimensional member properties in aggregated queries. Level properties provide additional descriptive information about dimension members beyond their keys and names, such as member descriptions, custom attributes, or categorization data."/>
     </eAnnotations>
@@ -1440,7 +1400,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasure" eSuperTypes="#//IAggregationMeasure">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasure">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Maps a cube measure to a column in an aggregation table that contains pre-computed aggregated values for that measure. AggregationMeasure is central to the performance optimization provided by aggregation tables, enabling the OLAP engine to substitute pre-calculated summary values for expensive fact table aggregations. Each mapping defines the relationship between a logical measure (such as Sales Amount, Quantity Sold, or Profit Margin) and the physical column in the aggregation table that stores the corresponding aggregated values. The mapping includes critical information about rollup behavior, specifying how aggregated values can be further combined when rolling up to higher levels of granularity. This supports complex aggregation scenarios including additive measures that use SUM rollup, semi-additive measures that require special handling across time dimensions, non-additive measures like ratios that need weighted averaging, and distinct count measures that have strict rollup requirements to maintain accuracy."/>
     </eAnnotations>
@@ -1461,7 +1421,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasureFactCount" eSuperTypes="#//IAggregationMeasureFactCount">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationMeasureFactCount">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines the fact count measure in an aggregation table that tracks the number of fact table rows contributing to each aggregated row. The fact count is essential for computing accurate averages, weighted calculations, and other statistical operations that require knowledge of the underlying data density."/>
     </eAnnotations>
@@ -1478,7 +1438,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationTable" abstract="true" eSuperTypes="#//IAggregationTable">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationTable" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for pre-computed aggregation tables that dramatically improve OLAP query performance by storing pre-calculated summary data at various levels of granularity. Aggregation tables contain rolled-up measures and dimension keys that enable the OLAP engine to answer analytical queries from summary data rather than scanning millions of fact table rows."/>
     </eAnnotations>
@@ -1530,7 +1490,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationName" eSuperTypes="#//AggregationTable #//IAggregationName">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationName" eSuperTypes="#//AggregationTable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Concrete aggregation table implementation that explicitly specifies a named database table containing pre-computed aggregation data. AggregationName provides direct, deterministic mapping to a specific aggregation table, making it ideal for environments with well-defined, stable aggregation strategies where table names are known in advance. This approach offers maximum control and predictability in aggregation table usage, enabling precise performance tuning and explicit aggregation maintenance workflows. AggregationName is commonly used in enterprise data warehousing scenarios where aggregation tables are created through ETL processes, have standardized naming conventions, and require explicit management for data freshness and consistency. The named approach also supports detailed monitoring and administration since each aggregation table is explicitly declared and can be individually managed, validated, and optimized."/>
     </eAnnotations>
@@ -1545,7 +1505,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationPattern" eSuperTypes="#//AggregationTable #//IAggregationPattern">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationPattern" eSuperTypes="#//AggregationTable">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Concrete aggregation table implementation that uses regular expression patterns to automatically discover and utilize aggregation tables that follow consistent naming conventions. AggregationPattern provides a scalable, dynamic approach to aggregation table management that is ideal for environments with automated aggregation table creation, standardized naming schemes, and large numbers of aggregation tables that would be impractical to manage individually. This pattern-based discovery mechanism enables the OLAP system to automatically adapt to newly created aggregation tables without requiring manual configuration updates, making it particularly valuable in environments with frequent aggregation table maintenance, automated ETL processes that generate aggregation tables, or data warehouse architectures that create aggregation tables programmatically based on usage patterns and performance requirements."/>
     </eAnnotations>
@@ -1562,7 +1522,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AggregationColumnName" eSuperTypes="#//IAggregationColumnName">
+  <eClassifiers xsi:type="ecore:EClass" name="AggregationColumnName">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Specifies the column that stores fact count data in an aggregation table, enabling ROLAP engines to determine the number of base fact table rows that were aggregated into each summary row."/>
     </eAnnotations>
@@ -1573,15 +1533,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant" eSuperTypes="#//IAccessCubeGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessCubeGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines cube-level security permissions that control access to a specific OLAP cube and provide the foundation for more granular dimension, hierarchy, and member-level access controls within that analytical context. AccessCubeGrant operates as the primary business-domain security boundary, since cubes typically represent complete analytical subjects such as Sales Analysis, Financial Reporting, or Operations Management that align with organizational responsibilities and business processes."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessCube">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessCube.fromValue(getCubeAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionGrants" upperBound="-1"
         eType="#//AccessDimensionGrant" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1606,15 +1561,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessDatabaseSchemaGrant" eSuperTypes="#//IAccessDatabaseSchemaGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessDatabaseSchemaGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Extends the OLAP security model to the database level by controlling access to database schemas, tables, and columns that underlie the OLAP analytical structures, providing comprehensive data governance that enforces security policies regardless of how data is accessed."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessDatabaseSchema">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessDatabaseSchema.fromValue(getDatabaseSchemaAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="databaseSchemaAccess" lowerBound="1"
         eType="#//DatabaseSchemaAccess">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1634,15 +1584,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessTableGrant" eSuperTypes="#//IAccessTableGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessTableGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines table-level security permissions that control access to specific database tables and their columns, providing fine-grained data governance at the physical storage level."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessTable">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessTable.fromValue(getTableAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableAccess" lowerBound="1"
         eType="#//TableAccess">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1661,15 +1606,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessColumnGrant" eSuperTypes="#//IAccessColumnGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessColumnGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Provides the most granular level of database security control by defining access permissions for individual database columns, enabling extremely precise data governance policies that can restrict access to specific data elements based on sensitivity, regulatory requirements, privacy concerns, or business confidentiality needs."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessColumn">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessColumn.fromValue(getColumnAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="columnAccess" lowerBound="1"
         eType="#//ColumnAccess">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1683,15 +1623,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant" eSuperTypes="#//IAccessDimensionGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessDimensionGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines dimension-level security permissions that control access to specific dimensions within a cube, providing targeted control over dimensional navigation and member visibility."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessDimension">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessDimension.fromValue(getDimensionAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="dimensionAccess" lowerBound="1"
         eType="#//DimensionAccess">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1705,20 +1640,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant" eSuperTypes="#//IAccessHierarchyGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessHierarchyGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Provides sophisticated hierarchy-level access control that enables fine-grained security policies for dimensional navigation, member visibility, and aggregation behavior within a specific hierarchy. AccessHierarchyGrant represents one of the most powerful and complex aspects of the OLAP security model, supporting advanced scenarios including member-level restrictions, level-based access boundaries, dynamic security expressions, and rollup policy controls that determine how aggregate values are calculated when some members are inaccessible."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessHierarchy">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessHierarchy.fromValue(getHierarchyAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
-    <eOperations name="getRollupPolicyType" lowerBound="1" eType="#//RollupPolicyType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return RollupPolicyType.fromValue(getRollupPolicy().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="memberGrants" upperBound="-1"
         eType="#//AccessMemberGrant" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1754,15 +1679,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant" eSuperTypes="#//IAccessMemberGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessMemberGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Implements the most granular level of OLAP security control by defining access permissions for individual members within dimensional hierarchies, enabling precise business-driven security policies that reflect real-world organizational boundaries, customer relationships, geographic territories, product ownership, and regulatory restrictions."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessMember">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessMember.fromValue(getMemberAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="memberAccess" lowerBound="1"
         eType="#//MemberAccess">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1775,7 +1695,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessRole" eSuperTypes="#//AbstractElement #//IAccessRole">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessRole" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a comprehensive role-based access control (RBAC) entity that encapsulates all security permissions and restrictions for accessing OLAP resources at multiple hierarchical levels of granularity. AccessRole serves as the fundamental security principal in the OLAP framework, implementing a sophisticated multi-level security model that operates from the catalog level down to individual members, columns, and database objects. Each role defines explicit access permissions through a collection of grants that specify whether access is completely allowed (ALL), completely denied (NONE), or selectively controlled (CUSTOM) with fine-grained sub-permissions."/>
     </eAnnotations>
@@ -1792,15 +1712,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AccessCatalogGrant" eSuperTypes="#//IAccessCatalogGrant">
+  <eClassifiers xsi:type="ecore:EClass" name="AccessCatalogGrant">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a catalog-level security grant that defines the foundational access permissions for an OLAP catalog and serves as the root of the hierarchical access control evaluation process. AccessCatalogGrant establishes the primary security boundary that determines whether a role can access any resources within a specific catalog, and when custom access is specified, it provides the container for more granular cube-level and database schema-level grants that define precisely which catalog resources are accessible."/>
     </eAnnotations>
-    <eOperations name="getAccess" lowerBound="1" eType="#//AccessCatalog">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return AccessCatalog.fromValue(getCatalogAccess().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cubeGrants" lowerBound="1"
         upperBound="-1" eType="#//AccessCubeGrant" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1820,7 +1735,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//IDatabaseCatalog #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseCatalog" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a database catalog that organizes database schemas and external data links. DatabaseCatalog serves as the top-level container for database metadata, providing structured access to schema definitions and connection management."/>
     </eAnnotations>
@@ -1837,7 +1752,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//IDatabaseSchema #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseSchema" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a database schema containing tables and their structural relationships. DatabaseSchema provides the logical grouping of tables that serve as the data foundation for OLAP cube construction and dimensional modeling."/>
     </eAnnotations>
@@ -1848,7 +1763,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//ITable #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Table" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for database tables that serve as data sources for OLAP operations. Table defines common structure and metadata for physical tables, views, and queries used in dimensional modeling."/>
     </eAnnotations>
@@ -1865,22 +1780,22 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//IPhysicalTable #//Table">
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalTable" eSuperTypes="#//Table">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a physical database table that exists in the database system. PhysicalTable is the most common table type used for fact tables, dimension tables, and aggregation tables in OLAP implementations."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//ISystemTable #//Table">
+  <eClassifiers xsi:type="ecore:EClass" name="SystemTable" eSuperTypes="#//Table">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a database system table that contains metadata or administrative information. SystemTable is typically used for referencing database catalog tables or system views in OLAP configurations."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//IViewTable #//Table">
+  <eClassifiers xsi:type="ecore:EClass" name="ViewTable" eSuperTypes="#//Table">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a database view that provides a logical table interface over underlying physical tables. ViewTable enables complex OLAP mappings that require data transformation or aggregation at the database level."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IOrderedColumn">
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a column with specific ordering information used in queries and result sets. OrderedColumn is typically used in OLAP contexts where explicit column ordering is required for query processing or result presentation."/>
     </eAnnotations>
@@ -1897,15 +1812,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Column" abstract="true" eSuperTypes="#//IColumn #//AbstractElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Column" abstract="true" eSuperTypes="#//AbstractElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for database columns that define data structure and metadata for OLAP mappings. Column provides common attributes for data type, size, and constraints used in dimensional modeling and measure definitions."/>
     </eAnnotations>
-    <eOperations name="getDataType" eType="#//ColumnDataType">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return ColumnDataType.fromValue(getType().getLiteral());"/>
-      </eAnnotations>
-    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//ColumnType"
         defaultValueLiteral="Varchar">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
@@ -1956,12 +1866,12 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PhysicalColumn" eSuperTypes="#//Column #//IPhysicalColumn">
+  <eClassifiers xsi:type="ecore:EClass" name="PhysicalColumn" eSuperTypes="#//Column">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a physical column that exists in the database table structure. PhysicalColumn is the most common column type used for dimension keys, measure values, and attribute mappings in OLAP schemas."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionColumn" eSuperTypes="#//ISQLExpressionColumn #//Column">
+  <eClassifiers xsi:type="ecore:EClass" name="SQLExpressionColumn" eSuperTypes="#//Column">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a virtual column defined by SQL expressions rather than physical table columns. SQLExpressionColumn enables computed columns, derived values, and complex calculations in OLAP mappings."/>
     </eAnnotations>
@@ -1972,7 +1882,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//IQuery #//DocumentedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Query" abstract="true" eSuperTypes="#//DocumentedElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Abstract base class for all data source queries in the OLAP mapping system, providing the foundation for accessing and combining data from various sources including physical database tables, custom SQL views, in-memory data sets, and complex multi-table joins. Queries serve as the data access layer that bridges the logical OLAP model with physical data storage, enabling the OLAP engine to generate appropriate SQL statements for different database systems while maintaining abstraction from specific storage implementations. The Query hierarchy supports composable patterns where simple queries can be combined into complex data access structures through joins, enabling sophisticated dimensional modeling over normalized database schemas and custom data integration scenarios."/>
     </eAnnotations>
@@ -1989,7 +1899,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//ILink">
+  <eClassifiers xsi:type="ecore:EClass" name="Link">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Defines a foreign key relationship between two database tables, establishing referential integrity constraints that are essential for dimensional modeling in OLAP systems. Links connect fact tables to dimension tables, enabling proper join relationships for star and snowflake schema implementations."/>
     </eAnnotations>
@@ -2006,7 +1916,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="#//IInlineTable #//Table">
+  <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="#//Table">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a table with data embedded directly in the schema definition rather than referencing external database tables. InlineTable allows small lookup tables, dimension data, or test data to be included directly in the OLAP schema, eliminating the need for separate database tables for static reference data."/>
     </eAnnotations>
@@ -2017,7 +1927,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Row" eSuperTypes="#//IRow">
+  <eClassifiers xsi:type="ecore:EClass" name="Row">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a single data row within an InlineTable, containing a collection of column values. Row provides the structure for embedding tabular data directly in the OLAP schema definition."/>
     </eAnnotations>
@@ -2028,7 +1938,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RowValue" eSuperTypes="#//IRowValue">
+  <eClassifiers xsi:type="ecore:EClass" name="RowValue">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a single column value within a row of an InlineTable. RowValue pairs a column reference with its data value, providing the basic unit for embedding tabular data in OLAP schema definitions."/>
     </eAnnotations>
@@ -2044,7 +1954,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SqlStatement" eSuperTypes="#//ISqlStatement">
+  <eClassifiers xsi:type="ecore:EClass" name="SqlStatement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Contains SQL expression text and database dialect information for database-specific SQL implementations. SqlStatement enables OLAP schemas to support multiple database platforms by providing dialect-specific SQL expressions."/>
     </eAnnotations>
@@ -2060,7 +1970,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SqlView" eSuperTypes="#//ISqlView #//Table">
+  <eClassifiers xsi:type="ecore:EClass" name="SqlView" eSuperTypes="#//Table">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a virtual table defined by SQL query expressions rather than physical database tables. SqlView enables complex data transformations, joins, and calculations to be encapsulated as table sources for OLAP dimensions and measures."/>
     </eAnnotations>
@@ -2071,192 +1981,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IAbstractElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AbstractElementMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessCubeGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessDatabaseSchemaGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessDatabaseSchemaGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessTableGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessTableGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessColumnGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessColumnGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessDimensionGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessHierarchyGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessMemberGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessRole" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAccessCatalogGrant" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAction" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ActionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationColumnName" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationExclude" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationExcludeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationForeignKey" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationLevel" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationLevelProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelPropertyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationMeasureFactCount" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationName" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationPattern" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAggregationTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAnnotation" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICalculatedMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICalculatedMemberProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICellFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CellFormatterMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICubeConnector" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CubeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDimensionConnector" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDrillThroughAction" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDrillThroughAttribute" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.FormatterMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IInlineTableQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.InlineTableQueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IJoinedQueryElement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.JoinedQueryElementMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IJoinQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IKpi" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.KpiMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ILevel" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.LevelMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IExplicitHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IParentChildHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMeasureGroup" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IColumnBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ColumnMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISqlExpressionBaseMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICustomMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CustomMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMinMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MinMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMaxMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MaxMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISumMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SumMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IAvgMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.AvgMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICountMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CountMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="INoneMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.NoneMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITextAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TextAggMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IBitAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.BitAggMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IPercentileMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PercentileMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="INthAggMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.NthAggMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMemberProperty" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMemberPropertyFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping"
-      abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMemberFormatter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping"
-      abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IMemberReaderParameter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.MemberReaderParameterMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="INamedSet" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IParameter" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IParentChildLink" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalColumnMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.QueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IRelationalQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RelationalQueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ICatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISQLExpressionColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SQLExpressionColumnMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISqlSelectQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IStandardDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITableQuery" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITableQueryOptimizationHint" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITimeDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITranslation" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TranslationMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IVirtualCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IWritebackAttribute" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IWritebackMeasure" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IWritebackTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDatabaseCatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DatabaseCatalogMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IDatabaseSchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ITable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.TableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IPhysicalTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.PhysicalTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IViewTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ViewTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISystemTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SystemTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IOrderedColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.OrderedColumnMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ILink" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.LinkMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IInlineTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IRow" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RowMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IRowValue" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISqlStatement" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping"
-      abstract="true" interface="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ISqlView" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.SqlViewMapping"
-      abstract="true" interface="true"/>
   <eClassifiers xsi:type="ecore:EEnum" name="CatalogAccess">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Enumeration defining the access permission levels for OLAP catalogs within the role-based security framework, establishing the fundamental security boundaries that control whether users can access catalog resources and determining the overall scope of analytical capabilities available to specific roles. CatalogAccess represents the highest level of the OLAP security hierarchy and serves as the primary access control decision point that influences all subordinate security evaluations for cubes, dimensions, hierarchies, and members contained within the catalog."/>
@@ -2807,19 +2531,4 @@
       </eAnnotations>
     </eLiterals>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessCatalog" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCatalog"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessDatabaseSchema" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDatabaseSchema"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessTable" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessTable"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessColumn" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessColumn"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessCube" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessCube"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessDimension" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessDimension"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessHierarchy" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessHierarchy"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="AccessMember" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.AccessMember"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="InternalDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="HideMemberIfType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="LevelType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="RollupPolicyType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="ColumnDataType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.ColumnDataType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="BitAggregationType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.BitAggregationType"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="PercentileType" instanceClassName="org.eclipse.daanse.rolap.mapping.api.model.enums.PercentileType"/>
 </ecore:EPackage>
