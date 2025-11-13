@@ -175,11 +175,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Hierarchy Has All");
+        catalog.setName("Daanse Tutorial - Hierarchy Has All");
         catalog.setDescription("Hierarchy with all-member configuration");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Hierarchy Has All", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Hierarchy Has All", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
 

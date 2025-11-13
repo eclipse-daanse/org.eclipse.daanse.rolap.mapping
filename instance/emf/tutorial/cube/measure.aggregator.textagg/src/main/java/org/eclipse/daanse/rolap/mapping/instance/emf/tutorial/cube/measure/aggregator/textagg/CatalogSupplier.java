@@ -229,11 +229,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Measure Aggregator Text Agg");
+        catalog.setName("Daanse Tutorial - Measure Aggregator Text Agg");
         catalog.setDescription("Text aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Measure Aggregator Text Agg", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Aggregator Text Agg", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and Measure with Text Aggregator", cubeBody, 1, 3, 0, true, 2);
