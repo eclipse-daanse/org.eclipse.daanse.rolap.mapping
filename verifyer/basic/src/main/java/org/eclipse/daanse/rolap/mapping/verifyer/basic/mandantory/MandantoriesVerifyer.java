@@ -13,7 +13,10 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.mandantory;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import java.util.List;
+import java.util.Map;
+
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.osgi.service.component.annotations.Activate;
@@ -22,9 +25,6 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.util.converter.Converter;
 import org.osgi.util.converter.Converters;
-
-import java.util.List;
-import java.util.Map;
 
 @Designate(ocd = MandantoriesVerifierConfig.class)
 @Component(service = Verifyer.class)
@@ -46,7 +46,7 @@ public class MandantoriesVerifyer implements Verifyer {
     }
 
     @Override
-    public List<VerificationResult> verify(CatalogMapping schema) {
+    public List<VerificationResult> verify(Catalog schema) {
 
         return new MandantoriesSchemaWalker(config).checkSchema(schema);
     }

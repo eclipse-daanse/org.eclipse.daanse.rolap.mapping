@@ -15,10 +15,10 @@ package org.eclipse.daanse.rolap.mapping.verifyer.api;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
 
 public interface Verifyer {
 
-    List<VerificationResult> verify(CatalogMapping schema);
+    List<VerificationResult> verify(Catalog schema);
 
 }

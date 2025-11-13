@@ -17,11 +17,11 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
 
 
 
 public interface CheckService {
 
-    List<VerificationResult> verify(CatalogMapping catalog, DataSource dataSource);
+    List<VerificationResult> verify(Catalog catalog, DataSource dataSource);
 }

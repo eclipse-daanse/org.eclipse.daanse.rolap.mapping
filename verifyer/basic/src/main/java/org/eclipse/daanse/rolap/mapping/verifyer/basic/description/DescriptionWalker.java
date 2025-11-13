@@ -46,22 +46,21 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughActionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
+import org.eclipse.daanse.rolap.mapping.model.Action;
+import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.Cube;
+import org.eclipse.daanse.rolap.mapping.model.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
+import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.Parameter;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
@@ -77,7 +76,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    public List<VerificationResult> checkSchema(CatalogMapping schema) {
+    public List<VerificationResult> checkSchema(Catalog schema) {
         super.checkSchema(schema);
         Level lavel = config.schema();
         if (lavel != null && (schema.getDescription() == null || schema.getDescription()
@@ -89,7 +88,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDimension(DimensionMapping dimension, CubeMapping cube, CatalogMapping schema) {
+    protected void checkDimension(Dimension dimension, Cube cube, Catalog schema) {
         super.checkDimension(dimension, cube, schema);
         Level lavel = config.dimension();
         if (lavel != null && (dimension.getDescription() == null || dimension.getDescription()
@@ -100,7 +99,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCube(VirtualCubeMapping virtualCube, CatalogMapping schema) {
+    protected void checkVirtualCube(VirtualCube virtualCube, Catalog schema) {
         super.checkVirtualCube(virtualCube, schema);
         Level lavel = config.virtualCube();
         if (lavel != null && (virtualCube.getDescription() == null || virtualCube.getDescription()
@@ -111,7 +110,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkPhysicalCube(PhysicalCubeMapping cube, CatalogMapping schema) {
+    protected void checkPhysicalCube(PhysicalCube cube, Catalog schema) {
         super.checkPhysicalCube(cube, schema);
         Level lavel = config.cube();
         if (lavel != null && (cube.getDescription() == null || cube.getDescription()
@@ -121,7 +120,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMeasure(MeasureMapping measure, CubeMapping cube) {
+    protected void checkMeasure(BaseMeasure measure, Cube cube) {
         super.checkMeasure(measure, cube);
         Level lavel = config.measure();
         if (lavel != null && (measure.getDescription() == null || measure.getDescription()
@@ -131,7 +130,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkKpi(KpiMapping kpi, CubeMapping cube) {
+    protected void checkKpi(Kpi kpi, Cube cube) {
         super.checkKpi(kpi, cube);
         Level lavel = config.kpi();
         if (lavel != null && (kpi.getDescription() == null || kpi.getDescription()
@@ -141,7 +140,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCalculatedMemberProperty(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected void checkCalculatedMemberProperty(CalculatedMemberProperty calculatedMemberProperty) {
         super.checkCalculatedMemberProperty(calculatedMemberProperty);
         Level lavel = config.calculatedMemberProperty();
         if (lavel != null && (calculatedMemberProperty.getDescription() == null || calculatedMemberProperty.getDescription()
@@ -152,7 +151,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCalculatedMember(CalculatedMemberMapping calculatedMember) {
+    protected void checkCalculatedMember(CalculatedMember calculatedMember) {
         super.checkCalculatedMember(calculatedMember);
         Level lavel = config.calculatedMember();
         if (lavel != null && (calculatedMember.getDescription() == null || calculatedMember.getDescription()
@@ -163,7 +162,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkHierarchy(HierarchyMapping hierarchy, DimensionMapping cubeDimension, CubeMapping cube) {
+    protected void checkHierarchy(Hierarchy hierarchy, Dimension cubeDimension, Cube cube) {
         super.checkHierarchy(hierarchy, cubeDimension, cube);
         Level lavel = config.hierarchy();
         if (lavel != null && (hierarchy.getDescription() == null || hierarchy.getDescription()
@@ -174,7 +173,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkLevel(final LevelMapping l, HierarchyMapping hierarchy, DimensionMapping parentDimension, CubeMapping cube) {
+    protected void checkLevel(final org.eclipse.daanse.rolap.mapping.model.Level l, Hierarchy hierarchy, Dimension parentDimension, Cube cube) {
         super.checkLevel(l, hierarchy, parentDimension, cube);
         Level lavel = config.level();
         if (lavel != null && (l.getDescription() == null || l.getDescription()
@@ -184,12 +183,12 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAction(final ActionMapping action) {
+    protected void checkAction(final Action action) {
         super.checkAction(action);
         Level lavel = config.action();
         if (lavel != null && (action.getDescription() == null || action.getDescription()
                 .isEmpty())) {
-            if (action instanceof DrillThroughActionMapping) {
+            if (action instanceof DrillThroughAction) {
                 results.add(new VerificationResultR(DRILL_THROUGH_ACTION, DRILL_THROUGH_ACTION_MUST_CONTAIN_DESCRIPTION,
                         lavel, Cause.SCHEMA));
             } else {
@@ -200,7 +199,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
 
 
     @Override
-    protected void checkMemberProperty(final MemberPropertyMapping property, LevelMapping level, HierarchyMapping hierarchy, CubeMapping cube) {
+    protected void checkMemberProperty(final MemberProperty property, org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy, Cube cube) {
         super.checkMemberProperty(property, level, hierarchy, cube);
         Level lavel = config.property();
         if (lavel != null && (property.getDescription() == null || property.getDescription()
@@ -210,7 +209,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkNamedSet(final NamedSetMapping namedSet) {
+    protected void checkNamedSet(final NamedSet namedSet) {
         super.checkNamedSet(namedSet);
         Level lavel = config.namedSet();
         if (lavel != null && (namedSet.getDescription() == null || namedSet.getDescription()
@@ -220,7 +219,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkParameter(final ParameterMapping parameter) {
+    protected void checkParameter(final Parameter parameter) {
         super.checkParameter(parameter);
         Level lavel = config.parameter();
         if (lavel != null && (parameter.getDescription() == null || parameter.getDescription()

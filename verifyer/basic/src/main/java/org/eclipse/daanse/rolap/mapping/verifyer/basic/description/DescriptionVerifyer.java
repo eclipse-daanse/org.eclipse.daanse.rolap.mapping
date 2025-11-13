@@ -13,7 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.description;
 
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.osgi.service.component.annotations.Activate;
@@ -49,7 +49,7 @@ public class DescriptionVerifyer implements Verifyer {
     DescriptionWalker descriptionWalker;
 
     @Override
-    public List<VerificationResult> verify(CatalogMapping schema) {
+    public List<VerificationResult> verify(Catalog schema) {
 
         return new DescriptionWalker(config).checkSchema(schema);
     }

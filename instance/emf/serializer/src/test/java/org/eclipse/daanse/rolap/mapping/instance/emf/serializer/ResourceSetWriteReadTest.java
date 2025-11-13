@@ -37,13 +37,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AbstractElement;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Documentation;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DocumentedElement;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingPackage;
+import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
+import org.eclipse.daanse.rolap.mapping.model.AbstractElement;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.Documentation;
+import org.eclipse.daanse.rolap.mapping.model.DocumentedElement;
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -175,7 +174,7 @@ public class ResourceSetWriteReadTest {
 
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
-        CatalogMapping cm = catalogMappingSupplier.get();
+        Catalog cm = catalogMappingSupplier.get();
 
         StringBuilder sbReadme = new StringBuilder();
 
@@ -543,7 +542,7 @@ public class ResourceSetWriteReadTest {
             add(RolapMappingPackage.Literals.SQL_STATEMENT);
 
             add(RolapMappingPackage.Literals.TABLE_QUERY);
-            add(RolapMappingPackage.Literals.IINLINE_TABLE_QUERY);
+            add(RolapMappingPackage.Literals.INLINE_TABLE_QUERY);
             add(RolapMappingPackage.Literals.JOIN_QUERY);
             add(RolapMappingPackage.Literals.JOINED_QUERY_ELEMENT);
 

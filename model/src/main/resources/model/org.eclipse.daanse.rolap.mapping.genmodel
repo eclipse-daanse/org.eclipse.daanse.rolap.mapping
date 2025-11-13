@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*********************************************************************
+* Copyright (c) 2024 Contributors to the Eclipse Foundation.
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+*
+* SPDX-License-Identifier: EPL-2.0
+**********************************************************************/
+-->
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="Copyright (c) 2024 Contributors to the Eclipse Foundation.&#xA;&#xA;This program and the accompanying materials are made&#xA;available under the terms of the Eclipse Public License 2.0&#xA;which is available at https://www.eclipse.org/legal/epl-2.0/&#xA;&#xA;SPDX-License-Identifier: EPL-2.0&#xA;&#xA;Contributors:&#xA;"
+    modelDirectory="/org.eclipse.daanse.rolap.mapping/src" modelPluginID="org.eclipse.daanse.rolap.mapping"
+    modelName="org.eclipse.daanse.rolap.mapping.model" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="17.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true" oSGiCompatible="true">
+  <foreignModel>org.eclipse.daanse.rolap.mapping.ecore</foreignModel>
+  <genPackages prefix="RolapMapping" basePackage="org.eclipse.daanse.rolap.mapping"
+      resource="XMI" disposableProviderFactory="true" fileExtensions="rolap" ecorePackage="org.eclipse.daanse.rolap.mapping.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/CUSTOM"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CatalogAccess/ALL_DIMENSIONS"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchemaAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchemaAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchemaAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchemaAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//TableAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//TableAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//TableAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//TableAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//ColumnAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnAccess/ALL"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//CubeAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//DimensionAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DimensionAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DimensionAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//DimensionAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//HierarchyAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HierarchyAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HierarchyAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HierarchyAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//HideMemberIf">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HideMemberIf/NEVER"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HideMemberIf/IF_BLANK_NAME"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//HideMemberIf/IF_PARENTS_NAME"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//MemberAccess">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MemberAccess/NONE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MemberAccess/ALL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//MemberAccess/CUSTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy/FULL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy/PARTIAL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//RollupPolicy/HIDDEN"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/UNDEFINED"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/STRING"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/NUMERIC"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/TIME"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnInternalDataType/TIMESTAMP"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/VARCHAR"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/NUMERIC"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/DECIMAL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/FLOAT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/REAL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/INTEGER"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/SMALLINT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/DOUBLE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/OTHER"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/BOOLEAN"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/DATE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/TIME"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/TIMESTAMP"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//ColumnType/BIGINT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/AND"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/OR"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//BitAggType/XOR"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//PercentType">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//PercentType/DISC"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//PercentType/CONT"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition">
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/REGULAR"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_YEARS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_HALF_YEARS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_QUARTERS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_MONTHS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_WEEKS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_DAYS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_HOURS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_MINUTES"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_SECONDS"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/TIME_UNDEFINED"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/NULL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_CONTINENT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_REGION"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_COUNTRY"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_STATE_OR_PROVINCE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_COUNTY"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_CITY"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_POSTALCODE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/GEO_POINT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/ORG_UNIT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/BOM_RESOURCE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/QUANTITATIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/ACCOUNT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CUSTOMER"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CUSTOMER_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CUSTOMER_HOUSEHOLD"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/PRODUCT"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/PRODUCT_GROUP"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/SCENARIO"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/UTILITY"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/PERSON"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/COMPANY"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CURRENCY_SOURCE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CURRENCY_DESTINATION"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/CHANNEL"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/REPRESENTATIVE"/>
+      <genEnumLiterals ecoreEnumLiteral="org.eclipse.daanse.rolap.mapping.ecore#//LevelDefinition/PROMOTION"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="org.eclipse.daanse.rolap.mapping.ecore#//Formula"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Documentation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/title"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/orderMajor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/orderMinor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/orderMicro"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/showContainer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Documentation/showContainments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DocumentedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DocumentedElement/documentations"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Annotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Annotation/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Annotation/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AbstractElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AbstractElement/annotations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AbstractElement/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AbstractElement/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AbstractElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Catalog">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/cubes"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/namedSets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/accessRoles"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Catalog/measuresDimensionName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/defaultAccessRole"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Catalog/dbschemas"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Cube">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/calculatedMembers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/namedSets"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/kpis"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Cube/enabled"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Cube/visible"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Cube/defaultMeasure"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/dimensionConnectors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/query"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/writebackTable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/action"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/cache"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PhysicalCube/measureGroups"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/dimensionConnectors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/cubeUsages"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/referencedCalculatedMembers"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//VirtualCube/referencedMeasures"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CubeConnector">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CubeConnector/ignoreUnrelatedDimensions"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CubeConnector/cube"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MeasureGroup">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//MeasureGroup/measures"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MeasureGroup/name"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//MeasureGroup/physicalCube"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Member">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Member/calculatedMemberProperties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Member/cellFormatter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Member/displayFolder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Member/visible"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Member/formatString"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MinMeasure"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MaxMeasure"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SumMeasure"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AvgMeasure"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//NoneMeasure"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CountMeasure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CountMeasure/distinct"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/orderByColumns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/separator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/distinct"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/coalesce"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TextAggMeasure/onOverflowTruncate"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure/aggType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BitAggMeasure/not"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//PercentileMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//PercentileMeasure/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//PercentileMeasure/percentType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//PercentileMeasure/percentile"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//NthAggMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//NthAggMeasure/orderByColumns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//NthAggMeasure/ignoreNulls"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//NthAggMeasure/n"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure/template"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure/columns"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CustomMeasure/properties"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SQLExpressionBaseMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//SQLExpressionBaseMeasure/column"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ColumnBaseMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ColumnBaseMeasure/column"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//BaseMeasure">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BaseMeasure/backColor"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BaseMeasure/dataType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//BaseMeasure/formatter"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//BaseMeasure/measureGroup"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Kpi">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Kpi/translations"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/displayFolder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/associatedMeasureGroupID"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/goal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/status"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/trend"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/weight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/trendGraphic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/statusGraphic"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Kpi/currentTimeMember"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Kpi/parentKpi"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//NamedSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//NamedSet/displayFolder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//NamedSet/formula"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Dimension">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Dimension/hierarchies"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Dimension/usagePrefix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Dimension/visible"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Dimension/defaultHierarchy"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/foreignKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/usagePrefix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/visible"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/dimension"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/overrideDimensionName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/level"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/id"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DimensionConnector/physicalCube"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TimeDimension"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//StandardDimension"/>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/memberReaderParameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/allLevelName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/allMemberCaption"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/allMemberName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/defaultMember"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/displayFolder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/hasAll"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/memberReaderClass"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/origin"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/primaryKey"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/uniqueKeyLevelName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/query"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Hierarchy/visible"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Level">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/memberProperties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/memberFormatter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/approxRowCount"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/captionColumn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/hideMemberIf"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/type"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/nameColumn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Level/ordinalColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/columnType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/uniqueMembers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Level/visible"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ExplicitHierarchy">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ExplicitHierarchy/levels"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/parentChildLink"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/nullParentValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/parentColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/parentAsLeafEnable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/parentAsLeafNameFormat"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildHierarchy/level"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/formatter"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/dependsOnLevelValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberProperty/propertyType"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/formula"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/parent"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/hierarchy"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMember/cube"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMemberProperty">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMemberProperty/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//CalculatedMemberProperty/value"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ParentChildLink">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildLink/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildLink/childColumn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//ParentChildLink/parentColumn"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//RelationalQuery">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//RelationalQuery/alias"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//InlineTableQuery">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//InlineTableQuery/table"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//JoinQuery">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//JoinQuery/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//JoinQuery/right"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//JoinedQueryElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//JoinedQueryElement/alias"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//JoinedQueryElement/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//JoinedQueryElement/query"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TableQuery">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TableQuery/sqlWhereExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TableQuery/aggregationExcludes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TableQuery/optimizationHints"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TableQuery/aggregationTables"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//TableQuery/table"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//TableQueryOptimizationHint">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TableQueryOptimizationHint/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//TableQueryOptimizationHint/type"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SqlSelectQuery">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//SqlSelectQuery/sql"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MemberReaderParameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberReaderParameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//MemberReaderParameter/value"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Translation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Translation/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Translation/caption"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Translation/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Translation/displayFolder"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Translation/annotations"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Formatter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Formatter/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//CellFormatter"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MemberFormatter"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//MemberPropertyFormatter"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Parameter">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/defaultValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/modifiable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Parameter/dataType"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Action"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAction">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAction/drillThroughAttribute"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAction/drillThroughMeasure"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAction/default"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAttribute">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAttribute/property"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAttribute/dimension"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAttribute/hierarchy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DrillThroughAttribute/level"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//WritebackAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//WritebackAttribute/column"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//WritebackAttribute/dimensionConnector"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//WritebackMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//WritebackMeasure/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//WritebackMeasure/name"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//WritebackTable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//WritebackTable/writebackAttribute"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//WritebackTable/writebackMeasure"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//WritebackTable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//WritebackTable/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationExclude">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationExclude/ignorecase"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationExclude/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationExclude/pattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationExclude/id"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationForeignKey">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationForeignKey/aggregationColumn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationForeignKey/factColumn"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/aggregationLevelProperties"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/captionColumn"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/collapsed"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/nameColumn"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevel/ordinalColumn"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevelProperty">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevelProperty/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationLevelProperty/name"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasure">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasure/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasure/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasure/rollupType"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasureFactCount">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasureFactCount/column"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationMeasureFactCount/factColumn"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationFactCount"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationIgnoreColumns"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationForeignKeys"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationMeasures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationLevels"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/aggregationMeasureFactCounts"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/ignorecase"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationTable/id"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationName/approxRowCount"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationName/name"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationPattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AggregationPattern/pattern"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationPattern/excludes"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AggregationColumnName">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AggregationColumnName/column"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/dimensionGrants"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/hierarchyGrants"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/cubeAccess"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCubeGrant/cube"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessDatabaseSchemaGrant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessDatabaseSchemaGrant/databaseSchemaAccess"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessDatabaseSchemaGrant/tableGrants"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessDatabaseSchemaGrant/databaseSchema"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessTableGrant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessTableGrant/tableAccess"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessTableGrant/columnGrants"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessTableGrant/table"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessColumnGrant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessColumnGrant/columnAccess"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessColumnGrant/column"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant/dimensionAccess"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessDimensionGrant/dimension"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/memberGrants"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/hierarchyAccess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/rollupPolicy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/hierarchy"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/bottomLevel"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessHierarchyGrant/topLevel"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant/memberAccess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessMemberGrant/member"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessRole">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/accessCatalogGrants"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessRole/referencedAccessRoles"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/cubeGrants"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/databaseSchemaGrants"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//AccessCatalogGrant/catalogAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseCatalog">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DatabaseCatalog/schemas"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DatabaseCatalog/links"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchema">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//DatabaseSchema/tables"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Table">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Table/columns"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Table/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//PhysicalTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SystemTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//ViewTable"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//OrderedColumn">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//OrderedColumn/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//OrderedColumn/ascend"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Column">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/columnSize"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Column/table"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Column/primaryLinks"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Column/foreignLinks"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/decimalDigits"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/charOctetLength"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/numPrecRadix"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Column/nullable"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//PhysicalColumn"/>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SQLExpressionColumn">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//SQLExpressionColumn/sqls"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Query">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//Query/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Query/documentation"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Link">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Link/primaryKey"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Link/foreignKey"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//InlineTable">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//InlineTable/rows"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//Row">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//Row/rowValues"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//RowValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//RowValue/column"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//RowValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SqlStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//SqlStatement/dialects"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute org.eclipse.daanse.rolap.mapping.ecore#//SqlStatement/sql"/>
+    </genClasses>
+    <genClasses ecoreClass="org.eclipse.daanse.rolap.mapping.ecore#//SqlView">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference org.eclipse.daanse.rolap.mapping.ecore#//SqlView/sqlStatements"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
