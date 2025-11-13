@@ -144,11 +144,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureFormats");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Measure Format");
+        catalog.setName("Daanse Tutorial - Measure Format");
         catalog.setDescription("Measure formatting options");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Measure Format", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Format", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Formats on Measures", cubeBody, 1, 3, 0, true, 2);

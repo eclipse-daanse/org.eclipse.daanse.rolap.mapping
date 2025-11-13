@@ -190,11 +190,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Measure Aggregator Nth");
+        catalog.setName("Daanse Tutorial - Measure Aggregator Nth");
         catalog.setDescription("Nth value aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Measure Aggregator Nth", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Aggregator Nth", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and NTH Aggragator Measures", cubeBody, 1, 3, 0, true, 2);
