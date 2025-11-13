@@ -12,23 +12,22 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table;
 
-import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
+import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SystemTable;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ViewTable;
+import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.Column;
+import org.eclipse.daanse.rolap.mapping.model.ColumnType;
+import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.model.SystemTable;
+import org.eclipse.daanse.rolap.mapping.model.ViewTable;
 import org.osgi.service.component.annotations.Component;
 
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.3.1", source = Source.EMF, group = "Database")
@@ -52,7 +51,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     @Override
-    public CatalogMapping get() {
+    public Catalog get() {
         DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
         databaseSchema.setId("_databaseSchema_tableTypes");
 

@@ -47,14 +47,11 @@
 
 
   <modules>
-    <module>api</module>
-    <module>emf</module>
-    <module>pojo</module>
+    <module>model</module>
     <module>instance</module>
     <module>mondrian.jaxb</module>
-    <module>modifier.common</module>
-    <module>modifier.pojo</module>
+<!--    <module>modifier.common</module>-->
+<!--    <module>modifier.emf</module>-->
     <module>verifyer</module>
-    <module>modifier.emf</module>
   </modules>
 </project>

@@ -23,63 +23,62 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 
-import org.eclipse.daanse.rolap.mapping.api.model.AccessCubeGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessDimensionGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessHierarchyGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessMemberGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessRoleMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AccessCatalogGrantMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ActionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationColumnNameMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationForeignKeyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationLevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureFactCountMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationMeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationNameMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationPatternMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AggregationTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.AnnotationMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CalculatedMemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ColumnMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ColumnMeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.CubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DatabaseSchemaMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionConnectorMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.DrillThroughAttributeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ExplicitHierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.HierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.InlineTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.JoinQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.KpiMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.LevelMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureGroupMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MemberFormatterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyFormatterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.MemberPropertyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.NamedSetMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ParameterMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ParentChildHierarchyMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.ParentChildLinkMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.PhysicalCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.RowValueMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SqlExpressionMeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SqlSelectQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.SqlStatementMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.StandardDimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TableQueryMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TableQueryOptimizationHintMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.TimeDimensionMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.VirtualCubeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackAttributeMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackMeasureMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.WritebackTableMapping;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
+import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessDimensionGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessHierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessMemberGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.Action;
+import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.model.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.AggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.Column;
+import org.eclipse.daanse.rolap.mapping.model.ColumnBaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.Cube;
+import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
+import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
+import org.eclipse.daanse.rolap.mapping.model.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.InlineTable;
+import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
+import org.eclipse.daanse.rolap.mapping.model.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.MemberPropertyFormatter;
+import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.Parameter;
+import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.RowValue;
+import org.eclipse.daanse.rolap.mapping.model.SQLExpressionBaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.SqlSelectQuery;
+import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.Table;
+import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
@@ -98,7 +97,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    public List<VerificationResult> checkSchema(CatalogMapping schema) {
+    public List<VerificationResult> checkSchema(Catalog schema) {
         super.checkSchema(schema);
         if (schema != null) {
             if (isEmpty(schema.getName())) {
@@ -114,17 +113,17 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCube(CubeMapping cube, CatalogMapping schema) {
+    protected void checkCube(Cube cube, Catalog schema) {
         super.checkCube(cube, schema);
         if (cube != null) {
             if (isEmpty(cube.getName())) {
                 results.add(new VerificationResultR(CUBE, CUBE_NAME_MUST_SET, Level.ERROR,
                     Cause.SCHEMA));
             }
-            if (cube instanceof PhysicalCubeMapping physicalCube) {
+            if (cube instanceof PhysicalCube physicalCube) {
                 if (physicalCube.getQuery() == null
-                    || ((physicalCube.getQuery() instanceof TableQueryMapping table) && isEmpty(table.getTable().getName()))
-                    || ((physicalCube.getQuery() instanceof SqlSelectQueryMapping view) && isEmpty(view.getAlias()))) {
+                    || ((physicalCube.getQuery() instanceof TableQuery table) && isEmpty(table.getTable().getName()))
+                    || ((physicalCube.getQuery() instanceof SqlSelectQuery view) && isEmpty(view.getAlias()))) {
                     String msg = String.format(FACT_NAME_MUST_BE_SET, orNotSet(cube.getName()));
                     results.add(new VerificationResultR(CUBE, msg, ERROR,
                         Cause.SCHEMA));
@@ -142,7 +141,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMeasure(MeasureMapping measure, CubeMapping cube) {
+    protected void checkMeasure(BaseMeasure measure, Cube cube) {
         super.checkMeasure(measure, cube);
         if (measure != null) {
             if (isEmpty(measure.getName())) {
@@ -150,7 +149,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(MEASURE, msg, ERROR, Cause.SCHEMA));
 
             }
-            if (measure instanceof ColumnMeasureMapping cmm) {
+            if (measure instanceof ColumnBaseMeasure cmm) {
                 if (cmm.getColumn() == null) {
                     String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
                     results.add(new VerificationResultR(MEASURE, msg, ERROR,
@@ -158,7 +157,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
                 }
             }
-            if (measure instanceof SqlExpressionMeasureMapping semm) {
+            if (measure instanceof SQLExpressionBaseMeasure semm) {
                 if (semm.getColumn() == null) {
                     String msg = String.format(MEASURE_COLUMN_MUST_BE_SET, orNotSet(cube.getName()));
                     results.add(new VerificationResultR(MEASURE, msg, ERROR,
@@ -170,18 +169,18 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkKpiPhysicalCube(KpiMapping kpi, PhysicalCubeMapping cube) {
+    protected void checkKpiPhysicalCube(Kpi kpi, PhysicalCube cube) {
         super.checkKpiPhysicalCube(kpi, cube);
         List<String> measureNames = cube.getMeasureGroups() != null ?
-            cube.getMeasureGroups().stream().map(MeasureGroupMapping::getMeasures).flatMap(Collection::stream).map(MeasureMapping::getName).toList() : List.of();
+            cube.getMeasureGroups().stream().map(MeasureGroup::getMeasures).flatMap(Collection::stream).map(BaseMeasure::getName).toList() : List.of();
         List<String> calculatedMemberNames = cube.getCalculatedMembers() != null ?
-            cube.getCalculatedMembers().stream().map(CalculatedMemberMapping::getName).toList() : List.of();
+            cube.getCalculatedMembers().stream().map(CalculatedMember::getName).toList() : List.of();
         checkKpi(kpi, cube.getName(), measureNames, calculatedMemberNames);
     }
 
     @Override
-    protected void checkKpiPrentRing(List<? extends KpiMapping> list, CubeMapping cube) {
-        for (KpiMapping kpi : list) {
+    protected void checkKpiPrentRing(List<? extends Kpi> list, Cube cube) {
+        for (Kpi kpi : list) {
             if (kpi.getParentKpi() != null) {
                 if (hasRing(kpi)) {
                     String msg = String.format(KPIS_FROM_CUBE_WITH_NAME_HAS_RING_PARENT, orNotSet(cube.getName()));
@@ -194,16 +193,16 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkKpiVirtualCube(KpiMapping kpi, VirtualCubeMapping cube) {
+    protected void checkKpiVirtualCube(Kpi kpi, VirtualCube cube) {
         super.checkKpiVirtualCube(kpi, cube);
         List<String> measureNames = cube.getReferencedMeasures() != null ?
-            cube.getReferencedMeasures().stream().map(MeasureMapping::getName).toList() : List.of();
+            cube.getReferencedMeasures().stream().map(BaseMeasure::getName).toList() : List.of();
         List<String> calculatedMemberNames = cube.getCalculatedMembers() != null ?
-            cube.getCalculatedMembers().stream().map(CalculatedMemberMapping::getName).toList() : List.of();
+            cube.getCalculatedMembers().stream().map(CalculatedMember::getName).toList() : List.of();
         checkKpi(kpi, cube.getName(), measureNames, calculatedMemberNames);
     }
 
-    private void checkKpi(KpiMapping kpi, String cubeName, List<String> measureNames, List<String> calculatedMemberNames) {
+    private void checkKpi(Kpi kpi, String cubeName, List<String> measureNames, List<String> calculatedMemberNames) {
         if (kpi != null) {
             if (isEmpty(kpi.getName())) {
                 String msg = String.format(KPI_NAME_MUST_BE_SET, orNotSet(cubeName));
@@ -266,7 +265,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMemberFormatter(MemberFormatterMapping elementFormatter) {
+    protected void checkMemberFormatter(MemberFormatter elementFormatter) {
         super.checkMemberFormatter(elementFormatter);
         if (elementFormatter != null) {
             if (isEmpty(elementFormatter.getRef())) {
@@ -287,12 +286,12 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDimensionConnector(DimensionConnectorMapping dimensionConnector, CubeMapping cube, CatalogMapping schema) {
+    protected void checkDimensionConnector(DimensionConnector dimensionConnector, Cube cube, Catalog schema) {
         super.checkDimensionConnector(dimensionConnector, cube, schema);
 
         if (cube != null) {
             if (isEmpty(dimensionConnector.getOverrideDimensionName()) && dimensionConnector.getDimension() != null && dimensionConnector.getDimension().getName() != null) {
-                long countWithSameName = cube.getDimensionConnectors().stream().filter(dc ->
+                long countWithSameName = getCubeDimensionConnectors(cube).stream().filter(dc ->
                 (dimensionConnector.getDimension().getName().equals(dc.getOverrideDimensionName())) ||
                 (dc.getOverrideDimensionName() == null && dc.getDimension() != null && dimensionConnector.getDimension().getName().equals(dc.getDimension().getName()))).count();
                 if (countWithSameName > 1) {
@@ -300,8 +299,9 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                     results.add(new VerificationResultR(CUBE_DIMENSION, msg, ERROR, Cause.SCHEMA));
                 }
             } else {
-                if (cube.getDimensionConnectors() != null) {
-                    long countWithSameName = cube.getDimensionConnectors().stream().filter(dc -> dc.getOverrideDimensionName().equals(dimensionConnector.getOverrideDimensionName())).count();
+                List<DimensionConnector> cubeDimensionConnectors = getCubeDimensionConnectors(cube);
+                if (cubeDimensionConnectors != null) {
+                    long countWithSameName = cubeDimensionConnectors.stream().filter(dc -> dc.getOverrideDimensionName().equals(dimensionConnector.getOverrideDimensionName())).count();
                     if (countWithSameName > 1) {
                         String msg = String.format(DIMENSION_CONNECTOR_WITH_NAME_MEETS_MORE_THEN_ONE_TIMES_IN_CUBE, dimensionConnector.getOverrideDimensionName(), orNotSet(cube.getName()));
                         results.add(new VerificationResultR(CUBE_DIMENSION, msg, ERROR, Cause.SCHEMA));
@@ -319,7 +319,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             if (dimensionConnector.getPhysicalCube() == null) {
                 results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, VIRTUAL_CUBE_DIMENSION_CUBE_NAME_MUST_BE_SET, ERROR, Cause.SCHEMA));
             } else {
-                Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> dimensionConnector.getPhysicalCube().equals(c)).findFirst();
+                Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> dimensionConnector.getPhysicalCube().equals(c)).findFirst();
                 if (!oCube.isPresent()) {
                     String msg = String.format(VIRTUAL_CUBE_DIMENSION_CUBE_NAME_IS_WRONG_CUBE_ABSENT_IN_SCHEMA, dimensionConnector.getPhysicalCube().getName(), dimensionConnector.getPhysicalCube().getName());
                     results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, msg, ERROR, Cause.SCHEMA));
@@ -329,10 +329,10 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCubeMeasure(MeasureMapping virtualCubeMeasure, VirtualCubeMapping vCube, CatalogMapping schema) {
+    protected void checkVirtualCubeMeasure(BaseMeasure virtualCubeMeasure, VirtualCube vCube, Catalog schema) {
         super.checkVirtualCubeMeasure(virtualCubeMeasure, vCube, schema);
         if (virtualCubeMeasure != null) {
-            Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> (c instanceof PhysicalCubeMapping pCube && pCube.getMeasureGroups() != null
+            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> (c instanceof PhysicalCube pCube && pCube.getMeasureGroups() != null
                 && pCube.getMeasureGroups().stream().anyMatch(mg -> mg.getMeasures().stream().anyMatch(m -> m.equals(virtualCubeMeasure))))).findFirst();
             if (!oCube.isPresent()) {
                 results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, VIRTUAL_CUBE_MEASURE_IS_WRONG_CUBE_ABSENT_IN_SCHEMA, ERROR, Cause.SCHEMA));
@@ -341,7 +341,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkHierarchy(HierarchyMapping hierarchy, DimensionMapping cubeDimension, CubeMapping cube) {
+    protected void checkHierarchy(Hierarchy hierarchy, Dimension cubeDimension, Cube cube) {
         super.checkHierarchy(hierarchy, cubeDimension, cube);
 
         if (hierarchy != null) {
@@ -364,7 +364,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkJoinQuery(JoinQueryMapping join) {
+    protected void checkJoinQuery(JoinQuery join) {
         super.checkJoinQuery(join);
         if (join != null) {
             if (join.getLeft() == null || join.getRight() == null) {
@@ -384,14 +384,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkTable(TableQueryMapping table) {
+    protected void checkTable(TableQuery table) {
         super.checkTable(table);
         if (table != null) {
             if (table.getTable() == null) {
                 results.add(
                     new VerificationResultR(TABLE, TABLE_NAME_MUST_BE_SET, ERROR, Cause.DATABASE));
             } else {
-                DatabaseSchemaMapping theSchema = table.getTable().getSchema();
+                DatabaseSchema theSchema = table.getTable().getSchema();
                 if ((theSchema == null && isSchemaRequired()) || (theSchema != null && isEmpty(theSchema.getName()) && isSchemaRequired())) {
                     results.add(
                         new VerificationResultR(TABLE, SCHEMA_MUST_BE_SET, WARNING, Cause.DATABASE));
@@ -402,8 +402,8 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     @Override
     protected void checkLevel(
-        LevelMapping level, HierarchyMapping hierarchy,
-        DimensionMapping parentDimension, CubeMapping cube
+            org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy,
+        Dimension parentDimension, Cube cube
     ) {
         super.checkLevel(level, hierarchy, parentDimension, cube);
         // Check 'column' exists in 'table' if table is specified
@@ -434,8 +434,8 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     @Override
     protected void checkMemberProperty(
-        MemberPropertyMapping property, LevelMapping level,
-        HierarchyMapping hierarchy, CubeMapping cube
+        MemberProperty property, org.eclipse.daanse.rolap.mapping.model.Level level,
+        Hierarchy hierarchy, Cube cube
     ) {
         super.checkMemberProperty(property, level, hierarchy, cube);
         // Check 'column' exists in 'table' if [level table] is
@@ -450,12 +450,12 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
         // check property's column is in table
         if (property != null) {
-            ColumnMapping column = property.getColumn();
+            Column column = property.getColumn();
             if (column == null) {
                 results.add(new VerificationResultR(PROPERTY, PROPERTY_COLUMN_MUST_BE_SET, ERROR, Cause.SCHEMA));
             }
 
-            if (property.getDataType() == null) {
+            if (property.getPropertyType() == null) {
                 results.add(new VerificationResultR(PROPERTY, PROPERTY_TYPE_MUST_BE_SET, WARNING, Cause.SCHEMA));
             }
         }
@@ -463,7 +463,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMemberPropertyFormatter(MemberPropertyFormatterMapping elementFormatter) {
+    protected void checkMemberPropertyFormatter(MemberPropertyFormatter elementFormatter) {
         super.checkMemberPropertyFormatter(elementFormatter);
         if (elementFormatter != null) {
             if (isEmpty(elementFormatter.getRef())) {
@@ -474,7 +474,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkVirtualCube(VirtualCubeMapping virtCube, CatalogMapping schema) {
+    protected void checkVirtualCube(VirtualCube virtCube, Catalog schema) {
         super.checkVirtualCube(virtCube, schema);
         if (virtCube != null) {
             if (isEmpty(virtCube.getName())) {
@@ -495,7 +495,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCalculatedMember(CalculatedMemberMapping calculatedMember) {
+    protected void checkCalculatedMember(CalculatedMember calculatedMember) {
         super.checkCalculatedMember(calculatedMember);
         if (calculatedMember != null) {
             if (isEmpty(calculatedMember.getName())) {
@@ -535,20 +535,20 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
      */
     @Override
     protected void checkColumn(
-        ColumnMapping column, String fieldName, LevelMapping level,
-        CubeMapping cube, HierarchyMapping parentHierarchy
+        Column column, String fieldName, org.eclipse.daanse.rolap.mapping.model.Level level,
+        Cube cube, Hierarchy parentHierarchy
     ) {
         super.checkColumn(column, fieldName, level, cube, parentHierarchy);
         if (column != null) {
 
             // specified table for level's column
-            TableMapping table = level.getColumn().getTable();
+            Table table = level.getColumn().getTable();
             checkColumnJoin(table, parentHierarchy);
             checkColumnTable(table, parentHierarchy);
             checkColumnView(table, parentHierarchy);
 
             if (table == null) {
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQueryMapping join) {
+                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQuery join) {
                     // relation is join, table should be specified
                     results.add(new VerificationResultR(LEVEL, TABLE_MUST_BE_SET, ERROR,
                         Cause.DATABASE));
@@ -558,7 +558,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             } else {
                 // if using Joins then gets the table name for doesColumnExist
                 // validation.
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQueryMapping join) {
+                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQuery join) {
                     checkJoinQuery(join);
                 }
             }
@@ -566,7 +566,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkNamedSet(NamedSetMapping namedSet) {
+    protected void checkNamedSet(NamedSet namedSet) {
         super.checkNamedSet(namedSet);
         if (namedSet != null) {
             if (isEmpty(namedSet.getName())) {
@@ -583,7 +583,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     // were add from mondrian.xml
     @Override
-    protected void checkCubeUsage(CubeConnectorMapping cubeUsage) {
+    protected void checkCubeUsage(CubeConnector cubeUsage) {
         super.checkCubeUsage(cubeUsage);
         if (cubeUsage != null && cubeUsage.getCube() == null) {
             results.add(new VerificationResultR(CUBE_USAGE, CUBE_USAGE_CUBE_NAME_MUST_BE_SET,
@@ -592,7 +592,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkParentChildLink(ParentChildLinkMapping closure) {
+    protected void checkParentChildLink(ParentChildLink closure) {
         super.checkParentChildLink(closure);
         if (closure != null) {
             if (closure.getParentColumn() == null) {
@@ -611,7 +611,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkCalculatedMemberProperty(CalculatedMemberPropertyMapping calculatedMemberProperty) {
+    protected void checkCalculatedMemberProperty(CalculatedMemberProperty calculatedMemberProperty) {
         super.checkCalculatedMemberProperty(calculatedMemberProperty);
         if (calculatedMemberProperty != null && isEmpty(calculatedMemberProperty.getName())) {
             results.add(new VerificationResultR(CALCULATED_MEMBER_PROPERTY, CALCULATED_MEMBER_PROPERTY_NAME_MUST_BE_SET,
@@ -620,7 +620,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkSqlSelectQuery(SqlSelectQueryMapping view) {
+    protected void checkSqlSelectQuery(SqlSelectQuery view) {
         super.checkSqlSelectQuery(view);
         if (view != null && isEmpty(view.getAlias())) {
             results.add(new VerificationResultR(VIEW, VIEW_ALIAS_MUST_BE_SET,
@@ -629,7 +629,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkSQL(SqlStatementMapping sql) {
+    protected void checkSQL(SqlStatement sql) {
         super.checkSQL(sql);
         if (sql != null && (sql.getDialects() == null || sql.getDialects().isEmpty())) {
             results.add(new VerificationResultR(SQL, SQL_DIALECT_MUST_BE_SET,
@@ -638,7 +638,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkHint(TableQueryOptimizationHintMapping hint) {
+    protected void checkHint(TableQueryOptimizationHint hint) {
         super.checkHint(hint);
         if (hint != null && isEmpty(hint.getType())) {
             results.add(new VerificationResultR(HINT, HINT_TYPE_MUST_BE_SET,
@@ -647,7 +647,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkInlineTable(InlineTableMapping inlineTable) {
+    protected void checkInlineTable(InlineTable inlineTable) {
         super.checkInlineTable(inlineTable);
         if (inlineTable != null) {
             if (inlineTable.getColumns() == null || inlineTable.getColumns().isEmpty()) {
@@ -662,14 +662,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkInlineTableColumn(ColumnMapping column) {
+    protected void checkInlineTableColumn(Column column) {
         super.checkInlineTableColumn(column);
         if (column != null) {
             if (isEmpty(column.getName())) {
                 results.add(new VerificationResultR(COLUMN_DEF, COLUMN_DEF_NAME_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
-            if (column.getDataType() == null) {
+            if (column.getType() == null) {
                 results.add(new VerificationResultR(COLUMN_DEF, COLUMN_DEF_TYPE_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -677,7 +677,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkRowValue(RowValueMapping value) {
+    protected void checkRowValue(RowValue value) {
         super.checkRowValue(value);
         if (value != null && value.getColumn() == null) {
             results.add(new VerificationResultR(VALUE, VALUE_COLUMN_MUST_BE_SET,
@@ -686,7 +686,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationTable(AggregationTableMapping aggTable, DatabaseSchemaMapping schema) {
+    protected void checkAggregationTable(AggregationTable aggTable, DatabaseSchema schema) {
         super.checkAggregationTable(aggTable, schema);
         if (aggTable != null && aggTable.getAggregationFactCount() == null) {
             results.add(new VerificationResultR(AGG_TABLE, AGG_TABLE_AGG_FACT_COUNT_MUST_BE_SET,
@@ -695,7 +695,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationName(AggregationNameMapping aggName) {
+    protected void checkAggregationName(AggregationName aggName) {
         super.checkAggregationName(aggName);
         if (aggName != null && aggName.getName() == null) {
             results.add(new VerificationResultR(AGG_NAME, AGG_NAME_NAME_MUST_BE_SET,
@@ -704,7 +704,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationPattern(AggregationPatternMapping aggPattern, DatabaseSchemaMapping schema) {
+    protected void checkAggregationPattern(AggregationPattern aggPattern, DatabaseSchema schema) {
         super.checkAggregationPattern(aggPattern, schema);
         if (aggPattern != null && isEmpty(aggPattern.getPattern())) {
             results.add(new VerificationResultR(AGG_PATTERN, AGG_PATTERN_PATTERN_MUST_BE_SET,
@@ -713,7 +713,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationColumnName(AggregationColumnNameMapping aggColumnName) {
+    protected void checkAggregationColumnName(AggregationColumnName aggColumnName) {
         super.checkAggregationColumnName(aggColumnName);
         if (aggColumnName != null && aggColumnName.getColumn() == null) {
             results.add(new VerificationResultR(AGG_COLUMN_NAME, AGG_COLUMN_NAME_COLUMN_MUST_BE_SET,
@@ -722,7 +722,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationMeasureFactCount(AggregationMeasureFactCountMapping aggMeasureFactCount) {
+    protected void checkAggregationMeasureFactCount(AggregationMeasureFactCount aggMeasureFactCount) {
         super.checkAggregationMeasureFactCount(aggMeasureFactCount);
         if (aggMeasureFactCount != null && aggMeasureFactCount.getFactColumn() == null) {
             results.add(new VerificationResultR(AGG_MEASURE_FACT_COUNT, AGG_MEASURE_FACT_COUNT_FACT_COLUMN_MUST_BE_SET,
@@ -731,7 +731,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationForeignKey(AggregationForeignKeyMapping aggForeignKey) {
+    protected void checkAggregationForeignKey(AggregationForeignKey aggForeignKey) {
         super.checkAggregationForeignKey(aggForeignKey);
         if (aggForeignKey != null) {
             if (aggForeignKey.getFactColumn() == null) {
@@ -746,7 +746,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationLevel(AggregationLevelMapping aggLevel) {
+    protected void checkAggregationLevel(AggregationLevel aggLevel) {
         super.checkAggregationLevel(aggLevel);
         if (aggLevel != null) {
             if (aggLevel.getName() == null) {
@@ -761,7 +761,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationMeasure(AggregationMeasureMapping aggMeasure) {
+    protected void checkAggregationMeasure(AggregationMeasure aggMeasure) {
         super.checkAggregationMeasure(aggMeasure);
         if (aggMeasure != null) {
             if (aggMeasure.getColumn() == null) {
@@ -776,7 +776,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkColumn(ColumnMapping column) {
+    protected void checkColumn(Column column) {
         super.checkColumn(column);
         if (column != null && column.getName() == null) {
             results.add(new VerificationResultR(COLUMN, COLUMN_NAME_MUST_BE_SET,
@@ -785,7 +785,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkRole(AccessRoleMapping role, CatalogMapping schema) {
+    protected void checkRole(AccessRole role, Catalog schema) {
         super.checkRole(role, schema);
         if (role != null && role.getName() == null) {
             results.add(new VerificationResultR(ROLE, ROLE_NAME_MUST_BE_SET,
@@ -794,23 +794,23 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkSchemaGrant(AccessCatalogGrantMapping schemaGrant, CatalogMapping schema) {
+    protected void checkSchemaGrant(AccessCatalogGrant schemaGrant, Catalog schema) {
         super.checkSchemaGrant(schemaGrant, schema);
-        if (schemaGrant != null && schemaGrant.getAccess() == null) {
+        if (schemaGrant != null && schemaGrant.getCatalogAccess() == null) {
             results.add(new VerificationResultR(SCHEMA_GRANT, SCHEMA_GRANT_ACCESS_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
     }
 
     @Override
-    protected void checkCubeGrant(AccessCubeGrantMapping cubeGrant, CatalogMapping schema) {
+    protected void checkCubeGrant(AccessCubeGrant cubeGrant, Catalog schema) {
         super.checkCubeGrant(cubeGrant, schema);
         if (cubeGrant != null && cubeGrant.getCube() == null) {
             results.add(new VerificationResultR(CUBE_GRANT, CUBE_GRANT_CUBE_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
         if (cubeGrant != null && cubeGrant.getCube() != null) {
-            Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> cubeGrant.getCube().equals(c)).findFirst();
+            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cubeGrant.getCube().equals(c)).findFirst();
             if (!oCube.isPresent()) {
                 String msg = String.format(CUBE_GRANT_CUBE_ABSENT_IN_SCHEMA, cubeGrant.getCube());
                 results.add(new VerificationResultR(CUBE_GRANT, msg,
@@ -818,14 +818,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             }
         }
 
-        if (cubeGrant != null && cubeGrant.getAccess() == null) {
+        if (cubeGrant != null && cubeGrant.getCubeAccess() == null) {
             results.add(new VerificationResultR(CUBE_GRANT, CUBE_GRANT_ACCESS_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
     }
 
     @Override
-    protected void checkDimensionGrant(AccessDimensionGrantMapping dimensionGrant) {
+    protected void checkDimensionGrant(AccessDimensionGrant dimensionGrant) {
         super.checkDimensionGrant(dimensionGrant);
         if (dimensionGrant != null && dimensionGrant.getDimension() == null) {
             results.add(new VerificationResultR(DIMENSION_GRANT, DIMENSION_GRANT_DIMENSION_MUST_BE_SET,
@@ -834,17 +834,17 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkHierarchyGrant(AccessHierarchyGrantMapping hierarchyGrant, CubeMapping cube, CatalogMapping schema) {
+    protected void checkHierarchyGrant(AccessHierarchyGrant hierarchyGrant, Cube cube, Catalog schema) {
         super.checkHierarchyGrant(hierarchyGrant, cube, schema);
         if (hierarchyGrant != null && hierarchyGrant.getHierarchy() == null) {
             results.add(new VerificationResultR(HIERARCHY_GRANT, HIERARCHY_GRANT_HIERARCHY_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
         if (hierarchyGrant != null && hierarchyGrant.getHierarchy() != null) {
-            Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
+            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
             if (oCube.isPresent()) {
-                List<DimensionMapping> dimList = oCube.get().getDimensionConnectors().stream().map(dc -> dc.getDimension()).toList();
-                Optional<DimensionMapping> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.equals(hierarchyGrant.getHierarchy()))).findFirst();
+                List<Dimension> dimList = getCubeDimensionConnectors(oCube.get()).stream().map(dc -> dc.getDimension()).toList();
+                Optional<Dimension> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.equals(hierarchyGrant.getHierarchy()))).findFirst();
                 if (!oDim.isPresent()) {
                     String msg = String.format(HIERARCHY_GRANT_USE_DIMENSION_WHICH_ABSENT_IN_CUBE_WITH_NAME,
                         orNotSet(hierarchyGrant.getHierarchy().getName()), orNotSet(cube.getName()));
@@ -867,7 +867,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkMemberGrant(AccessMemberGrantMapping memberGrant, CubeMapping cube, CatalogMapping schema) {
+    protected void checkMemberGrant(AccessMemberGrant memberGrant, Cube cube, Catalog schema) {
         super.checkMemberGrant(memberGrant, cube, schema);
         if (memberGrant != null) {
             if (isEmpty(memberGrant.getMember())) {
@@ -877,10 +877,10 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 String[] ms = memberGrant.getMember().split("\\.");
                 if (ms.length > 0) {
                     String hierarchy = removeBrackets(ms[0]);
-                    Optional<? extends CubeMapping> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
+                    Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
                     if (oCube.isPresent()) {
-                        List<DimensionMapping> dimList = oCube.get().getDimensionConnectors().stream().map(dc -> dc.getDimension()).toList();
-                        Optional<DimensionMapping> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.getName().equals(hierarchy))).findFirst();
+                        List<Dimension> dimList = getCubeDimensionConnectors( oCube.get()).stream().map(dc -> dc.getDimension()).toList();
+                        Optional<Dimension> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.getName().equals(hierarchy))).findFirst();
                         if (!oDim.isPresent()) {
                             String msg = String.format(MEMBER_GRANT_USE_DIMENSION_WHICH_ABSENT_IN_CUBE_WITH_NAME,
                                 hierarchy, orNotSet(cube.getName()));
@@ -891,7 +891,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                     }
                 }
             }
-            if (memberGrant.getAccess() == null) {
+            if (memberGrant.getMemberAccess() == null) {
                 results.add(new VerificationResultR(MEMBER_GRANT, MEMBER_GRANT_ACCESS_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -899,14 +899,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkParameter(ParameterMapping parameter) {
+    protected void checkParameter(Parameter parameter) {
         super.checkParameter(parameter);
         if (parameter != null) {
             if (isEmpty(parameter.getName())) {
                 results.add(new VerificationResultR(PARAMETER, PARAMETER_NAME_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
-            if (parameter.getType() == null) {
+            if (parameter.getDataType() == null) {
                 results.add(new VerificationResultR(PARAMETER, PARAMETER_TYPE_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -914,7 +914,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAnnotation(AnnotationMapping annotation) {
+    protected void checkAnnotation(Annotation annotation) {
         if (annotation != null) {
             super.checkAnnotation(annotation);
             if (isEmpty(annotation.getName())) {
@@ -925,7 +925,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDrillThroughAttribute(DrillThroughAttributeMapping drillThroughAttribute) {
+    protected void checkDrillThroughAttribute(DrillThroughAttribute drillThroughAttribute) {
         super.checkDrillThroughAttribute(drillThroughAttribute);
         if (drillThroughAttribute != null && drillThroughAttribute.getDimension() == null) {
             results.add(new VerificationResultR(DRILL_THROUGH_ATTRIBUTE, DRILL_THROUGH_ATTRIBUTE_NAME_MUST_BE_SET,
@@ -934,7 +934,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkDrillThroughMeasure(MeasureMapping drillThroughMeasure) {
+    protected void checkDrillThroughMeasure(BaseMeasure drillThroughMeasure) {
         super.checkDrillThroughMeasure(drillThroughMeasure);
         if (drillThroughMeasure != null && isEmpty(drillThroughMeasure.getName())) {
             results.add(new VerificationResultR(DRILL_THROUGH_MEASURE, DRILL_THROUGH_MEASURE_NAME_MUST_BE_SET,
@@ -943,7 +943,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAction(ActionMapping action) {
+    protected void checkAction(Action action) {
         super.checkAction(action);
         if (action != null && isEmpty(action.getName())) {
             results.add(new VerificationResultR(ACTION, ACTION_NAME_MUST_BE_SET,
@@ -952,7 +952,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkWritebackAttribute(WritebackAttributeMapping writebackAttribute, PhysicalCubeMapping cube) {
+    protected void checkWritebackAttribute(WritebackAttribute writebackAttribute, PhysicalCube cube) {
         super.checkWritebackAttribute(writebackAttribute, cube);
         if (writebackAttribute != null) {
             if (writebackAttribute.getDimensionConnector() == null) {
@@ -965,9 +965,9 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                         ERROR, Cause.SCHEMA));
                 } else {
                     if (writebackAttribute.getColumn() != null) {
-                        Optional<? extends DimensionConnectorMapping> oDimensionConnector = cube.getDimensionConnectors().stream().filter(dc -> dc.equals(writebackAttribute.getDimensionConnector())).findFirst();
+                        Optional<? extends DimensionConnector> oDimensionConnector = cube.getDimensionConnectors().stream().filter(dc -> dc.equals(writebackAttribute.getDimensionConnector())).findFirst();
                         if (oDimensionConnector.isPresent()) {
-                            ColumnMapping foreignKey = oDimensionConnector.get().getForeignKey();
+                            Column foreignKey = oDimensionConnector.get().getForeignKey();
                             if (!writebackAttribute.getColumn().equals(foreignKey)) {
                                 String msg = String.format(DIMENSION_WITH_NAME_DONT_HAVE_FOREIGN_KEY_IN_DIMENSION_IN_CUBE,
                                     orNotSet(writebackAttribute.getDimensionConnector().getOverrideDimensionName()), writebackAttribute.getColumn().getName(),
@@ -987,7 +987,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkWritebackMeasure(WritebackMeasureMapping writebackMeasure, PhysicalCubeMapping cube) {
+    protected void checkWritebackMeasure(WritebackMeasure writebackMeasure, PhysicalCube cube) {
         super.checkWritebackMeasure(writebackMeasure, cube);
         if (writebackMeasure != null) {
             if (isEmpty(writebackMeasure.getName())) {
@@ -1008,7 +1008,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkWritebackTable(WritebackTableMapping writebackTable, PhysicalCubeMapping cube) {
+    protected void checkWritebackTable(WritebackTable writebackTable, PhysicalCube cube) {
         super.checkWritebackTable(writebackTable, cube);
         if (writebackTable != null) {
             if (isEmpty(writebackTable.getName())) {
@@ -1021,12 +1021,12 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                         ERROR, Cause.SCHEMA));
                 } else {
                     if (writebackTable.getWritebackAttribute() != null) {
-                        for (WritebackAttributeMapping writebackAttribute : writebackTable.getWritebackAttribute()) {
+                        for (WritebackAttribute writebackAttribute : writebackTable.getWritebackAttribute()) {
                             checkWritebackAttribute(writebackAttribute, cube);
                         }
                     }
                     if (writebackTable.getWritebackMeasure() != null) {
-                        for (WritebackMeasureMapping writebackMeasure : writebackTable.getWritebackMeasure()) {
+                        for (WritebackMeasure writebackMeasure : writebackTable.getWritebackMeasure()) {
                             checkWritebackMeasure(writebackMeasure, cube);
                         }
                     }
@@ -1036,8 +1036,8 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
 
-    private void checkHierarchyJoin(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
-        if (hierarchy.getQuery() instanceof JoinQueryMapping) {
+    private void checkHierarchyJoin(Hierarchy hierarchy, Dimension cubeDimension) {
+        if (hierarchy.getQuery() instanceof JoinQuery) {
             if (hierarchy.getPrimaryKey() == null) {
                 String msg = String.format(PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
@@ -1051,17 +1051,17 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkHierarchyLevels(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
-        if (hierarchy instanceof ExplicitHierarchyMapping eh) {
-            List<? extends LevelMapping> levels = eh.getLevels();
+    private void checkHierarchyLevels(Hierarchy hierarchy, Dimension cubeDimension) {
+        if (hierarchy instanceof ExplicitHierarchy eh) {
+            List<? extends org.eclipse.daanse.rolap.mapping.model.Level> levels = eh.getLevels();
             if (levels == null || levels.isEmpty()) {
                 String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY,
                         msg, ERROR, Cause.SCHEMA));
             }
         }
-        if (hierarchy instanceof ParentChildHierarchyMapping ph) {
-            LevelMapping level = ph.getLevel();
+        if (hierarchy instanceof ParentChildHierarchy ph) {
+            org.eclipse.daanse.rolap.mapping.model.Level level = ph.getLevel();
             if (level == null) {
                 String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY,
@@ -1070,16 +1070,16 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkHierarchyTable(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
-        if (hierarchy.getQuery() instanceof TableQueryMapping table) {
+    private void checkHierarchyTable(Hierarchy hierarchy, Dimension cubeDimension) {
+        if (hierarchy.getQuery() instanceof TableQuery table) {
             checkTable(table);
         }
     }
 
-    private void checkHierarchyPrimaryKeyTable(HierarchyMapping hierarchy, DimensionMapping cubeDimension) {
+    private void checkHierarchyPrimaryKeyTable(Hierarchy hierarchy, Dimension cubeDimension) {
         if (hierarchy.getPrimaryKey() != null) {
-            TableMapping primaryKeyTable = hierarchy.getPrimaryKey().getTable();
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof JoinQueryMapping join)) {
+            Table primaryKeyTable = hierarchy.getPrimaryKey().getTable();
+            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof JoinQuery join)) {
                 TreeSet<String> joinTables = new TreeSet<>();
                 SchemaExplorer.getTableNamesForJoin(hierarchy.getQuery(), joinTables);
                 if (!joinTables.contains(primaryKeyTable.getName())) {
@@ -1090,7 +1090,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 checkJoinQuery(join);
             }
 
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof TableQueryMapping theTable)) {
+            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof TableQuery theTable)) {
                 String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                         .trim()
                         .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
@@ -1106,33 +1106,33 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkLevelType(LevelMapping level, DimensionMapping dimension) {
-        if (level.getLevelType() != null && dimension != null) {
+    private void checkLevelType(org.eclipse.daanse.rolap.mapping.model.Level level, Dimension dimension) {
+        if (level.getType() != null && dimension != null) {
             // Empty leveltype is treated as default value of "Regular""
             // which is ok with standard/time dimension.
-            if (dimension instanceof StandardDimensionMapping && level.getLevelType() != null
-                && !level.getLevelType().equals(LevelType.REGULAR)) {
+            if (dimension instanceof StandardDimension && level.getType() != null
+                && !level.getType().equals(LevelDefinition.REGULAR)) {
                 // If dimension type is 'standard' then leveltype
                 // should be 'regular'
                 String msg = String.format(LEVEL_LEVEL_TYPE_S_CAN_ONLY_BE_USED_WITH_A_TIME_DIMENSION,
-                    level.getLevelType()
+                    level.getType()
                         .getValue());
                 results.add(new VerificationResultR(LEVEL, msg, ERROR, Cause.SCHEMA));
 
-            } else if (dimension instanceof TimeDimensionMapping && level.getLevelType() != null && (level.getLevelType()
-                .equals(LevelType.REGULAR))) {
+            } else if (dimension instanceof TimeDimension && level.getType() != null && (level.getType()
+                .equals(LevelDefinition.REGULAR))) {
                 // If dimension type is 'time' then leveltype value
                 // could be 'timeyears', 'timedays' etc'
                 String msg = String.format(LEVEL_TYPE_S_CAN_ONLY_BE_USED_WITH_A_STANDARD_DIMENSION,
-                    level.getLevelType()
+                    level.getType()
                         .getValue());
                 results.add(new VerificationResultR(LEVEL, msg, ERROR, Cause.SCHEMA));
             }
         }
     }
 
-    private void checkLevelColumn(LevelMapping level, HierarchyMapping hierarchy, CubeMapping cube) {
-        ColumnMapping column = level.getColumn();
+    private void checkLevelColumn(org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy, Cube cube) {
+        Column column = level.getColumn();
         if (column == null) {
             if (level.getMemberProperties() == null || level.getMemberProperties().isEmpty()) {
                 String msg = String.format(LEVEL_COLUMN_MUST_BE_SET, orNotSet(hierarchy.getName()));
@@ -1148,7 +1148,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 for (String element : DEF_LEVEL) {
                     Method method = level.getClass()
                         .getDeclaredMethod(element);
-                    column = (ColumnMapping) method.invoke(level);
+                    column = (Column) method.invoke(level);
                     checkColumn(column, element, level, cube, hierarchy);
                 }
             } catch (Exception ex) {
@@ -1157,11 +1157,11 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkColumnJoin(TableMapping table, HierarchyMapping parentHierarchy) {
+    private void checkColumnJoin(Table table, Hierarchy parentHierarchy) {
         // If table has been changed in join then sets the table value
         // to null to cause "tableMustBeSet" validation fail.
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof JoinQueryMapping) {
+            && parentHierarchy.getQuery() instanceof JoinQuery) {
             TreeSet<String> joinTables = new TreeSet<>();
             SchemaExplorer.getTableNamesForJoin(parentHierarchy.getQuery(), joinTables);
             if (!joinTables.contains(table.getName())) {
@@ -1172,10 +1172,10 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkColumnTable(TableMapping table, HierarchyMapping parentHierarchy) {
+    private void checkColumnTable(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof TableQueryMapping parentTable) {
-            TableQueryMapping theTable = parentTable;
+            && parentHierarchy.getQuery() instanceof TableQuery parentTable) {
+            TableQuery theTable = parentTable;
             String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                 .trim()
                 .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
@@ -1187,11 +1187,23 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkColumnView(TableMapping table, HierarchyMapping parentHierarchy) {
+    private void checkColumnView(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof SqlSelectQueryMapping) {
+            && parentHierarchy.getQuery() instanceof SqlSelectQuery) {
             results.add(new VerificationResultR(LEVEL,
                 TABLE_FOR_COLUMN_CANNOT_BE_SET_IN_VIEW, ERROR, Cause.SCHEMA));
         }
+    }
+
+    private static List<DimensionConnector> getCubeDimensionConnectors(
+        Cube cube) {
+
+        if(cube instanceof PhysicalCube pcube) {
+            return pcube.getDimensionConnectors();
+        }
+if(cube instanceof VirtualCube vcube) {
+            return vcube.getDimensionConnectors();
+        }
+        return null;
     }
 }

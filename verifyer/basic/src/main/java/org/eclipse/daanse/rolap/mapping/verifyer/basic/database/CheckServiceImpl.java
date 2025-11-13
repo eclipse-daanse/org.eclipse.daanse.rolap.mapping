@@ -23,7 +23,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.eclipse.daanse.jdbc.db.api.DatabaseService;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.CheckService;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
@@ -63,7 +63,7 @@ public class CheckServiceImpl implements CheckService {
     }
 
     @Override
-    public List<VerificationResult> verify(CatalogMapping catalog, DataSource dataSource) {
+    public List<VerificationResult> verify(Catalog catalog, DataSource dataSource) {
         List<VerificationResult> results = new ArrayList<>();
 
         try (Connection connection = dataSource.getConnection()) {

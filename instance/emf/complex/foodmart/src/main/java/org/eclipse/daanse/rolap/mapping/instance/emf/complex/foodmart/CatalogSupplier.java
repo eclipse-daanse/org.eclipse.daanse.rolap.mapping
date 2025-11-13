@@ -12,63 +12,62 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart;
 
-import static org.eclipse.daanse.rolap.mapping.emf.rolapmapping.provider.util.DocumentationUtil.document;
+import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.api.model.CatalogMapping;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCatalogGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessDatabaseSchemaGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessMemberGrant;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AccessRole;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationExclude;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationForeignKey;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.AggregationName;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Annotation;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Catalog;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CatalogAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Column;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnInternalDataType;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ColumnType;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CountMeasure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.CubeAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DatabaseSchemaAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HideMemberIf;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.HierarchyAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.Level;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.LevelDefinition;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberAccess;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.NamedSet;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildHierarchy;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.ParentChildLink;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.PhysicalTable;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SQLExpressionColumn;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TableQuery;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.TimeDimension;
-import org.eclipse.daanse.rolap.mapping.emf.rolapmapping.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
+import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessDatabaseSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessHierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessMemberGrant;
+import org.eclipse.daanse.rolap.mapping.model.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.CatalogAccess;
+import org.eclipse.daanse.rolap.mapping.model.Column;
+import org.eclipse.daanse.rolap.mapping.model.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.model.ColumnType;
+import org.eclipse.daanse.rolap.mapping.model.CountMeasure;
+import org.eclipse.daanse.rolap.mapping.model.CubeAccess;
+import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
+import org.eclipse.daanse.rolap.mapping.model.DatabaseSchemaAccess;
+import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.HideMemberIf;
+import org.eclipse.daanse.rolap.mapping.model.HierarchyAccess;
+import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
+import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.Level;
+import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.MemberAccess;
+import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
 import org.osgi.service.component.annotations.Component;
 
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.4", group = "Full Examples")
@@ -4681,7 +4680,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     }
 
     @Override
-    public CatalogMapping get() {
+    public Catalog get() {
         return CATALOG_FOODMART;
     }
 }
