@@ -218,12 +218,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getMeasureGroups().add(measureGroup);
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
-        catalog.setName("Daanse Tutorial - Hierarchy Inline Table");
+        catalog.setName("Daanse Tutorial - Inline Table");
         catalog.setDescription("Hierarchy with inline table data");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Hierarchy Inline Table", catalogBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Inline Table", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(inlineTableQuery, "InlineTableQuery", inlineTableQueryBody, 1, 3, 0, true, 2);

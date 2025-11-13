@@ -111,11 +111,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureMeasureGroups");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Measure Group");
+        catalog.setName("Daanse Tutorial - Measure Group");
         catalog.setDescription("Measure group organization");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Measure Group", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Group", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Grouping Measures", cubeBody, 1, 3, 0, true, 2);

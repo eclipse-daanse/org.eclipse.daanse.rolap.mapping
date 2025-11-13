@@ -118,11 +118,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureDatatypes");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Measure Datatype");
+        catalog.setName("Daanse Tutorial - Measure Datatype");
         catalog.setDescription("Measure data types");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Measure Datatype", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Measure Datatype", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Defining the Data Type of a Measure", cubeBody, 1, 3, 0, true, 2);

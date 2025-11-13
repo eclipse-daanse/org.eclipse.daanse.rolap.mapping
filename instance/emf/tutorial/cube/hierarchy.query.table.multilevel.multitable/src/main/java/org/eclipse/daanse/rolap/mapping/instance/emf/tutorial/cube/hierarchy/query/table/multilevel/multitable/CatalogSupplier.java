@@ -181,11 +181,11 @@ In this example, besides storing the town `ID` and town `NAME`, our table also i
 
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setName("Daanse Tutorial - Cube Hierarchy Query Table Multilevel Multitable");
+        catalog.setName("Daanse Tutorial - Hierarchy Query Table Multilevel Multitable");
         catalog.setDescription("Multi-level hierarchy across multiple tables");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Cube Hierarchy Query Table Multilevel Multitable", introBody, 1, 0, 0, false, 0);
+        document(catalog, "Daanse Tutorial - Hierarchy Query Table Multilevel Multitable", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryHier, "Query Level", queryLevelBody, 1, 2, 0, true, 2);
         document(queryFact, "Query Fact", queryFactBody, 1, 3, 0, true, 2);
