@@ -15,4 +15,6 @@
  * This package provides EMF-based mapping suppliers for Expressive Names OLAP catalog configurations,
  * demonstrating complex dimensional hierarchies and naming patterns used in OLAP environments.
  */
+@org.osgi.annotation.bundle.Export
+@org.osgi.annotation.versioning.Version("0.0.1")
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;
