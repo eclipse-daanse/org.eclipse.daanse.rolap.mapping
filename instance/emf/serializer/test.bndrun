@@ -44,7 +44,7 @@
 
 -runfw: org.apache.felix.framework
 
--runee: JavaSE-21
+-runee: JavaSE-25
 
 -runrequires: \
 	bnd.identity;id='${project.artifactId}-tests',\

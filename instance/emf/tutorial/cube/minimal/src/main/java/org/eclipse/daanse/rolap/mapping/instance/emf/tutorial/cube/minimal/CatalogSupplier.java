@@ -36,6 +36,11 @@ import org.osgi.service.component.annotations.Component;
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
+    public static final String CATALOG_NAME = "Daanse Tutorial - Cube Minimal";
+    public static final String CATALOG_DESCRIPTION = "Basic cube structure with measures only";
+    public static final String CUBE_NAME = "MinimalCube";
+    public static final String MEASURE_NAME = "Measure-Sum";
+
     private static final String introBody = """
             Data cubes are the most important objects in OLAP. Cubes provide access to data related to a specific topic, which corresponds to the cube's name. Within the catalog, each data cube must have a unique name.
             """;
@@ -78,7 +83,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setName("Measure-Sum");
+        measure.setName(MEASURE_NAME);
         measure.setId("_measure_sum");
         measure.setColumn(valueColumn);
 
@@ -86,7 +91,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroup.getMeasures().add(measure);
 
         PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setName("MinimalCube");
+        cube.setName(CUBE_NAME);
         cube.setId("_cube_minimal");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
@@ -94,12 +99,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setId("_catalog_minimal");
-        catalog.setName("Daanse Tutorial - Cube Minimal");
-        catalog.setDescription("Basic cube structure with measures only");
+        catalog.setName(CATALOG_NAME);
+        catalog.setDescription(CATALOG_DESCRIPTION);
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Cube Minimal", introBody, 1, 0, 0, false, 0);
+        document(catalog, CATALOG_NAME, introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 3, 0, true, 2);
