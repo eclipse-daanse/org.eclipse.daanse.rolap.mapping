@@ -21,4 +21,5 @@
   </parent>
   <artifactId>
     org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal</artifactId>
+
 </project>
