@@ -63,7 +63,7 @@
   <modules>
     <module>model</module>
     <module>instance</module>
-    <module>mondrian.jaxb</module>
+<!--    <module>mondrian.jaxb</module>-->
 <!--    <module>modifier.common</module>-->
 <!--    <module>modifier.emf</module>-->
     <module>verifyer</module>

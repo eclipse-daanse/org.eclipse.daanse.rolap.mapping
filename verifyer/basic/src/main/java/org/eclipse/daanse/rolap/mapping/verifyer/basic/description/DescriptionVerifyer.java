@@ -13,6 +13,9 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.description;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
@@ -23,9 +26,6 @@ import org.osgi.service.component.annotations.Deactivate;
 import org.osgi.service.metatype.annotations.Designate;
 import org.osgi.util.converter.Converter;
 import org.osgi.util.converter.Converters;
-
-import java.util.List;
-import java.util.Map;
 
 @Designate(ocd = DescriptionVerifierConfig.class, factory = true)
 @Component(service = Verifyer.class, configurationPolicy = ConfigurationPolicy.REQUIRE)

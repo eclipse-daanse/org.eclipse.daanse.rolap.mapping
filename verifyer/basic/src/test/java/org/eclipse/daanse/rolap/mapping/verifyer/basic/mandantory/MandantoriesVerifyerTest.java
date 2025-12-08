@@ -88,62 +88,52 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_MEASURE_NAME_MUST_BE_SET;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.WRITEBACK_TABLE_NAME_MUST_BE_SET;
-import static org.eclipse.daanse.rolap.mapping.verifyer.basic.description.DescriptionVerifyerTest.setupDummyListAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.api.model.enums.HideMemberIfType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
-import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.model.AccessRole;
 import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
 import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
 import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
 import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.AggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.AggregationName;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
-import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
 import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.model.ColumnType;
 import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
-import org.eclipse.daanse.rolap.mapping.model.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
 import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.Documentation;
 import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
 import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
 import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
 import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.NamedSet;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.Table;
 import org.eclipse.daanse.rolap.mapping.model.TableQuery;
 import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
-import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -159,85 +149,60 @@ class MandantoriesVerifyerTest {
     @InjectService(filter = "(component.name=" + COMPONENT_NAME + ")")
     Verifyer verifyer;
 
-    Catalog schema = mock(Catalog.class);
-    PhysicalCube cube = mock(PhysicalCube.class);
-    VirtualCube virtualCube = mock(VirtualCube.class);
-    DimensionConnector dimensionConnector = mock(DimensionConnector.class);
-    Dimension dimension = mock(Dimension.class);
-    CalculatedMemberProperty calculatedMemberProperty = mock(CalculatedMemberProperty.class);
-    CalculatedMember calculatedMember = mock(CalculatedMember.class);
-    MeasureGroup measureGroup = mock(MeasureGroup.class);
-    SumMeasure measure = mock(SumMeasure.class);
-    ExplicitHierarchy hierarchy = mock(ExplicitHierarchy.class);
-    org.eclipse.daanse.rolap.mapping.model.Level level = mock(org.eclipse.daanse.rolap.mapping.model.Level.class);
-    MemberProperty property = mock(MemberProperty.class);
-    NamedSet namedSet = mock(NamedSet.class);
-    Parameter parameter = mock(Parameter.class);
-    DrillThroughAction drillThroughAction = mock(DrillThroughAction.class);
-    MemberFormatter elementFormatter = mock(MemberFormatter.class);
-    JoinQuery joinQuery = mock(JoinQuery.class);
-    TableQuery tableQuery = mock(TableQuery.class);
-    JoinedQueryElement left = mock(JoinedQueryElement.class);
-    JoinedQueryElement right = mock(JoinedQueryElement.class);
-    WritebackTable writebackTable = mock(WritebackTable.class);
-    WritebackAttribute writebackAttribute = mock(WritebackAttribute.class);
-    WritebackMeasure writebackMeasure = mock(WritebackMeasure.class);
-    BaseMeasure drillThroughMeasure = mock(BaseMeasure.class);
-    DrillThroughAttribute drillThroughAttribute = mock(DrillThroughAttribute.class);
-    Annotation annotation = mock(Annotation.class);
-    AccessRole role = mock(AccessRole.class);
-    CubeConnector cubeUsage = mock(CubeConnector.class);
-    SqlStatement sql = mock(SqlStatement.class);
-    TableQueryOptimizationHint hint = mock(TableQueryOptimizationHint.class);
-    AggregationTable aggTable = mock(AggregationTable.class);
-    AggregationColumnName aggColumnName = mock(AggregationColumnName.class);
-    AggregationForeignKey aggForeignKey = mock(AggregationForeignKey.class);
-    AggregationMeasure aggMeasure = mock(AggregationMeasure.class);
-    AggregationLevel aggLevel = mock(AggregationLevel.class);
-    AggregationMeasureFactCount measuresFactCount = mock(AggregationMeasureFactCount.class);
-    Table table = mock(Table.class);
-    Table levelTable = mock(Table.class);
-    Column column = mock(Column.class);
-    Column nameColumn = mock(Column.class);
-    Column ordinalColumn = mock(Column.class);
-    Column parentColumn = mock(Column.class);
-    Column captionColumn = mock(Column.class);
+    // Shared EMF objects
+    private DatabaseSchema databaseSchema;
+    private PhysicalTable table;
+    private Column keyColumn;
+    private Column valueColumn;
+    private TableQuery tableQuery;
 
-//    Level l = new LevelTest(
-//        "id",
-//        "name",
-//        levelTable,
-//        column,
-//        nameColumn,
-//        ordinalColumn,
-//        parentColumn,
-//        "nullParentValue",
-//        InternalDataType.STRING,
-//        "approxRowCount",
-//        true,
-//        LevelType.REGULAR,
-//        HideMemberIfType.NEVER,
-//        null,
-//        "description",
-//        captionColumn,
-//        List.of(),
-//        null,
-//        null,
-//        null,
-//        null,
-//        null,
-//        null,
-//        List.of(property),
-//        true,
-//        null, false, null);
+    @BeforeEach
+    void setUp() {
+        databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
+        databaseSchema.setId("_databaseSchema_test");
+
+        keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        keyColumn.setName("KEY");
+        keyColumn.setId("_column_key");
+        keyColumn.setType(ColumnType.VARCHAR);
+
+        valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        valueColumn.setName("VALUE");
+        valueColumn.setId("_column_value");
+        valueColumn.setType(ColumnType.INTEGER);
+
+        table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        table.setName("Fact");
+        table.setId("_table_fact");
+        table.getColumns().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getTables().add(table);
+
+        tableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
+        tableQuery.setId("_query_fact");
+        tableQuery.setTable(table);
+    }
+
+    private Catalog createBaseCatalog() {
+        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog.setId("_catalog_test");
+        // No name set - to test validation
+        catalog.getDbschemas().add(databaseSchema);
+        return catalog;
+    }
 
     @Test
     @Disabled
     void testSchema() {
+        Catalog schema = createBaseCatalog();
 
+        Parameter parameter = RolapMappingFactory.eINSTANCE.createParameter();
+        // No name or type set - to test validation
+        schema.getParameters().add(parameter);
 
-        when(schema.getParameters()).thenAnswer(setupDummyListAnswer(parameter));
-        when(schema.getAccessRoles()).thenAnswer(setupDummyListAnswer(role));
+        AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
+        role.setId("_role_test");
+        // No name set - to test validation
+        schema.getAccessRoles().add(role);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -254,25 +219,83 @@ class MandantoriesVerifyerTest {
             .contains(SCHEMA)
             .contains(PARAMETER);
         assertThat(result).extracting(VerificationResult::level)
-            .containsOnly(Level.ERROR);
+            .containsOnly(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR);
     }
 
     @Test
     @Disabled
     void testCubeAndVirtualCubeAndCalculatedMemberAndAction() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube, virtualCube));
-        when(cube.getCalculatedMembers()).thenAnswer(setupDummyListAnswer(calculatedMember));
-        when(virtualCube.getCalculatedMembers()).thenAnswer(setupDummyListAnswer(calculatedMember));
-        when(cube.getNamedSets()).thenAnswer(setupDummyListAnswer(namedSet));
-        when(virtualCube.getNamedSets()).thenAnswer(setupDummyListAnswer(namedSet));
-        when(virtualCube.getCubeUsages()).thenAnswer(setupDummyListAnswer(cubeUsage));
-        when(cube.getAction()).thenAnswer(setupDummyListAnswer(drillThroughAction));
-        when(drillThroughAction.getDrillThroughAttribute()).thenAnswer(setupDummyListAnswer(drillThroughAttribute));
-        when(drillThroughAction.getDrillThroughMeasure()).thenAnswer(setupDummyListAnswer(drillThroughMeasure));
-        when(cube.getWritebackTable()).thenReturn(writebackTable);
-        when(writebackTable.getWritebackAttribute()).thenAnswer(setupDummyListAnswer(writebackAttribute));
-        when(writebackTable.getWritebackMeasure()).thenAnswer(setupDummyListAnswer(writebackMeasure));
-        when(drillThroughAction.getAnnotations()).thenAnswer(setupDummyListAnswer(annotation));
+        Catalog schema = createBaseCatalog();
+
+        // Create PhysicalCube without name, without fact
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        // No name or query set
+
+        // Create VirtualCube without name, dimensions, measures
+        VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
+        virtualCube.setId("_virtualCube_test");
+        // No name set
+
+        // Create CalculatedMember without name, hierarchy, formula
+        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember.setId("_calculatedMember_test");
+        // No name, hierarchy, or formula set
+
+        cube.getCalculatedMembers().add(calculatedMember);
+        virtualCube.getCalculatedMembers().add(calculatedMember);
+
+        // Create NamedSets without names/formulas
+        NamedSet namedSet = RolapMappingFactory.eINSTANCE.createNamedSet();
+        namedSet.setId("_namedSet_test");
+        // No name or formula set
+
+        cube.getNamedSets().add(namedSet);
+        virtualCube.getNamedSets().add(namedSet);
+
+        // Create CubeConnector without cube reference
+        CubeConnector cubeUsage = RolapMappingFactory.eINSTANCE.createCubeConnector();
+        // No cube set
+        virtualCube.getCubeUsages().add(cubeUsage);
+
+        // Create DrillThroughAction without name
+        DrillThroughAction drillThroughAction = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
+        drillThroughAction.setId("_drillThrough_test");
+        // No name set
+
+        // Create DrillThroughAttribute without name
+        DrillThroughAttribute drillThroughAttribute = RolapMappingFactory.eINSTANCE.createDrillThroughAttribute();
+        // No name set
+        drillThroughAction.getDrillThroughAttribute().add(drillThroughAttribute);
+
+        // Create BaseMeasure for drill through measure without name
+        SumMeasure drillThroughMeasure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        drillThroughMeasure.setId("_drillThroughMeasure_test");
+        // No name set
+        drillThroughAction.getDrillThroughMeasure().add(drillThroughMeasure);
+
+        // Create Annotation without name
+        Annotation annotation = RolapMappingFactory.eINSTANCE.createAnnotation();
+        // No name set
+        drillThroughAction.getAnnotations().add(annotation);
+
+        cube.getAction().add(drillThroughAction);
+
+        // Create WritebackTable without name
+        WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
+        // No name set
+
+        WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
+        // No dimension or column set
+        writebackTable.getWritebackAttribute().add(writebackAttribute);
+
+        WritebackMeasure writebackMeasure = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        // No name or column set
+        writebackTable.getWritebackMeasure().add(writebackMeasure);
+
+        cube.setWritebackTable(writebackTable);
+
+        schema.getCubes().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -285,7 +308,6 @@ class MandantoriesVerifyerTest {
             .contains(String.format(FACT_NAME_MUST_BE_SET, NOT_SET))
             .contains(VIRTUAL_CUBE_NAME_MUST_BE_SET)
             .contains(String.format(VIRTUAL_CUBE_MUST_CONTAIN_DIMENSIONS, NOT_SET))
-            .contains(String.format(VIRTUAL_CUBE_MUST_CONTAIN_MEASURES, NOT_SET))
             .contains(String.format(VIRTUAL_CUBE_MUST_CONTAIN_MEASURES, NOT_SET))
             .contains(CALCULATED_MEMBER_NAME_MUST_BE_SET)
             .contains(String.format(HIERARCHY_MUST_BE_SET_FOR_CALCULATED_MEMBER, NOT_SET))
@@ -308,7 +330,6 @@ class MandantoriesVerifyerTest {
             .contains(CUBE)
             .contains(VIRTUAL_CUBE)
             .contains(MEASURE)
-            .contains(VIRTUAL_CUBE)
             .contains(CALCULATED_MEMBER)
             .contains(ACTION)
             .contains(WRITEBACK_TABLE)
@@ -320,15 +341,27 @@ class MandantoriesVerifyerTest {
             .contains(CUBE_USAGE);
 
         assertThat(result).extracting(VerificationResult::level)
-            .containsOnly(Level.ERROR);
+            .containsOnly(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR);
     }
 
     @Test
     @Disabled
     void testCubeAndVirtualCubeAndCalculatedMemberAndFormula() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube, virtualCube));
-        when(cube.getCalculatedMembers()).thenAnswer(setupDummyListAnswer(calculatedMember));
-        when(virtualCube.getCalculatedMembers()).thenAnswer(setupDummyListAnswer(calculatedMember));
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+
+        VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
+        virtualCube.setId("_virtualCube_test");
+
+        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember.setId("_calculatedMember_test");
+
+        cube.getCalculatedMembers().add(calculatedMember);
+        virtualCube.getCalculatedMembers().add(calculatedMember);
+
+        schema.getCubes().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -352,21 +385,35 @@ class MandantoriesVerifyerTest {
             .contains(CUBE)
             .contains(VIRTUAL_CUBE)
             .contains(MEASURE)
-            .contains(VIRTUAL_CUBE)
             .contains(CALCULATED_MEMBER);
 
         assertThat(result).extracting(VerificationResult::level)
-            .containsOnly(Level.ERROR);
+            .containsOnly(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR);
     }
 
     @Test
     @Disabled
     void testMeasure() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube));
-        when(cube.getMeasureGroups()).thenAnswer(setupDummyListAnswer(measureGroup));
-        when(measureGroup.getMeasures()).thenAnswer(setupDummyListAnswer(measure));
-        when(cube.getName()).thenReturn("cubeName");
-        when(measure.getCalculatedMemberProperties()).thenAnswer(setupDummyListAnswer(calculatedMemberProperty));
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        cube.setName("cubeName");
+
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure.setId("_measure_test");
+        // No name or column set
+
+        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        calculatedMemberProperty.setId("_calcMemberProp_test");
+        // No name set
+        measure.getCalculatedMemberProperties().add(calculatedMemberProperty);
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+        cube.getMeasureGroups().add(measureGroup);
+
+        schema.getCubes().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -385,40 +432,116 @@ class MandantoriesVerifyerTest {
             .contains(CALCULATED_MEMBER_PROPERTY);
 
         assertThat(result).extracting(VerificationResult::level)
-            .containsOnly(Level.ERROR);
+            .containsOnly(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR);
     }
 
     @Test
     @Disabled
     void testHierarchyWithJoin() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube));
-        when(cube.getMeasureGroups()).thenAnswer(setupDummyListAnswer(measureGroup));
-        when(measureGroup.getMeasures()).thenAnswer(setupDummyListAnswer(measure));
-        when(cube.getName()).thenReturn("cubeName");
-        when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
-        when(dimensionConnector.getDimension()).thenReturn(dimension);
-        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
-        when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
-        when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(level));
-        when(hierarchy.getQuery()).thenReturn(joinQuery);
-        Table hierarchyTable = mock(Table.class);
-        when(hierarchyTable.getName()).thenReturn("hierarchyTable");
-        when(joinQuery.getLeft()).thenReturn(left);
-        when(joinQuery.getRight()).thenReturn(right);
-        when(left.getQuery()).thenReturn(tableQuery);
-        when(right.getQuery()).thenReturn(tableQuery);
-        when(tableQuery.getTable()).thenReturn(table);
-        when(table.getName()).thenReturn("tableName");
-        when(levelTable.getName()).thenReturn("table");
-        when(tableQuery.getSqlWhereExpression()).thenReturn(sql);
-        when(tableQuery.getOptimizationHints()).thenAnswer(setupDummyListAnswer(hint));
-        when(tableQuery.getAggregationTables()).thenAnswer(setupDummyListAnswer(aggTable));
-        when(level.getMemberFormatter()).thenReturn(elementFormatter);
-        when(aggTable.getAggregationIgnoreColumns()).thenAnswer(setupDummyListAnswer(aggColumnName));
-        when(aggTable.getAggregationForeignKeys()).thenAnswer(setupDummyListAnswer(aggForeignKey));
-        when(aggTable.getAggregationMeasures()).thenAnswer(setupDummyListAnswer(aggMeasure));
-        when(aggTable.getAggregationLevels()).thenAnswer(setupDummyListAnswer(aggLevel));
-        when(aggTable.getAggregationMeasureFactCounts()).thenAnswer(setupDummyListAnswer(measuresFactCount));
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        cube.setName("cubeName");
+
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure.setId("_measure_test");
+        // No name or column set
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+        cube.getMeasureGroups().add(measureGroup);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setId("_dimension_test");
+
+        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dimensionConnector_test");
+        dimensionConnector.setOverrideDimensionName("DimensionName");
+        dimensionConnector.setDimension(dimension);
+        cube.getDimensionConnectors().add(dimensionConnector);
+
+        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level.setId("_level_test");
+        // No name or column set
+
+        MemberFormatter elementFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
+        // No className or script set
+        level.setMemberFormatter(elementFormatter);
+
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy.setId("_hierarchy_test");
+        hierarchy.getLevels().add(level);
+
+        // Create JoinQuery
+        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        joinQuery.setId("_joinQuery_test");
+
+        // Create TableQueries for join
+        PhysicalTable hierarchyTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        hierarchyTable.setName("hierarchyTable");
+        hierarchyTable.setId("_table_hierarchy");
+
+        TableQuery leftTableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
+        leftTableQuery.setId("_query_left");
+        leftTableQuery.setTable(table);
+
+        TableQuery rightTableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
+        rightTableQuery.setId("_query_right");
+        rightTableQuery.setTable(table);
+
+        // Add SqlWhereExpression without dialect
+        SqlStatement sql = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        // No dialect set
+        leftTableQuery.setSqlWhereExpression(sql);
+
+        // Add hint without type
+        TableQueryOptimizationHint hint = RolapMappingFactory.eINSTANCE.createTableQueryOptimizationHint();
+        // No type set
+        leftTableQuery.getOptimizationHints().add(hint);
+
+        // Add aggregation table without aggFactCount
+        AggregationName aggTable = RolapMappingFactory.eINSTANCE.createAggregationName();
+        aggTable.setId("_aggTable_test");
+        // No aggFactCount set
+
+        AggregationColumnName aggColumnName = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
+        // No column set
+        aggTable.getAggregationIgnoreColumns().add(aggColumnName);
+
+        AggregationForeignKey aggForeignKey = RolapMappingFactory.eINSTANCE.createAggregationForeignKey();
+        // No fact or agg column set
+        aggTable.getAggregationForeignKeys().add(aggForeignKey);
+
+        AggregationMeasure aggMeasure = RolapMappingFactory.eINSTANCE.createAggregationMeasure();
+        // No name or column set
+        aggTable.getAggregationMeasures().add(aggMeasure);
+
+        AggregationLevel aggLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
+        // No name or column set
+        aggTable.getAggregationLevels().add(aggLevel);
+
+        AggregationMeasureFactCount measuresFactCount = RolapMappingFactory.eINSTANCE.createAggregationMeasureFactCount();
+        // No factColumn set
+        aggTable.getAggregationMeasureFactCounts().add(measuresFactCount);
+
+        leftTableQuery.getAggregationTables().add(aggTable);
+
+        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        // No key set
+        left.setQuery(leftTableQuery);
+
+        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        // No key set
+        right.setQuery(rightTableQuery);
+
+        joinQuery.setLeft(left);
+        joinQuery.setRight(right);
+
+        hierarchy.setQuery(joinQuery);
+        dimension.getHierarchies().add(hierarchy);
+
+        schema.getCubes().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -465,25 +588,58 @@ class MandantoriesVerifyerTest {
             .contains(AGG_MEASURE_FACT_COUNT);
 
         assertThat(result).extracting(VerificationResult::level)
-            .contains(Level.ERROR)
-            .contains(Level.WARNING);
+            .contains(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR)
+            .contains(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING);
     }
 
     @Test
     @Disabled
     void testHierarchyWithoutJoin() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube));
-        when(cube.getMeasureGroups()).thenAnswer(setupDummyListAnswer(measureGroup));
-        when(measureGroup.getMeasures()).thenAnswer(setupDummyListAnswer(measure));
-        when(cube.getName()).thenReturn("cubeName");
-        when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
-        when(dimensionConnector.getDimension()).thenReturn(dimension);
-        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
-        when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
-        when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(level));
-        when(hierarchy.getQuery()).thenReturn(joinQuery);
-        when(level.getMemberFormatter()).thenReturn(elementFormatter);
-        when(level.getMemberProperties()).thenAnswer(setupDummyListAnswer(property));
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        cube.setName("cubeName");
+
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure.setId("_measure_test");
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+        cube.getMeasureGroups().add(measureGroup);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setId("_dimension_test");
+
+        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dimensionConnector_test");
+        dimensionConnector.setOverrideDimensionName("DimensionName");
+        dimensionConnector.setDimension(dimension);
+        cube.getDimensionConnectors().add(dimensionConnector);
+
+        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level.setId("_level_test");
+
+        MemberFormatter elementFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
+        level.setMemberFormatter(elementFormatter);
+
+        MemberProperty property = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        property.setId("_property_test");
+        // No column set
+        level.getMemberProperties().add(property);
+
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy.setId("_hierarchy_test");
+        hierarchy.getLevels().add(level);
+
+        // Create JoinQuery for hierarchy (with null left/right - triggers join validation)
+        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        joinQuery.setId("_joinQuery_test");
+        hierarchy.setQuery(joinQuery);
+
+        dimension.getHierarchies().add(hierarchy);
+
+        schema.getCubes().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -506,29 +662,46 @@ class MandantoriesVerifyerTest {
             .contains(HIERARCHY)
             .contains(LEVEL)
             .contains(ELEMENT_FORMATTER)
-            .contains(PROPERTY)
-        ;
+            .contains(PROPERTY);
 
         assertThat(result).extracting(VerificationResult::level)
-            .contains(Level.ERROR,
-                Level.WARNING);
+            .contains(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR,
+                org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING);
     }
 
     @Test
     @Disabled
     void testCheckColumn_With_Table() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube));
-        when(cube.getMeasureGroups()).thenAnswer(setupDummyListAnswer(measureGroup));
-        when(measureGroup.getMeasures()).thenAnswer(setupDummyListAnswer(measure));
-        when(cube.getName()).thenReturn("cubeName");
-        when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
-        when(dimensionConnector.getDimension()).thenReturn(dimension);
-        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
-        when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
-//        when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(l));
-        when(hierarchy.getQuery()).thenReturn(tableQuery);
-        when(table.getName()).thenReturn("tableName");
-        when(tableQuery.getTable()).thenReturn(table);
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        cube.setName("cubeName");
+
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure.setId("_measure_test");
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+        cube.getMeasureGroups().add(measureGroup);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setId("_dimension_test");
+
+        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dimensionConnector_test");
+        dimensionConnector.setOverrideDimensionName("DimensionName");
+        dimensionConnector.setDimension(dimension);
+        cube.getDimensionConnectors().add(dimensionConnector);
+
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy.setId("_hierarchy_test");
+        hierarchy.setQuery(tableQuery);
+
+        dimension.getHierarchies().add(hierarchy);
+
+        schema.getCubes().add(cube);
+
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
             .hasSize(8);
@@ -549,30 +722,56 @@ class MandantoriesVerifyerTest {
             .contains(PROPERTY);
 
         assertThat(result).extracting(VerificationResult::level)
-            .contains(Level.ERROR,
-                Level.WARNING);
+            .contains(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR,
+                org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING);
     }
 
     @Test
     @Disabled
     void testCheckColumn_With_Join() {
-        when(schema.getCubes()).thenAnswer(setupDummyListAnswer(cube));
-        when(cube.getMeasureGroups()).thenAnswer(setupDummyListAnswer(measureGroup));
-        when(measureGroup.getMeasures()).thenAnswer(setupDummyListAnswer(measure));
-        when(cube.getName()).thenReturn("cubeName");
-        when(cube.getDimensionConnectors()).thenAnswer(setupDummyListAnswer(dimensionConnector));
-        when(dimensionConnector.getDimension()).thenReturn(dimension);
-        when(dimensionConnector.getOverrideDimensionName()).thenReturn("DimensionName");
-        when(dimension.getHierarchies()).thenAnswer(setupDummyListAnswer(hierarchy));
-//        when(hierarchy.getLevels()).thenAnswer(setupDummyListAnswer(l));
-        when(hierarchy.getQuery()).thenReturn(joinQuery);
-        when(joinQuery.getLeft()).thenReturn(left);
-        when(joinQuery.getRight()).thenReturn(right);
-        when(left.getQuery()).thenReturn(tableQuery);
-        when(right.getQuery()).thenReturn(tableQuery);
-        when(table.getName()).thenReturn("tableName");
-        when(levelTable.getName()).thenReturn("table");
-        when(tableQuery.getTable()).thenReturn(table);
+        Catalog schema = createBaseCatalog();
+
+        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube.setId("_cube_test");
+        cube.setName("cubeName");
+
+        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure.setId("_measure_test");
+
+        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        measureGroup.getMeasures().add(measure);
+        cube.getMeasureGroups().add(measureGroup);
+
+        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension.setId("_dimension_test");
+
+        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        dimensionConnector.setId("_dimensionConnector_test");
+        dimensionConnector.setOverrideDimensionName("DimensionName");
+        dimensionConnector.setDimension(dimension);
+        cube.getDimensionConnectors().add(dimensionConnector);
+
+        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy.setId("_hierarchy_test");
+
+        // Create JoinQuery
+        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
+        joinQuery.setId("_joinQuery_test");
+
+        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        left.setQuery(tableQuery);
+
+        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        right.setQuery(tableQuery);
+
+        joinQuery.setLeft(left);
+        joinQuery.setRight(right);
+
+        hierarchy.setQuery(joinQuery);
+        dimension.getHierarchies().add(hierarchy);
+
+        schema.getCubes().add(cube);
+
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
             .hasSize(31);
@@ -594,9 +793,6 @@ class MandantoriesVerifyerTest {
             .contains(PROPERTY);
 
         assertThat(result).extracting(VerificationResult::level)
-            .contains(Level.ERROR, Level.WARNING);
+            .contains(org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR, org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING);
     }
-
-
-
 }

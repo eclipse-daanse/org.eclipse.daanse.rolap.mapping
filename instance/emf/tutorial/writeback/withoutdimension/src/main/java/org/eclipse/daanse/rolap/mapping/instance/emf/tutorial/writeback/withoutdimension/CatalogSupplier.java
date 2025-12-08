@@ -166,7 +166,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(catalog, "Daanse Tutorial - Writeback Without Dimension", catalogBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "FactQuery", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cubec C ", cubeBody, 1, 10, 0, true, 2);
+        document(cube, "Cubec C", cubeBody, 1, 10, 0, true, 2);
 
         return catalog;
     }

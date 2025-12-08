@@ -211,6 +211,8 @@ public class ResourceSetWriteReadTest {
 
         parentReadme.append("\n");
         parentReadme.append("[" + cm.getName().replaceFirst("Daanse Tutorial - ", "") + "](./" + name + ".md)");
+        parentReadme.append("\n");
+
 
         Catalog c = (Catalog) cm;
 
