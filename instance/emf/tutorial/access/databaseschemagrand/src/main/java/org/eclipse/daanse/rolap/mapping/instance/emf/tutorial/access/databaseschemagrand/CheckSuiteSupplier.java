@@ -53,7 +53,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Add cube check
         catalogCheck.getCubeChecks().add(createCubeCheck());
 
-        // Add query checks at catalog 
+        // Add query checks at catalog
         catalogCheck.getQueryChecks().addAll(java.util.List.of(
             createQueryCheckForRoleAll(),
             createQueryCheckForRoleNone()
@@ -123,7 +123,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setName("Cube Visibility Check");
         visibleCheck.setAttributeType(CubeAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
-        
+
         cubeCheck.getCubeAttributeChecks().add(visibleCheck);
         // Add measure checks
         cubeCheck.getMeasureChecks().add(createMeasureCheck("Measure1", "sum"));
