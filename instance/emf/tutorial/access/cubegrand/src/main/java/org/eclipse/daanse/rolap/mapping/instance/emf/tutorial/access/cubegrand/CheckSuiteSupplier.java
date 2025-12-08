@@ -128,13 +128,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         dimCheck.setDescription(description);
         dimCheck.setDimensionName(dimensionName);
         dimCheck.setEnabled(true);
-        
+
         DimensionAttributeCheck visibleCheck = FACTORY.createDimensionAttributeCheck();
         visibleCheck.setName(dimensionName + " Visible Check");
         visibleCheck.setAttributeType(DimensionAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         dimCheck.getDimensionAttributeChecks().add(visibleCheck);
-        
+
         HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
         hierarchyCheck.setName("Hierarchy1 Hierarchy Check");
         hierarchyCheck.setEnabled(true);
@@ -145,7 +145,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
         hasAllCheck.setExpectedBoolean(false);
         hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
-        
+
         LevelCheck levelCheck = FACTORY.createLevelCheck();
         levelCheck.setName("Level1 Level Check");
         levelCheck.setLevelName("Level1");
@@ -154,7 +154,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         hierarchyCheck.getLevelChecks().add(levelCheck);
         dimCheck.getHierarchyChecks().add(hierarchyCheck);
-        
+
         return dimCheck;
     }
 

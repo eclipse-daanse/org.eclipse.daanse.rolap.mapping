@@ -11,7 +11,7 @@
  *
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand;
- 
+
 import java.util.List;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
@@ -127,7 +127,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setName("Cube Visibility Check");
         visibleCheck.setAttributeType(CubeAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
-        
+
         cubeCheck.getCubeAttributeChecks().add(visibleCheck);
         // Add measure checks
         cubeCheck.getMeasureChecks().add(createMeasureCheck("Measure1", "sum"));

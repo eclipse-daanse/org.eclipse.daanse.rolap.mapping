@@ -128,32 +128,32 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         dimCheck.setDescription("Dimension1 Dimension Check");
         dimCheck.setDimensionName("Dimension1");
         dimCheck.setEnabled(true);
-        
+
         DimensionAttributeCheck visibleCheck = FACTORY.createDimensionAttributeCheck();
         visibleCheck.setName("Dimension1 Visible Check");
         visibleCheck.setAttributeType(DimensionAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         dimCheck.getDimensionAttributeChecks().add(visibleCheck);
-        
+
         HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
         hierarchyCheck.setName("Hierarchy1 Hierarchy Check");
         hierarchyCheck.setEnabled(true);
-        
+
         HierarchyAttributeCheck hasAllCheck = FACTORY.createHierarchyAttributeCheck();
         hasAllCheck.setName("Hierarchy2 HasAll Check");
         hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
         hasAllCheck.setExpectedBoolean(false);
         hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
-        
+
         LevelCheck levelCheck = FACTORY.createLevelCheck();
         levelCheck.setName("Level1 Level Check");
         levelCheck.setLevelName("Level1");
         levelCheck.setDescription("Verify level Level1 exists");
         levelCheck.setEnabled(true);
-        
+
         hierarchyCheck.getLevelChecks().add(levelCheck);
         dimCheck.getHierarchyChecks().add(hierarchyCheck);
-        
+
         return dimCheck;
     }
 
@@ -163,32 +163,32 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         dimCheck.setDescription("Dimension2 Dimension Check");
         dimCheck.setDimensionName("Dimension2");
         dimCheck.setEnabled(true);
-        
+
         DimensionAttributeCheck visibleCheck = FACTORY.createDimensionAttributeCheck();
         visibleCheck.setName("Dimension2 Visible Check");
         visibleCheck.setAttributeType(DimensionAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         dimCheck.getDimensionAttributeChecks().add(visibleCheck);
-        
+
         HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
         hierarchyCheck.setName("Hierarchy2 Hierarchy Check");
         hierarchyCheck.setEnabled(false);
-        
+
         HierarchyAttributeCheck hasAllCheck = FACTORY.createHierarchyAttributeCheck();
         hasAllCheck.setName("Hierarchy2 HasAll Check");
         hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
         hasAllCheck.setExpectedBoolean(true);
         hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
-        
+
         LevelCheck levelCheck = FACTORY.createLevelCheck();
         levelCheck.setName("Level2 Level Check");
         levelCheck.setLevelName("Level2");
         levelCheck.setDescription("Verify level Level2 exists");
         levelCheck.setEnabled(true);
-        
+
         hierarchyCheck.getLevelChecks().add(levelCheck);
         dimCheck.getHierarchyChecks().add(hierarchyCheck);
-        
+
         return dimCheck;
     }
 
