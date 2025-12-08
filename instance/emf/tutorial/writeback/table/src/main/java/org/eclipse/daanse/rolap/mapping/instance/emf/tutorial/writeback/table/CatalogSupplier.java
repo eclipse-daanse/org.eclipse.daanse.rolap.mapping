@@ -298,7 +298,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(hierarchy, "HierarchyWithHasAll", hierarchyBody, 1, 8, 0, true, 0);
         document(dimension, "Dimension", dimensionBody, 1, 9, 0, true, 0);
 
-        document(cube, "Cubec C ", cubeBody, 1, 10, 0, true, 2);
+        document(cube, "Cubec C", cubeBody, 1, 10, 0, true, 2);
         return catalog;
     }
 

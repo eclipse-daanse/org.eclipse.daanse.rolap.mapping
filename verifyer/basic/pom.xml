@@ -28,16 +28,6 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.service.metatype.annotations</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.util.converter</artifactId>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <scope>compile</scope>
@@ -65,13 +55,13 @@
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec.complex.foodmart</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
-      <artifactId>org.eclipse.daanse.rolap.mapping.instance.rec.complex.steelwheels</artifactId>
+      <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels</artifactId>
       <version>${project.version}</version>
       <scope>test</scope>
     </dependency>
@@ -79,12 +69,6 @@
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.rolap.mapping.instance.api</artifactId>
       <version>${project.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-core</artifactId>
-      <version>4.9.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
