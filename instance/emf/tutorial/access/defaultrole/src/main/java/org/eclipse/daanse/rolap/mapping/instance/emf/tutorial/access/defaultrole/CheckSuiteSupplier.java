@@ -159,7 +159,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         hierarchy1Check.setName("Hierarchy2 Hierarchy Check");
         hierarchy1Check.setHierarchyName("Hierarchy2");
         hierarchy1Check.setEnabled(true);
-        
+
         HierarchyAttributeCheck hierarchy2HasAllCheck = FACTORY.createHierarchyAttributeCheck();
         hierarchy2HasAllCheck.setName("Hierarchy2 HasAll Check");
         hierarchy2HasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);

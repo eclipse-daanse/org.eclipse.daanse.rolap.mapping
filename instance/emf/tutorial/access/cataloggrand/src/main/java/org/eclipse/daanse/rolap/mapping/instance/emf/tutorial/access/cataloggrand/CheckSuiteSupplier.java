@@ -140,7 +140,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setName("Cube Visibility Check");
         visibleCheck.setAttributeType(CubeAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
-        
+
         cubeCheck.getCubeAttributeChecks().add(visibleCheck);
         // Add dimension checks
         cubeCheck.getDimensionChecks().add(createDimensionCheck("Dimension1", null));
@@ -154,37 +154,37 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         dimCheck.setDescription(description);
         dimCheck.setDimensionName(dimensionName);
         dimCheck.setEnabled(true);
-        
+
         DimensionAttributeCheck visibleCheck = FACTORY.createDimensionAttributeCheck();
         visibleCheck.setName(dimensionName + " Visible Check");
         visibleCheck.setAttributeType(DimensionAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         dimCheck.getDimensionAttributeChecks().add(visibleCheck);
-        
+
         HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
         hierarchyCheck.setName("Hierarchy1 Hierarchy Check");
         hierarchyCheck.setEnabled(true);
         hierarchyCheck.setHierarchyName("Hierarchy1");
-        
+
         HierarchyAttributeCheck hasAllCheck = FACTORY.createHierarchyAttributeCheck();
         hasAllCheck.setName("Hierarchy1 HasAll Check");
         hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
         hasAllCheck.setExpectedBoolean(false);
         hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
-        
+
         LevelCheck levelCheck = FACTORY.createLevelCheck();
         levelCheck.setName("Level1 Level Check");
         levelCheck.setLevelName("Level1");
         levelCheck.setDescription("Verify level Level1 exists");
         levelCheck.setEnabled(true);
-        
+
         //LevelAttributeCheck levelAttributeCheck = FACTORY.createLevelAttributeCheck();
         //TODO add column type
         //levelCheck.getLevelAttributeChecks().add(levelAttributeCheck);
-        
+
         hierarchyCheck.getLevelChecks().add(levelCheck);
         dimCheck.getHierarchyChecks().add(hierarchyCheck);
-        
+
         return dimCheck;
     }
 
