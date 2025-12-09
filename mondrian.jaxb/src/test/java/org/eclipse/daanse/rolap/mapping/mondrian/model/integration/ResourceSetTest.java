@@ -11,7 +11,7 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rolap.mapping.mondrian.model;
+package org.eclipse.daanse.rolap.mapping.mondrian.model.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

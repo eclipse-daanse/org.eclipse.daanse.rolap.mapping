@@ -11,7 +11,7 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rolap.mapping.instance.emf.serializer;
+package org.eclipse.daanse.rolap.mapping.instance.emf.serializer.integration;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
