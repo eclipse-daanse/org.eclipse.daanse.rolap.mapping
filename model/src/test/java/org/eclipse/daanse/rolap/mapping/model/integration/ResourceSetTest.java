@@ -11,7 +11,7 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rolap.mapping.model;
+package org.eclipse.daanse.rolap.mapping.model.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,6 +21,8 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.Map;
 
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
+import org.eclipse.daanse.rolap.mapping.model.RolapMappingPackage;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;

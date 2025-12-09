@@ -11,7 +11,7 @@
 *   SmartCity Jena - initial
 *   Stefan Bischof (bipolis.org) - initial
 */
-package org.eclipse.daanse.rolap.mapping.model.docgen;
+package org.eclipse.daanse.rolap.mapping.model.docgen.integration;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.daanse.rolap.mapping.model.docgen.EcoreExtension;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -195,14 +196,14 @@ public class GetDocumentationTest {
     public static void deleteRecursively(Path path) throws IOException {
         if (Files.exists(path)) {
             Files.walk(path)
-                 .sorted(Comparator.reverseOrder())
-                 .forEach(p -> {
-                     try {
-                         Files.deleteIfExists(p);
-                     } catch (IOException e) {
-                         System.err.println("Fehler beim Löschen: " + p + " - " + e.getMessage());
-                     }
-                 });
+                .sorted(Comparator.reverseOrder())
+                .forEach(p -> {
+                    try {
+                        Files.deleteIfExists(p);
+                    } catch (IOException e) {
+                        System.err.println("Fehler beim Löschen: " + p + " - " + e.getMessage());
+                    }
+                });
         }
     }
 

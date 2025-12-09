@@ -11,7 +11,7 @@
  *   SmartCity Jena, Stefan Bischof - initial
  *
  */
-package org.eclipse.daanse.rolap.mapping.verifyer.basic.description;
+package org.eclipse.daanse.rolap.mapping.verifyer.basic.description.integration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.ACTION;
