@@ -119,7 +119,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getDimensionChecks().add(dimensionCheck);
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
-        queryCheck1CellValueCheck.setName("[Measures].[Measure-Sum]");
+        queryCheck1CellValueCheck.setName("[Measures].[theMeasure]");
         queryCheck1CellValueCheck.setExpectedValue("378");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
