@@ -179,7 +179,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
      * @return the configured CalculatedMemberCheck
      */
     private MeasureCheck createCalculatedMemberCheck(String calculatedMemberName) {
-    	MeasureCheck calculatedMemberCheck = factory.createMeasureCheck();
+        MeasureCheck calculatedMemberCheck = factory.createMeasureCheck();
         calculatedMemberCheck.setName("CalculatedMemberCheck-" + calculatedMemberName);
         calculatedMemberCheck.setDescription("Check that calculated member '" + calculatedMemberName + "' exists");
         calculatedMemberCheck.setMeasureName(calculatedMemberName);
