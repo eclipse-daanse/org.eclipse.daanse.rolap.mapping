@@ -23,6 +23,8 @@ import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
 import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
 import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
+import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
+import org.eclipse.daanse.olap.check.model.check.LevelCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
@@ -122,17 +124,51 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     @Override
     public OlapCheckSuite get() {
         // Create dimension checks for shared dimensions
-        DimensionCheck dimCheckSchulen = createDimensionCheck(DIM_SCHULEN);
-        DimensionCheck dimCheckSchuljahre = createDimensionCheck(DIM_SCHULJAHRE);
-        DimensionCheck dimCheckGeschlecht = createDimensionCheck(DIM_GESCHLECHT);
-        DimensionCheck dimCheckAltersgruppenPersonal = createDimensionCheck(DIM_ALTERSGRUPPEN_PERSONAL);
-        DimensionCheck dimCheckBerufsgruppenPersonal = createDimensionCheck(DIM_BERUFSGRUPPEN_PERSONAL);
-        DimensionCheck dimCheckEinschulungen = createDimensionCheck(DIM_EINSCHULUNGEN);
-        DimensionCheck dimCheckKlassenwiederholung = createDimensionCheck(DIM_KLASSENWIEDERHOLUNG);
-        DimensionCheck dimCheckSchulabschluss = createDimensionCheck(DIM_SCHULABSCHLUSS);
-        DimensionCheck dimCheckMigrationshintergrund = createDimensionCheck(DIM_MIGRATIONSHINTERGRUND);
-        DimensionCheck dimCheckWohnlandkreis = createDimensionCheck(DIM_WOHNLANDKREIS);
-        DimensionCheck dimCheckInklusion = createDimensionCheck(DIM_INKLUSION);
+        DimensionCheck dimCheckSchulen = createDimensionCheck(DIM_SCHULEN,
+                createHierarchyCheck("Schulen nach Ganztagsangebot",
+                        createLevelCheck("Art des Ganztagsangebots"),
+                        createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Trägerschaft",
+                        createLevelCheck("Schulträger-Kategorie"),
+                        createLevelCheck("Schulträger-Art"),
+                        createLevelCheck("Schulträger"),
+                        createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Art",
+                        createLevelCheck("Schulkategorie"),
+                        createLevelCheck("Schulart"),
+                        createLevelCheck("Schule")));
+        DimensionCheck dimCheckSchuljahre = createDimensionCheck(DIM_SCHULJAHRE,
+                createHierarchyCheck("Schuljahre",
+                        createLevelCheck("Schuljahr")));
+        DimensionCheck dimCheckGeschlecht = createDimensionCheck(DIM_GESCHLECHT,
+                createHierarchyCheck("Geschlecht",
+                        createLevelCheck("Geschlecht")));
+        DimensionCheck dimCheckAltersgruppenPersonal = createDimensionCheck(DIM_ALTERSGRUPPEN_PERSONAL,
+                createHierarchyCheck("Altersgruppen",
+                        createLevelCheck("Altersgruppe")));
+        DimensionCheck dimCheckBerufsgruppenPersonal = createDimensionCheck(DIM_BERUFSGRUPPEN_PERSONAL,
+                createHierarchyCheck("Berufsgruppen",
+                        createLevelCheck("Berufsgruppe")));
+        DimensionCheck dimCheckEinschulungen = createDimensionCheck(DIM_EINSCHULUNGEN,
+                createHierarchyCheck("Einschulung",
+                        createLevelCheck("Einschulung")));
+        DimensionCheck dimCheckKlassenwiederholung = createDimensionCheck(DIM_KLASSENWIEDERHOLUNG,
+                createHierarchyCheck("Klassenwiederholung",
+                        createLevelCheck("Klassenwiederholung")));
+        DimensionCheck dimCheckSchulabschluss = createDimensionCheck(DIM_SCHULABSCHLUSS,
+                createHierarchyCheck("Schulabschlüsse",
+                        createLevelCheck("Schulabschlüsse")));
+        DimensionCheck dimCheckMigrationshintergrund = createDimensionCheck(DIM_MIGRATIONSHINTERGRUND,
+                createHierarchyCheck("Migrationshintergrund",
+                        createLevelCheck("Migrationshintergrund")));
+        DimensionCheck dimCheckWohnlandkreis = createDimensionCheck(DIM_WOHNLANDKREIS,
+                createHierarchyCheck("Wohnlandkreis",
+                        createLevelCheck("Bundesland"),
+                        createLevelCheck("Wohnlandkreis")));
+        DimensionCheck dimCheckInklusion = createDimensionCheck(DIM_INKLUSION,
+                createHierarchyCheck("Sonderpädagogische Förderung",
+                        createLevelCheck("Förderbedarf"),
+                        createLevelCheck("Art der Förderung")));
 
         // Create cube 1: Schulen in Jena (Institutionen)
         MeasureCheck measureCheckAnzahlSchulen = createMeasureCheck(MEASURE_ANZAHL_SCHULEN);
@@ -434,13 +470,51 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
      * Creates a DimensionCheck with the specified name.
      *
      * @param dimensionName the name of the dimension
+     * @param hierarchyChecks the hierarchy checks to add to the dimension check
      * @return the configured DimensionCheck
      */
-    private DimensionCheck createDimensionCheck(String dimensionName) {
+    private DimensionCheck createDimensionCheck(String dimensionName, HierarchyCheck... hierarchyChecks) {
         DimensionCheck dimensionCheck = factory.createDimensionCheck();
         dimensionCheck.setName("DimensionCheck for " + dimensionName);
         dimensionCheck.setDimensionName(dimensionName);
+        if (hierarchyChecks != null) {
+            for (HierarchyCheck hierarchyCheck : hierarchyChecks) {
+                dimensionCheck.getHierarchyChecks().add(hierarchyCheck);
+            }
+        }
         return dimensionCheck;
+    }
+
+    /**
+     * Creates a HierarchyCheck with the specified name and level checks.
+     *
+     * @param hierarchyName the name of the hierarchy
+     * @param levelChecks the level checks to add to the hierarchy check
+     * @return the configured HierarchyCheck
+     */
+    private HierarchyCheck createHierarchyCheck(String hierarchyName, LevelCheck... levelChecks) {
+        HierarchyCheck hierarchyCheck = factory.createHierarchyCheck();
+        hierarchyCheck.setName("HierarchyCheck-" + hierarchyName);
+        hierarchyCheck.setHierarchyName(hierarchyName);
+        if (levelChecks != null) {
+            for (LevelCheck levelCheck : levelChecks) {
+                hierarchyCheck.getLevelChecks().add(levelCheck);
+            }
+        }
+        return hierarchyCheck;
+    }
+
+    /**
+     * Creates a LevelCheck with the specified name.
+     *
+     * @param levelName the name of the level
+     * @return the configured LevelCheck
+     */
+    private LevelCheck createLevelCheck(String levelName) {
+        LevelCheck levelCheck = factory.createLevelCheck();
+        levelCheck.setName("LevelCheck-" + levelName);
+        levelCheck.setLevelName(levelName);
+        return levelCheck;
     }
 
     /**
