@@ -38,6 +38,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
+import org.eclipse.daanse.xmla.csdl.model.v2.bi.BiPackage;
+import org.eclipse.daanse.xmla.csdl.model.v2.edm.EdmPackage;
+import org.eclipse.daanse.xmla.csdl.model.v2.edm.util.EdmResourceFactoryImpl;
 import org.eclipse.daanse.rolap.mapping.model.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.Documentation;
@@ -52,6 +55,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.gecko.emf.osgi.annotation.require.RequireEMF;
@@ -157,6 +161,13 @@ public class ResourceSetWriteReadTest {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void test() throws IOException {
+    	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color.TSchemaSupplier supplier = new org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color.TSchemaSupplier();
+    	String csdl = serializeToXml(supplier.get());
+    	System.out.println(csdl);
     }
 
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
@@ -646,5 +657,31 @@ public class ResourceSetWriteReadTest {
                 return FileVisitResult.CONTINUE;
             }
         });
+    }
+
+    private String serializeToXml(EObject eObject) throws IOException {
+    	ResourceSetImpl resourceSet = new ResourceSetImpl();
+
+        // Register the EDM resource factory that respects ExtendedMetaData
+        resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xml", new EdmResourceFactoryImpl());
+
+        // Register packages
+        resourceSet.getPackageRegistry().put(EdmPackage.eNS_URI, EdmPackage.eINSTANCE);
+        resourceSet.getPackageRegistry().put(BiPackage.eNS_URI, BiPackage.eINSTANCE);
+        Resource resource = resourceSet.createResource(URI.createURI("temp.xml"));
+        resource.getContents().add(eObject);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Map<String, Object> options = new HashMap<>();
+        options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        options.put(XMLResource.OPTION_FORMATTED, Boolean.TRUE);
+        options.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+
+        resource.save(baos, options);
+
+        resource.getContents().clear();
+        resourceSet.getResources().remove(resource);
+
+        return baos.toString("UTF-8");
     }
 }

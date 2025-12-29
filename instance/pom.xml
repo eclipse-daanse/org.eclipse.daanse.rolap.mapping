@@ -44,5 +44,11 @@
       <version>0.0.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.olap.csdl.api</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
   </dependencies>
 </project>
