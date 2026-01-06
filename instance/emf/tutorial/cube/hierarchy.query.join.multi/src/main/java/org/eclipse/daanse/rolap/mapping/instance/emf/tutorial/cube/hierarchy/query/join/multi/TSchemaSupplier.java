@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.base;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.multi;
 
 import org.eclipse.daanse.xmla.csdl.model.provider.OlapTSchemaSupplier;
 import org.eclipse.daanse.xmla.csdl.model.v2.bi.BiFactory;
@@ -41,7 +41,7 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         schema.setAlias("Model");
 
         EntityContainerType container = edmFactory.createEntityContainerType();
-        container.setName("Daanse Tutorial - Hierarchy Query Join Base");
+        container.setName("Daanse Tutorial - Hierarchy Query Join Multi");
 
         TEntityContainer biContainer = biFactory.createTEntityContainer();
         biContainer.setCaption("Cube Query linked Tables");
@@ -77,19 +77,25 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         TLevel tLevelTown = biFactory.createTLevel();
         tLevelTown.setName("Town");
         tLevelTown.setCaption("Town");
-        tLevelTown.setReferenceName("[Town].[TownHierarchy].[Town]");
+        tLevelTown.setReferenceName("[Continent - Country - Town].[TownHierarchy].[Town]");
 
         TLevel tLevelCountry = biFactory.createTLevel();
         tLevelCountry.setName("County");
         tLevelCountry.setCaption("County");
-        tLevelCountry.setReferenceName("[Town].[TownHierarchy].[County]");
+        tLevelCountry.setReferenceName("[Continent - Country - Town].[TownHierarchy].[County]");
+
+        TLevel tLevelContinent = biFactory.createTLevel();
+        tLevelContinent.setName("Continent");
+        tLevelContinent.setCaption("Continent");
+        tLevelContinent.setReferenceName("[Continent - Country - Town].[TownHierarchy].[Continent]");
 
         THierarchy townHierarchyTHierarchy = biFactory.createTHierarchy();
         townHierarchyTHierarchy.setCaption("TownHierarchy");
         townHierarchyTHierarchy.setName("TownHierarchy");
-        townHierarchyTHierarchy.setReferenceName("[Town].[TownHierarchy]");
+        townHierarchyTHierarchy.setReferenceName("[Continent - Country - Town].[TownHierarchy]");
         townHierarchyTHierarchy.getLevel().add(tLevelTown);
         townHierarchyTHierarchy.getLevel().add(tLevelCountry);
+        townHierarchyTHierarchy.getLevel().add(tLevelContinent);
 
         TEntityType townHierarchyTEntityType = biFactory.createTEntityType();
         townHierarchyTEntityType.setContents("TownHierarchy");
@@ -128,11 +134,23 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         countryNameProperty.setType("String");
         countryNameProperty.setNullable(false);
 
+        TEntityProperty continentIdProperty = edmFactory.createTEntityProperty();
+        continentIdProperty.setName("Continent.ID");
+        continentIdProperty.setType("Int32");
+        continentIdProperty.setNullable(false);
+
+        TEntityProperty continentNameProperty = edmFactory.createTEntityProperty();
+        continentNameProperty.setName("Continent.NAME");
+        continentNameProperty.setType("String");
+        continentNameProperty.setNullable(false);
+
         townHierarchyType.getProperty().add(factTownIdProperty);
         townHierarchyType.getProperty().add(townIdProperty);
         townHierarchyType.getProperty().add(townNameProperty);
         townHierarchyType.getProperty().add(countryIdProperty);
         townHierarchyType.getProperty().add(countryNameProperty);
+        townHierarchyType.getProperty().add(continentIdProperty);
+        townHierarchyType.getProperty().add(continentNameProperty);
 
         schema.getEntityType().add(townHierarchyType);
 

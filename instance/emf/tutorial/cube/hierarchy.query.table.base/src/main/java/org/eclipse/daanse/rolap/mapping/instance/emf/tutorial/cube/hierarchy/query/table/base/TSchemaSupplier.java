@@ -10,7 +10,7 @@
  * Contributors:
  *
  */
-package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.base;
+package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.base;
 
 import org.eclipse.daanse.xmla.csdl.model.provider.OlapTSchemaSupplier;
 import org.eclipse.daanse.xmla.csdl.model.v2.bi.BiFactory;
@@ -41,7 +41,7 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         schema.setAlias("Model");
 
         EntityContainerType container = edmFactory.createEntityContainerType();
-        container.setName("Daanse Tutorial - Hierarchy Query Join Base");
+        container.setName("Daanse Tutorial - Hierarchy Query Table Base");
 
         TEntityContainer biContainer = biFactory.createTEntityContainer();
         biContainer.setCaption("Cube Query linked Tables");
@@ -79,17 +79,11 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         tLevelTown.setCaption("Town");
         tLevelTown.setReferenceName("[Town].[TownHierarchy].[Town]");
 
-        TLevel tLevelCountry = biFactory.createTLevel();
-        tLevelCountry.setName("County");
-        tLevelCountry.setCaption("County");
-        tLevelCountry.setReferenceName("[Town].[TownHierarchy].[County]");
-
         THierarchy townHierarchyTHierarchy = biFactory.createTHierarchy();
         townHierarchyTHierarchy.setCaption("TownHierarchy");
         townHierarchyTHierarchy.setName("TownHierarchy");
         townHierarchyTHierarchy.setReferenceName("[Town].[TownHierarchy]");
         townHierarchyTHierarchy.getLevel().add(tLevelTown);
-        townHierarchyTHierarchy.getLevel().add(tLevelCountry);
 
         TEntityType townHierarchyTEntityType = biFactory.createTEntityType();
         townHierarchyTEntityType.setContents("TownHierarchy");
@@ -118,21 +112,9 @@ public class TSchemaSupplier implements OlapTSchemaSupplier {
         townNameProperty.setType("String");
         townNameProperty.setNullable(false);
 
-        TEntityProperty countryIdProperty = edmFactory.createTEntityProperty();
-        countryIdProperty.setName("Country.ID");
-        countryIdProperty.setType("Int32");
-        countryIdProperty.setNullable(false);
-
-        TEntityProperty countryNameProperty = edmFactory.createTEntityProperty();
-        countryNameProperty.setName("Country.NAME");
-        countryNameProperty.setType("String");
-        countryNameProperty.setNullable(false);
-
         townHierarchyType.getProperty().add(factTownIdProperty);
         townHierarchyType.getProperty().add(townIdProperty);
         townHierarchyType.getProperty().add(townNameProperty);
-        townHierarchyType.getProperty().add(countryIdProperty);
-        townHierarchyType.getProperty().add(countryNameProperty);
 
         schema.getEntityType().add(townHierarchyType);
 

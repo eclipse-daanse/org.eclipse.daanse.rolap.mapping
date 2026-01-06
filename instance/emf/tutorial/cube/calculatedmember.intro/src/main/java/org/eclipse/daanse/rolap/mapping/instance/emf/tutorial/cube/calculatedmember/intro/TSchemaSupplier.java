@@ -12,7 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;
 
-import org.eclipse.daanse.olap.csdl.api.OlapTSchemaSupplier;
+import org.eclipse.daanse.xmla.csdl.model.provider.OlapTSchemaSupplier;
 import org.eclipse.daanse.xmla.csdl.model.v2.bi.BiFactory;
 import org.eclipse.daanse.xmla.csdl.model.v2.bi.TEntityContainer;
 import org.eclipse.daanse.xmla.csdl.model.v2.bi.TEntitySet;
