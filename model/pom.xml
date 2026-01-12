@@ -24,7 +24,7 @@
   <description>Rolap Mapping Model usind Modeling Framework (EMF).</description>
 
   <properties>
-    <bnd.version>7.2.0-SNAPSHOT</bnd.version>
+    <bnd.version>7.2.0</bnd.version>
     <gecko.emf.version>6.2.0</gecko.emf.version>
   </properties>
 
