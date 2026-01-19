@@ -1,0 +1,28 @@
+"RowNumber","GeographyKey","City","StateProvinceCode","StateProvinceName","CountryRegionCode","EnglishCountryRegionName","SpanishCountryRegionName","FrenchCountryRegionName","PostalCode","SalesTerritoryKey"
+INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,INTEGER
+1,1,"Seattle","WA","Washington","US","United States","Estados Unidos","États-Unis","98101",1
+2,2,"Bellevue","WA","Washington","US","United States","Estados Unidos","États-Unis","98004",1
+3,3,"Los Angeles","CA","California","US","United States","Estados Unidos","États-Unis","90001",2
+4,4,"San Diego","CA","California","US","United States","Estados Unidos","États-Unis","92101",2
+5,5,"New York","NY","New York","US","United States","Estados Unidos","États-Unis","10001",3
+6,6,"Buffalo","NY","New York","US","United States","Estados Unidos","États-Unis","14201",3
+7,7,"Toronto","ON","Ontario","CA","Canada","Canada","Canadá","Canada",4
+8,8,"Vancouver","BC","British Columbia","CA","Canada","Canada","Canadá","Canada",5
+9,9,"London",,"England","GB","United Kingdom","Reino Unido","Royaume-Uni","SW1A 1AA",6
+10,10,"Birmingham",,"England","GB","United Kingdom","Reino Unido","Royaume-Uni","B1 1AA",6
+11,11,"Berlin","BE","Berlin","DE","Germany","Alemania","Allemagne","10115",7
+12,12,"Hamburg","HH","Hamburg","DE","Germany","Alemania","Allemagne","20095",7
+13,13,"Sydney","NSW","New South Wales","AU","Australia","Australia","Australia","2000",8
+14,14,"Melbourne","VIC","Victoria","AU","Australia","Australia","Australia","3000",8
+15,15,"Paris","75","Île-de-France","FR","France","Francia","France","75001",9
+16,16,"Lyon","69","Auvergne-Rhône-Alpes","FR","France","Francia","France","69001",9
+17,17,"Mexico City","CMX","Ciudad de México","MX","Mexico","México","Mexique","01000",10
+18,18,"Monterrey","NL","Nuevo León","MX","Mexico","México","Mexique","64000",10
+19,19,"São Paulo","SP","São Paulo","BR","Brazil","Brasil","Brésil","01001-000",11
+20,20,"Rio de Janeiro","RJ","Rio de Janeiro","BR","Brazil","Brasil","Brésil","20040-008",11
+21,21,"Tokyo","13","Tokyo","JP","Japan","Japón","Japon","100-0001",12
+22,22,"Osaka","27","Osaka","JP","Japan","Japón","Japon","530-0001",12
+23,23,"Beijing","BJ","Beijing","CN","China","China","Chine","100000",13
+24,24,"Shanghai","SH","Shanghai","CN","China","China","Chine","200000",13
+25,25,"Mumbai","MH","Maharashtra","IN","India","India","Inde","400001",14
+26,26,"Delhi","DL","Delhi","IN","India","India","Inde","110001",14

@@ -1,0 +1,39 @@
+"RowNumber","ProductSubcategoryKey","ProductSubcategoryAlternateKey","EnglishProductSubcategoryName","SpanishProductSubcategoryName","FrenchProductSubcategoryName","ProductCategoryKey"
+INTEGER,INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR,INTEGER
+1,1,1,"Mountain Bikes","Bicicletas de montaña","VTT",1
+2,2,2,"Road Bikes","Bicicletas de carretera","Vélo de route",1
+3,3,3,"Touring Bikes","Bicicletas de turismo","Vélo de tourisme",1
+4,4,4,"Handlebars","Manillares","Guidons",2
+5,5,5,"Bottom Brackets","Pedalier","Pédalier",2
+6,6,6,"Brakes","Frenos","Freins",2
+7,7,7,"Chains","Cadenas","Chaînes",2
+8,8,8,"Cranksets","Bielas","Pédalier",2
+9,9,9,"Derailleurs","Desviadores","Dérailleurs",2
+10,10,10,"Forks","Horquillas","Fourches",2
+11,11,11,"Headsets","Direcciones","Jeu de direction",2
+12,12,12,"Mountain Frames","Cuadros de montaña","Cadres VTT",2
+13,13,13,"Pedals","Pedales","Pédales",2
+14,14,14,"Road Frames","Cuadros de carretera","Cadres route",2
+15,15,15,"Saddles","Sillines","Selles",2
+16,16,16,"Touring Frames","Cuadros de turismo","Cadres touring",2
+17,17,17,"Wheels","Ruedas","Roues",2
+18,18,18,"Bib-Shorts","Culottes","Cuissards",3
+19,19,19,"Caps","Gorras","Casquettes",3
+20,20,20,"Gloves","Guantes","Gants",3
+21,21,21,"Jerseys","Jerseys","Maillots",3
+22,22,22,"Shorts","Shorts","Shorts",3
+23,23,23,"Socks","Calcetines","Chaussettes",3
+24,24,24,"Tights","Mallas","Collants",3
+25,25,25,"Vests","Chalecos","Gilets",3
+26,26,26,"Bike Racks","Portabicicletas","Porte-vélos",4
+27,27,27,"Bike Stands","Soporte para bicicletas","Support vélo",4
+28,28,28,"Bottles and Cages","Botellas y portabotellas","Bidons et porte-bidons",4
+29,29,29,"Cleaners","Limpiadores","Nettoyants",4
+30,30,30,"Fenders","Guardabarros","Garde-boue",4
+31,31,31,"Helmets","Cascos","Casques",4
+32,32,32,"Hydration Packs","Mochilas de hidratación","Sacs d'hydratation",4
+33,33,33,"Lights","Luces","Lumières",4
+34,34,34,"Locks","Candados","Cadenas",4
+35,35,35,"Panniers","Alforjas","Sacs de vélo",4
+36,36,36,"Pumps","Bombas","Pompes",4
+37,37,37,"Tires and Tubes","Neumáticos y cámaras","Pneus et chambres à air",4

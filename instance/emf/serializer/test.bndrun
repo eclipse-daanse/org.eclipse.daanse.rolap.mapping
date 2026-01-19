@@ -126,16 +126,18 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.unique',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel'
 
 -runbundles+: \
-    org.eclipse.emf.common;startlevel=1,\
-    org.eclipse.emf.ecore;startlevel=1,\
-    org.eclipse.emf.ecore.xmi;startlevel=1,\
-    org.eclipse.daanse.rolap.mapping.model;startlevel=30,\
-    org.eclipse.fennec.emf.osgi.component;startlevel=20
+	org.eclipse.emf.common;startlevel=1,\
+	org.eclipse.emf.ecore;startlevel=1,\
+	org.eclipse.emf.ecore.xmi;startlevel=1,\
+	org.eclipse.daanse.rolap.mapping.model;startlevel=30,\
+	org.eclipse.fennec.emf.osgi.component;startlevel=20
 
 
 
@@ -160,10 +162,14 @@
 	org.eclipse.daanse.olap.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.check.model.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.check.runtime;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.school;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggrand;version='[0.0.1,0.0.2)',\
