@@ -1,0 +1,22 @@
+RowNumber,ProductKey,ProductAlternateKey,ProductSubcategoryKey,ProductName,StandardCost,FinishedGoodsFlag,Color,ListPrice,Size,SizeRange,Weight,DealerPrice,Class,Style,ModelName,Description,WeightUnitMeasureCode,SizeUnitMeasureCode,SafetyStockLevel,ReorderPoint,DaysToManufacture,ProductLine
+INTEGER,INTEGER,VARCHAR,INTEGER,VARCHAR,DECIMAL(19.0),BOOLEAN,VARCHAR,DECIMAL(19.0),VARCHAR,VARCHAR,DOUBLE,DECIMAL(19.0),VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,VARCHAR,INTEGER,INTEGER,INTEGER,VARCHAR
+1,1,MTB-PRO-27-5-L,1,Mountain Bike Pro,1200,1,M-L,14.2,900,H,8.1,1650,Full suspension trail bike with carbon frame,KG,IN,,KG,CM,15,0,1,Road
+2,2,ROAD-ULT-CARB-M,2,Road Bike Ultimate Carbon,1200,1,Team Red,2200,M,S-M,8.1,1650,H,U,AeroSpeed Pro,Lightweight carbon road bike for racing,KG,CM,15,8,7,Road
+3,3,CITY-COMM-L,3,City Commuter Bike,320,1,Steel Gray,550,L,L-XL,18.5,400,M,U,Urban Glide,Comfortable city bike with built-in lights,KG,IN,25,15,4,City
+4,4,EBIKE-MTB-L,4,Electric Mountain Bike,1800,1,Forest Green,3200,L,M-L,24.8,2400,H,M,E-Trail Master,Full-suspension e-MTB with 750W motor,KG,IN,12,6,10,Electric
+5,5,KIDS-20-BLUE,5,Kids Bike,180,1,U,3200,Kids bike with training wheels,KG,8.1,30,20,M,Kids,,KG,IN,0,0,1,Road
+6,6,FRAME-MTB-CARB-M,6,Mountain Bike Carbon Frame,480,1,Raw Carbon,850,M,M,1.8,600,H,M,CarbonTrail M,Lightweight carbon frame for trail riding,KG,IN,8,4,14,MTB
+7,7,WHL-MTB-27-5,7,MTB Wheelset,320,1,U,3200,Tubeless-ready MTB wheelset,KG,8.1,40,25,M,MTB,,KG,IN,0,0,1,MTB
+8,8,GRPSET-12S-MTB,8,12-Speed Drivetrain Group,420,1,Black/Silver,750,12-Speed,,0.9,560,H,U,Shimano XT M8100,Complete 12-speed mountain bike groupset,KG,IN,35,20,2,MTB
+9,9,DISC-BRK-MTB-FR,9,MTB Hydraulic Disc Brake,85,1,Black,150,Front,,0.4,112.5,M,U,Shimano M6120,4-piston hydraulic disc brake,KG,IN,50,30,2,MTB
+10,10,HANDL-RISER-780,10,Riser Handlebar 780mm,45,1,Black,80,780mm,780mm,0.3,60,M,U,Alloy Riser,780mm alloy riser handlebar,KG,MM,60,35,2,MTB
+11,11,SADDLE-MTB-PRO,11,MTB Racing Saddle,65,1,Black/Blue,115,,,0.25,86.25,M,M,Race Pro,Lightweight racing saddle with titanium rails,KG,MM,70,40,2,MTB
+12,12,PEDAL-MTB-CLIP,12,MTB Clipless Pedals,75,1,Black/Red,135,,,0.35,101.25,M,U,SPD M540,Reliable clipless mountain bike pedals,KG,MM,55,30,2,MTB
+13,13,JERSEY-M-SHORT,13,Cycling Jersey Short Sleeve,32,1,Blue/White,60,M,S-XL,0.18,45,M,M,Airflow Pro,Breathable cycling jersey with pockets,KG,MM,100,60,1,Apparel
+14,14,HELMET-MTB-L,14,Full Face MTB Helmet,145,1,Matte Black/Orange,260,L,M-L,1.1,195,H,U,Gravity Shield,DH full face helmet with MIPS,KG,CM,25,15,4,Protection
+15,15,KNEE-PAD-M,15,MTB Knee Pads,48,1,Black/Gray,85,M,S-XL,0.28,63.75,M,M,Trail Guard,Lightweight knee protection for trail riding,KG,MM,80,45,2,Protection
+16,16,LIGHT-FR-1200,16,Front Bike Light 1200lm,42,1,Black,75,,,0.15,56.25,M,U,Lumina 1200,1200 lumen rechargeable bike light,KG,MM,120,70,1,Lighting
+17,17,LOCK-U-SHACKLE,17,U-Shackle Bike Lock,38,1,Silver,68,12mm,,1.8,51,M,U,Steel Guardian,Hardened steel U-lock with bracket,KG,MM,150,90,2,Security
+18,18,TOOL-MULTI-16,18,Multi-Tool 16 Functions,18,1,Black/Red,32,,,0.12,24,L,U,Trail Tool,16-function compact bike multi-tool,KG,MM,200,120,1,Tools
+19,19,FRAME-BAG-M,19,Frame Bag Medium,22,1,Black,40,M,S-L,0.22,30,L,U,Adventure Pack,Waterproof frame bag for essentials,KG,MM,90,50,2,Bags
+20,20,HYDR-BLDR-2L,20,Hydration Bladder 2L,16,1,Blue,29,2L,,0.1,21.75,L,U,HydroFlow 2L,BPA-free hydration bladder with tube,KG,L,180,100,1,Hydration
