@@ -1,0 +1,2 @@
+"RowNumber","TimeKey","FullDateAlternateKey","DayNumberOfWeek","EnglishDayNameOfWeek","SpanishDayNameOfWeek","FrenchDayNameOfWeek","DayNumberOfMonth","DayNumberOfYear","WeekNumberOfYear","EnglishMonthName","SpanishMonthName","FrenchMonthName","MonthNumberOfYear","CalendarQuarter","CalendarYear","CalendarSemester","FiscalQuarter","FiscalYear","FiscalSemester"
+INTEGER,INTEGER,DATE,INTEGER,VARCHAR,VARCHAR,VARCHAR,INTEGER,INTEGER,INTEGER,VARCHAR,VARCHAR,VARCHAR,INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,VARCHAR,INTEGER

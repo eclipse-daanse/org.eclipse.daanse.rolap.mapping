@@ -1,0 +1,32 @@
+"RowNumber","StoreKey","Geography_Key","StoreName","Number_of_Employees","Sales"
+INTEGER,INTEGER,INTEGER,VARCHAR,INTEGER,DECIMAL(19.4)
+1,1,1,"Seattle Downtown Bikes",15,1250000.5000
+2,2,1,"Seattle Sports & Outdoors",22,1850000.7500
+3,3,3,"Los Angeles Cycles",28,3120000.2500
+4,4,4,"San Diego Bike Hub",18,1675000.0000
+5,5,5,"NYC Bicycle Emporium",35,4250000.8000
+6,6,6,"Buffalo Outdoor Gear",12,875000.3000
+7,7,7,"Toronto Cycling Center",20,1980000.6000
+8,8,8,"Vancouver Bike Works",16,1520000.9000
+9,9,9,"London Cycle Co.",25,2870000.4000
+10,10,10,"Birmingham Sports",14,1210000.1000
+11,11,11,"Berlin Fahrrad",19,1760000.7000
+12,12,12,"Hamburg Radsport",17,1620000.5000
+13,13,13,"Sydney Bike Pro",24,2340000.3000
+14,14,14,"Melbourne Cycles",21,2050000.8000
+15,15,15,"Paris Vélo Elite",26,2780000.2000
+16,16,16,"Lyon Sports Vélo",13,1180000.6000
+17,17,17,"Mexico City Bicicletas",30,3250000.7500
+18,18,18,"Monterrey Bike Shop",15,1420000.2500
+19,19,19,"São Paulo Ciclismo",32,3680000.9000
+20,20,20,"Rio Bike & Sports",23,2540000.5000
+21,21,21,"Tokyo Cycle Station",27,2950000.1000
+22,22,22,"Osaka Sports Cycle",20,1880000.7000
+23,23,23,"Beijing Bicycle Co.",31,3480000.3000
+24,24,24,"Shanghai Cycle Mart",29,3120000.8000
+25,25,25,"Mumbai Bike Center",18,1650000.4000
+26,26,26,"Delhi Sports Bikes",16,1580000.2000
+27,27,2,"Bellevue Outdoor",10,920000.7500
+28,28,6,"Buffalo North Store",8,685000.2500
+29,29,5,"Manhattan Bike Express",12,1320000.5000
+30,30,3,"LA Westside Cycles",25,2760000.9000
