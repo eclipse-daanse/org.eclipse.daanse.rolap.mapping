@@ -1,0 +1,10 @@
+"RowNumber","SalesChannelCode","SalesChannelName"
+INTEGER,VARCHAR,VARCHAR
+1,"ONLINE","Online Store"
+2,"RETAIL","Physical Retail Store"
+3,"WHOLESALE","Wholesale Distribution"
+4,"MARKETPLACE","Online Marketplaces"
+5,"CORPORATE","Corporate Sales"
+6,"PARTNER","Partner Resellers"
+7,"MOBILE","Mobile App Sales"
+8,"EVENT","Event & Exhibition Sales"
