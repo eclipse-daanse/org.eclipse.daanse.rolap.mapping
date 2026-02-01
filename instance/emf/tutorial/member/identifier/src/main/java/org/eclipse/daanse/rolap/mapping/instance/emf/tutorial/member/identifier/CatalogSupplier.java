@@ -41,20 +41,20 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            In some cases, all data are stored in one table, the fact as well as multiple levels. This Tutorial shows how to handle this case with diferent casses of data.
+            In some cases, all data are stored in one table, the fact as well as multiple levels. This Tutorial shows how to handle this case with different cases of data.
             """;
 
     private static final String databaseSchemaBody = """
-            The cube defined in this example is based on only one tables with diferent casses of data
+            The cube defined in this example is based on only one tables with different cases of data
             space, space first, space last, separate line, long with over 100 12345678....   , äüö, some russian latter, some french letters, @€
             """;
 
     private static final String level1Body = """
-            The level of the level1 used the `column` attribute to define the column that holds the name, wich is also the key Column.
+            The level of the level1 used the `column` attribute to define the column that holds the name, which is also the key Column.
             """;
 
     private static final String level2Body = """
-            The level  of the level2 used the `column` attribute to define the column that holds the name, wich is also the key Column.
+            The level  of the level2 used the `column` attribute to define the column that holds the name, which is also the key Column.
             """;
 
     private static final String hierarchyBody = """

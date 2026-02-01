@@ -81,11 +81,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String h1Level1Body = """
-            This Example uses `H1_Level1` level bases on the `KEY` column and name column `NAME` of table `H1_L1`.
+            This Example uses `H1_Level1` level based on the `KEY` column and name column `NAME` of table `H1_L1`.
             """;
 
     private static final String h1Level2Body = """
-            This Example uses `H1_Level2` level bases on the `KEY` column and name column `NAME` of table `HX_L2`.
+            This Example uses `H1_Level2` level based on the `KEY` column and name column `NAME` of table `HX_L2`.
             """;
 
     private static final String hierarchyBody = """

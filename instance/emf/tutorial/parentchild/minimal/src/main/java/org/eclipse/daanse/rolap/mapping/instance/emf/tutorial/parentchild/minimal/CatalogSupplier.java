@@ -65,7 +65,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String levelBody = """
-            This Example uses Level1 level bases on the KEY column and name column `NAME` of table `Hier_One_Top_Member`.
+            This Example uses Level1 level based on the KEY column and name column `NAME` of table `Hier_One_Top_Member`.
             """;
 
     private static final String hierarchyBody = """
@@ -84,7 +84,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String cubeBody = """
-            The cube with with Parent Child Hierarchy.
+            The cube with Parent Child Hierarchy.
             """;
 
     @Override

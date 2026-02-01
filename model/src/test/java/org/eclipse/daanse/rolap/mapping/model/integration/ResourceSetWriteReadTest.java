@@ -49,8 +49,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.gecko.emf.osgi.annotation.require.RequireEMF;
-import org.gecko.emf.osgi.constants.EMFNamespaces;
+import org.eclipse.fennec.emf.osgi.annotation.require.RequireEMF;
+import org.eclipse.fennec.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -81,15 +81,15 @@ public class ResourceSetWriteReadTest {
 
     @BeforeAll
     public static void beforeAll() throws IOException {
-        fileRolap = Files.createFile(tempDir.resolve("catalog.yml"));
-        fileRdbs = Files.createFile(tempDir.resolve("db.yml"));
+        fileRolap = Files.createFile(tempDir.resolve("catalog.xml"));
+        fileRdbs = Files.createFile(tempDir.resolve("db.xml"));
     }
 
     @Test
     @Order(1)
     public void writePopulation(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-                    + RolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI + ")",timeout = 1000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
@@ -738,8 +738,8 @@ public class ResourceSetWriteReadTest {
 
     @Test
     @Order(2)
-    public void read(@InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-            + RolapMappingPackage.eNAME + ")") ResourceSet resourceSet) throws IOException {
+    public void read(@InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI+ "="
+            + RolapMappingPackage.eNS_URI + ")",timeout = 1000) ResourceSet resourceSet) throws IOException {
 
         URI uriRdbs = URI.createFileURI(fileRdbs.toAbsolutePath().toString());
         URI uriRolap = URI.createFileURI(fileRolap.toAbsolutePath().toString());
