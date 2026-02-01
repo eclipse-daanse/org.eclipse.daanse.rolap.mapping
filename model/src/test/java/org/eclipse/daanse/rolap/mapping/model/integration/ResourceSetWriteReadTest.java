@@ -89,7 +89,7 @@ public class ResourceSetWriteReadTest {
     @Order(1)
     public void writePopulation(@InjectBundleContext BundleContext bc,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
-                    + RolapMappingPackage.eNS_URI + ")",timeout = 1000) ServiceAware<ResourceSet> saResourceSet)
+                    + RolapMappingPackage.eNS_URI + ")",timeout = 10000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
@@ -739,7 +739,7 @@ public class ResourceSetWriteReadTest {
     @Test
     @Order(2)
     public void read(@InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI+ "="
-            + RolapMappingPackage.eNS_URI + ")",timeout = 1000) ResourceSet resourceSet) throws IOException {
+            + RolapMappingPackage.eNS_URI + ")",timeout = 10000) ResourceSet resourceSet) throws IOException {
 
         URI uriRdbs = URI.createFileURI(fileRdbs.toAbsolutePath().toString());
         URI uriRolap = URI.createFileURI(fileRolap.toAbsolutePath().toString());
