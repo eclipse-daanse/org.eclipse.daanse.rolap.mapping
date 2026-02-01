@@ -60,27 +60,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
             """;
 
     private static final String levelYearsBody = """
-            This Example uses Years level bases on the YEAR_ID column and has TIME_YEARS type.
+            This Example uses Years level based on the YEAR_ID column and has TIME_YEARS type.
             """;
 
     private static final String levelQuartersBody = """
-            This Example uses Quarters level bases on the QTR_ID column and has TIME_QUARTERS type with name column QTR_NAME.
+            This Example uses Quarters level based on the QTR_ID column and has TIME_QUARTERS type with name column QTR_NAME.
             """;
 
     private static final String levelMonthsBody = """
-            This Example uses Months level bases on the MONTH_ID column and has TIME_MONTHS type with name column MONTH_NAME.
+            This Example uses Months level based on the MONTH_ID column and has TIME_MONTHS type with name column MONTH_NAME.
             """;
 
     private static final String levelWeekBody = """
-            This Example uses Week level bases on the MONTH_ID column and has TIME_WEEKS type.
+            This Example uses Week level based on the MONTH_ID column and has TIME_WEEKS type.
             """;
 
     private static final String levelDayBody = """
-            This Example uses Week level bases on the MONTH_ID column and has TIME_DAYS type.
+            This Example uses Week level based on the MONTH_ID column and has TIME_DAYS type.
             """;
 
     private static final String hierarchyBody = """

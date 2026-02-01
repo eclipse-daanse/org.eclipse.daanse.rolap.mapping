@@ -44,18 +44,18 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            This tutorial discusses Calculated Members and Measures with diferent colors.
+            This tutorial discusses Calculated Members and Measures with different colors.
 
             """;
 
     private static final String databaseSchemaBody = """
-            The Database Schema contains the `Fact` table with three columns: `KEY` and `VALUE` and `VALUE_NUMERIC`. The `KEY` column is used as the discriminator in the the Level and Hierarchy definitions.
+            The Database Schema contains the `Fact` table with three columns: `KEY` and `VALUE` and `VALUE_NUMERIC`. The `KEY` column is used as the discriminator in the Level and Hierarchy definitions.
             """;
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
             """;
     private static final String levelBody = """
-            This Example uses one simple `Level` bases on the `KEY` column.
+            This Example uses one simple `Level` based on the `KEY` column.
             """;
     private static final String hierarchyBody = """
             The Hierarchy is defined with the hasAll property set to true and the one level.
@@ -64,14 +64,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The dimension is defined with the one hierarchy. The hierarchy is used in the cube and in the calculated member.
             """;
     private static final String cm1Body = """
-            This calculated member have `BACK_COLOR` in format string. It show posibility to have different colors incal culated member
+            This calculated member has `BACK_COLOR` in format string. It show possibility to have different colors in calculated member
             """;
     private static final String cm2Body = """
-            This calculated member have `BACK_COLOR` in format string. It show posibility to have different colors incal culated member
+            This calculated member has `BACK_COLOR` in format string. It show possibility to have different colors in calculated member
 
             """;
     private static final String cubeBody = """
-            The cube is defines by the DimensionConnector and the MeasureGroup and most importantly the calculated members.
+            The cube is defined by the DimensionConnector and the MeasureGroup and most importantly the calculated members.
             """;
 
     @Override

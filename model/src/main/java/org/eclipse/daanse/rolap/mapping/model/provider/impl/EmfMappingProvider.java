@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.gecko.emf.osgi.constants.EMFNamespaces;
+import org.eclipse.fennec.emf.osgi.constants.EMFNamespaces;
 import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Deactivate;
@@ -38,7 +38,7 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(factory = true, ocd = EmfMappingProviderConfig.class)
 public class EmfMappingProvider implements CatalogMappingSupplier {
 
-    @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NAME + "=" + RolapMappingPackage.eNAME + ")")
+    @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NSURI + "=" + RolapMappingPackage.eNS_URI+ ")")
     private ResourceSet resourceSet;
 
     private Catalog catalogMapping;

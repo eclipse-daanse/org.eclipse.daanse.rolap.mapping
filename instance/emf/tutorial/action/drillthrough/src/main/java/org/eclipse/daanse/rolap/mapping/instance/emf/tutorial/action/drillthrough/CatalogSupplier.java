@@ -49,7 +49,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String catalogBody = """
             This tutorial discusses DrillThroughAction.
-            DrillThroughAction feature is enabling users to seamlessly transition from  analytical summaries
+            DrillThroughAction feature enables users to seamlessly transition from analytical summaries
             to detailed operational data without losing analytical context or requiring technical
             knowledge of underlying data structures.
             """;
@@ -59,23 +59,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             - `H1_L1` table with two columns: `KEY` and `NAME`.<br />
             - `H2_L1` table with two columns: `KEY` and `NAME`.<br />
             - `HX_L2` table with 4 columns: `KEY`, `NAME`, `H1L1_KEY`, `H2L1_KEY`.<br />
-            The `KEY` column of `Fact` table is used as the discriminator in the the dimension.
+            The `KEY` column of `Fact` table is used as the discriminator in the dimension.
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
             """;
 
     private static final String h1L1QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the `H1_L1` table table.
+            The Query is a simple TableQuery that selects all columns from the `H1_L1` table.
             """;
 
     private static final String h2L1QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the `H2_L1` table table.
+            The Query is a simple TableQuery that selects all columns from the `H2_L1` table.
             """;
 
     private static final String hxL2QueryBody = """
-            The Query is a simple TableQuery that selects all columns from the `HX_L2` table table.
+            The Query is a simple TableQuery that selects all columns from the `HX_L2` table.
             """;
 
     private static final String join1Body = """
@@ -93,19 +93,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String level1Body = """
-            This Example uses H1_Level1 level bases on the `KEY` column as kew and `NAME` column as name from `H1_L1` table.
+            This Example uses H1_Level1 level based on the `KEY` column as key and `NAME` column as name from `H1_L1` table.
             """;
 
     private static final String level2Body = """
-            This Example uses H1_Level2 level bases on the KEY column as kew and NAME column as name from HX_L2 table.
+            This Example uses H1_Level2 level based on the KEY column as key and NAME column as name from HX_L2 table.
             """;
 
     private static final String level3Body = """
-            This Example uses H2_Level1 level bases on the KEY column as kew and NAME column as name from H2_L1 table.
+            This Example uses H2_Level1 level based on the KEY column as key and NAME column as name from H2_L1 table.
             """;
 
     private static final String level4Body = """
-            This Example uses H2_Level2 level bases on the KEY column as kew and NAME column as name from HX_L2 table.
+            This Example uses H2_Level2 level based on the KEY column as key and NAME column as name from HX_L2 table.
             """;
 
     private static final String hierarchy1Body = """
@@ -127,11 +127,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             Collection of DrillThroughAttribute objects that specify which dimensional attributes and descriptive columns
             should be included in drill-through result sets
 
-            DrillThroughAttribute have reference to H1_Level1 level from Hierarchy1; H1_L1 table KEY and NAME column
+            DrillThroughAttributes have reference to H1_Level1 level from Hierarchy1; H1_L1 table KEY and NAME column
             """;
 
     private static final String drillthroughH2L1Body = """
-            DrillThroughAttribute have reference to H2_Level1 level from Hierarchy2; H2_L1 table KEY and NAME column
+            DrillThroughAttributes have reference to H2_Level1 level from Hierarchy2; H2_L1 table KEY and NAME column
             """;
 
     private static final String cubeBody = """

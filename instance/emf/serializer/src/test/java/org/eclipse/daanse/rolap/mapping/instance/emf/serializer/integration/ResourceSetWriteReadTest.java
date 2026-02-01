@@ -54,8 +54,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.gecko.emf.osgi.annotation.require.RequireEMF;
-import org.gecko.emf.osgi.constants.EMFNamespaces;
+import org.eclipse.fennec.emf.osgi.annotation.require.RequireEMF;
+import org.eclipse.fennec.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -112,8 +112,8 @@ public class ResourceSetWriteReadTest {
     @Test
     @Order(1)
     public void writePopulation(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-                    + RolapMappingPackage.eNAME + ")") ResourceSet resourceSet,
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI + ")") ResourceSet resourceSet,
             @InjectService ServiceAware<CatalogMappingSupplier> mappingSuppiersSA)
             throws SQLException, InterruptedException, IOException {
 
@@ -355,7 +355,7 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("## Definition");
         sbReadme.append("\n");
         sbReadme.append("\n");
-        sbReadme.append("This files represent the complete definition of the catalog.");
+        sbReadme.append("This file represents the complete definition of the catalog.");
 
         sbReadme.append("\n");
         sbReadme.append("\n");
@@ -375,7 +375,7 @@ public class ResourceSetWriteReadTest {
 
         sbReadme.append("## Tutorial Zip");
         sbReadme.append("\n");
-        sbReadme.append("This files contaisn the data-tables as csv and the mapping as xmi file.");
+        sbReadme.append("This file contains the data-tables as csv and the mapping as xmi file.");
         sbReadme.append("\n");
         sbReadme.append("\n");
         sbReadme.append("<a href=\"./zip/" + name + ".zip\" download>Download Zip File</a>");

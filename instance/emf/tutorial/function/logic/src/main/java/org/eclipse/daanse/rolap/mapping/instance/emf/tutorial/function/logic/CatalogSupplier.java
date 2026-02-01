@@ -46,13 +46,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The Database Schema contains the `Fact` table with three columns: `KEY` and `VALUE` and `VALUE_NUMERIC`.
             """;
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in in the hierarchy and in the cube for the measures.
+            The Query is a simple TableQuery that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
             """;
     private static final String cm1Body = """
             This calculated member with `IIF` function.
             """;
     private static final String cubeBody = """
-            The cube is defines the calculated members with logic functions.
+            The cube defines the calculated members with logic functions.
             """;
 
     @Override

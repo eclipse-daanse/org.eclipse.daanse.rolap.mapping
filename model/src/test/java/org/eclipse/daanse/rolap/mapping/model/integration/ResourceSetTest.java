@@ -27,8 +27,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.gecko.emf.osgi.annotation.require.RequireEMF;
-import org.gecko.emf.osgi.constants.EMFNamespaces;
+import org.eclipse.fennec.emf.osgi.annotation.require.RequireEMF;
+import org.eclipse.fennec.emf.osgi.constants.EMFNamespaces;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.io.TempDir;
@@ -50,8 +50,8 @@ public class ResourceSetTest {
 
     @Test
     public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-                    + RolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI+ ")",timeout = 1000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
@@ -70,8 +70,8 @@ public class ResourceSetTest {
 
     @Test
     public void write(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NAME + "="
-                    + RolapMappingPackage.eNAME + ")") ServiceAware<ResourceSet> saResourceSet)
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI + ")",timeout = 1000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 

@@ -50,7 +50,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String kpi1Body = """
-            This KPI is defined solely by its value expression, which in this example references the following measure: `[Measures].[Measure1-Sum]`"
+            This KPI is defined solely by its value expression, which in this example references the following measure: `[Measures].[Measure1-Sum]`
             """;
 
     private static final String kpi2Body = """
