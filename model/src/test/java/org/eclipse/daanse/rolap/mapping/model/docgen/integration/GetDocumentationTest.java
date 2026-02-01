@@ -90,7 +90,7 @@ public class GetDocumentationTest {
         ResourceSet resourceSet = new ResourceSetImpl();
 
         // Load the .ecore model
-        String ecoreFile = "model/org.eclipse.daanse.rolap.mapping.ecore";
+        String ecoreFile = "model/rolap.mapping.ecore";
 
         URL url = bc.getBundle().getEntry(ecoreFile);
         Resource resource = resourceSet.getResource(URI.createURI(url.toString()), true);

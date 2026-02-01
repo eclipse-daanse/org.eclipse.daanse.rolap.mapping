@@ -72,9 +72,8 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <ecoreFile>model/org.eclipse.daanse.rolap.mapping.ecore</ecoreFile>
+              <ecoreFile>model/rolap.mapping.ecore</ecoreFile>
               <outputDirectory>target/generated-sources/emf</outputDirectory>
-
             </configuration>
           </execution>
         </executions>
