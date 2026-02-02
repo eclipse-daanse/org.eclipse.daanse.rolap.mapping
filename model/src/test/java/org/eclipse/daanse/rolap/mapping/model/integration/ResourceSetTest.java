@@ -111,11 +111,14 @@ public class ResourceSetTest {
         System.out.println("==========================================\n");
     }
 
-    
+
     @Test
     public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
-                    + RolapMappingPackage.eNS_URI+ ")",timeout = 10000) ServiceAware<ResourceSet> saResourceSet)
+            @InjectService(cardinality = 1,
+            filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI+ ")",
+
+                    timeout = 10000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
@@ -135,7 +138,8 @@ public class ResourceSetTest {
     @Test
     public void write(@InjectBundleContext BundleContext bc,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
-                    + RolapMappingPackage.eNS_URI + ")",timeout = 10000) ServiceAware<EPackage> saResourceSet)
+                    + RolapMappingPackage.eNS_URI + ")",
+                    timeout = 10000) ServiceAware<EPackage> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
