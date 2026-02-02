@@ -54,7 +54,6 @@ public class ResourceSetTest {
 
     private static String BASE_DIR = System.getProperty("basePath");
 
-
     private static String formatValue(Object v) {
         if (v == null) {
             return "null";
@@ -111,12 +110,10 @@ public class ResourceSetTest {
         System.out.println("==========================================\n");
     }
 
-
     @Test
     public void resourceSetExistsTest(@InjectBundleContext BundleContext bc,
-            @InjectService(cardinality = 1,
-            filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
-                    + RolapMappingPackage.eNS_URI+ ")",
+            @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
+                    + RolapMappingPackage.eNS_URI + ")",
 
                     timeout = 10000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
@@ -138,24 +135,22 @@ public class ResourceSetTest {
     @Test
     public void write(@InjectBundleContext BundleContext bc,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
-                    + RolapMappingPackage.eNS_URI + ")",
-                    timeout = 10000) ServiceAware<EPackage> saResourceSet)
+                    + RolapMappingPackage.eNS_URI + ")", timeout = 10000) ServiceAware<ResourceSet> saResourceSet)
             throws SQLException, InterruptedException, IOException {
         assertThat(saResourceSet.getServices()).hasSize(1);
 
-        EPackage rs = saResourceSet.getService();
+        ResourceSet rs = saResourceSet.getService();
 
-//        Path file = Files.createTempFile(tempDir, "out", ".xmi");
-//        URI uri = URI.createFileURI(file.toAbsolutePath().toString());
-//        Resource resource = rs.createResource(uri);
-//        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-//        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-//        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-//        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-//
-//        resource.save(Map.of());
-//        System.out.println(Files.readString(file));
+        Path file = Files.createTempFile(tempDir, "out", ".xmi");
+        URI uri = URI.createFileURI(file.toAbsolutePath().toString());
+        Resource resource = rs.createResource(uri);
+        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
 
+        resource.save(Map.of());
+        System.out.println(Files.readString(file));
 
     }
 
