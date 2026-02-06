@@ -53,6 +53,12 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             This example uses a TableQuery, as it directly references the physical table `Fact`.
             """;
 
+    private static final String orderedColumnBody = """
+            Represents a column with specific ordering information used in queries and result sets.
+            OrderedColumn is typically used in OLAP contexts where explicit column ordering is required for query processing or result presentation.
+            OrderedColumn uses ascending by default.
+            """;
+
     private static final String cubeBody = """
             In this example, multiple measures are defined. All measures reference the `VALUE` column and use the following aggregation functions:
             - NTH1 – NTH1 .
@@ -95,6 +101,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn.setId("_ordered_column_col_value");
         orderedColumn.setColumn(valueColumn);
 
         NthAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
@@ -196,6 +203,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(catalog, "Daanse Tutorial - Measure Aggregator Nth", introBody, 1, 0, 0, false, 0);
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(query, "Query", queryBody, 1, 2, 0, true, 2);
+        document(orderedColumn, "Ordered Column", orderedColumnBody, 1, 2, 0, true, 2);
         document(cube, "Cube, MeasureGroup and NTH Aggragator Measures", cubeBody, 1, 3, 0, true, 2);
         return catalog;
     }

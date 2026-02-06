@@ -61,7 +61,18 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//DocumentedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="IdElement" abstract="true" eSuperTypes="#//DocumentedElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The base class with id in the ROLAP mapping model."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Unique identifier for this element within the scope of its containing model. This ID serves as the primary key for object references, cross-references between elements, and internal system operations. The ID must be unique and eigther should follow consistent naming conventions (e.g., '_cube_sales', '_dim_product'),or may uses UUIDs. This identifier is used by the OLAP engine for object lookup, caching keys, and maintaining referential integrity during schema transformations."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="#//IdElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The fundamental base class for all named elements in the ROLAP mapping model. This abstract class provides the essential identity, naming, and extensibility infrastructure that all OLAP schema components require. It establishes the core patterns for element identification, user-friendly naming, descriptive content, custom annotations, and documentation integration. Every major schema component (Catalog, Cube, Dimension, Hierarchy, Level, Measure, etc.) inherits from this class, ensuring consistent identity management and extensibility across the entire OLAP framework."/>
     </eAnnotations>
@@ -69,12 +80,6 @@
         eType="#//Annotation" containment="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Collection of custom annotations that provide extensibility and additional metadata for this element. Annotations allow for vendor-specific extensions, optimization hints, caching directives, security policies, display formatting rules, or integration parameters without modifying the core model. This enables customization for specific OLAP engines, reporting tools, or business requirements while maintaining schema portability."/>
-      </eAnnotations>
-    </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        iD="true">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="Unique identifier for this element within the scope of its containing model. This ID serves as the primary key for object references, cross-references between elements, and internal system operations. The ID must be unique and eigther should follow consistent naming conventions (e.g., '_cube_sales', '_dim_product'),or may uses UUIDs. This identifier is used by the OLAP engine for object lookup, caching keys, and maintaining referential integrity during schema transformations."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
@@ -1800,7 +1805,7 @@
       <details key="documentation" value="Represents a database view that provides a logical table interface over underlying physical tables. ViewTable enables complex OLAP mappings that require data transformation or aggregation at the database level."/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn">
+  <eClassifiers xsi:type="ecore:EClass" name="OrderedColumn" eSuperTypes="#//IdElement">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="Represents a column with specific ordering information used in queries and result sets. OrderedColumn is typically used in OLAP contexts where explicit column ordering is required for query processing or result presentation."/>
     </eAnnotations>
