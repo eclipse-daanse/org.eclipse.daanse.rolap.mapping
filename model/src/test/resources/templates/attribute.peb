@@ -4,7 +4,8 @@
       <td><em>{{ attr.eAttributeType.name }}{% if isEEnum(attr.eAttributeType) %}<a href="./enum-{{ attr.eAttributeType.name }}">🔗</a>{% endif %}</em></td>
       <td>{{ attr.lowerBound }}</td>
       <td>{% if attr.upperBound == -1 %}&infin;{% else %}{{ attr.upperBound }}{% endif %}</td>
+      <td>{{ attr.defaultValueLiteral }}</td>
     </tr>
     <tr>
-      <td colspan="5"><em>{{ doc(attr) }}</em></td>
+      <td colspan="6"><em>{{ doc(attr) }}</em></td>
     </tr>
