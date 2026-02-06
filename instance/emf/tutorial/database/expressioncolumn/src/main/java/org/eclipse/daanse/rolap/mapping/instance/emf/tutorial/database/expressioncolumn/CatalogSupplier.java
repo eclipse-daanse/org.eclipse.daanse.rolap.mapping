@@ -54,18 +54,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         column.setId("_column_tableWithExpressionColumn_column1");
 
         SqlStatement sqlStatement1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
-        sqlStatement1.setSql("column1 + column1");
+        sqlStatement1.setSql("SUBSTRING(column1,1,3)");
         sqlStatement1.getDialects().add("generic");
         sqlStatement1.getDialects().add("mysql");
 
         SqlStatement sqlStatement2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
-        sqlStatement2.setSql("column1 + column1 + column1");
-        sqlStatement2.getDialects().add("h2");
+        sqlStatement2.setSql("SUBSTR(column1,1,3)");
+        sqlStatement2.getDialects().add("oracle");
+
+        SqlStatement sqlStatement3 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        sqlStatement3.setSql("substring(column1, 1, 3)");
+        sqlStatement3.getDialects().add("h2");
 
         SQLExpressionColumn columnSqlExp = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
         columnSqlExp.setName("SqlExpressionColumn");
         columnSqlExp.getSqls().add(sqlStatement1);
         columnSqlExp.getSqls().add(sqlStatement2);
+        columnSqlExp.getSqls().add(sqlStatement3);
         columnSqlExp.setId("_column_tableWithExpressionColumn_sqlExpressionColumn");
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
