@@ -38,6 +38,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
+import org.eclipse.daanse.olap.check.model.check.OlapCheckPackage;
+import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
+import org.eclipse.daanse.olap.check.runtime.api.OlapCheckSuiteSupplier;
 import org.eclipse.daanse.rolap.mapping.model.AbstractElement;
 import org.eclipse.daanse.rolap.mapping.model.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.Documentation;
@@ -114,18 +117,21 @@ public class ResourceSetWriteReadTest {
     public void writePopulation(@InjectBundleContext BundleContext bc,
             @InjectService(cardinality = 1, filter = "(" + EMFNamespaces.EMF_MODEL_NSURI + "="
                     + RolapMappingPackage.eNS_URI + ")") ResourceSet resourceSet,
-            @InjectService ServiceAware<CatalogMappingSupplier> mappingSuppiersSA)
+            @InjectService ServiceAware<CatalogMappingSupplier> mappingSuppiersSA,
+            @InjectService ServiceAware<OlapCheckSuiteSupplier> checkSuiteSuppliersSA)
             throws SQLException, InterruptedException, IOException {
 
         try {
 
             List<ServiceReference<CatalogMappingSupplier>> srs = mappingSuppiersSA.getServiceReferences();
+            List<ServiceReference<OlapCheckSuiteSupplier>> chrs = checkSuiteSuppliersSA.getServiceReferences();
             StringBuilder parentReadme = new StringBuilder();
             parentReadme.append(TEXT);
 
             // Create combined ZIP directory structure
             Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/tutorial/zip"));
             ZipOutputStream combinedZos = new ZipOutputStream(new FileOutputStream(zipDir.resolve("all-tutorials.zip").toFile()));
+            ZipOutputStream combinedCheckSuiteZos = new ZipOutputStream(new FileOutputStream(zipDir.resolve("all-check-suites.zip").toFile()));
 
             srs.sort((o1, o2) -> {
                 Object s1 = o1.getProperty("number");
@@ -148,6 +154,17 @@ public class ResourceSetWriteReadTest {
                 }
             }
 
+            for (ServiceReference<OlapCheckSuiteSupplier> chs : chrs) {
+
+                try {
+                    OlapCheckSuiteSupplier catalogMappingSupplier = checkSuiteSuppliersSA.getService(chs);
+
+                    serializeCheckSuite(resourceSet, catalogMappingSupplier, combinedCheckSuiteZos);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
             // Close combined ZIP
             combinedZos.close();
 
@@ -160,6 +177,54 @@ public class ResourceSetWriteReadTest {
     }
 
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
+
+    private void serializeCheckSuite(ResourceSet resourceSet,
+        OlapCheckSuiteSupplier checkSuiteSupplier, ZipOutputStream combinedZos) throws IOException {
+
+        String name = checkSuiteSupplier.getClass().getPackageName();
+        name = name.substring(46);
+
+        Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/checkSuite/zip"));
+        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipDir.resolve(name + ".zip").toFile()));
+
+        OlapCheckSuite chs = checkSuiteSupplier.get();
+
+        URI uriCatalog = URI.createFileURI("catalog.xmi");
+        Resource resourceCatalog = resourceSet.createResource(uriCatalog);
+
+        Set<EObject> set = new HashSet<>();
+
+        set = allRef(set, chs);
+
+        // sort
+
+        List<EObject> sortedList = set.stream().sorted(checkSuiteComparator).toList();
+
+
+        for (EObject eObject : sortedList) {
+            if (eObject.eContainer() == null) {
+                resourceCatalog.getContents().add(eObject);
+            }
+        }
+        Map<Object, Object> options = new HashMap<>();
+        options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        resourceCatalog.save(baos, options);
+
+        ZipEntry entry = new ZipEntry(name + "/checkSuite.xmi");
+        zos.putNextEntry(entry);
+        zos.write(baos.toByteArray());
+        zos.closeEntry();
+
+        ZipEntry combinedEntry = new ZipEntry(name + "/checkSuite.xmi");
+        combinedZos.putNextEntry(combinedEntry);
+        combinedZos.write(baos.toByteArray());
+        combinedZos.closeEntry();
+
+        Files.createDirectories(zipDir);
+        zos.close();
+    }
+
 
     private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
             CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos) throws IOException {
@@ -588,6 +653,75 @@ public class ResourceSetWriteReadTest {
 
             add(RolapMappingPackage.Literals.CELL_FORMATTER);
 
+        }
+
+        void add(EClass eClass) {
+            map.put(eClass, COUNTER.incrementAndGet());
+        }
+
+        @Override
+        public int compare(EObject o1, EObject o2) {
+
+            EClass eClass1 = o1.eClass();
+            EClass eClass2 = o2.eClass();
+            int value = map.getOrDefault(eClass1, 0) - map.getOrDefault(eClass2, 0);
+
+            if (value != 0) {
+                return value;
+            }
+
+            Object s1 = "";
+            Object s2 = "";
+            EStructuralFeature eStructuralFeature1 = eClass1.getEStructuralFeature("id");
+            if (eStructuralFeature1 != null) {
+
+                s1 = o1.eGet(eStructuralFeature1);
+            }
+            EStructuralFeature eStructuralFeature2 = eClass2.getEStructuralFeature("id");
+            if (eStructuralFeature2 != null) {
+
+                s2 = o2.eGet(eStructuralFeature2);
+            }
+            if (s1 == null) {
+                s1 = "";
+            }
+            if (s2 == null) {
+                s2 = "";
+            }
+
+            return s1.toString().compareToIgnoreCase(s2.toString());
+        }
+    };
+
+    static CheckSuiteEObjectComparator checkSuiteComparator = new CheckSuiteEObjectComparator();
+
+    static class CheckSuiteEObjectComparator implements Comparator<EObject> {
+
+        AtomicInteger COUNTER = new AtomicInteger(1);
+        Map<EClass, Integer> map = new HashMap<EClass, Integer>();
+
+        CheckSuiteEObjectComparator() {
+            add(OlapCheckPackage.Literals.CATALOG_CHECK);
+            add(OlapCheckPackage.Literals.CATALOG_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_SCHEMA_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_SCHEMA_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_TABLE_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_TABLE_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_COLUMN_CHECK);
+            add(OlapCheckPackage.Literals.DATABASE_COLUMN_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.CUBE_CHECK);
+            add(OlapCheckPackage.Literals.CUBE_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.DIMENSION_CHECK);
+            add(OlapCheckPackage.Literals.DIMENSION_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.HIERARCHY_CHECK);
+            add(OlapCheckPackage.Literals.HIERARCHY_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.LEVEL_CHECK);
+            add(OlapCheckPackage.Literals.LEVEL_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.MEASURE_CHECK);
+            add(OlapCheckPackage.Literals.MEASURE_ATTRIBUTE_CHECK);
+            add(OlapCheckPackage.Literals.QUERY_CHECK);
+            add(OlapCheckPackage.Literals.QUERY_CHECK_RESULT);
+            //TODO
         }
 
         void add(EClass eClass) {
