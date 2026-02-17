@@ -30,6 +30,7 @@ import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
@@ -109,6 +110,17 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_D3H3L1_D3H3L1TABLE;
     public static final Column COLUMN_D3H3L1_NAME_D3H3L1TABLE;
     public static final Column COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE;
+
+    public static final OrderedColumn ORDERED_COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE;
+    public static final OrderedColumn ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE;
 
     // Static tables
     public static final PhysicalTable TABLE_CUBE1FACT;
@@ -444,6 +456,46 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         TABLE_D3H3L1TABLE.getColumns().addAll(
                 List.of(COLUMN_D3H3L1_D3H3L1TABLE, COLUMN_D3H3L1_NAME_D3H3L1TABLE, COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE));
 
+        ORDERED_COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setId("_ordered_column_d1h1l1_ordinal_d1h1l1table");
+        ORDERED_COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setColumn(COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE);
+
+        ORDERED_COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setId("_ordered_column_d2h1l1_ordinal_d2h1l1table");
+        ORDERED_COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setColumn(COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE);
+
+        ORDERED_COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setId("_ordered_column_d2h2l1_ordinal_d2h2l2table");
+        ORDERED_COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setColumn(COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE);
+
+        ORDERED_COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setId("_ordered_column_d2h2l2_ordinal_d2h2l2table");
+        ORDERED_COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setColumn(COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE);
+
+        ORDERED_COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setId("_ordered_column_d3h1l1_ordinal_d3h1l1table");
+        ORDERED_COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setColumn(COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE);
+
+        ORDERED_COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setId("_ordered_column_d3h2l1_ordinal_d3h2l1table");
+        ORDERED_COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setColumn(COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE);
+
+        ORDERED_COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setId("_ordered_column_d3h2l2_ordinal_d3h2l2table");
+        ORDERED_COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setColumn(COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE);
+
+        ORDERED_COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setId("_ordered_column_d3h3l1_ordinal_d3h3l1table");
+        ORDERED_COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setColumn(COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE);
+
+        ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setId("_ordered_column_d3h3l3_ordinal_d3h3l2table");
+        ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setColumn(COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE);
+
+        ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setId("_ordered_column_d3h3l3_ordinal_d3h3l3table");
+        ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setColumn(COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE);
+
         // Initialize table queries
         QUERY_CUBE1FACT = RolapMappingFactory.eINSTANCE.createTableQuery();
         QUERY_CUBE1FACT.setId("_query_cube1fact");
@@ -530,7 +582,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D1H1L1.setId("_level_d1h1l1");
         LEVEL_D1H1L1.setName(D_1_H_1_L_1);
         LEVEL_D1H1L1.setColumn(COLUMN_D1H1L1_D1H1L1TABLE);
-        LEVEL_D1H1L1.setOrdinalColumn(COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE);
+        LEVEL_D1H1L1.setOrdinalColumn(ORDERED_COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE);
         LEVEL_D1H1L1.setNameColumn(COLUMN_D1H1L1_NAME_D1H1L1TABLE);
         LEVEL_D1H1L1.setDescription("Level 1 Dimension 1 Hierarchy1");
 
@@ -539,7 +591,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D2H1L1.setName(D_2_H_1_L_1);
         LEVEL_D2H1L1.setColumn(COLUMN_D2H1L1_D2H1L1TABLE);
         LEVEL_D2H1L1.setNameColumn(COLUMN_D2H1L1_NAME_D2H1L1TABLE);
-        LEVEL_D2H1L1.setOrdinalColumn(COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE);
+        LEVEL_D2H1L1.setOrdinalColumn(ORDERED_COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE);
         LEVEL_D2H1L1.setDescription("Level 1 Hierarchy 1 Dimension 2");
 
         LEVEL_D2H2L1 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -547,7 +599,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D2H2L1.setName("D2H2L1");
         LEVEL_D2H2L1.setColumn(COLUMN_D2H2L1_D2H2L2TABLE);
         LEVEL_D2H2L1.setNameColumn(COLUMN_D2H2L1_NAME_D2H2L2TABLE);
-        LEVEL_D2H2L1.setOrdinalColumn(COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE);
+        LEVEL_D2H2L1.setOrdinalColumn(ORDERED_COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE);
         LEVEL_D2H2L1.setDescription("Level 2 Hierarchy 2 Dimension 2");
 
         LEVEL_D2H2L2 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -555,7 +607,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D2H2L2.setName(D_2_H_2_L_2);
         LEVEL_D2H2L2.setColumn(COLUMN_D2H2L2_D2H2L2TABLE);
         LEVEL_D2H2L2.setNameColumn(COLUMN_D2H2L2_NAME_D2H2L2TABLE);
-        LEVEL_D2H2L2.setOrdinalColumn(COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE);
+        LEVEL_D2H2L2.setOrdinalColumn(ORDERED_COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE);
         LEVEL_D2H2L2.setDescription("Level 2 Dimension 3");
 
         LEVEL_D3H1L1 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -563,7 +615,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H1L1.setName(D_3_H_1_L_1);
         LEVEL_D3H1L1.setColumn(COLUMN_D3H1L1_D3H1L1TABLE);
         LEVEL_D3H1L1.setNameColumn(COLUMN_D3H1L1_NAME_D3H1L1TABLE);
-        LEVEL_D3H1L1.setOrdinalColumn(COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE);
+        LEVEL_D3H1L1.setOrdinalColumn(ORDERED_COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE);
         LEVEL_D3H1L1.setDescription("Level 1 Hierarchy1 Dimension 3");
 
         LEVEL_D3H2L1 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -571,7 +623,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H2L1.setName(D_3_H_2_L_1);
         LEVEL_D3H2L1.setColumn(COLUMN_D3H2L1_D3H2L1TABLE);
         LEVEL_D3H2L1.setNameColumn(COLUMN_D3H2L1_NAME_D3H2L1TABLE);
-        LEVEL_D3H2L1.setOrdinalColumn(COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE);
+        LEVEL_D3H2L1.setOrdinalColumn(ORDERED_COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE);
         LEVEL_D3H2L1.setDescription("Level 1 Hierarchy2 Dimension 3");
 
         LEVEL_D3H2L2 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -579,7 +631,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H2L2.setName(D_3_H_2_L_2);
         LEVEL_D3H2L2.setColumn(COLUMN_D3H2L2_D3H2L2TABLE);
         LEVEL_D3H2L2.setNameColumn(COLUMN_D3H2L2_NAME_D3H2L2TABLE);
-        LEVEL_D3H2L2.setOrdinalColumn(COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE);
+        LEVEL_D3H2L2.setOrdinalColumn(ORDERED_COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE);
         LEVEL_D3H2L2.setDescription("Level 2 Hierarchy2 Dimension 3");
 
         LEVEL_D3H3L1 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -587,7 +639,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H3L1.setName(D_3_H_3_L_1);
         LEVEL_D3H3L1.setColumn(COLUMN_D3H3L1_D3H3L1TABLE);
         LEVEL_D3H3L1.setNameColumn(COLUMN_D3H3L1_NAME_D3H3L1TABLE);
-        LEVEL_D3H3L1.setOrdinalColumn(COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE);
+        LEVEL_D3H3L1.setOrdinalColumn(ORDERED_COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE);
         LEVEL_D3H3L1.setDescription("Level 1 Hierarchy3 Dimension 3");
 
         LEVEL_D3H3L2 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -595,7 +647,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H3L2.setName(D_3_H_3_L_2);
         LEVEL_D3H3L2.setColumn(COLUMN_D3H3L2_D3H3L2TABLE);
         LEVEL_D3H3L2.setNameColumn(COLUMN_D3H3L2_NAME_D3H3L2TABLE);
-        LEVEL_D3H3L2.setOrdinalColumn(COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE);
+        LEVEL_D3H3L2.setOrdinalColumn(ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE);
         LEVEL_D3H3L2.setDescription("Level 2 Hierarchy3 Dimension 3");
 
         LEVEL_D3H3L3 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -603,7 +655,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_D3H3L3.setName(D_3_H_3_L_3);
         LEVEL_D3H3L3.setColumn(COLUMN_D3H3L3_D3H3L3TABLE);
         LEVEL_D3H3L3.setNameColumn(COLUMN_D3H3L3_NAME_D3H3L3TABLE);
-        LEVEL_D3H3L3.setOrdinalColumn(COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE);
+        LEVEL_D3H3L3.setOrdinalColumn(ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE);
         LEVEL_D3H3L3.setDescription("Level 3 Hierarchy3 Dimension 3");
 
         // Initialize hierarchies

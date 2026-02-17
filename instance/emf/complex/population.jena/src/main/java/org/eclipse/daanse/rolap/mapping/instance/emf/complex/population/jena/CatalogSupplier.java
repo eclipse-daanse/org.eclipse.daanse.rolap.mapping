@@ -33,6 +33,7 @@ import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
@@ -102,6 +103,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final PhysicalTable TABLE_STATBEZ;
     public static final PhysicalTable TABLE_GENDER;
     public static final PhysicalTable TABLE_AGEGROUPS;
+
+    public static final OrderedColumn ORDERED_COLUMN_ORDINAL_YEAR;
+    public static final OrderedColumn ORDERED_COLUMN_H1_ORDER_AGEGROUPS;
+    public static final OrderedColumn ORDERED_COLUMN_H2_ORDER_AGEGROUPS;
+    public static final OrderedColumn ORDERED_COLUMN_H7_ORDER_AGEGROUPS;
+    public static final OrderedColumn ORDERED_COLUMN_H8_ORDER_AGEGROUPS;
+    public static final OrderedColumn ORDERED_COLUMN_H9_ORDER_AGEGROUPS;
 
     // Static levels
     public static final Level LEVEL_JAHR;
@@ -419,11 +427,35 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         COLUMN_H8_AGEGROUPS, COLUMN_H8_ORDER_AGEGROUPS, COLUMN_H9_AGEGROUPS,
                         COLUMN_H9_ORDER_AGEGROUPS));
 
+        ORDERED_COLUMN_ORDINAL_YEAR = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_ORDINAL_YEAR.setId("_ordered_column_year_ordinal");
+        ORDERED_COLUMN_ORDINAL_YEAR.setColumn(COLUMN_ORDINAL_YEAR);
+
+        ORDERED_COLUMN_H1_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_H1_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h1_order");
+        ORDERED_COLUMN_H1_ORDER_AGEGROUPS.setColumn(COLUMN_H1_ORDER_AGEGROUPS);
+
+        ORDERED_COLUMN_H2_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_H2_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h2_order");
+        ORDERED_COLUMN_H2_ORDER_AGEGROUPS.setColumn(COLUMN_H2_ORDER_AGEGROUPS);
+
+        ORDERED_COLUMN_H7_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_H7_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h7_order");
+        ORDERED_COLUMN_H7_ORDER_AGEGROUPS.setColumn(COLUMN_H7_ORDER_AGEGROUPS);
+
+        ORDERED_COLUMN_H8_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_H8_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h8_order");
+        ORDERED_COLUMN_H8_ORDER_AGEGROUPS.setColumn(COLUMN_H8_ORDER_AGEGROUPS);
+
+        ORDERED_COLUMN_H9_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_H9_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h9_order");
+        ORDERED_COLUMN_H9_ORDER_AGEGROUPS.setColumn(COLUMN_H9_ORDER_AGEGROUPS);
+
         // Initialize levels
         LEVEL_JAHR = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_JAHR.setName("Jahr");
         LEVEL_JAHR.setColumn(COLUMN_YEAR_YEAR);
-        LEVEL_JAHR.setOrdinalColumn(COLUMN_ORDINAL_YEAR);
+        LEVEL_JAHR.setOrdinalColumn(ORDERED_COLUMN_ORDINAL_YEAR);
         LEVEL_JAHR.setType(LevelDefinition.TIME_YEARS);
         LEVEL_JAHR.setId("_level_jahr");
 
@@ -498,7 +530,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_STANDARD = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_STANDARD.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_STANDARD.setColumn(COLUMN_H1_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_STANDARD.setOrdinalColumn(COLUMN_H1_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_STANDARD.setOrdinalColumn(ORDERED_COLUMN_H1_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_STANDARD.setId("_level_altersgruppe_standard");
 
         LEVEL_ALTER_STANDARD = RolapMappingFactory.eINSTANCE.createLevel();
@@ -509,7 +541,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_KINDER = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_KINDER.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_KINDER.setColumn(COLUMN_H2_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_KINDER.setOrdinalColumn(COLUMN_H2_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_KINDER.setOrdinalColumn(ORDERED_COLUMN_H2_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_KINDER.setId("_level_altersgruppe_kinder");
 
         LEVEL_ALTER_KINDER = RolapMappingFactory.eINSTANCE.createLevel();
@@ -520,7 +552,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_RKI_H7 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_RKI_H7.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_RKI_H7.setColumn(COLUMN_H7_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_RKI_H7.setOrdinalColumn(COLUMN_H7_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_RKI_H7.setOrdinalColumn(ORDERED_COLUMN_H7_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_RKI_H7.setId("_level_altersgruppe_rki_h7");
 
         LEVEL_ALTER_RKI_H7 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -531,7 +563,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_RKI_H8 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_RKI_H8.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_RKI_H8.setColumn(COLUMN_H8_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_RKI_H8.setOrdinalColumn(COLUMN_H8_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_RKI_H8.setOrdinalColumn(ORDERED_COLUMN_H8_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_RKI_H8.setId("_level_altersgruppe_rki_h8");
 
         LEVEL_ALTER_RKI_H8 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -542,7 +574,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_10JAHRE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_10JAHRE.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_10JAHRE.setColumn(COLUMN_H9_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_10JAHRE.setOrdinalColumn(COLUMN_H9_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_10JAHRE.setOrdinalColumn(ORDERED_COLUMN_H9_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_10JAHRE.setId("_level_altersgruppe_10jahre");
 
         LEVEL_ALTER_10JAHRE = RolapMappingFactory.eINSTANCE.createLevel();

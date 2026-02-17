@@ -30,6 +30,7 @@ import org.eclipse.daanse.rolap.mapping.model.HideMemberIf;
 import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
@@ -170,6 +171,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
+        OrderedColumn qtrIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        qtrIdOrderedColumn.setId("_ordered_column_fact_qtrId");
+        qtrIdOrderedColumn.setColumn(qtrIdColumn);
+
+        OrderedColumn monthIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        monthIdOrderedColumn.setId("_ordered_column_fact_monthId");
+        monthIdOrderedColumn.setColumn(monthIdColumn);
+
         Level levelYears = RolapMappingFactory.eINSTANCE.createLevel();
         levelYears.setName("Years");
         levelYears.setId("_level_years");
@@ -182,7 +191,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelQuarters.setName("Quarters");
         levelQuarters.setId("_level_quarters");
         levelQuarters.setColumn(qtrNameColumn);
-        levelQuarters.setOrdinalColumn(qtrIdColumn);
+        levelQuarters.setOrdinalColumn(qtrIdOrderedColumn);
         levelQuarters.setType(LevelDefinition.TIME_QUARTERS);
         levelQuarters.setUniqueMembers(false);
         levelQuarters.setHideMemberIf(HideMemberIf.NEVER);
@@ -191,7 +200,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelMonths.setName("Months");
         levelMonths.setId("_level_months");
         levelMonths.setColumn(monthNameColumn);
-        levelMonths.setOrdinalColumn(monthIdColumn);
+        levelMonths.setOrdinalColumn(monthIdOrderedColumn);
         levelMonths.setType(LevelDefinition.TIME_MONTHS);
         levelMonths.setUniqueMembers(false);
         levelMonths.setHideMemberIf(HideMemberIf.NEVER);

@@ -28,6 +28,7 @@ import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
@@ -152,6 +153,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ordinalExpression.setId("_ordinalExpression");
         ordinalExpression.getSqls().addAll(List.of(ordinalSql1));
 
+        OrderedColumn orderedColumnExpression = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumnExpression.setId("_ordined_column_Expression");
+        orderedColumnExpression.setColumn(ordinalExpression);
+
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
         table.setName(FACT);
         table.setId("_table_fact");
@@ -181,7 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setId("_level2");
         level2.setColumn(keyExpression);
         level2.setCaptionColumn(captionExpression);
-        level2.setOrdinalColumn(ordinalExpression);
+        level2.setOrdinalColumn(orderedColumnExpression);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
