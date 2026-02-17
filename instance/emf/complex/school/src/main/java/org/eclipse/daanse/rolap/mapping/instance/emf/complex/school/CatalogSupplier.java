@@ -28,6 +28,7 @@ import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
 import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
 import org.eclipse.daanse.rolap.mapping.model.Level;
 import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
@@ -819,6 +820,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinElementFoerderbedarfArtRight.setKey(columnIdInSonderpaedFoerderbedart);
         joinElementFoerderbedarfArtRight.setQuery(tableQuerySonderpaedFoerderbedart);
 
+        OrderedColumn orderedColumnSchulNummerInSchuleTable = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumnSchulNummerInSchuleTable.setId("_ordered_col_schule_schul_nummer");
+        orderedColumnSchulNummerInSchuleTable.setColumn(columnSchulNummerInSchuleTable);
+
+        OrderedColumn orderedColumnOrderInSchulJahr = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumnOrderInSchulJahr.setId("_ordered_col_schul_jahr_order");
+        orderedColumnOrderInSchulJahr.setColumn(columnOrderInSchulJahr);
+
         JoinQuery joinFoerderbedarfArt = RolapMappingFactory.eINSTANCE.createJoinQuery();
         joinFoerderbedarfArt.setId("_join_foerderbedarf_art");
         joinFoerderbedarfArt.setLeft(joinElementFoerderbedarfArtLeft);
@@ -835,7 +844,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchule.setId("_level_schule_basic");
         levelSchule.setColumn(columnIdInSchuleTable);
         levelSchule.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchule.setOrdinalColumn(columnSchulNummerInSchuleTable);
+        levelSchule.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
 
         Level levelTraegerKategorie = RolapMappingFactory.eINSTANCE.createLevel();
         levelTraegerKategorie.setName("Schulträger-Kategorie");
@@ -860,7 +869,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchuleTraegerschaft.setId("_level_schule_traegerschaft");
         levelSchuleTraegerschaft.setColumn(columnIdInSchuleTable);
         levelSchuleTraegerschaft.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchuleTraegerschaft.setOrdinalColumn(columnSchulNummerInSchuleTable);
+        levelSchuleTraegerschaft.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
 
         Level levelSchulkategorie = RolapMappingFactory.eINSTANCE.createLevel();
         levelSchulkategorie.setName("Schulkategorie");
@@ -879,14 +888,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchuleArt.setId("_level_schule_art");
         levelSchuleArt.setColumn(columnIdInSchuleTable);
         levelSchuleArt.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchuleArt.setOrdinalColumn(columnSchulNummerInSchuleTable);
+        levelSchuleArt.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
 
         Level levelSchuljahr = RolapMappingFactory.eINSTANCE.createLevel();
         levelSchuljahr.setName(SCHULJAHR);
         levelSchuljahr.setId("_level_schuljahr");
         levelSchuljahr.setColumn(columnIdInSchulJahr);
         levelSchuljahr.setNameColumn(columnSchulJahrInSchulJahr);
-        levelSchuljahr.setOrdinalColumn(columnOrderInSchulJahr);
+        levelSchuljahr.setOrdinalColumn(orderedColumnOrderInSchulJahr);
 
         Level levelAltersgruppe = RolapMappingFactory.eINSTANCE.createLevel();
         levelAltersgruppe.setName("Altersgruppe");

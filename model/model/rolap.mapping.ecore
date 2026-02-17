@@ -807,7 +807,7 @@
         <details key="documentation" value="Optional column providing human-readable names for level members. When specified, this column supplies the display names used in client tools and reports, while the main column serves as the key. If not specified, the main column value is used for both key and display purposes."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//Column">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumn" eType="#//OrderedColumn">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Optional column providing sort order values for level members, overriding alphabetical sorting based on names. This enables custom member ordering such as chronological sequences, business hierarchies, or priority-based arrangements that don't follow natural string sorting."/>
       </eAnnotations>

@@ -56,6 +56,7 @@ import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.model.MemberAccess;
 import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
@@ -382,6 +383,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final PhysicalTable TABLE_TIME_BY_DAY;
     public static final PhysicalTable TABLE_STORE_RAGGED;
 
+    public static final OrderedColumn ORDERED_COLUMN_POSITION_ID_EMPLOYEE;
+    public static final OrderedColumn ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER;
 
     // Static AggregationName
     public static final AggregationName AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997;
@@ -2427,6 +2430,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 COLUMN_REGION_ID_STORE_RAGGED
                 ));
 
+        ORDERED_COLUMN_POSITION_ID_EMPLOYEE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_COLUMN_POSITION_ID_EMPLOYEE.setId("_ordered_column_employee_positionId");
+        ORDERED_COLUMN_POSITION_ID_EMPLOYEE.setColumn(COLUMN_POSITION_ID_EMPLOYEE);
+
         AGGREGATION_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
         AGGREGATION_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997.setColumn(COLUMN_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997);
 
@@ -3015,7 +3022,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_HR_POSITION_TITLE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_HR_POSITION_TITLE.setName("Position Title");
         LEVEL_HR_POSITION_TITLE.setColumn(COLUMN_POSITION_TITLE_EMPLOYEE);
-        LEVEL_HR_POSITION_TITLE.setOrdinalColumn(COLUMN_POSITION_ID_EMPLOYEE);
+        LEVEL_HR_POSITION_TITLE.setOrdinalColumn(ORDERED_COLUMN_POSITION_ID_EMPLOYEE);
         LEVEL_HR_POSITION_TITLE.setId("_level_hr_position_title");
 
         LEVEL_MANAGEMENT_ROLE = RolapMappingFactory.eINSTANCE.createLevel();
@@ -3175,6 +3182,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SQL_EXPRESSION_COLUMN_NAME_ORDER.setType(ColumnType.VARCHAR);
         SQL_EXPRESSION_COLUMN_NAME_ORDER.setId("_sqlExpressionColumn_name_order");
 
+        ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER.setId("_ordered_sqlExpressionColumn_name_order");
+        ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER.setColumn(SQL_EXPRESSION_COLUMN_NAME_ORDER);
 
         LEVEL_NAME = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_NAME.setName("Name");
@@ -3183,7 +3193,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_NAME.setUniqueMembers(true);
         LEVEL_NAME.setId("_level_name");
         LEVEL_NAME.setNameColumn(SQL_EXPRESSION_COLUMN_NAME);
-        LEVEL_NAME.setOrdinalColumn(SQL_EXPRESSION_COLUMN_NAME_ORDER);
+        LEVEL_NAME.setOrdinalColumn(ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER);
         LEVEL_NAME.getMemberProperties().addAll(List.of(LEVEL_NAME_PROP1, LEVEL_NAME_PROP2, LEVEL_NAME_PROP3, LEVEL_NAME_PROP4));
 
         // Initialize hierarchies
@@ -4193,7 +4203,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         // Initialize cubes
         CUBE_SALES = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        CUBE_SALES.setDefaultMeasure(MEASURE_UNIT_SALES);
+        //CUBE_SALES.setDefaultMeasure(MEASURE_UNIT_SALES);
         CUBE_SALES.setName("Sales");
         CUBE_SALES.setId("_cube_sales");
         CUBE_SALES.setQuery(QUERY_SALES_FACT);
