@@ -39,7 +39,7 @@ import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.15.3", source = Source.EMF, group = "VirtualCube") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.15.03", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE1 = "Cube1";

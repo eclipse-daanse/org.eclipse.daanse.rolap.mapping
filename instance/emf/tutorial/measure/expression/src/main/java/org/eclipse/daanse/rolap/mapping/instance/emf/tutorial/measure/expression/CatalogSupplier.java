@@ -35,7 +35,7 @@ import org.eclipse.daanse.rolap.mapping.model.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.12.1", source = Source.EMF, group = "Measure") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.12.01", source = Source.EMF, group = "Measure") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE_NAME = "Cube With MeasureExpression";
