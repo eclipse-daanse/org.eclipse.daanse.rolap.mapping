@@ -45,9 +45,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String introBody = """
             If the database structure follows the Third Normal Form (3NF), hierarchies in a cube are not stored in a single table but are distributed across multiple tables.
 
-            For example, consider a Geographical hierarchy with the levels Town and Country and Continent. If each entity is stored in a separate table, with a primary-foreign key relationship linking them, a query must be defined that incorporates both tables and specifies how the levels are joined.
-            In This case, the query must include a join between the Town and Country tables, as well as a join between the Country Join and Continent tables.
-            The following example demonstrates how to define such a query.
+            For example, consider a Geographical hierarchy with the levels Town and Country and Continent. If each entity is stored in a separate table, with a primary-foreign key relationship linking them,
+            a query must be defined that incorporates both tables and specifies how the levels are joined. In This case, the query must include a join between the Continent and Country tables,
+            as well as a join between the Country Join and Town tables. The following example demonstrates how to define such a query.
             """;
 
     private static final String databaseSchemaBody = """
@@ -103,19 +103,24 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The TableQuery for the Continent level directly references the physical Continent table.
             """;
 
-    private static final String queryJoinTownToCountryBody = """
+    private static final String queryJoinCountryToContinentBody = """
             The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
-            - In the lower-level table (`Town`), the join uses the foreign key.
-            - In the upper-level table (`Country`), the join uses the primary key.
+            - In the lower-level table (Country), the join uses the foreign key.
+            - In the upper-level table (Continent), the join uses the primary key.
+
             """;
 
-    private static final String queryJoinSubJoinToContinentBody = """
-            The JoinQuery specifies which Queries should be joined. It also defines the columns in each table that are used for the join:
+    private static final String queryJoinTownToCountryBody = """
+            The JoinQuery specifies which Queries should be joined.
+            It also defines the columns in each table that are used for the join:
 
-            In this vase we join a TableQuery with a JoinQuery.
-            - In the lower-level it is the JoinQuery (Town-Country), the join uses the foreign key.
-            - In the upper-level it is the TableQuery (Continent), the join uses the primary key.
+            In this case we join a TableQuery with a JoinQuery.
+            - In the lower-level it is the TableQuery (Town), the join uses the foreign key.
+            - In the upper-level it is the JoinQuery (Country-Continent), the join uses the primary key.
+
+            Please note that within a JoinQuery, another JoinQuery may only be used on the right side of the join.
+
             """;
 
     private static final String queryFactBody = """
@@ -305,9 +310,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
         document(queryLevelTown, "Query - Level Town", queryLevelTownBody, 1, 2, 0, true, 2);
         document(queryLevelCountry, "Query - Level Country", queryLevelCountryBody, 1, 3, 0, true, 2);
-        document(queryJoinTownToCountry, "Query - Join Town to Country", queryJoinTownToCountryBody, 1, 4, 0, true, 2);
+        document(queryJoinCountryToContinent, "Query - Join Country to Continent", queryJoinCountryToContinentBody, 1, 4, 0, true, 2);
         document(queryLevelContinent, "Query - Level Country", queryLevelContinentBody, 1, 5, 0, true, 2);
-        document(queryJoinTownToCountry, "Query - Join Town-Country-Join to Continent", queryJoinSubJoinToContinentBody,
+        document(queryJoinTownToCountry, "Query - Join Town to Country-Continent-Join", queryJoinTownToCountryBody,
                 1, 6, 0, true, 2);
 
         document(queryFact, "Query Fact", queryFactBody, 1, 7, 0, true, 2);
