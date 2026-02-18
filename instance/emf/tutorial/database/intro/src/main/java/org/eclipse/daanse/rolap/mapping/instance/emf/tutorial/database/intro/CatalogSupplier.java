@@ -44,7 +44,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String schemaBody = """
             A catalog can be structured into databaseSchemas to logically group tables. The same table name can exist in multiple schemas.
 
-            In Daanse, we represent the database schema, where the data is stored, as a DatabaseSchema element.
+            In Daanse, we represent an existing database schema, where the data is stored, as a DatabaseSchema element.
             """;
 
     private static final String tableBody = """
