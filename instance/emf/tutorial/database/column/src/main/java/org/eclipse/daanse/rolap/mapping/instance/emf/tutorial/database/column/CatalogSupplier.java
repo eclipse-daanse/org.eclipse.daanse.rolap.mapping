@@ -33,7 +33,7 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String introBody = """
-            The data of a table are seperated into columns. Each column that should be used, must explicitly defines. Columns that are not relevant for the analysis can be left out.
+            The data of a table are seperated into columns. Each column that should be used, must be explicitly defined. Columns that are not relevant for the analysis can be left out.
             """;
 
     private static final String colDescr = """
