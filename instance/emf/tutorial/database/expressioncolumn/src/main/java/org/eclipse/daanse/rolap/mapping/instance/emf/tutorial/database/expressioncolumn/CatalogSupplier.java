@@ -29,7 +29,7 @@ import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
 import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "1.2.2", source = Source.EMF, group = "Database")
+@MappingInstance(kind = Kind.TUTORIAL, number = "1.02.02", source = Source.EMF, group = "Database")
 
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {

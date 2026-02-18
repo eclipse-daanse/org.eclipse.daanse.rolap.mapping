@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.14.4", source = Source.EMF, group = "Level") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.14.04", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE1 = "HiddenMembersIfBlankName";

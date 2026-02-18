@@ -37,7 +37,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.14.5", source = Source.EMF, group = "Level") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.14.05", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "NotUniqueLevelsMembers";

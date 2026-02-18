@@ -30,7 +30,7 @@ import org.eclipse.daanse.rolap.mapping.model.SystemTable;
 import org.eclipse.daanse.rolap.mapping.model.ViewTable;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "1.3.1", source = Source.EMF, group = "Database")
+@MappingInstance(kind = Kind.TUTORIAL, number = "1.03.01", source = Source.EMF, group = "Database")
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 

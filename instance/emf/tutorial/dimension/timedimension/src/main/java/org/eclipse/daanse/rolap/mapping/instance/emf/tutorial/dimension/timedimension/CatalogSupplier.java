@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.9.1", source = Source.EMF, group = "Dimension") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.09.01", source = Source.EMF, group = "Dimension") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "CubeTimeDimension";

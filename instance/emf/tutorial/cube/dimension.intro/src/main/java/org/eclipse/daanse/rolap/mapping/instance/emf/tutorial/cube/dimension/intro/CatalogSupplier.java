@@ -36,7 +36,7 @@ import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.3.1", source = Source.EMF, group = "Dimension")
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.03.01", source = Source.EMF, group = "Dimension")
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 

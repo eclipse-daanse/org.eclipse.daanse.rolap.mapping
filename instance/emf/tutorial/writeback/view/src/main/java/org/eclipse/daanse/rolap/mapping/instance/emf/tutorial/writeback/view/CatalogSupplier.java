@@ -45,7 +45,7 @@ import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
 import org.osgi.service.component.annotations.Component;
 
 @Component(service = CatalogMappingSupplier.class)
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.5.3", source = Source.EMF, group = "Writeback") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.05.03", source = Source.EMF, group = "Writeback") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier {
 
     private static final String CUBE = "C";

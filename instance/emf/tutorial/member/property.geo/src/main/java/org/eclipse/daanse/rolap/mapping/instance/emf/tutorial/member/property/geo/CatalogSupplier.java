@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.TableQuery;
 import org.osgi.service.component.annotations.Component;
 
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.6.2.2", source = Source.EMF, group = "Member") // NOSONAR
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.06.02.02", source = Source.EMF, group = "Member") // NOSONAR
 @Component(service = CatalogMappingSupplier.class)
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -58,11 +58,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
             - The `Fact` table contains measures (VALUES) and references to the `Member` table via MEMBER_ID
             - The `Member` table holds the member details including:
-              - ID (primary key)
-              - NAME (member display name)
-              - LOCATION (GeoJSON representation of the geographic area)
-              - LATITUDE and LONGITUDE (numeric coordinates)
-              - DESCRIPTION (additional member information)
+                - ID (primary key)
+                - NAME (member display name)
+                - LOCATION (GeoJSON representation of the geographic area)
+                - LATITUDE and LONGITUDE (numeric coordinates)
+                - DESCRIPTION (additional member information)
 
             This normalized structure allows rich member properties while maintaining efficient fact table storage.
             """;
