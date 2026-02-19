@@ -1815,8 +1815,8 @@
         <details key="documentation" value="Required reference to the column that provides the ordering basis. This column's values determine the sort order for query results and dimensional member presentation."/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ascend" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"
-        defaultValueLiteral="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" eType="#//SortingDirection"
+        defaultValueLiteral="Asc">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Boolean flag indicating sort direction. When true, sort in ascending order; when false, sort in descending order. Defaults to true for ascending sort."/>
       </eAnnotations>
@@ -2538,6 +2538,26 @@
     <eLiterals name="PROMOTION" value="36" literal="Promotion">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Indicates that a level is a Promotion."/>
+      </eAnnotations>
+    </eLiterals>
+  </eClassifiers>
+    <eClassifiers xsi:type="ecore:EEnum" name="SortingDirection">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="Enumeration defining sorting direction."/>
+    </eAnnotations>
+    <eLiterals name="ASC" literal="Asc">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Sorts the data from the lowest value to the highest value (e.g., A to Z, 1 to 10, oldest date to newest date). This is the default sort order if no keyword is specified."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="DESC" value="1" literal="Desc">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Sorts the data from the highest value to the lowest value (e.g., Z to A, 10 to 1, newest date to oldest date)."/>
+      </eAnnotations>
+    </eLiterals>
+    <eLiterals name="NONE" value="1" literal="None">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Sorts the data as they come from database"/>
       </eAnnotations>
     </eLiterals>
   </eClassifiers>
