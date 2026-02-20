@@ -455,7 +455,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_JAHR = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_JAHR.setName("Jahr");
         LEVEL_JAHR.setColumn(COLUMN_YEAR_YEAR);
-        LEVEL_JAHR.setOrdinalColumn(ORDERED_COLUMN_ORDINAL_YEAR);
+        LEVEL_JAHR.getOrdinalColumns().add(ORDERED_COLUMN_ORDINAL_YEAR);
         LEVEL_JAHR.setType(LevelDefinition.TIME_YEARS);
         LEVEL_JAHR.setId("_level_jahr");
 
@@ -463,7 +463,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_STADT = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_STADT.setName("Stadt");
         LEVEL_STADT.setColumn(COLUMN_NAME_TOWN);
-        //LEVEL_STADT.setOrdinalColumn(COLUMN_ORDINAL_YEAR);
+        //LEVEL_STADT.getOrdinalColumns().add(COLUMN_ORDINAL_YEAR);
         LEVEL_STADT.setId("_level_stadt");
 
         MemberProperty geoJsonPropertyTown = RolapMappingFactory.eINSTANCE.createMemberProperty();
@@ -530,7 +530,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_STANDARD = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_STANDARD.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_STANDARD.setColumn(COLUMN_H1_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_STANDARD.setOrdinalColumn(ORDERED_COLUMN_H1_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_STANDARD.getOrdinalColumns().add(ORDERED_COLUMN_H1_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_STANDARD.setId("_level_altersgruppe_standard");
 
         LEVEL_ALTER_STANDARD = RolapMappingFactory.eINSTANCE.createLevel();
@@ -541,7 +541,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_KINDER = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_KINDER.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_KINDER.setColumn(COLUMN_H2_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_KINDER.setOrdinalColumn(ORDERED_COLUMN_H2_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_KINDER.getOrdinalColumns().add(ORDERED_COLUMN_H2_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_KINDER.setId("_level_altersgruppe_kinder");
 
         LEVEL_ALTER_KINDER = RolapMappingFactory.eINSTANCE.createLevel();
@@ -552,7 +552,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_RKI_H7 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_RKI_H7.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_RKI_H7.setColumn(COLUMN_H7_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_RKI_H7.setOrdinalColumn(ORDERED_COLUMN_H7_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_RKI_H7.getOrdinalColumns().add(ORDERED_COLUMN_H7_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_RKI_H7.setId("_level_altersgruppe_rki_h7");
 
         LEVEL_ALTER_RKI_H7 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -563,7 +563,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_RKI_H8 = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_RKI_H8.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_RKI_H8.setColumn(COLUMN_H8_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_RKI_H8.setOrdinalColumn(ORDERED_COLUMN_H8_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_RKI_H8.getOrdinalColumns().add(ORDERED_COLUMN_H8_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_RKI_H8.setId("_level_altersgruppe_rki_h8");
 
         LEVEL_ALTER_RKI_H8 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -574,7 +574,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_ALTERSGRUPPE_10JAHRE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_ALTERSGRUPPE_10JAHRE.setName("Altersgruppe");
         LEVEL_ALTERSGRUPPE_10JAHRE.setColumn(COLUMN_H9_AGEGROUPS);
-        LEVEL_ALTERSGRUPPE_10JAHRE.setOrdinalColumn(ORDERED_COLUMN_H9_ORDER_AGEGROUPS);
+        LEVEL_ALTERSGRUPPE_10JAHRE.getOrdinalColumns().add(ORDERED_COLUMN_H9_ORDER_AGEGROUPS);
         LEVEL_ALTERSGRUPPE_10JAHRE.setId("_level_altersgruppe_10jahre");
 
         LEVEL_ALTER_10JAHRE = RolapMappingFactory.eINSTANCE.createLevel();

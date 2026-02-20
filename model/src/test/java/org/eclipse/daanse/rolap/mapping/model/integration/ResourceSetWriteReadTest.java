@@ -475,7 +475,7 @@ public class ResourceSetWriteReadTest {
         lJahr.setName("Jahr");
         lJahr.setId("lJahr");
         lJahr.setColumn(columnYearYear);
-        lJahr.setOrdinalColumn(orderedColumnYearOrdinal);
+        lJahr.getOrdinalColumns().add(orderedColumnYearOrdinal);
 
         dJahr.getHierarchies().add(hJahr);
         hJahr.setId("hJahr");
@@ -636,7 +636,7 @@ public class ResourceSetWriteReadTest {
         lAltersgruppeH1.setName("Altersgruppe");
         lAltersgruppeH1.setId("AltersgruppeH1");
         lAltersgruppeH1.setColumn(columnAgeGroupsH1);
-        lAltersgruppeH1.setOrdinalColumn(orderedColumnAgeGroupsH1Order);
+        lAltersgruppeH1.getOrdinalColumns().add(orderedColumnAgeGroupsH1Order);
         hAltersgruppenStandard.getLevels().add(lAltersgruppeH1);
 
         Level lAlterH1 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -656,7 +656,7 @@ public class ResourceSetWriteReadTest {
         lAltersgruppeH2.setName("Altersgruppe");
         lAltersgruppeH2.setId("AltersgruppeH2");
         lAltersgruppeH2.setColumn(columnAgeGroupsH2);
-        lAltersgruppeH2.setOrdinalColumn(orderedColumnAgeGroupsH2Order);
+        lAltersgruppeH2.getOrdinalColumns().add(orderedColumnAgeGroupsH2Order);
         hAltersgruppenKinder.getLevels().add(lAltersgruppeH2);
 
         Level lAlterH2 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -676,7 +676,7 @@ public class ResourceSetWriteReadTest {
         lAltersgruppeH7.setName("Altersgruppe");
         lAltersgruppeH7.setId("AltersgruppeH7");
         lAltersgruppeH7.setColumn(columnAgeGroupsH7);
-        lAltersgruppeH7.setOrdinalColumn(orderedColumnAgeGroupsH7Order);
+        lAltersgruppeH7.getOrdinalColumns().add(orderedColumnAgeGroupsH7Order);
         hAltersgruppenKinder.getLevels().add(lAltersgruppeH7);
 
         Level lAlterH7 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -696,7 +696,7 @@ public class ResourceSetWriteReadTest {
         lAltersgruppeH8.setName("Altersgruppe");
         lAltersgruppeH8.setId("AltersgruppeH8");
         lAltersgruppeH8.setColumn(columnAgeGroupsH8);
-        lAltersgruppeH8.setOrdinalColumn(orderedColumnAgeGroupsH8Order);
+        lAltersgruppeH8.getOrdinalColumns().add(orderedColumnAgeGroupsH8Order);
         hAltersgruppenKinder.getLevels().add(lAltersgruppeH8);
 
         Level lAlterH8 = RolapMappingFactory.eINSTANCE.createLevel();
@@ -716,7 +716,7 @@ public class ResourceSetWriteReadTest {
         lAltersgruppeH9.setName("Altersgruppe");
         lAltersgruppeH9.setId("AltersgruppeH9");
         lAltersgruppeH9.setColumn(columnAgeGroupsH9);
-        lAltersgruppeH9.setOrdinalColumn(orderedColumnAgeGroupsH9Order);
+        lAltersgruppeH9.getOrdinalColumns().add(orderedColumnAgeGroupsH9Order);
         hAltersgruppenKinder.getLevels().add(lAltersgruppeH9);
 
         Level lAlterH9 = RolapMappingFactory.eINSTANCE.createLevel();
