@@ -844,7 +844,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchule.setId("_level_schule_basic");
         levelSchule.setColumn(columnIdInSchuleTable);
         levelSchule.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchule.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
+        levelSchule.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable);
 
         Level levelTraegerKategorie = RolapMappingFactory.eINSTANCE.createLevel();
         levelTraegerKategorie.setName("Schulträger-Kategorie");
@@ -869,7 +869,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchuleTraegerschaft.setId("_level_schule_traegerschaft");
         levelSchuleTraegerschaft.setColumn(columnIdInSchuleTable);
         levelSchuleTraegerschaft.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchuleTraegerschaft.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
+        levelSchuleTraegerschaft.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable);
 
         Level levelSchulkategorie = RolapMappingFactory.eINSTANCE.createLevel();
         levelSchulkategorie.setName("Schulkategorie");
@@ -888,14 +888,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelSchuleArt.setId("_level_schule_art");
         levelSchuleArt.setColumn(columnIdInSchuleTable);
         levelSchuleArt.setNameColumn(columnSchulNameInSchuleTable);
-        levelSchuleArt.setOrdinalColumn(orderedColumnSchulNummerInSchuleTable);
+        levelSchuleArt.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable);
 
         Level levelSchuljahr = RolapMappingFactory.eINSTANCE.createLevel();
         levelSchuljahr.setName(SCHULJAHR);
         levelSchuljahr.setId("_level_schuljahr");
         levelSchuljahr.setColumn(columnIdInSchulJahr);
         levelSchuljahr.setNameColumn(columnSchulJahrInSchulJahr);
-        levelSchuljahr.setOrdinalColumn(orderedColumnOrderInSchulJahr);
+        levelSchuljahr.getOrdinalColumns().add(orderedColumnOrderInSchulJahr);
 
         Level levelAltersgruppe = RolapMappingFactory.eINSTANCE.createLevel();
         levelAltersgruppe.setName("Altersgruppe");

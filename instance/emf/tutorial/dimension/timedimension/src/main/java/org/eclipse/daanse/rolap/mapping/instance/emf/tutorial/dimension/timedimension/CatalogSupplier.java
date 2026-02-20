@@ -191,7 +191,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelQuarters.setName("Quarters");
         levelQuarters.setId("_level_quarters");
         levelQuarters.setColumn(qtrNameColumn);
-        levelQuarters.setOrdinalColumn(qtrIdOrderedColumn);
+        levelQuarters.getOrdinalColumns().add(qtrIdOrderedColumn);
         levelQuarters.setType(LevelDefinition.TIME_QUARTERS);
         levelQuarters.setUniqueMembers(false);
         levelQuarters.setHideMemberIf(HideMemberIf.NEVER);
@@ -200,7 +200,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelMonths.setName("Months");
         levelMonths.setId("_level_months");
         levelMonths.setColumn(monthNameColumn);
-        levelMonths.setOrdinalColumn(monthIdOrderedColumn);
+        levelMonths.getOrdinalColumns().add(monthIdOrderedColumn);
         levelMonths.setType(LevelDefinition.TIME_MONTHS);
         levelMonths.setUniqueMembers(false);
         levelMonths.setHideMemberIf(HideMemberIf.NEVER);

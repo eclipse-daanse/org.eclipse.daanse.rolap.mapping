@@ -186,7 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         level2.setId("_level2");
         level2.setColumn(keyExpression);
         level2.setCaptionColumn(captionExpression);
-        level2.setOrdinalColumn(orderedColumnExpression);
+        level2.getOrdinalColumns().add(orderedColumnExpression);
 
         ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
