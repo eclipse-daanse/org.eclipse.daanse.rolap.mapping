@@ -631,7 +631,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setHideMemberIf(toEmf(hideMemberIf));
         level.setType(toEmf(levelType));
         level.setNameColumn((Column) nameColumn);
-        level.setOrdinalColumn((Column) ordinalColumn);
+        level.getOrdinalColumns().add((Column) ordinalColumn);
         level.setColumnType(toEmf(type));
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);

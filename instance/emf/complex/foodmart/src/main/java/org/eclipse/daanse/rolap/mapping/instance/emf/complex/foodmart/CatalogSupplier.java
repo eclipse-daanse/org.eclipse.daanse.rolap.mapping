@@ -3022,7 +3022,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_HR_POSITION_TITLE = RolapMappingFactory.eINSTANCE.createLevel();
         LEVEL_HR_POSITION_TITLE.setName("Position Title");
         LEVEL_HR_POSITION_TITLE.setColumn(COLUMN_POSITION_TITLE_EMPLOYEE);
-        LEVEL_HR_POSITION_TITLE.setOrdinalColumn(ORDERED_COLUMN_POSITION_ID_EMPLOYEE);
+        LEVEL_HR_POSITION_TITLE.getOrdinalColumns().add(ORDERED_COLUMN_POSITION_ID_EMPLOYEE);
         LEVEL_HR_POSITION_TITLE.setId("_level_hr_position_title");
 
         LEVEL_MANAGEMENT_ROLE = RolapMappingFactory.eINSTANCE.createLevel();
@@ -3193,7 +3193,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         LEVEL_NAME.setUniqueMembers(true);
         LEVEL_NAME.setId("_level_name");
         LEVEL_NAME.setNameColumn(SQL_EXPRESSION_COLUMN_NAME);
-        LEVEL_NAME.setOrdinalColumn(ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER);
+        LEVEL_NAME.getOrdinalColumns().add(ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER);
         LEVEL_NAME.getMemberProperties().addAll(List.of(LEVEL_NAME_PROP1, LEVEL_NAME_PROP2, LEVEL_NAME_PROP3, LEVEL_NAME_PROP4));
 
         // Initialize hierarchies

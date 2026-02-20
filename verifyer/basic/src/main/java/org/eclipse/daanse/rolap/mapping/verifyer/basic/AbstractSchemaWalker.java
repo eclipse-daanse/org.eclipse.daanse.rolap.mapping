@@ -65,6 +65,7 @@ import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.MemberPropertyFormatter;
 import org.eclipse.daanse.rolap.mapping.model.MemberReaderParameter;
 import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
 import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
@@ -467,9 +468,12 @@ public abstract class AbstractSchemaWalker {
                 checkSqlExpression(sec);
 
             }
-            if (level.getOrdinalColumn() instanceof SQLExpressionColumn sec) {
-                checkSqlExpression(sec);
-
+            if (!level.getOrdinalColumns().isEmpty()) {
+                for (OrderedColumn oc : level.getOrdinalColumns()) {
+                    if (oc.getColumn() != null && oc.getColumn() instanceof SQLExpressionColumn sec) {
+                        checkSqlExpression(sec);
+                    }
+                }
             }
 
             checkMemberPropertyList(level.getMemberProperties(), level, hierarchy, cube);
