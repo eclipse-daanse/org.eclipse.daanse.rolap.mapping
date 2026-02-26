@@ -22,9 +22,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
 
 class CatalogSupplierTest {
-
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(CatalogSupplierTest.class);
     @Test
     void test() {
 
@@ -39,7 +40,7 @@ class CatalogSupplierTest {
 
         CatalogImpl catalogCopy = (CatalogImpl) copier.get(catalog);
 
-        System.out.println(catalogCopy);
+        LOGGER.debug(catalogCopy.toString());
 
     }
 

@@ -45,13 +45,14 @@ import org.osgi.test.common.service.ServiceAware;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
+import org.slf4j.Logger;
 
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 @ExtendWith(ConfigurationExtension.class)
 @RequireEMF
 public class ResourceSetTest {
-
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ResourceSetTest.class);
     private static String BASE_DIR = System.getProperty("basePath");
 
     private static String formatValue(Object v) {
@@ -81,33 +82,33 @@ public class ResourceSetTest {
             throws InterruptedException, IOException {
 
         Thread.sleep(1000);
-        System.out.println("\n========== EPackage Services ==========");
+        LOGGER.debug("\n========== EPackage Services ==========");
         saEPackage.waitForService(1000);
         for (ServiceReference<EPackage> ref : saEPackage.getServiceReferences()) {
-            System.out.println("EPackage:");
+        	LOGGER.debug("EPackage:");
             Dictionaries.asMap(ref.getProperties())
-                    .forEach((k, v) -> System.out.println("   " + k + " = " + formatValue(v)));
-            System.out.println();
+                    .forEach((k, v) -> LOGGER.debug("   " + k + " = " + formatValue(v)));
+            LOGGER.debug("");
         }
 
-        System.out.println("\n========== ResourceSet Services ==========");
+        LOGGER.debug("\n========== ResourceSet Services ==========");
         saResourceSet.waitForService(1000);
         for (ServiceReference<ResourceSet> ref : saResourceSet.getServiceReferences()) {
-            System.out.println("ResourceSet:");
+        	LOGGER.debug("ResourceSet:");
             Dictionaries.asMap(ref.getProperties())
-                    .forEach((k, v) -> System.out.println("   " + k + " = " + formatValue(v)));
-            System.out.println();
+                    .forEach((k, v) -> LOGGER.debug("   " + k + " = " + formatValue(v)));
+            LOGGER.debug("");
         }
 
-        System.out.println("\n========== ResourceSetFactory Services ==========");
+        LOGGER.debug("\n========== ResourceSetFactory Services ==========");
         saResourceSetFactory.waitForService(1000);
         for (ServiceReference<ResourceSetFactory> ref : saResourceSetFactory.getServiceReferences()) {
-            System.out.println("ResourceSetFactory:");
+            LOGGER.debug("ResourceSetFactory:");
             Dictionaries.asMap(ref.getProperties())
-                    .forEach((k, v) -> System.out.println("   " + k + " = " + formatValue(v)));
-            System.out.println();
+                    .forEach((k, v) -> LOGGER.debug("   " + k + " = " + formatValue(v)));
+            LOGGER.debug("");
         }
-        System.out.println("==========================================\n");
+        LOGGER.debug("==========================================\n");
     }
 
     @Test
@@ -125,7 +126,7 @@ public class ResourceSetTest {
         Resource resource = rs.getResource(uri, true);
         resource.load(Map.of());
         EObject root = resource.getContents().get(0);
-        System.out.println(root);
+        LOGGER.debug(root.toString());
 
     }
 
@@ -150,7 +151,7 @@ public class ResourceSetTest {
         resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
 
         resource.save(Map.of());
-        System.out.println(Files.readString(file));
+        LOGGER.debug(Files.readString(file));
 
     }
 
