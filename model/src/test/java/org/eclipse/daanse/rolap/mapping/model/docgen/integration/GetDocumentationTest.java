@@ -41,6 +41,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.osgi.framework.BundleContext;
 import org.osgi.test.common.annotation.InjectBundleContext;
+import org.slf4j.Logger;
 
 import io.pebbletemplates.pebble.PebbleEngine;
 import io.pebbletemplates.pebble.loader.ClasspathLoader;
@@ -49,6 +50,7 @@ import io.pebbletemplates.pebble.template.PebbleTemplate;
 @RequireEMF
 public class GetDocumentationTest {
 
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(GetDocumentationTest.class);
     private static String TEXT = """
             # 🧩 Introduction: Model Structure and Class Overview
 
@@ -76,7 +78,7 @@ public class GetDocumentationTest {
     public void resourceSetExistsTest() throws SQLException, InterruptedException, IOException {
         List<EPackage> packages = readPackages();
         for (EPackage ePackage : packages) {
-            System.out.println("EPackage: " + ePackage.getName());
+        	LOGGER.debug("EPackage: " + ePackage.getName());
 //            ePackage.getEClassifiers().get(0).mgetName();
             createDoc(ePackage);
         }
@@ -201,7 +203,7 @@ public class GetDocumentationTest {
                     try {
                         Files.deleteIfExists(p);
                     } catch (IOException e) {
-                        System.err.println("Fehler beim Löschen: " + p + " - " + e.getMessage());
+                        LOGGER.debug("Fehler beim Löschen: " + p + " - " + e.getMessage());
                     }
                 });
         }

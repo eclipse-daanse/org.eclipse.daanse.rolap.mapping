@@ -66,6 +66,7 @@ import org.osgi.test.common.service.ServiceAware;
 import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
+import org.slf4j.Logger;
 
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
@@ -74,6 +75,7 @@ import org.osgi.test.junit5.service.ServiceExtension;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ResourceSetWriteReadTest {
 
+    private static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(ResourceSetWriteReadTest.class);
     @TempDir
     static Path tempDir;
 
@@ -425,7 +427,7 @@ public class ResourceSetWriteReadTest {
 
         resourceRdbs.getContents().add(dbCatalog);
         resourceRdbs.save(Map.of());
-        System.out.println(Files.readString(fileRdbs, StandardCharsets.UTF_8));
+        LOGGER.debug(Files.readString(fileRdbs, StandardCharsets.UTF_8));
         /////////////////////////
 
         URI uriRolap = URI.createFileURI(fileRolap.toAbsolutePath().toString());
@@ -757,8 +759,8 @@ public class ResourceSetWriteReadTest {
         resourceRolap.getContents().add(catalog);
 
         resourceRolap.save(Map.of());
-        System.out.println(fileRolap.toAbsolutePath());
-        System.out.println(Files.readString(fileRolap, StandardCharsets.UTF_8));
+        LOGGER.debug(fileRolap.toAbsolutePath().toString());
+        LOGGER.debug(Files.readString(fileRolap, StandardCharsets.UTF_8));
 
     }
 
