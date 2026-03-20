@@ -16,20 +16,9 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.eclipse.daanse</groupId>
-    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial</artifactId>
+    <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level</artifactId>
     <version>${revision}</version>
   </parent>
-  <packaging>pom</packaging>
-
-  <artifactId>org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level</artifactId>
-
-  <modules>
-    <module>expressions</module>
-    <module>smallintasbooleantype</module>
-    <module>ifblankname</module>
-    <module>ifblanknamemultiple</module>
-    <module>ifparentsname</module>
-    <module>unique</module>
-    <module>ordinalcolumns</module>
-  </modules>
+  <artifactId>
+    org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ordinalcolumns</artifactId>
 </project>

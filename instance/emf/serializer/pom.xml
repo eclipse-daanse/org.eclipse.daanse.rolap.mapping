@@ -347,6 +347,13 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ordinalcolumns</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute</artifactId>
       <version>${project.version}</version>
     </dependency>
