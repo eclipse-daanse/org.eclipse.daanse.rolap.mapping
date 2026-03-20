@@ -186,7 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         document(levelTown, "Level town", levelTownBody, 1, 4, 0, true, 0);
         document(levelCountry, "Level country", levelCountryBody, 1, 5, 0, true, 0);
         document(countryOrderedColumn, "Ordered Column Country", orderedColumnCountryBody, 1, 6, 0, true, 0);
-        document(countryOrderedColumn, "Ordered Column Country", orderedColumnTownBody, 1, 7, 0, true, 0);
+        document(townOrderedColumn, "Ordered Column Town", orderedColumnTownBody, 1, 7, 0, true, 0);
         document(hierarchy, "Hierarchy", hierarchyBody, 1, 8, 0, true, 0);
         document(dimension, "Dimension", dimensionBody, 1, 9, 0, true, 0);
 
