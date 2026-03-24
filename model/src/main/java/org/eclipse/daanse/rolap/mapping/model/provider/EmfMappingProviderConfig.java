@@ -19,6 +19,12 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 @ObjectClassDefinition()
 public @interface EmfMappingProviderConfig {
 
-    @AttributeDefinition(name = Constants.RESOURCE_URL)
+    @AttributeDefinition(name = Constants.RESOURCE_URL, required = true, description = "File path to the primary EMF resource containing the Catalog mapping definition. "
+            + "The file is loaded as an EMF Resource and must contain a Catalog root element.")
     String resource_url();
+
+    @AttributeDefinition(name = Constants.ADDITIONAL_RESOURCE_GLOBS, required = false, description = "Optional glob patterns for additional EMF resources to load before the primary resource. "
+            + "These resources are resolved via cross-references from the primary Catalog resource. "
+            + "Patterns follow java.nio.file.PathMatcher glob syntax, e.g. '/data/mappings/**/*.xmi'.")
+    String[] additional_resource_globs() default {};
 }

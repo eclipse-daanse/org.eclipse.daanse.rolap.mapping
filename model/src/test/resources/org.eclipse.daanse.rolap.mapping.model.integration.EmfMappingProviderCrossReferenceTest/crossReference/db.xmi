@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*********************************************************************
+* Copyright (c) 2024 Contributors to the Eclipse Foundation.
+*
+* This program and the accompanying materials are made
+* available under the terms of the Eclipse Public License 2.0
+* which is available at https://www.eclipse.org/legal/epl-2.0/
+*
+* SPDX-License-Identifier: EPL-2.0
+**********************************************************************/
+-->
+<roma:DatabaseCatalog xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
+    id="dbcat1" name="testDbCatalog">
+  <schemas id="dbs1" name="testSchema">
+    <tables xsi:type="roma:PhysicalTable" id="pt1" name="testTable">
+      <columns xsi:type="roma:PhysicalColumn" id="col1" name="testColumn" type="Varchar" columnSize="255"/>
+    </tables>
+  </schemas>
+</roma:DatabaseCatalog>
