@@ -17,6 +17,8 @@ public class Constants {
 
     public static final String RESOURCE_URL = "resource.url";
 
+    public static final String ADDITIONAL_RESOURCE_GLOBS = "additional.resource.globs";
+
     public static final String PID_EMF_MAPPING_PROVIDER = "daanse.rolap.mapping.model.provider.EmfMappingProvider";
 
 }

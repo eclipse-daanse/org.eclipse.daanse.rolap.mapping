@@ -13,7 +13,14 @@
 package org.eclipse.daanse.rolap.mapping.model.provider.impl;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.PathMatcher;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.model.Catalog;
@@ -46,6 +53,13 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
     @Activate
     public void activate(EmfMappingProviderConfig config) throws IOException {
 
+        String[] globs = config.additional_resource_globs();
+        if (globs != null) {
+            for (String glob : globs) {
+                loadResourcesByGlob(glob);
+            }
+        }
+
         String url = config.resource_url();
 
         URI uri = URI.createFileURI(url);
@@ -60,6 +74,46 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
             }
         }
 
+    }
+
+    private void loadResourcesByGlob(String glob) throws IOException {
+        Path startDir = getGlobBaseDir(glob);
+        if (!Files.isDirectory(startDir)) {
+            return;
+        }
+        PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + glob);
+        try (Stream<Path> paths = Files.walk(startDir)) {
+            paths.filter(Files::isRegularFile)
+                 .filter(matcher::matches)
+                 .forEach(path -> {
+                     URI fileUri = URI.createFileURI(path.toAbsolutePath().toString());
+                     Resource res = resourceSet.getResource(fileUri, true);
+                     try {
+                         res.load(Map.of());
+                     } catch (IOException e) {
+                         throw new UncheckedIOException(e);
+                     }
+                 });
+        }
+    }
+
+    private static Path getGlobBaseDir(String glob) {
+        String path = glob;
+        int firstWildcard = Integer.MAX_VALUE;
+        for (char c : new char[]{'*', '?', '[', '{'}) {
+            int idx = path.indexOf(c);
+            if (idx >= 0 && idx < firstWildcard) {
+                firstWildcard = idx;
+            }
+        }
+        if (firstWildcard < Integer.MAX_VALUE) {
+            path = path.substring(0, firstWildcard);
+        }
+        Path p = Paths.get(path);
+        if (!Files.isDirectory(p)) {
+            p = p.getParent();
+        }
+        return p != null ? p : Paths.get(".");
     }
 
     @Deactivate

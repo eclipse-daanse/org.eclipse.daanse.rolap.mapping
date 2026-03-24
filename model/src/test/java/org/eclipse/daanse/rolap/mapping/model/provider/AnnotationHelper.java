@@ -50,4 +50,26 @@ public class AnnotationHelper {
     @Retention(RetentionPolicy.RUNTIME)
     public @interface SetupMappingProviderWithTestInstance {
     }
+
+    @WithFactoryConfiguration(location = "?", factoryPid = Constants.PID_EMF_MAPPING_PROVIDER, properties = {
+            @Property(key = Constants.RESOURCE_URL, type = Type.Scalar, value =
+                    "%1$s/target/test-classes/%2$s/%3$s/catalog.xmi", //
+                    templateArguments = { //
+                            @TemplateArgument(source = SystemProperty, value = "basePath"), //
+                            @TemplateArgument(source = TestClass), //
+                            @TemplateArgument(source = TestMethod) }),
+            @Property(key = Constants.ADDITIONAL_RESOURCE_GLOBS, type = Type.Scalar, value =
+                    "%1$s/target/test-classes/%2$s/%3$s/*.xmi", //
+                    templateArguments = { //
+                            @TemplateArgument(source = SystemProperty, value = "basePath"), //
+                            @TemplateArgument(source = TestClass), //
+                            @TemplateArgument(source = TestMethod) }),
+            @Property(key = MARKER_TEST_CLASS, source = TestClass), //
+            @Property(key = MARKER_TEST_METHOD, source = TestMethod), //
+            @Property(key = MARKER_TEST_UNIQUEID, source = TestUniqueId), //
+            @Property(key = MARKER_TEST_UNIQUEID_HEX, value = "%h", templateArguments = @TemplateArgument(source = TestUniqueId)), //
+    })
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SetupMappingProviderWithTestInstanceAndAdditionalResources {
+    }
 }
