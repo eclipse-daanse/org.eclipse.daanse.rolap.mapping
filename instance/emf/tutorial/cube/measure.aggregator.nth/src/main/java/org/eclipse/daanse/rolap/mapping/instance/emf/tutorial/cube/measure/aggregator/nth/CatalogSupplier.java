@@ -101,7 +101,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumn.setId("_ordered_column_col_value");
         orderedColumn.setColumn(valueColumn);
 
         NthAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();

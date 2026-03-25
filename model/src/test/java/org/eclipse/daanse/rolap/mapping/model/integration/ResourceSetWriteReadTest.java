@@ -392,23 +392,18 @@ public class ResourceSetWriteReadTest {
         columnAgeGroupsH9Order.setType(ColumnType.INTEGER);
 
         OrderedColumn orderedColumnAgeGroupsH1Order = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnAgeGroupsH1Order.setId("ordered_AgeGroupsH1Order");
         orderedColumnAgeGroupsH1Order.setColumn(columnAgeGroupsH1Order);
 
         OrderedColumn orderedColumnAgeGroupsH2Order = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnAgeGroupsH2Order.setId("ordered_AgeGroupsH2Order");
         orderedColumnAgeGroupsH2Order.setColumn(columnAgeGroupsH2Order);
 
         OrderedColumn orderedColumnAgeGroupsH7Order = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnAgeGroupsH7Order.setId("ordered_AgeGroupsH7Order");
         orderedColumnAgeGroupsH7Order.setColumn(columnAgeGroupsH7Order);
 
         OrderedColumn orderedColumnAgeGroupsH8Order = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnAgeGroupsH8Order.setId("ordered_AgeGroupsH8Order");
         orderedColumnAgeGroupsH8Order.setColumn(columnAgeGroupsH8Order);
 
         OrderedColumn orderedColumnAgeGroupsH9Order = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnAgeGroupsH9Order.setId("ordered_AgeGroupsH9Order");
         orderedColumnAgeGroupsH9Order.setColumn(columnAgeGroupsH9Order);
 
         PhysicalTable tableAgeGroups = RolapMappingFactory.eINSTANCE.createPhysicalTable();

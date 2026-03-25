@@ -428,27 +428,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         COLUMN_H9_ORDER_AGEGROUPS));
 
         ORDERED_COLUMN_ORDINAL_YEAR = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_ORDINAL_YEAR.setId("_ordered_column_year_ordinal");
         ORDERED_COLUMN_ORDINAL_YEAR.setColumn(COLUMN_ORDINAL_YEAR);
 
         ORDERED_COLUMN_H1_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_H1_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h1_order");
         ORDERED_COLUMN_H1_ORDER_AGEGROUPS.setColumn(COLUMN_H1_ORDER_AGEGROUPS);
 
         ORDERED_COLUMN_H2_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_H2_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h2_order");
         ORDERED_COLUMN_H2_ORDER_AGEGROUPS.setColumn(COLUMN_H2_ORDER_AGEGROUPS);
 
         ORDERED_COLUMN_H7_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_H7_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h7_order");
         ORDERED_COLUMN_H7_ORDER_AGEGROUPS.setColumn(COLUMN_H7_ORDER_AGEGROUPS);
 
         ORDERED_COLUMN_H8_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_H8_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h8_order");
         ORDERED_COLUMN_H8_ORDER_AGEGROUPS.setColumn(COLUMN_H8_ORDER_AGEGROUPS);
 
         ORDERED_COLUMN_H9_ORDER_AGEGROUPS = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_H9_ORDER_AGEGROUPS.setId("_ordered_column_agegroups_h9_order");
         ORDERED_COLUMN_H9_ORDER_AGEGROUPS.setColumn(COLUMN_H9_ORDER_AGEGROUPS);
 
         // Initialize levels

@@ -2431,7 +2431,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 ));
 
         ORDERED_COLUMN_POSITION_ID_EMPLOYEE = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_POSITION_ID_EMPLOYEE.setId("_ordered_column_employee_positionId");
         ORDERED_COLUMN_POSITION_ID_EMPLOYEE.setColumn(COLUMN_POSITION_ID_EMPLOYEE);
 
         AGGREGATION_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997 = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
@@ -3183,7 +3182,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         SQL_EXPRESSION_COLUMN_NAME_ORDER.setId("_sqlExpressionColumn_name_order");
 
         ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER.setId("_ordered_sqlExpressionColumn_name_order");
         ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER.setColumn(SQL_EXPRESSION_COLUMN_NAME_ORDER);
 
         LEVEL_NAME = RolapMappingFactory.eINSTANCE.createLevel();

@@ -821,19 +821,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinElementFoerderbedarfArtRight.setQuery(tableQuerySonderpaedFoerderbedart);
 
         OrderedColumn orderedColumnSchulNummerInSchuleTable1 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnSchulNummerInSchuleTable1.setId("_ordered_col_schule_schul_nummer1");
         orderedColumnSchulNummerInSchuleTable1.setColumn(columnSchulNummerInSchuleTable);
 
         OrderedColumn orderedColumnSchulNummerInSchuleTable2 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnSchulNummerInSchuleTable2.setId("_ordered_col_schule_schul_nummer2");
         orderedColumnSchulNummerInSchuleTable2.setColumn(columnSchulNummerInSchuleTable);
 
         OrderedColumn orderedColumnSchulNummerInSchuleTable3 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnSchulNummerInSchuleTable3.setId("_ordered_col_schule_schul_nummer3");
         orderedColumnSchulNummerInSchuleTable3.setColumn(columnSchulNummerInSchuleTable);
 
         OrderedColumn orderedColumnOrderInSchulJahr = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnOrderInSchulJahr.setId("_ordered_col_schul_jahr_order");
         orderedColumnOrderInSchulJahr.setColumn(columnOrderInSchulJahr);
 
         JoinQuery joinFoerderbedarfArt = RolapMappingFactory.eINSTANCE.createJoinQuery();
