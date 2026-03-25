@@ -46,12 +46,12 @@
 
 
 -runbundles+: \
-    org.eclipse.emf.common;startlevel=1,\
-    org.eclipse.emf.ecore;startlevel=1,\
-    org.eclipse.emf.ecore.xmi;startlevel=1,\
-    org.eclipse.daanse.rolap.mapping.model;startlevel=30,\
-    org.eclipse.daanse.rolap.mapping.model-tests;startlevel=30,\
-    org.eclipse.fennec.emf.osgi.component;startlevel=20
+	org.eclipse.emf.common;startlevel=1,\
+	org.eclipse.emf.ecore;startlevel=1,\
+	org.eclipse.emf.ecore.xmi;startlevel=1,\
+	org.eclipse.daanse.rolap.mapping.model;startlevel=30,\
+	org.eclipse.daanse.rolap.mapping.model-tests;startlevel=30,\
+	org.eclipse.fennec.emf.osgi.component;startlevel=20
 
 
 # -runbundles is calculated by the bnd-resolver-maven-plugin
