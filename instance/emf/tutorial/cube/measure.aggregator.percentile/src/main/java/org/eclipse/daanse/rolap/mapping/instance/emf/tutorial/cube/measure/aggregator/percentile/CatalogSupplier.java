@@ -100,7 +100,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         query.setTable(table);
 
         OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumn.setId("_ordered_column_col");
         orderedColumn.setColumn(valueColumn);
 
         PercentileMeasure measure1 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();

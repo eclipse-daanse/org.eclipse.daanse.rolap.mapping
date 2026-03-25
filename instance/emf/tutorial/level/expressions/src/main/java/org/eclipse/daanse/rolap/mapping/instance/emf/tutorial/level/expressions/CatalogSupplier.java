@@ -154,7 +154,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         ordinalExpression.getSqls().addAll(List.of(ordinalSql1));
 
         OrderedColumn orderedColumnExpression = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        orderedColumnExpression.setId("_ordined_column_Expression");
         orderedColumnExpression.setColumn(ordinalExpression);
 
         PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();

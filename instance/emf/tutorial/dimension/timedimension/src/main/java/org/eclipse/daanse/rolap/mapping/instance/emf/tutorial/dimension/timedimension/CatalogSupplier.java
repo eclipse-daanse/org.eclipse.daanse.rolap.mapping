@@ -172,11 +172,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         measureGroup.getMeasures().add(measure);
 
         OrderedColumn qtrIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        qtrIdOrderedColumn.setId("_ordered_column_fact_qtrId");
         qtrIdOrderedColumn.setColumn(qtrIdColumn);
 
         OrderedColumn monthIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
-        monthIdOrderedColumn.setId("_ordered_column_fact_monthId");
         monthIdOrderedColumn.setColumn(monthIdColumn);
 
         Level levelYears = RolapMappingFactory.eINSTANCE.createLevel();

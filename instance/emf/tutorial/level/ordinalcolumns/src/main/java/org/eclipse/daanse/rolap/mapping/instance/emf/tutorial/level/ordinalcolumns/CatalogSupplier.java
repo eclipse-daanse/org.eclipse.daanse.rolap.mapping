@@ -128,12 +128,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         OrderedColumn countryOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         countryOrderedColumn.setColumn(columnCountry);
-        countryOrderedColumn.setId("_ordered_column_country");
         countryOrderedColumn.setDirection(SortingDirection.ASC);
 
         OrderedColumn townOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
         townOrderedColumn.setColumn(columnKey);
-        townOrderedColumn.setId("_ordered_column_town");
         townOrderedColumn.setDirection(SortingDirection.DESC);
 
         Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
