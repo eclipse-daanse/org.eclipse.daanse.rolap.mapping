@@ -84,16 +84,16 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
         PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + glob);
         try (Stream<Path> paths = Files.walk(startDir)) {
             paths.filter(Files::isRegularFile)
-                 .filter(matcher::matches)
-                 .forEach(path -> {
-                     URI fileUri = URI.createFileURI(path.toAbsolutePath().toString());
-                     Resource res = resourceSet.getResource(fileUri, true);
-                     try {
-                         res.load(Map.of());
-                     } catch (IOException e) {
-                         throw new UncheckedIOException(e);
-                     }
-                 });
+                .filter(matcher::matches)
+                .forEach(path -> {
+                    URI fileUri = URI.createFileURI(path.toAbsolutePath().toString());
+                    Resource res = resourceSet.getResource(fileUri, true);
+                    try {
+                        res.load(Map.of());
+                    } catch (IOException e) {
+                        throw new UncheckedIOException(e);
+                    }
+                });
         }
     }
 
