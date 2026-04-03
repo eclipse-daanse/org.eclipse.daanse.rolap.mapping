@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;
 
+import java.util.List;
+
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
@@ -85,6 +87,32 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheckCount.getCellChecks().add(queryCheckCellValueCheckCount);
         queryCheckCount.setEnabled(true);
 
+        CellValueCheck queryCheckCellValueCheckCaseFunction1 = factory.createCellValueCheck();
+        queryCheckCellValueCheckCaseFunction1.setName("[Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end]");
+        queryCheckCellValueCheckCaseFunction1.setExpectedValue("63");
+
+        QueryCheck queryCheckCase1 = factory.createQueryCheck();
+        queryCheckCase1.setName("case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end Check");
+        queryCheckCase1.setDescription("Verify MDX query returns case function data true");
+        queryCheckCase1.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end])");
+        queryCheckCase1.setQueryLanguage(QueryLanguage.MDX);
+        queryCheckCase1.setExpectedColumnCount(1);
+        queryCheckCase1.getCellChecks().add(queryCheckCellValueCheckCaseFunction1);
+        queryCheckCase1.setEnabled(true);
+
+        CellValueCheck queryCheckCellValueCheckCaseFunction2 = factory.createCellValueCheck();
+        queryCheckCellValueCheckCaseFunction2.setName("[Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end]");
+        queryCheckCellValueCheckCaseFunction2.setExpectedValue("2");
+
+        QueryCheck queryCheckCase2 = factory.createQueryCheck();
+        queryCheckCase2.setName("case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end Check");
+        queryCheckCase2.setDescription("Verify MDX query returns case function data false");
+        queryCheckCase2.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end])");
+        queryCheckCase2.setQueryLanguage(QueryLanguage.MDX);
+        queryCheckCase2.setExpectedColumnCount(1);
+        queryCheckCase2.getCellChecks().add(queryCheckCellValueCheckCaseFunction2);
+        queryCheckCase2.setEnabled(true);
+
         // Create database column checks for Fact table
         DatabaseColumnAttributeCheck columnKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
         columnKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
@@ -124,6 +152,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheckSum);
         catalogCheck.getQueryChecks().add(queryCheckCount);
+        catalogCheck.getQueryChecks().add(queryCheckCase1);
+        catalogCheck.getQueryChecks().add(queryCheckCase2);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
