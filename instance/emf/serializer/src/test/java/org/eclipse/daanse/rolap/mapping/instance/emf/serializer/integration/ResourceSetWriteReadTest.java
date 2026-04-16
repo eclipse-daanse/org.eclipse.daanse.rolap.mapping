@@ -128,10 +128,17 @@ public class ResourceSetWriteReadTest {
             StringBuilder parentReadme = new StringBuilder();
             parentReadme.append(TEXT);
 
+            // Build check suite lookup map keyed by derived name
+            Map<String, OlapCheckSuiteSupplier> checkSuiteByName = new HashMap<>();
+            for (ServiceReference<OlapCheckSuiteSupplier> chs : chrs) {
+                OlapCheckSuiteSupplier supplier = checkSuiteSuppliersSA.getService(chs);
+                String csName = supplier.getClass().getPackageName().substring(46);
+                checkSuiteByName.put(csName, supplier);
+            }
+
             // Create combined ZIP directory structure
             Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/tutorial/zip"));
             ZipOutputStream combinedZos = new ZipOutputStream(new FileOutputStream(zipDir.resolve("all-tutorials.zip").toFile()));
-            ZipOutputStream combinedCheckSuiteZos = new ZipOutputStream(new FileOutputStream(zipDir.resolve("all-check-suites.zip").toFile()));
 
             srs.sort((o1, o2) -> {
                 Object s1 = o1.getProperty("number");
@@ -145,21 +152,12 @@ public class ResourceSetWriteReadTest {
 
                 try {
                     CatalogMappingSupplier catalogMappingSupplier = mappingSuppiersSA.getService(sr);
+                    String name = catalogMappingSupplier.getClass().getPackageName().substring(46);
+                    OlapCheckSuiteSupplier matchingCheckSuite = checkSuiteByName.get(name);
 
                     parentReadme.append("\n");
 
-                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier, sr.getProperties(), combinedZos);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            for (ServiceReference<OlapCheckSuiteSupplier> chs : chrs) {
-
-                try {
-                    OlapCheckSuiteSupplier catalogMappingSupplier = checkSuiteSuppliersSA.getService(chs);
-
-                    serializeCheckSuite(resourceSet, catalogMappingSupplier, combinedCheckSuiteZos);
+                    serializeCatalog(resourceSet, parentReadme, catalogMappingSupplier, sr.getProperties(), combinedZos, matchingCheckSuite);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -178,56 +176,8 @@ public class ResourceSetWriteReadTest {
 
     Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
 
-    private void serializeCheckSuite(ResourceSet resourceSet,
-        OlapCheckSuiteSupplier checkSuiteSupplier, ZipOutputStream combinedZos) throws IOException {
-
-        String name = checkSuiteSupplier.getClass().getPackageName();
-        name = name.substring(46);
-
-        Path zipDir = Files.createDirectories(tempDir.resolve("cubeserver/checkSuite/zip"));
-        ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(zipDir.resolve(name + ".zip").toFile()));
-
-        OlapCheckSuite chs = checkSuiteSupplier.get();
-
-        URI uriCatalog = URI.createFileURI("catalog.xmi");
-        Resource resourceCatalog = resourceSet.createResource(uriCatalog);
-
-        Set<EObject> set = new HashSet<>();
-
-        set = allRef(set, chs);
-
-        // sort
-
-        List<EObject> sortedList = set.stream().sorted(checkSuiteComparator).toList();
-
-
-        for (EObject eObject : sortedList) {
-            if (eObject.eContainer() == null) {
-                resourceCatalog.getContents().add(eObject);
-            }
-        }
-        Map<Object, Object> options = new HashMap<>();
-        options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        resourceCatalog.save(baos, options);
-
-        ZipEntry entry = new ZipEntry(name + "/checkSuite.xmi");
-        zos.putNextEntry(entry);
-        zos.write(baos.toByteArray());
-        zos.closeEntry();
-
-        ZipEntry combinedEntry = new ZipEntry(name + "/checkSuite.xmi");
-        combinedZos.putNextEntry(combinedEntry);
-        combinedZos.write(baos.toByteArray());
-        combinedZos.closeEntry();
-
-        Files.createDirectories(zipDir);
-        zos.close();
-    }
-
-
     private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
-            CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos) throws IOException {
+            CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos, OlapCheckSuiteSupplier checkSuiteSupplier) throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
         name = name.substring(46);
@@ -477,6 +427,39 @@ public class ResourceSetWriteReadTest {
             // Add to combined ZIP
             ZipEntry combinedEntryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
             combinedZos.putNextEntry(combinedEntryKeep);
+            combinedZos.closeEntry();
+        }
+
+        // Serialize check suite into the same ZIP if available
+        if (checkSuiteSupplier != null) {
+            OlapCheckSuite chs = checkSuiteSupplier.get();
+
+            URI uriCheckSuite = URI.createFileURI("checkSuite.xmi");
+            Resource resourceCheckSuite = resourceSet.createResource(uriCheckSuite);
+
+            Set<EObject> checkSet = new HashSet<>();
+            checkSet = allRef(checkSet, chs);
+
+            List<EObject> sortedCheckList = checkSet.stream().sorted(checkSuiteComparator).toList();
+
+            for (EObject eObject : sortedCheckList) {
+                if (eObject.eContainer() == null) {
+                    resourceCheckSuite.getContents().add(eObject);
+                }
+            }
+            Map<Object, Object> checkOptions = new HashMap<>();
+            checkOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
+            ByteArrayOutputStream checkBaos = new ByteArrayOutputStream();
+            resourceCheckSuite.save(checkBaos, checkOptions);
+
+            ZipEntry checkEntry = new ZipEntry(name + "/check/checkSuite.xmi");
+            zos.putNextEntry(checkEntry);
+            zos.write(checkBaos.toByteArray());
+            zos.closeEntry();
+
+            ZipEntry combinedCheckEntry = new ZipEntry(name + "/check/checkSuite.xmi");
+            combinedZos.putNextEntry(combinedCheckEntry);
+            combinedZos.write(checkBaos.toByteArray());
             combinedZos.closeEntry();
         }
 
