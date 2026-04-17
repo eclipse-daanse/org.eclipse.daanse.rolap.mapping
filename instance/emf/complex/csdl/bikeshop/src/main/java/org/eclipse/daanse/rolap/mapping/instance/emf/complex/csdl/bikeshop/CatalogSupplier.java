@@ -452,9 +452,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE.setType(ColumnType.VARCHAR);
 
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
-        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setName("WeightUnitMeasureCode");
+        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setName("SizeUnitMeasureCode");
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setId("_column_bike_size_unit_measure_code");
-        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(ColumnType.VARCHAR);
+        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(ColumnType.INTEGER);
 
         COLUMN_SAFETY_STOCK_LEVEL_BIKE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_SAFETY_STOCK_LEVEL_BIKE.setName("SafetyStockLevel");

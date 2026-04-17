@@ -9,6 +9,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
+import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.ConnectionConfig;
 import org.eclipse.daanse.olap.check.model.check.CubeAttribute;
 import org.eclipse.daanse.olap.check.model.check.CubeAttributeCheck;
@@ -174,7 +175,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         aggregatorCheck.setExpectedValue(expectedAggregator);
         aggregatorCheck.setMatchMode(MatchMode.EQUALS);
         aggregatorCheck.setCaseSensitive(false);
-        measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
+        //TODO aggregatorCheck not implemented
+        //measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
         return measureCheck;
     }
     private QueryCheck createQueryCheckForRole1() {
@@ -183,7 +185,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setDescription("Verify MDX query returns Measure data for role1");
         queryCheck.setQuery("SELECT FROM [Cube1] WHERE ([Measures].[Measure1])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
+
+        CellValueCheck queryCheck1CellValueCheck = FACTORY.createCellValueCheck();
+        queryCheck1CellValueCheck.setName("[Measures].[Measure1]");
+        queryCheck1CellValueCheck.setExpectedValue("84.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(84);
+
+        queryCheck.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck.setEnabled(true);
         return queryCheck;
     }

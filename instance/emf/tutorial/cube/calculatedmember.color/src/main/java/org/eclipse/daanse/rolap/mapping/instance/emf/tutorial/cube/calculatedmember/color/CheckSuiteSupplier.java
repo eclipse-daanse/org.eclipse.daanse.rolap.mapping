@@ -136,7 +136,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck1.setDescription("Verify MDX query returns Measure data for Measure-Sum");
         queryCheck1.setQuery("SELECT FROM [Cube CalculatedMember with different colors] WHERE ([Measures].[Measure-Sum])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 

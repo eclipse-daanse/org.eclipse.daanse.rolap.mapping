@@ -220,7 +220,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D1H1L1_D1H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D1H1L1_D1H1L1TABLE.setId("_column_d1h1l1_d1h1l1table");
         COLUMN_D1H1L1_D1H1L1TABLE.setName(D_1_H_1_L_1);
-        COLUMN_D1H1L1_D1H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D1H1L1_D1H1L1TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D1H1L1_NAME_D1H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D1H1L1_NAME_D1H1L1TABLE.setId("_column_d1h1l1_name_d1h1l1table");
@@ -230,13 +230,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setId("_column_d1h1l1_ordinal_d1h1l1table");
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setName("D1H1L1_Ordinal");
-        COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D2H1L1 table
         COLUMN_D2H1L1_D2H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H1L1_D2H1L1TABLE.setId("_column_d2h1l1_d2h1l1table");
         COLUMN_D2H1L1_D2H1L1TABLE.setName(D_2_H_1_L_1);
-        COLUMN_D2H1L1_D2H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D2H1L1_D2H1L1TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D2H1L1_NAME_D2H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H1L1_NAME_D2H1L1TABLE.setId("_column_d2h1l1_name_d2h1l1table");
@@ -246,18 +246,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setId("_column_d2h1l1_ordinal_d2h1l1table");
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setName("D2H1L1_Ordinal");
-        COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D2H2L2 table
         COLUMN_D2H2L2_D2H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H2L2_D2H2L2TABLE.setId("_column_d2h2l2_d2h2l2table");
         COLUMN_D2H2L2_D2H2L2TABLE.setName(D_2_H_2_L_2);
-        COLUMN_D2H2L2_D2H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D2H2L2_D2H2L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D2H2L1_D2H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H2L1_D2H2L2TABLE.setId("_column_d2h2l1_d2h2l2table");
         COLUMN_D2H2L1_D2H2L2TABLE.setName("D2H2L1");
-        COLUMN_D2H2L1_D2H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D2H2L1_D2H2L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D2H2L2_NAME_D2H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D2H2L2_NAME_D2H2L2TABLE.setId("_column_d2h2l2_name_d2h2l2table");
@@ -283,7 +283,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H1L1_D3H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H1L1_D3H1L1TABLE.setId("_column_d3h1l1_d3h1l1table");
         COLUMN_D3H1L1_D3H1L1TABLE.setName(D_3_H_1_L_1);
-        COLUMN_D3H1L1_D3H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H1L1_D3H1L1TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H1L1_NAME_D3H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H1L1_NAME_D3H1L1TABLE.setId("_column_d3h1l1_name_d3h1l1table");
@@ -293,23 +293,23 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setId("_column_d3h1l1_ordinal_d3h1l1table");
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setName("D3H1L1_Ordinal");
-        COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D3H2L2 table
         COLUMN_D3H2L2_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L2_D3H2L2TABLE.setId("_column_d3h2l2_d3h2l2table");
         COLUMN_D3H2L2_D3H2L2TABLE.setName(D_3_H_2_L_2);
-        COLUMN_D3H2L2_D3H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L2_D3H2L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H2L2_ID_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L2_ID_D3H2L2TABLE.setId("_column_d3h2l2_id_d3h2l2table");
         COLUMN_D3H2L2_ID_D3H2L2TABLE.setName("D3H2L2_id");
-        COLUMN_D3H2L2_ID_D3H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L2_ID_D3H2L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H2L1_ID_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L1_ID_D3H2L2TABLE.setId("_column_d3h2l1_id_d3h2l2table");
         COLUMN_D3H2L1_ID_D3H2L2TABLE.setName("D3H2L1_id");
-        COLUMN_D3H2L1_ID_D3H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L1_ID_D3H2L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H2L2_NAME_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L2_NAME_D3H2L2TABLE.setId("_column_d3h2l2_name_d3h2l2table");
@@ -319,13 +319,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setId("_column_d3h2l2_ordinal_d3h2l2table");
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setName("D3H2L2_Ordinal");
-        COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D3H2L1 table
         COLUMN_D3H2L1_D3H2L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L1_D3H2L1TABLE.setId("_column_d3h2l1_d3h2l1table");
         COLUMN_D3H2L1_D3H2L1TABLE.setName(D_3_H_2_L_1);
-        COLUMN_D3H2L1_D3H2L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L1_D3H2L1TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H2L1_NAME_D3H2L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L1_NAME_D3H2L1TABLE.setId("_column_d3h2l1_name_d3h2l1table");
@@ -335,18 +335,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setId("_column_d3h2l1_ordinal_d3h2l1table");
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setName("D3H2L1_Ordinal");
-        COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D3H3L3 table
         COLUMN_D3H3L3_D3H3L3TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L3_D3H3L3TABLE.setId("_column_d3h3l3_d3h3l3table");
         COLUMN_D3H3L3_D3H3L3TABLE.setName(D_3_H_3_L_3);
-        COLUMN_D3H3L3_D3H3L3TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L3_D3H3L3TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H3L2_ID_D3H3L3TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L2_ID_D3H3L3TABLE.setId("_column_d3h3l2_id_d3h3l3table");
         COLUMN_D3H3L2_ID_D3H3L3TABLE.setName("D3H3L2_id");
-        COLUMN_D3H3L2_ID_D3H3L3TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L2_ID_D3H3L3TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H3L3_NAME_D3H3L3TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L3_NAME_D3H3L3TABLE.setId("_column_d3h3l3_name_d3h3l3table");
@@ -356,18 +356,18 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setId("_column_d3h3l3_ordinal_d3h3l3table");
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setName("D3H3L3_Ordinal");
-        COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D3H3L2 table
         COLUMN_D3H3L2_D3H3L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L2_D3H3L2TABLE.setId("_column_d3h3l2_d3h3l2table");
         COLUMN_D3H3L2_D3H3L2TABLE.setName(D_3_H_3_L_2);
-        COLUMN_D3H3L2_D3H3L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L2_D3H3L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H3L1_ID_D3H3L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L1_ID_D3H3L2TABLE.setId("_column_d3h3l1_id_d3h3l2table");
         COLUMN_D3H3L1_ID_D3H3L2TABLE.setName("D3H3L1_id");
-        COLUMN_D3H3L1_ID_D3H3L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L1_ID_D3H3L2TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H3L2_NAME_D3H3L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L2_NAME_D3H3L2TABLE.setId("_column_d3h3l2_name_d3h3l2table");
@@ -377,13 +377,13 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setId("_column_d3h3l2_ordinal_d3h3l2table");
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setName("D3H3L2_Ordinal");
-        COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setType(ColumnType.INTEGER);
 
         // Initialize columns - D3H3L1 table
         COLUMN_D3H3L1_D3H3L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L1_D3H3L1TABLE.setId("_column_d3h3l1_d3h3l1table");
         COLUMN_D3H3L1_D3H3L1TABLE.setName(D_3_H_3_L_1);
-        COLUMN_D3H3L1_D3H3L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L1_D3H3L1TABLE.setType(ColumnType.INTEGER);
 
         COLUMN_D3H3L1_NAME_D3H3L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L1_NAME_D3H3L1TABLE.setId("_column_d3h3l1_name_d3h3l1table");
@@ -393,7 +393,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setId("_column_d3h3l1_ordinal_d3h3l1table");
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setName("D3H3L1_Ordinal");
-        COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setType(ColumnType.VARCHAR);
+        COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setType(ColumnType.INTEGER);
 
         // Initialize tables
         TABLE_CUBE1FACT = RolapMappingFactory.eINSTANCE.createPhysicalTable();
