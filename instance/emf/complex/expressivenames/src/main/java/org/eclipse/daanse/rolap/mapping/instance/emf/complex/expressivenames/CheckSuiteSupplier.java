@@ -98,64 +98,64 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         );
 
         DatabaseTableCheck tableCheckD1H1L1Table = createTableCheck("D1H1L1Table",
-                createColumnCheck("D1H1L1", "VARCHAR"),
+                createColumnCheck("D1H1L1", "INTEGER"),
                 createColumnCheck("D1H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D1H1L1_Ordinal", "VARCHAR")
+                createColumnCheck("D1H1L1_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD2H1L1Table = createTableCheck("D2H1L1Table",
-                createColumnCheck("D2H1L1", "VARCHAR"),
+                createColumnCheck("D2H1L1", "INTEGER"),
                 createColumnCheck("D2H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D2H1L1_Ordinal", "VARCHAR")
+                createColumnCheck("D2H1L1_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD2H2L2Table = createTableCheck("D2H2L2Table",
-                createColumnCheck("D2H2L2", "VARCHAR"),
-                createColumnCheck("D2H2L1", "VARCHAR"),
+                createColumnCheck("D2H2L2", "INTEGER"),
+                createColumnCheck("D2H2L1", "INTEGER"),
                 createColumnCheck("D2H2L2_NAME", "VARCHAR"),
                 createColumnCheck("D2H2L1_NAME", "VARCHAR"),
-                createColumnCheck("D2H2L2_Ordinal", "VARCHAR"),
-                createColumnCheck("D2H2L1_Ordinal", "VARCHAR")
+                createColumnCheck("D2H2L2_Ordinal", "INTEGER"),
+                createColumnCheck("D2H2L1_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H1L1Table = createTableCheck("D3H1L1Table",
-                createColumnCheck("D3H1L1", "VARCHAR"),
+                createColumnCheck("D3H1L1", "INTEGER"),
                 createColumnCheck("D3H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H1L1_Ordinal", "VARCHAR")
+                createColumnCheck("D3H1L1_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H2L2Table = createTableCheck("D3H2L2Table",
-                createColumnCheck("D3H2L2", "VARCHAR"),
-                createColumnCheck("D3H2L2_id", "VARCHAR"),
-                createColumnCheck("D3H2L1_id", "VARCHAR"),
+                createColumnCheck("D3H2L2", "INTEGER"),
+                createColumnCheck("D3H2L2_id", "INTEGER"),
+                createColumnCheck("D3H2L1_id", "INTEGER"),
                 createColumnCheck("D3H2L2_NAME", "VARCHAR"),
-                createColumnCheck("D3H2L2_Ordinal", "VARCHAR")
+                createColumnCheck("D3H2L2_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H2L1Table = createTableCheck("D3H2L1Table",
-                createColumnCheck("D3H2L1", "VARCHAR"),
+                createColumnCheck("D3H2L1", "INTEGER"),
                 createColumnCheck("D3H2L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H2L1_Ordinal", "VARCHAR")
+                createColumnCheck("D3H2L1_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H3L3Table = createTableCheck("D3H3L3Table",
-                createColumnCheck("D3H3L3", "VARCHAR"),
-                createColumnCheck("D3H3L2_id", "VARCHAR"),
+                createColumnCheck("D3H3L3", "INTEGER"),
+                createColumnCheck("D3H3L2_id", "INTEGER"),
                 createColumnCheck("D3H3L3_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L3_Ordinal", "VARCHAR")
+                createColumnCheck("D3H3L3_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H3L2Table = createTableCheck("D3H3L2Table",
-                createColumnCheck("D3H3L2", "VARCHAR"),
-                createColumnCheck("D3H3L1_id", "VARCHAR"),
+                createColumnCheck("D3H3L2", "INTEGER"),
+                createColumnCheck("D3H3L1_id", "INTEGER"),
                 createColumnCheck("D3H3L2_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L2_Ordinal", "VARCHAR")
+                createColumnCheck("D3H3L2_Ordinal", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckD3H3L1Table = createTableCheck("D3H3L1Table",
-                createColumnCheck("D3H3L1", "VARCHAR"),
+                createColumnCheck("D3H3L1", "INTEGER"),
                 createColumnCheck("D3H3L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L1_Ordinal", "VARCHAR")
+                createColumnCheck("D3H3L1_Ordinal", "INTEGER")
         );
 
         // Create Database Schema Check

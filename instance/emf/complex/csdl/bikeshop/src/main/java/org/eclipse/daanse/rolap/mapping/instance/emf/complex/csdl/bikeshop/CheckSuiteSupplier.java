@@ -338,7 +338,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
             createColumnCheck("ModelName", "VARCHAR"),
             createColumnCheck("Description", "VARCHAR"),
             createColumnCheck("WeightUnitMeasureCode", "VARCHAR"),
-            createColumnCheck("SizeUnitMeasureCode", "VARCHAR"),
+            createColumnCheck("SizeUnitMeasureCode", "INTEGER"),
             createColumnCheck("SafetyStockLevel", "INTEGER"),
             createColumnCheck("ReorderPoint", "INTEGER"),
             createColumnCheck("DaysToManufacture", "INTEGER"),

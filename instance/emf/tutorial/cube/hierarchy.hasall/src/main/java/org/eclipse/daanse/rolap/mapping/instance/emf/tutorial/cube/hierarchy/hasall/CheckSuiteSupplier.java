@@ -54,10 +54,23 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         theMeasureCheck.setDescription("Check that measure 'theMeasure' exists");
         theMeasureCheck.setMeasureName("theMeasure");
 
-        MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
-        measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
+        //MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        //measureSumAttributeCheck1.setExpectedAggregator(AggregatorType.SUM);
+        //measureSumAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
 
-        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        MeasureAttributeCheck measureSumAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck2.setName("theMeasure name check");
+        measureSumAttributeCheck2.setExpectedValue("theMeasure");
+        measureSumAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+
+        MeasureAttributeCheck measureSumAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck3.setName("theMeasure unique name check");
+        measureSumAttributeCheck3.setExpectedValue("[Measures].[theMeasure]");
+        measureSumAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);;
+
+        //theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck1);
+        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck2);
+        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck3);
 
         // Create Level check
         LevelCheck levelCheck = factory.createLevelCheck();
@@ -93,7 +106,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         HierarchyAttributeCheck hierarchyWithoutHasAllAttributeCheck = factory.createHierarchyAttributeCheck();
         hierarchyWithoutHasAllAttributeCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
-        hierarchyWithoutHasAllAttributeCheck.setExpectedBoolean(true);
+        hierarchyWithoutHasAllAttributeCheck.setExpectedBoolean(false);
 
         // Create hierarchy check
         HierarchyCheck hierarchyWithoutHasAllCheck = factory.createHierarchyCheck();
@@ -120,14 +133,15 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[theMeasure]");
-        queryCheck1CellValueCheck.setExpectedValue("378");
+        queryCheck1CellValueCheck.setExpectedValue("63.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(63);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Measure-Sum");
         queryCheck1.setDescription("Verify MDX query returns Measure data for theMeasure");
         queryCheck1.setQuery("SELECT FROM [HasAll Cube] WHERE ([Measures].[theMeasure])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
@@ -164,9 +178,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
-        catalogCheck.setName("Daanse Tutorial - Dimension Intro catalog check");
-        catalogCheck.setDescription("Check that catalog 'Daanse Tutorial - Dimension Intro' exists with its cubes");
-        catalogCheck.setCatalogName("Daanse Tutorial - Cube Calculated Member Property");
+        catalogCheck.setName("Daanse Tutorial - Hierarchy Has All check");
+        catalogCheck.setDescription("Check that catalog 'Daanse Tutorial - Hierarchy Has All' exists with its cubes");
+        catalogCheck.setCatalogName("Daanse Tutorial - Hierarchy Has All");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck1);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);

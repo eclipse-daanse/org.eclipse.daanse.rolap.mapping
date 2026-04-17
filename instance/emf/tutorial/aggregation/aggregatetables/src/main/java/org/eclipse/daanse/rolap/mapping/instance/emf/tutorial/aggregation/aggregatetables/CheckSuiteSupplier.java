@@ -56,13 +56,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check
         CellValueCheck queryCheckCellValueCheck = factory.createCellValueCheck();
         queryCheckCellValueCheck.setName("[Measures].[Store Cost]");
+        queryCheckCellValueCheck.setExpectedValue("1001.0");
+        queryCheckCellValueCheck.setExpectedNumericValue(1001);
+
 
         QueryCheck queryCheck = factory.createQueryCheck();
         queryCheck.setName("Store Cost Query Check");
         queryCheck.setDescription("Verify MDX query returns Store Cost data");
         queryCheck.setQuery("SELECT FROM [Sales] WHERE ([Measures].[Store Cost])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 

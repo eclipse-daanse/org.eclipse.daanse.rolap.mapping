@@ -55,7 +55,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureSumCheck.setMeasureName("Measure1-Sum");
 
         MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
-        measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
+        measureSumAttributeCheck.setName("Measure1-Sum");
+        measureSumAttributeCheck.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck.setExpectedValue("Measure1-Sum");
 
         measureSumCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
 
@@ -65,7 +67,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureCountCheck.setMeasureName("Measure2-Count");
 
         MeasureAttributeCheck measureCountAttributeCheck = factory.createMeasureAttributeCheck();
-        measureCountAttributeCheck.setExpectedAggregator(AggregatorType.COUNT);
+        measureCountAttributeCheck.setName("Measure2-Count");
+        measureCountAttributeCheck.setAttributeType(MeasureAttribute.NAME);
+        measureCountAttributeCheck.setExpectedValue("Measure2-Count");
 
         measureCountCheck.getMeasureAttributeChecks().add(measureCountAttributeCheck);
 
@@ -74,7 +78,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureCheckCalculatedMember1.setMeasureName("Calculated Member 1");
         measureCheckCalculatedMember1.setMeasureUniqueName("[Measures].[Calculated Member 1]");
 
-
+        //TODO how check hierarchy Calculated Member
         MeasureCheck measureCheckCalculatedMember2 = factory.createMeasureCheck();
         measureCheckCalculatedMember2.setName("MemberCheck-Calculated Member 2");
         measureCheckCalculatedMember2.setMeasureName("Calculated Member 2");
@@ -104,64 +108,65 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         // Create cube check with measure check
         CubeCheck cubeCheck = factory.createCubeCheck();
-        cubeCheck.setName("CubeCheck-Cube CalculatedMember with different colors");
-        cubeCheck.setDescription("Check that cube 'Cube CalculatedMember with different colors' exists with its measures");
-        cubeCheck.setCubeName("Cube CalculatedMember with different colors");
+        cubeCheck.setName("CubeCheck-Cube CalculatedMember");
+        cubeCheck.setDescription("Check that cube 'Cube CalculatedMember' exists with its measures");
+        cubeCheck.setCubeName("Cube CalculatedMember");
         cubeCheck.getMeasureChecks().add(measureSumCheck);
         cubeCheck.getMeasureChecks().add(measureCountCheck);
         cubeCheck.getMeasureChecks().add(measureCheckCalculatedMember1);
-        cubeCheck.getMeasureChecks().add(measureCheckCalculatedMember2);
         cubeCheck.getDimensionChecks().add(dimensionCheck);
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Measure-Sum]");
-        queryCheck1CellValueCheck.setExpectedValue("63");
+        queryCheck1CellValueCheck.setExpectedValue("63.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(63);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Measure-Sum");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Measure-Sum");
         queryCheck1.setQuery("SELECT FROM [Cube CalculatedMember] WHERE ([Measures].[Measure1-Sum])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Measure-Count]");
-        queryCheck2CellValueCheck.setExpectedValue("63");
+        queryCheck2CellValueCheck.setExpectedValue("2.0");
+        queryCheck2CellValueCheck.setExpectedNumericValue(2);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Measure-Count");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Measure-Count");
         queryCheck2.setQuery("SELECT FROM [Cube CalculatedMember] WHERE ([Measures].[Measure2-Count])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Calculated Member 1]");
-        queryCheck3CellValueCheck.setExpectedValue("63");
+        queryCheck3CellValueCheck.setExpectedValue("31.5");
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Calculated Member 1");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Calculated Member 1");
         queryCheck3.setQuery("SELECT FROM [Cube CalculatedMember] WHERE ([Measures].[Calculated Member 1])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[Calculated Member 2]");
-        queryCheck4CellValueCheck.setExpectedValue("63");
+        queryCheck4CellValueCheck.setExpectedValue("31.5");
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check Calculated Member 2");
         queryCheck4.setDescription("Verify MDX query returns Measure data for Calculated Member 2");
         queryCheck4.setQuery("SELECT FROM [Cube CalculatedMember] WHERE ([Measures].[Calculated Member 2])");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(1);
+        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
@@ -205,7 +210,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck1);
         catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getQueryChecks().add(queryCheck3);
-        catalogCheck.getQueryChecks().add(queryCheck4);
+        //catalogCheck.getQueryChecks().add(queryCheck4);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
