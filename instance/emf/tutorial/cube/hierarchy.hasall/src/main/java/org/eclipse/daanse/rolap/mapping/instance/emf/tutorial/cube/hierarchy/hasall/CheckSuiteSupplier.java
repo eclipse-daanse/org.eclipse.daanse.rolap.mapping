@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;
 
-import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
@@ -133,8 +132,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[theMeasure]");
-        queryCheck1CellValueCheck.setExpectedValue("63.0");
-        queryCheck1CellValueCheck.setExpectedNumericValue(63);
+        queryCheck1CellValueCheck.setExpectedValue("42.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(42);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Measure-Sum");

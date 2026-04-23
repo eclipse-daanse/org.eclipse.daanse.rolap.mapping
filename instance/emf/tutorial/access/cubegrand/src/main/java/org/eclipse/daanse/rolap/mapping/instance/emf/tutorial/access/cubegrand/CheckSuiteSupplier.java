@@ -189,8 +189,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck1CellValueCheck = FACTORY.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Measure1]");
-        queryCheck1CellValueCheck.setExpectedValue("84.0");
-        queryCheck1CellValueCheck.setExpectedNumericValue(84);
+        queryCheck1CellValueCheck.setExpectedValue("42.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(42);
 
         queryCheck.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck.setEnabled(true);

@@ -64,52 +64,54 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check for Measure-Sum
         CellValueCheck queryCheckCellValueCheckSum = factory.createCellValueCheck();
         queryCheckCellValueCheckSum.setName("[Measures].[Measure-Sum]");
+        queryCheckCellValueCheckSum.setExpectedValue("63.0");
 
         QueryCheck queryCheckSum = factory.createQueryCheck();
         queryCheckSum.setName("Measure-Sum Query Check");
         queryCheckSum.setDescription("Verify MDX query returns Measure-Sum data");
         queryCheckSum.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[Measure-Sum])");
         queryCheckSum.setQueryLanguage(QueryLanguage.MDX);
-        queryCheckSum.setExpectedColumnCount(1);
+        queryCheckSum.setExpectedColumnCount(0);
         queryCheckSum.getCellChecks().add(queryCheckCellValueCheckSum);
         queryCheckSum.setEnabled(true);
 
         // Create query check for Measure-Count
         CellValueCheck queryCheckCellValueCheckCount = factory.createCellValueCheck();
         queryCheckCellValueCheckCount.setName("[Measures].[Measure-Count]");
+        queryCheckCellValueCheckCount.setExpectedValue("2.0");
 
         QueryCheck queryCheckCount = factory.createQueryCheck();
         queryCheckCount.setName("Measure-Count Query Check");
         queryCheckCount.setDescription("Verify MDX query returns Measure-Count data");
         queryCheckCount.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[Measure-Count])");
         queryCheckCount.setQueryLanguage(QueryLanguage.MDX);
-        queryCheckCount.setExpectedColumnCount(1);
+        queryCheckCount.setExpectedColumnCount(0);
         queryCheckCount.getCellChecks().add(queryCheckCellValueCheckCount);
         queryCheckCount.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheckCaseFunction1 = factory.createCellValueCheck();
         queryCheckCellValueCheckCaseFunction1.setName("[Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end]");
-        queryCheckCellValueCheckCaseFunction1.setExpectedValue("63");
+        queryCheckCellValueCheckCaseFunction1.setExpectedValue("63.0");
 
         QueryCheck queryCheckCase1 = factory.createQueryCheck();
         queryCheckCase1.setName("case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end Check");
         queryCheckCase1.setDescription("Verify MDX query returns case function data true");
-        queryCheckCase1.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end])");
+        queryCheckCase1.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures]].[Measure-Sum]]>10 then [Measures]].[Measure-Sum]] else [Measures]].[Measure-Count]] end])");
         queryCheckCase1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheckCase1.setExpectedColumnCount(1);
+        queryCheckCase1.setExpectedColumnCount(0);
         queryCheckCase1.getCellChecks().add(queryCheckCellValueCheckCaseFunction1);
         queryCheckCase1.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheckCaseFunction2 = factory.createCellValueCheck();
         queryCheckCellValueCheckCaseFunction2.setName("[Measures].[case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end]");
-        queryCheckCellValueCheckCaseFunction2.setExpectedValue("2");
+        queryCheckCellValueCheckCaseFunction2.setExpectedValue("2.0");
 
         QueryCheck queryCheckCase2 = factory.createQueryCheck();
         queryCheckCase2.setName("case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end Check");
         queryCheckCase2.setDescription("Verify MDX query returns case function data false");
-        queryCheckCase2.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end])");
+        queryCheckCase2.setQuery("SELECT FROM [Cube logic functions] WHERE ([Measures].[case when [Measures]].[Measure-Sum]]>100 then [Measures]].[Measure-Sum]] else [Measures]].[Measure-Count]] end])");
         queryCheckCase2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheckCase2.setExpectedColumnCount(1);
+        queryCheckCase2.setExpectedColumnCount(0);
         queryCheckCase2.getCellChecks().add(queryCheckCellValueCheckCaseFunction2);
         queryCheckCase2.setEnabled(true);
 

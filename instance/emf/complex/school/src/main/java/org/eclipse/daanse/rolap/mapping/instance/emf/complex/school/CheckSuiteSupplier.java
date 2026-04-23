@@ -223,7 +223,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck101 = factory.createCellValueCheck();
         cellCheck101.setName("SCHULJAHR");
-        cellCheck101.setExpectedValue("2019//2020");
+        cellCheck101.setExpectedValue("2019/2020");
         cellCheck101.getCoordinates().add(0);
         cellCheck101.getCoordinates().add(1);
 
@@ -237,7 +237,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cellCheck103.setName("BETROFFENE_KLASSEN");
         cellCheck103.setExpectedValue("6576");
         cellCheck103.getCoordinates().add(0);
-        cellCheck103.getCoordinates().add(2);
+        cellCheck103.getCoordinates().add(3);
 
         QueryCheck sqlQueryCheck1 = factory.createQueryCheck();
         sqlQueryCheck1.setName("Sql Query Check1 for " + CATALOG_NAME);
@@ -295,7 +295,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cellCheck304.getCoordinates().addAll(List.of(0, 4));
 
         QueryCheck sqlQueryCheck3 = factory.createQueryCheck();
-        sqlQueryCheck3.setName("Sql Query Check2 for " + CATALOG_NAME);
+        sqlQueryCheck3.setName("Sql Query Check3 for " + CATALOG_NAME);
         sqlQueryCheck3.setQuery(Q3);
         sqlQueryCheck3.setQueryLanguage(QueryLanguage.SQL);
         sqlQueryCheck3.getCellChecks().addAll(List.of(cellCheck300, cellCheck301, cellCheck302, cellCheck303, cellCheck304));
@@ -316,7 +316,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cellCheck402.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck4 = factory.createQueryCheck();
-        sqlQueryCheck4.setName("Sql Query Check2 for " + CATALOG_NAME);
+        sqlQueryCheck4.setName("Sql Query Check4 for " + CATALOG_NAME);
         sqlQueryCheck4.setQuery(Q4);
         sqlQueryCheck4.setQueryLanguage(QueryLanguage.SQL);
         sqlQueryCheck4.getCellChecks().addAll(List.of(cellCheck400, cellCheck401, cellCheck402));
