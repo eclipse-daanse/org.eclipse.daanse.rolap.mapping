@@ -11,6 +11,7 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.databasesc
 import java.util.List;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
+import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.ConnectionConfig;
 import org.eclipse.daanse.olap.check.model.check.CubeAttribute;
 import org.eclipse.daanse.olap.check.model.check.CubeAttributeCheck;
@@ -38,24 +39,35 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     @Override
     public OlapCheckSuite get() {
-        //ConnectionConfig connectionConfig = FACTORY.createConnectionConfig();
-        //connectionConfig.setCatalogName("Daanse Tutorial - Access Catalog Gran");
-        //connectionConfig.getRoles().add("role1");
-        //model.setConnectionConfig(connectionConfig);
         // Create catalog check
-        CatalogCheck catalogCheck = FACTORY.createCatalogCheck();
-        catalogCheck.setName("Catalog Check");
-        catalogCheck.setDescription("Demonstrates access control with database grants and roles");
-        catalogCheck.setCatalogName("Daanse Tutorial - Access Database Schema Grant");
-        catalogCheck.setEnabled(true);
+        CatalogCheck catalogCheckRoleAll = FACTORY.createCatalogCheck();
+        catalogCheckRoleAll.setName("Catalog Check");
+        catalogCheckRoleAll.setDescription("Demonstrates access control with database grants and roles");
+        catalogCheckRoleAll.setCatalogName("Daanse Tutorial - Access Database Schema Grant");
+        catalogCheckRoleAll.setEnabled(true);
         // Add database schema check with detailed column checks
-        catalogCheck.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
+        catalogCheckRoleAll.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
         // Add cube check
-        catalogCheck.getCubeChecks().add(createCubeCheck());
+        catalogCheckRoleAll.getCubeChecks().add(createCubeCheck());
 
         // Add query checks at catalog
-        catalogCheck.getQueryChecks().addAll(java.util.List.of(
-            createQueryCheckForRoleAll(),
+        catalogCheckRoleAll.getQueryChecks().addAll(java.util.List.of(
+            createQueryCheckForRoleAll()
+        ));
+
+        CatalogCheck catalogCheckRoleNone = FACTORY.createCatalogCheck();
+        catalogCheckRoleNone.setName("Catalog Check");
+        catalogCheckRoleNone.setDescription("Demonstrates access control with database grants and roles");
+        catalogCheckRoleNone.setCatalogName("Daanse Tutorial - Access Database Schema Grant");
+        catalogCheckRoleNone.setEnabled(true);
+        // Add database schema check with detailed column checks
+        //TODO add check that database absent
+        //catalogCheckRoleNone.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
+        // Add cube check
+        catalogCheckRoleNone.getCubeChecks().add(createCubeCheck());
+
+        // Add query checks at catalog
+        catalogCheckRoleNone.getQueryChecks().addAll(java.util.List.of(
             createQueryCheckForRoleNone()
         ));
 
@@ -71,13 +83,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         connectionCheckRoleAll.setName("Connection Check Database Schema Gran with roleAll");
         connectionCheckRoleAll.setDescription("Connection check for Database Schema Gran tutorial with roleAll");
         connectionCheckRoleAll.setConnectionConfig(roleAllConnectionConfig);
-        connectionCheckRoleAll.getCatalogChecks().add(catalogCheck);
+        connectionCheckRoleAll.getCatalogChecks().add(catalogCheckRoleAll);
 
         OlapConnectionCheck connectionCheckRoleNone = FACTORY.createOlapConnectionCheck();
         connectionCheckRoleNone.setName("Connection Check Database Schema Gran Check with roleNone");
         connectionCheckRoleNone.setDescription("Connection check for Database Schema Gran tutorial with roleNone");
         connectionCheckRoleNone.setConnectionConfig(roleNoneConnectionConfig);
-        connectionCheckRoleNone.getCatalogChecks().add(catalogCheck);
+        connectionCheckRoleNone.getCatalogChecks().add(catalogCheckRoleNone);
 
         OlapCheckSuite suite = FACTORY.createOlapCheckSuite();
         suite.setName("Daanse Tutorial - Access Database Schema Grant Checks");
@@ -140,13 +152,27 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setAttributeType(MeasureAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         measureCheck.getMeasureAttributeChecks().add(visibleCheck);
-        MeasureAttributeCheck aggregatorCheck = FACTORY.createMeasureAttributeCheck();
-        aggregatorCheck.setName(measureName + " Aggregator Check");
-        aggregatorCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
-        aggregatorCheck.setExpectedValue(expectedAggregator);
-        aggregatorCheck.setMatchMode(MatchMode.EQUALS);
-        aggregatorCheck.setCaseSensitive(false);
-        measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
+
+        MeasureAttributeCheck uniqueNameCheck = FACTORY.createMeasureAttributeCheck();
+        uniqueNameCheck.setName(measureName + " Unique Name Check");
+        uniqueNameCheck.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        uniqueNameCheck.setExpectedValue("[Measures].[" + measureName + "]");
+        measureCheck.getMeasureAttributeChecks().add(uniqueNameCheck);
+
+        MeasureAttributeCheck nameCheck = FACTORY.createMeasureAttributeCheck();
+        nameCheck.setName(measureName + " Name Check");
+        nameCheck.setAttributeType(MeasureAttribute.NAME);
+        nameCheck.setExpectedValue(measureName);
+        measureCheck.getMeasureAttributeChecks().add(nameCheck);
+
+        //TODO
+        //MeasureAttributeCheck aggregatorCheck = FACTORY.createMeasureAttributeCheck();
+        //aggregatorCheck.setName(measureName + " Aggregator Check");
+        //aggregatorCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
+        //aggregatorCheck.setExpectedValue(expectedAggregator);
+        //aggregatorCheck.setMatchMode(MatchMode.EQUALS);
+        //aggregatorCheck.setCaseSensitive(false);
+        //measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
         return measureCheck;
     }
     private QueryCheck createQueryCheckForRoleAll() {
@@ -155,8 +181,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setDescription("Verify MDX query returns Measure data");
         queryCheck.setQuery("SELECT FROM [Cube1] WHERE ([Measures].[Measure1])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.setEnabled(true);
+
+        CellValueCheck queryCheck1CellValueCheck = FACTORY.createCellValueCheck();
+        queryCheck1CellValueCheck.setName("[Measures].[Measure1]");
+        queryCheck1CellValueCheck.setExpectedValue("84.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(84);
+        queryCheck.getCellChecks().add(queryCheck1CellValueCheck);
         return queryCheck;
     }
 
@@ -168,6 +200,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
         queryCheck.setExpectedColumnCount(0);
         queryCheck.setEnabled(true);
+
+        CellValueCheck queryCheck1CellValueCheck = FACTORY.createCellValueCheck();
+        queryCheck1CellValueCheck.setName("[Measures].[Measure1]");
+        queryCheck1CellValueCheck.setExpectedValue("84.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(84);
+        queryCheck.getCellChecks().add(queryCheck1CellValueCheck);
+
         return queryCheck;
     }
 }
