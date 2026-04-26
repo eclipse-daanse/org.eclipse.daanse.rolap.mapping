@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.verifyer.api;
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 
 public interface Verifyer {
 

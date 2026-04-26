@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,28 +19,50 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CountMeasure;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.CountMeasure;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.06", source = Source.EMF, group = "Cube") // NOSONAR
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private CalculatedMember calculatedMember2;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private TableSource query;
+    private CalculatedMember calculatedMember1;
+    private Level level;
+
 
     private static final String introBody = """
             This tutorial discusses Calculated Members and Measures with different colors.
@@ -52,7 +73,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             The Database Schema contains the `Fact` table with three columns: `KEY` and `VALUE` and `VALUE_NUMERIC`. The `KEY` column is used as the discriminator in the Level and Hierarchy definitions.
             """;
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
+            The Query is a simple TableSource that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
             """;
     private static final String levelBody = """
             This Example uses one simple `Level` based on the `KEY` column.
@@ -76,126 +97,114 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_calculatedMemberColor");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level = LevelFactory.eINSTANCE.createLevel();
         level.setName("theLevel");
-        level.setId("_level_theLevel");
         level.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("theHierarchy");
-        hierarchy.setId("_hierarchy_theHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("theDimension");
-        dimension.setId("_dimension_theDimension");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_theDimension");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setForeignKey(keyColumn);
         dimensionConnector.setDimension(dimension);
 
 
-        SumMeasure measureSum = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measureSum = MeasureFactory.eINSTANCE.createSumMeasure();
         measureSum.setName("Measure-Sum");
-        measureSum.setId("_measure_measureSum");
         measureSum.setColumn(valueColumn);
         measureSum.setFormatString("$#,##0.00;BACK_COLOR=32768;FORE_COLOR=0");//green
 
-        CountMeasure measureCount = RolapMappingFactory.eINSTANCE.createCountMeasure();
+        CountMeasure measureCount = MeasureFactory.eINSTANCE.createCountMeasure();
         measureCount.setName("Measure-Count");
-        measureCount.setId("_measure_measureCount");
         measureCount.setColumn(valueColumn);
         measureCount.setFormatString("$#,##0.00;BACK_COLOR=16711680;FORE_COLOR=0");//red
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measureSum, measureCount));
 
-        CalculatedMemberProperty formatCalculatedMemberProperty1 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CalculatedMemberProperty formatCalculatedMemberProperty1 = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         formatCalculatedMemberProperty1.setName("FORMAT_STRING");
-        formatCalculatedMemberProperty1.setId("_calculatedMemberProperty_format1");
         formatCalculatedMemberProperty1.setValue("$#,##0.00;BACK_COLOR=65535;FORE_COLOR=13369395");
 
-        CalculatedMember calculatedMember1 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember1 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Calculated Member 1");
         calculatedMember1.setDisplayFolder("folder");
-        calculatedMember1.setId("_calculatedMember_calculatedMember1");
         calculatedMember1.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember1.setDisplayFolder("folder");
         calculatedMember1.getCalculatedMemberProperties().addAll(List.of(formatCalculatedMemberProperty1));
         calculatedMember1.setHierarchy(hierarchy);
         calculatedMember1.setParent("[theDimension].[theHierarchy].[All theHierarchys]");
 
-        CalculatedMemberProperty formatCalculatedMemberProperty2 = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
+        CalculatedMemberProperty formatCalculatedMemberProperty2 = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         formatCalculatedMemberProperty2.setName("FORMAT_STRING");
-        formatCalculatedMemberProperty2.setId("_calculatedMemberProperty_format2");
         formatCalculatedMemberProperty2.setValue("$#,##;BACK_COLOR=255;FORE_COLOR=13369395");
 
-        CalculatedMember calculatedMember2 = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        calculatedMember2 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Calculated Member 2");
-        calculatedMember2.setId("_calculatedMember_calculatedMember2");
         calculatedMember2.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
         calculatedMember2.setDisplayFolder("folder");
         calculatedMember2.getCalculatedMemberProperties().addAll(List.of(formatCalculatedMemberProperty2));
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube CalculatedMember with different colors");
-        cube.setId("_cube_calculatedMemberColorCube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(calculatedMember2,calculatedMember1));
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Cube Calculated Member Color");
         catalog.setDescription("Color properties for calculated members");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Cube Calculated Member Color", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(level, "Level", levelBody, 1, 3, 0, true, 0);
 
-        document(hierarchy, "Hierarchy without hasAll Level", hierarchyBody, 1, 4, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 5, 0, true, 0);
 
-        document(calculatedMember1, "Calculated Member in Measure with different colors properties", cm1Body, 1, 6, 0, true, 0);
 
-        document(calculatedMember2, "Calculated Member in Measure with different colors properties", cm2Body, 1, 6, 0, true, 0);
-
-        document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 8, 0, true, 2);
-
-        return catalog;
-
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Cube Calculated Member Color", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Level", levelBody, 1, 3, 0, level, 0),
+                        new DocSection("Hierarchy without hasAll Level", hierarchyBody, 1, 4, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 5, 0, dimension, 0),
+                        new DocSection("Calculated Member in Measure with different colors properties", cm1Body, 1, 6, 0, calculatedMember1, 0),
+                        new DocSection("Calculated Member in Measure with different colors properties", cm2Body, 1, 6, 0, calculatedMember2, 0),
+                        new DocSection("Cube and DimensionConnector and Measure", cubeBody, 1, 8, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

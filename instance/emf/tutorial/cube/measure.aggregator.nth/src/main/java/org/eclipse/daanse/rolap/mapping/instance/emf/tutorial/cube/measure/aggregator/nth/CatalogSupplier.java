@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.nth;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,26 +19,44 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.NthAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.NthAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.07", source = Source.EMF, group = "Measure")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private OrderedColumn orderedColumn;
+    private Schema databaseSchema;
+
 
     private static final String introBody = """
             Data cubes have NTH measures.
@@ -72,139 +89,127 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column idColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column idColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         idColumn.setName("ID");
-        idColumn.setId("_col_id");
-        idColumn.setType(ColumnType.INTEGER);
+        idColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column nameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column nameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameColumn.setName("NAME");
-        nameColumn.setId("_col_name");
-        nameColumn.setType(ColumnType.VARCHAR);
+        nameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_tab");
-        table.getColumns().addAll(List.of(idColumn, valueColumn, nameColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(idColumn, valueColumn, nameColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(valueColumn);
 
-        NthAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure1 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure1.setName("NthAgg1");
-        measure1.setId("_measure1");
         measure1.setIgnoreNulls(true);
         measure1.setN(1);
         measure1.getOrderByColumns().add(orderedColumn);
         measure1.setColumn(valueColumn);
 
-        NthAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure2 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure2.setName("NthAgg2");
-        measure2.setId("_measure2");
         measure2.setIgnoreNulls(true);
         measure2.setN(2);
         measure2.getOrderByColumns().add(orderedColumn);
         measure2.setColumn(valueColumn);
 
-        NthAggMeasure measure3 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure3 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure3.setName("NthAgg3");
-        measure3.setId("_measure3");
         measure3.setIgnoreNulls(true);
         measure3.setN(3);
         measure3.getOrderByColumns().add(orderedColumn);
         measure3.setColumn(valueColumn);
 
-        NthAggMeasure measure4 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure4 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure4.setName("NthAgg4");
-        measure4.setId("_measure4");
         measure4.setIgnoreNulls(true);
         measure4.setN(4);
         measure4.getOrderByColumns().add(orderedColumn);
         measure4.setColumn(valueColumn);
 
-        NthAggMeasure measure5 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure5 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure5.setName("NthAgg5");
-        measure5.setId("_measure5");
         measure5.setIgnoreNulls(true);
         measure5.setN(5);
         measure5.getOrderByColumns().add(orderedColumn);
         measure5.setColumn(valueColumn);
 
-        NthAggMeasure measure6 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure6 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure6.setName("NthAgg6");
-        measure6.setId("_measure6");
         measure6.setIgnoreNulls(true);
         measure6.setN(6);
         measure6.getOrderByColumns().add(orderedColumn);
         measure6.setColumn(valueColumn);
 
-        NthAggMeasure measure7 = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure7 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure7.setName("NthAgg7");
-        measure7.setId("_measure7");
         measure7.setIgnoreNulls(true);
         measure7.setN(7);
         measure7.getOrderByColumns().add(orderedColumn);
         measure7.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3, measure4, measure5, measure6, measure7));
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        Level level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Value");
-        level.setId("_level");
         level.setColumn(valueColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(false);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("_hierarchy_Hierarchy");
         hierarchy.setPrimaryKey(idColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Diml");
-        dimension.setId("_diml");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dim");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Dim");
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(idColumn);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setId("_cube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Nth");
         catalog.setDescription("Nth value aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Measure Aggregator Nth", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(orderedColumn, "Ordered Column", orderedColumnBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and NTH Aggragator Measures", cubeBody, 1, 3, 0, true, 2);
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Measure Aggregator Nth", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Ordered Column", orderedColumnBody, 1, 2, 0, orderedColumn, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

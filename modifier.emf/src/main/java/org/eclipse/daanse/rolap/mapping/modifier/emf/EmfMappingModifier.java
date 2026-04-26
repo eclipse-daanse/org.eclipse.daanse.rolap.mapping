@@ -88,101 +88,101 @@ import org.eclipse.daanse.rolap.mapping.api.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.PercentileType;
 import org.eclipse.daanse.rolap.mapping.api.model.enums.RollupPolicyType;
-import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessDimensionGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessMemberGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessRole;
-import org.eclipse.daanse.rolap.mapping.model.Action;
-import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationExclude;
-import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevelProperty;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationPattern;
-import org.eclipse.daanse.rolap.mapping.model.AggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessDimensionGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessHierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessMemberGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.Action;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevelProperty;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
-import org.eclipse.daanse.rolap.mapping.model.AvgMeasure;
-import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.BitAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.BitAggType;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.CatalogAccess;
-import org.eclipse.daanse.rolap.mapping.model.CellFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.AvgMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BitAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BitAggType;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.access.common.CatalogAccess;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.CellFormatter;
 import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnInternalDataType;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CountMeasure;
-import org.eclipse.daanse.rolap.mapping.model.Cube;
-import org.eclipse.daanse.rolap.mapping.model.CubeAccess;
-import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
-import org.eclipse.daanse.rolap.mapping.model.CustomMeasure;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseCatalog;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ColumnInternalDataType;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ColumnType;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.CountMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Cube;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.CubeAccess;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.CustomMeasure;
+import org.eclipse.daanse.rolap.mapping.model.catalog.DatabaseCatalog;
 import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.Dimension;
-import org.eclipse.daanse.rolap.mapping.model.DimensionAccess;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.HideMemberIf;
-import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
-import org.eclipse.daanse.rolap.mapping.model.HierarchyAccess;
-import org.eclipse.daanse.rolap.mapping.model.InlineTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.DimensionAccess;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAction;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.HideMemberIf;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.HierarchyAccess;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.InlineTable;
 import org.eclipse.daanse.rolap.mapping.model.InlineTableQuery;
 import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Kpi;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelDefinition;
 import org.eclipse.daanse.rolap.mapping.model.Link;
-import org.eclipse.daanse.rolap.mapping.model.MaxMeasure;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberAccess;
-import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.MemberPropertyFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberReaderParameter;
-import org.eclipse.daanse.rolap.mapping.model.MinMeasure;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
-import org.eclipse.daanse.rolap.mapping.model.NthAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MaxMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.MemberAccess;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberPropertyFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberReaderParameter;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MinMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.NthAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
-import org.eclipse.daanse.rolap.mapping.model.PercentType;
-import org.eclipse.daanse.rolap.mapping.model.PercentileMeasure;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.PercentType;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.PercentileMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
 import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
 import org.eclipse.daanse.rolap.mapping.model.Query;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.RollupPolicy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.model.Row;
 import org.eclipse.daanse.rolap.mapping.model.RowValue;
 import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
 import org.eclipse.daanse.rolap.mapping.model.SqlSelectQuery;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.model.SqlView;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.SystemTable;
 import org.eclipse.daanse.rolap.mapping.model.Table;
 import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
-import org.eclipse.daanse.rolap.mapping.model.TextAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.TextAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.model.Translation;
 import org.eclipse.daanse.rolap.mapping.model.ViewTable;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
-import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.model.impl.InlineTableImpl;
 import org.eclipse.daanse.rolap.mapping.model.impl.PhysicalColumnImpl;
 import org.eclipse.daanse.rolap.mapping.model.impl.PhysicalTableImpl;
@@ -192,6 +192,23 @@ import org.eclipse.daanse.rolap.mapping.model.impl.SystemTableImpl;
 import org.eclipse.daanse.rolap.mapping.model.impl.ViewTableImpl;
 import org.eclipse.daanse.rolap.mapping.modifier.common.AbstractMappingModifier;
 
+import org.eclipse.daanse.rolap.mapping.model.access.common.CommonFactory;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.OlapFactory;
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.ActionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 public class EmfMappingModifier extends AbstractMappingModifier {
 
     public EmfMappingModifier(CatalogMapping catalog) {
@@ -280,7 +297,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name,
             List<? extends AccessCatalogGrantMapping> accessCatalogGrants,
             List<? extends AccessRoleMapping> referencedAccessRoles) {
-        AccessRole accessRole = RolapMappingFactory.eINSTANCE.createAccessRole();
+        AccessRole accessRole = CommonFactory.eINSTANCE.createAccessRole();
         accessRole.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         accessRole.setId(id);
         accessRole.setDescription(description);
@@ -292,7 +309,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AccessMemberGrantMapping createAccessMemberGrant(AccessMember access, String member) {
-        AccessMemberGrant accessMemberGrant = RolapMappingFactory.eINSTANCE.createAccessMemberGrant();
+        AccessMemberGrant accessMemberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
         accessMemberGrant.setMemberAccess(toEmf(access));
         accessMemberGrant.setMember(member);
         return accessMemberGrant;
@@ -318,7 +335,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected JoinedQueryElementMapping createJoinedQueryElement(String alias, ColumnMapping key, QueryMapping query) {
-        JoinedQueryElement joinedQueryElement = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinedQueryElement = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinedQueryElement.setAlias(alias);
         joinedQueryElement.setKey((Column) key);
         joinedQueryElement.setQuery((Query) query);
@@ -360,7 +377,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends AggregationLevelMapping> aggregationLevels,
             List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
             String id, String pattern, List<? extends AggregationExcludeMapping> excludes) {
-        AggregationPattern aggregationPattern = RolapMappingFactory.eINSTANCE.createAggregationPattern();
+        AggregationPattern aggregationPattern = AggregationFactory.eINSTANCE.createAggregationPattern();
         aggregationPattern.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
         aggregationPattern.getAggregationIgnoreColumns()
                 .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
@@ -387,7 +404,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends AggregationLevelMapping> aggregationLevels,
             List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
             String id, String approxRowCount, TableMapping  name) {
-        AggregationName aggregationName = RolapMappingFactory.eINSTANCE.createAggregationName();
+        AggregationName aggregationName = AggregationFactory.eINSTANCE.createAggregationName();
         aggregationName.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
         aggregationName.getAggregationIgnoreColumns()
                 .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
@@ -406,8 +423,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationMeasureFactCountMapping createAggregationMeasureFactCount(ColumnMapping column, ColumnMapping factColumn) {
-        AggregationMeasureFactCount aggregationMeasureFactCount = RolapMappingFactory.eINSTANCE
-                .createAggregationMeasureFactCount();
+        AggregationMeasureFactCount aggregationMeasureFactCount = AggregationFactory.eINSTANCE.createAggregationMeasureFactCount();
         aggregationMeasureFactCount.setColumn((Column) column);
         aggregationMeasureFactCount.setFactColumn((Column) factColumn);
         return aggregationMeasureFactCount;
@@ -415,8 +431,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationLevelPropertyMapping createAggregationLevelProperty(ColumnMapping column, String name) {
-        AggregationLevelProperty aggregationLevelProperty = RolapMappingFactory.eINSTANCE
-                .createAggregationLevelProperty();
+        AggregationLevelProperty aggregationLevelProperty = AggregationFactory.eINSTANCE.createAggregationLevelProperty();
         aggregationLevelProperty.setColumn((Column) column);
         aggregationLevelProperty.setName(name);
         return aggregationLevelProperty;
@@ -427,7 +442,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected AggregationLevelMapping createAggregationLevel(
             List<? extends AggregationLevelPropertyMapping> aggregationLevelProperties, ColumnMapping captionColumn,
             boolean collapsed, ColumnMapping column, String name, ColumnMapping nameColumn, ColumnMapping ordinalColumn) {
-        AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
+        AggregationLevel aggregationLevel = AggregationFactory.eINSTANCE.createAggregationLevel();
         aggregationLevel.getAggregationLevelProperties()
                 .addAll((Collection<? extends AggregationLevelProperty>) aggregationLevelProperties);
         aggregationLevel.setCaptionColumn((Column) captionColumn);
@@ -441,7 +456,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationMeasureMapping createAggregationMeasure(ColumnMapping column, String name, String rollupType) {
-        AggregationMeasure aggregationMeasure = RolapMappingFactory.eINSTANCE.createAggregationMeasure();
+        AggregationMeasure aggregationMeasure = AggregationFactory.eINSTANCE.createAggregationMeasure();
         aggregationMeasure.setColumn((Column) column);
         aggregationMeasure.setName(name);
         aggregationMeasure.setRollupType(rollupType);
@@ -450,7 +465,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationForeignKeyMapping createAggregationForeignKey(ColumnMapping aggregationColumn, ColumnMapping factColumn) {
-        AggregationForeignKey aggregationForeignKey = RolapMappingFactory.eINSTANCE.createAggregationForeignKey();
+        AggregationForeignKey aggregationForeignKey = AggregationFactory.eINSTANCE.createAggregationForeignKey();
         aggregationForeignKey.setAggregationColumn((Column) aggregationColumn);
         aggregationForeignKey.setFactColumn((Column) factColumn);
         return aggregationForeignKey;
@@ -458,15 +473,14 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected AggregationColumnNameMapping createAggregationColumn(ColumnMapping column) {
-        AggregationColumnName aggregationColumnName = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
+        AggregationColumnName aggregationColumnName = AggregationFactory.eINSTANCE.createAggregationColumnName();
         aggregationColumnName.setColumn((Column) column);
         return aggregationColumnName;
     }
 
     @Override
     protected TableQueryOptimizationHintMapping createTableQueryOptimizationHint(String value, String type) {
-        TableQueryOptimizationHint tableQueryOptimizationHint = RolapMappingFactory.eINSTANCE
-                .createTableQueryOptimizationHint();
+        TableQueryOptimizationHint tableQueryOptimizationHint = SourceFactory.eINSTANCE.createTableQueryOptimizationHint();
         tableQueryOptimizationHint.setValue(value);
         tableQueryOptimizationHint.setType(type);
         return tableQueryOptimizationHint;
@@ -475,7 +489,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AggregationExcludeMapping createAggregationExclude(boolean ignorecase, String name, String pattern,
             String id) {
-        AggregationExclude aggregationExclude = RolapMappingFactory.eINSTANCE.createAggregationExclude();
+        AggregationExclude aggregationExclude = AggregationFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude.setIgnorecase(ignorecase);
         aggregationExclude.setName(name);
         aggregationExclude.setPattern(pattern);
@@ -487,7 +501,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected MemberReaderParameterMapping createMemberReaderParameter(String name, String value) {
-        MemberReaderParameter memberReaderParameter = RolapMappingFactory.eINSTANCE.createMemberReaderParameter();
+        MemberReaderParameter memberReaderParameter = LevelFactory.eINSTANCE.createMemberReaderParameter();
         memberReaderParameter.setName(name);
         memberReaderParameter.setValue(value);
         return memberReaderParameter;
@@ -501,7 +515,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String allMemberCaption, String allMemberName, String defaultMember, String displayFolder, boolean hasAll,
             String memberReaderClass, String origin, ColumnMapping primaryKey,
             String uniqueKeyLevelName, boolean visible, QueryMapping query) {
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         hierarchy.setId(id);
         hierarchy.setDescription(description);
@@ -534,7 +548,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             boolean visible, QueryMapping query, LevelMapping level,
             ParentChildLinkMapping parentChildLink, String nullParentValue, ColumnMapping parentColumn,
             boolean parentAsLeafEnable, String parentAsLeafNameFormat) {
-        ParentChildHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createParentChildHierarchy();
+        ParentChildHierarchy hierarchy = HierarchyFactory.eINSTANCE.createParentChildHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         hierarchy.setId(id);
         hierarchy.setDescription(description);
@@ -561,7 +575,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected MemberFormatterMapping createMemberFormatter(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, String ref) {
-        MemberFormatter memberFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
+        MemberFormatter memberFormatter = FormatFactory.eINSTANCE.createMemberFormatter();
         memberFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberFormatter.setId(id);
         memberFormatter.setDescription(description);
@@ -575,7 +589,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyMapping createMemberProperty(List<? extends AnnotationMapping> annotations, String id,
             String description, String name,
             MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, InternalDataType dataType) {
-        MemberProperty memberProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty memberProperty = LevelFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberProperty.setId(id);
         memberProperty.setDescription(description);
@@ -590,7 +604,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected ParentChildLinkMapping createParentChildLink(TableQueryMapping table, ColumnMapping childColumn,
             ColumnMapping parentColumn) {
-        ParentChildLink parentChildLink = RolapMappingFactory.eINSTANCE.createParentChildLink();
+        ParentChildLink parentChildLink = HierarchyFactory.eINSTANCE.createParentChildLink();
         parentChildLink.setTable((TableQuery) table);
         parentChildLink.setChildColumn((Column) childColumn);
         parentChildLink.setParentColumn((Column) parentColumn);
@@ -622,7 +636,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String approxRowCount, ColumnMapping captionColumn, ColumnMapping column, HideMemberIfType hideMemberIf,
             LevelType levelType, ColumnMapping nameColumn, ColumnMapping ordinalColumn,
             InternalDataType type, boolean uniqueMembers, boolean visible, String name, String id, String description) {
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        Level level = LevelFactory.eINSTANCE.createLevel();
         level.getMemberProperties().addAll((Collection<? extends MemberProperty>) memberProperties);
         level.setMemberFormatter((MemberFormatter) memberFormatter);
         level.setApproxRowCount(approxRowCount);
@@ -646,7 +660,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected AccessHierarchyGrantMapping createAccessHierarchyGrant(
             List<? extends AccessMemberGrantMapping> memberGrants, AccessHierarchy access, LevelMapping bottomLevel,
             RollupPolicyType rollupPolicy, LevelMapping topLevel, HierarchyMapping hierarchy) {
-        AccessHierarchyGrant accessHierarchyGrant = RolapMappingFactory.eINSTANCE.createAccessHierarchyGrant();
+        AccessHierarchyGrant accessHierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
         accessHierarchyGrant.getMemberGrants().addAll((Collection<? extends AccessMemberGrant>) memberGrants);
         accessHierarchyGrant.setHierarchyAccess(toEmf(access));
         accessHierarchyGrant.setBottomLevel((Level) bottomLevel);
@@ -661,7 +675,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected TimeDimensionMapping createTimeDimension(List<? extends AnnotationMapping> annotations, String id,
             String description, String name,
             List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
-        TimeDimension timeDimension = RolapMappingFactory.eINSTANCE.createTimeDimension();
+        TimeDimension timeDimension = DimensionFactory.eINSTANCE.createTimeDimension();
         timeDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         timeDimension.setId(id);
         timeDimension.setDescription(description);
@@ -677,7 +691,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected StandardDimensionMapping createStandardDimension(List<? extends AnnotationMapping> annotations, String id,
             String description, String name,
             List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
-        StandardDimension standardDimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension standardDimension = DimensionFactory.eINSTANCE.createStandardDimension();
         standardDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         standardDimension.setId(id);
         standardDimension.setDescription(description);
@@ -691,7 +705,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessDimensionGrantMapping createAccessDimensionGrant(AccessDimension access,
             DimensionMapping dimension) {
-        AccessDimensionGrant accessDimensionGrant = RolapMappingFactory.eINSTANCE.createAccessDimensionGrant();
+        AccessDimensionGrant accessDimensionGrant = OlapFactory.eINSTANCE.createAccessDimensionGrant();
         accessDimensionGrant.setDimensionAccess(toEmf(access));
         accessDimensionGrant.setDimension((Dimension) dimension);
         return accessDimensionGrant;
@@ -701,7 +715,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessCubeGrantMapping createAccessCubeGrant(List<? extends AccessDimensionGrantMapping> dimensionGrants,
             List<? extends AccessHierarchyGrantMapping> hierarchyGrants, AccessCube access, CubeMapping cube) {
-        AccessCubeGrant accessCubeGrant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
+        AccessCubeGrant accessCubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
         accessCubeGrant.getDimensionGrants().addAll((Collection<? extends AccessDimensionGrant>) dimensionGrants);
         accessCubeGrant.getHierarchyGrants().addAll((Collection<? extends AccessHierarchyGrant>) hierarchyGrants);
         accessCubeGrant.setCubeAccess(toEmf(access));
@@ -718,7 +732,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected AccessCatalogGrantMapping createAccessCatalogGrant(List<? extends AccessCubeGrantMapping> accessCubeGrant,
             AccessCatalog access) {
-        AccessCatalogGrant accessCatalogGrant = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        AccessCatalogGrant accessCatalogGrant = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrant.getCubeGrants().addAll((Collection<? extends AccessCubeGrant>) accessCubeGrant);
         accessCatalogGrant.setCatalogAccess(toEmf(access));
         return accessCatalogGrant;
@@ -728,7 +742,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected NamedSetMapping createNamedSet(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, String displayFolder, String formula) {
-        NamedSet namedSet = RolapMappingFactory.eINSTANCE.createNamedSet();
+        NamedSet namedSet = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         namedSet.setId(id);
         namedSet.setDescription(description);
@@ -740,7 +754,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected CubeConnectorMapping createCubeConnector(CubeMapping cube, boolean ignoreUnrelatedDimensions) {
-        CubeConnector cubeConnector = RolapMappingFactory.eINSTANCE.createCubeConnector();
+        CubeConnector cubeConnector = CubeFactory.eINSTANCE.createCubeConnector();
         cubeConnector.setCube((Cube) cube);
         cubeConnector.setIgnoreUnrelatedDimensions(ignoreUnrelatedDimensions);
         return cubeConnector;
@@ -755,7 +769,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
             List<? extends MeasureMapping> referencedMeasures, List<? extends CalculatedMemberMapping> referencedCalculatedMembers,
             List<? extends CubeConnectorMapping> cubeUsages) {
-        VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
+        VirtualCube virtualCube = CubeFactory.eINSTANCE.createVirtualCube();
         virtualCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         virtualCube.setId(id);
         virtualCube.setDescription(description);
@@ -782,7 +796,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends KpiMapping> kpis, MemberMapping defaultMeasure, boolean enabled, boolean visible,
             List<? extends MeasureGroupMapping> measureGroups, QueryMapping query, WritebackTableMapping writebackTable,
             List<? extends ActionMapping> action, boolean cache) {
-        PhysicalCube physicalCube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube physicalCube = CubeFactory.eINSTANCE.createPhysicalCube();
         physicalCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         physicalCube.setId(id);
         physicalCube.setDescription(description);
@@ -808,7 +822,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name,
             List<? extends DrillThroughAttributeMapping> drillThroughAttribute,
             List<? extends MeasureMapping> drillThroughMeasure, boolean def) {
-        DrillThroughAction action = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
+        DrillThroughAction action = ActionFactory.eINSTANCE.createDrillThroughAction();
         action.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         action.setId(id);
         action.setDescription(description);
@@ -822,7 +836,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected DrillThroughAttributeMapping createDrillThroughAttribute(DimensionMapping dimension,
             HierarchyMapping hierarchy, LevelMapping level, String property) {
-        DrillThroughAttribute drillThroughAttribute = RolapMappingFactory.eINSTANCE.createDrillThroughAttribute();
+        DrillThroughAttribute drillThroughAttribute = ActionFactory.eINSTANCE.createDrillThroughAttribute();
         drillThroughAttribute.setDimension((Dimension) dimension);
         drillThroughAttribute.setHierarchy((Hierarchy) hierarchy);
         drillThroughAttribute.setLevel((Level) level);
@@ -832,7 +846,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected WritebackAttributeMapping createWritebackAttribute(ColumnMapping column, DimensionConnectorMapping dimensionConnector) {
-        WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
+        WritebackAttribute writebackAttribute = WritebackFactory.eINSTANCE.createWritebackAttribute();
         writebackAttribute.setColumn((Column)column);
         writebackAttribute.setDimensionConnector((DimensionConnector) dimensionConnector);
         return writebackAttribute;
@@ -840,7 +854,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected WritebackMeasureMapping createwritebackMeasure(ColumnMapping column, String name) {
-        WritebackMeasure writebackMeasure = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure.setColumn((Column) column);
         writebackMeasure.setName(name);
         return writebackMeasure;
@@ -850,7 +864,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected WritebackTableMapping createWritebackTable(List<? extends WritebackAttributeMapping> writebackAttribute,
             List<? extends WritebackMeasureMapping> writebackMeasure, String name, String schema) {
-        WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
+        WritebackTable writebackTable = WritebackFactory.eINSTANCE.createWritebackTable();
         writebackTable.getWritebackAttribute().addAll((Collection<? extends WritebackAttribute>) writebackAttribute);
         writebackTable.getWritebackMeasure().addAll((Collection<? extends WritebackMeasure>) writebackMeasure);
         writebackTable.setName(name);
@@ -861,7 +875,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @SuppressWarnings("unchecked")
     @Override
     protected MeasureGroupMapping createMeasureGroup(List<? extends MeasureMapping> measures, String name) {
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll((Collection<? extends BaseMeasure>) measures);
         measureGroup.setName(name);
         return measureGroup;
@@ -873,7 +887,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -896,7 +910,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column,
             InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
             String name, String id, BitAggregationType bitAggrigationType, boolean not) {
-        BitAggMeasure measure = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -921,7 +935,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             CellFormatterMapping cellFormatter, String backColor,
             InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
             String name, String id, Double percentile, PercentileType percentileType, OrderedColumnMapping ordColumn) {
-        PercentileMeasure measure = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -946,7 +960,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype, String displayFolder,
             String formatString, String formatter, boolean visible, String name, String id, boolean ignoreNulls,
             Integer n, List<? extends OrderedColumnMapping> orderByColumns) {
-        NthAggMeasure measure = RolapMappingFactory.eINSTANCE.createNthAggMeasure();
+        NthAggMeasure measure = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -971,7 +985,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
-        MaxMeasure measure = RolapMappingFactory.eINSTANCE.createMaxMeasure();
+        MaxMeasure measure = MeasureFactory.eINSTANCE.createMaxMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -993,7 +1007,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
-        MinMeasure measure = RolapMappingFactory.eINSTANCE.createMinMeasure();
+        MinMeasure measure = MeasureFactory.eINSTANCE.createMinMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -1015,7 +1029,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id) {
-        AvgMeasure measure = RolapMappingFactory.eINSTANCE.createAvgMeasure();
+        AvgMeasure measure = MeasureFactory.eINSTANCE.createAvgMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -1037,7 +1051,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id, boolean distinct) {
-        CountMeasure measure = RolapMappingFactory.eINSTANCE.createCountMeasure();
+        CountMeasure measure = MeasureFactory.eINSTANCE.createCountMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -1058,7 +1072,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected CellFormatterMapping createCellFormatter(List<? extends AnnotationMapping> annotations, String id,
             String description, String name, String ref) {
-        CellFormatter cellFormatter = RolapMappingFactory.eINSTANCE.createCellFormatter();
+        CellFormatter cellFormatter = FormatFactory.eINSTANCE.createCellFormatter();
         cellFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         cellFormatter.setId(id);
         cellFormatter.setDescription(description);
@@ -1072,8 +1086,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected CalculatedMemberPropertyMapping createCalculatedMemberProperty(
             List<? extends AnnotationMapping> annotations, String id, String description, String name,
             String expression, String value) {
-        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE
-                .createCalculatedMemberProperty();
+        CalculatedMemberProperty calculatedMemberProperty = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         calculatedMemberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         calculatedMemberProperty.setId(id);
         calculatedMemberProperty.setDescription(description);
@@ -1103,7 +1116,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String displayFolder, String associatedMeasureGroupID, String value, String goal, String status,
             String trend, String weight, String trendGraphic, String statusGraphic, String currentTimeMember,
             KpiMapping parentKpi) {
-        Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
+        Kpi kpi = CubeFactory.eINSTANCE.createKpi();
         kpi.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         kpi.setId(id);
         kpi.setDescription(description);
@@ -1130,7 +1143,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CalculatedMemberPropertyMapping> calculatedMemberProperties,
             CellFormatterMapping cellFormatter, String formula, String displayFolder, String formatString,
             HierarchyMapping hierarchy, String parent, boolean visible) {
-        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         calculatedMember.setId(id);
         calculatedMember.setDescription(description);
@@ -1151,7 +1164,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected DimensionConnectorMapping createDimensionConnector(ColumnMapping foreignKey, LevelMapping level,
             String usagePrefix, boolean visible, DimensionMapping dimension, String overrideDimensionName,
             PhysicalCubeMapping physicalCube) {
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setForeignKey((Column) foreignKey);
         dimensionConnector.setLevel((Level) level);
         dimensionConnector.setUsagePrefix(usagePrefix);
@@ -1177,7 +1190,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CubeMapping> cubes, List<? extends NamedSetMapping> namedSets,
             List<? extends AccessRoleMapping> accessRoles, AccessRoleMapping defaultAccessRole,
             String measuresDimensionName, List<? extends DatabaseSchemaMapping> dbschemas) {
-        Catalog schema = RolapMappingFactory.eINSTANCE.createCatalog();
+        Catalog schema = CatalogFactory.eINSTANCE.createCatalog();
         schema.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         schema.setId(id);
         schema.setDescription(description);
@@ -1229,7 +1242,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     protected MemberPropertyFormatterMapping createMemberPropertyFormatter(
             List<? extends AnnotationMapping> annotations, String id, String description, String name,
             String ref) {
-        MemberPropertyFormatter memberPropertyFormatter = RolapMappingFactory.eINSTANCE.createMemberPropertyFormatter();
+        MemberPropertyFormatter memberPropertyFormatter = FormatFactory.eINSTANCE.createMemberPropertyFormatter();
         memberPropertyFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
         memberPropertyFormatter.setId(id);
         memberPropertyFormatter.setDescription(description);
@@ -1241,8 +1254,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected SqlStatementMapping createSqlStatement(List<String> dialects, String sql) {
-        SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE
-                .createSqlStatement();
+        SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement.getDialects().addAll(dialects);
         sqlStatement.setSql(sql);
         return sqlStatement;
@@ -1270,8 +1282,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         String name, DatabaseSchemaMapping schema,
         String description, List<? extends RowMapping> rows
     ) {
-        InlineTable inlineTable = RolapMappingFactory.eINSTANCE
-                .createInlineTable();
+        InlineTable inlineTable = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createInlineTable();
         inlineTable.setName(name);
         inlineTable.setSchema((DatabaseSchema) schema);
         inlineTable.setDescription(description);
@@ -1309,7 +1320,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
     @Override
     protected DatabaseCatalog createDatabaseCatalog(List<? extends DatabaseSchemaMapping> schemas,
             List<? extends LinkMapping> links) {
-        DatabaseCatalog databaseCatalog = RolapMappingFactory.eINSTANCE.createDatabaseCatalog();
+        DatabaseCatalog databaseCatalog = CatalogFactory.eINSTANCE.createDatabaseCatalog();
         databaseCatalog.getSchemas().addAll((Collection<? extends DatabaseSchema>) schemas);
         databaseCatalog.getLinks().addAll((Collection<? extends Link>) links);
         return databaseCatalog;
@@ -1372,7 +1383,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
             String name, String id, boolean distinct, List<? extends OrderedColumnMapping> orderByColumns,
             String separator, String coalesce, String onOverflowTruncate) {
-        TextAggMeasure measure = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
+        TextAggMeasure measure = MeasureFactory.eINSTANCE.createTextAggMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -1395,7 +1406,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected OrderedColumnMapping createOrderedColumn(ColumnMapping column, boolean ascend) {
-        OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn orderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn((Column) column);
         orderedColumn.setAscend(ascend);
         return orderedColumn;
@@ -1408,7 +1419,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             CellFormatterMapping cellFormatter, String backColor, ColumnMapping column, InternalDataType datatype,
             String displayFolder, String formatString, String formatter, boolean visible, String name, String id,
             String template, List<? extends ColumnMapping> columns, List<String> properties) {
-        CustomMeasure measure = RolapMappingFactory.eINSTANCE.createCustomMeasure();
+        CustomMeasure measure = MeasureFactory.eINSTANCE.createCustomMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);
@@ -1432,7 +1443,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             CellFormatterMapping cellFormatter, String backColor, SQLExpressionColumnMapping column,
             InternalDataType datatype, String displayFolder, String formatString, String formatter, boolean visible,
             String name, String id) {
-        TextAggMeasure measure = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
+        TextAggMeasure measure = MeasureFactory.eINSTANCE.createTextAggMeasure();
         measure.getCalculatedMemberProperties()
                 .addAll((Collection<? extends CalculatedMemberProperty>) calculatedMemberProperties);
         measure.setCellFormatter((CellFormatter) cellFormatter);

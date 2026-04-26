@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.withoutdimension;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,23 +19,38 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.04", source = Source.EMF, group = "Writeback") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private PhysicalCube cube;
+    private Schema databaseSchema;
+
 
     private static final String CUBE = "C";
     private static final String FACT = "FACT";
@@ -52,7 +66,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The FactQuery is a simple InlineTableQuery that selects all columns from the Fact inline table to use in the cube for the measures. InlineTableQuery have description and data in catalog
+            The FactQuery is a simple InlineTableSource that selects all columns from the Fact inline table to use in the cube for the measures. InlineTableSource have description and data in catalog
             """;
 
     private static final String cubeBody = """
@@ -61,114 +75,102 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_writeback_withoutdimension");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column valColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
-        valColumn.setId("_column_fact_val");
-        valColumn.setType(ColumnType.INTEGER);
+        valColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column val1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column val1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         val1Column.setName("VAL1");
-        val1Column.setId("_column_fact_val1");
-        val1Column.setType(ColumnType.INTEGER);
+        val1Column.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column l2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column l2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l2Column.setName("VALUE");
-        l2Column.setId("_column_fact_value");
-        l2Column.setType(ColumnType.VARCHAR);
-        l2Column.setColumnSize(100);
+        l2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(valColumn, val1Column, l2Column));
+        databaseSchema.getOwnedElement().add(table);
 
-        Column factwbValColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbValColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbValColumn.setName("VAL");
-        factwbValColumn.setId("_column_factwb_val");
-        factwbValColumn.setType(ColumnType.INTEGER);
+        factwbValColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbVal1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbVal1Column.setName("VAL1");
-        factwbVal1Column.setId("_column_factwb_val1");
-        factwbVal1Column.setType(ColumnType.INTEGER);
+        factwbVal1Column.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column factwbL2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbL2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbL2Column.setName("VALUE");
-        factwbL2Column.setId("_column_factwb_value");
-        factwbL2Column.setType(ColumnType.VARCHAR);
-        factwbL2Column.setColumnSize(100);
+        factwbL2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbIdColumn.setName("ID");
-        factwbIdColumn.setId("_column_factwb_id");
-        factwbIdColumn.setType(ColumnType.VARCHAR);
-        factwbIdColumn.setColumnSize(100);
+        factwbIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbUserColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbUserColumn.setName("USER");
-        factwbUserColumn.setId("_column_factwb_user");
-        factwbUserColumn.setType(ColumnType.VARCHAR);
-        factwbUserColumn.setColumnSize(100);
+        factwbUserColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable factwbTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table factwbTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         factwbTable.setName("FACTWB");
-        factwbTable.setId("_table_factwb");
-        factwbTable.getColumns()
+        factwbTable.getFeature()
                 .addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
-        databaseSchema.getTables().add(factwbTable);
+        databaseSchema.getOwnedElement().add(factwbTable);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_tableQuery_FactQuery");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("_sumMeasure_Measure1");
         measure1.setColumn(valColumn);
 
-        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure2 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure2");
-        measure2.setId("_sumMeasure_Measure2");
         measure2.setColumn(val1Column);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2));
 
-        WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure1 = WritebackFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
-        WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure2 = WritebackFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure2.setName("Measure2");
         writebackMeasure2.setColumn(val1Column);
 
-        WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
+        WritebackTable writebackTable = WritebackFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName("FACTWB");
         writebackTable.getWritebackMeasure().addAll(List.of(writebackMeasure1, writebackMeasure2));
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_physicalCube_C");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.setWritebackTable(writebackTable);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Writeback Without Dimension");
         catalog.setDescription("Writeback without dimension constraints");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Writeback Without Dimension", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "FactQuery", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cubec C", cubeBody, 1, 10, 0, true, 2);
 
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Writeback Without Dimension", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("FactQuery", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Cubec C", cubeBody, 1, 10, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

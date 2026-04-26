@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.multi;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,27 +19,54 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.03.02", source = Source.EMF, group = "Hierarchy") // NOSONAR
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private JoinSource queryJoinCountryToContinent;
+    private JoinSource queryJoinTownToCountry;
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private TableSource queryLevelTown;
+    private Level levelCounty;
+    private TableSource queryLevelContinent;
+    private TableSource queryLevelCountry;
+    private Level levelContinent;
+    private Level levelTown;
+    private TableSource queryFact;
+
 
     private static final String introBody = """
             If the database structure follows the Third Normal Form (3NF), hierarchies in a cube are not stored in a single table but are distributed across multiple tables.
@@ -92,19 +118,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryLevelTownBody = """
-            The TableQuery for the Town level directly references the physical Town table.
+            The TableSource for the Town level directly references the physical Town table.
             """;
 
     private static final String queryLevelCountryBody = """
-            The TableQuery for the Country level directly references the physical Country table.
+            The TableSource for the Country level directly references the physical Country table.
             """;
 
     private static final String queryLevelContinentBody = """
-            The TableQuery for the Continent level directly references the physical Continent table.
+            The TableSource for the Continent level directly references the physical Continent table.
             """;
 
     private static final String queryJoinCountryToContinentBody = """
-            The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
+            The JoinSource specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
             - In the lower-level table (Country), the join uses the foreign key.
             - In the upper-level table (Continent), the join uses the primary key.
@@ -112,221 +138,196 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryJoinTownToCountryBody = """
-            The JoinQuery specifies which Queries should be joined.
+            The JoinSource specifies which Queries should be joined.
             It also defines the columns in each table that are used for the join:
 
-            In this case we join a TableQuery with a JoinQuery.
+            In this case we join a TableSource with a JoinQuery.
             - In the lower-level it is the TableQuery (Town), the join uses the foreign key.
             - In the upper-level it is the JoinQuery (Country-Continent), the join uses the primary key.
 
-            Please note that within a JoinQuery, another JoinQuery may only be used on the right side of the join.
+            Please note that within a JoinQuery, another JoinSource may only be used on the right side of the join.
 
             """;
 
     private static final String queryFactBody = """
-            The TableQuery for the Level, as it directly references the physical table `Fact`.
+            The TableSource for the Level, as it directly references the physical table `Fact`.
             """;
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_main");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column townIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column townIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         townIdColumn.setName("TOWN_ID");
-        townIdColumn.setId("_column_fact_townId");
-        townIdColumn.setType(ColumnType.INTEGER);
+        townIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(townIdColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(townIdColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        Column columnTownId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTownId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTownId.setName("ID");
-        columnTownId.setId("_column_town_id");
-        columnTownId.setType(ColumnType.INTEGER);
+        columnTownId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnTownName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTownName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTownName.setName("NAME");
-        columnTownName.setId("_column_town_name");
-        columnTownName.setType(ColumnType.VARCHAR);
+        columnTownName.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnTownCountryId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTownCountryId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTownCountryId.setName("COUNTRY_ID");
-        columnTownCountryId.setId("_column_town_countryId");
-        columnTownCountryId.setType(ColumnType.INTEGER);
+        columnTownCountryId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableTown = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableTown = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTown.setName("Town");
-        tableTown.setId("_table_town");
-        tableTown.getColumns().addAll(List.of(columnTownId, columnTownName, columnTownCountryId));
-        databaseSchema.getTables().add(tableTown);
+        tableTown.getFeature().addAll(List.of(columnTownId, columnTownName, columnTownCountryId));
+        databaseSchema.getOwnedElement().add(tableTown);
 
-        Column columnCountryId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnCountryId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountryId.setName("ID");
-        columnCountryId.setId("_column_country_id");
-        columnCountryId.setType(ColumnType.INTEGER);
+        columnCountryId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnCountryName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnCountryName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountryName.setName("NAME");
-        columnCountryName.setId("_column_country_name");
-        columnCountryName.setType(ColumnType.VARCHAR);
+        columnCountryName.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnCountryContinentId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnCountryContinentId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountryContinentId.setName("CONTINENT_ID");
-        columnCountryContinentId.setId("_column_country_continentId");
-        columnCountryContinentId.setType(ColumnType.INTEGER);
+        columnCountryContinentId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableCountry = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableCountry.setName("Country");
-        tableCountry.setId("_table_country");
-        tableCountry.getColumns().addAll(List.of(columnCountryId, columnCountryName, columnCountryContinentId));
-        databaseSchema.getTables().add(tableCountry);
+        tableCountry.getFeature().addAll(List.of(columnCountryId, columnCountryName, columnCountryContinentId));
+        databaseSchema.getOwnedElement().add(tableCountry);
 
-        Column columnContinentId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnContinentId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnContinentId.setName("ID");
-        columnContinentId.setId("_column_continent_id");
-        columnContinentId.setType(ColumnType.INTEGER);
+        columnContinentId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnContinentName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnContinentName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnContinentName.setName("NAME");
-        columnContinentName.setId("_column_continent_name");
-        columnContinentName.setType(ColumnType.VARCHAR);
+        columnContinentName.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableContinent = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableContinent = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableContinent.setName("Continent");
-        tableContinent.setId("_table_continent");
-        tableContinent.getColumns().addAll(List.of(columnContinentId, columnContinentName));
-        databaseSchema.getTables().add(tableContinent);
+        tableContinent.getFeature().addAll(List.of(columnContinentId, columnContinentName));
+        databaseSchema.getOwnedElement().add(tableContinent);
 
-        TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryFact.setId("_query_fact");
+        queryFact = SourceFactory.eINSTANCE.createTableSource();
         queryFact.setTable(table);
 
-        TableQuery queryLevelTown = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelTown.setId("_query_town");
+        queryLevelTown = SourceFactory.eINSTANCE.createTableSource();
         queryLevelTown.setTable(tableTown);
 
-        TableQuery queryLevelCountry = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelCountry.setId("_query_country");
+        queryLevelCountry = SourceFactory.eINSTANCE.createTableSource();
         queryLevelCountry.setTable(tableCountry);
 
-        TableQuery queryLevelContinent = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryLevelContinent.setId("_query_continent");
+        queryLevelContinent = SourceFactory.eINSTANCE.createTableSource();
         queryLevelContinent.setTable(tableContinent);
 
-        JoinedQueryElement joinQueryTCElementContinent = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinQueryTCElementContinent = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinQueryTCElementContinent.setQuery(queryLevelContinent);
         joinQueryTCElementContinent.setKey(columnContinentId);
 
-        JoinedQueryElement joinQueryTCElementCountry = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinQueryTCElementCountry = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinQueryTCElementCountry.setQuery(queryLevelCountry);
         joinQueryTCElementCountry.setKey(columnCountryContinentId);
 
-        JoinQuery queryJoinCountryToContinent = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoinCountryToContinent.setId("_query_countryToContinent");
+        queryJoinCountryToContinent = SourceFactory.eINSTANCE.createJoinSource();
         queryJoinCountryToContinent.setLeft(joinQueryTCElementCountry);
         queryJoinCountryToContinent.setRight(joinQueryTCElementContinent);
 
-        JoinedQueryElement joinQueryCCElementJoinCountry = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinQueryCCElementJoinCountry = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinQueryCCElementJoinCountry.setQuery(queryJoinCountryToContinent);
         joinQueryCCElementJoinCountry.setKey(columnCountryId);//
 
-        JoinedQueryElement joinQueryCCElementTown = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinQueryCCElementTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinQueryCCElementTown.setQuery(queryLevelTown);
         joinQueryCCElementTown.setKey(columnTownCountryId);
 
-        JoinQuery queryJoinTownToCountry = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoinTownToCountry.setId("_query_townToCountry");
+        queryJoinTownToCountry = SourceFactory.eINSTANCE.createJoinSource();
         queryJoinTownToCountry.setLeft(joinQueryCCElementTown);
         queryJoinTownToCountry.setRight(joinQueryCCElementJoinCountry);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("theMeasure");
-        measure.setId("_measure_theMeasure");
         measure.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
+        levelTown = LevelFactory.eINSTANCE.createLevel();
         levelTown.setName("Town");
-        levelTown.setId("_level_town");
         levelTown.setColumn(columnTownId);
         levelTown.setNameColumn(columnTownName);
 
-        Level levelCounty = RolapMappingFactory.eINSTANCE.createLevel();
+        levelCounty = LevelFactory.eINSTANCE.createLevel();
         levelCounty.setName("County");
-        levelCounty.setId("_level_country");
         levelCounty.setColumn(columnCountryId);
         levelCounty.setNameColumn(columnCountryName);
 
-        Level levelContinent = RolapMappingFactory.eINSTANCE.createLevel();
+        levelContinent = LevelFactory.eINSTANCE.createLevel();
         levelContinent.setName("Continent");
-        levelContinent.setId("_level_continent");
         levelContinent.setColumn(columnContinentId);
         levelContinent.setNameColumn(columnContinentName);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
-        hierarchy.setId("_hierarchy_townHierarchy");
         hierarchy.setPrimaryKey(columnTownId);
         hierarchy.setQuery(queryJoinTownToCountry);
         hierarchy.getLevels().add(levelContinent);
         hierarchy.getLevels().add(levelCounty);
         hierarchy.getLevels().add(levelTown);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Continent - Country - Town");
-        dimension.setId("_dimension_continentCountryTown");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dimensionConnector_continentCountryTown");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setForeignKey(townIdColumn);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube Query linked Tables");
-        cube.setId("_cube_queryLinkedTables");
         cube.setQuery(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Hierarchy Query Join Multi");
         catalog.setDescription("Multi-level hierarchy with joins");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Hierarchy Query Join Multi", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(queryLevelTown, "Query - Level Town", queryLevelTownBody, 1, 2, 0, true, 2);
-        document(queryLevelCountry, "Query - Level Country", queryLevelCountryBody, 1, 3, 0, true, 2);
-        document(queryJoinCountryToContinent, "Query - Join Country to Continent", queryJoinCountryToContinentBody, 1, 4, 0, true, 2);
-        document(queryLevelContinent, "Query - Level Country", queryLevelContinentBody, 1, 5, 0, true, 2);
-        document(queryJoinTownToCountry, "Query - Join Town to Country-Continent-Join", queryJoinTownToCountryBody,
-                1, 6, 0, true, 2);
 
-        document(queryFact, "Query Fact", queryFactBody, 1, 7, 0, true, 2);
 
-        document(levelTown, "Level - Town", levelTownBody, 1, 8, 0, true, 0);
-        document(levelCounty, "Level - Country", levelCountryBody, 1, 9, 0, true, 0);
-        document(levelContinent, "Level - Continent", levelContinentBody, 1, 10, 0, true, 0);
 
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 11, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 12, 0, true, 0);
-
-        document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 13, 0, true, 2);
-
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Hierarchy Query Join Multi", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query - Level Town", queryLevelTownBody, 1, 2, 0, queryLevelTown, 2),
+                        new DocSection("Query - Level Country", queryLevelCountryBody, 1, 3, 0, queryLevelCountry, 2),
+                        new DocSection("Query - Join Country to Continent", queryJoinCountryToContinentBody, 1, 4, 0, queryJoinCountryToContinent, 2),
+                        new DocSection("Query - Level Country", queryLevelContinentBody, 1, 5, 0, queryLevelContinent, 2),
+                        new DocSection("Query - Join Town to Country-Continent-Join", queryJoinTownToCountryBody, 1, 6, 0, queryJoinTownToCountry, 2),
+                        new DocSection("Query Fact", queryFactBody, 1, 7, 0, queryFact, 2),
+                        new DocSection("Level - Town", levelTownBody, 1, 8, 0, levelTown, 0),
+                        new DocSection("Level - Country", levelCountryBody, 1, 9, 0, levelCounty, 0),
+                        new DocSection("Level - Continent", levelContinentBody, 1, 10, 0, levelContinent, 0),
+                        new DocSection("Hierarchy", hierarchyBody, 1, 11, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 12, 0, dimension, 0),
+                        new DocSection("Cube and DimensionConnector and Measure", cubeBody, 1, 13, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

@@ -46,21 +46,21 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.model.Action;
-import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Cube;
-import org.eclipse.daanse.rolap.mapping.model.Dimension;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
-import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Kpi;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.Action;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Cube;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAction;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
@@ -173,7 +173,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkLevel(final org.eclipse.daanse.rolap.mapping.model.Level l, Hierarchy hierarchy, Dimension parentDimension, Cube cube) {
+    protected void checkLevel(final org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level l, Hierarchy hierarchy, Dimension parentDimension, Cube cube) {
         super.checkLevel(l, hierarchy, parentDimension, cube);
         Level lavel = config.level();
         if (lavel != null && (l.getDescription() == null || l.getDescription()
@@ -199,7 +199,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
 
 
     @Override
-    protected void checkMemberProperty(final MemberProperty property, org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy, Cube cube) {
+    protected void checkMemberProperty(final MemberProperty property, org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level, Hierarchy hierarchy, Cube cube) {
         super.checkMemberProperty(property, level, hierarchy, cube);
         Level lavel = config.property();
         if (lavel != null && (property.getDescription() == null || property.getDescription()

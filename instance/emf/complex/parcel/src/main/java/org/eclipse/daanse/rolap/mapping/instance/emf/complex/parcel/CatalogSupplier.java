@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,29 +19,56 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.AvgMeasure;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CountMeasure;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MaxMeasure;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MinMeasure;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.AvgMeasure;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.CountMeasure;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MaxMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MinMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.6", group = "Full Examples")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    public static final PhysicalCube CUBE_PARCELS;
+    public static final StandardDimension DIMENSION_PARCEL_TYPE;
+    public static final StandardDimension DIMENSION_RECEIVER_ADDRESS;
+    public static final StandardDimension DIMENSION_HEIGHT;
+    public static final Catalog CATALOG_PARCEL;
+    public static final StandardDimension DIMENSION_CUSTOMS;
+    public static final StandardDimension DIMENSION_DELIVERY_ADDRESS;
+    public static final StandardDimension DIMENSION_DEPTH;
+    public static final StandardDimension DIMENSION_DROP_OFF_ADDRESS;
+    public static final StandardDimension DIMENSION_RETURN;
+    public static final StandardDimension DIMENSION_SENDER_ADDRESS;
+    public static final StandardDimension DIMENSION_WIDTH;
+    public static final StandardDimension DIMENSION_DEFECT;
+    public static final StandardDimension DIMENSION_DELIVERABLE;
+
 
     // Static columns - Fact Table (parcels)
     public static final Column COLUMN_PARCEL_ID_FACT;
@@ -79,10 +105,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final Column COLUMN_STREET_ADDRESS;
 
     // Static tables
-    public static final PhysicalTable TABLE_PARCELS;
-    public static final PhysicalTable TABLE_PARCEL_TYPES;
-    public static final PhysicalTable TABLE_DEFECTS;
-    public static final PhysicalTable TABLE_ADDRESSES;
+    public static final Table TABLE_PARCELS;
+    public static final Table TABLE_PARCEL_TYPES;
+    public static final Table TABLE_DEFECTS;
+    public static final Table TABLE_ADDRESSES;
 
     // Static levels
     public static final Level LEVEL_WIDTH;
@@ -111,27 +137,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final ExplicitHierarchy HIERARCHY_ADDRESS;
 
     // Static dimensions
-    public static final StandardDimension DIMENSION_WIDTH;
-    public static final StandardDimension DIMENSION_DEPTH;
-    public static final StandardDimension DIMENSION_HEIGHT;
-    public static final StandardDimension DIMENSION_PARCEL_TYPE;
-    public static final StandardDimension DIMENSION_DEFECT;
-    public static final StandardDimension DIMENSION_DELIVERABLE;
-    public static final StandardDimension DIMENSION_CUSTOMS;
-    public static final StandardDimension DIMENSION_RETURN;
-    public static final StandardDimension DIMENSION_SENDER_ADDRESS;
-    public static final StandardDimension DIMENSION_RECEIVER_ADDRESS;
-    public static final StandardDimension DIMENSION_DROP_OFF_ADDRESS;
-    public static final StandardDimension DIMENSION_DELIVERY_ADDRESS;
+    // field assignment only: DIMENSION_WIDTH
+    // field assignment only: DIMENSION_DEPTH
+    // field assignment only: DIMENSION_HEIGHT
+    // field assignment only: DIMENSION_PARCEL_TYPE
+    // field assignment only: DIMENSION_DEFECT
+    // field assignment only: DIMENSION_DELIVERABLE
+    // field assignment only: DIMENSION_CUSTOMS
+    // field assignment only: DIMENSION_RETURN
+    // field assignment only: DIMENSION_SENDER_ADDRESS
+    // field assignment only: DIMENSION_RECEIVER_ADDRESS
+    // field assignment only: DIMENSION_DROP_OFF_ADDRESS
+    // field assignment only: DIMENSION_DELIVERY_ADDRESS
 
     // Static cube
-    public static final PhysicalCube CUBE_PARCELS;
+    // field assignment only: CUBE_PARCELS
 
     // Static table queries
-    public static final TableQuery TABLEQUERY_PARCELS;
-    public static final TableQuery TABLEQUERY_PARCEL_TYPES;
-    public static final TableQuery TABLEQUERY_DEFECTS;
-    public static final TableQuery TABLEQUERY_ADDRESSES;
+    public static final TableSource TABLEQUERY_PARCELS;
+    public static final TableSource TABLEQUERY_PARCEL_TYPES;
+    public static final TableSource TABLEQUERY_DEFECTS;
+    public static final TableSource TABLEQUERY_ADDRESSES;
 
     // Static dimension connectors
     public static final DimensionConnector CONNECTOR_WIDTH;
@@ -157,8 +183,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     public static final MeasureGroup MEASUREGROUP_PARCELS;
 
     // Static database schema and catalog
-    public static final DatabaseSchema DATABASE_SCHEMA_PARCEL;
-    public static final Catalog CATALOG_PARCEL;
+    public static final Schema DATABASE_SCHEMA_PARCEL;
+    // field assignment only: CATALOG_PARCEL
 
     private static final String parcelBody = """
             Parcel delivery service database for analyzing package logistics and delivery operations.
@@ -198,327 +224,271 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     static {
         // Initialize Parcels (Fact) columns
-        COLUMN_PARCEL_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_PARCEL_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PARCEL_ID_FACT.setName("parcel_id");
-        COLUMN_PARCEL_ID_FACT.setId("_column_parcels_parcel_id");
-        COLUMN_PARCEL_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_PARCEL_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_WIDTH_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_WIDTH_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WIDTH_FACT.setName("width");
-        COLUMN_WIDTH_FACT.setId("_column_parcels_width");
-        COLUMN_WIDTH_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_WIDTH_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        COLUMN_DEPTH_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DEPTH_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEPTH_FACT.setName("depth");
-        COLUMN_DEPTH_FACT.setId("_column_parcels_depth");
-        COLUMN_DEPTH_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_DEPTH_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        COLUMN_HEIGHT_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_HEIGHT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_HEIGHT_FACT.setName("height");
-        COLUMN_HEIGHT_FACT.setId("_column_parcels_height");
-        COLUMN_HEIGHT_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_HEIGHT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        COLUMN_TYPE_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TYPE_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_ID_FACT.setName("type_id");
-        COLUMN_TYPE_ID_FACT.setId("_column_parcels_type_id");
-        COLUMN_TYPE_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_TYPE_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_DEFECT_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DEFECT_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_ID_FACT.setName("defect_id");
-        COLUMN_DEFECT_ID_FACT.setId("_column_parcels_defect_id");
-        COLUMN_DEFECT_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_DEFECT_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_DELIVERABLE_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DELIVERABLE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DELIVERABLE_FACT.setName("deliverable");
-        COLUMN_DELIVERABLE_FACT.setId("_column_parcels_deliverable");
-        COLUMN_DELIVERABLE_FACT.setType(ColumnType.VARCHAR);
+        COLUMN_DELIVERABLE_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_CUSTOMS_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CUSTOMS_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMS_FACT.setName("customs");
-        COLUMN_CUSTOMS_FACT.setId("_column_parcels_customs");
-        COLUMN_CUSTOMS_FACT.setType(ColumnType.VARCHAR);
+        COLUMN_CUSTOMS_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_RETURN_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_RETURN_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_RETURN_FACT.setName("return_status");
-        COLUMN_RETURN_FACT.setId("_column_parcels_return");
-        COLUMN_RETURN_FACT.setType(ColumnType.VARCHAR);
+        COLUMN_RETURN_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_SENDER_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_SENDER_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SENDER_ID_FACT.setName("sender_id");
-        COLUMN_SENDER_ID_FACT.setId("_column_parcels_sender_id");
-        COLUMN_SENDER_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_SENDER_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_RECEIVER_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_RECEIVER_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_RECEIVER_ID_FACT.setName("receiver_id");
-        COLUMN_RECEIVER_ID_FACT.setId("_column_parcels_receiver_id");
-        COLUMN_RECEIVER_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_RECEIVER_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_DROP_OFF_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DROP_OFF_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DROP_OFF_ID_FACT.setName("drop_off_id");
-        COLUMN_DROP_OFF_ID_FACT.setId("_column_parcels_drop_off_id");
-        COLUMN_DROP_OFF_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_DROP_OFF_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_DELIVERY_ID_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DELIVERY_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DELIVERY_ID_FACT.setName("delivery_id");
-        COLUMN_DELIVERY_ID_FACT.setId("_column_parcels_delivery_id");
-        COLUMN_DELIVERY_ID_FACT.setType(ColumnType.INTEGER);
+        COLUMN_DELIVERY_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_POSTAGE_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_POSTAGE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_POSTAGE_FACT.setName("postage");
-        COLUMN_POSTAGE_FACT.setId("_column_parcels_postage");
-        COLUMN_POSTAGE_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_POSTAGE_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        COLUMN_INSURANCE_VALUE_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_INSURANCE_VALUE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_INSURANCE_VALUE_FACT.setName("insurance_value");
-        COLUMN_INSURANCE_VALUE_FACT.setId("_column_parcels_insurance_value");
-        COLUMN_INSURANCE_VALUE_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_INSURANCE_VALUE_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        COLUMN_WEIGHT_FACT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_WEIGHT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_FACT.setName("weight");
-        COLUMN_WEIGHT_FACT.setId("_column_parcels_weight");
-        COLUMN_WEIGHT_FACT.setType(ColumnType.DECIMAL);
+        COLUMN_WEIGHT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
         // Initialize Parcel Type Table columns
-        COLUMN_TYPE_ID_TYPE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TYPE_ID_TYPE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_ID_TYPE.setName("type_id");
-        COLUMN_TYPE_ID_TYPE.setId("_column_type_type_id");
-        COLUMN_TYPE_ID_TYPE.setType(ColumnType.INTEGER);
+        COLUMN_TYPE_ID_TYPE.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_TYPE_NAME_TYPE = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_TYPE_NAME_TYPE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_NAME_TYPE.setName("type_name");
-        COLUMN_TYPE_NAME_TYPE.setId("_column_type_type_name");
-        COLUMN_TYPE_NAME_TYPE.setType(ColumnType.VARCHAR);
+        COLUMN_TYPE_NAME_TYPE.setType(SqlSimpleTypes.Sql99.varcharType());
 
         // Initialize Defect Table columns
-        COLUMN_DEFECT_ID_DEFECT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DEFECT_ID_DEFECT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_ID_DEFECT.setName("defect_id");
-        COLUMN_DEFECT_ID_DEFECT.setId("_column_defect_defect_id");
-        COLUMN_DEFECT_ID_DEFECT.setType(ColumnType.INTEGER);
+        COLUMN_DEFECT_ID_DEFECT.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_DEFECT_NAME_DEFECT = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_DEFECT_NAME_DEFECT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_NAME_DEFECT.setName("defect_name");
-        COLUMN_DEFECT_NAME_DEFECT.setId("_column_defect_defect_name");
-        COLUMN_DEFECT_NAME_DEFECT.setType(ColumnType.VARCHAR);
+        COLUMN_DEFECT_NAME_DEFECT.setType(SqlSimpleTypes.Sql99.varcharType());
 
         // Initialize Address Table columns
-        COLUMN_ADDRESS_ID_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_ADDRESS_ID_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ADDRESS_ID_ADDRESS.setName("address_id");
-        COLUMN_ADDRESS_ID_ADDRESS.setId("_column_address_address_id");
-        COLUMN_ADDRESS_ID_ADDRESS.setType(ColumnType.INTEGER);
+        COLUMN_ADDRESS_ID_ADDRESS.setType(SqlSimpleTypes.Sql99.integerType());
 
-        COLUMN_CONTINENT_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CONTINENT_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CONTINENT_ADDRESS.setName("continent");
-        COLUMN_CONTINENT_ADDRESS.setId("_column_address_continent");
-        COLUMN_CONTINENT_ADDRESS.setType(ColumnType.VARCHAR);
+        COLUMN_CONTINENT_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_COUNTRY_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_COUNTRY_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_ADDRESS.setName("country");
-        COLUMN_COUNTRY_ADDRESS.setId("_column_address_country");
-        COLUMN_COUNTRY_ADDRESS.setType(ColumnType.VARCHAR);
+        COLUMN_COUNTRY_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_CITY_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_CITY_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CITY_ADDRESS.setName("city");
-        COLUMN_CITY_ADDRESS.setId("_column_address_city");
-        COLUMN_CITY_ADDRESS.setType(ColumnType.VARCHAR);
+        COLUMN_CITY_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_POSTAL_CODE_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_POSTAL_CODE_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_POSTAL_CODE_ADDRESS.setName("postal_code");
-        COLUMN_POSTAL_CODE_ADDRESS.setId("_column_address_postal_code");
-        COLUMN_POSTAL_CODE_ADDRESS.setType(ColumnType.VARCHAR);
+        COLUMN_POSTAL_CODE_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        COLUMN_STREET_ADDRESS = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        COLUMN_STREET_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STREET_ADDRESS.setName("street");
-        COLUMN_STREET_ADDRESS.setId("_column_address_street");
-        COLUMN_STREET_ADDRESS.setType(ColumnType.VARCHAR);
+        COLUMN_STREET_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
 
         // Initialize tables
-        TABLE_PARCELS = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_PARCELS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_PARCELS.setName("parcels");
-        TABLE_PARCELS.setId("_table_parcels");
-        TABLE_PARCELS.getColumns()
+        TABLE_PARCELS.getFeature()
                 .addAll(List.of(COLUMN_PARCEL_ID_FACT, COLUMN_WIDTH_FACT, COLUMN_DEPTH_FACT, COLUMN_HEIGHT_FACT,
                         COLUMN_TYPE_ID_FACT, COLUMN_DEFECT_ID_FACT, COLUMN_DELIVERABLE_FACT, COLUMN_CUSTOMS_FACT,
                         COLUMN_RETURN_FACT, COLUMN_SENDER_ID_FACT, COLUMN_RECEIVER_ID_FACT, COLUMN_DROP_OFF_ID_FACT,
                         COLUMN_DELIVERY_ID_FACT, COLUMN_POSTAGE_FACT, COLUMN_INSURANCE_VALUE_FACT, COLUMN_WEIGHT_FACT));
 
-        TABLE_PARCEL_TYPES = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_PARCEL_TYPES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_PARCEL_TYPES.setName("parcel_types");
-        TABLE_PARCEL_TYPES.setId("_table_parcel_types");
-        TABLE_PARCEL_TYPES.getColumns().addAll(List.of(COLUMN_TYPE_ID_TYPE, COLUMN_TYPE_NAME_TYPE));
+        TABLE_PARCEL_TYPES.getFeature().addAll(List.of(COLUMN_TYPE_ID_TYPE, COLUMN_TYPE_NAME_TYPE));
 
-        TABLE_DEFECTS = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_DEFECTS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_DEFECTS.setName("defects");
-        TABLE_DEFECTS.setId("_table_defects");
-        TABLE_DEFECTS.getColumns().addAll(List.of(COLUMN_DEFECT_ID_DEFECT, COLUMN_DEFECT_NAME_DEFECT));
+        TABLE_DEFECTS.getFeature().addAll(List.of(COLUMN_DEFECT_ID_DEFECT, COLUMN_DEFECT_NAME_DEFECT));
 
-        TABLE_ADDRESSES = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        TABLE_ADDRESSES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_ADDRESSES.setName("addresses");
-        TABLE_ADDRESSES.setId("_table_addresses");
-        TABLE_ADDRESSES.getColumns().addAll(List.of(COLUMN_ADDRESS_ID_ADDRESS, COLUMN_CONTINENT_ADDRESS,
+        TABLE_ADDRESSES.getFeature().addAll(List.of(COLUMN_ADDRESS_ID_ADDRESS, COLUMN_CONTINENT_ADDRESS,
                 COLUMN_COUNTRY_ADDRESS, COLUMN_CITY_ADDRESS, COLUMN_POSTAL_CODE_ADDRESS, COLUMN_STREET_ADDRESS));
 
         // Initialize levels
-        LEVEL_WIDTH = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_WIDTH = LevelFactory.eINSTANCE.createLevel();
         LEVEL_WIDTH.setName("Width");
         LEVEL_WIDTH.setColumn(COLUMN_WIDTH_FACT);
-        LEVEL_WIDTH.setId("_level_width");
 
-        LEVEL_DEPTH = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_DEPTH = LevelFactory.eINSTANCE.createLevel();
         LEVEL_DEPTH.setName("Depth");
         LEVEL_DEPTH.setColumn(COLUMN_DEPTH_FACT);
-        LEVEL_DEPTH.setId("_level_depth");
 
-        LEVEL_HEIGHT = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_HEIGHT = LevelFactory.eINSTANCE.createLevel();
         LEVEL_HEIGHT.setName("Height");
         LEVEL_HEIGHT.setColumn(COLUMN_HEIGHT_FACT);
-        LEVEL_HEIGHT.setId("_level_height");
 
-        LEVEL_PARCEL_TYPE = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_PARCEL_TYPE = LevelFactory.eINSTANCE.createLevel();
         LEVEL_PARCEL_TYPE.setName("Parcel Type");
         LEVEL_PARCEL_TYPE.setColumn(COLUMN_TYPE_ID_TYPE);
         LEVEL_PARCEL_TYPE.setNameColumn(COLUMN_TYPE_NAME_TYPE);
-        LEVEL_PARCEL_TYPE.setId("_level_parcel_type");
 
-        LEVEL_DEFECT = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_DEFECT = LevelFactory.eINSTANCE.createLevel();
         LEVEL_DEFECT.setName("Defect");
         LEVEL_DEFECT.setColumn(COLUMN_DEFECT_ID_DEFECT);
         LEVEL_DEFECT.setNameColumn(COLUMN_DEFECT_NAME_DEFECT);
-        LEVEL_DEFECT.setId("_level_defect");
 
-        LEVEL_DELIVERABLE = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_DELIVERABLE = LevelFactory.eINSTANCE.createLevel();
         LEVEL_DELIVERABLE.setName("Deliverable");
         LEVEL_DELIVERABLE.setColumn(COLUMN_DELIVERABLE_FACT);
-        LEVEL_DELIVERABLE.setId("_level_deliverable");
 
-        LEVEL_CUSTOMS = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_CUSTOMS = LevelFactory.eINSTANCE.createLevel();
         LEVEL_CUSTOMS.setName("Customs");
         LEVEL_CUSTOMS.setColumn(COLUMN_CUSTOMS_FACT);
-        LEVEL_CUSTOMS.setId("_level_customs");
 
-        LEVEL_RETURN = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_RETURN = LevelFactory.eINSTANCE.createLevel();
         LEVEL_RETURN.setName("Return");
         LEVEL_RETURN.setColumn(COLUMN_RETURN_FACT);
-        LEVEL_RETURN.setId("_level_return");
 
         // Address hierarchy levels
-        LEVEL_CONTINENT = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_CONTINENT = LevelFactory.eINSTANCE.createLevel();
         LEVEL_CONTINENT.setName("Continent");
         LEVEL_CONTINENT.setColumn(COLUMN_CONTINENT_ADDRESS);
-        LEVEL_CONTINENT.setId("_level_continent");
 
-        LEVEL_COUNTRY = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_COUNTRY = LevelFactory.eINSTANCE.createLevel();
         LEVEL_COUNTRY.setName("Country");
         LEVEL_COUNTRY.setColumn(COLUMN_COUNTRY_ADDRESS);
-        LEVEL_COUNTRY.setId("_level_country");
 
-        LEVEL_CITY = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_CITY = LevelFactory.eINSTANCE.createLevel();
         LEVEL_CITY.setName("City");
         LEVEL_CITY.setColumn(COLUMN_CITY_ADDRESS);
-        LEVEL_CITY.setId("_level_city");
 
-        LEVEL_POSTAL_CODE = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_POSTAL_CODE = LevelFactory.eINSTANCE.createLevel();
         LEVEL_POSTAL_CODE.setName("Postal Code");
         LEVEL_POSTAL_CODE.setColumn(COLUMN_POSTAL_CODE_ADDRESS);
-        LEVEL_POSTAL_CODE.setId("_level_postal_code");
 
-        LEVEL_STREET = RolapMappingFactory.eINSTANCE.createLevel();
+        LEVEL_STREET = LevelFactory.eINSTANCE.createLevel();
         LEVEL_STREET.setName("Street");
         LEVEL_STREET.setColumn(COLUMN_STREET_ADDRESS);
-        LEVEL_STREET.setId("_level_street");
 
         // Initialize table queries
-        TABLEQUERY_PARCELS = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_PARCELS = SourceFactory.eINSTANCE.createTableSource();
         TABLEQUERY_PARCELS.setTable(TABLE_PARCELS);
-        TABLEQUERY_PARCELS.setId("_query_parcels");
 
-        TABLEQUERY_PARCEL_TYPES = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_PARCEL_TYPES = SourceFactory.eINSTANCE.createTableSource();
         TABLEQUERY_PARCEL_TYPES.setTable(TABLE_PARCEL_TYPES);
-        TABLEQUERY_PARCEL_TYPES.setId("_query_parcel_types");
 
-        TABLEQUERY_DEFECTS = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_DEFECTS = SourceFactory.eINSTANCE.createTableSource();
         TABLEQUERY_DEFECTS.setTable(TABLE_DEFECTS);
-        TABLEQUERY_DEFECTS.setId("_query_defects");
 
-        TABLEQUERY_ADDRESSES = RolapMappingFactory.eINSTANCE.createTableQuery();
+        TABLEQUERY_ADDRESSES = SourceFactory.eINSTANCE.createTableSource();
         TABLEQUERY_ADDRESSES.setTable(TABLE_ADDRESSES);
-        TABLEQUERY_ADDRESSES.setId("_query_addresses");
 
         // Initialize hierarchies
-        HIERARCHY_WIDTH = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_WIDTH = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_WIDTH.setName("Width");
-        HIERARCHY_WIDTH.setId("_hierarchy_width");
         HIERARCHY_WIDTH.setHasAll(true);
         HIERARCHY_WIDTH.setAllMemberName("All Widths");
         HIERARCHY_WIDTH.setPrimaryKey(COLUMN_WIDTH_FACT);
         HIERARCHY_WIDTH.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_WIDTH.getLevels().add(LEVEL_WIDTH);
 
-        HIERARCHY_DEPTH = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_DEPTH = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_DEPTH.setName("Depth");
-        HIERARCHY_DEPTH.setId("_hierarchy_depth");
         HIERARCHY_DEPTH.setHasAll(true);
         HIERARCHY_DEPTH.setAllMemberName("All Depths");
         HIERARCHY_DEPTH.setPrimaryKey(COLUMN_DEPTH_FACT);
         HIERARCHY_DEPTH.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_DEPTH.getLevels().add(LEVEL_DEPTH);
 
-        HIERARCHY_HEIGHT = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_HEIGHT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_HEIGHT.setName("Height");
-        HIERARCHY_HEIGHT.setId("_hierarchy_height");
         HIERARCHY_HEIGHT.setHasAll(true);
         HIERARCHY_HEIGHT.setAllMemberName("All Heights");
         HIERARCHY_HEIGHT.setPrimaryKey(COLUMN_HEIGHT_FACT);
         HIERARCHY_HEIGHT.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_HEIGHT.getLevels().add(LEVEL_HEIGHT);
 
-        HIERARCHY_PARCEL_TYPE = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_PARCEL_TYPE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_PARCEL_TYPE.setName("Parcel Type");
-        HIERARCHY_PARCEL_TYPE.setId("_hierarchy_parcel_type");
         HIERARCHY_PARCEL_TYPE.setHasAll(true);
         HIERARCHY_PARCEL_TYPE.setAllMemberName("All Types");
         HIERARCHY_PARCEL_TYPE.setPrimaryKey(COLUMN_TYPE_ID_TYPE);
         HIERARCHY_PARCEL_TYPE.setQuery(TABLEQUERY_PARCEL_TYPES);
         HIERARCHY_PARCEL_TYPE.getLevels().add(LEVEL_PARCEL_TYPE);
 
-        HIERARCHY_DEFECT = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_DEFECT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_DEFECT.setName("Defect");
-        HIERARCHY_DEFECT.setId("_hierarchy_defect");
         HIERARCHY_DEFECT.setHasAll(true);
         HIERARCHY_DEFECT.setAllMemberName("All Defects");
         HIERARCHY_DEFECT.setPrimaryKey(COLUMN_DEFECT_ID_DEFECT);
         HIERARCHY_DEFECT.setQuery(TABLEQUERY_DEFECTS);
         HIERARCHY_DEFECT.getLevels().add(LEVEL_DEFECT);
 
-        HIERARCHY_DELIVERABLE = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_DELIVERABLE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_DELIVERABLE.setName("Deliverable");
-        HIERARCHY_DELIVERABLE.setId("_hierarchy_deliverable");
         HIERARCHY_DELIVERABLE.setHasAll(true);
         HIERARCHY_DELIVERABLE.setAllMemberName("All Deliverable");
         HIERARCHY_DELIVERABLE.setPrimaryKey(COLUMN_DELIVERABLE_FACT);
         HIERARCHY_DELIVERABLE.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_DELIVERABLE.getLevels().add(LEVEL_DELIVERABLE);
 
-        HIERARCHY_CUSTOMS = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_CUSTOMS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_CUSTOMS.setName("Customs");
-        HIERARCHY_CUSTOMS.setId("_hierarchy_customs");
         HIERARCHY_CUSTOMS.setHasAll(true);
         HIERARCHY_CUSTOMS.setAllMemberName("All Customs");
         HIERARCHY_CUSTOMS.setPrimaryKey(COLUMN_CUSTOMS_FACT);
         HIERARCHY_CUSTOMS.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_CUSTOMS.getLevels().add(LEVEL_CUSTOMS);
 
-        HIERARCHY_RETURN = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_RETURN = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_RETURN.setName("Return");
-        HIERARCHY_RETURN.setId("_hierarchy_return");
         HIERARCHY_RETURN.setHasAll(true);
         HIERARCHY_RETURN.setAllMemberName("All Return");
         HIERARCHY_RETURN.setPrimaryKey(COLUMN_RETURN_FACT);
         HIERARCHY_RETURN.setQuery(TABLEQUERY_PARCELS);
         HIERARCHY_RETURN.getLevels().add(LEVEL_RETURN);
 
-        HIERARCHY_ADDRESS = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_ADDRESS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_ADDRESS.setName("Geographic Address");
-        HIERARCHY_ADDRESS.setId("_hierarchy_address");
         HIERARCHY_ADDRESS.setHasAll(true);
         HIERARCHY_ADDRESS.setAllMemberName("All Addresses");
         HIERARCHY_ADDRESS.setPrimaryKey(COLUMN_ADDRESS_ID_ADDRESS);
@@ -527,184 +497,153 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                 .addAll(List.of(LEVEL_CONTINENT, LEVEL_COUNTRY, LEVEL_CITY, LEVEL_POSTAL_CODE, LEVEL_STREET));
 
         // Initialize dimensions
-        DIMENSION_WIDTH = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_WIDTH = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_WIDTH.setName("Width");
-        DIMENSION_WIDTH.setId("_dimension_width");
         DIMENSION_WIDTH.getHierarchies().add(HIERARCHY_WIDTH);
 
-        DIMENSION_DEPTH = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_DEPTH = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_DEPTH.setName("Depth");
-        DIMENSION_DEPTH.setId("_dimension_depth");
         DIMENSION_DEPTH.getHierarchies().add(HIERARCHY_DEPTH);
 
-        DIMENSION_HEIGHT = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_HEIGHT = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_HEIGHT.setName("Height");
-        DIMENSION_HEIGHT.setId("_dimension_height");
         DIMENSION_HEIGHT.getHierarchies().add(HIERARCHY_HEIGHT);
 
-        DIMENSION_PARCEL_TYPE = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_PARCEL_TYPE = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_PARCEL_TYPE.setName("Parcel Type");
-        DIMENSION_PARCEL_TYPE.setId("_dimension_parcel_type");
         DIMENSION_PARCEL_TYPE.getHierarchies().add(HIERARCHY_PARCEL_TYPE);
 
-        DIMENSION_DEFECT = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_DEFECT = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_DEFECT.setName("Defect");
-        DIMENSION_DEFECT.setId("_dimension_defect");
         DIMENSION_DEFECT.getHierarchies().add(HIERARCHY_DEFECT);
 
-        DIMENSION_DELIVERABLE = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_DELIVERABLE = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_DELIVERABLE.setName("Deliverable");
-        DIMENSION_DELIVERABLE.setId("_dimension_deliverable");
         DIMENSION_DELIVERABLE.getHierarchies().add(HIERARCHY_DELIVERABLE);
 
-        DIMENSION_CUSTOMS = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_CUSTOMS = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_CUSTOMS.setName("Customs");
-        DIMENSION_CUSTOMS.setId("_dimension_customs");
         DIMENSION_CUSTOMS.getHierarchies().add(HIERARCHY_CUSTOMS);
 
-        DIMENSION_RETURN = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_RETURN = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_RETURN.setName("Return");
-        DIMENSION_RETURN.setId("_dimension_return");
         DIMENSION_RETURN.getHierarchies().add(HIERARCHY_RETURN);
 
-        DIMENSION_SENDER_ADDRESS = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_SENDER_ADDRESS = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_SENDER_ADDRESS.setName("Sender Address");
-        DIMENSION_SENDER_ADDRESS.setId("_dimension_sender_address");
         DIMENSION_SENDER_ADDRESS.getHierarchies().add(HIERARCHY_ADDRESS);
 
-        DIMENSION_RECEIVER_ADDRESS = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_RECEIVER_ADDRESS = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_RECEIVER_ADDRESS.setName("Receiver Address");
-        DIMENSION_RECEIVER_ADDRESS.setId("_dimension_receiver_address");
         DIMENSION_RECEIVER_ADDRESS.getHierarchies().add(HIERARCHY_ADDRESS);
 
-        DIMENSION_DROP_OFF_ADDRESS = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_DROP_OFF_ADDRESS = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_DROP_OFF_ADDRESS.setName("Drop Off Address");
-        DIMENSION_DROP_OFF_ADDRESS.setId("_dimension_drop_off_address");
         DIMENSION_DROP_OFF_ADDRESS.getHierarchies().add(HIERARCHY_ADDRESS);
 
-        DIMENSION_DELIVERY_ADDRESS = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_DELIVERY_ADDRESS = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_DELIVERY_ADDRESS.setName("Delivery Address");
-        DIMENSION_DELIVERY_ADDRESS.setId("_dimension_delivery_address");
         DIMENSION_DELIVERY_ADDRESS.getHierarchies().add(HIERARCHY_ADDRESS);
 
         // Initialize dimension connectors
-        CONNECTOR_WIDTH = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_WIDTH = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_WIDTH.setDimension(DIMENSION_WIDTH);
         CONNECTOR_WIDTH.setForeignKey(COLUMN_WIDTH_FACT);
-        CONNECTOR_WIDTH.setId("_connector_width");
         CONNECTOR_WIDTH.setOverrideDimensionName("Width");
 
-        CONNECTOR_DEPTH = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_DEPTH = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_DEPTH.setDimension(DIMENSION_DEPTH);
         CONNECTOR_DEPTH.setForeignKey(COLUMN_DEPTH_FACT);
-        CONNECTOR_DEPTH.setId("_connector_depth");
         CONNECTOR_DEPTH.setOverrideDimensionName("Depth");
 
-        CONNECTOR_HEIGHT = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_HEIGHT = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HEIGHT.setDimension(DIMENSION_HEIGHT);
         CONNECTOR_HEIGHT.setForeignKey(COLUMN_HEIGHT_FACT);
-        CONNECTOR_HEIGHT.setId("_connector_height");
         CONNECTOR_HEIGHT.setOverrideDimensionName("Height");
 
-        CONNECTOR_PARCEL_TYPE = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_PARCEL_TYPE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_PARCEL_TYPE.setDimension(DIMENSION_PARCEL_TYPE);
         CONNECTOR_PARCEL_TYPE.setForeignKey(COLUMN_TYPE_ID_FACT);
-        CONNECTOR_PARCEL_TYPE.setId("_connector_parcel_type");
         CONNECTOR_PARCEL_TYPE.setOverrideDimensionName("Parcel Type");
 
-        CONNECTOR_DEFECT = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_DEFECT = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_DEFECT.setDimension(DIMENSION_DEFECT);
         CONNECTOR_DEFECT.setForeignKey(COLUMN_DEFECT_ID_FACT);
-        CONNECTOR_DEFECT.setId("_connector_defect");
         CONNECTOR_DEFECT.setOverrideDimensionName("Defect");
 
-        CONNECTOR_DELIVERABLE = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_DELIVERABLE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_DELIVERABLE.setDimension(DIMENSION_DELIVERABLE);
         CONNECTOR_DELIVERABLE.setForeignKey(COLUMN_DELIVERABLE_FACT);
-        CONNECTOR_DELIVERABLE.setId("_connector_deliverable");
         CONNECTOR_DELIVERABLE.setOverrideDimensionName("Deliverable");
 
-        CONNECTOR_CUSTOMS = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_CUSTOMS = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_CUSTOMS.setDimension(DIMENSION_CUSTOMS);
         CONNECTOR_CUSTOMS.setForeignKey(COLUMN_CUSTOMS_FACT);
-        CONNECTOR_CUSTOMS.setId("_connector_customs");
         CONNECTOR_CUSTOMS.setOverrideDimensionName("Customs");
 
-        CONNECTOR_RETURN = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_RETURN = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_RETURN.setDimension(DIMENSION_RETURN);
         CONNECTOR_RETURN.setForeignKey(COLUMN_RETURN_FACT);
-        CONNECTOR_RETURN.setId("_connector_return");
         CONNECTOR_RETURN.setOverrideDimensionName("Return");
 
-        CONNECTOR_SENDER_ADDRESS = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_SENDER_ADDRESS = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_SENDER_ADDRESS.setDimension(DIMENSION_SENDER_ADDRESS);
         CONNECTOR_SENDER_ADDRESS.setForeignKey(COLUMN_SENDER_ID_FACT);
-        CONNECTOR_SENDER_ADDRESS.setId("_connector_sender_address");
         CONNECTOR_SENDER_ADDRESS.setOverrideDimensionName("Sender Address");
 
-        CONNECTOR_RECEIVER_ADDRESS = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_RECEIVER_ADDRESS = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_RECEIVER_ADDRESS.setDimension(DIMENSION_RECEIVER_ADDRESS);
         CONNECTOR_RECEIVER_ADDRESS.setForeignKey(COLUMN_RECEIVER_ID_FACT);
-        CONNECTOR_RECEIVER_ADDRESS.setId("_connector_receiver_address");
         CONNECTOR_RECEIVER_ADDRESS.setOverrideDimensionName("Receiver Address");
 
-        CONNECTOR_DROP_OFF_ADDRESS = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_DROP_OFF_ADDRESS = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_DROP_OFF_ADDRESS.setDimension(DIMENSION_DROP_OFF_ADDRESS);
         CONNECTOR_DROP_OFF_ADDRESS.setForeignKey(COLUMN_DROP_OFF_ID_FACT);
-        CONNECTOR_DROP_OFF_ADDRESS.setId("_connector_drop_off_address");
         CONNECTOR_DROP_OFF_ADDRESS.setOverrideDimensionName("Drop Off Address");
 
-        CONNECTOR_DELIVERY_ADDRESS = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_DELIVERY_ADDRESS = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_DELIVERY_ADDRESS.setDimension(DIMENSION_DELIVERY_ADDRESS);
         CONNECTOR_DELIVERY_ADDRESS.setForeignKey(COLUMN_DELIVERY_ID_FACT);
-        CONNECTOR_DELIVERY_ADDRESS.setId("_connector_delivery_address");
         CONNECTOR_DELIVERY_ADDRESS.setOverrideDimensionName("Delivery Address");
 
         // Initialize measures
-        MEASURE_PARCEL_COUNT = RolapMappingFactory.eINSTANCE.createCountMeasure();
+        MEASURE_PARCEL_COUNT = MeasureFactory.eINSTANCE.createCountMeasure();
         MEASURE_PARCEL_COUNT.setName("Parcel Count");
-        MEASURE_PARCEL_COUNT.setId("_measure_parcel_count");
         MEASURE_PARCEL_COUNT.setColumn(COLUMN_PARCEL_ID_FACT);
         MEASURE_PARCEL_COUNT.setFormatString("#,###");
 
-        MEASURE_POSTAGE_SUM = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        MEASURE_POSTAGE_SUM = MeasureFactory.eINSTANCE.createSumMeasure();
         MEASURE_POSTAGE_SUM.setName("Postage Sum");
-        MEASURE_POSTAGE_SUM.setId("_measure_postage_sum");
         MEASURE_POSTAGE_SUM.setColumn(COLUMN_POSTAGE_FACT);
         MEASURE_POSTAGE_SUM.setFormatString("#,##0.00");
 
-        MEASURE_INSURANCE_VALUE_SUM = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        MEASURE_INSURANCE_VALUE_SUM = MeasureFactory.eINSTANCE.createSumMeasure();
         MEASURE_INSURANCE_VALUE_SUM.setName("Insurance Value Sum");
-        MEASURE_INSURANCE_VALUE_SUM.setId("_measure_insurance_value_sum");
         MEASURE_INSURANCE_VALUE_SUM.setColumn(COLUMN_INSURANCE_VALUE_FACT);
         MEASURE_INSURANCE_VALUE_SUM.setFormatString("#,##0.00");
 
-        MEASURE_WEIGHT_MIN = RolapMappingFactory.eINSTANCE.createMinMeasure();
+        MEASURE_WEIGHT_MIN = MeasureFactory.eINSTANCE.createMinMeasure();
         MEASURE_WEIGHT_MIN.setName("Weight Min");
-        MEASURE_WEIGHT_MIN.setId("_measure_weight_min");
         MEASURE_WEIGHT_MIN.setColumn(COLUMN_WEIGHT_FACT);
         MEASURE_WEIGHT_MIN.setFormatString("#,##0.00");
 
-        MEASURE_WEIGHT_MAX = RolapMappingFactory.eINSTANCE.createMaxMeasure();
+        MEASURE_WEIGHT_MAX = MeasureFactory.eINSTANCE.createMaxMeasure();
         MEASURE_WEIGHT_MAX.setName("Weight Max");
-        MEASURE_WEIGHT_MAX.setId("_measure_weight_max");
         MEASURE_WEIGHT_MAX.setColumn(COLUMN_WEIGHT_FACT);
         MEASURE_WEIGHT_MAX.setFormatString("#,##0.00");
 
-        MEASURE_WEIGHT_AVG = RolapMappingFactory.eINSTANCE.createAvgMeasure();
+        MEASURE_WEIGHT_AVG = MeasureFactory.eINSTANCE.createAvgMeasure();
         MEASURE_WEIGHT_AVG.setName("Weight Avg");
-        MEASURE_WEIGHT_AVG.setId("_measure_weight_avg");
         MEASURE_WEIGHT_AVG.setColumn(COLUMN_WEIGHT_FACT);
         MEASURE_WEIGHT_AVG.setFormatString("#,##0.00");
 
-        MEASUREGROUP_PARCELS = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MEASUREGROUP_PARCELS = CubeFactory.eINSTANCE.createMeasureGroup();
         MEASUREGROUP_PARCELS.getMeasures().addAll(List.of(MEASURE_PARCEL_COUNT, MEASURE_POSTAGE_SUM,
                 MEASURE_INSURANCE_VALUE_SUM, MEASURE_WEIGHT_MIN, MEASURE_WEIGHT_MAX, MEASURE_WEIGHT_AVG));
 
         // Initialize cube
-        CUBE_PARCELS = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        CUBE_PARCELS = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_PARCELS.setName("Parcels");
-        CUBE_PARCELS.setId("_cube_parcels");
         CUBE_PARCELS.setQuery(TABLEQUERY_PARCELS);
         CUBE_PARCELS.getDimensionConnectors()
                 .addAll(List.of(CONNECTOR_WIDTH, CONNECTOR_DEPTH, CONNECTOR_HEIGHT, CONNECTOR_PARCEL_TYPE,
@@ -714,33 +653,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         CUBE_PARCELS.getMeasureGroups().add(MEASUREGROUP_PARCELS);
 
         // Initialize database schema and catalog
-        DATABASE_SCHEMA_PARCEL = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        DATABASE_SCHEMA_PARCEL.setId("_databaseSchema_parcel");
-        DATABASE_SCHEMA_PARCEL.getTables()
+        DATABASE_SCHEMA_PARCEL = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
+        DATABASE_SCHEMA_PARCEL.getOwnedElement()
                 .addAll(List.of(TABLE_PARCELS, TABLE_PARCEL_TYPES, TABLE_DEFECTS, TABLE_ADDRESSES));
 
-        CATALOG_PARCEL = RolapMappingFactory.eINSTANCE.createCatalog();
+        CATALOG_PARCEL = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_PARCEL.setName("Parcel Delivery Service");
-        CATALOG_PARCEL.setDescription("Parcel delivery service logistics database - EMF Version");
-        CATALOG_PARCEL.setId("_catalog_parcel");
         CATALOG_PARCEL.getDbschemas().add(DATABASE_SCHEMA_PARCEL);
         CATALOG_PARCEL.getCubes().add(CUBE_PARCELS);
 
         // Add documentation
-        document(CATALOG_PARCEL, "Parcel Database", parcelBody, 1, 0, 0, false, 0);
-        document(CUBE_PARCELS, "Parcel Cube", parcelCubeBody, 1, 1, 0, true, 0);
-        document(DIMENSION_WIDTH, "Width Dimension", dimensionBody, 1, 2, 0, true, 0);
-        document(DIMENSION_DEPTH, "Depth Dimension", dimensionBody, 1, 3, 0, true, 0);
-        document(DIMENSION_HEIGHT, "Height Dimension", dimensionBody, 1, 4, 0, true, 0);
-        document(DIMENSION_PARCEL_TYPE, "Parcel Type Dimension", typeBody, 1, 5, 0, true, 0);
-        document(DIMENSION_DEFECT, "Defect Dimension", defectBody, 1, 6, 0, true, 0);
-        document(DIMENSION_DELIVERABLE, "Deliverable Dimension", statusBody, 1, 7, 0, true, 0);
-        document(DIMENSION_CUSTOMS, "Customs Dimension", statusBody, 1, 8, 0, true, 0);
-        document(DIMENSION_RETURN, "Return Dimension", statusBody, 1, 9, 0, true, 0);
-        document(DIMENSION_SENDER_ADDRESS, "Sender Address Dimension", addressBody, 1, 10, 0, true, 0);
-        document(DIMENSION_RECEIVER_ADDRESS, "Receiver Address Dimension", addressBody, 1, 11, 0, true, 0);
-        document(DIMENSION_DROP_OFF_ADDRESS, "Drop Off Address Dimension", addressBody, 1, 12, 0, true, 0);
-        document(DIMENSION_DELIVERY_ADDRESS, "Delivery Address Dimension", addressBody, 1, 13, 0, true, 0);
     }
 
     @Override
@@ -748,4 +670,25 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         return CATALOG_PARCEL;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Parcel Database", parcelBody, 1, 0, 0, null, 0),
+                        new DocSection("Parcel Cube", parcelCubeBody, 1, 1, 0, CUBE_PARCELS, 0),
+                        new DocSection("Width Dimension", dimensionBody, 1, 2, 0, DIMENSION_WIDTH, 0),
+                        new DocSection("Depth Dimension", dimensionBody, 1, 3, 0, DIMENSION_DEPTH, 0),
+                        new DocSection("Height Dimension", dimensionBody, 1, 4, 0, DIMENSION_HEIGHT, 0),
+                        new DocSection("Parcel Type Dimension", typeBody, 1, 5, 0, DIMENSION_PARCEL_TYPE, 0),
+                        new DocSection("Defect Dimension", defectBody, 1, 6, 0, DIMENSION_DEFECT, 0),
+                        new DocSection("Deliverable Dimension", statusBody, 1, 7, 0, DIMENSION_DELIVERABLE, 0),
+                        new DocSection("Customs Dimension", statusBody, 1, 8, 0, DIMENSION_CUSTOMS, 0),
+                        new DocSection("Return Dimension", statusBody, 1, 9, 0, DIMENSION_RETURN, 0),
+                        new DocSection("Sender Address Dimension", addressBody, 1, 10, 0, DIMENSION_SENDER_ADDRESS, 0),
+                        new DocSection("Receiver Address Dimension", addressBody, 1, 11, 0, DIMENSION_RECEIVER_ADDRESS, 0),
+                        new DocSection("Drop Off Address Dimension", addressBody, 1, 12, 0, DIMENSION_DROP_OFF_ADDRESS, 0),
+                        new DocSection("Delivery Address Dimension", addressBody, 1, 13, 0, DIMENSION_DELIVERY_ADDRESS, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

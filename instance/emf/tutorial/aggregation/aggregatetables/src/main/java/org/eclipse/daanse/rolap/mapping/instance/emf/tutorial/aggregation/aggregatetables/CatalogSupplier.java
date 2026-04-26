@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,38 +19,61 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationExclude;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.02", source = Source.EMF, group = "Aggregation") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private TableSource productClassQuery;
+    private TableSource productQuery;
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private JoinSource joinQuery;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private TableSource query;
+    private Level level;
+
 
     private static final String SALES = "Sales";
     private static final String SALES_FACT_1997 = "SALES_FACT_1997";
 
     private static final String catalogBody = """
-            This tutorial discusses TableQuery with AggregationExclude.
+            This tutorial discusses TableSource with AggregationExclude.
             AggregationExclude defines exclusion rules that prevent specific tables from being used as aggregation tables,
             even if they would otherwise match aggregation patterns or be considered suitable for aggregation optimization.
             AggregationExclude is essential for maintaining aggregation accuracy and system reliability by providing explicit
@@ -72,20 +94,20 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private static final String queryBody = """
             The bridge between the cube and the database is the query element. In this case, it is a TableQuery, as it directly references the physical table `SALES_FACT_1997`.
             The query element is not visible to users accessing the cube through the XMLA API, such as Daanse Dashboard, Power BI, or Excel.
-            this TableQuery have one AggregationTable with reference to 'AGG_C_SPECIAL_SALES_FACT_1997' the specific database table that contains the pre-computed aggregation data.
+            this TableSource have one AggregationTable with reference to 'AGG_C_SPECIAL_SALES_FACT_1997' the specific database table that contains the pre-computed aggregation data.
             this tabele will use for calculate aggregation data for aggregationMeasure [Measures].[Store Cost] for level [Product].[Product Family].[Product Family].
             """;
 
     private static final String queryProductBody = """
-            The TableQuery for the PRODUCT table.
+            The TableSource for the PRODUCT table.
             """;
 
     private static final String queryProductClassBody = """
-            The TableQuery for the PRODUCT_CLASS table.
+            The TableSource for the PRODUCT_CLASS table.
             """;
 
     private static final String queryJoinBody = """
-            The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
+            The JoinSource specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
             - In the PRODUCT the join uses the foreign key.
             - In the PRODUCT_CLASS table, the join uses the primary key.
@@ -116,221 +138,191 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_AggregateTables");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column productIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productIdColumn.setName("PRODUCT_ID");
-        productIdColumn.setId("_column_sales_fact_1997_product_id");
-        productIdColumn.setType(ColumnType.INTEGER);
+        productIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column storeCostColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column storeCostColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         storeCostColumn.setName("STORE_COST");
-        storeCostColumn.setId("_column_sales_fact_1997_store_cost");
-        storeCostColumn.setType(ColumnType.DECIMAL);
-        storeCostColumn.setColumnSize(10);
-        storeCostColumn.setDecimalDigits(4);
+        storeCostColumn.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        PhysicalTable salesFact1997 = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table salesFact1997 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         salesFact1997.setName(SALES_FACT_1997);
-        salesFact1997.setId("_table_sales_fact_1997");
-        salesFact1997.getColumns().addAll(List.of(productIdColumn, storeCostColumn));
-        databaseSchema.getTables().add(salesFact1997);
+        salesFact1997.getFeature().addAll(List.of(productIdColumn, storeCostColumn));
+        databaseSchema.getOwnedElement().add(salesFact1997);
 
-        Column productProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productProductClassIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productProductClassIdColumn.setId("_column_product_product_class_id");
-        productProductClassIdColumn.setType(ColumnType.INTEGER);
+        productProductClassIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column productProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productProductIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductIdColumn.setName("PRODUCT_ID");
-        productProductIdColumn.setId("_column_product_product_id");
-        productProductIdColumn.setType(ColumnType.INTEGER);
+        productProductIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column productBrandNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productBrandNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productBrandNameColumn.setName("brand_name");
-        productBrandNameColumn.setId("_column_product_brandName");
-        productBrandNameColumn.setType(ColumnType.VARCHAR);
-        productBrandNameColumn.setColumnSize(60);
+        productBrandNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column productProductNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productProductNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductNameColumn.setName("product_name");
-        productProductNameColumn.setId("_column_product_productName");
-        productProductNameColumn.setType(ColumnType.VARCHAR);
-        productProductNameColumn.setColumnSize(60);
+        productProductNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable productTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table productTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         productTable.setName("PRODUCT");
-        productTable.setId("_table_product");
-        productTable.getColumns().addAll(List.of(productProductClassIdColumn, productProductIdColumn,
+        productTable.getFeature().addAll(List.of(productProductClassIdColumn, productProductIdColumn,
                 productBrandNameColumn, productProductNameColumn));
-        databaseSchema.getTables().add(productTable);
+        databaseSchema.getOwnedElement().add(productTable);
 
-        Column productClassProductClassIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productClassProductClassIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productClassProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productClassProductClassIdColumn.setId("_column_product_class_product_class_id");
-        productClassProductClassIdColumn.setType(ColumnType.INTEGER);
+        productClassProductClassIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column productClassProductFamileColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column productClassProductFamileColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productClassProductFamileColumn.setName("PRODUCT_FAMILE");
-        productClassProductFamileColumn.setId("_column_product_class_product_famile");
-        productClassProductFamileColumn.setType(ColumnType.VARCHAR);
-        productClassProductFamileColumn.setColumnSize(60);
+        productClassProductFamileColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable productClassTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table productClassTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         productClassTable.setName("PRODUCT_CLASS");
-        productClassTable.setId("_table_product_class");
-        productClassTable.getColumns()
+        productClassTable.getFeature()
                 .addAll(List.of(productClassProductClassIdColumn, productClassProductFamileColumn));
-        databaseSchema.getTables().add(productClassTable);
+        databaseSchema.getOwnedElement().add(productClassTable);
 
-        Column aggCSpecialSalesFact1997ProductIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column aggCSpecialSalesFact1997ProductIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997ProductIdColumn.setName("PRODUCT_ID");
-        aggCSpecialSalesFact1997ProductIdColumn.setId("_column_agg_c_special_sales_fact_1997_product_id");
-        aggCSpecialSalesFact1997ProductIdColumn.setType(ColumnType.INTEGER);
+        aggCSpecialSalesFact1997ProductIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column aggCSpecialSalesFact1997StoreCostSumColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column aggCSpecialSalesFact1997StoreCostSumColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997StoreCostSumColumn.setName("STORE_COST_SUM");
-        aggCSpecialSalesFact1997StoreCostSumColumn.setId("_column_agg_c_special_sales_fact_1997_store_cost_sum");
-        aggCSpecialSalesFact1997StoreCostSumColumn.setType(ColumnType.DECIMAL);
-        aggCSpecialSalesFact1997StoreCostSumColumn.setColumnSize(10);
-        aggCSpecialSalesFact1997StoreCostSumColumn.setDecimalDigits(4);
+        aggCSpecialSalesFact1997StoreCostSumColumn.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        Column aggCSpecialSalesFact1997FactCountColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column aggCSpecialSalesFact1997FactCountColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997FactCountColumn.setName("FACT_COUNT");
-        aggCSpecialSalesFact1997FactCountColumn.setId("_column_agg_c_special_sales_fact_1997_fact_count");
-        aggCSpecialSalesFact1997FactCountColumn.setType(ColumnType.INTEGER);
+        aggCSpecialSalesFact1997FactCountColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
         //PRODUCT_ID,STORE_COST_SUM,FACT_COUNT
         //INTEGER,DECIMAL(10.4),INTEGER
 
-        PhysicalTable aggCSpecialSalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table aggCSpecialSalesFact1997Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggCSpecialSalesFact1997Table.setName("AGG_C_SPECIAL_SALES_FACT_1997");
-        aggCSpecialSalesFact1997Table.setId("_table_agg_c_special_sales_fact_1997");
-        aggCSpecialSalesFact1997Table.getColumns().addAll(List.of(aggCSpecialSalesFact1997ProductIdColumn,
+        aggCSpecialSalesFact1997Table.getFeature().addAll(List.of(aggCSpecialSalesFact1997ProductIdColumn,
                 aggCSpecialSalesFact1997StoreCostSumColumn, aggCSpecialSalesFact1997FactCountColumn));
-        databaseSchema.getTables().add(aggCSpecialSalesFact1997Table);
+        databaseSchema.getOwnedElement().add(aggCSpecialSalesFact1997Table);
 
-        PhysicalTable aggC14SalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table aggC14SalesFact1997Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggC14SalesFact1997Table.setName("AGG_C_14_SALES_FACT_1997");
-        aggC14SalesFact1997Table.setId("_table_agg_c_14_sales_fact_1997");
-        aggC14SalesFact1997Table.getColumns().addAll(List.of());
-        databaseSchema.getTables().add(aggC14SalesFact1997Table);
+        aggC14SalesFact1997Table.getFeature().addAll(List.of());
+        databaseSchema.getOwnedElement().add(aggC14SalesFact1997Table);
 
-        PhysicalTable aggLc100SalesFact1997Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table aggLc100SalesFact1997Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggLc100SalesFact1997Table.setName("AGG_LC_100_SALES_FACT_1997");
-        aggLc100SalesFact1997Table.setId("_table_agg_lc_100_sales_fact_1997");
-        aggLc100SalesFact1997Table.getColumns().addAll(List.of());
-        databaseSchema.getTables().add(aggLc100SalesFact1997Table);
+        aggLc100SalesFact1997Table.getFeature().addAll(List.of());
+        databaseSchema.getOwnedElement().add(aggLc100SalesFact1997Table);
 
-        AggregationColumnName aggregationColumnName = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
+        AggregationColumnName aggregationColumnName = AggregationFactory.eINSTANCE.createAggregationColumnName();
         aggregationColumnName.setColumn(aggCSpecialSalesFact1997FactCountColumn);
 
-        AggregationMeasure aggregationMeasure = RolapMappingFactory.eINSTANCE.createAggregationMeasure();
+        AggregationMeasure aggregationMeasure = AggregationFactory.eINSTANCE.createAggregationMeasure();
         aggregationMeasure.setName("[Measures].[Store Cost]");
         aggregationMeasure.setColumn(aggCSpecialSalesFact1997StoreCostSumColumn);
 
-        AggregationLevel aggregationLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
+        AggregationLevel aggregationLevel = AggregationFactory.eINSTANCE.createAggregationLevel();
         aggregationLevel.setName("[Product].[Product Family].[Product Family]");
         aggregationLevel.setColumn(productClassProductFamileColumn);//??
 
-        AggregationExclude aggregationExclude1 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
+        AggregationExclude aggregationExclude1 = AggregationFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude1.setName("AGG_C_14_SALES_FACT_1997");
-        AggregationExclude aggregationExclude2 = RolapMappingFactory.eINSTANCE.createAggregationExclude();
+        AggregationExclude aggregationExclude2 = AggregationFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude2.setName("AGG_LC_100_SALES_FACT_1997");
 
-        AggregationName aggregationName = RolapMappingFactory.eINSTANCE.createAggregationName();
-        aggregationName.setId("_aggregationName_AGG_C_SPECIAL_SALES_FACT_1997");
+        AggregationName aggregationName = AggregationFactory.eINSTANCE.createAggregationName();
         aggregationName.setName(aggCSpecialSalesFact1997Table);
         aggregationName.setAggregationFactCount(aggregationColumnName);
         aggregationName.getAggregationMeasures().add(aggregationMeasure);
         aggregationName.getAggregationLevels().add(aggregationLevel);
 
-        TableQuery productQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        productQuery.setId("_query_productQuery");
+        productQuery = SourceFactory.eINSTANCE.createTableSource();
         productQuery.setTable(productTable);
 
-        TableQuery productClassQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        productClassQuery.setId("_query_productClassQuery");
+        productClassQuery = SourceFactory.eINSTANCE.createTableSource();
         productClassQuery.setTable(productClassTable);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(salesFact1997);
-        query.setId("_query_salesFact1997Query");
         query.getAggregationTables().add(aggregationName);
         query.getAggregationExcludes().addAll(List.of(aggregationExclude1, aggregationExclude2));
 
-        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         left.setKey(productProductClassIdColumn);
         left.setQuery(productQuery);
 
-        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         right.setKey(productClassProductClassIdColumn);
         right.setQuery(productClassQuery);
 
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery_productClassProduct");
+        joinQuery = SourceFactory.eINSTANCE.createJoinSource();
         joinQuery.setLeft(left);
         joinQuery.setRight(right);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Store Cost");
-        measure.setId("_measure_StoreCost");
         measure.setColumn(storeCostColumn);
         measure.setFormatString("#,###.00");
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Product Family");
-        level.setId("_level_Product_Family_Level");
         level.setColumn(productClassProductFamileColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Product Family");
-        hierarchy.setId("_hierarchy_Product_Family_Hierarchy");
         hierarchy.setPrimaryKey(productProductIdColumn);
         hierarchy.setDisplayFolder("Details");
         hierarchy.setQuery(joinQuery);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Product");
-        dimension.setId("_dimension_ProductDimension");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_product");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Product");
         dimensionConnector.setForeignKey(productIdColumn);
         dimensionConnector.setDimension(dimension);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(SALES);
-        cube.setId("_cube_Sales");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Aggregation Aggregate Tables");
         catalog.setDescription("Aggregate table optimization techniques");
         catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Aggregation Aggregate Tables", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(productQuery, "Product Query", queryProductBody, 1, 3, 0, true, 2);
-        document(productClassQuery, "Product Class Query", queryProductClassBody, 1, 4, 0, true, 2);
-        document(joinQuery, "Product Class Query", queryJoinBody, 1, 5, 0, true, 2);
-        document(level, "Level - Product Family", levelBody, 1, 6, 0, true, 0);
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 7, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 8, 0, true, 0);
-        document(cube, "Cube, MeasureGroup and Measure", cubeBody, 1, 9, 0, true, 2);
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Aggregation Aggregate Tables", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Product Query", queryProductBody, 1, 3, 0, productQuery, 2),
+                        new DocSection("Product Class Query", queryProductClassBody, 1, 4, 0, productClassQuery, 2),
+                        new DocSection("Product Class Query", queryJoinBody, 1, 5, 0, joinQuery, 2),
+                        new DocSection("Level - Product Family", levelBody, 1, 6, 0, level, 0),
+                        new DocSection("Hierarchy", hierarchyBody, 1, 7, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 8, 0, dimension, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

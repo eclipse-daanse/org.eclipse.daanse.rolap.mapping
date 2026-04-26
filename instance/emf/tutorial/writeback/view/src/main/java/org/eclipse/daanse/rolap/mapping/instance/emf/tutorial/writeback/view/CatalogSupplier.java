@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,33 +19,58 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SqlSelectQuery;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.SqlView;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlSelectSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.DialectSqlView;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.03", source = Source.EMF, group = "Writeback") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private JoinSource joinQuery;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private SqlSelectSource query;
+    private Level l2Level;
+    private Level l1Level;
+    private TableSource l1Query;
+    private TableSource l2Query;
+
 
     private static final String CUBE = "C";
     private static final String FACT = "FACT";
@@ -64,15 +88,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The SqlSelectQuery with `FACT` alias that selects all columns from the Fact SqlView to use in the cube for the measures. SqlView have description as sql query
+            The SqlSelectSource with `FACT` alias that selects all columns from the Fact DialectSqlView to use in the cube for the measures. DialectSqlView have description as sql query
             """;
 
     private static final String query1Body = """
-            The l1Query is a simple TableQuery that selects all columns from the `L1` table to use in the cube for the `L1` level.
+            The l1Query is a simple TableSource that selects all columns from the `L1` table to use in the cube for the `L1` level.
             """;
 
     private static final String query2Body = """
-            The l2Query is a simple TableQuery that selects all columns from the `L2` table to use in the cube for the `L2` level.
+            The l2Query is a simple TableSource that selects all columns from the `L2` table to use in the cube for the `L2` level.
             """;
 
     private static final String joinBody = """
@@ -101,214 +125,185 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_WritebackView");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column valColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
-        valColumn.setId("_column_fact_val");
-        valColumn.setType(ColumnType.INTEGER);
+        valColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column val1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column val1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         val1Column.setName("VAL1");
-        val1Column.setId("_column_fact_val1");
-        val1Column.setType(ColumnType.INTEGER);
+        val1Column.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column l2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column l2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l2Column.setName("L2");
-        l2Column.setId("_column_fact_l2");
-        l2Column.setType(ColumnType.VARCHAR);
-        l2Column.setColumnSize(100);
+        l2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement.getDialects().addAll(List.of("generic", "h1"));
         sqlStatement.setSql("select * from FACT");
-        SqlView sqlView = RolapMappingFactory.eINSTANCE.createSqlView();
+        DialectSqlView sqlView = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createDialectSqlView();
         sqlView.setName(FACT);
-        sqlView.setId("_fact");
-        sqlView.getColumns().addAll(List.of(valColumn, val1Column, l2Column));
-        sqlView.getSqlStatements().add(sqlStatement);
-        databaseSchema.getTables().add(sqlView);
+        sqlView.getFeature().addAll(List.of(valColumn, val1Column, l2Column));
+        sqlView.getDialectStatements().add(sqlStatement);
+        databaseSchema.getOwnedElement().add(sqlView);
 
-        Column l1L1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column l1L1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l1L1Column.setName("L1");
-        l1L1Column.setId("_l1_l1");
-        l1L1Column.setType(ColumnType.VARCHAR);
-        l1L1Column.setColumnSize(100);
+        l1L1Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column l1L2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column l1L2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l1L2Column.setName("L2");
-        l1L2Column.setId("_l1_l2");
-        l1L2Column.setType(ColumnType.VARCHAR);
-        l1L2Column.setColumnSize(100);
+        l1L2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable l1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table l1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         l1Table.setName("L1");
-        l1Table.setId("_l1");
-        l1Table.getColumns().addAll(List.of(l1L1Column, l1L2Column));
-        databaseSchema.getTables().add(l1Table);
+        l1Table.getFeature().addAll(List.of(l1L1Column, l1L2Column));
+        databaseSchema.getOwnedElement().add(l1Table);
 
-        Column l2L2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column l2L2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l2L2Column.setName("L2");
-        l2L2Column.setId("_l2_l2");
-        l2L2Column.setType(ColumnType.VARCHAR);
-        l2L2Column.setColumnSize(100);
+        l2L2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable l2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table l2Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         l2Table.setName("L2");
-        l2Table.setId("_l2");
-        l2Table.getColumns().addAll(List.of(l2L2Column));
-        databaseSchema.getTables().add(l2Table);
+        l2Table.getFeature().addAll(List.of(l2L2Column));
+        databaseSchema.getOwnedElement().add(l2Table);
 
-        Column factwbValColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbValColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbValColumn.setName("VAL");
-        factwbValColumn.setId("_column_factwb_val");
-        factwbValColumn.setType(ColumnType.INTEGER);
+        factwbValColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column factwbVal1Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbVal1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbVal1Column.setName("VAL1");
-        factwbVal1Column.setId("_column_factwb_val1");
-        factwbVal1Column.setType(ColumnType.INTEGER);
+        factwbVal1Column.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column factwbL2Column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbL2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbL2Column.setName("L2");
-        factwbL2Column.setId("_table_factwb_L2");
-        factwbL2Column.setType(ColumnType.VARCHAR);
-        factwbL2Column.setColumnSize(100);
+        factwbL2Column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column factwbIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbIdColumn.setName("ID");
-        factwbIdColumn.setId("_column_factwb_id");
-        factwbIdColumn.setType(ColumnType.VARCHAR);
-        factwbIdColumn.setColumnSize(100);
+        factwbIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column factwbUserColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column factwbUserColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbUserColumn.setName("USER");
-        factwbUserColumn.setId("_column_factwb_user");
-        factwbUserColumn.setType(ColumnType.VARCHAR);
-        factwbUserColumn.setColumnSize(100);
+        factwbUserColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable factwbTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table factwbTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         factwbTable.setName("FACTWB");
-        factwbTable.setId("_factwb");
-        factwbTable.getColumns()
+        factwbTable.getFeature()
                 .addAll(List.of(factwbValColumn, factwbVal1Column, factwbL2Column, factwbIdColumn, factwbUserColumn));
-        databaseSchema.getTables().add(factwbTable);
+        databaseSchema.getOwnedElement().add(factwbTable);
 
-        SqlSelectQuery query = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
-        query.setId("_query_factQuery");
+        query = SourceFactory.eINSTANCE.createSqlSelectSource();
         query.setSql(sqlView);
         query.setAlias(FACT);
 
-        TableQuery l1Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        l1Query.setId("_l1Query");
+        l1Query = SourceFactory.eINSTANCE.createTableSource();
         l1Query.setTable(l1Table);
 
-        TableQuery l2Query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        l2Query.setId("_l2Query");
+        l2Query = SourceFactory.eINSTANCE.createTableSource();
         l2Query.setTable(l2Table);
 
-        JoinedQueryElement joinLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinLeft.setKey(l1L2Column);
         joinLeft.setQuery(l1Query);
-        JoinedQueryElement joinRight = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinRight.setKey(l2L2Column);
         joinRight.setQuery(l2Query);
 
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery");
+        joinQuery = SourceFactory.eINSTANCE.createJoinSource();
         joinQuery.setLeft(joinLeft);
         joinQuery.setRight(joinRight);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("_measure1");
         measure1.setColumn(valColumn);
 
-        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure2 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure2");
-        measure2.setId("_measure2");
         measure2.setColumn(val1Column);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2));
 
-        Level l1Level = RolapMappingFactory.eINSTANCE.createLevel();
+        l1Level = LevelFactory.eINSTANCE.createLevel();
         l1Level.setName("L1");
-        l1Level.setId("_l1level");
         l1Level.setColumn(l1L1Column);
 
-        Level l2Level = RolapMappingFactory.eINSTANCE.createLevel();
+        l2Level = LevelFactory.eINSTANCE.createLevel();
         l2Level.setName("L2");
-        l2Level.setId("_l2level");
         l2Level.setColumn(l2L2Column);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
-        hierarchy.setId("_hierarchywithhasall");
         hierarchy.setPrimaryKey(l1L2Column);
         hierarchy.setQuery(joinQuery);
         hierarchy.getLevels().addAll(List.of(l1Level, l2Level));
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension");
-        dimension.setId("_dimension");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("D1");
-        dimensionConnector.setId("_d1");
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(l1L2Column);
 
-        WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
+        WritebackAttribute writebackAttribute = WritebackFactory.eINSTANCE.createWritebackAttribute();
         writebackAttribute.setDimensionConnector(dimensionConnector);
         writebackAttribute.setColumn(l2Column);
 
-        WritebackMeasure writebackMeasure1 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure1 = WritebackFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
-        WritebackMeasure writebackMeasure2 = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure2 = WritebackFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure2.setName("Measure2");
         writebackMeasure2.setColumn(val1Column);
 
-        WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
+        WritebackTable writebackTable = WritebackFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName("FACTWB");
         writebackTable.getWritebackAttribute().add(writebackAttribute);
         writebackTable.getWritebackMeasure().addAll(List.of(writebackMeasure1, writebackMeasure2));
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_c");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.setWritebackTable(writebackTable);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Writeback View");
         catalog.setDescription("View-based writeback functionality");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Writeback View", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "FactQuery", queryBody, 1, 2, 0, true, 2);
-        document(l1Query, "l1TableQuery", query1Body, 1, 3, 0, true, 2);
-        document(l2Query, "l21TableQuery", query2Body, 1, 4, 0, true, 2);
-        document(joinQuery, "joinQuery", joinBody, 1, 5, 0, true, 2);
 
-        document(l1Level, "L1", level1Body, 1, 6, 0, true, 0);
-        document(l2Level, "L2", level2Body, 1, 7, 0, true, 0);
 
-        document(hierarchy, "HierarchyWithHasAll", hierarchyBody, 1, 8, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 9, 0, true, 0);
 
-        document(cube, "Cubec C", cubeBody, 1, 10, 0, true, 2);
-
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Writeback View", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("FactQuery", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("l1TableQuery", query1Body, 1, 3, 0, l1Query, 2),
+                        new DocSection("l21TableQuery", query2Body, 1, 4, 0, l2Query, 2),
+                        new DocSection("joinQuery", joinBody, 1, 5, 0, joinQuery, 2),
+                        new DocSection("L1", level1Body, 1, 6, 0, l1Level, 0),
+                        new DocSection("L2", level2Body, 1, 7, 0, l2Level, 0),
+                        new DocSection("HierarchyWithHasAll", hierarchyBody, 1, 8, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 9, 0, dimension, 0),
+                        new DocSection("Cubec C", cubeBody, 1, 10, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

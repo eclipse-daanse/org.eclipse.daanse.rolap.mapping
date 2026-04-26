@@ -18,25 +18,33 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @Component(service = CatalogMappingSupplier.class)
 @MappingInstance(kind = Kind.COMPLEX, number = "99.1.1", source = Source.EMF, group = "Full Examples") // NOSONAR
 
@@ -92,883 +100,729 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseschema");
+        Schema databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
         // id,schul_nummer,schul_name,traeger_id,schul_art_id,ganztags_art_id
         // INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
-        Column columnIdInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchuleTable.setName("id");
-        columnIdInSchuleTable.setId("_col_schule_id");
-        columnIdInSchuleTable.setType(ColumnType.INTEGER);
+        columnIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulNameInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulNameInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulNameInSchuleTable.setName(COL_NAME_SCHUL_NAME);
-        columnSchulNameInSchuleTable.setId("_col_schule_schul_name");
-        columnSchulNameInSchuleTable.setType(ColumnType.VARCHAR);
+        columnSchulNameInSchuleTable.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnSchulNummerInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulNummerInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulNummerInSchuleTable.setName(COL_NAME_SCHUL_NUMMER);
-        columnSchulNummerInSchuleTable.setId("_col_schule_schul_nummer");
-        columnSchulNummerInSchuleTable.setType(ColumnType.INTEGER);
+        columnSchulNummerInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnGanztagsArtIdInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnGanztagsArtIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGanztagsArtIdInSchuleTable.setName("ganztags_art_id");
-        columnGanztagsArtIdInSchuleTable.setId("_col_schule_ganztags_art_id");
-        columnGanztagsArtIdInSchuleTable.setType(ColumnType.INTEGER);
+        columnGanztagsArtIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnTraegerIdInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerIdInSchuleTable.setName("traeger_id");
-        columnTraegerIdInSchuleTable.setId("_col_schule_traeger_id");
-        columnTraegerIdInSchuleTable.setType(ColumnType.INTEGER);
+        columnTraegerIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulArtIdInSchuleTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulArtIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulArtIdInSchuleTable.setName("schul_art_id");
-        columnSchulArtIdInSchuleTable.setId("_col_schule_schul_art_id");
-        columnSchulArtIdInSchuleTable.setType(ColumnType.INTEGER);
+        columnSchulArtIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableSchule = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSchule = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchule.setName(TAB_NAME_SCHULE);
-        tableSchule.setId("_tab_schule");
-        tableSchule.getColumns()
+        tableSchule.getFeature()
                 .addAll(List.of(columnIdInSchuleTable, columnSchulNameInSchuleTable, columnSchulNummerInSchuleTable,
                         columnGanztagsArtIdInSchuleTable, columnTraegerIdInSchuleTable, columnSchulArtIdInSchuleTable));
 
         // id,schul_umfang
         // INTEGER,VARCHAR
-        Column columnIdInGanztagsArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInGanztagsArt.setName("id");
-        columnIdInGanztagsArt.setId("_col_ganztags_art_id");
-        columnIdInGanztagsArt.setType(ColumnType.INTEGER);
+        columnIdInGanztagsArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulUmfangInGanztagsArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulUmfangInGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulUmfangInGanztagsArt.setName("schul_umfang");
-        columnSchulUmfangInGanztagsArt.setId("_col_ganztags_art_schul_umfang");
-        columnSchulUmfangInGanztagsArt.setType(ColumnType.VARCHAR);
+        columnSchulUmfangInGanztagsArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableGanztagsArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableGanztagsArt.setName("ganztags_art");
-        tableGanztagsArt.setId("_tab_ganztags_art");
-        tableGanztagsArt.getColumns().addAll(List.of(columnIdInGanztagsArt, columnSchulUmfangInGanztagsArt));
+        tableGanztagsArt.getFeature().addAll(List.of(columnIdInGanztagsArt, columnSchulUmfangInGanztagsArt));
 
         // id,traeger_name,traeger_art_id
         // INTEGER,VARCHAR,INTEGER
-        Column columnIdInTraegerTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerTable.setName("id");
-        columnIdInTraegerTable.setId("_col_traeger_id");
-        columnIdInTraegerTable.setType(ColumnType.INTEGER);
+        columnIdInTraegerTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnTraegerNameInTraegerTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerNameInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerNameInTraegerTable.setName("traeger_name");
-        columnTraegerNameInTraegerTable.setId("_col_traeger_traeger_name");
-        columnTraegerNameInTraegerTable.setType(ColumnType.VARCHAR);
+        columnTraegerNameInTraegerTable.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnTraegerArtIdInTraegerTable = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerArtIdInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerArtIdInTraegerTable.setName("traeger_art_id");
-        columnTraegerArtIdInTraegerTable.setId("_col_traeger_traeger_art_id");
-        columnTraegerArtIdInTraegerTable.setType(ColumnType.INTEGER);
+        columnTraegerArtIdInTraegerTable.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableTraeger = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableTraeger = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraeger.setName("traeger");
-        tableTraeger.setId("_tab_traeger");
-        tableTraeger.getColumns().addAll(
+        tableTraeger.getFeature().addAll(
                 List.of(columnIdInTraegerTable, columnTraegerNameInTraegerTable, columnTraegerArtIdInTraegerTable));
 
         // id,traeger_art,traeger_kat_id
         // INTEGER,VARCHAR,VARCHAR
-        Column columnIdInTraegerArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerArt.setName("id");
-        columnIdInTraegerArt.setId("_col_traeger_art_id");
-        columnIdInTraegerArt.setType(ColumnType.INTEGER);
+        columnIdInTraegerArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnTraegerArtInTraegerArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerArtInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerArtInTraegerArt.setName(COL_NAME_TRAEGER_ART);
-        columnTraegerArtInTraegerArt.setId("_col_traeger_art_traeger_art");
-        columnTraegerArtInTraegerArt.setType(ColumnType.VARCHAR);
+        columnTraegerArtInTraegerArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnTraegerKatIdInTraegerArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerKatIdInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerKatIdInTraegerArt.setName("traeger_kat_id");
-        columnTraegerKatIdInTraegerArt.setId("_col_traeger_art_traeger_kat_id");
-        columnTraegerKatIdInTraegerArt.setType(ColumnType.VARCHAR);
+        columnTraegerKatIdInTraegerArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableTraegerArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraegerArt.setName(COL_NAME_TRAEGER_ART);
-        tableTraegerArt.setId("_tab_traeger_art");
-        tableTraegerArt.getColumns()
+        tableTraegerArt.getFeature()
                 .addAll(List.of(columnIdInTraegerArt, columnTraegerArtInTraegerArt, columnTraegerKatIdInTraegerArt));
 
         // id,traeger_kategorie
         // INTEGER,VARCHAR
-        Column columnIdInTraegerKategorie = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerKategorie.setName("id");
-        columnIdInTraegerKategorie.setId("_col_traeger_kategorie_id");
-        columnIdInTraegerKategorie.setType(ColumnType.INTEGER);
+        columnIdInTraegerKategorie.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnTraegerKategorieInTraegerKategorie = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnTraegerKategorieInTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerKategorieInTraegerKategorie.setName(COL_NAME_TRAEGER_KATEGORIE);
-        columnTraegerKategorieInTraegerKategorie.setId("_col_traeger_kategorie_traeger_kategorie");
-        columnTraegerKategorieInTraegerKategorie.setType(ColumnType.VARCHAR);
+        columnTraegerKategorieInTraegerKategorie.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableTraegerKategorie = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraegerKategorie.setName(COL_NAME_TRAEGER_KATEGORIE);
-        tableTraegerKategorie.setId("_tab_traeger_kategorie");
-        tableTraegerKategorie.getColumns()
+        tableTraegerKategorie.getFeature()
                 .addAll(List.of(columnIdInTraegerKategorie, columnTraegerKategorieInTraegerKategorie));
 
         // id,schulart_name,schul_kategorie_id
         // INTEGER,VARCHAR,INTEGER
-        Column columnIdInScheduleArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInScheduleArt.setName("id");
-        columnIdInScheduleArt.setId("_col_schul_art_id");
-        columnIdInScheduleArt.setType(ColumnType.INTEGER);
+        columnIdInScheduleArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulKategorieInScheduleArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulKategorieInScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulKategorieInScheduleArt.setName("schul_kategorie_id");
-        columnSchulKategorieInScheduleArt.setId("_col_schul_art_schul_kategorie_id");
-        columnSchulKategorieInScheduleArt.setType(ColumnType.INTEGER);
+        columnSchulKategorieInScheduleArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableScheduleArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableScheduleArt.setName("schul_art");
-        tableScheduleArt.setId("_tab_schul_art");
-        tableScheduleArt.getColumns().addAll(List.of(columnIdInScheduleArt, columnSchulKategorieInScheduleArt));
+        tableScheduleArt.getFeature().addAll(List.of(columnIdInScheduleArt, columnSchulKategorieInScheduleArt));
 
         // "id","schul_jahr","order"
-        // ColumnType.INTEGER,ColumnType.VARCHAR,ColumnType.INTEGER
-        Column columnIdInSchulJahr = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        // SqlSimpleTypes.Sql99.integerType(),SqlSimpleTypes.Sql99.varcharType(),SqlSimpleTypes.Sql99.integerType()
+        Column columnIdInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulJahr.setName("id");
-        columnIdInSchulJahr.setId("_col_schul_jahr_id");
-        columnIdInSchulJahr.setType(ColumnType.INTEGER);
+        columnIdInSchulJahr.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulJahrInSchulJahr = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulJahrInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrInSchulJahr.setName(COL_NAME_SCHUL_JAHR);
-        columnSchulJahrInSchulJahr.setId("_col_schul_jahr_schul_jahr");
-        columnSchulJahrInSchulJahr.setType(ColumnType.VARCHAR);
+        columnSchulJahrInSchulJahr.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnOrderInSchulJahr = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnOrderInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnOrderInSchulJahr.setName("order");
-        columnOrderInSchulJahr.setId("_col_schul_jahr_order");
-        columnOrderInSchulJahr.setType(ColumnType.INTEGER);
+        columnOrderInSchulJahr.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableSchulJahr = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulJahr.setName(COL_NAME_SCHUL_JAHR);
-        tableSchulJahr.setId("_tab_schul_jahr");
-        tableSchulJahr.getColumns()
+        tableSchulJahr.getFeature()
                 .addAll(List.of(columnIdInSchulJahr, columnSchulJahrInSchulJahr, columnOrderInSchulJahr));
 
         // id,altersgruppe
         // INTEGER,VARCHAR
-        Column columnIdInAltersGruppe = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInAltersGruppe.setName("id");
-        columnIdInAltersGruppe.setId("_col_alters_gruppe_id");
-        columnIdInAltersGruppe.setType(ColumnType.INTEGER);
+        columnIdInAltersGruppe.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAltersgruppeInAltersGruppe = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAltersgruppeInAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAltersgruppeInAltersGruppe.setName("altersgruppe");
-        columnAltersgruppeInAltersGruppe.setId("_col_alters_gruppe_altersgruppe");
-        columnAltersgruppeInAltersGruppe.setType(ColumnType.INTEGER);
+        columnAltersgruppeInAltersGruppe.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableAltersGruppe = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableAltersGruppe.setName("alters_gruppe");
-        tableAltersGruppe.setId("_tab_alters_gruppe");
-        tableAltersGruppe.getColumns().addAll(List.of(columnIdInAltersGruppe, columnAltersgruppeInAltersGruppe));
+        tableAltersGruppe.getFeature().addAll(List.of(columnIdInAltersGruppe, columnAltersgruppeInAltersGruppe));
 
         // id,kuerzel,bezeichnung
         // INTEGER,VARCHAR,VARCHAR
-        Column columnIdInGeschlecht = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInGeschlecht.setName("id");
-        columnIdInGeschlecht.setId("_col_geschlecht_id");
-        columnIdInGeschlecht.setType(ColumnType.INTEGER);
+        columnIdInGeschlecht.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnBezeichnungInGeschlecht = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnBezeichnungInGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInGeschlecht.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInGeschlecht.setId("_col_geschlecht_bezeichnung");
-        columnBezeichnungInGeschlecht.setType(ColumnType.INTEGER);
+        columnBezeichnungInGeschlecht.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableGeschlecht = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableGeschlecht.setName("geschlecht");
-        tableGeschlecht.setId("_tab_geschlecht");
-        tableGeschlecht.getColumns().addAll(List.of(columnIdInGeschlecht, columnBezeichnungInGeschlecht));
+        tableGeschlecht.getFeature().addAll(List.of(columnIdInGeschlecht, columnBezeichnungInGeschlecht));
 
-        Column columnIdInEinschulung = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInEinschulung.setName("id");
-        columnIdInEinschulung.setId("_col_einschulung_id");
-        columnIdInEinschulung.setType(ColumnType.INTEGER);
+        columnIdInEinschulung.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnEinschulungInEinschulung = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnEinschulungInEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnEinschulungInEinschulung.setName(COL_NAME_EINSCHULUNG2);
-        columnEinschulungInEinschulung.setId("_col_einschulung_einschulung");
-        columnEinschulungInEinschulung.setType(ColumnType.VARCHAR);
+        columnEinschulungInEinschulung.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableEinschulung = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableEinschulung.setName(COL_NAME_EINSCHULUNG2);
-        tableEinschulung.setId("_tab_einschulung");
-        tableEinschulung.getColumns().addAll(List.of(columnIdInEinschulung, columnEinschulungInEinschulung));
+        tableEinschulung.getFeature().addAll(List.of(columnIdInEinschulung, columnEinschulungInEinschulung));
 
         // id,klassenwiederholung
         // INTEGER,VARCHAR
-        Column columnIdInKlassenWiederholung = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInKlassenWiederholung.setName("id");
-        columnIdInKlassenWiederholung.setId("_col_klassen_wiederholung_id");
-        columnIdInKlassenWiederholung.setType(ColumnType.INTEGER);
-        Column columnKlassenwiedlerholungInKlassenWiederholung = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnIdInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.integerType());
+        Column columnKlassenwiedlerholungInKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKlassenwiedlerholungInKlassenWiederholung.setName("klassenwiederholung");
-        columnKlassenwiedlerholungInKlassenWiederholung.setId("_col_klassen_wiederholung_klassenwiederholung");
-        columnKlassenwiedlerholungInKlassenWiederholung.setType(ColumnType.INTEGER);
+        columnKlassenwiedlerholungInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableKlassenWiederholung = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableKlassenWiederholung.setName("klassen_wiederholung");
-        tableKlassenWiederholung.setId("_tab_klassen_wiederholung");
-        tableKlassenWiederholung.getColumns()
+        tableKlassenWiederholung.getFeature()
                 .addAll(List.of(columnIdInKlassenWiederholung, columnKlassenwiedlerholungInKlassenWiederholung));
 
         // id,schulabschluss
         // INTEGER,VARCHAR
-        Column columnIdInSchulAbschluss = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulAbschluss.setName("id");
-        columnIdInSchulAbschluss.setId("_col_schul_abschluss_id");
-        columnIdInSchulAbschluss.setType(ColumnType.INTEGER);
+        columnIdInSchulAbschluss.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulabschlussInSchulAbschluss = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulabschlussInSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulabschlussInSchulAbschluss.setName("schulabschluss");
-        columnSchulabschlussInSchulAbschluss.setId("_col_schul_abschluss_schulabschluss");
-        columnSchulabschlussInSchulAbschluss.setType(ColumnType.VARCHAR);
+        columnSchulabschlussInSchulAbschluss.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableSchulAbschluss = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulAbschluss.setName("schul_abschluss");
-        tableSchulAbschluss.setId("_tab_schul_abschluss");
-        tableSchulAbschluss.getColumns()
+        tableSchulAbschluss.getFeature()
                 .addAll(List.of(columnIdInSchulAbschluss, columnSchulabschlussInSchulAbschluss));
 
         // id,migrations_hintergrund
         // INTEGER,VARCHAR
-        Column columnIdInMigrationsHintergrund = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInMigrationsHintergrund.setName("id");
-        columnIdInMigrationsHintergrund.setId("_col_migrations_hintergrund_id");
-        columnIdInMigrationsHintergrund.setType(ColumnType.INTEGER);
+        columnIdInMigrationsHintergrund.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnMigrationsHintergrundInMigrationsHintergrund = RolapMappingFactory.eINSTANCE
-                .createPhysicalColumn();
+        Column columnMigrationsHintergrundInMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMigrationsHintergrundInMigrationsHintergrund.setName(MIGRATIONS_HINTERGRUND);
-        columnMigrationsHintergrundInMigrationsHintergrund.setId("_col_migrations_hintergrund_migrations_hintergrund");
-        columnMigrationsHintergrundInMigrationsHintergrund.setType(ColumnType.VARCHAR);
+        columnMigrationsHintergrundInMigrationsHintergrund.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableMigrationsHintergrund = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableMigrationsHintergrund.setName(MIGRATIONS_HINTERGRUND);
-        tableMigrationsHintergrund.setId("_tab_migrations_hintergrund");
-        tableMigrationsHintergrund.getColumns()
+        tableMigrationsHintergrund.getFeature()
                 .addAll(List.of(columnIdInMigrationsHintergrund, columnMigrationsHintergrundInMigrationsHintergrund));
 
         // id,kuerzel,bezeichnung,bundesland_id
         // INTEGER,VARCHAR,VARCHAR,INTEGER
-        Column columnIdInWohnortLandkreis = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInWohnortLandkreis.setName("id");
-        columnIdInWohnortLandkreis.setId("_col_wohnort_landkreis_id");
-        columnIdInWohnortLandkreis.setType(ColumnType.INTEGER);
+        columnIdInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnBezeichnungInWohnortLandkreis = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnBezeichnungInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInWohnortLandkreis.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInWohnortLandkreis.setId("_col_wohnort_landkreis_bezeichnung");
-        columnBezeichnungInWohnortLandkreis.setType(ColumnType.VARCHAR);
+        columnBezeichnungInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnBundeslandIdInWohnortLandkreis = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnBundeslandIdInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBundeslandIdInWohnortLandkreis.setName("bundesland_id");
-        columnBundeslandIdInWohnortLandkreis.setId("_col_wohnort_landkreis_bundesland_id");
-        columnBundeslandIdInWohnortLandkreis.setType(ColumnType.INTEGER);
+        columnBundeslandIdInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableWohnortLandkreis = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableWohnortLandkreis.setName(COL_NAME_WOHNORT_LANDKREIS);
-        tableWohnortLandkreis.setId("_tab_wohnort_landkreis");
-        tableWohnortLandkreis.getColumns().addAll(List.of(columnIdInWohnortLandkreis,
+        tableWohnortLandkreis.getFeature().addAll(List.of(columnIdInWohnortLandkreis,
                 columnBezeichnungInWohnortLandkreis, columnBundeslandIdInWohnortLandkreis));
 
         // id,schulart_name,schul_kategorie_id
         // INTEGER,VARCHAR,INTEGER
-        Column columnIdInSchulArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulArt.setName("id");
-        columnIdInSchulArt.setId("_col_schul_art_id");
-        columnIdInSchulArt.setType(ColumnType.INTEGER);
+        columnIdInSchulArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulartNameInSchulArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulartNameInSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulartNameInSchulArt.setName("schulart_name");
-        columnSchulartNameInSchulArt.setId("_col_schul_art_schulart_name");
-        columnSchulartNameInSchulArt.setType(ColumnType.VARCHAR);
+        columnSchulartNameInSchulArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableSchulArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulArt.setName("schul_art");
-        tableSchulArt.setId("_tab_schul_art");
-        tableSchulArt.getColumns().addAll(List.of(columnIdInSchulArt, columnSchulartNameInSchulArt));
+        tableSchulArt.getFeature().addAll(List.of(columnIdInSchulArt, columnSchulartNameInSchulArt));
 
         // id,schul_kategorie_name
         // INTEGER,VARCHAR
-        Column columnIdInSchulKategorie = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulKategorie.setName("id");
-        columnIdInSchulKategorie.setId("_col_schul_kategorie_id");
-        columnIdInSchulKategorie.setType(ColumnType.INTEGER);
+        columnIdInSchulKategorie.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulKategorieNameInSchulKategorie = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulKategorieNameInSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulKategorieNameInSchulKategorie.setName("schul_kategorie_name");
-        columnSchulKategorieNameInSchulKategorie.setId("_col_schul_kategorie_schul_kategorie_name");
-        columnSchulKategorieNameInSchulKategorie.setType(ColumnType.VARCHAR);
+        columnSchulKategorieNameInSchulKategorie.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableSchulKategorie = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulKategorie.setName("schul_kategorie");
-        tableSchulKategorie.setId("_tab_schul_kategorie");
-        tableSchulKategorie.getColumns()
+        tableSchulKategorie.getFeature()
                 .addAll(List.of(columnIdInSchulKategorie, columnSchulKategorieNameInSchulKategorie));
 
         // id,foerderung_art,sp_foerderbedarf_id
         // INTEGER,VARCHAR,INTEGER,
-        Column columnIdInFoerderungArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInFoerderungArt.setName("id");
-        columnIdInFoerderungArt.setId("_col_foerderung_art_id");
-        columnIdInFoerderungArt.setType(ColumnType.INTEGER);
+        columnIdInFoerderungArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnFoerderungArtInFoerderungArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnFoerderungArtInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFoerderungArtInFoerderungArt.setName(COL_NAME_FOERDERUNG_ART);
-        columnFoerderungArtInFoerderungArt.setId("_col_foerderung_art_foerderung_art");
-        columnFoerderungArtInFoerderungArt.setType(ColumnType.VARCHAR);
+        columnFoerderungArtInFoerderungArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnSpFoerderbedarfIdInFoerderungArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSpFoerderbedarfIdInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSpFoerderbedarfIdInFoerderungArt.setName("sp_foerderbedarf_id");
-        columnSpFoerderbedarfIdInFoerderungArt.setId("_col_foerderung_art_sp_foerderbedarf_id");
-        columnSpFoerderbedarfIdInFoerderungArt.setType(ColumnType.INTEGER);
+        columnSpFoerderbedarfIdInFoerderungArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableFoerderungArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFoerderungArt.setName(COL_NAME_FOERDERUNG_ART);
-        tableFoerderungArt.setId("_tab_foerderung_art");
-        tableFoerderungArt.getColumns().addAll(List.of(columnIdInFoerderungArt, columnFoerderungArtInFoerderungArt,
+        tableFoerderungArt.getFeature().addAll(List.of(columnIdInFoerderungArt, columnFoerderungArtInFoerderungArt,
                 columnSpFoerderbedarfIdInFoerderungArt));
 
         // id,bezeichnung,,,,,,,,,,,,,,,,,id,bezeichnung
         // INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
-        Column columnIdInPersonalArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInPersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInPersonalArt.setName("id");
-        columnIdInPersonalArt.setId("_col_personal_art_id");
-        columnIdInPersonalArt.setType(ColumnType.INTEGER);
+        columnIdInPersonalArt.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnBezeichnungInPersonalArt = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnBezeichnungInPersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInPersonalArt.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInPersonalArt.setId("_col_personal_art_bezeichnung");
-        columnBezeichnungInPersonalArt.setType(ColumnType.VARCHAR);
+        columnBezeichnungInPersonalArt.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tablePersonalArt = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tablePersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tablePersonalArt.setName("personal_art");
-        tablePersonalArt.setId("_tab_personal_art");
-        tablePersonalArt.getColumns().addAll(List.of(columnIdInPersonalArt, columnBezeichnungInPersonalArt));
+        tablePersonalArt.getFeature().addAll(List.of(columnIdInPersonalArt, columnBezeichnungInPersonalArt));
 
         // id,kuerzel,bezeichnung
         // INTEGER,VARCHAR,VARCHAR
-        Column columnIdInBundesland = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInBundesland.setName("id");
-        columnIdInBundesland.setId("_col_bundesland_id");
-        columnIdInBundesland.setType(ColumnType.INTEGER);
+        columnIdInBundesland.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnBezeichnungInBundesland = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnBezeichnungInBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInBundesland.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInBundesland.setId("_col_bundesland_bezeichnung");
-        columnBezeichnungInBundesland.setType(ColumnType.VARCHAR);
+        columnBezeichnungInBundesland.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableBundesland = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableBundesland.setName("bundesland");
-        tableBundesland.setId("_tab_bundesland");
-        tableBundesland.getColumns().addAll(List.of(columnIdInBundesland, columnBezeichnungInBundesland));
+        tableBundesland.getFeature().addAll(List.of(columnIdInBundesland, columnBezeichnungInBundesland));
 
-        Column columnIdInSonderpaedFoerderbedart = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnIdInSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSonderpaedFoerderbedart.setName("id");
-        columnIdInSonderpaedFoerderbedart.setId("_col_sonderpaed_foerderbedarf_id");
-        columnIdInSonderpaedFoerderbedart.setType(ColumnType.INTEGER);
+        columnIdInSonderpaedFoerderbedart.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSonderpaedBedarfInSonderpaedFoerderbedart = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSonderpaedBedarfInSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSonderpaedBedarfInSonderpaedFoerderbedart.setName("sonderpaed_bedarf");
-        columnSonderpaedBedarfInSonderpaedFoerderbedart.setId("_col_sonderpaed_foerderbedarf_sonderpaed_bedarf");
-        columnSonderpaedBedarfInSonderpaedFoerderbedart.setType(ColumnType.VARCHAR);
+        columnSonderpaedBedarfInSonderpaedFoerderbedart.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableSonderpaedFoerderbedart = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSonderpaedFoerderbedart.setName("sonderpaed_foerderbedarf");
-        tableSonderpaedFoerderbedart.setId("_tab_sonderpaed_foerderbedarf");
-        tableSonderpaedFoerderbedart.getColumns()
+        tableSonderpaedFoerderbedart.getFeature()
                 .addAll(List.of(columnIdInSonderpaedFoerderbedart, columnSonderpaedBedarfInSonderpaedFoerderbedart));
 
         // schule_id,schul_jahr_id,anzahl_schulen,anzahl_klassen
         // INTEGER,INTEGER,INTEGER,INTEGER
-        Column columnSchuleIdInFactSchulen = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchuleIdInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactSchulen.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactSchulen.setId("_col_fact_schulen_schule_id");
-        columnSchuleIdInFactSchulen.setType(ColumnType.INTEGER);
+        columnSchuleIdInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulJahrIdInFactSchulen = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulJahrIdInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactSchulen.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactSchulen.setId("_col_fact_schulen_schul_jahr_id");
-        columnSchulJahrIdInFactSchulen.setType(ColumnType.INTEGER);
+        columnSchulJahrIdInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAnzahlSchulenInFactSchulen = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAnzahlSchulenInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlSchulenInFactSchulen.setName("anzahl_schulen");
-        columnAnzahlSchulenInFactSchulen.setId("_col_fact_schulen_anzahl_schulen");
-        columnAnzahlSchulenInFactSchulen.setType(ColumnType.INTEGER);
+        columnAnzahlSchulenInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAnzahlKlassenInFactSchulen = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAnzahlKlassenInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlKlassenInFactSchulen.setName("anzahl_klassen");
-        columnAnzahlKlassenInFactSchulen.setId("_col_fact_schulen_anzahl_klassen");
-        columnAnzahlKlassenInFactSchulen.setType(ColumnType.INTEGER);
+        columnAnzahlKlassenInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableFactSchulen = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactSchulen.setName("fact_schulen");
-        tableFactSchulen.setId("_tab_fact_schulen");
-        tableFactSchulen.getColumns().addAll(List.of(columnSchuleIdInFactSchulen, columnSchulJahrIdInFactSchulen,
+        tableFactSchulen.getFeature().addAll(List.of(columnSchuleIdInFactSchulen, columnSchulJahrIdInFactSchulen,
                 columnAnzahlSchulenInFactSchulen, columnAnzahlKlassenInFactSchulen));
 
         // schule_id,schul_jahr_id,alters_gruppe_id,geschlecht_id,personal_art_id,anzahl_personen
         // INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
-        Column columnSchuleIdInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchuleIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactPersonal.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactPersonal.setId("_col_fact_personal_schule_id");
-        columnSchuleIdInFactPersonal.setType(ColumnType.INTEGER);
+        columnSchuleIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulJahrIdInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulJahrIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactPersonal.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactPersonal.setId("_col_fact_personal_schul_jahr_id");
-        columnSchulJahrIdInFactPersonal.setType(ColumnType.INTEGER);
+        columnSchulJahrIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAltersGroupIdInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAltersGroupIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAltersGroupIdInFactPersonal.setName("alters_gruppe_id");
-        columnAltersGroupIdInFactPersonal.setId("_col_fact_personal_alters_gruppe_id");
-        columnAltersGroupIdInFactPersonal.setType(ColumnType.INTEGER);
+        columnAltersGroupIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnGeschlechtIdInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnGeschlechtIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGeschlechtIdInFactPersonal.setName("geschlecht_id");
-        columnGeschlechtIdInFactPersonal.setId("_col_fact_personal_geschlecht_id");
-        columnGeschlechtIdInFactPersonal.setType(ColumnType.INTEGER);
+        columnGeschlechtIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnPersonalArtIdInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnPersonalArtIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnPersonalArtIdInFactPersonal.setName("personal_art_id");
-        columnPersonalArtIdInFactPersonal.setId("_col_fact_personal_personal_art_id");
-        columnPersonalArtIdInFactPersonal.setType(ColumnType.INTEGER);
+        columnPersonalArtIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAnzahlPersonenInFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAnzahlPersonenInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlPersonenInFactPersonal.setName("anzahl_personen");
-        columnAnzahlPersonenInFactPersonal.setId("_col_fact_personal_anzahl_personen");
-        columnAnzahlPersonenInFactPersonal.setType(ColumnType.INTEGER);
+        columnAnzahlPersonenInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableFactPersonal = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactPersonal.setName("fact_personal");
-        tableFactPersonal.setId("_tab_fact_personal");
-        tableFactPersonal.getColumns()
+        tableFactPersonal.getFeature()
                 .addAll(List.of(columnSchuleIdInFactPersonal, columnSchulJahrIdInFactPersonal,
                         columnAltersGroupIdInFactPersonal, columnGeschlechtIdInFactPersonal,
                         columnPersonalArtIdInFactPersonal, columnAnzahlPersonenInFactPersonal));
 
         // schule_id,schul_jahr_id,geschlecht_id,wohn_lk_id,einschulung_id,schul_abschluss_id,klassen_wdh,migrations_hg_id,foerder_art_id,anzahl_schueler
         // INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
-        Column columnSchuleIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchuleIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactSchueler.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactSchueler.setId("_col_fact_schueler_schule_id");
-        columnSchuleIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnSchuleIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulJahrIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulJahrIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactSchueler.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactSchueler.setId("_col_fact_schueler_schul_jahr_id");
-        columnSchulJahrIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnSchulJahrIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnGeschlechtIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnGeschlechtIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGeschlechtIdInFactSchueler.setName("geschlecht_id");
-        columnGeschlechtIdInFactSchueler.setId("_col_fact_schueler_geschlecht_id");
-        columnGeschlechtIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnGeschlechtIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnWohnLkIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnWohnLkIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnWohnLkIdInFactSchueler.setName("wohn_lk_id");
-        columnWohnLkIdInFactSchueler.setId("_col_fact_schueler_wohn_lk_id");
-        columnWohnLkIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnWohnLkIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnEinschulungIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnEinschulungIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnEinschulungIdInFactSchueler.setName("einschulung_id");
-        columnEinschulungIdInFactSchueler.setId("_col_fact_schueler_einschulung_id");
-        columnEinschulungIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnEinschulungIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnSchulAbschlussIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnSchulAbschlussIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulAbschlussIdInFactSchueler.setName("schul_abschluss_id");
-        columnSchulAbschlussIdInFactSchueler.setId("_col_fact_schueler_schul_abschluss_id");
-        columnSchulAbschlussIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnSchulAbschlussIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnKlassenWdhInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnKlassenWdhInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKlassenWdhInFactSchueler.setName("klassen_wdh");
-        columnKlassenWdhInFactSchueler.setId("_col_fact_schueler_klassen_wdh");
-        columnKlassenWdhInFactSchueler.setType(ColumnType.INTEGER);
+        columnKlassenWdhInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnMigrationsHgIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMigrationsHgIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMigrationsHgIdInFactSchueler.setName("migrations_hg_id");
-        columnMigrationsHgIdInFactSchueler.setId("_col_fact_schueler_migrations_hg_id");
-        columnMigrationsHgIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnMigrationsHgIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnFoerderArtIdInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnFoerderArtIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFoerderArtIdInFactSchueler.setName("foerder_art_id");
-        columnFoerderArtIdInFactSchueler.setId("_col_fact_schueler_foerder_art_id");
-        columnFoerderArtIdInFactSchueler.setType(ColumnType.INTEGER);
+        columnFoerderArtIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnAnzahlSchuelerInFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnAnzahlSchuelerInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlSchuelerInFactSchueler.setName("anzahl_schueler");
-        columnAnzahlSchuelerInFactSchueler.setId("_col_fact_schueler_anzahl_schueler");
-        columnAnzahlSchuelerInFactSchueler.setType(ColumnType.INTEGER);
+        columnAnzahlSchuelerInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable tableFactSchueler = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactSchueler.setName("fact_schueler");
-        tableFactSchueler.setId("_tab_fact_schueler");
-        tableFactSchueler.getColumns()
+        tableFactSchueler.getFeature()
                 .addAll(List.of(columnSchuleIdInFactSchueler, columnSchulJahrIdInFactSchueler,
                         columnGeschlechtIdInFactSchueler, columnWohnLkIdInFactSchueler,
                         columnEinschulungIdInFactSchueler, columnSchulAbschlussIdInFactSchueler,
                         columnKlassenWdhInFactSchueler, columnMigrationsHgIdInFactSchueler,
                         columnFoerderArtIdInFactSchueler, columnAnzahlSchuelerInFactSchueler));
 
-        databaseSchema.getTables().addAll(List.of(tableSchule, tableGanztagsArt, tableTraeger, tableTraegerArt,
+        databaseSchema.getOwnedElement().addAll(List.of(tableSchule, tableGanztagsArt, tableTraeger, tableTraegerArt,
                 tableTraegerKategorie, tableScheduleArt, tableSchulJahr, tableAltersGruppe, tableGeschlecht,
                 tableEinschulung, tableKlassenWiederholung, tableSchulAbschluss, tableMigrationsHintergrund,
                 tableWohnortLandkreis, tableSchulArt, tableSchulKategorie, tableFoerderungArt, tablePersonalArt,
                 tableBundesland, tableSonderpaedFoerderbedart, tableFactSchulen, tableFactPersonal, tableFactSchueler));
 
-        TableQuery tableQuerySchule = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQuerySchule.setId("_query_table_schule");
+        TableSource tableQuerySchule = SourceFactory.eINSTANCE.createTableSource();
         tableQuerySchule.setTable(tableSchule);
 
-        TableQuery tableQueryGanztagsArt = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryGanztagsArt.setId("_query_table_ganztags_art");
+        TableSource tableQueryGanztagsArt = SourceFactory.eINSTANCE.createTableSource();
         tableQueryGanztagsArt.setTable(tableGanztagsArt);
 
-        TableQuery tableQueryTraeger = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryTraeger.setId("_query_traeger_table_query");
+        TableSource tableQueryTraeger = SourceFactory.eINSTANCE.createTableSource();
         tableQueryTraeger.setTable(tableTraeger);
 
-        TableQuery tableQueryTraegerArt = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryTraegerArt.setId("_query_traeger_art_table_query");
+        TableSource tableQueryTraegerArt = SourceFactory.eINSTANCE.createTableSource();
         tableQueryTraegerArt.setTable(tableTraegerArt);
 
-        TableQuery tableQueryTraegerKategorie = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryTraegerKategorie.setId("_query_traeger_kategorie_table_query");
+        TableSource tableQueryTraegerKategorie = SourceFactory.eINSTANCE.createTableSource();
         tableQueryTraegerKategorie.setTable(tableTraegerKategorie);
 
-        TableQuery tableQueryScheduleArt = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryScheduleArt.setId("_query_schedule_art_table_query");
+        TableSource tableQueryScheduleArt = SourceFactory.eINSTANCE.createTableSource();
         tableQueryScheduleArt.setTable(tableScheduleArt);
 
-        TableQuery tableQueryScheduleKategorie = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryScheduleKategorie.setId("_query_schedule_kategorie_table_query");
+        TableSource tableQueryScheduleKategorie = SourceFactory.eINSTANCE.createTableSource();
         tableQueryScheduleKategorie.setTable(tableSchulKategorie);
 
-        TableQuery tableQuerySchulJahr = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQuerySchulJahr.setId("_query_schul_jaht_table_query");
+        TableSource tableQuerySchulJahr = SourceFactory.eINSTANCE.createTableSource();
         tableQuerySchulJahr.setTable(tableSchulJahr);
 
-        TableQuery tableQueryAltersGruppe = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryAltersGruppe.setId("_query_alters_gruppe_table_query");
+        TableSource tableQueryAltersGruppe = SourceFactory.eINSTANCE.createTableSource();
         tableQueryAltersGruppe.setTable(tableAltersGruppe);
 
-        TableQuery tableQueryGeschlecht = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryGeschlecht.setId("_query_geschlecht_table_query");
+        TableSource tableQueryGeschlecht = SourceFactory.eINSTANCE.createTableSource();
         tableQueryGeschlecht.setTable(tableGeschlecht);
 
-        TableQuery tableQueryPersonalArt = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryPersonalArt.setId("_query_personal_art_table_query");
+        TableSource tableQueryPersonalArt = SourceFactory.eINSTANCE.createTableSource();
         tableQueryPersonalArt.setTable(tablePersonalArt);
 
-        TableQuery tableQueryEinschulung = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryEinschulung.setId("_query_einschulung_table_query");
+        TableSource tableQueryEinschulung = SourceFactory.eINSTANCE.createTableSource();
         tableQueryEinschulung.setTable(tableEinschulung);
 
-        TableQuery tableQueryKlassenWiederholung = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryKlassenWiederholung.setId("_query_klassen_wiederholung_table_query");
+        TableSource tableQueryKlassenWiederholung = SourceFactory.eINSTANCE.createTableSource();
         tableQueryKlassenWiederholung.setTable(tableKlassenWiederholung);
 
-        TableQuery tableQuerySchulAbschluss = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQuerySchulAbschluss.setId("_query_schul_abschluss_table_query");
+        TableSource tableQuerySchulAbschluss = SourceFactory.eINSTANCE.createTableSource();
         tableQuerySchulAbschluss.setTable(tableSchulAbschluss);
 
-        TableQuery tableQueryMigrationsHintergrund = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryMigrationsHintergrund.setId("_query_migrations_hintergrund_table_query");
+        TableSource tableQueryMigrationsHintergrund = SourceFactory.eINSTANCE.createTableSource();
         tableQueryMigrationsHintergrund.setTable(tableMigrationsHintergrund);
 
-        TableQuery tableQueryWohnortLandkreis = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryWohnortLandkreis.setId("_query_wohnort_landkreis_table_query");
+        TableSource tableQueryWohnortLandkreis = SourceFactory.eINSTANCE.createTableSource();
         tableQueryWohnortLandkreis.setTable(tableWohnortLandkreis);
 
-        TableQuery tableQueryBundesland = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryBundesland.setId("_query_bundesland_table_query");
+        TableSource tableQueryBundesland = SourceFactory.eINSTANCE.createTableSource();
         tableQueryBundesland.setTable(tableBundesland);
 
-        TableQuery tableQueryFoerderungArt = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryFoerderungArt.setId("_query_foerderung_art_table_query");
+        TableSource tableQueryFoerderungArt = SourceFactory.eINSTANCE.createTableSource();
         tableQueryFoerderungArt.setTable(tableFoerderungArt);
 
-        TableQuery tableQuerySonderpaedFoerderbedart = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQuerySonderpaedFoerderbedart.setId("_query_sonderpaed_foerderbedart_table_query");
+        TableSource tableQuerySonderpaedFoerderbedart = SourceFactory.eINSTANCE.createTableSource();
         tableQuerySonderpaedFoerderbedart.setTable(tableSonderpaedFoerderbedart);
 
-        TableQuery tableQueryFactSchulen = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryFactSchulen.setId("_query_fact_schulen_table_query");
+        TableSource tableQueryFactSchulen = SourceFactory.eINSTANCE.createTableSource();
         tableQueryFactSchulen.setTable(tableFactSchulen);
 
-        TableQuery tableQueryFactPersonal = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryFactPersonal.setId("_query_fact_personam_table_query");
+        TableSource tableQueryFactPersonal = SourceFactory.eINSTANCE.createTableSource();
         tableQueryFactPersonal.setTable(tableFactPersonal);
 
-        TableQuery tableQueryFactSchueler = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQueryFactSchueler.setId("_query_fact_schueler_table_query");
+        TableSource tableQueryFactSchueler = SourceFactory.eINSTANCE.createTableSource();
         tableQueryFactSchueler.setTable(tableFactSchueler);
 
-        JoinedQueryElement joinElementSchuleGanztagsartLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleGanztagsartLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleGanztagsartLeft.setKey(columnGanztagsArtIdInSchuleTable);
         joinElementSchuleGanztagsartLeft.setQuery(tableQuerySchule);
 
-        JoinedQueryElement joinElementSchuleGanztagsartRight = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleGanztagsartRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleGanztagsartRight.setKey(columnIdInGanztagsArt);
         joinElementSchuleGanztagsartRight.setQuery(tableQueryGanztagsArt);
 
-        JoinQuery joinSchuleGanztagsart = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinSchuleGanztagsart.setId("_join_schule_ganztagsart");
+        JoinSource joinSchuleGanztagsart = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleGanztagsart.setLeft(joinElementSchuleGanztagsartLeft);
         joinSchuleGanztagsart.setRight(joinElementSchuleGanztagsartRight);
 
-        JoinedQueryElement joinElementTraegerKategorieArtLeft = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementTraegerKategorieArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerKategorieArtLeft.setKey(columnTraegerKatIdInTraegerArt);
         joinElementTraegerKategorieArtLeft.setQuery(tableQueryTraegerArt);
 
-        JoinedQueryElement joinElementTraegerKategorieArtRight = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementTraegerKategorieArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerKategorieArtRight.setKey(columnIdInTraegerKategorie);
         joinElementTraegerKategorieArtRight.setQuery(tableQueryTraegerKategorie);
 
-        JoinQuery joinTraegerKategorieArt = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinTraegerKategorieArt.setId("_join_traeger_kategorie_art");
+        JoinSource joinTraegerKategorieArt = SourceFactory.eINSTANCE.createJoinSource();
         joinTraegerKategorieArt.setLeft(joinElementTraegerKategorieArtLeft);
         joinTraegerKategorieArt.setRight(joinElementTraegerKategorieArtRight);
 
-        JoinedQueryElement joinElementTraegerArtTraegerLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementTraegerArtTraegerLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerArtTraegerLeft.setKey(columnTraegerArtIdInTraegerTable);
         joinElementTraegerArtTraegerLeft.setQuery(tableQueryTraeger);
 
-        JoinedQueryElement joinElementTraegerArtTraegerRight = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementTraegerArtTraegerRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerArtTraegerRight.setKey(columnIdInTraegerArt);
         joinElementTraegerArtTraegerRight.setQuery(joinTraegerKategorieArt);
 
-        JoinQuery joinTraegerArtTraeger = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinTraegerArtTraeger.setId("_join_traeger_art_traeger");
+        JoinSource joinTraegerArtTraeger = SourceFactory.eINSTANCE.createJoinSource();
         joinTraegerArtTraeger.setLeft(joinElementTraegerArtTraegerLeft);
         joinTraegerArtTraeger.setRight(joinElementTraegerArtTraegerRight);
 
-        JoinedQueryElement joinElementSchuleTraegerHierarchyLeft = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleTraegerHierarchyLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleTraegerHierarchyLeft.setKey(columnTraegerIdInSchuleTable);
         joinElementSchuleTraegerHierarchyLeft.setQuery(tableQuerySchule);
 
-        JoinedQueryElement joinElementSchuleTraegerHierarchyRight = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleTraegerHierarchyRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleTraegerHierarchyRight.setKey(columnIdInTraegerTable);
         joinElementSchuleTraegerHierarchyRight.setQuery(joinTraegerArtTraeger);
 
-        JoinQuery joinSchuleTraegerHierarchy = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinSchuleTraegerHierarchy.setId("_join_schule_traeger_hierarchy");
+        JoinSource joinSchuleTraegerHierarchy = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleTraegerHierarchy.setLeft(joinElementSchuleTraegerHierarchyLeft);
         joinSchuleTraegerHierarchy.setRight(joinElementSchuleTraegerHierarchyRight);
 
-        JoinedQueryElement joinElementSchulkategorieArtLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementSchulkategorieArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchulkategorieArtLeft.setKey(columnSchulKategorieInScheduleArt);
         joinElementSchulkategorieArtLeft.setQuery(tableQueryScheduleArt);
 
-        JoinedQueryElement joinElementSchulkategorieArtRight = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementSchulkategorieArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchulkategorieArtRight.setKey(columnIdInSchulKategorie);
         joinElementSchulkategorieArtRight.setQuery(tableQueryScheduleKategorie);
 
-        JoinQuery joinSchulkategorieArt = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinSchulkategorieArt.setId("_join_schulkategorie_art");
+        JoinSource joinSchulkategorieArt = SourceFactory.eINSTANCE.createJoinSource();
         joinSchulkategorieArt.setLeft(joinElementSchulkategorieArtLeft);
         joinSchulkategorieArt.setRight(joinElementSchulkategorieArtRight);
 
-        JoinedQueryElement joinElementSchuleSchulartHierarchyLeft = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleSchulartHierarchyLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleSchulartHierarchyLeft.setKey(columnSchulArtIdInSchuleTable);
         joinElementSchuleSchulartHierarchyLeft.setQuery(tableQuerySchule);
 
-        JoinedQueryElement joinElementSchuleSchulartHierarchyRight = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementSchuleSchulartHierarchyRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleSchulartHierarchyRight.setKey(columnIdInScheduleArt);
         joinElementSchuleSchulartHierarchyRight.setQuery(joinSchulkategorieArt);
 
-        JoinQuery joinSchuleSchulartHierarchy = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinSchuleSchulartHierarchy.setId("_join_schule_schulart_hierarchy");
+        JoinSource joinSchuleSchulartHierarchy = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleSchulartHierarchy.setLeft(joinElementSchuleSchulartHierarchyLeft);
         joinSchuleSchulartHierarchy.setRight(joinElementSchuleSchulartHierarchyRight);
 
-        JoinedQueryElement joinElementWohnlandkreisBundeslandLeft = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementWohnlandkreisBundeslandLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementWohnlandkreisBundeslandLeft.setKey(columnBundeslandIdInWohnortLandkreis);
         joinElementWohnlandkreisBundeslandLeft.setQuery(tableQueryWohnortLandkreis);
 
-        JoinedQueryElement joinElementWohnlandkreisBundeslandRight = RolapMappingFactory.eINSTANCE
-                .createJoinedQueryElement();
+        JoinedQueryElement joinElementWohnlandkreisBundeslandRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementWohnlandkreisBundeslandRight.setKey(columnIdInBundesland);
         joinElementWohnlandkreisBundeslandRight.setQuery(tableQueryBundesland);
 
-        JoinQuery joinWohnlandkreisBundesland = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinWohnlandkreisBundesland.setId("_join_wohnlandkreis_bundesland");
+        JoinSource joinWohnlandkreisBundesland = SourceFactory.eINSTANCE.createJoinSource();
         joinWohnlandkreisBundesland.setLeft(joinElementWohnlandkreisBundeslandLeft);
         joinWohnlandkreisBundesland.setRight(joinElementWohnlandkreisBundeslandRight);
 
-        JoinedQueryElement joinElementFoerderbedarfArtLeft = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementFoerderbedarfArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementFoerderbedarfArtLeft.setKey(columnSpFoerderbedarfIdInFoerderungArt);
         joinElementFoerderbedarfArtLeft.setQuery(tableQueryFoerderungArt);
 
-        JoinedQueryElement joinElementFoerderbedarfArtRight = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementFoerderbedarfArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementFoerderbedarfArtRight.setKey(columnIdInSonderpaedFoerderbedart);
         joinElementFoerderbedarfArtRight.setQuery(tableQuerySonderpaedFoerderbedart);
 
-        OrderedColumn orderedColumnSchulNummerInSchuleTable1 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn orderedColumnSchulNummerInSchuleTable1 = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumnSchulNummerInSchuleTable1.setColumn(columnSchulNummerInSchuleTable);
 
-        OrderedColumn orderedColumnSchulNummerInSchuleTable2 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn orderedColumnSchulNummerInSchuleTable2 = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumnSchulNummerInSchuleTable2.setColumn(columnSchulNummerInSchuleTable);
 
-        OrderedColumn orderedColumnSchulNummerInSchuleTable3 = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn orderedColumnSchulNummerInSchuleTable3 = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumnSchulNummerInSchuleTable3.setColumn(columnSchulNummerInSchuleTable);
 
-        OrderedColumn orderedColumnOrderInSchulJahr = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn orderedColumnOrderInSchulJahr = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumnOrderInSchulJahr.setColumn(columnOrderInSchulJahr);
 
-        JoinQuery joinFoerderbedarfArt = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinFoerderbedarfArt.setId("_join_foerderbedarf_art");
+        JoinSource joinFoerderbedarfArt = SourceFactory.eINSTANCE.createJoinSource();
         joinFoerderbedarfArt.setLeft(joinElementFoerderbedarfArtLeft);
         joinFoerderbedarfArt.setRight(joinElementFoerderbedarfArtRight);
 
-        Level levelGanztagsangebot = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelGanztagsangebot = LevelFactory.eINSTANCE.createLevel();
         levelGanztagsangebot.setName("Art des Ganztagsangebots");
-        levelGanztagsangebot.setId("_level_ganztagsangebot");
         levelGanztagsangebot.setColumn(columnIdInGanztagsArt);
         levelGanztagsangebot.setNameColumn(columnSchulUmfangInGanztagsArt);
 
-        Level levelSchule = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchule = LevelFactory.eINSTANCE.createLevel();
         levelSchule.setName(SCHULE2);
-        levelSchule.setId("_level_schule_basic");
         levelSchule.setColumn(columnIdInSchuleTable);
         levelSchule.setNameColumn(columnSchulNameInSchuleTable);
         levelSchule.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable1);
 
-        Level levelTraegerKategorie = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelTraegerKategorie = LevelFactory.eINSTANCE.createLevel();
         levelTraegerKategorie.setName("Schulträger-Kategorie");
-        levelTraegerKategorie.setId("_level_traeger_kategorie");
         levelTraegerKategorie.setColumn(columnIdInTraegerKategorie);
         levelTraegerKategorie.setNameColumn(columnTraegerKategorieInTraegerKategorie);
 
-        Level levelTraegerArt = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelTraegerArt = LevelFactory.eINSTANCE.createLevel();
         levelTraegerArt.setName("Schulträger-Art");
-        levelTraegerArt.setId("_level_traeger_art");
         levelTraegerArt.setColumn(columnIdInTraegerArt);
         levelTraegerArt.setNameColumn(columnTraegerArtInTraegerArt);
 
-        Level levelTraeger = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelTraeger = LevelFactory.eINSTANCE.createLevel();
         levelTraeger.setName("Schulträger");
-        levelTraeger.setId("_level_traeger");
         levelTraeger.setColumn(columnIdInTraegerTable);
         levelTraeger.setNameColumn(columnTraegerNameInTraegerTable);
 
-        Level levelSchuleTraegerschaft = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchuleTraegerschaft = LevelFactory.eINSTANCE.createLevel();
         levelSchuleTraegerschaft.setName(SCHULE2);
-        levelSchuleTraegerschaft.setId("_level_schule_traegerschaft");
         levelSchuleTraegerschaft.setColumn(columnIdInSchuleTable);
         levelSchuleTraegerschaft.setNameColumn(columnSchulNameInSchuleTable);
         levelSchuleTraegerschaft.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable2);
 
-        Level levelSchulkategorie = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchulkategorie = LevelFactory.eINSTANCE.createLevel();
         levelSchulkategorie.setName("Schulkategorie");
-        levelSchulkategorie.setId("_level_schulkategorie");
         levelSchulkategorie.setColumn(columnIdInSchulKategorie);
         levelSchulkategorie.setNameColumn(columnSchulKategorieNameInSchulKategorie);
 
-        Level levelSchulart = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchulart = LevelFactory.eINSTANCE.createLevel();
         levelSchulart.setName("Schulart");
-        levelSchulart.setId("_level_schulart");
         levelSchulart.setColumn(columnIdInSchulArt);
         levelSchulart.setNameColumn(columnSchulartNameInSchulArt);
 
-        Level levelSchuleArt = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchuleArt = LevelFactory.eINSTANCE.createLevel();
         levelSchuleArt.setName(SCHULE2);
-        levelSchuleArt.setId("_level_schule_art");
         levelSchuleArt.setColumn(columnIdInSchuleTable);
         levelSchuleArt.setNameColumn(columnSchulNameInSchuleTable);
         levelSchuleArt.getOrdinalColumns().add(orderedColumnSchulNummerInSchuleTable3);
 
-        Level levelSchuljahr = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchuljahr = LevelFactory.eINSTANCE.createLevel();
         levelSchuljahr.setName(SCHULJAHR);
-        levelSchuljahr.setId("_level_schuljahr");
         levelSchuljahr.setColumn(columnIdInSchulJahr);
         levelSchuljahr.setNameColumn(columnSchulJahrInSchulJahr);
         levelSchuljahr.getOrdinalColumns().add(orderedColumnOrderInSchulJahr);
 
-        Level levelAltersgruppe = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelAltersgruppe = LevelFactory.eINSTANCE.createLevel();
         levelAltersgruppe.setName("Altersgruppe");
-        levelAltersgruppe.setId("_level_altersgruppe");
         levelAltersgruppe.setColumn(columnIdInAltersGruppe);
         levelAltersgruppe.setNameColumn(columnAltersgruppeInAltersGruppe);
 
-        Level levelGeschlecht = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelGeschlecht = LevelFactory.eINSTANCE.createLevel();
         levelGeschlecht.setName(GESCHLECHT);
-        levelGeschlecht.setId("_level_geschlecht");
         levelGeschlecht.setColumn(columnIdInGeschlecht);
         levelGeschlecht.setNameColumn(columnBezeichnungInGeschlecht);
 
-        Level levelBerufsgruppe = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelBerufsgruppe = LevelFactory.eINSTANCE.createLevel();
         levelBerufsgruppe.setName("Berufsgruppe");
-        levelBerufsgruppe.setId("_level_berufsgruppe");
         levelBerufsgruppe.setColumn(columnIdInPersonalArt);
         levelBerufsgruppe.setNameColumn(columnBezeichnungInPersonalArt);
 
-        Level levelEinschulung = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelEinschulung = LevelFactory.eINSTANCE.createLevel();
         levelEinschulung.setName(EINSCHULUNG);
-        levelEinschulung.setId("_level_einschulung");
         levelEinschulung.setColumn(columnIdInEinschulung);
         levelEinschulung.setNameColumn(columnEinschulungInEinschulung);
 
-        Level levelKlassenwiederholung = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelKlassenwiederholung = LevelFactory.eINSTANCE.createLevel();
         levelKlassenwiederholung.setName(KLASSENWIEDERHOLUNG);
-        levelKlassenwiederholung.setId("_level_klassenwiederholung");
         levelKlassenwiederholung.setColumn(columnIdInKlassenWiederholung);
         levelKlassenwiederholung.setNameColumn(columnKlassenwiedlerholungInKlassenWiederholung);
 
-        Level levelSchulabschluss = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelSchulabschluss = LevelFactory.eINSTANCE.createLevel();
         levelSchulabschluss.setName("Schulabschlüsse");
-        levelSchulabschluss.setId("_level_schulabschluss");
         levelSchulabschluss.setColumn(columnIdInSchulAbschluss);
         levelSchulabschluss.setNameColumn(columnSchulabschlussInSchulAbschluss);
 
-        Level levelMigrationshintergrund = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelMigrationshintergrund = LevelFactory.eINSTANCE.createLevel();
         levelMigrationshintergrund.setName(MIGRATIONSHINTERGRUND);
-        levelMigrationshintergrund.setId("_level_migrationshintergrund");
         levelMigrationshintergrund.setColumn(columnIdInMigrationsHintergrund);
         levelMigrationshintergrund.setNameColumn(columnMigrationsHintergrundInMigrationsHintergrund);
 
-        Level levelBundesland = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelBundesland = LevelFactory.eINSTANCE.createLevel();
         levelBundesland.setName("Bundesland");
-        levelBundesland.setId("_level_bundesland");
         levelBundesland.setColumn(columnIdInBundesland);
         levelBundesland.setNameColumn(columnBezeichnungInBundesland);
 
-        Level levelWohnlandkreis = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelWohnlandkreis = LevelFactory.eINSTANCE.createLevel();
         levelWohnlandkreis.setName(WOHNLANDKREIS);
-        levelWohnlandkreis.setId("_level_wohnlandkreis");
         levelWohnlandkreis.setColumn(columnIdInWohnortLandkreis);
         levelWohnlandkreis.setNameColumn(columnBezeichnungInWohnortLandkreis);
 
-        Level levelFoerderbedarf = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelFoerderbedarf = LevelFactory.eINSTANCE.createLevel();
         levelFoerderbedarf.setName("Förderbedarf");
-        levelFoerderbedarf.setId("_level_foerderbedarf");
         levelFoerderbedarf.setColumn(columnIdInSonderpaedFoerderbedart);
         levelFoerderbedarf.setNameColumn(columnSonderpaedBedarfInSonderpaedFoerderbedart);
 
-        Level levelFoerderungArt = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelFoerderungArt = LevelFactory.eINSTANCE.createLevel();
         levelFoerderungArt.setName("Art der Förderung");
-        levelFoerderungArt.setId("_level_foerderung_art");
         levelFoerderungArt.setColumn(columnIdInFoerderungArt);
         levelFoerderungArt.setNameColumn(columnFoerderungArtInFoerderungArt);
 
-        ExplicitHierarchy hierarchySchulenGanztagsangebot = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchySchulenGanztagsangebot.setId("_hierarchy_schulen_ganztagsangebot");
+        ExplicitHierarchy hierarchySchulenGanztagsangebot = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchulenGanztagsangebot.setHasAll(true);
         hierarchySchulenGanztagsangebot.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenGanztagsangebot.setName("Schulen nach Ganztagsangebot");
@@ -976,8 +830,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenGanztagsangebot.setQuery(joinSchuleGanztagsart);
         hierarchySchulenGanztagsangebot.getLevels().addAll(List.of(levelGanztagsangebot, levelSchule));
 
-        ExplicitHierarchy hierarchySchulenTraegerschaft = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchySchulenTraegerschaft.setId("_hierarchy_schulen_traegerschaft");
+        ExplicitHierarchy hierarchySchulenTraegerschaft = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchulenTraegerschaft.setHasAll(true);
         hierarchySchulenTraegerschaft.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenTraegerschaft.setName("Schulen nach Trägerschaft");
@@ -986,8 +839,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenTraegerschaft.getLevels()
                 .addAll(List.of(levelTraegerKategorie, levelTraegerArt, levelTraeger, levelSchuleTraegerschaft));
 
-        ExplicitHierarchy hierarchySchulenArt = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchySchulenArt.setId("_hierarchy_schulen_art");
+        ExplicitHierarchy hierarchySchulenArt = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchulenArt.setHasAll(true);
         hierarchySchulenArt.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenArt.setName("Schulen nach Art");
@@ -995,16 +847,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenArt.setQuery(joinSchuleSchulartHierarchy);
         hierarchySchulenArt.getLevels().addAll(List.of(levelSchulkategorie, levelSchulart, levelSchuleArt));
 
-        ExplicitHierarchy hierarchySchuljahre = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchySchuljahre.setId("_hierarchy_schuljahre");
+        ExplicitHierarchy hierarchySchuljahre = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchuljahre.setHasAll(false);
         hierarchySchuljahre.setName("Schuljahre");
         hierarchySchuljahre.setPrimaryKey(columnIdInSchulJahr);
         hierarchySchuljahre.setQuery(tableQuerySchulJahr);
         hierarchySchuljahre.getLevels().addAll(List.of(levelSchuljahr));
 
-        ExplicitHierarchy hierarchyAltersgruppen = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyAltersgruppen.setId("_hierarchy_altersgruppen");
+        ExplicitHierarchy hierarchyAltersgruppen = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyAltersgruppen.setHasAll(true);
         hierarchyAltersgruppen.setAllMemberName("Alle Altersgruppen");
         hierarchyAltersgruppen.setName("Altersgruppen");
@@ -1012,8 +862,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyAltersgruppen.setQuery(tableQueryAltersGruppe);
         hierarchyAltersgruppen.getLevels().addAll(List.of(levelAltersgruppe));
 
-        ExplicitHierarchy hierarchyGeschlecht = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyGeschlecht.setId("_hierarchy_geschlecht");
+        ExplicitHierarchy hierarchyGeschlecht = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyGeschlecht.setHasAll(true);
         hierarchyGeschlecht.setAllMemberName("Alle Geschlechter");
         hierarchyGeschlecht.setName(GESCHLECHT);
@@ -1021,8 +870,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyGeschlecht.setQuery(tableQueryGeschlecht);
         hierarchyGeschlecht.getLevels().addAll(List.of(levelGeschlecht));
 
-        ExplicitHierarchy hierarchyBerufsgruppen = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyBerufsgruppen.setId("_hierarchy_berufsgruppen");
+        ExplicitHierarchy hierarchyBerufsgruppen = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyBerufsgruppen.setHasAll(true);
         hierarchyBerufsgruppen.setAllMemberName("Alle Berufsgruppen");
         hierarchyBerufsgruppen.setName("Berufsgruppen");
@@ -1030,8 +878,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyBerufsgruppen.setQuery(tableQueryPersonalArt);
         hierarchyBerufsgruppen.getLevels().addAll(List.of(levelBerufsgruppe));
 
-        ExplicitHierarchy hierarchyEinschulung = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyEinschulung.setId("_hierarchy_einschulung");
+        ExplicitHierarchy hierarchyEinschulung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyEinschulung.setHasAll(true);
         hierarchyEinschulung.setAllMemberName(GESAMT);
         hierarchyEinschulung.setName(EINSCHULUNG);
@@ -1039,8 +886,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyEinschulung.setQuery(tableQueryEinschulung);
         hierarchyEinschulung.getLevels().addAll(List.of(levelEinschulung));
 
-        ExplicitHierarchy hierarchyKlassenwiederholung = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyKlassenwiederholung.setId("_hierarchy_klassenwiederholung");
+        ExplicitHierarchy hierarchyKlassenwiederholung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyKlassenwiederholung.setHasAll(true);
         hierarchyKlassenwiederholung.setAllMemberName(GESAMT);
         hierarchyKlassenwiederholung.setName(KLASSENWIEDERHOLUNG);
@@ -1048,8 +894,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyKlassenwiederholung.setQuery(tableQueryKlassenWiederholung);
         hierarchyKlassenwiederholung.getLevels().addAll(List.of(levelKlassenwiederholung));
 
-        ExplicitHierarchy hierarchySchulabschluss = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchySchulabschluss.setId("_hierarchy_schulabschluss");
+        ExplicitHierarchy hierarchySchulabschluss = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchulabschluss.setHasAll(true);
         hierarchySchulabschluss.setAllMemberName(GESAMT);
         hierarchySchulabschluss.setName("Schulabschlüsse");
@@ -1057,8 +902,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulabschluss.setQuery(tableQuerySchulAbschluss);
         hierarchySchulabschluss.getLevels().addAll(List.of(levelSchulabschluss));
 
-        ExplicitHierarchy hierarchyMigrationshintergrund = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyMigrationshintergrund.setId("_hierarchy_migrationshintergrund");
+        ExplicitHierarchy hierarchyMigrationshintergrund = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyMigrationshintergrund.setHasAll(true);
         hierarchyMigrationshintergrund.setAllMemberName(GESAMT);
         hierarchyMigrationshintergrund.setName(MIGRATIONSHINTERGRUND);
@@ -1066,8 +910,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyMigrationshintergrund.setQuery(tableQueryMigrationsHintergrund);
         hierarchyMigrationshintergrund.getLevels().addAll(List.of(levelMigrationshintergrund));
 
-        ExplicitHierarchy hierarchyWohnlandkreis = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyWohnlandkreis.setId("_hierarchy_wohnlandkreis");
+        ExplicitHierarchy hierarchyWohnlandkreis = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyWohnlandkreis.setHasAll(true);
         hierarchyWohnlandkreis.setAllMemberName("Alle Wohnlandkreise");
         hierarchyWohnlandkreis.setName(WOHNLANDKREIS);
@@ -1075,8 +918,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyWohnlandkreis.setQuery(joinWohnlandkreisBundesland);
         hierarchyWohnlandkreis.getLevels().addAll(List.of(levelBundesland, levelWohnlandkreis));
 
-        ExplicitHierarchy hierarchyFoerderung = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchyFoerderung.setId("_hierarchy_foerderung");
+        ExplicitHierarchy hierarchyFoerderung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyFoerderung.setHasAll(true);
         hierarchyFoerderung.setAllMemberName(GESAMT);
         hierarchyFoerderung.setName("Sonderpädagogische Förderung");
@@ -1084,191 +926,170 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyFoerderung.setQuery(joinFoerderbedarfArt);
         hierarchyFoerderung.getLevels().addAll(List.of(levelFoerderbedarf, levelFoerderungArt));
 
-        StandardDimension dimensionSchulen = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionSchulen = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionSchulen.setName(SCHULEN);
-        dimensionSchulen.setId("_dimension_schulen");
         dimensionSchulen.getHierarchies()
                 .addAll(List.of(hierarchySchulenGanztagsangebot, hierarchySchulenTraegerschaft, hierarchySchulenArt));
 
-        StandardDimension dimensionSchuljahre = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionSchuljahre = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionSchuljahre.setName("Schuljahre");
-        dimensionSchuljahre.setId("_dimension_schuljahre");
         dimensionSchuljahre.getHierarchies().addAll(List.of(hierarchySchuljahre));
 
-        StandardDimension dimensionAltersgruppenPersonal = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionAltersgruppenPersonal = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionAltersgruppenPersonal.setName("Altersgruppen Personal");
-        dimensionAltersgruppenPersonal.setId("_dimension_altersgruppen_personal");
         dimensionAltersgruppenPersonal.getHierarchies().addAll(List.of(hierarchyAltersgruppen));
 
-        StandardDimension dimensionGeschlecht = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionGeschlecht = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionGeschlecht.setName(GESCHLECHT);
-        dimensionGeschlecht.setId("_dimension_geschlecht");
         dimensionGeschlecht.getHierarchies().addAll(List.of(hierarchyGeschlecht));
 
-        StandardDimension dimensionBerufsgruppenPersonal = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionBerufsgruppenPersonal = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionBerufsgruppenPersonal.setName("Berufsgruppen Personal");
-        dimensionBerufsgruppenPersonal.setId("_dimension_berufsgruppen_personal");
         dimensionBerufsgruppenPersonal.getHierarchies().addAll(List.of(hierarchyBerufsgruppen));
 
-        StandardDimension dimensionEinschulungen = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionEinschulungen = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionEinschulungen.setName("Einschulungen");
-        dimensionEinschulungen.setId("_dimension_einschulungen");
         dimensionEinschulungen.getHierarchies().addAll(List.of(hierarchyEinschulung));
 
-        StandardDimension dimensionKlassenwiederholung = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionKlassenwiederholung = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionKlassenwiederholung.setName(KLASSENWIEDERHOLUNG);
-        dimensionKlassenwiederholung.setId("_dimension_klassenwiederholung");
         dimensionKlassenwiederholung.getHierarchies().addAll(List.of(hierarchyKlassenwiederholung));
 
-        StandardDimension dimensionSchulabschluss = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionSchulabschluss = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionSchulabschluss.setName("Schulabschluss");
-        dimensionSchulabschluss.setId("_dimension_schulabschluss");
         dimensionSchulabschluss.getHierarchies().addAll(List.of(hierarchySchulabschluss));
 
-        StandardDimension dimensionMigrationshintergrund = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionMigrationshintergrund = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionMigrationshintergrund.setName(MIGRATIONSHINTERGRUND);
-        dimensionMigrationshintergrund.setId("_dimension_migrationshintergrund");
         dimensionMigrationshintergrund.getHierarchies().addAll(List.of(hierarchyMigrationshintergrund));
 
-        StandardDimension dimensionWohnlandkreis = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionWohnlandkreis = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionWohnlandkreis.setName(WOHNLANDKREIS);
-        dimensionWohnlandkreis.setId("_dimension_wohnlandkreis");
         dimensionWohnlandkreis.getHierarchies().addAll(List.of(hierarchyWohnlandkreis));
 
-        StandardDimension dimensionInklusion = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimensionInklusion = DimensionFactory.eINSTANCE.createStandardDimension();
         dimensionInklusion.setName("Inklusion");
-        dimensionInklusion.setId("_dimension_inklusion");
         dimensionInklusion.getHierarchies().addAll(List.of(hierarchyFoerderung));
 
-        SumMeasure measureAnzahlSchulen = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measureAnzahlSchulen = MeasureFactory.eINSTANCE.createSumMeasure();
         measureAnzahlSchulen.setName("Anzahl Schulen");
-        measureAnzahlSchulen.setId("_measure_anzahl_schulen");
         measureAnzahlSchulen.setColumn(columnAnzahlSchulenInFactSchulen);
 
-        SumMeasure measureAnzahlKlassen = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measureAnzahlKlassen = MeasureFactory.eINSTANCE.createSumMeasure();
         measureAnzahlKlassen.setName("Anzahl Klassen");
-        measureAnzahlKlassen.setId("_measure_anzahl_klassen");
         measureAnzahlKlassen.setColumn(columnAnzahlKlassenInFactSchulen);
 
-        SumMeasure measureAnzahlPersonen = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measureAnzahlPersonen = MeasureFactory.eINSTANCE.createSumMeasure();
         measureAnzahlPersonen.setName("Anzahl Personen");
-        measureAnzahlPersonen.setId("_measure_anzahl_personen");
         measureAnzahlPersonen.setColumn(columnAnzahlPersonenInFactPersonal);
 
-        SumMeasure measureAnzahlSchuelerInnen = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measureAnzahlSchuelerInnen = MeasureFactory.eINSTANCE.createSumMeasure();
         measureAnzahlSchuelerInnen.setName("Anzahl SchülerInnen");
-        measureAnzahlSchuelerInnen.setId("_measure_anzahl_schuler_innen");
         measureAnzahlSchuelerInnen.setColumn(columnAnzahlSchuelerInFactSchueler);
 
-        MeasureGroup measureGroupSchulenInstitutionen = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroupSchulenInstitutionen = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroupSchulenInstitutionen.getMeasures().addAll(List.of(measureAnzahlSchulen, measureAnzahlKlassen));
 
-        MeasureGroup measureGroupPaedagogischesPersonal = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroupPaedagogischesPersonal = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroupPaedagogischesPersonal.getMeasures().addAll(List.of(measureAnzahlPersonen));
 
-        MeasureGroup measureGroupSchuelerInnen = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroupSchuelerInnen = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroupSchuelerInnen.getMeasures().addAll(List.of(measureAnzahlSchuelerInnen));
 
-        DimensionConnector connectorSchulen1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        connectorSchulen1.setId("_dc_schulen");
+        DimensionConnector connectorSchulen1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchulen1.setOverrideDimensionName(SCHULEN);
         connectorSchulen1.setDimension(dimensionSchulen);
         connectorSchulen1.setForeignKey(columnSchuleIdInFactSchulen);
 
-        DimensionConnector connectorSchuljahr1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        connectorSchuljahr1.setId("_dc_schuljahr");
+        DimensionConnector connectorSchuljahr1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchuljahr1.setOverrideDimensionName(SCHULJAHR);
         connectorSchuljahr1.setDimension(dimensionSchuljahre);
         connectorSchuljahr1.setForeignKey(columnSchulJahrIdInFactSchulen);
 
-        PhysicalCube cubeSchulenInstitutionen = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cubeSchulenInstitutionen.setId("_cube_schulen_institutionen");
+        PhysicalCube cubeSchulenInstitutionen = CubeFactory.eINSTANCE.createPhysicalCube();
         cubeSchulenInstitutionen.setName("Schulen in Jena (Institutionen)");
         cubeSchulenInstitutionen.setQuery(tableQueryFactSchulen);
         cubeSchulenInstitutionen.getDimensionConnectors().addAll(List.of(connectorSchulen1, connectorSchuljahr1));
         cubeSchulenInstitutionen.getMeasureGroups().addAll(List.of(measureGroupSchulenInstitutionen));
 
-        DimensionConnector connectorSchulen2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorSchulen2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchulen2.setOverrideDimensionName(SCHULEN);
         connectorSchulen2.setDimension(dimensionSchulen);
         connectorSchulen2.setForeignKey(columnSchuleIdInFactPersonal);
 
-        DimensionConnector connectorSchuljahr2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorSchuljahr2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchuljahr2.setOverrideDimensionName(SCHULJAHR);
         connectorSchuljahr2.setDimension(dimensionSchuljahre);
         connectorSchuljahr2.setForeignKey(columnSchulJahrIdInFactPersonal);
 
-        DimensionConnector connectorAltersgruppe = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorAltersgruppe = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorAltersgruppe.setOverrideDimensionName("Altersgruppe");
         connectorAltersgruppe.setDimension(dimensionAltersgruppenPersonal);
         connectorAltersgruppe.setForeignKey(columnAltersGroupIdInFactPersonal);
 
-        DimensionConnector connectorGeschlecht = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorGeschlecht = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorGeschlecht.setOverrideDimensionName(GESCHLECHT);
         connectorGeschlecht.setDimension(dimensionGeschlecht);
         connectorGeschlecht.setForeignKey(columnGeschlechtIdInFactPersonal);
 
-        DimensionConnector connectorBerufsgruppe = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorBerufsgruppe = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorBerufsgruppe.setOverrideDimensionName("Berufsgruppe");
         connectorBerufsgruppe.setDimension(dimensionBerufsgruppenPersonal);
         connectorBerufsgruppe.setForeignKey(columnPersonalArtIdInFactPersonal);
 
-        PhysicalCube cubePaedagogischesPersonal = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cubePaedagogischesPersonal = CubeFactory.eINSTANCE.createPhysicalCube();
         cubePaedagogischesPersonal.setName("Pädagogisches Personal an Jenaer Schulen");
-        cubePaedagogischesPersonal.setId("_cube_paedagogisches_personal");
         cubePaedagogischesPersonal.setQuery(tableQueryFactPersonal);
         cubePaedagogischesPersonal.getDimensionConnectors().addAll(List.of(connectorSchulen2, connectorSchuljahr2,
                 connectorAltersgruppe, connectorGeschlecht, connectorBerufsgruppe));
         cubePaedagogischesPersonal.getMeasureGroups().addAll(List.of(measureGroupPaedagogischesPersonal));
 
-        DimensionConnector connectorSchulen3 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorSchulen3 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchulen3.setOverrideDimensionName(SCHULEN);
         connectorSchulen3.setDimension(dimensionSchulen);
         connectorSchulen3.setForeignKey(columnSchuleIdInFactSchueler);
 
-        DimensionConnector connectorSchuljahr3 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorSchuljahr3 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchuljahr3.setOverrideDimensionName(SCHULJAHR);
         connectorSchuljahr3.setDimension(dimensionSchuljahre);
         connectorSchuljahr3.setForeignKey(columnSchulJahrIdInFactSchueler);
 
-        DimensionConnector connectorGeschlecht3 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorGeschlecht3 = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorGeschlecht3.setOverrideDimensionName(GESCHLECHT);
         connectorGeschlecht3.setDimension(dimensionGeschlecht);
         connectorGeschlecht3.setForeignKey(columnGeschlechtIdInFactSchueler);
 
-        DimensionConnector connectorWohnlandkreis = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorWohnlandkreis = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorWohnlandkreis.setOverrideDimensionName(WOHNLANDKREIS);
         connectorWohnlandkreis.setDimension(dimensionWohnlandkreis);
         connectorWohnlandkreis.setForeignKey(columnWohnLkIdInFactSchueler);
 
-        DimensionConnector connectorEinschulung = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorEinschulung = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorEinschulung.setOverrideDimensionName(EINSCHULUNG);
         connectorEinschulung.setDimension(dimensionEinschulungen);
         connectorEinschulung.setForeignKey(columnEinschulungIdInFactSchueler);
 
-        DimensionConnector connectorSchulabschluss = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorSchulabschluss = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSchulabschluss.setOverrideDimensionName("Schulabschluss");
         connectorSchulabschluss.setDimension(dimensionSchulabschluss);
         connectorSchulabschluss.setForeignKey(columnSchulAbschlussIdInFactSchueler);
 
-        DimensionConnector connectorKlassenwiederholung = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorKlassenwiederholung = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorKlassenwiederholung.setOverrideDimensionName(KLASSENWIEDERHOLUNG);
         connectorKlassenwiederholung.setDimension(dimensionKlassenwiederholung);
         connectorKlassenwiederholung.setForeignKey(columnKlassenWdhInFactSchueler);
 
-        DimensionConnector connectorMigrationshintergrund = RolapMappingFactory.eINSTANCE.createDimensionConnector();
+        DimensionConnector connectorMigrationshintergrund = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorMigrationshintergrund.setOverrideDimensionName(MIGRATIONSHINTERGRUND);
         connectorMigrationshintergrund.setDimension(dimensionMigrationshintergrund);
         connectorMigrationshintergrund.setForeignKey(columnMigrationsHgIdInFactSchueler);
 
-        DimensionConnector connectorSonderpaedagogischeFoerderung = RolapMappingFactory.eINSTANCE
-                .createDimensionConnector();
+        DimensionConnector connectorSonderpaedagogischeFoerderung = DimensionFactory.eINSTANCE.createDimensionConnector();
         connectorSonderpaedagogischeFoerderung.setOverrideDimensionName("Sonderpädagogische Förderung");
         connectorSonderpaedagogischeFoerderung.setDimension(dimensionInklusion);
         connectorSonderpaedagogischeFoerderung.setForeignKey(columnFoerderArtIdInFactSchueler);
 
-        PhysicalCube cubeSchuelerInnen = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cubeSchuelerInnen.setId("_cube_schueler_innen");
+        PhysicalCube cubeSchuelerInnen = CubeFactory.eINSTANCE.createPhysicalCube();
         cubeSchuelerInnen.setName("Schüler:innen an Jenaer Schulen");
         cubeSchuelerInnen.setQuery(tableQueryFactSchueler);
         cubeSchuelerInnen.getDimensionConnectors()
@@ -1277,7 +1098,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         connectorMigrationshintergrund, connectorSonderpaedagogischeFoerderung));
         cubeSchuelerInnen.getMeasureGroups().addAll(List.of(measureGroupSchuelerInnen));
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
         catalog.setId("_catalog_schulwesen");
         catalog.getCubes().addAll(List.of(cubeSchulenInstitutionen, cubePaedagogischesPersonal, cubeSchuelerInnen));

@@ -84,4 +84,4 @@
 	org.eclipse.daanse.rolap.mapping.model;version='[0.0.1,0.0.2)';startlevel=30,\
 	org.eclipse.daanse.rolap.mapping.model-tests;version='[0.0.1,0.0.2)';startlevel=30,\
 	org.eclipse.fennec.emf.osgi.component;version='[0.1.1,0.1.2)';startlevel=20,\
-	org.osgi.service.cm;version='[1.6.1,1.6.2)'
+	org.eclipse.daanse.cwm.model;version='[0.0.1,0.0.2)'

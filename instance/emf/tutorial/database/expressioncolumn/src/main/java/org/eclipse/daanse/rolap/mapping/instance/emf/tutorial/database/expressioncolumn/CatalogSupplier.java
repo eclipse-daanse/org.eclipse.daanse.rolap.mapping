@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,19 +19,29 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.02.02", source = Source.EMF, group = "Database")
 
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private ExpressionColumn columnSqlExp;
+
 
     private static final String introBody = """
             A table’s data consists not only of physical columns that store values but also of another type: the SqlExpressionColumn. This type of column is created dynamically using an SQL expression. The SQL expression is a string executed by the database system to generate the column on demand. Unlike physical columns, the SqlExpressionColumn is not stored in the database but is computed in real time whenever it is requested.
@@ -46,50 +55,53 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_expressionColumn");
+        Schema databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column.setName("column1");
-        column.setId("_column_tableWithExpressionColumn_column1");
 
-        SqlStatement sqlStatement1 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sqlStatement1 = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement1.setSql("SUBSTRING(column1,1,3)");
         sqlStatement1.getDialects().add("generic");
         sqlStatement1.getDialects().add("mysql");
 
-        SqlStatement sqlStatement2 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sqlStatement2 = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement2.setSql("SUBSTR(column1,1,3)");
         sqlStatement2.getDialects().add("oracle");
 
-        SqlStatement sqlStatement3 = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sqlStatement3 = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement3.setSql("substring(column1, 1, 3)");
         sqlStatement3.getDialects().add("h2");
 
-        SQLExpressionColumn columnSqlExp = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        columnSqlExp = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         columnSqlExp.setName("SqlExpressionColumn");
         columnSqlExp.getSqls().add(sqlStatement1);
         columnSqlExp.getSqls().add(sqlStatement2);
         columnSqlExp.getSqls().add(sqlStatement3);
-        columnSqlExp.setId("_column_tableWithExpressionColumn_sqlExpressionColumn");
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableWithExpressionColumn");
-        table.setId("_table_tableWithExpressionColumn");
-        table.getColumns().addAll(List.of(column, columnSqlExp));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(column, columnSqlExp));
+        databaseSchema.getOwnedElement().add(table);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Expression Column");
         catalog.setDescription("SQL expression columns and computed fields");
         catalog.setId("_catalog_databaseSqlExpressionColumn");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Database Expression Column", introBody, 1, 0, 0, false, 0);
-        document(columnSqlExp, "The Column", sqlExpColDescr, 1, 1, 0, true, 0);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Database Expression Column", introBody, 1, 0, 0, null, 0),
+                        new DocSection("The Column", sqlExpColDescr, 1, 1, 0, columnSqlExp, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

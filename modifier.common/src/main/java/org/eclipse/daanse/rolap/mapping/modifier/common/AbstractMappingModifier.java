@@ -116,7 +116,7 @@ import org.eclipse.daanse.rolap.mapping.model.enums.InternalDataType;
 import org.eclipse.daanse.rolap.mapping.model.enums.LevelType;
 import org.eclipse.daanse.rolap.mapping.model.enums.PercentileType;
 import org.eclipse.daanse.rolap.mapping.model.enums.RollupPolicyType;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.pojo.CalculatedMemberMappingImpl;
 import org.eclipse.daanse.rolap.mapping.pojo.MeasureGroupMappingImpl;

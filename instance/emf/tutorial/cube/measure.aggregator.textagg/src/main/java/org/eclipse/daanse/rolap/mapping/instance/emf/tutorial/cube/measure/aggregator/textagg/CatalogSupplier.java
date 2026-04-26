@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.textagg;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,31 +19,49 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TextAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.TextAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.08", source = Source.EMF, group = "Measure")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private OrderedColumn orderedColumn;
+    private Schema databaseSchema;
+
 
     private static final String introBody = """
             Data cubes have multiple measures when different aggregations are required for a column.
@@ -72,179 +89,158 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_main");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnCountry = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountry.setName("COUNTRY");
-        columnCountry.setId("_column_fact_country");
-        columnCountry.setType(ColumnType.VARCHAR);
+        columnCountry.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnContinent = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnContinent = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnContinent.setName("CONTINENT");
-        columnContinent.setId("_column_fact_continent");
-        columnContinent.setType(ColumnType.VARCHAR);
+        columnContinent.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnYear = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnYear = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnYear.setName("YEAR");
-        columnYear.setId("_column_fact_year");
-        columnYear.setType(ColumnType.INTEGER);
+        columnYear.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnMonth = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMonth = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMonth.setName("MONTH");
-        columnMonth.setId("_column_fact_month");
-        columnMonth.setType(ColumnType.INTEGER);
+        columnMonth.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnMonthName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMonthName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMonthName.setName("MONTH_NAME");
-        columnMonthName.setId("_column_fact_monthName");
-        columnMonthName.setType(ColumnType.VARCHAR);
+        columnMonthName.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnUser = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnUser = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnUser.setName("USER");
-        columnUser.setId("_column_fact_user");
-        columnUser.setType(ColumnType.VARCHAR);
+        columnUser.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnComment = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnComment = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnComment.setName("COMMENT");
-        columnComment.setId("_column_fact_comment");
-        columnComment.setType(ColumnType.VARCHAR);
+        columnComment.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName, columnUser, columnComment));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn, columnCountry, columnContinent, columnYear, columnMonth, columnMonthName, columnUser, columnComment));
+        databaseSchema.getOwnedElement().add(table);
 
 
-        SqlStatement sqlStatement = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement.setSql("CONCAT(\"Fact\".\"USER\", ' : ',  \"Fact\".\"COMMENT\")");
         sqlStatement.getDialects().add("generic");
         sqlStatement.getDialects().add("h2");
 
-        SQLExpressionColumn c = RolapMappingFactory.eINSTANCE.createSQLExpressionColumn();
+        ExpressionColumn c = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         c.setName("sql_expression");
-        c.setId("_sqlExpressionColumn_userComment");
         c.getSqls().add(sqlStatement);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Sum of Value");
-        measure1.setId("_measure_sumValue");
         measure1.setColumn(valueColumn);
 
-        OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(columnComment);
 
-        TextAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createTextAggMeasure();
+        TextAggMeasure measure2 = MeasureFactory.eINSTANCE.createTextAggMeasure();
         measure2.setName("Comment");
-        measure2.setId("_measure_comment");
         measure2.setSeparator(", ");
         measure2.setColumn(c);
         measure2.getOrderByColumns().add(orderedColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2));
 
-        Level levelTown = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelTown = LevelFactory.eINSTANCE.createLevel();
         levelTown.setName("Town");
-        levelTown.setId("_level_town");
         levelTown.setColumn(keyColumn);
 
-        Level levelCountry = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelCountry = LevelFactory.eINSTANCE.createLevel();
         levelCountry.setName("Country");
-        levelCountry.setId("_level_country");
         levelCountry.setColumn(columnCountry);
 
-        Level levelContinent = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelContinent = LevelFactory.eINSTANCE.createLevel();
         levelContinent.setName("Continent");
-        levelContinent.setId("_level_continent");
         levelContinent.setColumn(columnContinent);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
-        hierarchy.setId("_hierarchy_townHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(levelContinent);
         hierarchy.getLevels().add(levelCountry);
         hierarchy.getLevels().add(levelTown);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Town");
-        dimension.setId("_dimension_town");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dimensionConnector_town");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setForeignKey(columnCountry);
 
-        Level levelYear = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelYear = LevelFactory.eINSTANCE.createLevel();
         levelYear.setType(LevelDefinition.TIME_YEARS);
         levelYear.setName("Year");
-        levelYear.setId("_level_year");
         levelYear.setColumn(columnYear);
 
-        Level levelMonth = RolapMappingFactory.eINSTANCE.createLevel();
+        Level levelMonth = LevelFactory.eINSTANCE.createLevel();
         levelMonth.setType(LevelDefinition.TIME_MONTHS);
         levelMonth.setName("Month");
-        levelMonth.setId("_level_month");
         levelMonth.setColumn(columnMonth);
         levelMonth.setNameColumn(columnMonthName);
 
-        ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setName("TimeHierarchy");
-        hierarchy1.setId("_hierarchy_timeHierarchy");
         hierarchy1.setPrimaryKey(keyColumn);
         hierarchy1.setQuery(query);
         hierarchy1.getLevels().add(levelYear);
         hierarchy1.getLevels().add(levelMonth);
 
-        TimeDimension dimensionTime = RolapMappingFactory.eINSTANCE.createTimeDimension();
+        TimeDimension dimensionTime = DimensionFactory.eINSTANCE.createTimeDimension();
         dimensionTime.setName("Time");
-        dimensionTime.setId("_dimension_time");
         dimensionTime.getHierarchies().add(hierarchy1);
 
-        DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dimensionConnector_time");
+        DimensionConnector dimensionConnector2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector2.setDimension(dimensionTime);
         dimensionConnector2.setForeignKey(columnYear);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresTextAggregatorsCube");
-        cube.setId("_cube_measuresTextAggregators");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);
         cube.getMeasureGroups().add(measureGroup);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Text Agg");
         catalog.setDescription("Text aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Measure Aggregator Text Agg", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(orderedColumn, "Ordered Column", orderedColumnBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Measure with Text Aggregator", cubeBody, 1, 3, 0, true, 2);
-        return catalog;
 
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Measure Aggregator Text Agg", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Ordered Column", orderedColumnBody, 1, 2, 0, orderedColumn, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

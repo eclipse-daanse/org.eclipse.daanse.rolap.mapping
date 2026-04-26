@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.column;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,17 +19,33 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.02.01", source = Source.EMF, group = "Database")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Column columnVarchar;
+    private Catalog catalog;
+    private Column columnDecimal;
+    private Column columnDouble;
+    private Column columnInteger;
+    private Column columnNumeric;
+    private Column columnFloat;
+    private Column columnCommon;
+    private Column columnReal;
+
 
     private static final String introBody = """
             The data of a table are seperated into columns. Each column that should be used, must be explicitly defined. Columns that are not relevant for the analysis can be left out.
@@ -74,81 +89,72 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_columnTypes");
+        Schema databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column columnCommon = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnCommon = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCommon.setName("ColumnWithDescription");
-        columnCommon.setId("_column_tableWithColumnTypes_columnWithDescription");
-        columnCommon.setNullable(true);
-        columnCommon.setDescription("Non nullable Column with description");
-        columnCommon.setType(ColumnType.VARCHAR);
+        columnCommon.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnVarchar = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnVarchar = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnVarchar.setName("ColumnVarchar");
-        columnVarchar.setId("_column_tableWithColumnTypes_columnVarchar");
-        columnVarchar.setColumnSize(255);
-        columnVarchar.setType(ColumnType.VARCHAR);
+        columnVarchar.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnDecimal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnDecimal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnDecimal.setName("ColumnDecimal");
-        columnDecimal.setId("_column_tableWithColumnTypes_columnDecimal");
-        columnDecimal.setDecimalDigits(2);
-        columnDecimal.setNumPrecRadix(3);
-        columnDecimal.setType(ColumnType.DECIMAL);
+        columnDecimal.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        Column columnNumeric = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnNumeric = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnNumeric.setName("ColumnNumeric");
-        columnNumeric.setId("_column_tableWithColumnTypes_columnNumeric");
-        columnNumeric.setType(ColumnType.NUMERIC);
+        columnNumeric.setType(SqlSimpleTypes.numericType(18, 4));
 
-        Column columnFloat = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnFloat = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFloat.setName("ColumnFloat");
-        columnFloat.setId("_column_tableWithColumnTypes_columnFloat");
-        columnFloat.setType(ColumnType.FLOAT);
+        columnFloat.setType(SqlSimpleTypes.Sql99.floatType());
 
-        Column columnReal = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnReal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnReal.setName("ColumnReal");
-        columnReal.setId("_column_tableWithColumnTypes_columnReal");
-        columnReal.setType(ColumnType.REAL);
+        columnReal.setType(SqlSimpleTypes.Sql99.realType());
 
-        Column columnDouble = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnDouble = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnDouble.setName("ColumnDouble");
-        columnDouble.setId("_column_tableWithColumnTypes_columnDouble");
-        columnDouble.setType(ColumnType.DOUBLE);
+        columnDouble.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
 
-        Column columnInteger = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        columnInteger = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnInteger.setName("ColumnInteger");
-        columnInteger.setId("_column_tableWithColumnTypes_columnInteger");
-        columnInteger.setType(ColumnType.INTEGER);
+        columnInteger.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableWithColumnTypes");
-        table.setId("_table_tableWithColumnTypes");
-        table.getColumns().addAll(List.of(columnCommon, columnVarchar, columnDecimal, columnNumeric, columnFloat,
+        table.getFeature().addAll(List.of(columnCommon, columnVarchar, columnDecimal, columnNumeric, columnFloat,
                 columnReal, columnDouble, columnInteger));
-        databaseSchema.getTables().add(table);
+        databaseSchema.getOwnedElement().add(table);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Column");
         catalog.setDescription("Database column types and configuration");
         catalog.setId("_catalog_databaseColumnTypes");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Database Column", introBody, 1, 0, 0, false, 0);
-        document(columnCommon, "Common column fields", colDescr, 1, 1, 0, true, 0);
-        document(catalog, "Types of Columns", colTypes, 1, 2, 0, false, 0);
-
-        document(columnVarchar, "Varchar", colVarChar, 1, 2, 1, true, 0);
-        document(columnDecimal, "Decimal", colDecimal, 1, 2, 2, true, 0);
-        document(columnNumeric, "Numeric", colNumeric, 1, 2, 3, true, 0);
-        document(columnFloat, "Float", colFloar, 1, 2, 4, true, 0);
-        document(columnReal, "Real", colReal, 1, 2, 5, true, 0);
-        document(columnDouble, "Double", colDouble, 1, 2, 6, true, 0);
-        document(columnInteger, "Integer", colInteger, 1, 2, 6, true, 0);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Database Column", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Common column fields", colDescr, 1, 1, 0, columnCommon, 0),
+                        new DocSection("Types of Columns", colTypes, 1, 2, 0, null, 0),
+                        new DocSection("Varchar", colVarChar, 1, 2, 1, columnVarchar, 0),
+                        new DocSection("Decimal", colDecimal, 1, 2, 2, columnDecimal, 0),
+                        new DocSection("Numeric", colNumeric, 1, 2, 3, columnNumeric, 0),
+                        new DocSection("Float", colFloar, 1, 2, 4, columnFloat, 0),
+                        new DocSection("Real", colReal, 1, 2, 5, columnReal, 0),
+                        new DocSection("Double", colDouble, 1, 2, 6, columnDouble, 0),
+                        new DocSection("Integer", colInteger, 1, 2, 6, columnInteger, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

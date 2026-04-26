@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,25 +19,47 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.04", source = Source.EMF, group = "Hierarchy") // NOSONAR
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private StandardDimension dimension;
+    private ExplicitHierarchy hierarchyHasAllComplex;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private TableSource query;
+    private ExplicitHierarchy hierarchyHasAllSimple;
+    private ExplicitHierarchy hierarchyHasAllFalse;
+    private Level level;
+
 
     private static final String introBody = """
             In a hierarchy, the top level can sometimes be a special case. Typically, levels are created using a Level object, along with a reference to a column and a query on the hierarchy. However, there are situations where no dedicated column or table entry exists for the top level. For example if you want to represent a grand total. In such cases, you can generate a generic top level that serves as a final aggregation for all members of the level below.
@@ -92,108 +113,98 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseschema");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("theMeasure");
-        measure.setId("_measure");
         measure.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level = LevelFactory.eINSTANCE.createLevel();
         level.setName("theLevel");
-        level.setId("_level");
         level.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchyHasAllSimple = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchyHasAllSimple = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllSimple.setHasAll(true);
         hierarchyHasAllSimple.setName("Hierarchy - with HasAll");
-        hierarchyHasAllSimple.setId("_hierarchy_hasall_simple");
         hierarchyHasAllSimple.setPrimaryKey(keyColumn);
         hierarchyHasAllSimple.setQuery(query);
         hierarchyHasAllSimple.getLevels().add(level);
 
-        ExplicitHierarchy hierarchyHasAllComplex = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchyHasAllComplex = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllComplex.setHasAll(true);
         hierarchyHasAllComplex.setAllLevelName("theAllLevelName");
         hierarchyHasAllComplex.setAllMemberName("theAllMemberName");
         hierarchyHasAllComplex.setName("Hierarchy - with HasAll and Names");
-        hierarchyHasAllComplex.setId("_hierarchy_hasall_complex");
         hierarchyHasAllComplex.setPrimaryKey(keyColumn);
         hierarchyHasAllComplex.setQuery(query);
         hierarchyHasAllComplex.getLevels().add(level);
 
-        ExplicitHierarchy hierarchyHasAllFalse = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchyHasAllFalse = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllFalse.setHasAll(false);
         hierarchyHasAllFalse.setName("Hierarchy - Without HasAll");
-        hierarchyHasAllFalse.setId("_hierarchy_hasall_no");
         hierarchyHasAllFalse.setPrimaryKey(keyColumn);
         hierarchyHasAllFalse.setQuery(query);
         hierarchyHasAllFalse.getLevels().add(level);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Dimension1");
-        dimension.setId("_dimension");
         dimension.getHierarchies().add(hierarchyHasAllSimple);
         dimension.getHierarchies().add(hierarchyHasAllComplex);
         dimension.getHierarchies().add(hierarchyHasAllFalse);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dc_dimension");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setDimension(dimension);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("HasAll Cube");
-        cube.setId("_cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Hierarchy Has All");
         catalog.setDescription("Hierarchy with all-member configuration");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Hierarchy Has All", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(level, "Level", levelBody, 1, 6, 0, true, 0);
-
-        document(hierarchyHasAllFalse, "Hierarchy without hasAll Level", hierarchyNoBody, 1, 8, 0, true, 0);
-        document(hierarchyHasAllSimple, "Hierarchy with hasAll Level and defaut names", hierarchyWithSimpleBody, 1, 8,
-                0, true, 0);
-        document(hierarchyHasAllComplex, "Hierarchy with hasAll Level and custom names", hierarchyWithComplexBody, 1, 8,
-                0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 9, 0, true, 0);
-
-        document(cube, "Cube and DimensionConnector and Measure", cubeBody, 1, 10, 0, true, 2);
 
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Hierarchy Has All", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Level", levelBody, 1, 6, 0, level, 0),
+                        new DocSection("Hierarchy without hasAll Level", hierarchyNoBody, 1, 8, 0, hierarchyHasAllFalse, 0),
+                        new DocSection("Hierarchy with hasAll Level and defaut names", hierarchyWithSimpleBody, 1, 8, 0, hierarchyHasAllSimple, 0),
+                        new DocSection("Hierarchy with hasAll Level and custom names", hierarchyWithComplexBody, 1, 8, 0, hierarchyHasAllComplex, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 9, 0, dimension, 0),
+                        new DocSection("Cube and DimensionConnector and Measure", cubeBody, 1, 10, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }
