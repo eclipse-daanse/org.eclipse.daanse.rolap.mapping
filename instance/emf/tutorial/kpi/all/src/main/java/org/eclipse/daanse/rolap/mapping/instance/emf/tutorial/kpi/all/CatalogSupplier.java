@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,24 +19,40 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CountMeasure;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.Kpi;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.CountMeasure;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.07.02", source = Source.EMF, group = "Kpi") // NOSONAR
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private Kpi kpi;
+    private Schema databaseSchema;
+
 
     private static final String CUBE = "CubeKPI";
     private static final String FACT = "Fact";
@@ -75,75 +90,61 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_KpiAll");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column valueNumericColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueNumericColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
-        valueNumericColumn.setId("_column_fact_value_numeric");
-        valueNumericColumn.setType(ColumnType.INTEGER);
+        valueNumericColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn, valueNumericColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn, valueNumericColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_factQuery");
+        TableSource query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1-Sum");
-        measure.setId("_measure1-sum");
         measure.setColumn(valueColumn);
 
-        CountMeasure measure1 = RolapMappingFactory.eINSTANCE.createCountMeasure();
+        CountMeasure measure1 = MeasureFactory.eINSTANCE.createCountMeasure();
         measure1.setName("Measure2-Count");
-        measure1.setId("_measure2-count");
         measure1.setColumn(valueColumn);
 
-        CalculatedMember calculatedValue = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        CalculatedMember calculatedValue = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedValue.setName("CalculatedValue");
-        calculatedValue.setId("_calculatedvalue");
         calculatedValue.setVisible(false);
         calculatedValue.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
-        CalculatedMember calculatedGoal = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        CalculatedMember calculatedGoal = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedGoal.setName("CalculatedGoal");
-        calculatedGoal.setId("_calculatedgoal");
         calculatedGoal.setVisible(false);
         calculatedGoal.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
-        CalculatedMember calculatedStatus = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        CalculatedMember calculatedStatus = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedStatus.setName("CalculatedStatus");
-        calculatedStatus.setId("_calculatedstatus");
         calculatedStatus.setVisible(false);
         calculatedStatus.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
-        CalculatedMember calculatedTrend = RolapMappingFactory.eINSTANCE.createCalculatedMember();
+        CalculatedMember calculatedTrend = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedTrend.setName("CalculatedTrend");
-        calculatedTrend.setId("_calculatedtrend");
         calculatedTrend.setVisible(false);
         calculatedTrend.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         measureGroup.getMeasures().add(measure1);
-        Kpi kpi = RolapMappingFactory.eINSTANCE.createKpi();
+        kpi = CubeFactory.eINSTANCE.createKpi();
         kpi.setName("Kpi1");
-        kpi.setId("_kpi1");
-        kpi.setDescription("Kpi with all parameters");
         kpi.setAssociatedMeasureGroupID("Kpi1MeasureGroupID");
         kpi.setValue("[Measures].[CalculatedValue]");
         kpi.setGoal("[Measures].[CalculatedGoal]");
@@ -155,27 +156,32 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         kpi.setStatusGraphic("Cylinder");
         kpi.setTrendGraphic("Smiley Face");
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_cubekpi");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(calculatedValue, calculatedGoal, calculatedStatus, calculatedTrend));
         cube.getKpis().add(kpi);
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - KPI All");
         catalog.setDescription("Complete KPI implementation examples");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - KPI All", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", dbBody, 1, 1, 0, true, 3);
-        document(kpi, "Kpi with all parameters", kpiBody, 1, 2, 0, true, 0);
-
-        document(cube, "Cube with KPI with all properties", cubeBody, 1, 4, 0, true, 2);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - KPI All", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", dbBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Kpi with all parameters", kpiBody, 1, 2, 0, kpi, 0),
+                        new DocSection("Cube with KPI with all properties", cubeBody, 1, 4, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

@@ -16,7 +16,7 @@ package org.eclipse.daanse.rolap.mapping.verifyer.basic.description;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.osgi.service.component.annotations.Activate;

@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.uniquekeylevelname;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,27 +19,52 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnInternalDataType;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ColumnInternalDataType;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.16.03", source = Source.EMF, group = "Hierarchy") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private Level levelModel;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private Level levelVehicle;
+    private PhysicalCube cube;
+    private Level levelMake;
+    private TableSource query;
+    private Level levelPlant;
+    private Level levelLicense;
+    private SumMeasure measure;
+
 
     private static final String CUBE = "Cube";
     private static final String FACT = "AUTOMOTIVE_DIM";
@@ -57,7 +81,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the `AUTOMOTIVE_DIM` table to use in the measures.
+            The Query is a simple TableSource that selects all columns from the `AUTOMOTIVE_DIM` table to use in the measures.
             """;
 
     private static final String levelMakeBody = """
@@ -103,225 +127,194 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_main");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column auotoDimIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column auotoDimIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         auotoDimIdColumn.setName("AUTO_DIM_ID");
-        auotoDimIdColumn.setId("_column_automotiveDim_autoDimId");
-        auotoDimIdColumn.setType(ColumnType.INTEGER);
+        auotoDimIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column makeIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column makeIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         makeIdColumn.setName("MAKE_ID");
-        makeIdColumn.setId("_column_automotiveDim_makeId");
-        makeIdColumn.setType(ColumnType.INTEGER);
+        makeIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column makeColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column makeColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         makeColumn.setName("MAKE");
-        makeColumn.setId("_column_automotiveDim_make");
-        makeColumn.setType(ColumnType.VARCHAR);
-        makeColumn.setColumnSize(100);
+        makeColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column modelIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column modelIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         modelIdColumn.setName("MODEL_ID");
-        modelIdColumn.setId("_column_automotiveDim_modelId");
-        modelIdColumn.setType(ColumnType.INTEGER);
+        modelIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column modelColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column modelColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         modelColumn.setName("MODEL");
-        modelColumn.setId("_column_automotiveDim_model");
-        modelColumn.setType(ColumnType.VARCHAR);
-        modelColumn.setColumnSize(100);
+        modelColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column plantIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column plantIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantIdColumn.setName("PLANT_ID");
-        plantIdColumn.setId("_column_automotiveDim_plantId");
-        plantIdColumn.setType(ColumnType.INTEGER);
+        plantIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column plantColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column plantColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantColumn.setName("PLANT");
-        plantColumn.setId("_column_automotiveDim_plant");
-        plantColumn.setType(ColumnType.VARCHAR);
-        plantColumn.setColumnSize(100);
+        plantColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column plantStateIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column plantStateIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantStateIdColumn.setName("PLANT_STATE_ID");
-        plantStateIdColumn.setId("_column_automotiveDim_plantStateId");
-        plantStateIdColumn.setType(ColumnType.INTEGER);
+        plantStateIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column plantCityIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column plantCityIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantCityIdColumn.setName("PLANT_CITY_ID");
-        plantCityIdColumn.setId("_column_automotiveDim_plantCityId");
-        plantCityIdColumn.setType(ColumnType.INTEGER);
+        plantCityIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column vehicleIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column vehicleIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         vehicleIdColumn.setName("VEHICLE_ID");
-        vehicleIdColumn.setId("_column_automotiveDim_vehicleId");
-        vehicleIdColumn.setType(ColumnType.INTEGER);
+        vehicleIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column colorIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column colorIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         colorIdColumn.setName("COLOR_ID");
-        colorIdColumn.setId("_column_automotiveDim_colorId");
-        colorIdColumn.setType(ColumnType.INTEGER);
+        colorIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column trimIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column trimIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         trimIdColumn.setName("TRIM_ID");
-        trimIdColumn.setId("_column_automotiveDim_trimId");
-        trimIdColumn.setType(ColumnType.INTEGER);
+        trimIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column licenseIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column licenseIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseIdColumn.setName("LICENSE_ID");
-        licenseIdColumn.setId("_column_automotiveDim_licenseId");
-        licenseIdColumn.setType(ColumnType.INTEGER);
+        licenseIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column licenseColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column licenseColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseColumn.setName("LICENSE");
-        licenseColumn.setId("_column_automotiveDim_license");
-        licenseColumn.setType(ColumnType.VARCHAR);
-        licenseColumn.setColumnSize(100);
+        licenseColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column licenseStateIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column licenseStateIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseStateIdColumn.setName("LICENSE_STATE_ID");
-        licenseStateIdColumn.setId("_column_automotiveDim_licenseStateId");
-        licenseStateIdColumn.setType(ColumnType.INTEGER);
+        licenseStateIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column priceColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column priceColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         priceColumn.setName("PRICE");
-        priceColumn.setId("_column_automotiveDim_price");
-        priceColumn.setType(ColumnType.INTEGER);
+        priceColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_automotiveDim");
-        table.getColumns()
+        table.getFeature()
                 .addAll(List.of(auotoDimIdColumn, makeIdColumn, makeColumn, modelIdColumn, modelColumn, plantIdColumn,
                         plantColumn, plantStateIdColumn, plantCityIdColumn, vehicleIdColumn, colorIdColumn,
                         trimIdColumn, licenseIdColumn, licenseColumn, licenseStateIdColumn, priceColumn));
-        databaseSchema.getTables().add(table);
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure");
-        measure.setId("_measure_measure");
         measure.setColumn(priceColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level levelMake = RolapMappingFactory.eINSTANCE.createLevel();
+        levelMake = LevelFactory.eINSTANCE.createLevel();
         levelMake.setName("Make");
-        levelMake.setId("_level_make");
         levelMake.setColumn(makeIdColumn);
         levelMake.setNameColumn(makeColumn);
 
-        Level levelModel = RolapMappingFactory.eINSTANCE.createLevel();
+        levelModel = LevelFactory.eINSTANCE.createLevel();
         levelModel.setName("Model");
-        levelModel.setId("_level_model");
         levelModel.setColumn(modelIdColumn);
         levelModel.setNameColumn(modelColumn);
 
-        MemberProperty stateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty stateProperty = LevelFactory.eINSTANCE.createMemberProperty();
         stateProperty.setName("State");
-        stateProperty.setId("_memberProperty_state");
         stateProperty.setColumn(plantStateIdColumn);
         stateProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         stateProperty.setDependsOnLevelValue(true);
 
-        MemberProperty cytyProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty cytyProperty = LevelFactory.eINSTANCE.createMemberProperty();
         cytyProperty.setName("City");
-        cytyProperty.setId("_memberProperty_city");
         cytyProperty.setColumn(plantCityIdColumn);
         cytyProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         cytyProperty.setDependsOnLevelValue(true);
 
-        Level levelPlant = RolapMappingFactory.eINSTANCE.createLevel();
+        levelPlant = LevelFactory.eINSTANCE.createLevel();
         levelPlant.setName("ManufacturingPlant");
-        levelPlant.setId("_level_manufacturingPlant");
         levelPlant.setColumn(plantIdColumn);
         levelPlant.setNameColumn(plantColumn);
         levelPlant.getMemberProperties().addAll(List.of(stateProperty, cytyProperty));
 
-        MemberProperty colorProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty colorProperty = LevelFactory.eINSTANCE.createMemberProperty();
         colorProperty.setName("Color");
-        colorProperty.setId("_memberProperty_color");
         colorProperty.setColumn(colorIdColumn);
         colorProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         colorProperty.setDependsOnLevelValue(true);
 
-        MemberProperty trimProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty trimProperty = LevelFactory.eINSTANCE.createMemberProperty();
         trimProperty.setName("Trim");
-        trimProperty.setId("_memberProperty_trim");
         trimProperty.setColumn(trimIdColumn);
         trimProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         trimProperty.setDependsOnLevelValue(true);
 
-        Level levelVehicle = RolapMappingFactory.eINSTANCE.createLevel();
+        levelVehicle = LevelFactory.eINSTANCE.createLevel();
         levelVehicle.setName("Vehicle Identification Number");
-        levelVehicle.setId("_level_vehicleIdentificationNumber");
         levelVehicle.setColumn(vehicleIdColumn);
         levelVehicle.getMemberProperties().addAll(List.of(colorProperty, trimProperty));
 
-        MemberProperty licenseStateProperty = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        MemberProperty licenseStateProperty = LevelFactory.eINSTANCE.createMemberProperty();
         licenseStateProperty.setName("State");
-        licenseStateProperty.setId("_memberProperty_licenseState");
         licenseStateProperty.setColumn(licenseStateIdColumn);
         licenseStateProperty.setPropertyType(ColumnInternalDataType.NUMERIC);
         licenseStateProperty.setDependsOnLevelValue(true);
 
-        Level levelLicense = RolapMappingFactory.eINSTANCE.createLevel();
+        levelLicense = LevelFactory.eINSTANCE.createLevel();
         levelLicense.setName("LicensePlateNum");
-        levelLicense.setId("_level_licensePlateNum");
         levelLicense.setColumn(licenseIdColumn);
         levelLicense.getMemberProperties().addAll(List.of(licenseStateProperty));
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setPrimaryKey(auotoDimIdColumn);
-        hierarchy.setId("_hierarchy_automotive");
         hierarchy.setUniqueKeyLevelName("Vehicle Identification Number");
         hierarchy.setQuery(query);
         hierarchy.getLevels().addAll(List.of(levelMake, levelModel, levelPlant, levelVehicle, levelLicense));
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Automotive");
-        dimension.setId("_dimension_automotive");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_automotive");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Automotive");
         dimensionConnector.setDimension(dimension);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_cube_cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Unique Key Level Name");
         catalog.setDescription("Hierarchy with unique key level name optimizations");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Unique Key Level Name", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(dimension, "Automotive", dimensionBody, 1, 3, 0, true, 2);
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 4, 0, true, 2);
-        document(levelMake, "Make", levelMakeBody, 1, 5, 0, true, 2);
-        document(levelModel, "Model", levelModelBody, 1, 6, 0, true, 2);
-        document(levelPlant, "ManufacturingPlant", levelPlantBody, 1, 7, 0, true, 2);
-        document(levelVehicle, "Vehicle Identification Number", levelVehicleBody, 1, 8, 0, true, 2);
-        document(levelLicense, "LicensePlateNum", levelLicenseBody, 1, 9, 0, true, 2);
-        document(measure, "Measure", measure1Body, 1, 10, 0, true, 2);
-        document(cube, "Cube", cubeBody, 1, 11, 0, true, 2);
 
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Unique Key Level Name", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Automotive", dimensionBody, 1, 3, 0, dimension, 2),
+                        new DocSection("Hierarchy", hierarchyBody, 1, 4, 0, hierarchy, 2),
+                        new DocSection("Make", levelMakeBody, 1, 5, 0, levelMake, 2),
+                        new DocSection("Model", levelModelBody, 1, 6, 0, levelModel, 2),
+                        new DocSection("ManufacturingPlant", levelPlantBody, 1, 7, 0, levelPlant, 2),
+                        new DocSection("Vehicle Identification Number", levelVehicleBody, 1, 8, 0, levelVehicle, 2),
+                        new DocSection("LicensePlateNum", levelLicenseBody, 1, 9, 0, levelLicense, 2),
+                        new DocSection("Measure", measure1Body, 1, 10, 0, measure, 2),
+                        new DocSection("Cube", cubeBody, 1, 11, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

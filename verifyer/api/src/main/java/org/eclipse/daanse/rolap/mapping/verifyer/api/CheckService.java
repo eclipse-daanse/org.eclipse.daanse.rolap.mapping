@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 
 
 

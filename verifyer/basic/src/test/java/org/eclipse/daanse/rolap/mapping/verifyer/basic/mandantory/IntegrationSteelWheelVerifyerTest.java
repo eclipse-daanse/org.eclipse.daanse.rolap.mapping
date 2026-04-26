@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.verifyer.basic.mandantory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.junit.jupiter.api.Disabled;

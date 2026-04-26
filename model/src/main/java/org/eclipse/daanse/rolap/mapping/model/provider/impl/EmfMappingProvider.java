@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingPackage;
 import org.eclipse.daanse.rolap.mapping.model.provider.Constants;
 import org.eclipse.daanse.rolap.mapping.model.provider.EmfMappingProviderConfig;

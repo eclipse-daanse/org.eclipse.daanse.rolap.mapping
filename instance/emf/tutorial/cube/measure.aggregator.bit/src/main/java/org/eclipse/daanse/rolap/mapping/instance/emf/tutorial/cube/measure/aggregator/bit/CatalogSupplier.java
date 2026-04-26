@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.bit;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,22 +19,35 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.BitAggMeasure;
-import org.eclipse.daanse.rolap.mapping.model.BitAggType;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BitAggMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BitAggType;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.06", source = Source.EMF, group = "Measure")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private Schema databaseSchema;
+
 
     private static final String introBody = """
             Data cubes have multiple measures with different bit aggregations are required for a column.
@@ -61,90 +73,84 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_measureAggregatorBit");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        BitAggMeasure measure1 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure1 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure1.setName("BitAgg AND");
-        measure1.setId("_measure_bitAggAnd");
         measure1.setAggType(BitAggType.AND);
         measure1.setColumn(valueColumn);
 
-        BitAggMeasure measure2 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure2 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure2.setName("BitAgg OR");
-        measure2.setId("_measure_bitAggOr");
         measure2.setAggType(BitAggType.OR);
         measure2.setColumn(valueColumn);
 
-        BitAggMeasure measure3 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure3 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure3.setName("BitAgg XOR");
-        measure3.setId("_measure_bitAggXor");
         measure3.setAggType(BitAggType.XOR);
         measure3.setColumn(valueColumn);
 
-        BitAggMeasure measure4 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure4 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure4.setName("BitAgg NAND");
-        measure4.setId("_measure_bitAggNand");
         measure4.setAggType(BitAggType.AND);
         measure4.setNot(true);
         measure4.setColumn(valueColumn);
 
-        BitAggMeasure measure5 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure5 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure5.setName("BitAgg NOR");
-        measure5.setId("_measure_bitAggNor");
         measure5.setAggType(BitAggType.OR);
         measure5.setNot(true);
         measure5.setColumn(valueColumn);
 
-        BitAggMeasure measure6 = RolapMappingFactory.eINSTANCE.createBitAggMeasure();
+        BitAggMeasure measure6 = MeasureFactory.eINSTANCE.createBitAggMeasure();
         measure6.setName("BitAgg NXOR");
-        measure6.setId("_measure_bitAggNxor");
         measure6.setAggType(BitAggType.XOR);
         measure6.setNot(true);
         measure6.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure2, measure3, measure4, measure5, measure6));
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setId("_cube_measureAggregatorsCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureBitAggregators");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Bit");
         catalog.setDescription("Bitwise aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Multiple Measures with Bit Aggragators", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Measures with Bit Aggragators", cubeBody, 1, 3, 0, true, 2);
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Multiple Measures with Bit Aggragators", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

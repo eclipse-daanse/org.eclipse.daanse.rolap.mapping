@@ -47,6 +47,7 @@ import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
 import org.slf4j.Logger;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 @ExtendWith(ConfigurationExtension.class)
@@ -145,10 +146,10 @@ public class ResourceSetTest {
         Path file = Files.createTempFile(tempDir, "out", ".xmi");
         URI uri = URI.createFileURI(file.toAbsolutePath().toString());
         Resource resource = rs.createResource(uri);
-        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
-        resource.getContents().add(RolapMappingFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(CatalogFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(CatalogFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(CatalogFactory.eINSTANCE.createCatalog());
+        resource.getContents().add(CatalogFactory.eINSTANCE.createCatalog());
 
         resource.save(Map.of());
         LOGGER.debug(Files.readString(file));

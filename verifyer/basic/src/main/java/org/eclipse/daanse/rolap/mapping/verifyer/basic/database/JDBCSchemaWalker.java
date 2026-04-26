@@ -25,6 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.cwm.util.objectmodel.core.Namespaces;
+import org.eclipse.daanse.cwm.util.resource.relational.ColumnSets;
+import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
+import org.eclipse.daanse.cwm.util.resource.relational.RowSets;
+import org.eclipse.daanse.cwm.util.resource.relational.Schemas;
 import org.eclipse.daanse.jdbc.db.api.DatabaseService;
 import org.eclipse.daanse.jdbc.db.api.schema.ColumnReference;
 import org.eclipse.daanse.jdbc.db.api.schema.SchemaReference;
@@ -32,18 +38,21 @@ import org.eclipse.daanse.jdbc.db.api.schema.TableReference;
 import org.eclipse.daanse.jdbc.db.record.schema.ColumnReferenceR;
 import org.eclipse.daanse.jdbc.db.record.schema.SchemaReferenceR;
 import org.eclipse.daanse.jdbc.db.record.schema.TableReferenceR;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.InlineTable;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
-import org.eclipse.daanse.rolap.mapping.model.Row;
-import org.eclipse.daanse.rolap.mapping.model.RowValue;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.SqlView;
-import org.eclipse.daanse.rolap.mapping.model.SystemTable;
-import org.eclipse.daanse.rolap.mapping.model.Table;
-import org.eclipse.daanse.rolap.mapping.model.ViewTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.InlineTable;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Row;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RowSet;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.DataSlot;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.InstanceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.DialectSqlView;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.NamedColumnSet;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.View;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.VerificationResultR;
 
@@ -125,7 +134,7 @@ public class JDBCSchemaWalker {
     }
 
     public List<VerificationResult> checkCatalog(Catalog catalog) {
-        List<? extends DatabaseSchema> dbschemas = catalog.getDbschemas();
+        List<? extends Schema> dbschemas = catalog.getDbschemas();
         if (dbschemas != null) {
             catalog.getDbschemas().forEach(s -> checkSchema(s));
             dbschemas.forEach(s -> checkTables(s));
@@ -133,13 +142,17 @@ public class JDBCSchemaWalker {
         return results;
     }
 
-    private void checkTables(DatabaseSchema s) {
-        if (s != null && s.getTables() != null) {
-            s.getTables().forEach(t -> checkTable(s, t));
+    private void checkTables(Schema s) {
+        if (s != null && s.getOwnedElement() != null) {
+            Schemas.tableStream(s).forEach(t -> checkTable(s, t));
+            // InlineTable no longer extends cwm::Table (it extends cwm::ColumnSet),
+            // so it is not picked up by the Table filter above. Walk inline tables
+            // separately.
+            Namespaces.ownedElementStream(s, InlineTable.class).forEach(it -> checkInlineTable(s, it));
         }
     }
 
-    protected void checkPhysicalOrSystemTable(DatabaseSchema s, Table table) {
+    protected void checkPhysicalOrSystemTable(Schema s, Table table) {
         String tableName = table.getName();
         try {
             TableReference tableReference = getTableReference(s.getName(), tableName);
@@ -147,9 +160,9 @@ public class JDBCSchemaWalker {
                 String msg = String.format(TABLE_S_DOES_NOT_EXIST_IN_DATABASE, tableName);
                 results.add(new VerificationResultR(TABLE, msg, ERROR, DATABASE));
             } else {
-                if (table.getColumns() != null && !table.getColumns().isEmpty()) {
-                    table.getColumns().forEach(c -> checkColumnAttrebutes(table, c));
-                    table.getColumns().forEach(c -> checkColumn(table, c));
+                if (table.getFeature() != null && !table.getFeature().isEmpty()) {
+                    ColumnSets.columnStream(table).forEach(c -> checkColumnAttrebutes(table, c));
+                    ColumnSets.columnStream(table).forEach(c -> checkColumn(table, c));
                 }
             }
         } catch (SQLException e) {
@@ -160,7 +173,7 @@ public class JDBCSchemaWalker {
 
     private void checkColumn(Table table, Column column) {
         try {
-            String schemaName = table.getSchema() != null ? table.getSchema().getName() : null;
+            String schemaName = NamedColumnSets.findSchema(table).map(Schema::getName).orElse(null);
             TableReference tableReference = getTableReference(schemaName, table.getName());
             ColumnReference columnReference = new ColumnReferenceR(Optional.of(tableReference), column.getName());
             if (!databaseService.columnExists(databaseMetaData, columnReference)) {
@@ -176,8 +189,8 @@ public class JDBCSchemaWalker {
         }
     }
 
-    private void checkSqlView(DatabaseSchema s, SqlView sv) {
-        if (sv.getSqlStatements() != null && !sv.getSqlStatements().isEmpty()) {
+    private void checkSqlView(Schema s, DialectSqlView sv) {
+        if (sv.getDialectStatements() != null && !sv.getDialectStatements().isEmpty()) {
 
         } else {
             String message = String.format(SQL_VIEW_TABLE_S_STATEMENTS_NOT_DEFINED, sv.getName());
@@ -185,11 +198,12 @@ public class JDBCSchemaWalker {
         }
     }
 
-    private void checkInlineTable(DatabaseSchema s, InlineTable it) {
+    private void checkInlineTable(Schema s, InlineTable it) {
         if (it != null) {
-            if (it.getColumns() != null && !it.getColumns().isEmpty()) {
-                it.getColumns().forEach(c -> checkColumnAttrebutes(it, c));
-                checkInlineTableRows(it, it.getRows(), it.getColumns());
+            if (it.getFeature() != null && !it.getFeature().isEmpty()) {
+                ColumnSets.columnStream(it).forEach(c -> checkColumnAttrebutes(it, c));
+                List<? extends Row> rows = it.getExtent() == null ? List.of() : RowSets.rows(it.getExtent());
+                checkInlineTableRows(it, rows, ColumnSets.columns(it));
             } else {
                 String message = String.format(INLINE_TABLE_S_COLUMNS_NOT_DEFINED, it.getName());
                 results.add(new VerificationResultR(TABLE, message, ERROR, DATABASE));
@@ -207,12 +221,13 @@ public class JDBCSchemaWalker {
     }
 
     private Object checkInlineTableRow(InlineTable it, Row r, List<? extends Column> columns) {
-        if (r.getRowValues() != null && !r.getRowValues().isEmpty()) {
-            if (r.getRowValues().size() != columns.size()) {
+        if (r.getSlot() != null && !r.getSlot().isEmpty()) {
+            if (r.getSlot().size() != columns.size()) {
                 String message = String.format(INLINE_TABLE_ROW_VALUES_SIZE_NOT_CORRECT, it.getName());
                 results.add(new VerificationResultR(TABLE, message, ERROR, DATABASE));
             }
-            r.getRowValues().forEach(rv -> checkInlineTableValue(it, rv));
+            r.getSlot().stream().filter(DataSlot.class::isInstance).map(DataSlot.class::cast)
+                .forEach(rv -> checkInlineTableValue(it, rv));
         } else {
             String message = INLINE_TABLE_ROW_VALUES_NOT_DEFINED;
             results.add(new VerificationResultR(TABLE, message, ERROR, DATABASE));
@@ -220,11 +235,11 @@ public class JDBCSchemaWalker {
         return null;
     }
 
-    private void checkInlineTableValue(InlineTable it, RowValue rowValue) {
+    private void checkInlineTableValue(InlineTable it, DataSlot rowValue) {
 
     }
 
-    private void checkColumnAttrebutes(Table it, Column column) {
+    private void checkColumnAttrebutes(org.eclipse.daanse.cwm.model.cwm.resource.relational.ColumnSet it, Column column) {
         if (column != null) {
             if (column.getName() == null) {
                 String message = String.format(TABLE_S_COLUMN_NAME_NOT_DEFINED, it.getName());
@@ -237,19 +252,20 @@ public class JDBCSchemaWalker {
         }
     }
 
-    protected void checkTable(DatabaseSchema s, Table table) {
-        if (table instanceof PhysicalTable || table instanceof SystemTable || table instanceof ViewTable) {
+    protected void checkTable(Schema s, Table table) {
+        if (table instanceof View) {
+            checkPhysicalOrSystemTable(s, table);
+        } else if (table != null) {
             checkPhysicalOrSystemTable(s, table);
         }
-        if (table instanceof InlineTable it) {
-            checkInlineTable(s, it);
-        }
-        if (table instanceof SqlView sv) {
+        // InlineTables are walked separately in checkTables() — they no longer
+        // extend cwm::Table so this method receives only real Tables/Views.
+        if (table instanceof DialectSqlView sv) {
             checkSqlView(s, sv);
         }
     }
 
-    private void checkSchema(DatabaseSchema schema) {
+    private void checkSchema(Schema schema) {
         if (schema != null && !isEmpty(schema.getName())) {
             try {
                 List<SchemaReference> schemaList = databaseService.getSchemas(databaseMetaData);

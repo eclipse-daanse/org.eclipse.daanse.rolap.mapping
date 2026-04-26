@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.group;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,21 +19,35 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.05", source = Source.EMF, group = "Measure")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private PhysicalCube cube;
+    private Schema databaseSchema;
+
 
     private static final String introBody = """
             In cases where you need a better overview of all measures, want to provide additional context for a `Measure`, or need to organize a list of measures, you can use a `MeasureGroup`.
@@ -54,73 +67,71 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_measureGroup");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure A");
-        measure1.setId("_measure_measureA");
         measure1.setColumn(valueColumn);
 
-        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure2 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure2.setName("Measure B");
-        measure2.setId("_measure_measureB");
         measure2.setColumn(valueColumn);
 
-        SumMeasure measure3 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure3 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure3.setName("Measure 1");
-        measure3.setId("_measure_measure1");
         measure3.setColumn(valueColumn);
 
-        MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup1 = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup1.setName("Group Alphabetic");
         measureGroup1.getMeasures().addAll(List.of(measure1, measure2));
 
-        MeasureGroup measureGroup2 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup2 = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup2.setName("Group Other");
         measureGroup2.getMeasures().addAll(List.of(measure3));
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasureGroupCube");
-        cube.setId("_cube_measureGroupCube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup1);
         cube.getMeasureGroups().add(measureGroup2);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_measureMeasureGroups");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Group");
         catalog.setDescription("Measure group organization");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Measure Group", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(cube, "Grouping Measures", cubeBody, 1, 3, 0, true, 2);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Measure Group", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Grouping Measures", cubeBody, 1, 3, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

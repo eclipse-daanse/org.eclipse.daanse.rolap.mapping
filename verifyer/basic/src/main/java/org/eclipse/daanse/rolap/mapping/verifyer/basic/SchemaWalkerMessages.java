@@ -228,7 +228,7 @@ public class SchemaWalkerMessages {
         "Agg Exclude table %s does not exist in database %s";
     public static final String CUBE_MUST_CONTAIN_MEASURES = "Cube with name %s must contain measures";
     public static final String COULD_NOT_QUERY_COLUMN_DATA_TYPE_ON_SCHEMA_TABLE_COLUMN =
-        "Could not Query ColumnDataType on Schema: %s, Table: %s, Column: %s";
+        "Could not RelationalSource ColumnDataType on Schema: %s, Table: %s, Column: %s";
     public static final String AGGREGATOR_IS_NOT_VALID_FOR_THE_DATA_TYPE_OF_THE_COLUMN =
         "Aggregator %s is not valid for the data type of the column %s";
     public static final String DATABASE_DOES_NOW_ANSWER_WITH_DATA_TYPE_FOR_AGGREGATOR_COLUMN =

@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.timedimension;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,28 +19,53 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.HideMemberIf;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.HideMemberIf;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.09.01", source = Source.EMF, group = "Dimension") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private ExplicitHierarchy hierarchy;
+    private Level levelQuarters;
+    private TimeDimension dimension;
+    private Level levelMonths;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private Level levelDay;
+    private TableSource query;
+    private Level levelYears;
+    private Level levelWeek;
+
 
     private static final String CUBE = "CubeTimeDimension";
     private static final String FACT = "Fact";
@@ -61,7 +85,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
+            The Query is a simple TableSource that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
             """;
 
     private static final String levelYearsBody = """
@@ -105,164 +129,147 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_timeDimension");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column dateKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column dateKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dateKeyColumn.setName("DATE_KEY");
-        dateKeyColumn.setId("_column_fact_dateKey");
-        dateKeyColumn.setType(ColumnType.TIMESTAMP);
+        dateKeyColumn.setType(SqlSimpleTypes.Sql99.timestampType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column yearIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column yearIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         yearIdColumn.setName("YEAR_ID");
-        yearIdColumn.setId("_column_fact_yearId");
-        yearIdColumn.setType(ColumnType.INTEGER);
+        yearIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column qtrIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column qtrIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         qtrIdColumn.setName("QTR_ID");
-        qtrIdColumn.setId("_column_fact_qtrId");
-        qtrIdColumn.setType(ColumnType.VARCHAR);
+        qtrIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column qtrNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column qtrNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         qtrNameColumn.setName("QTR_NAME");
-        qtrNameColumn.setId("_column_fact_qtrName");
-        qtrNameColumn.setType(ColumnType.VARCHAR);
+        qtrNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column monthIdColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column monthIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         monthIdColumn.setName("MONTH_ID");
-        monthIdColumn.setId("_column_fact_monthId");
-        monthIdColumn.setType(ColumnType.VARCHAR);
+        monthIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column monthNameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column monthNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         monthNameColumn.setName("MONTH_NAME");
-        monthNameColumn.setId("_column_fact_monthName");
-        monthNameColumn.setType(ColumnType.VARCHAR);
+        monthNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column weekInMonthColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column weekInMonthColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         weekInMonthColumn.setName("WEEK_IN_MONTH");
-        weekInMonthColumn.setId("_column_fact_weekInMonth");
-        weekInMonthColumn.setType(ColumnType.INTEGER);
+        weekInMonthColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column dayInMonthColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column dayInMonthColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dayInMonthColumn.setName("DAY_IN_MONTH");
-        dayInMonthColumn.setId("_column_fact_dayInMonth");
-        dayInMonthColumn.setType(ColumnType.INTEGER);
+        dayInMonthColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(dateKeyColumn, valueColumn, yearIdColumn, qtrIdColumn, qtrNameColumn, monthIdColumn, monthNameColumn, weekInMonthColumn, dayInMonthColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(dateKeyColumn, valueColumn, yearIdColumn, qtrIdColumn, qtrNameColumn, monthIdColumn, monthNameColumn, weekInMonthColumn, dayInMonthColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure-Sum");
-        measure.setId("_measure_sum");
         measure.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        OrderedColumn qtrIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn qtrIdOrderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         qtrIdOrderedColumn.setColumn(qtrIdColumn);
 
-        OrderedColumn monthIdOrderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        OrderedColumn monthIdOrderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         monthIdOrderedColumn.setColumn(monthIdColumn);
 
-        Level levelYears = RolapMappingFactory.eINSTANCE.createLevel();
+        levelYears = LevelFactory.eINSTANCE.createLevel();
         levelYears.setName("Years");
-        levelYears.setId("_level_years");
         levelYears.setColumn(yearIdColumn);
         levelYears.setType(LevelDefinition.TIME_YEARS);
         levelYears.setUniqueMembers(true);
         levelYears.setHideMemberIf(HideMemberIf.NEVER);
 
-        Level levelQuarters = RolapMappingFactory.eINSTANCE.createLevel();
+        levelQuarters = LevelFactory.eINSTANCE.createLevel();
         levelQuarters.setName("Quarters");
-        levelQuarters.setId("_level_quarters");
         levelQuarters.setColumn(qtrNameColumn);
         levelQuarters.getOrdinalColumns().add(qtrIdOrderedColumn);
         levelQuarters.setType(LevelDefinition.TIME_QUARTERS);
         levelQuarters.setUniqueMembers(false);
         levelQuarters.setHideMemberIf(HideMemberIf.NEVER);
 
-        Level levelMonths = RolapMappingFactory.eINSTANCE.createLevel();
+        levelMonths = LevelFactory.eINSTANCE.createLevel();
         levelMonths.setName("Months");
-        levelMonths.setId("_level_months");
         levelMonths.setColumn(monthNameColumn);
         levelMonths.getOrdinalColumns().add(monthIdOrderedColumn);
         levelMonths.setType(LevelDefinition.TIME_MONTHS);
         levelMonths.setUniqueMembers(false);
         levelMonths.setHideMemberIf(HideMemberIf.NEVER);
 
-        Level levelWeek = RolapMappingFactory.eINSTANCE.createLevel();
+        levelWeek = LevelFactory.eINSTANCE.createLevel();
         levelWeek.setName("Week");
-        levelWeek.setId("_level_week");
         levelWeek.setColumn(weekInMonthColumn);
         levelWeek.setType(LevelDefinition.TIME_WEEKS);
         levelWeek.setUniqueMembers(false);
 
-        Level levelDay = RolapMappingFactory.eINSTANCE.createLevel();
+        levelDay = LevelFactory.eINSTANCE.createLevel();
         levelDay.setName("Day");
-        levelDay.setId("_level_day");
         levelDay.setColumn(dayInMonthColumn);
         levelDay.setType(LevelDefinition.TIME_DAYS);
         levelDay.setUniqueMembers(false);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
-        hierarchy.setId("_hierarchy_time");
         hierarchy.setAllMemberName("All Years");
         hierarchy.setPrimaryKey(dateKeyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().addAll(List.of(levelYears, levelQuarters, levelMonths, levelWeek, levelDay));
 
-        TimeDimension dimension = RolapMappingFactory.eINSTANCE.createTimeDimension();
+        dimension = DimensionFactory.eINSTANCE.createTimeDimension();
         dimension.setName("Time");
-        dimension.setId("_dimension_time");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_time");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Time");
         dimensionConnector.setDimension(dimension);
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_cube_timeDimension");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Dimension Time Dimension");
         catalog.setDescription("Time dimension configuration");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Dimension Time Dimension", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(levelYears, "LevelYears", levelYearsBody, 1, 3, 0, true, 0);
-        document(levelQuarters, "LevelQuarters", levelQuartersBody, 1, 4, 0, true, 0);
-        document(levelMonths, "LevelMonths", levelMonthsBody, 1, 5, 0, true, 0);
-        document(levelWeek, "LevelWeek", levelWeekBody, 1, 6, 0, true, 0);
-        document(levelDay, "LevelDay", levelDayBody, 1, 7, 0, true, 0);
 
-        document(hierarchy, "Hierarchy", hierarchyBody, 1, 8, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 9, 0, true, 0);
-
-        document(cube, "Cube with Time_Dimension", cubeBody, 1, 10, 0, true, 2);
-
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Dimension Time Dimension", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("LevelYears", levelYearsBody, 1, 3, 0, levelYears, 0),
+                        new DocSection("LevelQuarters", levelQuartersBody, 1, 4, 0, levelQuarters, 0),
+                        new DocSection("LevelMonths", levelMonthsBody, 1, 5, 0, levelMonths, 0),
+                        new DocSection("LevelWeek", levelWeekBody, 1, 6, 0, levelWeek, 0),
+                        new DocSection("LevelDay", levelDayBody, 1, 7, 0, levelDay, 0),
+                        new DocSection("Hierarchy", hierarchyBody, 1, 8, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 9, 0, dimension, 0),
+                        new DocSection("Cube with Time_Dimension", cubeBody, 1, 10, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

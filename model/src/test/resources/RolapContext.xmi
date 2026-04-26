@@ -10,10 +10,10 @@
 * SPDX-License-Identifier: EPL-2.0
 **********************************************************************/
 -->
-<roma:Catalog
+<catalog:Catalog
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:roma="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
-    xsi:schemaLocation="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping org.eclipse.daanse.rolap.mapping.ecore">
-</roma:Catalog>
+    xmlns:catalog="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping/catalog"
+    xsi:schemaLocation="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping/catalog org.eclipse.daanse.rolap.mapping.ecore">
+</catalog:Catalog>

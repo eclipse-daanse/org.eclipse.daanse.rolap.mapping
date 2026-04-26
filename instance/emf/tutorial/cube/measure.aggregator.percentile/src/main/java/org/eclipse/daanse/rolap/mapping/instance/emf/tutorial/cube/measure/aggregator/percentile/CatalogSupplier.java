@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.percentile;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,27 +19,45 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
-import org.eclipse.daanse.rolap.mapping.model.PercentType;
-import org.eclipse.daanse.rolap.mapping.model.PercentileMeasure;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.PercentType;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.PercentileMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.07", source = Source.EMF, group = "Measure")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private TableSource query;
+    private OrderedColumn orderedColumn;
+    private Schema databaseSchema;
+
 
     private static final String introBody = """
             Data cubes have percentile measures.
@@ -76,148 +93,134 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_col_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_col");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_tab");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        OrderedColumn orderedColumn = RolapMappingFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumn.setColumn(valueColumn);
 
-        PercentileMeasure measure1 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure1 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure1.setName("Percentile disc 0.25");
-        measure1.setId("_measure1");
         measure1.setPercentType(PercentType.DISC);
         measure1.setPercentile(0.25);
         measure1.setColumn(orderedColumn);
 
-        PercentileMeasure measure2 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure2 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure2.setName("Percentile cont 0.25");
-        measure2.setId("_measure2");
         measure2.setPercentType(PercentType.CONT);
         measure2.setPercentile(0.25);
         measure2.setColumn(orderedColumn);
 
-        PercentileMeasure measure3 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure3 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure3.setName("Percentile disc 0.42");
-        measure3.setId("_measure3");
         measure3.setPercentType(PercentType.DISC);
         measure3.setPercentile(0.42);
         measure3.setColumn(orderedColumn);
 
-        PercentileMeasure measure4 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure4 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure4.setName("Percentile cont 0.42");
-        measure4.setId("_measure4");
         measure4.setPercentType(PercentType.CONT);
         measure4.setPercentile(0.42);
         measure4.setColumn(orderedColumn);
 
-        PercentileMeasure measure5 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure5 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure5.setName("Percentile disc 0.5");
-        measure5.setId("_measure5");
         measure5.setPercentType(PercentType.DISC);
         measure5.setPercentile(0.5);
         measure5.setColumn(orderedColumn);
 
-        PercentileMeasure measure6 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure6 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure6.setName("Percentile cont 0.5");
-        measure6.setId("_measure6");
         measure6.setPercentType(PercentType.CONT);
         measure6.setPercentile(0.5);
         measure6.setColumn(orderedColumn);
 
-        PercentileMeasure measure7 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure7 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure7.setName("Percentile disc 0.75");
-        measure7.setId("_measure7");
         measure7.setPercentType(PercentType.DISC);
         measure7.setPercentile(0.75);
         measure7.setColumn(orderedColumn);
 
-        PercentileMeasure measure8 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure8 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure8.setName("Percentile cont 0.75");
-        measure8.setId("_measure8");
         measure8.setPercentType(PercentType.CONT);
         measure8.setPercentile(0.75);
         measure8.setColumn(orderedColumn);
 
-        PercentileMeasure measure9 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure9 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure9.setName("Percentile disc 1.00");
-        measure9.setId("_measure9");
         measure9.setPercentType(PercentType.DISC);
         measure9.setPercentile(1.00);
         measure9.setColumn(orderedColumn);
 
-        PercentileMeasure measure10 = RolapMappingFactory.eINSTANCE.createPercentileMeasure();
+        PercentileMeasure measure10 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure10.setName("Percentile cont 1.00");
-        measure10.setId("_measure10");
         measure10.setPercentType(PercentType.CONT);
         measure10.setPercentile(1.00);
         measure10.setColumn(orderedColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4, measure5, measure6, measure7, measure8, measure9, measure10));
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        Level level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Level");
-        level.setId("_level");
         level.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("_hierarchy_Hierarchy");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Diml");
-        dimension.setId("_diml");
         dimension.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dc_dim");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("Dim");
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(keyColumn);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setId("_cube");
         cube.setQuery(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Percentile");
         catalog.setDescription("Percentile aggregation functions");
         catalog.getCubes().add(cube);
 
-        document(catalog, "Daanse Tutorial - Measure Aggregator Percentile", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(orderedColumn, "Ordered Column", orderedColumnBody, 1, 2, 0, true, 2);
-        document(cube, "Cube, MeasureGroup and Multiple Percentile Aggragator Measures", cubeBody, 1, 3, 0, true, 2);
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Measure Aggregator Percentile", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Ordered Column", orderedColumnBody, 1, 2, 0, orderedColumn, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

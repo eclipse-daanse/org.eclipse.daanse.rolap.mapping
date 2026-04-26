@@ -14,7 +14,7 @@ package org.eclipse.daanse.rolap.mapping.model.provider;
 
 import java.util.function.Supplier;
 
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 
 public interface CatalogMappingSupplier extends Supplier<Catalog> {
 

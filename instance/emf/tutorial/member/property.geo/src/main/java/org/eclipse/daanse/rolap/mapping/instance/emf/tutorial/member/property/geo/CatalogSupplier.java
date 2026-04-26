@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.geo;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,29 +19,55 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnInternalDataType;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ColumnInternalDataType;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.06.02.02", source = Source.EMF, group = "Member") // NOSONAR
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private MemberProperty propertyLocation;
+    private ExplicitHierarchy hierarchy;
+    private StandardDimension dimension;
+    private Level level;
+    private MemberProperty propertyLongitude;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private PhysicalCube cube;
+    private TableSource queryMember;
+    private JoinSource queryJoin;
+    private MemberProperty propertyLatitude;
+    private MemberProperty propertyDescription;
+    private TableSource queryFact;
+
 
     private static final String introBody = """
             This tutorial demonstrates how to use member properties with geographic data stored across multiple tables.
@@ -120,185 +145,164 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_main");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
         // Fact table columns
-        Column columnFactMemberId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnFactMemberId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFactMemberId.setName("MEMBER_ID");
-        columnFactMemberId.setId("_column_fact_memberId");
-        columnFactMemberId.setType(ColumnType.INTEGER);
+        columnFactMemberId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnFactValue = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnFactValue = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFactValue.setName("VALUE");
-        columnFactValue.setId("_column_fact_value");
-        columnFactValue.setType(ColumnType.DECIMAL);
+        columnFactValue.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        PhysicalTable tableFact = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFact.setName("Fact");
-        tableFact.setId("_table_fact");
-        tableFact.getColumns().addAll(List.of(columnFactMemberId, columnFactValue));
-        databaseSchema.getTables().add(tableFact);
+        tableFact.getFeature().addAll(List.of(columnFactMemberId, columnFactValue));
+        databaseSchema.getOwnedElement().add(tableFact);
 
         // Member table columns
-        Column columnMemberId = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberId.setName("ID");
-        columnMemberId.setId("_column_member_id");
-        columnMemberId.setType(ColumnType.INTEGER);
+        columnMemberId.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column columnMemberName = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberName.setName("NAME");
-        columnMemberName.setId("_column_member_name");
-        columnMemberName.setType(ColumnType.VARCHAR);
+        columnMemberName.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnMemberLocation = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberLocation = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLocation.setName("LOCATION");
-        columnMemberLocation.setId("_column_member_location");
-        columnMemberLocation.setType(ColumnType.VARCHAR);
+        columnMemberLocation.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column columnMemberLatitude = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberLatitude = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLatitude.setName("LATITUDE");
-        columnMemberLatitude.setId("_column_member_latitude");
-        columnMemberLatitude.setType(ColumnType.DECIMAL);
+        columnMemberLatitude.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        Column columnMemberLongitude = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberLongitude = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLongitude.setName("LONGITUDE");
-        columnMemberLongitude.setId("_column_member_longitude");
-        columnMemberLongitude.setType(ColumnType.DECIMAL);
+        columnMemberLongitude.setType(SqlSimpleTypes.decimalType(18, 4));
 
-        Column columnMemberDescription = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column columnMemberDescription = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberDescription.setName("DESCRIPTION");
-        columnMemberDescription.setId("_column_member_description");
-        columnMemberDescription.setType(ColumnType.VARCHAR);
+        columnMemberDescription.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable tableMember = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table tableMember = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableMember.setName("Member");
-        tableMember.setId("_table_member");
-        tableMember.getColumns().addAll(List.of(columnMemberId, columnMemberName, columnMemberLocation,
+        tableMember.getFeature().addAll(List.of(columnMemberId, columnMemberName, columnMemberLocation,
                 columnMemberLatitude, columnMemberLongitude, columnMemberDescription));
-        databaseSchema.getTables().add(tableMember);
+        databaseSchema.getOwnedElement().add(tableMember);
 
         // Queries
-        TableQuery queryFact = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryFact.setId("_query_fact");
+        queryFact = SourceFactory.eINSTANCE.createTableSource();
         queryFact.setTable(tableFact);
 
-        TableQuery queryMember = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryMember.setId("_query_member");
+        queryMember = SourceFactory.eINSTANCE.createTableSource();
         queryMember.setTable(tableMember);
 
         // Join query for hierarchy (Fact -> Member)
-        JoinedQueryElement joinElementFact = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementFact = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementFact.setQuery(queryFact);
         joinElementFact.setKey(columnFactMemberId);
 
-        JoinedQueryElement joinElementMember = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement joinElementMember = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementMember.setQuery(queryMember);
         joinElementMember.setKey(columnMemberId);
 
-        JoinQuery queryJoin = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        queryJoin.setId("_query_factToMember");
+        queryJoin = SourceFactory.eINSTANCE.createJoinSource();
         queryJoin.setLeft(joinElementFact);
         queryJoin.setRight(joinElementMember);
 
         // Member Properties
-        MemberProperty propertyLocation = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        propertyLocation = LevelFactory.eINSTANCE.createMemberProperty();
         propertyLocation.setName("Location");
-        propertyLocation.setId("_memberProperty_location");
         propertyLocation.setColumn(columnMemberLocation);
         propertyLocation.setPropertyType(ColumnInternalDataType.STRING);
 
-        MemberProperty propertyLatitude = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        propertyLatitude = LevelFactory.eINSTANCE.createMemberProperty();
         propertyLatitude.setName("Latitude");
-        propertyLatitude.setId("_memberProperty_latitude");
         propertyLatitude.setColumn(columnMemberLatitude);
         propertyLatitude.setPropertyType(ColumnInternalDataType.NUMERIC);
 
-        MemberProperty propertyLongitude = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        propertyLongitude = LevelFactory.eINSTANCE.createMemberProperty();
         propertyLongitude.setName("Longitude");
-        propertyLongitude.setId("_memberProperty_longitude");
         propertyLongitude.setColumn(columnMemberLongitude);
         propertyLongitude.setPropertyType(ColumnInternalDataType.NUMERIC);
 
-        MemberProperty propertyDescription = RolapMappingFactory.eINSTANCE.createMemberProperty();
+        propertyDescription = LevelFactory.eINSTANCE.createMemberProperty();
         propertyDescription.setName("Description");
-        propertyDescription.setId("_memberProperty_description");
         propertyDescription.setColumn(columnMemberDescription);
         propertyDescription.setPropertyType(ColumnInternalDataType.STRING);
 
         // Level with member properties
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Location");
-        level.setId("_level_location");
         level.setColumn(columnMemberId);
         level.setNameColumn(columnMemberName);
         level.getMemberProperties()
                 .addAll(List.of(propertyLocation, propertyLatitude, propertyLongitude, propertyDescription));
 
         // Hierarchy
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("LocationHierarchy");
-        hierarchy.setId("_hierarchy_location");
         hierarchy.setPrimaryKey(columnMemberId);
         hierarchy.setQuery(queryJoin);
         hierarchy.getLevels().add(level);
 
         // Dimension
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Location");
-        dimension.setId("_dimension_location");
         dimension.getHierarchies().add(hierarchy);
 
         // Measure
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("TotalValue");
-        measure.setId("_measure_totalValue");
         measure.setColumn(columnFactValue);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
         // Dimension Connector
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_location");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setDimension(dimension);
         dimensionConnector.setForeignKey(columnFactMemberId);
 
         // Cube
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Geographic Analysis");
-        cube.setId("_cube_geographic");
         cube.setQuery(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
         // Catalog
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Member Properties with Geographic Data");
         catalog.setDescription("Tutorial showing member properties with location data across multiple tables");
         catalog.getCubes().add(cube);
 
         // Documentation
-        document(catalog, "Daanse Tutorial - Member Properties with Geographic Data", introBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
 
-        document(queryFact, "Query - Fact Table", queryFactBody, 1, 2, 0, true, 2);
-        document(queryMember, "Query - Member Table", queryMemberBody, 1, 3, 0, true, 2);
-        document(queryJoin, "Query - Join Fact to Member", queryJoinBody, 1, 4, 0, true, 2);
 
-        document(propertyLocation, "Member Property - Location (GeoJSON)", memberPropertyLocationBody, 1, 5, 0, true,
-                0);
-        document(propertyLatitude, "Member Property - Latitude", memberPropertyLatitudeBody, 1, 6, 0, true, 0);
-        document(propertyLongitude, "Member Property - Longitude", memberPropertyLongitudeBody, 1, 7, 0, true, 0);
-        document(propertyDescription, "Member Property - Description", memberPropertyDescriptionBody, 1, 8, 0, true, 0);
+            return catalog;
+    }
 
-        document(level, "Level with Member Properties", levelBody, 1, 9, 0, true, 0);
-        document(hierarchy, "Hierarchy with Join Query", hierarchyBody, 1, 10, 0, true, 0);
-        document(dimension, "Dimension", dimensionBody, 1, 11, 0, true, 0);
-
-        document(cube, "Cube with Geographic Analysis", cubeBody, 1, 12, 0, true, 2);
-
-        return catalog;
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Member Properties with Geographic Data", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query - Fact Table", queryFactBody, 1, 2, 0, queryFact, 2),
+                        new DocSection("Query - Member Table", queryMemberBody, 1, 3, 0, queryMember, 2),
+                        new DocSection("Query - Join Fact to Member", queryJoinBody, 1, 4, 0, queryJoin, 2),
+                        new DocSection("Member Property - Location (GeoJSON)", memberPropertyLocationBody, 1, 5, 0, propertyLocation, 0),
+                        new DocSection("Member Property - Latitude", memberPropertyLatitudeBody, 1, 6, 0, propertyLatitude, 0),
+                        new DocSection("Member Property - Longitude", memberPropertyLongitudeBody, 1, 7, 0, propertyLongitude, 0),
+                        new DocSection("Member Property - Description", memberPropertyDescriptionBody, 1, 8, 0, propertyDescription, 0),
+                        new DocSection("Level with Member Properties", levelBody, 1, 9, 0, level, 0),
+                        new DocSection("Hierarchy with Join Query", hierarchyBody, 1, 10, 0, hierarchy, 0),
+                        new DocSection("Dimension", dimensionBody, 1, 11, 0, dimension, 0),
+                        new DocSection("Cube with Geographic Analysis", cubeBody, 1, 12, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
     }
 }

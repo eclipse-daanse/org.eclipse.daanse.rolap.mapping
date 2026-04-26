@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,19 +19,30 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SystemTable;
-import org.eclipse.daanse.rolap.mapping.model.ViewTable;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.View;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.01", source = Source.EMF, group = "Database")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+    private Table table;
+    private View table2;
+    private Table table3;
+
 
     private static final String introBody = """
             There are several Tables Types. The most common are `PhysicalTable`, `ViewTable`, and `SystemTable`. All of this, and thre upcoming table typed can be used to build cubes on.
@@ -52,55 +62,55 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_tableTypes");
+        Schema databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column column = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column.setName("ColumnOne");
-        column.setId("_column_tableOne_columnOne");
-        column.setType(ColumnType.VARCHAR);
+        column.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableOne");
-        table.setId("_table_tableOne");
-        table.getColumns().addAll(List.of(column));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(column));
+        databaseSchema.getOwnedElement().add(table);
 
-        Column column2 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column column2 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column2.setName("ColumnOne");
-        column2.setId("_column_viewOne_columnOne");
-        column2.setType(ColumnType.VARCHAR);
+        column2.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        ViewTable table2 = RolapMappingFactory.eINSTANCE.createViewTable();
+        table2 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createView();
         table2.setName("ViewOne");
-        table2.setId("_table_viewOne");
-        table2.getColumns().addAll(List.of(column2));
-        databaseSchema.getTables().add(table2);
+        table2.getFeature().addAll(List.of(column2));
+        databaseSchema.getOwnedElement().add(table2);
 
-        Column column3 = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column column3 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column3.setName("ColumnOne");
-        column3.setId("_column_systemTableOne_columnOne");
-        column3.setType(ColumnType.VARCHAR);
+        column3.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        SystemTable table3 = RolapMappingFactory.eINSTANCE.createSystemTable();
+        table3 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table3.setName("TableOne");
-        table3.setId("_table_systemTableOne");
-        table3.getColumns().addAll(List.of(column3));
-        databaseSchema.getTables().add(table3);
+        table3.getFeature().addAll(List.of(column3));
+        databaseSchema.getOwnedElement().add(table3);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Table");
         catalog.setDescription("Physical table definitions and types");
         catalog.setId("_catalog_databaseTable");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Database Table", introBody, 1, 0, 0, false, 0);
-        document(table, "Physical Table", physicaltableBody, 1, 1, 0, true, 0);
-        document(table2, "View Table", viewtableBody, 1, 2, 0, true, 0);
-        document(table3, "System Table", systenmtableBody, 1, 3, 0, true, 0);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Database Table", introBody, 1, 0, 0, null, 0),
+                        new DocSection("Physical Table", physicaltableBody, 1, 1, 0, table, 0),
+                        new DocSection("View Table", viewtableBody, 1, 2, 0, table2, 0),
+                        new DocSection("System Table", systenmtableBody, 1, 3, 0, table3, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

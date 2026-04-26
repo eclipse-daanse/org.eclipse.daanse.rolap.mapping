@@ -37,14 +37,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckPackage;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
 import org.eclipse.daanse.olap.check.runtime.api.OlapCheckSuiteSupplier;
-import org.eclipse.daanse.rolap.mapping.model.AbstractElement;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Documentation;
-import org.eclipse.daanse.rolap.mapping.model.DocumentedElement;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -76,6 +77,20 @@ import org.osgi.test.junit5.cm.ConfigurationExtension;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
 
+import org.eclipse.daanse.rolap.mapping.model.access.common.CommonPackage;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.OlapPackage;
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogPackage;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourcePackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubePackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.ActionPackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubePackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasurePackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionPackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyPackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelPackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatPackage;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionPackage;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 @ExtendWith(ConfigurationExtension.class)
@@ -174,7 +189,7 @@ public class ResourceSetWriteReadTest {
 
     }
 
-    Map<Documentation, EObject> map = new HashMap<Documentation, EObject>();
+    Map<TutorialDescriptionSupplier, TutorialDescription> tutorialDescriptions = new HashMap<>();
 
     private void serializeCatalog(ResourceSet resourceSet, StringBuilder parentReadme,
             CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos, OlapCheckSuiteSupplier checkSuiteSupplier) throws IOException {
@@ -242,18 +257,26 @@ public class ResourceSetWriteReadTest {
 
         List<EObject> sortedList = set.stream().sorted(comparator).toList();
 
-        List<Documentation> docs = lookupDocumentationms(sortedList);
+        List<DocSection> docs = lookupDocSections(catalogMappingSupplier);
+
+        // Deduplicate SQLSimpleType instances with identical semantics (same
+        // name + length + precision + scale). CatalogSupplier code calls
+        // SqlSimpleTypes.Sql99.varcharType() once per column, so many freshly-built
+        // instances describe e.g. VARCHAR(255) redundantly. Collapse them to a
+        // single shared instance per catalog before serialization.
+        sortedList = deduplicateSqlTypes(sortedList);
 
         for (EObject eObject : sortedList) {
-
             if (eObject.eContainer() == null) {
-
-                if (!(eObject instanceof Documentation)) {
-
-                    resourceCatalog.getContents().add(eObject);
-                }
+                resourceCatalog.getContents().add(eObject);
             }
-
+        }
+        // Assign human-readable XMI IDs instead of EMF's default positional
+        // fragment paths (e.g. /21/@ownedElement.18/@feature.0). IDs are derived
+        // from the element type + name so cross-references render as
+        // `xmi:id="_Table_TableOne"` / `type="_SQLSimpleType_VARCHAR_255"`.
+        if (resourceCatalog instanceof org.eclipse.emf.ecore.xmi.XMIResource xmi) {
+            assignXmiIds(xmi, sortedList);
         }
         Map<Object, Object> options = new HashMap<>();
         options.put(XMLResource.OPTION_ENCODING, "UTF-8");
@@ -273,19 +296,19 @@ public class ResourceSetWriteReadTest {
 
         Files.createDirectories(zipDir);
 
-        for (Documentation documentation : docs) {
+        for (DocSection documentation : docs) {
 
-            String title = documentation.getTitle();
+            String title = documentation.title();
 
-            String body = documentation.getValue();
+            String body = documentation.body();
 
-            int imaj = documentation.getOrderMajor();
-            int imin = documentation.getOrderMinor();
-            int imic = documentation.getOrderMicro();
+            int imaj = documentation.orderMajor();
+            int imin = documentation.orderMinor();
+            int imic = documentation.orderMicro();
 
-            boolean schowCont = documentation.isShowContainer();
+            boolean schowCont = documentation.elementRef() != null;
 
-            int contain = documentation.getShowContainments();
+            int contain = documentation.showContainmentDepth();
 
             if (title != null) {
                 sbReadme.append("#");
@@ -312,16 +335,90 @@ public class ResourceSetWriteReadTest {
 
             if (schowCont) {
 
-                EObject eoc = EcoreUtil.copy(map.get(documentation));
-
+                EObject eoc = EcoreUtil.copy(documentation.elementRef());
                 removeContentsOfLevel(eoc, contain);
 
-                URI uro = URI.createFileURI("dummy.xml");
+                // Pull cross-referenced "context leaves" (Columns, Tables,
+                // Sources, Dimensions, Hierarchies, Levels, SQLSimpleTypes)
+                // into the snippet so readers see the referenced definitions
+                // inline, not just href="…" stubs. Fixed-point iteration so
+                // e.g. PhysicalCube -> TableSource -> Table -> Column -> Type
+                // all get pulled along.
+                Map<EObject, EObject> pulled = new java.util.IdentityHashMap<>();
+                Set<EObject> pulledCopies = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+                for (int pass = 0; pass < 5; pass++) {
+                    List<EObject> frontier = new ArrayList<>();
+                    frontier.add(eoc);
+                    for (EObject pc : pulled.values()) frontier.add(pc);
+                    boolean added = false;
+                    for (EObject node : frontier) {
+                        List<EObject> walk = new ArrayList<>();
+                        walk.add(node);
+                        for (TreeIterator<EObject> ni = node.eAllContents(); ni.hasNext();) walk.add(ni.next());
+                        for (EObject n : walk) {
+                            for (org.eclipse.emf.ecore.EReference ref : n.eClass().getEAllReferences()) {
+                                if (ref.isContainment() || ref.isContainer()) continue;
+                                if (ref.isMany()) {
+                                    @SuppressWarnings("unchecked")
+                                    List<EObject> targets = (List<EObject>) n.eGet(ref);
+                                    for (int i = 0; i < targets.size(); i++) {
+                                        EObject t = targets.get(i);
+                                        EObject swap = pullContextLeaf(t, pulled, pulledCopies);
+                                        if (swap != null && swap != t) {
+                                            targets.set(i, swap);
+                                            added = true;
+                                        }
+                                    }
+                                } else {
+                                    Object v = n.eGet(ref);
+                                    if (v instanceof EObject t) {
+                                        EObject swap = pullContextLeaf(t, pulled, pulledCopies);
+                                        if (swap != null && swap != t) {
+                                            n.eSet(ref, swap);
+                                            added = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!added) break;
+                }
+
+                URI uro = URI.createFileURI("dummy.xmi");
 
                 Resource r = resourceSet.createResource(uro);
                 r.getContents().add(eoc);
+                for (EObject cpy : pulled.values()) {
+                    if (cpy.eContainer() == null) {
+                        r.getContents().add(cpy);
+                    }
+                }
+                if (r instanceof org.eclipse.emf.ecore.xmi.XMIResource xmir) {
+                    List<EObject> allIn = new ArrayList<>();
+                    for (EObject root : r.getContents()) {
+                        allIn.add(root);
+                        TreeIterator<EObject> ait = root.eAllContents();
+                        while (ait.hasNext()) allIn.add(ait.next());
+                    }
+                    assignXmiIds(xmir, allIn);
+                }
+                // Drop cross-refs pointing to detached objects (from pruning),
+                // otherwise EMF throws "not contained in a resource" on save.
+                Map<Object, Object> snippetOpts = new HashMap<>();
+                snippetOpts.put(XMLResource.OPTION_PROCESS_DANGLING_HREF,
+                        XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
                 ByteArrayOutputStream baosDummy = new ByteArrayOutputStream();
-                r.save(baosDummy, null);
+                try {
+                    r.save(baosDummy, snippetOpts);
+                } catch (Exception snippetEx) {
+                    resourceSet.getResources().remove(r);
+                    sbReadme.append("*<small>(Snippet not renderable: ")
+                            .append(snippetEx.getClass().getSimpleName())
+                            .append(")</small>*\n\n");
+                    continue;
+                }
+                resourceSet.getResources().remove(r);
 
                 String cleaned = baosDummy.toString();
                 cleaned = cleaned.replace("catalog.xmi#", "");
@@ -330,24 +427,28 @@ public class ResourceSetWriteReadTest {
                 cleaned = cleaned.replace("xmlns:roma=\"https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping\"",
                         "");
 
-                cleaned = cleaned.replace("roma:TableQuery #", "#");
-                cleaned = cleaned.replace("roma:PhysicalTable #", "#");
-                cleaned = cleaned.replace("roma:PhysicalColumn #", "#");
-                cleaned = cleaned.replace("roma:JoinQuery #", "#");
+                cleaned = cleaned.replace("roma:TableSource #", "#");
+                cleaned = cleaned.replace("roma:JoinSource #", "#");
+                cleaned = cleaned.replace("roma:InlineTableSource #", "#");
+                cleaned = cleaned.replace("roma:SqlSelectSource #", "#");
                 cleaned = cleaned.replace("roma:StandardDimension #", "#");
                 cleaned = cleaned.replace("roma:Measure #", "#");
+                // CWM relational types (prefix already shortened above)
+                cleaned = cleaned.replace("cwmRel:Table #", "#");
+                cleaned = cleaned.replace("cwmRel:View #", "#");
+                cleaned = cleaned.replace("cwmRel:Column #", "#");
+                cleaned = cleaned.replace("cwmRel:Schema #", "#");
 
-                cleaned = cleaned.replace(" column=\"roma:PhysicalColumn ", " column=\"");
-                cleaned = cleaned.replace(" table=\"roma:PhysicalTable ", " table=\"");
-                cleaned = cleaned.replace(" primaryKey=\"roma:PhysicalColumn ", " primaryKey=\"");
-                cleaned = cleaned.replace(" query=\"roma:TableQuery ", " query=\"");
-                cleaned = cleaned.replace(" query=\"roma:JoinQuery ", " query=\"");
-                cleaned = cleaned.replace(" key=\"roma:PhysicalColumn ", " key=\"");
-                cleaned = cleaned.replace(" nameColumn=\"roma:PhysicalColumn ", " nameColumn=\"");
-
-                cleaned = cleaned.replace(" query=\"roma:JoinQuery ", " query=\"");
+                cleaned = cleaned.replace(" column=\"cwmRel:Column ", " column=\"");
+                cleaned = cleaned.replace(" table=\"cwmRel:Table ", " table=\"");
+                cleaned = cleaned.replace(" primaryKey=\"cwmRel:Column ", " primaryKey=\"");
+                cleaned = cleaned.replace(" source=\"roma:TableSource ", " source=\"");
+                cleaned = cleaned.replace(" source=\"roma:JoinSource ", " source=\"");
+                cleaned = cleaned.replace(" key=\"cwmRel:Column ", " key=\"");
+                cleaned = cleaned.replace(" nameColumn=\"cwmRel:Column ", " nameColumn=\"");
 
                 cleaned = cleaned.replace("xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"", "");
+                cleaned = cleaned.replace("dummy.xmi#", "");
                 cleaned = cleaned.replace("dummy.xml#", "");
                 cleaned = cleaned.replace("\"#", "\"");
                 cleaned = cleaned.replace(" #", " ");
@@ -488,56 +589,237 @@ public class ResourceSetWriteReadTest {
         }
     }
 
-    private List<Documentation> lookupDocumentationms(List<EObject> sortedList) {
+    /**
+     * Returns the tutorial's narrative sections. Looks the supplier up as
+     * TutorialDescriptionSupplier (if it also implements that interface).
+     * Returns an empty list if the supplier doesn't expose a description.
+     */
+    private List<DocSection> lookupDocSections(CatalogMappingSupplier catalogMappingSupplier) {
+        if (!(catalogMappingSupplier instanceof TutorialDescriptionSupplier tds)) {
+            return List.of();
+        }
+        TutorialDescription description = tds.describe();
+        tutorialDescriptions.put(tds, description);
+        List<DocSection> docs = new ArrayList<>(description.sections());
+        docs.sort(Comparator
+                .comparingInt(DocSection::orderMajor)
+                .thenComparingInt(DocSection::orderMinor)
+                .thenComparingInt(DocSection::orderMicro));
+        return docs;
+    }
 
-        List<Documentation> docs = new ArrayList<Documentation>();
-
-        for (EObject eo : sortedList) {
-            if (eo instanceof DocumentedElement de) {
-                for (Documentation documentation : de.getDocumentations()) {
-                    map.put(documentation, de);
-                    docs.add(documentation);
-
-                }
-                de.getDocumentations().clear();
+    /**
+     * Assigns stable, human-readable XMI IDs to elements that are serialized as
+     * root entries of the Resource — and to their contained features — so that
+     * the XMI's {@code xmi:id} / cross-reference {@code href} values are
+     * readable (e.g. {@code _Table_Sales}) instead of EMF's default positional
+     * fragment paths (e.g. {@code /21/@ownedElement.18}).
+     */
+    private void assignXmiIds(org.eclipse.emf.ecore.xmi.XMIResource xmi, List<EObject> elements) {
+        Map<String, Integer> collisions = new HashMap<>();
+        for (EObject eo : elements) {
+            String id = idFor(eo);
+            if (id == null) {
+                continue;
             }
-            List<EObject> list = new ArrayList<EObject>();
+            Integer n = collisions.get(id);
+            if (n != null) {
+                n = n + 1;
+                collisions.put(id, n);
+                id = id + "_" + n;
+            } else {
+                collisions.put(id, 0);
+            }
+            xmi.setID(eo, id);
+        }
+    }
 
-            eo.eAllContents().forEachRemaining(list::add);
-            for (EObject obj : list) {
-                if (obj instanceof AbstractElement ae) {
-                    for (Documentation documentation : ae.getDocumentations()) {
-                        map.put(documentation, ae);
-                        docs.add(documentation);
+    /**
+     * Classes whose instances are small enough to inline into a snippet when
+     * cross-referenced from the displayed element. The returned copy (map of
+     * original to its pulled copy) is what callers should rewire the ref to.
+     */
+    // Only types whose whole tree can be inlined with reasonable size.
+    // Column is intentionally excluded — Columns are inlined via their
+    // containing Table; pulling Column directly yields disconnected duplicates.
+    private static final Set<String> CONTEXT_LEAF_TYPES = Set.of(
+            "Table", "View", "SQLSimpleType",
+            "InlineTable", "DialectSqlView",
+            "TableSource", "SqlSelectSource", "JoinSource", "InlineTableSource",
+            "StandardDimension", "TimeDimension",
+            "ExplicitHierarchy", "ParentChildHierarchy",
+            "Level");
+
+    /** Returns a copy of {@code orig} (creating one if needed) when the type is
+     *  a "context leaf" worth inlining; otherwise returns null. Also records
+     *  contained-descendant original->copy pairs in {@code pulled} so later
+     *  cross-refs to those descendants resolve to the pulled copy. Returns
+     *  {@code orig} unchanged if it's already a pulled copy (prevents
+     *  copy-of-copy duplicates in the fixed-point loop). */
+    private EObject pullContextLeaf(EObject orig, Map<EObject, EObject> pulled,
+            Set<EObject> copiesSet) {
+        if (orig == null) return null;
+        if (copiesSet.contains(orig)) return orig;
+        EObject existing = pulled.get(orig);
+        if (existing != null) return existing;
+        if (!CONTEXT_LEAF_TYPES.contains(orig.eClass().getName())) return null;
+        EcoreUtil.Copier copier = new EcoreUtil.Copier();
+        EObject copy = copier.copy(orig);
+        copier.copyReferences();
+        for (Map.Entry<EObject, EObject> e : copier.entrySet()) {
+            pulled.putIfAbsent(e.getKey(), e.getValue());
+            copiesSet.add(e.getValue());
+        }
+        return copy;
+    }
+
+    /** Build a short human-readable, lowercase id for an EObject. */
+    private String idFor(EObject eo) {
+        // Prefer an explicit Daanse id attribute if present and non-blank.
+        org.eclipse.emf.ecore.EStructuralFeature idFeat = eo.eClass().getEStructuralFeature("id");
+        if (idFeat != null) {
+            Object idVal = eo.eGet(idFeat);
+            if (idVal instanceof String s && !s.isBlank()) {
+                return (s.startsWith("_") ? s : "_" + s).toLowerCase();
+            }
+        }
+        String typeName = eo.eClass().getName();
+        org.eclipse.emf.ecore.EStructuralFeature nameFeat = eo.eClass().getEStructuralFeature("name");
+        Object nameVal = nameFeat != null ? eo.eGet(nameFeat) : null;
+        String suffix;
+        if (nameVal instanceof String s && !s.isBlank()) {
+            suffix = s;
+        } else {
+            suffix = anonymousSuffix(eo);
+        }
+        if (suffix == null || suffix.isBlank()) {
+            return ("_" + typeName).toLowerCase();
+        }
+        // For Columns, prefix the suffix with the containing Table's (and its
+        // Schema's) name so the id is unique across the catalog without
+        // needing numeric collision suffixes: `_column_<schema>_<table>_<col>`.
+        if ("Column".equals(typeName)) {
+            suffix = qualifyWithContainers(eo, suffix);
+        }
+        // Strip the verbose "Daanse Tutorial - " / "Group - " prefix that
+        // every tutorial catalog carries in its name, to keep xmi:id short.
+        suffix = suffix.replaceFirst("(?i)^daanse\\s*tutorial\\s*-\\s*", "");
+        suffix = suffix.replaceAll("[^A-Za-z0-9_]", "_");
+        suffix = suffix.replaceAll("_+", "_").replaceAll("^_|_$", "");
+        return ("_" + typeName + "_" + suffix).toLowerCase();
+    }
+
+    /** Prepends {@code <schema>_<table>_} (skipping anonymous containers)
+     *  to the already-computed {@code suffix}, walking up the Column's
+     *  containment chain until a Catalog is reached. */
+    private String qualifyWithContainers(EObject eo, String suffix) {
+        List<String> parts = new ArrayList<>();
+        EObject ctr = eo.eContainer();
+        while (ctr != null && !"Catalog".equals(ctr.eClass().getName())) {
+            EStructuralFeature nf = ctr.eClass().getEStructuralFeature("name");
+            if (nf != null && ctr.eGet(nf) instanceof String s && !s.isBlank()) {
+                parts.add(0, s);
+            }
+            ctr = ctr.eContainer();
+        }
+        if (parts.isEmpty()) return suffix;
+        return String.join("_", parts) + "_" + suffix;
+    }
+
+    /**
+     * Derives a readable id suffix for an element without a `name`. Prefers a
+     * meaningful cross-reference (e.g. a *Source's `table` → table name, a
+     * DimensionConnector's `dimension` → dimension name), otherwise returns
+     * null so the caller uses just the type name and lets the collision
+     * handler disambiguate with a short numeric suffix (_schema, _schema_1…).
+     */
+    private String anonymousSuffix(EObject eo) {
+        // Known-interesting name-like string attributes first.
+        for (String attr : new String[]{"overrideDimensionName", "uniqueName", "title", "label"}) {
+            EStructuralFeature f = eo.eClass().getEStructuralFeature(attr);
+            if (f != null && eo.eGet(f) instanceof String s && !s.isBlank()) {
+                return s;
+            }
+        }
+        // Known-interesting single-valued references, in priority order.
+        for (String refName : new String[]{
+                "table", "view", "dimension", "hierarchy", "cube",
+                "primaryKey", "foreignKey", "column", "key", "query"}) {
+            EStructuralFeature refFeat = eo.eClass().getEStructuralFeature(refName);
+            if (refFeat instanceof org.eclipse.emf.ecore.EReference ref
+                    && !ref.isMany() && !ref.isContainment()) {
+                Object v = eo.eGet(ref);
+                if (v instanceof EObject target) {
+                    EStructuralFeature tnf = target.eClass().getEStructuralFeature("name");
+                    if (tnf != null && target.eGet(tnf) instanceof String s && !s.isBlank()) {
+                        return s;
                     }
-                    ae.getDocumentations().clear();
                 }
             }
         }
+        return null;
+    }
 
-        docs.sort(new Comparator<Documentation>() {
-
-            @Override
-            public int compare(Documentation o1, Documentation o2) {
-
-                int imaj = o1.getOrderMajor() - o2.getOrderMajor();
-                if (imaj != 0) {
-                    return imaj;
-                }
-
-                int imin = o1.getOrderMinor() - o2.getOrderMinor();
-                if (imin != 0) {
-                    return imin;
-                }
-
-                int imic = o1.getOrderMicro() - o2.getOrderMicro();
-                if (imic != 0) {
-                    return imic;
-                }
-                return 0;
+    /**
+     * Collapses semantically-identical {@link org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType}
+     * instances in {@code sortedList} into a single shared instance per type
+     * signature (name + length + precision + scale + radix). All columns that
+     * referenced a duplicate are rewired to the canonical instance. The
+     * returned list has the redundant SQLSimpleTypes removed.
+     */
+    private List<EObject> deduplicateSqlTypes(List<EObject> sortedList) {
+        Map<String, org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType> canonical = new HashMap<>();
+        Map<org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType,
+                org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType> remap = new HashMap<>();
+        for (EObject eo : sortedList) {
+            if (!(eo instanceof org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType t)) {
+                continue;
             }
-        });
-        return docs;
+            String key = t.getName() + "|" + t.getCharacterMaximumLength() + "|"
+                    + t.getNumericPrecision() + "|" + t.getNumericScale() + "|"
+                    + t.getNumericPrecisionRadix() + "|" + t.getDateTimePrecision();
+            org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType c = canonical.get(key);
+            if (c == null) {
+                canonical.put(key, t);
+            } else if (c != t) {
+                remap.put(t, c);
+            }
+        }
+        if (remap.isEmpty()) {
+            return sortedList;
+        }
+        // Rewire Column.type (and any other cross-refs) to the canonical instance.
+        for (EObject eo : sortedList) {
+            for (org.eclipse.emf.ecore.EReference ref : eo.eClass().getEAllReferences()) {
+                if (ref.isContainment() || ref.isContainer()) {
+                    continue;
+                }
+                if (ref.isMany()) {
+                    @SuppressWarnings("unchecked")
+                    java.util.List<EObject> refList = (java.util.List<EObject>) eo.eGet(ref);
+                    for (int i = 0; i < refList.size(); i++) {
+                        EObject target = refList.get(i);
+                        if (target instanceof org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType tt
+                                && remap.containsKey(tt)) {
+                            refList.set(i, remap.get(tt));
+                        }
+                    }
+                } else {
+                    Object target = eo.eGet(ref);
+                    if (target instanceof org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLSimpleType tt
+                            && remap.containsKey(tt)) {
+                        eo.eSet(ref, remap.get(tt));
+                    }
+                }
+            }
+        }
+        List<EObject> filtered = new ArrayList<>(sortedList.size() - remap.size());
+        for (EObject eo : sortedList) {
+            if (!remap.containsKey(eo)) {
+                filtered.add(eo);
+            }
+        }
+        return filtered;
     }
 
     private Set<EObject> allRef(Set<EObject> set, EObject eObject) {
@@ -575,66 +857,68 @@ public class ResourceSetWriteReadTest {
         Map<EClass, Integer> map = new HashMap<EClass, Integer>();
 
         EObjectComparator() {
-            add(RolapMappingPackage.Literals.CATALOG);
-            add(RolapMappingPackage.Literals.DATABASE_CATALOG);
+            add(CatalogPackage.Literals.CATALOG);
+            add(CatalogPackage.Literals.DATABASE_CATALOG);
 
-            add(RolapMappingPackage.Literals.DATABASE_SCHEMA);
+            // CWM relational types
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.SCHEMA);
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.TABLE);
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.VIEW);
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.COLUMN);
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.FOREIGN_KEY);
+            add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.PRIMARY_KEY);
 
-            add(RolapMappingPackage.Literals.PHYSICAL_TABLE);
-            add(RolapMappingPackage.Literals.VIEW_TABLE);
-            add(RolapMappingPackage.Literals.SYSTEM_TABLE);
-            add(RolapMappingPackage.Literals.SQL_VIEW);
-            add(RolapMappingPackage.Literals.COLUMN);
-            add(RolapMappingPackage.Literals.PHYSICAL_COLUMN);
+            // Daanse extensions
+            add(org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalPackage.Literals.DIALECT_SQL_VIEW);
+            add(org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalPackage.Literals.EXPRESSION_COLUMN);
+            add(org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalPackage.Literals.INLINE_TABLE);
+            add(SourcePackage.Literals.SQL_STATEMENT);
 
-            add(RolapMappingPackage.Literals.SQL_EXPRESSION_COLUMN);
-            add(RolapMappingPackage.Literals.SQL_SELECT_QUERY);
-            add(RolapMappingPackage.Literals.SQL_STATEMENT);
+            add(SourcePackage.Literals.TABLE_SOURCE);
+            add(SourcePackage.Literals.INLINE_TABLE_SOURCE);
+            add(SourcePackage.Literals.JOIN_SOURCE);
+            add(SourcePackage.Literals.SQL_SELECT_SOURCE);
+            add(SourcePackage.Literals.JOINED_QUERY_ELEMENT);
 
-            add(RolapMappingPackage.Literals.TABLE_QUERY);
-            add(RolapMappingPackage.Literals.INLINE_TABLE_QUERY);
-            add(RolapMappingPackage.Literals.JOIN_QUERY);
-            add(RolapMappingPackage.Literals.JOINED_QUERY_ELEMENT);
+            add(LevelPackage.Literals.CALCULATED_MEMBER);
 
-            add(RolapMappingPackage.Literals.CALCULATED_MEMBER);
+            add(LevelPackage.Literals.LEVEL);
+            add(HierarchyPackage.Literals.HIERARCHY);
+            add(HierarchyPackage.Literals.EXPLICIT_HIERARCHY);
+            add(HierarchyPackage.Literals.PARENT_CHILD_HIERARCHY);
 
-            add(RolapMappingPackage.Literals.LEVEL);
-            add(RolapMappingPackage.Literals.HIERARCHY);
-            add(RolapMappingPackage.Literals.EXPLICIT_HIERARCHY);
-            add(RolapMappingPackage.Literals.PARENT_CHILD_HIERARCHY);
+            add(DimensionPackage.Literals.STANDARD_DIMENSION);
+            add(DimensionPackage.Literals.TIME_DIMENSION);
 
-            add(RolapMappingPackage.Literals.STANDARD_DIMENSION);
-            add(RolapMappingPackage.Literals.TIME_DIMENSION);
+            add(DimensionPackage.Literals.NAMED_SET);
 
-            add(RolapMappingPackage.Literals.NAMED_SET);
+            add(ActionPackage.Literals.ACTION);
 
-            add(RolapMappingPackage.Literals.ACTION);
+            add(CubePackage.Literals.KPI);
+            add(MeasurePackage.Literals.SUM_MEASURE);
+            add(MeasurePackage.Literals.MIN_MEASURE);
+            add(MeasurePackage.Literals.MAX_MEASURE);
+            add(MeasurePackage.Literals.AVG_MEASURE);
+            add(MeasurePackage.Literals.COUNT_MEASURE);
+            add(MeasurePackage.Literals.NONE_MEASURE);
+            add(MeasurePackage.Literals.CUSTOM_MEASURE);
+            add(MeasurePackage.Literals.TEXT_AGG_MEASURE);
+            add(CubePackage.Literals.MEASURE_GROUP);
 
-            add(RolapMappingPackage.Literals.KPI);
-            add(RolapMappingPackage.Literals.SUM_MEASURE);
-            add(RolapMappingPackage.Literals.MIN_MEASURE);
-            add(RolapMappingPackage.Literals.MAX_MEASURE);
-            add(RolapMappingPackage.Literals.AVG_MEASURE);
-            add(RolapMappingPackage.Literals.COUNT_MEASURE);
-            add(RolapMappingPackage.Literals.NONE_MEASURE);
-            add(RolapMappingPackage.Literals.CUSTOM_MEASURE);
-            add(RolapMappingPackage.Literals.TEXT_AGG_MEASURE);
-            add(RolapMappingPackage.Literals.MEASURE_GROUP);
+            add(CubePackage.Literals.PHYSICAL_CUBE);
 
-            add(RolapMappingPackage.Literals.PHYSICAL_CUBE);
+            add(CubePackage.Literals.CUBE_CONNECTOR);
 
-            add(RolapMappingPackage.Literals.CUBE_CONNECTOR);
+            add(CubePackage.Literals.VIRTUAL_CUBE);
 
-            add(RolapMappingPackage.Literals.VIRTUAL_CUBE);
+            add(CommonPackage.Literals.ACCESS_ROLE);
+            add(CommonPackage.Literals.ACCESS_CATALOG_GRANT);
+            add(OlapPackage.Literals.ACCESS_CUBE_GRANT);
+            add(OlapPackage.Literals.ACCESS_DIMENSION_GRANT);
+            add(OlapPackage.Literals.ACCESS_HIERARCHY_GRANT);
+            add(OlapPackage.Literals.ACCESS_MEMBER_GRANT);
 
-            add(RolapMappingPackage.Literals.ACCESS_ROLE);
-            add(RolapMappingPackage.Literals.ACCESS_CATALOG_GRANT);
-            add(RolapMappingPackage.Literals.ACCESS_CUBE_GRANT);
-            add(RolapMappingPackage.Literals.ACCESS_DIMENSION_GRANT);
-            add(RolapMappingPackage.Literals.ACCESS_HIERARCHY_GRANT);
-            add(RolapMappingPackage.Literals.ACCESS_MEMBER_GRANT);
-
-            add(RolapMappingPackage.Literals.CELL_FORMATTER);
+            add(FormatPackage.Literals.CELL_FORMATTER);
 
         }
 

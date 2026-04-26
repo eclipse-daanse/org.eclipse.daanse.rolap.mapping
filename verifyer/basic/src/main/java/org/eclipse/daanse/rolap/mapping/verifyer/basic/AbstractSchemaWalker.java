@@ -20,71 +20,78 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessDimensionGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessMemberGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessRole;
-import org.eclipse.daanse.rolap.mapping.model.Action;
-import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationExclude;
-import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevelProperty;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationPattern;
-import org.eclipse.daanse.rolap.mapping.model.AggregationTable;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.cwm.util.resource.relational.ColumnSets;
+import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
+import org.eclipse.daanse.cwm.util.resource.relational.RowSets;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessDimensionGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessHierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessMemberGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.Action;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationExclude;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevelProperty;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
-import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.CellFormatter;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.Cube;
-import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.Dimension;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
-import org.eclipse.daanse.rolap.mapping.model.InlineTable;
-import org.eclipse.daanse.rolap.mapping.model.InlineTableQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Kpi;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.MemberPropertyFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberReaderParameter;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
-import org.eclipse.daanse.rolap.mapping.model.OrderedColumn;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.CellFormatter;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Cube;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeConnector;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAction;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.InlineTable;
+import org.eclipse.daanse.rolap.mapping.model.database.source.InlineTableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberPropertyFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberReaderParameter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.OrderedColumn;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.Query;
-import org.eclipse.daanse.rolap.mapping.model.Row;
-import org.eclipse.daanse.rolap.mapping.model.RowValue;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionBaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionColumn;
-import org.eclipse.daanse.rolap.mapping.model.SqlSelectQuery;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.SqlView;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.database.source.RelationalSource;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Row;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RowSet;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.DataSlot;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.InstanceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SQLExpressionBaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.ExpressionColumn;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlSelectSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.DialectSqlView;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.model.Translation;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
-import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 
 public abstract class AbstractSchemaWalker {
@@ -210,7 +217,7 @@ public abstract class AbstractSchemaWalker {
         // empty
     }
 
-    protected void checkExpressionView(SQLExpressionColumn measureExpression) {
+    protected void checkExpressionView(ExpressionColumn measureExpression) {
         if (measureExpression != null) {
             checkSqlList(measureExpression.getSqls());
         }
@@ -258,7 +265,7 @@ public abstract class AbstractSchemaWalker {
                 if (pch.getLevel() != null) {
                     checkLevel(pch.getLevel(), hierarchy, cubeDimension, cube);
                 }
-                if (pch.getParentColumn() instanceof SQLExpressionColumn sec) {
+                if (pch.getParentColumn() instanceof ExpressionColumn sec) {
                     checkSqlExpression(sec);
 
                 }
@@ -273,7 +280,7 @@ public abstract class AbstractSchemaWalker {
         // empty
     }
 
-    protected void checkJoinQuery(JoinQuery join) {
+    protected void checkJoinQuery(JoinSource join) {
         if (join != null) {
             checkJoinedQueryElement(join.getLeft());
             checkJoinedQueryElement(join.getRight());
@@ -286,36 +293,36 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkQuery(Query relationOrJoin) {
+    protected void checkQuery(RelationalSource relationOrJoin) {
         if (relationOrJoin != null) {
-            if (relationOrJoin instanceof InlineTableQuery inlineTable) {
+            if (relationOrJoin instanceof InlineTableSource inlineTable) {
                 checkInlineTableQuery(inlineTable);
             }
-            if (relationOrJoin instanceof JoinQuery join) {
+            if (relationOrJoin instanceof JoinSource join) {
                 checkJoinQuery(join);
             }
-            if (relationOrJoin instanceof TableQuery table) {
+            if (relationOrJoin instanceof TableSource table) {
                 checkTable(table);
             }
-            if (relationOrJoin instanceof SqlSelectQuery view) {
+            if (relationOrJoin instanceof SqlSelectSource view) {
                 checkSqlSelectQuery(view);
             }
         }
     }
 
-    protected void checkSqlSelectQuery(SqlSelectQuery relationOrJoin) {
+    protected void checkSqlSelectQuery(SqlSelectSource relationOrJoin) {
         if (relationOrJoin != null) {
             checkSqlView(relationOrJoin.getSql());
         }
     }
 
-    protected void checkSqlView(SqlView sql) {
+    protected void checkSqlView(DialectSqlView sql) {
         if (sql != null) {
 
         }
     }
 
-    protected void checkInlineTableQuery(InlineTableQuery relationOrJoin) {
+    protected void checkInlineTableQuery(InlineTableSource relationOrJoin) {
         if (relationOrJoin != null) {
             checkInlineTable(relationOrJoin.getTable());
         }
@@ -323,8 +330,10 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkInlineTable(InlineTable table) {
         if (table != null) {
-            checkInlineTableRows(table.getRows());
-            checkInlineTableColumns(table.getColumns());
+            if (table.getExtent() != null) {
+                checkInlineTableRows(RowSets.rows(table.getExtent()));
+            }
+            checkInlineTableColumns(ColumnSets.columns(table));
         }
     }
 
@@ -346,20 +355,23 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkRow(Row row) {
         if (row != null) {
-            checkRowValueList(row.getRowValues());
+            checkRowValueList(row.getSlot().stream()
+                .filter(DataSlot.class::isInstance).map(DataSlot.class::cast).toList());
         }
     }
 
-    private void checkRowValueList(List<? extends RowValue> rowValues) {
+    private void checkRowValueList(List<? extends DataSlot> rowValues) {
         if (rowValues != null) {
             rowValues.forEach(this::checkRowValue);
         }
     }
 
-    protected void checkRowValue(RowValue value) {
+    protected void checkRowValue(DataSlot value) {
         if (value != null) {
-            checkColumn(value.getColumn());
-            checkValue(value.getValue());
+            if (value.getFeature() instanceof Column col) {
+                checkColumn(col);
+            }
+            checkValue(value.getDataValue());
         }
     }
 
@@ -372,13 +384,13 @@ public abstract class AbstractSchemaWalker {
         // empty
     }
 
-    protected void checkTable(TableQuery table) {
+    protected void checkTable(TableSource table) {
         if (table != null) {
             checkSqlWhereExpression(table.getSqlWhereExpression());
 
-            checkAggregationExcludeList(table.getAggregationExcludes(), table.getTable().getSchema());
-
-            checkAggregationTableList(table.getAggregationTables(), table.getTable().getSchema());
+            Schema schema = NamedColumnSets.findSchema(table.getTable()).orElse(null);
+            checkAggregationExcludeList(table.getAggregationExcludes(), schema);
+            checkAggregationTableList(table.getAggregationTables(), schema);
 
             checkHintList(table.getOptimizationHints());
         }
@@ -392,7 +404,7 @@ public abstract class AbstractSchemaWalker {
         // empty
     }
 
-    protected void checkAggregationTable(AggregationTable aggTable, DatabaseSchema schema) {
+    protected void checkAggregationTable(AggregationTable aggTable, Schema schema) {
         if (aggTable != null) {
             checkAggregationColumnName(aggTable.getAggregationFactCount());
             checkAggregationColumnNameList(aggTable.getAggregationIgnoreColumns());
@@ -409,7 +421,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkAggregationPattern(AggregationPattern aggTable, DatabaseSchema schema) {
+    protected void checkAggregationPattern(AggregationPattern aggTable, Schema schema) {
         if (aggTable != null) {
             checkAggregationExcludeList(aggTable.getExcludes(), schema);
         }
@@ -447,7 +459,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkAggregationExclude(AggregationExclude aggExclude, DatabaseSchema schemaName) {
+    protected void checkAggregationExclude(AggregationExclude aggExclude, Schema schemaName) {
         // empty
     }
 
@@ -456,21 +468,21 @@ public abstract class AbstractSchemaWalker {
         if (level != null) {
             checkAnnotationList(level.getAnnotations());
 
-            if (level.getColumn() instanceof SQLExpressionColumn sec) {
+            if (level.getColumn() instanceof ExpressionColumn sec) {
                 checkSqlExpression(sec);
 
             }
-            if (level.getNameColumn() instanceof SQLExpressionColumn sec) {
+            if (level.getNameColumn() instanceof ExpressionColumn sec) {
                 checkSqlExpression(sec);
 
             }
-            if (level.getCaptionColumn() instanceof SQLExpressionColumn sec) {
+            if (level.getCaptionColumn() instanceof ExpressionColumn sec) {
                 checkSqlExpression(sec);
 
             }
             if (!level.getOrdinalColumns().isEmpty()) {
                 for (OrderedColumn oc : level.getOrdinalColumns()) {
-                    if (oc.getColumn() != null && oc.getColumn() instanceof SQLExpressionColumn sec) {
+                    if (oc.getColumn() != null && oc.getColumn() instanceof ExpressionColumn sec) {
                         checkSqlExpression(sec);
                     }
                 }
@@ -493,7 +505,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    protected void checkSqlExpression(SQLExpressionColumn sqlExpression) {
+    protected void checkSqlExpression(ExpressionColumn sqlExpression) {
         if (sqlExpression != null) {
             checkSqlList(sqlExpression.getSqls());
         }
@@ -719,7 +731,7 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkAggregationTableList(List<? extends AggregationTable> list, DatabaseSchema schema) {
+    private void checkAggregationTableList(List<? extends AggregationTable> list, Schema schema) {
         if (list != null) {
             list.forEach(at -> checkAggregationTable(at, schema));
         }
@@ -768,7 +780,7 @@ public abstract class AbstractSchemaWalker {
     }
 
     private void checkAggregationExcludeList(List<? extends AggregationExclude> list,
-            DatabaseSchema schema) {
+            Schema schema) {
         if (list != null) {
             list.forEach(ae -> checkAggregationExclude(ae, schema));
         }

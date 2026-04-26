@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,26 +19,52 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.01", source = Source.EMF, group = "Namedset") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private ExplicitHierarchy hierarchy;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private StandardDimension dimension2;
+    private PhysicalCube cube;
+    private StandardDimension dimension1;
+    private TableSource query;
+    private NamedSet namedSet2;
+    private NamedSet namedSet1;
+    private NamedSet namedSet3;
+    private NamedSet namedSet4;
+    private Level level;
+
 
     private static final String CUBE = "Cube";
     private static final String FACT = "Fact";
@@ -58,7 +83,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
+            The Query is a simple TableSource that selects all columns from the Fact table to use in the hierarchy and in the cube for the measures.
             """;
 
     private static final String levelBody = """
@@ -99,95 +124,78 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_namedSet");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure1");
-        measure.setId("_measure_sum");
         measure.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Level2");
-        level.setId("_level_dimension");
         level.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
-        hierarchy.setId("_hierarchy_dimension");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension1 = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension1.setName("Dimension1");
-        dimension1.setId("_dimension_first");
         dimension1.getHierarchies().add(hierarchy);
 
-        StandardDimension dimension2 = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension2 = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension2.setName("Dimension2");
-        dimension2.setId("_dimension_second");
         dimension2.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dimensionConnector_first");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setOverrideDimensionName("Dimension1");
         dimensionConnector1.setDimension(dimension1);
 
-        DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dimensionConnector_second");
+        DimensionConnector dimensionConnector2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector2.setOverrideDimensionName("Dimension2");
         dimensionConnector2.setDimension(dimension1);
 
-        NamedSet namedSet1 = RolapMappingFactory.eINSTANCE.createNamedSet();
+        namedSet1 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet1.setName("NsWithFolderDimension1");
-        namedSet1.setId("_namedSet_withFolderDimension1");
         namedSet1.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
         namedSet1.setDisplayFolder("Folder1");
 
-        NamedSet namedSet2 = RolapMappingFactory.eINSTANCE.createNamedSet();
+        namedSet2 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet2.setName("NsWithoutFolderDimension1");
-        namedSet2.setId("_namedSet_withoutFolderDimension1");
         namedSet2.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
 
-        NamedSet namedSet3 = RolapMappingFactory.eINSTANCE.createNamedSet();
+        namedSet3 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet3.setName("NSInCubeWithFolder");
-        namedSet3.setId("_namedSet_inCubeWithFolder");
         namedSet3.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
         namedSet3.setDisplayFolder("Folder2");
 
-        NamedSet namedSet4 = RolapMappingFactory.eINSTANCE.createNamedSet();
+        namedSet4 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet4.setName("NSInCubeWithoutFolder");
-        namedSet4.setId("_namedSet_inCubeWithoutFolder");
         namedSet4.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_cube_namedSet");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
@@ -195,30 +203,34 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         cube.getNamedSets().addAll(List.of(namedSet1, namedSet2, namedSet3, namedSet4));
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Namedset All");
         catalog.setDescription("Named set configurations");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Namedset All", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(level, "Level1", levelBody, 1, 3, 0, true, 0);
-
-        document(hierarchy, "Hierarchy1 without hasAll Level1", hierarchyBody, 1, 4, 0, true, 0);
-        document(dimension1, "Dimension1", dimension1Body, 1, 5, 0, true, 0);
-        document(dimension2, "Dimension1", dimension2Body, 1, 6, 0, true, 0);
-
-        document(namedSet1, "NamedSet1", namedSet1Body, 1, 7, 0, true, 0);
-        document(namedSet2, "NamedSet1", namedSet2Body, 1, 8, 0, true, 0);
-        document(namedSet3, "NamedSet1", namedSet3Body, 1, 9, 0, true, 0);
-        document(namedSet4, "NamedSet1", namedSet4Body, 1, 10, 0, true, 0);
-
-        document(cube, "Cube with NamedSets", cubeBody, 1, 11, 0, true, 2);
 
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Namedset All", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Level1", levelBody, 1, 3, 0, level, 0),
+                        new DocSection("Hierarchy1 without hasAll Level1", hierarchyBody, 1, 4, 0, hierarchy, 0),
+                        new DocSection("Dimension1", dimension1Body, 1, 5, 0, dimension1, 0),
+                        new DocSection("Dimension1", dimension2Body, 1, 6, 0, dimension2, 0),
+                        new DocSection("NamedSet1", namedSet1Body, 1, 7, 0, namedSet1, 0),
+                        new DocSection("NamedSet1", namedSet2Body, 1, 8, 0, namedSet2, 0),
+                        new DocSection("NamedSet1", namedSet3Body, 1, 9, 0, namedSet3, 0),
+                        new DocSection("NamedSet1", namedSet4Body, 1, 10, 0, namedSet4, 0),
+                        new DocSection("Cube with NamedSets", cubeBody, 1, 11, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

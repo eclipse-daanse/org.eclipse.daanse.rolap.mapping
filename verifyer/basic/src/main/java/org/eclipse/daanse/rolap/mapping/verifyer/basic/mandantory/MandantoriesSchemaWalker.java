@@ -23,62 +23,66 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 
-import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessDimensionGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessHierarchyGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessMemberGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessRole;
-import org.eclipse.daanse.rolap.mapping.model.Action;
-import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationPattern;
-import org.eclipse.daanse.rolap.mapping.model.AggregationTable;
+import org.eclipse.daanse.cwm.util.resource.relational.Columns;
+import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessDimensionGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessHierarchyGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessMemberGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.Action;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
-import org.eclipse.daanse.rolap.mapping.model.BaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnBaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.Cube;
-import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.Dimension;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Hierarchy;
-import org.eclipse.daanse.rolap.mapping.model.InlineTable;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.Kpi;
-import org.eclipse.daanse.rolap.mapping.model.LevelDefinition;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.MemberPropertyFormatter;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.ColumnBaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Cube;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeConnector;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.Dimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.InlineTable;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelDefinition;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberPropertyFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.ParentChildLink;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.RowValue;
-import org.eclipse.daanse.rolap.mapping.model.SQLExpressionBaseMeasure;
-import org.eclipse.daanse.rolap.mapping.model.SqlSelectQuery;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.Table;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
-import org.eclipse.daanse.rolap.mapping.model.TimeDimension;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
-import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildLink;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.DataSlot;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.InstanceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SQLExpressionBaseMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlSelectSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.NamedColumnSet;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
@@ -122,8 +126,8 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             }
             if (cube instanceof PhysicalCube physicalCube) {
                 if (physicalCube.getQuery() == null
-                    || ((physicalCube.getQuery() instanceof TableQuery table) && isEmpty(table.getTable().getName()))
-                    || ((physicalCube.getQuery() instanceof SqlSelectQuery view) && isEmpty(view.getAlias()))) {
+                    || ((physicalCube.getQuery() instanceof TableSource table) && isEmpty(table.getTable().getName()))
+                    || ((physicalCube.getQuery() instanceof SqlSelectSource view) && isEmpty(view.getAlias()))) {
                     String msg = String.format(FACT_NAME_MUST_BE_SET, orNotSet(cube.getName()));
                     results.add(new VerificationResultR(CUBE, msg, ERROR,
                         Cause.SCHEMA));
@@ -364,7 +368,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkJoinQuery(JoinQuery join) {
+    protected void checkJoinQuery(JoinSource join) {
         super.checkJoinQuery(join);
         if (join != null) {
             if (join.getLeft() == null || join.getRight() == null) {
@@ -384,14 +388,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkTable(TableQuery table) {
+    protected void checkTable(TableSource table) {
         super.checkTable(table);
         if (table != null) {
             if (table.getTable() == null) {
                 results.add(
                     new VerificationResultR(TABLE, TABLE_NAME_MUST_BE_SET, ERROR, Cause.DATABASE));
             } else {
-                DatabaseSchema theSchema = table.getTable().getSchema();
+                Schema theSchema = NamedColumnSets.findSchema(table.getTable()).orElse(null);
                 if ((theSchema == null && isSchemaRequired()) || (theSchema != null && isEmpty(theSchema.getName()) && isSchemaRequired())) {
                     results.add(
                         new VerificationResultR(TABLE, SCHEMA_MUST_BE_SET, WARNING, Cause.DATABASE));
@@ -402,7 +406,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     @Override
     protected void checkLevel(
-            org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy,
+            org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level, Hierarchy hierarchy,
         Dimension parentDimension, Cube cube
     ) {
         super.checkLevel(level, hierarchy, parentDimension, cube);
@@ -434,7 +438,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     @Override
     protected void checkMemberProperty(
-        MemberProperty property, org.eclipse.daanse.rolap.mapping.model.Level level,
+        MemberProperty property, org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level,
         Hierarchy hierarchy, Cube cube
     ) {
         super.checkMemberProperty(property, level, hierarchy, cube);
@@ -535,20 +539,21 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
      */
     @Override
     protected void checkColumn(
-        Column column, String fieldName, org.eclipse.daanse.rolap.mapping.model.Level level,
+        Column column, String fieldName, org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level,
         Cube cube, Hierarchy parentHierarchy
     ) {
         super.checkColumn(column, fieldName, level, cube, parentHierarchy);
         if (column != null) {
 
-            // specified table for level's column
-            Table table = level.getColumn().getTable();
+            // specified table for level's column (skip if owner is not a
+            // physical cwm::Table — inline tables now extend ColumnSet directly).
+            Table table = Columns.tableOwner(level.getColumn()).orElse(null);
             checkColumnJoin(table, parentHierarchy);
             checkColumnTable(table, parentHierarchy);
             checkColumnView(table, parentHierarchy);
 
             if (table == null) {
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQuery join) {
+                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinSource join) {
                     // relation is join, table should be specified
                     results.add(new VerificationResultR(LEVEL, TABLE_MUST_BE_SET, ERROR,
                         Cause.DATABASE));
@@ -558,7 +563,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             } else {
                 // if using Joins then gets the table name for doesColumnExist
                 // validation.
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinQuery join) {
+                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinSource join) {
                     checkJoinQuery(join);
                 }
             }
@@ -620,7 +625,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkSqlSelectQuery(SqlSelectQuery view) {
+    protected void checkSqlSelectQuery(SqlSelectSource view) {
         super.checkSqlSelectQuery(view);
         if (view != null && isEmpty(view.getAlias())) {
             results.add(new VerificationResultR(VIEW, VIEW_ALIAS_MUST_BE_SET,
@@ -650,11 +655,12 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     protected void checkInlineTable(InlineTable inlineTable) {
         super.checkInlineTable(inlineTable);
         if (inlineTable != null) {
-            if (inlineTable.getColumns() == null || inlineTable.getColumns().isEmpty()) {
+            if (inlineTable.getFeature() == null || inlineTable.getFeature().isEmpty()) {
                 results.add(new VerificationResultR(INLINE_TABLE, INLINE_TABLE_COLUMN_DEFS_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
-            if (inlineTable.getRows() == null) {
+            if (inlineTable.getExtent() == null
+                || inlineTable.getExtent().getOwnedElement().stream().noneMatch(org.eclipse.daanse.cwm.model.cwm.resource.relational.Row.class::isInstance)) {
                 results.add(new VerificationResultR(INLINE_TABLE, INLINE_TABLE_ROWS_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -677,16 +683,16 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkRowValue(RowValue value) {
+    protected void checkRowValue(DataSlot value) {
         super.checkRowValue(value);
-        if (value != null && value.getColumn() == null) {
+        if (value != null && value.getFeature() == null) {
             results.add(new VerificationResultR(VALUE, VALUE_COLUMN_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
     }
 
     @Override
-    protected void checkAggregationTable(AggregationTable aggTable, DatabaseSchema schema) {
+    protected void checkAggregationTable(AggregationTable aggTable, Schema schema) {
         super.checkAggregationTable(aggTable, schema);
         if (aggTable != null && aggTable.getAggregationFactCount() == null) {
             results.add(new VerificationResultR(AGG_TABLE, AGG_TABLE_AGG_FACT_COUNT_MUST_BE_SET,
@@ -704,7 +710,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationPattern(AggregationPattern aggPattern, DatabaseSchema schema) {
+    protected void checkAggregationPattern(AggregationPattern aggPattern, Schema schema) {
         super.checkAggregationPattern(aggPattern, schema);
         if (aggPattern != null && isEmpty(aggPattern.getPattern())) {
             results.add(new VerificationResultR(AGG_PATTERN, AGG_PATTERN_PATTERN_MUST_BE_SET,
@@ -1037,12 +1043,12 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
 
     private void checkHierarchyJoin(Hierarchy hierarchy, Dimension cubeDimension) {
-        if (hierarchy.getQuery() instanceof JoinQuery) {
+        if (hierarchy.getQuery() instanceof JoinSource) {
             if (hierarchy.getPrimaryKey() == null) {
                 String msg = String.format(PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
             } else {
-                if (hierarchy.getPrimaryKey().getTable() == null) {
+                if (Columns.tableOwner(hierarchy.getPrimaryKey()).isEmpty()) {
                     String msg = String.format(PRIMARY_KEY_TABLE_MUST_BE_SET_FOR_JOIN,
                             orNotSet(cubeDimension.getName()));
                         results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
@@ -1053,7 +1059,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkHierarchyLevels(Hierarchy hierarchy, Dimension cubeDimension) {
         if (hierarchy instanceof ExplicitHierarchy eh) {
-            List<? extends org.eclipse.daanse.rolap.mapping.model.Level> levels = eh.getLevels();
+            List<? extends org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level> levels = eh.getLevels();
             if (levels == null || levels.isEmpty()) {
                 String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY,
@@ -1061,7 +1067,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             }
         }
         if (hierarchy instanceof ParentChildHierarchy ph) {
-            org.eclipse.daanse.rolap.mapping.model.Level level = ph.getLevel();
+            org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level = ph.getLevel();
             if (level == null) {
                 String msg = String.format(LEVEL_MUST_BE_SET_FOR_HIERARCHY, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY,
@@ -1071,15 +1077,15 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     private void checkHierarchyTable(Hierarchy hierarchy, Dimension cubeDimension) {
-        if (hierarchy.getQuery() instanceof TableQuery table) {
+        if (hierarchy.getQuery() instanceof TableSource table) {
             checkTable(table);
         }
     }
 
     private void checkHierarchyPrimaryKeyTable(Hierarchy hierarchy, Dimension cubeDimension) {
         if (hierarchy.getPrimaryKey() != null) {
-            Table primaryKeyTable = hierarchy.getPrimaryKey().getTable();
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof JoinQuery join)) {
+            Table primaryKeyTable = Columns.tableOwner(hierarchy.getPrimaryKey()).orElse(null);
+            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof JoinSource join)) {
                 TreeSet<String> joinTables = new TreeSet<>();
                 SchemaExplorer.getTableNamesForJoin(hierarchy.getQuery(), joinTables);
                 if (!joinTables.contains(primaryKeyTable.getName())) {
@@ -1090,7 +1096,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 checkJoinQuery(join);
             }
 
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof TableQuery theTable)) {
+            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof TableSource theTable)) {
                 String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                         .trim()
                         .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
@@ -1106,7 +1112,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkLevelType(org.eclipse.daanse.rolap.mapping.model.Level level, Dimension dimension) {
+    private void checkLevelType(org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level, Dimension dimension) {
         if (level.getType() != null && dimension != null) {
             // Empty leveltype is treated as default value of "Regular""
             // which is ok with standard/time dimension.
@@ -1131,7 +1137,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         }
     }
 
-    private void checkLevelColumn(org.eclipse.daanse.rolap.mapping.model.Level level, Hierarchy hierarchy, Cube cube) {
+    private void checkLevelColumn(org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level, Hierarchy hierarchy, Cube cube) {
         Column column = level.getColumn();
         if (column == null) {
             if (level.getMemberProperties() == null || level.getMemberProperties().isEmpty()) {
@@ -1161,7 +1167,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         // If table has been changed in join then sets the table value
         // to null to cause "tableMustBeSet" validation fail.
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof JoinQuery) {
+            && parentHierarchy.getQuery() instanceof JoinSource) {
             TreeSet<String> joinTables = new TreeSet<>();
             SchemaExplorer.getTableNamesForJoin(parentHierarchy.getQuery(), joinTables);
             if (!joinTables.contains(table.getName())) {
@@ -1174,8 +1180,8 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkColumnTable(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof TableQuery parentTable) {
-            TableQuery theTable = parentTable;
+            && parentHierarchy.getQuery() instanceof TableSource parentTable) {
+            TableSource theTable = parentTable;
             String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                 .trim()
                 .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
@@ -1189,7 +1195,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkColumnView(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof SqlSelectQuery) {
+            && parentHierarchy.getQuery() instanceof SqlSelectSource) {
             results.add(new VerificationResultR(LEVEL,
                 TABLE_FOR_COLUMN_CANNOT_BE_SET_IN_VIEW, ERROR, Cause.SCHEMA));
         }

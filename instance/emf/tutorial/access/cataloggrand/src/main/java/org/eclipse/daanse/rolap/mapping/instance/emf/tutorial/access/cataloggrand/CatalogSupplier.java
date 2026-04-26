@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggrand;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,32 +19,59 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.AccessCatalogGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessCubeGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessDatabaseSchemaGrant;
-import org.eclipse.daanse.rolap.mapping.model.AccessRole;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.CatalogAccess;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CubeAccess;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchemaAccess;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.database.AccessDatabaseSchemaGrant;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.rolap.mapping.model.access.common.CatalogAccess;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.CubeAccess;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.access.database.DatabaseSchemaAccess;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.access.common.CommonFactory;
+import org.eclipse.daanse.rolap.mapping.model.access.database.DatabaseFactory;
+import org.eclipse.daanse.rolap.mapping.model.access.olap.OlapFactory;
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.04.04", source = Source.EMF, group = "Access") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private PhysicalCube cube1;
+    private AccessRole roleAllDimWithCubeGrand;
+    private Level level1;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private AccessRole roleAll;
+    private AccessRole roleAllDimWithoutCubeGrand;
+    private StandardDimension dimension1;
+    private AccessRole roleNone;
+    private TableSource query;
+    private ExplicitHierarchy hierarchy1;
+
 
     private static final String CUBE1 = "Cube1";
     private static final String FACT = "Fact";
@@ -64,7 +90,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
+            The Query is a simple TableSource that selects all columns from the `Fact` table to use in the hierarchy and in the cube for the measures.
             """;
 
     private static final String levelBody = """
@@ -101,121 +127,105 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_CatalogGrand");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("Measure1");
-        measure1.setId("_measure_sum");
         measure1.setColumn(valueColumn);
 
-        MeasureGroup measureGroupC1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroupC1 = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroupC1.getMeasures().add(measure1);
 
-        Level level1 = RolapMappingFactory.eINSTANCE.createLevel();
+        level1 = LevelFactory.eINSTANCE.createLevel();
         level1.setName("Level1");
-        level1.setId("_level_key");
         level1.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setHasAll(false);
         hierarchy1.setName("Hierarchy1");
-        hierarchy1.setId("_hierarchy_main");
         hierarchy1.setPrimaryKey(keyColumn);
         hierarchy1.setQuery(query);
         hierarchy1.getLevels().add(level1);
 
-        StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension1 = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension1.setName("Dimension1");
-        dimension1.setId("_dimension_main");
         dimension1.getHierarchies().add(hierarchy1);
 
-        DimensionConnector dimensionConnectorCube11 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnectorCube11.setId("_dimensionConnector_main");
+        DimensionConnector dimensionConnectorCube11 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnectorCube11.setOverrideDimensionName("Dimension1");
         dimensionConnectorCube11.setDimension(dimension1);
         dimensionConnectorCube11.setForeignKey(keyColumn);
 
-        DimensionConnector dimensionConnectorCube12 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnectorCube12.setId("_dimensionConnector_secondary");
+        DimensionConnector dimensionConnectorCube12 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnectorCube12.setOverrideDimensionName("Dimension2");
         dimensionConnectorCube12.setDimension(dimension1);
         dimensionConnectorCube12.setForeignKey(keyColumn);
 
-        PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setId("_cube_main");
         cube1.setQuery(query);
         cube1.getMeasureGroups().add(measureGroupC1);
         cube1.getDimensionConnectors().addAll(List.of(dimensionConnectorCube11, dimensionConnectorCube12));
 
-        AccessDatabaseSchemaGrant accessDatabaseSchemaGrant = RolapMappingFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
+        AccessDatabaseSchemaGrant accessDatabaseSchemaGrant = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
         accessDatabaseSchemaGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         accessDatabaseSchemaGrant.setDatabaseSchema(databaseSchema);
 
-        AccessCubeGrant accessCubeGrant = RolapMappingFactory.eINSTANCE.createAccessCubeGrant();
+        AccessCubeGrant accessCubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
         accessCubeGrant.setCubeAccess(CubeAccess.ALL);
         accessCubeGrant.setCube(cube1);
 
-        AccessCatalogGrant accessCatalogGrantAll = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        AccessCatalogGrant accessCatalogGrantAll = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantAll.setCatalogAccess(CatalogAccess.ALL);
         accessCatalogGrantAll.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
         accessCatalogGrantAll.getCubeGrants().add(accessCubeGrant);
 
-        AccessCatalogGrant accessCatalogGrantNone = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        AccessCatalogGrant accessCatalogGrantNone = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantNone.setCatalogAccess(CatalogAccess.NONE);
         accessCatalogGrantNone.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
 
-        AccessCatalogGrant accessCatalogGrantAllDimWithCubeGrand = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        AccessCatalogGrant accessCatalogGrantAllDimWithCubeGrand = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantAllDimWithCubeGrand.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
         accessCatalogGrantAllDimWithCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
         accessCatalogGrantAllDimWithCubeGrand.getCubeGrants().add(accessCubeGrant);
 
-        AccessCatalogGrant accessCatalogGrantAllDimWithoutCubeGrand = RolapMappingFactory.eINSTANCE.createAccessCatalogGrant();
+        AccessCatalogGrant accessCatalogGrantAllDimWithoutCubeGrand = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantAllDimWithoutCubeGrand.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
         accessCatalogGrantAllDimWithoutCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
 
-        AccessRole roleAll = RolapMappingFactory.eINSTANCE.createAccessRole();
+        roleAll = CommonFactory.eINSTANCE.createAccessRole();
         roleAll.setName("roleAll");
-        roleAll.setId("_accessRole_all");
         roleAll.getAccessCatalogGrants().add(accessCatalogGrantAll);
 
-        AccessRole roleNone = RolapMappingFactory.eINSTANCE.createAccessRole();
+        roleNone = CommonFactory.eINSTANCE.createAccessRole();
         roleNone.setName("roleNone");
-        roleNone.setId("_accessRole_none");
         roleNone.getAccessCatalogGrants().add(accessCatalogGrantNone);
 
-        AccessRole roleAllDimWithCubeGrand = RolapMappingFactory.eINSTANCE.createAccessRole();
+        roleAllDimWithCubeGrand = CommonFactory.eINSTANCE.createAccessRole();
         roleAllDimWithCubeGrand.setName("roleAllDimWithCubeGrand");
-        roleAllDimWithCubeGrand.setId("_accessRole_allDimWithCubeGrand");
         roleAllDimWithCubeGrand.getAccessCatalogGrants().add(accessCatalogGrantAllDimWithCubeGrand);
 
-        AccessRole roleAllDimWithoutCubeGrand = RolapMappingFactory.eINSTANCE.createAccessRole();
+        roleAllDimWithoutCubeGrand = CommonFactory.eINSTANCE.createAccessRole();
         roleAllDimWithoutCubeGrand.setName("roleAllDimWithoutCubeGrand");
-        roleAllDimWithoutCubeGrand.setId("_accessRole_allDimWithoutCubeGrand");
         roleAllDimWithoutCubeGrand.getAccessCatalogGrants().add(accessCatalogGrantAllDimWithoutCubeGrand);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Access Catalog Grant");
         catalog.setDescription("Demonstrates access control with catalog grants and roles");
         catalog.getCubes().add(cube1);
@@ -225,26 +235,29 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         catalog.getAccessRoles().add(roleAllDimWithoutCubeGrand);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Access Catalog Grant", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
 
-        document(level1, "Level1", levelBody, 1, 3, 0, true, 0);
 
-        document(hierarchy1, "Hierarchy1 without hasAll Level1", hierarchyBody, 1, 4, 0, true, 0);
-        document(dimension1, "Dimension1", dimension1Body, 1, 5, 0, true, 0);
 
-        document(cube1, "Cube1 with access all", cube1Body, 1, 6, 0, true, 2);
 
-        document(roleAll, "roleAll", roleAllBody, 1, 7, 0, true, 2);
-
-        document(roleNone, "roleNone", roleNoneBody, 1, 8, 0, true, 2);
-
-        document(roleAllDimWithCubeGrand, "roleAllDimWithCubeGrand", roleAllDimWithCubeGrandBody, 1, 9, 0, true, 2);
-
-        document(roleAllDimWithoutCubeGrand, "roleAllDimWithoutCubeGrand", roleAllDimWithoutCubeGrandBody, 1, 10, 0, true, 2);
-
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Access Catalog Grant", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("Level1", levelBody, 1, 3, 0, level1, 0),
+                        new DocSection("Hierarchy1 without hasAll Level1", hierarchyBody, 1, 4, 0, hierarchy1, 0),
+                        new DocSection("Dimension1", dimension1Body, 1, 5, 0, dimension1, 0),
+                        new DocSection("Cube1 with access all", cube1Body, 1, 6, 0, cube1, 2),
+                        new DocSection("roleAll", roleAllBody, 1, 7, 0, roleAll, 2),
+                        new DocSection("roleNone", roleNoneBody, 1, 8, 0, roleNone, 2),
+                        new DocSection("roleAllDimWithCubeGrand", roleAllDimWithCubeGrandBody, 1, 9, 0, roleAllDimWithCubeGrand, 2),
+                        new DocSection("roleAllDimWithoutCubeGrand", roleAllDimWithoutCubeGrandBody, 1, 10, 0, roleAllDimWithoutCubeGrand, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

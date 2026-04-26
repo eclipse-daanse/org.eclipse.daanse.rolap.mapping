@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.dimension.optimisationwithlevelattribute;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,27 +19,51 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.09.02", source = Source.EMF, group = "Dimension") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private StandardDimension dimension;
+    private JoinSource joinQuery;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private ExplicitHierarchy hierarchy1;
+    private PhysicalCube cube;
+    private TableSource query;
+    private Level h1Level2;
+    private Level h1Level1;
+    private TableSource queryH1L1;
+    private TableSource queryHxL2;
+
 
     private static final String CUBE = "Cube";
     private static final String FACT = "Fact";
@@ -61,19 +84,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
             """;
 
     private static final String queryBody = """
-            The Query is a simple TableQuery that selects all columns from the Fact table to use in the measures.
+            The Query is a simple TableSource that selects all columns from the Fact table to use in the measures.
             """;
 
     private static final String queryH1L1Body = """
-            The Query is a simple TableQuery that selects all columns from the H1_L1 table to use in the hierarchy join.
+            The Query is a simple TableSource that selects all columns from the H1_L1 table to use in the hierarchy join.
             """;
 
     private static final String queryHxL2Body = """
-            The Query is a simple TableQuery that selects all columns from the Hx_L2 table to use in the hierarchy join.
+            The Query is a simple TableSource that selects all columns from the Hx_L2 table to use in the hierarchy join.
             """;
 
     private static final String joinQueryBody = """
-            The JoinQuery specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
+            The JoinSource specifies which TableQueries should be joined. It also defines the columns in each table that are used for the join:
 
             - In the lower-level table (`Hx_L2`), the join uses the foreign key `H1L1_KEY`.
             - In the upper-level table (`H1_L1`), the join uses the primary key `KEY`.
@@ -108,169 +131,151 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_optimisationwithlevelattribute");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column dimKeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column dimKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setId("_column_fact_dim_key");
-        dimKeyColumn.setType(ColumnType.INTEGER);
+        dimKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(dimKeyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(dimKeyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        Column h1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column h1L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         h1L1KeyColumn.setName("KEY");
-        h1L1KeyColumn.setId("_h1_l1_key");
-        h1L1KeyColumn.setType(ColumnType.INTEGER);
+        h1L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column h1L1NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column h1L1NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         h1L1NameColumn.setName("NAME");
-        h1L1NameColumn.setId("_h1_l1_name");
-        h1L1NameColumn.setType(ColumnType.VARCHAR);
+        h1L1NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        PhysicalTable h1L1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table h1L1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         h1L1Table.setName("H1_L1");
-        h1L1Table.setId("_h1_l1");
-        h1L1Table.getColumns().addAll(List.of(h1L1KeyColumn, h1L1NameColumn));
-        databaseSchema.getTables().add(h1L1Table);
+        h1L1Table.getFeature().addAll(List.of(h1L1KeyColumn, h1L1NameColumn));
+        databaseSchema.getOwnedElement().add(h1L1Table);
 
-        Column hxL2KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column hxL2KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2KeyColumn.setName("KEY");
-        hxL2KeyColumn.setId("_hx_l2_key");
-        hxL2KeyColumn.setType(ColumnType.INTEGER);
+        hxL2KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column hxL2NameColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column hxL2NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2NameColumn.setName("NAME");
-        hxL2NameColumn.setId("_hx_l2_name");
-        hxL2NameColumn.setType(ColumnType.VARCHAR);
+        hxL2NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column hxL2H1L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column hxL2H1L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2H1L1KeyColumn.setName("H1L1_KEY");
-        hxL2H1L1KeyColumn.setId("_hx_l2_h1l1_key");
-        hxL2H1L1KeyColumn.setType(ColumnType.INTEGER);
+        hxL2H1L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        Column hxL2H2L1KeyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column hxL2H2L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2H2L1KeyColumn.setName("H2L1_KEY");
-        hxL2H2L1KeyColumn.setId("_hx_l2_h2l1_key");
-        hxL2H2L1KeyColumn.setType(ColumnType.INTEGER);
+        hxL2H2L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable hxL2Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table hxL2Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         hxL2Table.setName("HX_L2");
-        hxL2Table.setId("_hx_l2");
-        hxL2Table.getColumns().addAll(List.of(hxL2KeyColumn, hxL2NameColumn, hxL2H1L1KeyColumn, hxL2H2L1KeyColumn));
-        databaseSchema.getTables().add(hxL2Table);
+        hxL2Table.getFeature().addAll(List.of(hxL2KeyColumn, hxL2NameColumn, hxL2H1L1KeyColumn, hxL2H2L1KeyColumn));
+        databaseSchema.getOwnedElement().add(hxL2Table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_table_factQuery");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(table);
 
-        TableQuery queryH1L1 = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryH1L1.setId("_h1l1query");
+        queryH1L1 = SourceFactory.eINSTANCE.createTableSource();
         queryH1L1.setTable(h1L1Table);
 
-        TableQuery queryHxL2 = RolapMappingFactory.eINSTANCE.createTableQuery();
-        queryHxL2.setId("_hxl2query");
+        queryHxL2 = SourceFactory.eINSTANCE.createTableSource();
         queryHxL2.setTable(hxL2Table);
 
-        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         left.setKey(hxL2H1L1KeyColumn);
         left.setQuery(queryHxL2);
 
-        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         right.setKey(h1L1KeyColumn);
         right.setQuery(queryH1L1);
 
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery");
+        joinQuery = SourceFactory.eINSTANCE.createJoinSource();
         joinQuery.setLeft(left);
         joinQuery.setRight(right);
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         measure.setName("Measure");
-        measure.setId("_measure_Measure");
         measure.setColumn(valueColumn);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
 
-        Level h1Level1 = RolapMappingFactory.eINSTANCE.createLevel();
+        h1Level1 = LevelFactory.eINSTANCE.createLevel();
         h1Level1.setName("H1_Level1");
-        h1Level1.setId("_h1_level1");
         h1Level1.setColumn(h1L1KeyColumn);
         h1Level1.setNameColumn(h1L1NameColumn);
 
-        Level h1Level2 = RolapMappingFactory.eINSTANCE.createLevel();
+        h1Level2 = LevelFactory.eINSTANCE.createLevel();
         h1Level2.setName("H1_Level2");
-        h1Level2.setId("_h1_level2");
         h1Level2.setColumn(hxL2KeyColumn);
         h1Level2.setNameColumn(hxL2NameColumn);
 
-        ExplicitHierarchy hierarchy1 = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
-        hierarchy1.setId("_hierarchy1");
         hierarchy1.setPrimaryKey(hxL2KeyColumn);
         hierarchy1.setQuery(joinQuery);
         hierarchy1.getLevels().add(h1Level1);
         hierarchy1.getLevels().add(h1Level2);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        dimension = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension.setName("Diml1");
-        dimension.setId("_diml1");
         dimension.getHierarchies().add(hierarchy1);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dc_dim1");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setOverrideDimensionName("Dim1");
         dimensionConnector1.setDimension(dimension);
         dimensionConnector1.setLevel(h1Level2);
         dimensionConnector1.setForeignKey(dimKeyColumn);
 
-        DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dc_dim2");
+        DimensionConnector dimensionConnector2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector2.setOverrideDimensionName("Dim2");
         dimensionConnector2.setDimension(dimension);
         dimensionConnector2.setLevel(h1Level1);
         dimensionConnector2.setForeignKey(dimKeyColumn);
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setId("_cube");
         cube.setQuery(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Dimension Optimisation With Level Attribute");
         catalog.setDescription("Dimension optimization with level attributes");
         catalog.getCubes().add(cube);
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Dimension Optimisation With Level Attribute", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(queryH1L1, "H1L1Query", queryH1L1Body, 1, 2, 0, true, 2);
-        document(queryHxL2, "HxL2Query", queryHxL2Body, 1, 2, 0, true, 2);
-        document(joinQuery, "JoinQuery", joinQueryBody, 1, 2, 0, true, 2);
-        document(h1Level1, "H1_Level1", h1Level1Body, 1, 3, 0, true, 0);
-        document(h1Level2, "H1_Level2", h1Level2Body, 1, 4, 0, true, 0);
 
-        document(hierarchy1, "Hierarchy1", hierarchyBody, 1, 8, 0, true, 0);
-        document(dimension, "Diml1", dimensionBody, 1, 9, 0, true, 0);
 
-        document(cube, "Cube", cubeBody, 1, 10, 0, true, 2);
-
-        return catalog;
+            return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Dimension Optimisation With Level Attribute", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("H1L1Query", queryH1L1Body, 1, 2, 0, queryH1L1, 2),
+                        new DocSection("HxL2Query", queryHxL2Body, 1, 2, 0, queryHxL2, 2),
+                        new DocSection("JoinQuery", joinQueryBody, 1, 2, 0, joinQuery, 2),
+                        new DocSection("H1_Level1", h1Level1Body, 1, 3, 0, h1Level1, 0),
+                        new DocSection("H1_Level2", h1Level2Body, 1, 4, 0, h1Level2, 0),
+                        new DocSection("Hierarchy1", hierarchyBody, 1, 8, 0, hierarchy1, 0),
+                        new DocSection("Diml1", dimensionBody, 1, 9, 0, dimension, 0),
+                        new DocSection("Cube", cubeBody, 1, 10, 0, cube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

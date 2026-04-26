@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.inlinetable;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,85 +19,101 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.InlineTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.database.relational.InlineTable;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.Row;
-import org.eclipse.daanse.rolap.mapping.model.RowValue;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Row;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RowSet;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.DataSlot;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.instance.InstanceFactory;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.03", source = Source.EMF, group = "Database")
-@Component(service = CatalogMappingSupplier.class)
-public class CatalogSupplier implements CatalogMappingSupplier {
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private Catalog catalog;
+
 
     private static final String introBody = """
-            The Inline Table is a special Table that is used to hold the data in the mapping. The Inline Table is not a table in the Database, but because it holds the data it can act as a Table. The Server must create at runtime Inline Statements of this Table.
+            An InlineTable is a named ColumnSet whose data is carried inline in the catalog XMI rather than stored in the database. It is not a physical Table and not a database View: nothing is created in the DB. The server materialises the rows at query time as literal VALUES, derived from the inline data. Use it for small lookup tables or test fixtures.
             """;
 
     private static final String inlineTableBody = """
-            The InlineTable is a virtual table. The table and data does not exist in the database and will not be inserted. The inlinetable stores the data in the Row and RowValue elements completely in its definition. The RowValue elements are used to store the values of the columns. The Row element is used to store the values. the RowValue can store the atomic data and the reference to the columns. The InlineTable can have multiple Rows and columns. Inline tables should only be used exceptionally.
+            An InlineTable extends cwm::ColumnSet. Its columns are declared via the inherited `feature` reference — each entry is a cwm::Column with a name and type. The data lives under the new `extent` containment, which holds a cwm::RowSet.
+
+            The RowSet's `ownedElement` list contains cwm::Row instances. Each Row carries a `slot` containment (inherited from cwm::Object) of cwm::DataSlot entries. A DataSlot binds one Column (via its `feature` reference) to a literal string value (`dataValue`). All CWM classes here are standard; nothing is Daanse-custom below the InlineTable level.
             """;
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_inlineTable");
+        Schema databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        RowValue rowValue1 = RolapMappingFactory.eINSTANCE.createRowValue();
-        rowValue1.setColumn(keyColumn);
-        rowValue1.setValue("A");
+        DataSlot rowValue1 = InstanceFactory.eINSTANCE.createDataSlot();
+        rowValue1.setFeature(keyColumn);
+        rowValue1.setDataValue("A");
 
-        RowValue rowValue2 = RolapMappingFactory.eINSTANCE.createRowValue();
-        rowValue2.setColumn(valueColumn);
-        rowValue2.setValue("100");
+        DataSlot rowValue2 = InstanceFactory.eINSTANCE.createDataSlot();
+        rowValue2.setFeature(valueColumn);
+        rowValue2.setDataValue("100");
 
-        RowValue rowValue3 = RolapMappingFactory.eINSTANCE.createRowValue();
-        rowValue3.setColumn(keyColumn);
-        rowValue3.setValue("B");
+        DataSlot rowValue3 = InstanceFactory.eINSTANCE.createDataSlot();
+        rowValue3.setFeature(keyColumn);
+        rowValue3.setDataValue("B");
 
-        RowValue rowValue4 = RolapMappingFactory.eINSTANCE.createRowValue();
-        rowValue4.setColumn(valueColumn);
-        rowValue4.setValue("42");
+        DataSlot rowValue4 = InstanceFactory.eINSTANCE.createDataSlot();
+        rowValue4.setFeature(valueColumn);
+        rowValue4.setDataValue("42");
 
-        Row row = RolapMappingFactory.eINSTANCE.createRow();
-        row.getRowValues().addAll(List.of(rowValue1, rowValue2));
+        Row row = RelationalFactory.eINSTANCE.createRow();
+        row.getSlot().addAll(List.of(rowValue1, rowValue2));
 
-        Row row2 = RolapMappingFactory.eINSTANCE.createRow();
-        row2.getRowValues().addAll(List.of(rowValue3, rowValue4));
+        Row row2 = RelationalFactory.eINSTANCE.createRow();
+        row2.getSlot().addAll(List.of(rowValue3, rowValue4));
 
-        InlineTable table = RolapMappingFactory.eINSTANCE.createInlineTable();
+        InlineTable table = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createInlineTable();
+        table.setExtent(RelationalFactory.eINSTANCE.createRowSet());
         table.setName("FACT");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        table.getRows().add(row);
-        table.getRows().add(row2);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        table.getExtent().getOwnedElement().add(row);
+        table.getExtent().getOwnedElement().add(row2);
 
-        databaseSchema.getTables().add(table);
+        databaseSchema.getOwnedElement().add(table);
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Inline Table");
         catalog.setDescription("Inline table definitions with row data");
         catalog.setId("_catalog_databaseInlineTable");
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Database Inline Table", introBody, 1, 0, 0, false, 0);
-        document(table, "InlineTable, Row and RowValue", inlineTableBody, 1, 1, 0, true, 2);
 
         return catalog;
 
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Database Inline Table", introBody, 1, 0, 0, null, 0)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }

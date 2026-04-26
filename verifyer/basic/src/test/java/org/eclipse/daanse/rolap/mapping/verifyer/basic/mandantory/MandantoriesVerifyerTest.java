@@ -91,45 +91,44 @@ import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessag
 
 import java.util.List;
 
-import org.eclipse.daanse.rolap.mapping.model.AccessRole;
-import org.eclipse.daanse.rolap.mapping.model.AggregationColumnName;
-import org.eclipse.daanse.rolap.mapping.model.AggregationForeignKey;
-import org.eclipse.daanse.rolap.mapping.model.AggregationLevel;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.access.common.AccessRole;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationColumnName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationForeignKey;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMember;
-import org.eclipse.daanse.rolap.mapping.model.CalculatedMemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.CubeConnector;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAction;
-import org.eclipse.daanse.rolap.mapping.model.DrillThroughAttribute;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.JoinQuery;
-import org.eclipse.daanse.rolap.mapping.model.JoinedQueryElement;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.MemberFormatter;
-import org.eclipse.daanse.rolap.mapping.model.MemberProperty;
-import org.eclipse.daanse.rolap.mapping.model.NamedSet;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeConnector;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAction;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.DrillThroughAttribute;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.JoinedQueryElement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.MemberFormatter;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.MemberProperty;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.NamedSet;
 import org.eclipse.daanse.rolap.mapping.model.Parameter;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.SqlStatement;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.TableQueryOptimizationHint;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
-import org.eclipse.daanse.rolap.mapping.model.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.WritebackMeasure;
-import org.eclipse.daanse.rolap.mapping.model.WritebackTable;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages;
@@ -141,6 +140,21 @@ import org.osgi.test.common.annotation.InjectService;
 import org.osgi.test.junit5.context.BundleContextExtension;
 import org.osgi.test.junit5.service.ServiceExtension;
 
+import org.eclipse.daanse.rolap.mapping.model.access.common.CommonFactory;
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.action.ActionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 class MandantoriesVerifyerTest {
@@ -150,40 +164,35 @@ class MandantoriesVerifyerTest {
     Verifyer verifyer;
 
     // Shared EMF objects
-    private DatabaseSchema databaseSchema;
-    private PhysicalTable table;
+    private Schema databaseSchema;
+    private Table table;
     private Column keyColumn;
     private Column valueColumn;
-    private TableQuery tableQuery;
+    private TableSource tableQuery;
 
     @BeforeEach
     void setUp() {
-        databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_test");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
-        table.setId("_table_fact");
-        table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(table);
+        table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(table);
 
-        tableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        tableQuery.setId("_query_fact");
+        tableQuery = SourceFactory.eINSTANCE.createTableSource();
         tableQuery.setTable(table);
     }
 
     private Catalog createBaseCatalog() {
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setId("_catalog_test");
         // No name set - to test validation
         catalog.getDbschemas().add(databaseSchema);
@@ -199,8 +208,7 @@ class MandantoriesVerifyerTest {
         // No name or type set - to test validation
         schema.getParameters().add(parameter);
 
-        AccessRole role = RolapMappingFactory.eINSTANCE.createAccessRole();
-        role.setId("_role_test");
+        AccessRole role = CommonFactory.eINSTANCE.createAccessRole();
         // No name set - to test validation
         schema.getAccessRoles().add(role);
 
@@ -228,49 +236,43 @@ class MandantoriesVerifyerTest {
         Catalog schema = createBaseCatalog();
 
         // Create PhysicalCube without name, without fact
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         // No name or query set
 
         // Create VirtualCube without name, dimensions, measures
-        VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
-        virtualCube.setId("_virtualCube_test");
+        VirtualCube virtualCube = CubeFactory.eINSTANCE.createVirtualCube();
         // No name set
 
         // Create CalculatedMember without name, hierarchy, formula
-        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedMember.setId("_calculatedMember_test");
+        CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
         // No name, hierarchy, or formula set
 
         cube.getCalculatedMembers().add(calculatedMember);
         virtualCube.getCalculatedMembers().add(calculatedMember);
 
         // Create NamedSets without names/formulas
-        NamedSet namedSet = RolapMappingFactory.eINSTANCE.createNamedSet();
-        namedSet.setId("_namedSet_test");
+        NamedSet namedSet = DimensionFactory.eINSTANCE.createNamedSet();
         // No name or formula set
 
         cube.getNamedSets().add(namedSet);
         virtualCube.getNamedSets().add(namedSet);
 
         // Create CubeConnector without cube reference
-        CubeConnector cubeUsage = RolapMappingFactory.eINSTANCE.createCubeConnector();
+        CubeConnector cubeUsage = CubeFactory.eINSTANCE.createCubeConnector();
         // No cube set
         virtualCube.getCubeUsages().add(cubeUsage);
 
         // Create DrillThroughAction without name
-        DrillThroughAction drillThroughAction = RolapMappingFactory.eINSTANCE.createDrillThroughAction();
-        drillThroughAction.setId("_drillThrough_test");
+        DrillThroughAction drillThroughAction = ActionFactory.eINSTANCE.createDrillThroughAction();
         // No name set
 
         // Create DrillThroughAttribute without name
-        DrillThroughAttribute drillThroughAttribute = RolapMappingFactory.eINSTANCE.createDrillThroughAttribute();
+        DrillThroughAttribute drillThroughAttribute = ActionFactory.eINSTANCE.createDrillThroughAttribute();
         // No name set
         drillThroughAction.getDrillThroughAttribute().add(drillThroughAttribute);
 
         // Create BaseMeasure for drill through measure without name
-        SumMeasure drillThroughMeasure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        drillThroughMeasure.setId("_drillThroughMeasure_test");
+        SumMeasure drillThroughMeasure = MeasureFactory.eINSTANCE.createSumMeasure();
         // No name set
         drillThroughAction.getDrillThroughMeasure().add(drillThroughMeasure);
 
@@ -282,14 +284,14 @@ class MandantoriesVerifyerTest {
         cube.getAction().add(drillThroughAction);
 
         // Create WritebackTable without name
-        WritebackTable writebackTable = RolapMappingFactory.eINSTANCE.createWritebackTable();
+        WritebackTable writebackTable = WritebackFactory.eINSTANCE.createWritebackTable();
         // No name set
 
-        WritebackAttribute writebackAttribute = RolapMappingFactory.eINSTANCE.createWritebackAttribute();
+        WritebackAttribute writebackAttribute = WritebackFactory.eINSTANCE.createWritebackAttribute();
         // No dimension or column set
         writebackTable.getWritebackAttribute().add(writebackAttribute);
 
-        WritebackMeasure writebackMeasure = RolapMappingFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
         // No name or column set
         writebackTable.getWritebackMeasure().add(writebackMeasure);
 
@@ -349,14 +351,11 @@ class MandantoriesVerifyerTest {
     void testCubeAndVirtualCubeAndCalculatedMemberAndFormula() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
 
-        VirtualCube virtualCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
-        virtualCube.setId("_virtualCube_test");
+        VirtualCube virtualCube = CubeFactory.eINSTANCE.createVirtualCube();
 
-        CalculatedMember calculatedMember = RolapMappingFactory.eINSTANCE.createCalculatedMember();
-        calculatedMember.setId("_calculatedMember_test");
+        CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
 
         cube.getCalculatedMembers().add(calculatedMember);
         virtualCube.getCalculatedMembers().add(calculatedMember);
@@ -396,20 +395,17 @@ class MandantoriesVerifyerTest {
     void testMeasure() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("cubeName");
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setId("_measure_test");
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         // No name or column set
 
-        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE.createCalculatedMemberProperty();
-        calculatedMemberProperty.setId("_calcMemberProp_test");
+        CalculatedMemberProperty calculatedMemberProperty = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         // No name set
         measure.getCalculatedMemberProperties().add(calculatedMemberProperty);
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
@@ -440,98 +436,87 @@ class MandantoriesVerifyerTest {
     void testHierarchyWithJoin() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("cubeName");
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setId("_measure_test");
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
         // No name or column set
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setId("_dimension_test");
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_test");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("DimensionName");
         dimensionConnector.setDimension(dimension);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
-        level.setId("_level_test");
+        Level level = LevelFactory.eINSTANCE.createLevel();
         // No name or column set
 
-        MemberFormatter elementFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
+        MemberFormatter elementFormatter = FormatFactory.eINSTANCE.createMemberFormatter();
         // No className or script set
         level.setMemberFormatter(elementFormatter);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setId("_hierarchy_test");
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.getLevels().add(level);
 
         // Create JoinQuery
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery_test");
+        JoinSource joinQuery = SourceFactory.eINSTANCE.createJoinSource();
 
         // Create TableQueries for join
-        PhysicalTable hierarchyTable = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table hierarchyTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         hierarchyTable.setName("hierarchyTable");
-        hierarchyTable.setId("_table_hierarchy");
 
-        TableQuery leftTableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        leftTableQuery.setId("_query_left");
+        TableSource leftTableQuery = SourceFactory.eINSTANCE.createTableSource();
         leftTableQuery.setTable(table);
 
-        TableQuery rightTableQuery = RolapMappingFactory.eINSTANCE.createTableQuery();
-        rightTableQuery.setId("_query_right");
+        TableSource rightTableQuery = SourceFactory.eINSTANCE.createTableSource();
         rightTableQuery.setTable(table);
 
         // Add SqlWhereExpression without dialect
-        SqlStatement sql = RolapMappingFactory.eINSTANCE.createSqlStatement();
+        SqlStatement sql = SourceFactory.eINSTANCE.createSqlStatement();
         // No dialect set
         leftTableQuery.setSqlWhereExpression(sql);
 
         // Add hint without type
-        TableQueryOptimizationHint hint = RolapMappingFactory.eINSTANCE.createTableQueryOptimizationHint();
+        TableQueryOptimizationHint hint = SourceFactory.eINSTANCE.createTableQueryOptimizationHint();
         // No type set
         leftTableQuery.getOptimizationHints().add(hint);
 
         // Add aggregation table without aggFactCount
-        AggregationName aggTable = RolapMappingFactory.eINSTANCE.createAggregationName();
-        aggTable.setId("_aggTable_test");
+        AggregationName aggTable = AggregationFactory.eINSTANCE.createAggregationName();
         // No aggFactCount set
 
-        AggregationColumnName aggColumnName = RolapMappingFactory.eINSTANCE.createAggregationColumnName();
+        AggregationColumnName aggColumnName = AggregationFactory.eINSTANCE.createAggregationColumnName();
         // No column set
         aggTable.getAggregationIgnoreColumns().add(aggColumnName);
 
-        AggregationForeignKey aggForeignKey = RolapMappingFactory.eINSTANCE.createAggregationForeignKey();
+        AggregationForeignKey aggForeignKey = AggregationFactory.eINSTANCE.createAggregationForeignKey();
         // No fact or agg column set
         aggTable.getAggregationForeignKeys().add(aggForeignKey);
 
-        AggregationMeasure aggMeasure = RolapMappingFactory.eINSTANCE.createAggregationMeasure();
+        AggregationMeasure aggMeasure = AggregationFactory.eINSTANCE.createAggregationMeasure();
         // No name or column set
         aggTable.getAggregationMeasures().add(aggMeasure);
 
-        AggregationLevel aggLevel = RolapMappingFactory.eINSTANCE.createAggregationLevel();
+        AggregationLevel aggLevel = AggregationFactory.eINSTANCE.createAggregationLevel();
         // No name or column set
         aggTable.getAggregationLevels().add(aggLevel);
 
-        AggregationMeasureFactCount measuresFactCount = RolapMappingFactory.eINSTANCE.createAggregationMeasureFactCount();
+        AggregationMeasureFactCount measuresFactCount = AggregationFactory.eINSTANCE.createAggregationMeasureFactCount();
         // No factColumn set
         aggTable.getAggregationMeasureFactCounts().add(measuresFactCount);
 
         leftTableQuery.getAggregationTables().add(aggTable);
 
-        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         // No key set
         left.setQuery(leftTableQuery);
 
-        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         // No key set
         right.setQuery(rightTableQuery);
 
@@ -597,44 +582,36 @@ class MandantoriesVerifyerTest {
     void testHierarchyWithoutJoin() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("cubeName");
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setId("_measure_test");
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setId("_dimension_test");
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_test");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("DimensionName");
         dimensionConnector.setDimension(dimension);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
-        level.setId("_level_test");
+        Level level = LevelFactory.eINSTANCE.createLevel();
 
-        MemberFormatter elementFormatter = RolapMappingFactory.eINSTANCE.createMemberFormatter();
+        MemberFormatter elementFormatter = FormatFactory.eINSTANCE.createMemberFormatter();
         level.setMemberFormatter(elementFormatter);
 
-        MemberProperty property = RolapMappingFactory.eINSTANCE.createMemberProperty();
-        property.setId("_property_test");
+        MemberProperty property = LevelFactory.eINSTANCE.createMemberProperty();
         // No column set
         level.getMemberProperties().add(property);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setId("_hierarchy_test");
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.getLevels().add(level);
 
-        // Create JoinQuery for hierarchy (with null left/right - triggers join validation)
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery_test");
+        // Create JoinSource for hierarchy (with null left/right - triggers join validation)
+        JoinSource joinQuery = SourceFactory.eINSTANCE.createJoinSource();
         hierarchy.setQuery(joinQuery);
 
         dimension.getHierarchies().add(hierarchy);
@@ -674,28 +651,23 @@ class MandantoriesVerifyerTest {
     void testCheckColumn_With_Table() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("cubeName");
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setId("_measure_test");
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setId("_dimension_test");
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_test");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("DimensionName");
         dimensionConnector.setDimension(dimension);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setId("_hierarchy_test");
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setQuery(tableQuery);
 
         dimension.getHierarchies().add(hierarchy);
@@ -731,37 +703,31 @@ class MandantoriesVerifyerTest {
     void testCheckColumn_With_Join() {
         Catalog schema = createBaseCatalog();
 
-        PhysicalCube cube = RolapMappingFactory.eINSTANCE.createPhysicalCube();
-        cube.setId("_cube_test");
+        PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("cubeName");
 
-        SumMeasure measure = RolapMappingFactory.eINSTANCE.createSumMeasure();
-        measure.setId("_measure_test");
+        SumMeasure measure = MeasureFactory.eINSTANCE.createSumMeasure();
 
-        MeasureGroup measureGroup = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        StandardDimension dimension = RolapMappingFactory.eINSTANCE.createStandardDimension();
-        dimension.setId("_dimension_test");
+        StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
 
-        DimensionConnector dimensionConnector = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector.setId("_dimensionConnector_test");
+        DimensionConnector dimensionConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector.setOverrideDimensionName("DimensionName");
         dimensionConnector.setDimension(dimension);
         cube.getDimensionConnectors().add(dimensionConnector);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setId("_hierarchy_test");
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
 
         // Create JoinQuery
-        JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
-        joinQuery.setId("_joinQuery_test");
+        JoinSource joinQuery = SourceFactory.eINSTANCE.createJoinSource();
 
-        JoinedQueryElement left = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         left.setQuery(tableQuery);
 
-        JoinedQueryElement right = RolapMappingFactory.eINSTANCE.createJoinedQueryElement();
+        JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         right.setQuery(tableQuery);
 
         joinQuery.setLeft(left);

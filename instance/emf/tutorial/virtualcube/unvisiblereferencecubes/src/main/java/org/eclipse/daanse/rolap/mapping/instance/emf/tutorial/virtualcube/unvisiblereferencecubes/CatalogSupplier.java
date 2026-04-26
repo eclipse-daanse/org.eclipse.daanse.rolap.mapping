@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes;
 
-import static org.eclipse.daanse.rolap.mapping.model.provider.util.DocumentationUtil.document;
 
 import java.util.List;
 
@@ -20,26 +19,46 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.Kind;
 import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
-import org.eclipse.daanse.rolap.mapping.model.Catalog;
-import org.eclipse.daanse.rolap.mapping.model.Column;
-import org.eclipse.daanse.rolap.mapping.model.ColumnType;
-import org.eclipse.daanse.rolap.mapping.model.DatabaseSchema;
-import org.eclipse.daanse.rolap.mapping.model.DimensionConnector;
-import org.eclipse.daanse.rolap.mapping.model.ExplicitHierarchy;
-import org.eclipse.daanse.rolap.mapping.model.Level;
-import org.eclipse.daanse.rolap.mapping.model.MeasureGroup;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalCube;
-import org.eclipse.daanse.rolap.mapping.model.PhysicalTable;
+import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
-import org.eclipse.daanse.rolap.mapping.model.StandardDimension;
-import org.eclipse.daanse.rolap.mapping.model.SumMeasure;
-import org.eclipse.daanse.rolap.mapping.model.TableQuery;
-import org.eclipse.daanse.rolap.mapping.model.VirtualCube;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
+import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.osgi.service.component.annotations.Component;
+import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
+import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
+import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
-@Component(service = CatalogMappingSupplier.class)
+import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
+import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+@Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.04", source = Source.EMF, group = "VirtualCube") // NOSONAR
-public class CatalogSupplier implements CatalogMappingSupplier {
+public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
+
+    private SumMeasure measure2;
+    private PhysicalCube cube1;
+    private Schema databaseSchema;
+    private Catalog catalog;
+    private VirtualCube vCube;
+    private TableSource query;
+    private SumMeasure measure1;
+
 
     private static final String CUBE1 = "Cube1";
     private static final String CUBE2 = "Cube2";
@@ -93,84 +112,70 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
     @Override
     public Catalog get() {
-        DatabaseSchema databaseSchema = RolapMappingFactory.eINSTANCE.createDatabaseSchema();
-        databaseSchema.setId("_databaseSchema_unvisiblereferencecubes");
+        databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
 
-        Column keyColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setId("_column_fact_key");
-        keyColumn.setType(ColumnType.VARCHAR);
+        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
-        Column valueColumn = RolapMappingFactory.eINSTANCE.createPhysicalColumn();
+        Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setId("_column_fact_value");
-        valueColumn.setType(ColumnType.INTEGER);
+        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
-        PhysicalTable c1Table = RolapMappingFactory.eINSTANCE.createPhysicalTable();
+        Table c1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         c1Table.setName(FACT);
-        c1Table.setId("_table_" + FACT.toLowerCase());
-        c1Table.getColumns().addAll(List.of(keyColumn, valueColumn));
-        databaseSchema.getTables().add(c1Table);
+        c1Table.getFeature().addAll(List.of(keyColumn, valueColumn));
+        databaseSchema.getOwnedElement().add(c1Table);
 
-        TableQuery query = RolapMappingFactory.eINSTANCE.createTableQuery();
-        query.setId("_query_fact");
+        query = SourceFactory.eINSTANCE.createTableSource();
         query.setTable(c1Table);
 
-        Level level = RolapMappingFactory.eINSTANCE.createLevel();
+        Level level = LevelFactory.eINSTANCE.createLevel();
         level.setName("Level2");
-        level.setId("_level_Level2");
         level.setColumn(keyColumn);
 
-        ExplicitHierarchy hierarchy = RolapMappingFactory.eINSTANCE.createExplicitHierarchy();
+        ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setHasAll(false);
         hierarchy.setName("HierarchyWithHasAll");
-        hierarchy.setId("_hierarchy_HierarchyWithHasAll");
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.setQuery(query);
         hierarchy.getLevels().add(level);
 
-        StandardDimension dimension1 = RolapMappingFactory.eINSTANCE.createStandardDimension();
+        StandardDimension dimension1 = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension1.setName("Dimension1");
-        dimension1.setId("_dimension_Dimension1");
         dimension1.getHierarchies().add(hierarchy);
 
-        DimensionConnector dimensionConnector1 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector1.setId("_dc_cube1Dimension1");
+        DimensionConnector dimensionConnector1 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector1.setOverrideDimensionName("Cube1Dimension1");
         dimensionConnector1.setDimension(dimension1);
 
-        DimensionConnector dimensionConnector2 = RolapMappingFactory.eINSTANCE.createDimensionConnector();
-        dimensionConnector2.setId("_dc_cube2Dimension1");
+        DimensionConnector dimensionConnector2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         dimensionConnector2.setOverrideDimensionName("Cube2Dimension1");
         dimensionConnector2.setDimension(dimension1);
 
-        SumMeasure measure1 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure1 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure1.setName("MeasureCube1");
-        measure1.setId("_measure_MeasureCube1");
         measure1.setColumn(valueColumn);
 
-        SumMeasure measure2 = RolapMappingFactory.eINSTANCE.createSumMeasure();
+        measure2 = MeasureFactory.eINSTANCE.createSumMeasure();
         measure2.setName("MeasureCube2");
-        measure2.setId("_measure_MeasureCube2");
         measure2.setColumn(valueColumn);
 
-        MeasureGroup measureGroup1 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup1 = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup1.getMeasures().add(measure1);
 
-        MeasureGroup measureGroup2 = RolapMappingFactory.eINSTANCE.createMeasureGroup();
+        MeasureGroup measureGroup2 = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup2.getMeasures().add(measure2);
 
-        PhysicalCube cube1 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setId("_cube_" + CUBE1.toLowerCase());
         cube1.setQuery(query);
         cube1.setVisible(false);
         cube1.getDimensionConnectors().add(dimensionConnector1);
         cube1.getMeasureGroups().add(measureGroup1);
 
-        PhysicalCube cube2 = RolapMappingFactory.eINSTANCE.createPhysicalCube();
+        PhysicalCube cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
-        cube2.setId("_cube_" + CUBE2.toLowerCase());
         cube2.setQuery(query);
         cube2.setVisible(false);
         cube1.getDimensionConnectors().add(dimensionConnector2);
@@ -181,30 +186,36 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         dimensionConnector1.setPhysicalCube(cube1);
         dimensionConnector2.setPhysicalCube(cube2);
 
-        VirtualCube vCube = RolapMappingFactory.eINSTANCE.createVirtualCube();
+        vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName("Cube1Cube2");
-        vCube.setId("_virtualCube_Cube1Cube2");
         vCube.setDefaultMeasure(measure1);
         vCube.getDimensionConnectors().add(dimensionConnector1);
         vCube.getDimensionConnectors().add(dimensionConnector2);
         vCube.getReferencedMeasures().addAll(List.of(measure1, measure2));
 
-        Catalog catalog = RolapMappingFactory.eINSTANCE.createCatalog();
+        catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Unvisible Reference Cubes");
         catalog.setDescription("Virtual cubes with invisible reference cubes");
         catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
         catalog.getDbschemas().add(databaseSchema);
 
-        document(catalog, "Daanse Tutorial - Virtual Cube Unvisible Reference Cubes", catalogBody, 1, 0, 0, false, 0);
-        document(databaseSchema, "Database Schema", databaseSchemaBody, 1, 1, 0, true, 3);
-        document(query, "Query", queryBody, 1, 2, 0, true, 2);
-        document(measure1, "MeasureCube1", measure1Body, 1, 4, 0, true, 2);
-        document(measure2, "MeasureCube2", measure2Body, 1, 5, 0, true, 2);
-        document(cube1, "Cube1", cube1Body, 1, 6, 0, true, 2);
-        document(cube1, "Cube1", cube2Body, 1, 7, 0, true, 2);
-        document(vCube, "VirtualCubeMeasureOnly", vCubeBody, 1, 7, 0, true, 2);
 
         return catalog;
     }
 
+
+    @Override
+    public TutorialDescription describe() {
+        return new TutorialDescription(
+                List.of(
+                        new DocSection("Daanse Tutorial - Virtual Cube Unvisible Reference Cubes", catalogBody, 1, 0, 0, null, 0),
+                        new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, databaseSchema, 3),
+                        new DocSection("Query", queryBody, 1, 2, 0, query, 2),
+                        new DocSection("MeasureCube1", measure1Body, 1, 4, 0, measure1, 2),
+                        new DocSection("MeasureCube2", measure2Body, 1, 5, 0, measure2, 2),
+                        new DocSection("Cube1", cube1Body, 1, 6, 0, cube1, 2),
+                        new DocSection("Cube1", cube2Body, 1, 7, 0, cube1, 2),
+                        new DocSection("VirtualCubeMeasureOnly", vCubeBody, 1, 7, 0, vCube, 2)),
+                List.of(new CatalogRef("catalog", this::get)));
+    }
 }
