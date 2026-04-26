@@ -21,6 +21,7 @@
     <artifactId>org.eclipse.daanse.pom.parent</artifactId>
     <version>0.0.7</version>
   </parent>
+
   <artifactId>org.eclipse.daanse.rolap.mapping</artifactId>
   <version>${revision}</version>
   <packaging>pom</packaging>
