@@ -92,85 +92,101 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query checks for each NthAgg measure
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[NthAgg1]");
+        queryCheck1CellValueCheck.setExpectedValue("1");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check NthAgg1");
         queryCheck1.setDescription("Verify MDX query returns Measure data for NthAgg1");
         queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg1])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[NthAgg2]");
+        queryCheck2CellValueCheck.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck.setExpectedValue("");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check NthAgg2");
         queryCheck2.setDescription("Verify MDX query returns Measure data for NthAgg2");
         queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg2])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[NthAgg3]");
+        queryCheck3CellValueCheck.setCheckFormattedValue(true);
+        queryCheck3CellValueCheck.setExpectedValue("");
+
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check NthAgg3");
         queryCheck3.setDescription("Verify MDX query returns Measure data for NthAgg3");
         queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg3])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[NthAgg4]");
+        queryCheck4CellValueCheck.setCheckFormattedValue(true);
+        queryCheck4CellValueCheck.setExpectedValue("");
+
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check NthAgg4");
         queryCheck4.setDescription("Verify MDX query returns Measure data for NthAgg4");
         queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg4])");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(1);
+        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
         CellValueCheck queryCheck5CellValueCheck = factory.createCellValueCheck();
         queryCheck5CellValueCheck.setName("[Measures].[NthAgg5]");
+        queryCheck5CellValueCheck.setCheckFormattedValue(true);
+        queryCheck5CellValueCheck.setExpectedValue("");
 
         QueryCheck queryCheck5 = factory.createQueryCheck();
         queryCheck5.setName("Measure Query Check NthAgg5");
         queryCheck5.setDescription("Verify MDX query returns Measure data for NthAgg5");
         queryCheck5.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg5])");
         queryCheck5.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck5.setExpectedColumnCount(1);
+        queryCheck5.setExpectedColumnCount(0);
         queryCheck5.getCellChecks().add(queryCheck5CellValueCheck);
         queryCheck5.setEnabled(true);
 
         CellValueCheck queryCheck6CellValueCheck = factory.createCellValueCheck();
         queryCheck6CellValueCheck.setName("[Measures].[NthAgg6]");
+        queryCheck6CellValueCheck.setCheckFormattedValue(true);
+        queryCheck6CellValueCheck.setExpectedValue("");
 
         QueryCheck queryCheck6 = factory.createQueryCheck();
         queryCheck6.setName("Measure Query Check NthAgg6");
         queryCheck6.setDescription("Verify MDX query returns Measure data for NthAgg6");
         queryCheck6.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg6])");
         queryCheck6.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck6.setExpectedColumnCount(1);
+        queryCheck6.setExpectedColumnCount(0);
         queryCheck6.getCellChecks().add(queryCheck6CellValueCheck);
         queryCheck6.setEnabled(true);
 
         CellValueCheck queryCheck7CellValueCheck = factory.createCellValueCheck();
         queryCheck7CellValueCheck.setName("[Measures].[NthAgg7]");
+        queryCheck7CellValueCheck.setCheckFormattedValue(true);
+        queryCheck7CellValueCheck.setExpectedValue("");
+
 
         QueryCheck queryCheck7 = factory.createQueryCheck();
         queryCheck7.setName("Measure Query Check NthAgg7");
         queryCheck7.setDescription("Verify MDX query returns Measure data for NthAgg7");
         queryCheck7.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg7])");
         queryCheck7.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck7.setExpectedColumnCount(1);
+        queryCheck7.setExpectedColumnCount(0);
         queryCheck7.getCellChecks().add(queryCheck7CellValueCheck);
         queryCheck7.setEnabled(true);
 
