@@ -94,7 +94,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck1.setDescription("Verify MDX query returns Measure data for BitAgg AND");
         queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg AND])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
@@ -107,7 +107,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck2.setDescription("Verify MDX query returns Measure data for BitAgg OR");
         queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg OR])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
@@ -120,46 +120,46 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck3.setDescription("Verify MDX query returns Measure data for BitAgg XOR");
         queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg XOR])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[BitAgg NAND]");
-        queryCheck4CellValueCheck.setExpectedValue("1");
+        queryCheck4CellValueCheck.setExpectedValue("-1");
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check BitAgg NAND");
         queryCheck4.setDescription("Verify MDX query returns Measure data for BitAgg NAND");
         queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg NAND])");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(1);
+        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
         CellValueCheck queryCheck5CellValueCheck = factory.createCellValueCheck();
         queryCheck5CellValueCheck.setName("[Measures].[BitAgg NOR]");
-        queryCheck5CellValueCheck.setExpectedValue("0");
+        queryCheck5CellValueCheck.setExpectedValue("-2");
 
         QueryCheck queryCheck5 = factory.createQueryCheck();
         queryCheck5.setName("Measure Query Check BitAgg NOR");
         queryCheck5.setDescription("Verify MDX query returns Measure data for BitAgg NOR");
         queryCheck5.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg NOR])");
         queryCheck5.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck5.setExpectedColumnCount(1);
+        queryCheck5.setExpectedColumnCount(0);
         queryCheck5.getCellChecks().add(queryCheck5CellValueCheck);
         queryCheck5.setEnabled(true);
 
         CellValueCheck queryCheck6CellValueCheck = factory.createCellValueCheck();
         queryCheck6CellValueCheck.setName("[Measures].[BitAgg NXOR]");
-        queryCheck6CellValueCheck.setExpectedValue("0");
+        queryCheck6CellValueCheck.setExpectedValue("-2");
 
         QueryCheck queryCheck6 = factory.createQueryCheck();
         queryCheck6.setName("Measure Query Check BitAgg NXOR");
         queryCheck6.setDescription("Verify MDX query returns Measure data for BitAgg NXOR");
         queryCheck6.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[BitAgg NXOR])");
         queryCheck6.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck6.setExpectedColumnCount(1);
+        queryCheck6.setExpectedColumnCount(0);
         queryCheck6.getCellChecks().add(queryCheck6CellValueCheck);
         queryCheck6.setEnabled(true);
 

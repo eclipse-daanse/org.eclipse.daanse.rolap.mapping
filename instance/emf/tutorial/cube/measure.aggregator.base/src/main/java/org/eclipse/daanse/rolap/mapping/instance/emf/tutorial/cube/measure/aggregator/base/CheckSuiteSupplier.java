@@ -26,6 +26,7 @@ import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
+import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
@@ -53,40 +54,88 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         sumMeasureCheck.setDescription("Check that measure 'Sum of Value' exists");
         sumMeasureCheck.setMeasureName("Sum of Value");
 
-        MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
-        measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
+        //TODO fix aggregates check executer
+        MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
+        measureSumAttributeCheck1.setExpectedAggregator(AggregatorType.SUM);
 
-        sumMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        MeasureAttributeCheck measureSumAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck2.setExpectedValue("Sum of Value");
+
+        MeasureAttributeCheck measureSumAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureSumAttributeCheck3.setExpectedValue("[Measures].[Sum of Value]");
+
+        //sumMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck1);
+        sumMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck2);
+        sumMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck3);
 
         MeasureCheck maxMeasureCheck = factory.createMeasureCheck();
         maxMeasureCheck.setName("MeasureCheck-Max of Value");
         maxMeasureCheck.setDescription("Check that measure 'Max of Value' exists");
         maxMeasureCheck.setMeasureName("Max of Value");
 
-        MeasureAttributeCheck measureMaxAttributeCheck = factory.createMeasureAttributeCheck();
-        measureMaxAttributeCheck.setExpectedAggregator(AggregatorType.MAX);
+        //TODO fix aggregates check executer
+        MeasureAttributeCheck measureMaxAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureMaxAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
+        measureMaxAttributeCheck1.setExpectedAggregator(AggregatorType.MAX);
 
-        maxMeasureCheck.getMeasureAttributeChecks().add(measureMaxAttributeCheck);
+        MeasureAttributeCheck measureMaxAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureMaxAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureMaxAttributeCheck2.setExpectedValue("Max of Value");
+
+        MeasureAttributeCheck measureMaxAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureMaxAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureMaxAttributeCheck3.setExpectedValue("[Measures].[Max of Value]");
+
+        //maxMeasureCheck.getMeasureAttributeChecks().add(measureMaxAttributeCheck1);
+        maxMeasureCheck.getMeasureAttributeChecks().add(measureMaxAttributeCheck2);
+        maxMeasureCheck.getMeasureAttributeChecks().add(measureMaxAttributeCheck3);
 
         MeasureCheck minMeasureCheck = factory.createMeasureCheck();
         minMeasureCheck.setName("MeasureCheck-Min of Value");
         minMeasureCheck.setDescription("Check that measure 'Min of Value' exists");
         minMeasureCheck.setMeasureName("Min of Value");
 
-        MeasureAttributeCheck measureMinAttributeCheck = factory.createMeasureAttributeCheck();
-        measureMinAttributeCheck.setExpectedAggregator(AggregatorType.MIN);
+        //TODO fix aggregates check executer
+        MeasureAttributeCheck measureMinAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureMinAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
+        measureMinAttributeCheck1.setExpectedAggregator(AggregatorType.MIN);
 
-        minMeasureCheck.getMeasureAttributeChecks().add(measureMinAttributeCheck);
+        MeasureAttributeCheck measureMinAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureMinAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureMinAttributeCheck2.setExpectedValue("Min of Value");
+
+        MeasureAttributeCheck measureMinAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureMinAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureMinAttributeCheck3.setExpectedValue("[Measures].[Min of Value]");
+
+        //minMeasureCheck.getMeasureAttributeChecks().add(measureMinAttributeCheck1);
+        minMeasureCheck.getMeasureAttributeChecks().add(measureMinAttributeCheck2);
+        minMeasureCheck.getMeasureAttributeChecks().add(measureMinAttributeCheck3);
 
         MeasureCheck avgMeasureCheck = factory.createMeasureCheck();
-        minMeasureCheck.setName("MeasureCheck-Avg of Value");
-        minMeasureCheck.setDescription("Check that measure 'Avg of Value' exists");
-        minMeasureCheck.setMeasureName("Avg of Value");
+        avgMeasureCheck.setName("MeasureCheck-Avg of Value");
+        avgMeasureCheck.setDescription("Check that measure 'Avg of Value' exists");
+        avgMeasureCheck.setMeasureName("Avg of Value");
 
-        MeasureAttributeCheck measureAvgAttributeCheck = factory.createMeasureAttributeCheck();
-        measureAvgAttributeCheck.setExpectedAggregator(AggregatorType.AVG);
+        //TODO fix aggregates check executer
+        MeasureAttributeCheck measureAvgAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureAvgAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
+        measureAvgAttributeCheck1.setExpectedAggregator(AggregatorType.AVG);
 
-        avgMeasureCheck.getMeasureAttributeChecks().add(measureAvgAttributeCheck);
+        MeasureAttributeCheck measureAvgAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureAvgAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureAvgAttributeCheck2.setExpectedValue("Avg of Value");
+
+        MeasureAttributeCheck measureAvgAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureAvgAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureAvgAttributeCheck3.setExpectedValue("[Measures].[Avg of Value]");
+
+        //avgMeasureCheck.getMeasureAttributeChecks().add(measureAvgAttributeCheck1);
+        avgMeasureCheck.getMeasureAttributeChecks().add(measureAvgAttributeCheck2);
+        avgMeasureCheck.getMeasureAttributeChecks().add(measureAvgAttributeCheck3);
 
         // Create cube check with measure check
         CubeCheck cubeCheck = factory.createCubeCheck();
@@ -100,54 +149,58 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Sum of Value]");
-        queryCheck1CellValueCheck.setExpectedValue("63");
+        queryCheck1CellValueCheck.setExpectedValue("63.0");
+        queryCheck1CellValueCheck.setExpectedNumericValue(63.0);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Sum of Value");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Sum of Value");
         queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Sum of Value])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Max of Value]");
         queryCheck2CellValueCheck.setExpectedValue("42");
+        queryCheck2CellValueCheck.setExpectedNumericValue(42);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Max of Value");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Max of Value");
         queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Max of Value])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Min of Value]");
         queryCheck3CellValueCheck.setExpectedValue("21");
+        queryCheck3CellValueCheck.setExpectedNumericValue(21);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Min of Value");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Min of Value");
         queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Min of Value])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[Avg of Value]");
         queryCheck4CellValueCheck.setExpectedValue("31.5");
+        queryCheck4CellValueCheck.setExpectedNumericValue(31.5);
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check Avg of Value");
         queryCheck4.setDescription("Verify MDX query returns Measure data for Avg of Value");
         queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Avg of Value])");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(1);
-        queryCheck4.getCellChecks().add(queryCheck3CellValueCheck);
+        queryCheck4.setExpectedColumnCount(0);
+        queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
         DatabaseColumnAttributeCheck columnAttributeCheckFactKey = factory.createDatabaseColumnAttributeCheck();

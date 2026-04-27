@@ -12,7 +12,6 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;
 
-import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
