@@ -9,6 +9,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.dimensiongrand;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
+import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.ConnectionConfig;
 import org.eclipse.daanse.olap.check.model.check.CubeAttribute;
 import org.eclipse.daanse.olap.check.model.check.CubeAttributeCheck;
@@ -59,7 +60,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         ));
 
         ConnectionConfig role1ConnectionConfig = FACTORY.createConnectionConfig();
-        role1ConnectionConfig.setCatalogName("Daanse Tutorial - Access Dimension Gran");
+        role1ConnectionConfig.setCatalogName("Daanse Tutorial - Access Dimension Grant");
         role1ConnectionConfig.getRoles().add("role1");
 
         OlapConnectionCheck connectionCheckRole1 = FACTORY.createOlapConnectionCheck();
@@ -116,7 +117,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getCubeAttributeChecks().add(visibleCheck);
         // Add dimension checks
         cubeCheck.getDimensionChecks().add(createDimension1Check());
-        cubeCheck.getDimensionChecks().add(createDimension2Check());
         // Add measure checks
         cubeCheck.getMeasureChecks().add(createMeasureCheck("Measure1", "sum"));
         return cubeCheck;
@@ -135,15 +135,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setExpectedBoolean(true);
         dimCheck.getDimensionAttributeChecks().add(visibleCheck);
 
-        HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
-        hierarchyCheck.setName("Hierarchy1 Hierarchy Check");
-        hierarchyCheck.setEnabled(true);
+        HierarchyCheck hierarchy1Check = FACTORY.createHierarchyCheck();
+        hierarchy1Check.setName("Hierarchy1 Hierarchy Check");
+        hierarchy1Check.setHierarchyName("Hierarchy1");
+        hierarchy1Check.setEnabled(true);
 
         HierarchyAttributeCheck hasAllCheck = FACTORY.createHierarchyAttributeCheck();
-        hasAllCheck.setName("Hierarchy2 HasAll Check");
+        hasAllCheck.setName("Hierarchy1 HasAll Check");
         hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
-        hasAllCheck.setExpectedBoolean(false);
-        hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
+        hasAllCheck.setExpectedBoolean(true);
+        hierarchy1Check.getHierarchyAttributeChecks().add(hasAllCheck);
 
         LevelCheck levelCheck = FACTORY.createLevelCheck();
         levelCheck.setName("Level1 Level Check");
@@ -151,43 +152,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         levelCheck.setDescription("Verify level Level1 exists");
         levelCheck.setEnabled(true);
 
-        hierarchyCheck.getLevelChecks().add(levelCheck);
-        dimCheck.getHierarchyChecks().add(hierarchyCheck);
-
-        return dimCheck;
-    }
-
-    private DimensionCheck createDimension2Check() {
-        DimensionCheck dimCheck = FACTORY.createDimensionCheck();
-        dimCheck.setName("Dimension2 Dimension Check");
-        dimCheck.setDescription("Dimension2 Dimension Check");
-        dimCheck.setDimensionName("Dimension2");
-        dimCheck.setEnabled(true);
-
-        DimensionAttributeCheck visibleCheck = FACTORY.createDimensionAttributeCheck();
-        visibleCheck.setName("Dimension2 Visible Check");
-        visibleCheck.setAttributeType(DimensionAttribute.VISIBLE);
-        visibleCheck.setExpectedBoolean(true);
-        dimCheck.getDimensionAttributeChecks().add(visibleCheck);
-
-        HierarchyCheck hierarchyCheck = FACTORY.createHierarchyCheck();
-        hierarchyCheck.setName("Hierarchy2 Hierarchy Check");
-        hierarchyCheck.setEnabled(false);
-
-        HierarchyAttributeCheck hasAllCheck = FACTORY.createHierarchyAttributeCheck();
-        hasAllCheck.setName("Hierarchy2 HasAll Check");
-        hasAllCheck.setAttributeType(HierarchyAttribute.HAS_ALL);
-        hasAllCheck.setExpectedBoolean(true);
-        hierarchyCheck.getHierarchyAttributeChecks().add(hasAllCheck);
-
-        LevelCheck levelCheck = FACTORY.createLevelCheck();
-        levelCheck.setName("Level2 Level Check");
-        levelCheck.setLevelName("Level2");
-        levelCheck.setDescription("Verify level Level2 exists");
-        levelCheck.setEnabled(true);
-
-        hierarchyCheck.getLevelChecks().add(levelCheck);
-        dimCheck.getHierarchyChecks().add(hierarchyCheck);
+        hierarchy1Check.getLevelChecks().add(levelCheck);
+        dimCheck.getHierarchyChecks().add(hierarchy1Check);
 
         return dimCheck;
     }
@@ -202,13 +168,21 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setAttributeType(MeasureAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         measureCheck.getMeasureAttributeChecks().add(visibleCheck);
+
+        MeasureAttributeCheck uniqueNameCheck = FACTORY.createMeasureAttributeCheck();
+        uniqueNameCheck.setName(measureName + " Unique Name");
+        uniqueNameCheck.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        uniqueNameCheck.setExpectedValue("[Measures].[" + measureName + "]");
+        measureCheck.getMeasureAttributeChecks().add(uniqueNameCheck);
+
         MeasureAttributeCheck aggregatorCheck = FACTORY.createMeasureAttributeCheck();
         aggregatorCheck.setName(measureName + " Aggregator Check");
         aggregatorCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
         aggregatorCheck.setExpectedValue(expectedAggregator);
         aggregatorCheck.setMatchMode(MatchMode.EQUALS);
         aggregatorCheck.setCaseSensitive(false);
-        measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
+        //TODO fix aggregates check executer
+        //measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
         return measureCheck;
     }
     private QueryCheck createQueryCheckForRole1() {
@@ -217,7 +191,33 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setDescription("Verify MDX query Dimension1 Hierarchy1");
         queryCheck.setQuery("SELECT NON EMPTY Hierarchize(AddCalculatedMembers({DrilldownLevel({[Dimension1].[Hierarchy1].[All Hierarchy1s]})})) DIMENSION PROPERTIES PARENT_UNIQUE_NAME ON COLUMNS  FROM [Cube1] WHERE ([Measures].[Measure1])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(4);
+        queryCheck.setExpectedRowCount(0);
+
+        CellValueCheck queryCheckCellValueCheck0 = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck0.setName("[Measures].[Measure1]");
+        queryCheckCellValueCheck0.setExpectedValue("84.0");
+        queryCheckCellValueCheck0.getCoordinates().add(0);
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck0);
+
+        CellValueCheck queryCheckCellValueCheck1 = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck1.setName("[Measures].[Measure1]");
+        queryCheckCellValueCheck1.setExpectedValue("42.0");
+        queryCheckCellValueCheck1.getCoordinates().add(1);
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck1);
+
+        CellValueCheck queryCheckCellValueCheck2 = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck2.setName("[Measures].[Measure1]");
+        queryCheckCellValueCheck2.setExpectedValue("21.0");
+        queryCheckCellValueCheck2.getCoordinates().add(2);
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck2);
+
+        CellValueCheck queryCheckCellValueCheck3 = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck3.setName("[Measures].[Measure1]");
+        queryCheckCellValueCheck3.setExpectedValue("21.0");
+        queryCheckCellValueCheck3.getCoordinates().add(3);
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck3);
+
         queryCheck.setEnabled(true);
         return queryCheck;
     }

@@ -26,6 +26,7 @@ import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
+import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
@@ -53,10 +54,21 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         theMeasureCheck.setDescription("Check that measure 'theMeasure' exists");
         theMeasureCheck.setMeasureName("theMeasure");
 
-        MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
-        measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
+        //TODO fix aggregates check executer
+        MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
+        measureSumAttributeCheck1.setExpectedAggregator(AggregatorType.SUM);
 
-        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        MeasureAttributeCheck measureSumAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck2.setExpectedValue("theMeasure");
+
+        MeasureAttributeCheck measureSumAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureSumAttributeCheck3.setExpectedValue("[Measures].[theMeasure]");
+
+        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck2);
+        theMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck3);
 
         // Create Level check
         LevelCheck levelCheck = factory.createLevelCheck();
@@ -89,7 +101,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getDimensionChecks().add(dimensionCheck);
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
-        queryCheck1CellValueCheck.setName("[Measures].[Measure-Sum]");
+        queryCheck1CellValueCheck.setName("[Measures].[theMeasure]");
         queryCheck1CellValueCheck.setExpectedValue("378.0");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();

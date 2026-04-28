@@ -42,10 +42,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     @Override
     public OlapCheckSuite get() {
-        //ConnectionConfig connectionConfig = FACTORY.createConnectionConfig();
-        //connectionConfig.setCatalogName("Daanse Tutorial - Access Catalog Gran");
-        //connectionConfig.getRoles().add("role1");
-        //model.setConnectionConfig(connectionConfig);
         // Create catalog check
         CatalogCheck catalogCheck = FACTORY.createCatalogCheck();
         catalogCheck.setName("Daanse Tutorial - Access Column Grant Check");

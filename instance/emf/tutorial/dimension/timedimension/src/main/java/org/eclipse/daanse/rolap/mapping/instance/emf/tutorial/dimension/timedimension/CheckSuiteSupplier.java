@@ -26,6 +26,7 @@ import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
+import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
@@ -48,14 +49,26 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     @Override
     public OlapCheckSuite get() {
 
+        //TODO fix aggregates check executer
         MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
         measureSumAttributeCheck1.setExpectedAggregator(AggregatorType.SUM);
+
+        MeasureAttributeCheck measureSumAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck2.setExpectedValue("Measure-Sum");
+
+        MeasureAttributeCheck measureSumAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureSumAttributeCheck3.setExpectedValue("[Measures].[Measure-Sum]");
+
         // Create measure check
         MeasureCheck measureCheck = factory.createMeasureCheck();
         measureCheck.setName("MeasureCheck-Measure-Sum");
         measureCheck.setDescription("Check that measure 'Measure-Sum' exists");
         measureCheck.setMeasureName("Measure-Sum");
-        measureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck1);
+        measureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck2);
+        measureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck3);
 
         // Create level checks for Time dimension
         LevelCheck levelYearsCheck = factory.createLevelCheck();

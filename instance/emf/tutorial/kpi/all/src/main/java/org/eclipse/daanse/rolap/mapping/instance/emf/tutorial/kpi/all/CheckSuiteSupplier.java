@@ -119,7 +119,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check
         CellValueCheck queryCheckCellValueCheck = factory.createCellValueCheck();
         queryCheckCellValueCheck.setName("[Measures].[Measure1-Sum]");
-        queryCheckCellValueCheck.setExpectedValue("63");
+        queryCheckCellValueCheck.setExpectedValue("63.0");
 
         QueryCheck queryCheck = factory.createQueryCheck();
         queryCheck.setName("Measure Query Check");
@@ -132,7 +132,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheckCellValueCheck2 = factory.createCellValueCheck();
         queryCheckCellValueCheck2.setName("[Measures].[Measure2-Count]");
-        queryCheckCellValueCheck2.setExpectedValue("2");
+        queryCheckCellValueCheck2.setExpectedValue("2.0");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check");
@@ -192,6 +192,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - KPI All");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
+        catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
