@@ -39,7 +39,6 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Lev
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
@@ -66,12 +65,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     private PhysicalCube cube1;
     private Level level1;
+    private Level level2;
     private Schema databaseSchema;
     private Catalog catalog;
     private AccessRole role;
     private StandardDimension dimension1;
+    private StandardDimension dimension2;
     private TableSource query;
     private ExplicitHierarchy hierarchy1;
+    private ExplicitHierarchy hierarchy2;
 
 
     private static final String CUBE1 = "Cube1";
@@ -143,7 +145,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         level1.setName("Level1");
         level1.setColumn(keyColumn);
 
-        Level level2 = LevelFactory.eINSTANCE.createLevel();
+        level2 = LevelFactory.eINSTANCE.createLevel();
         level2.setName("Level2");
         level2.setColumn(keyColumn);
 
@@ -153,7 +155,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy1.setQuery(query);
         hierarchy1.getLevels().add(level1);
 
-        ExplicitHierarchy hierarchy2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setPrimaryKey(keyColumn);
         hierarchy2.setQuery(query);
@@ -163,7 +165,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dimension1.setName("Dimension1");
         dimension1.getHierarchies().add(hierarchy1);
 
-        StandardDimension dimension2 = DimensionFactory.eINSTANCE.createStandardDimension();
+        dimension2 = DimensionFactory.eINSTANCE.createStandardDimension();
         dimension2.setName("Dimension2");
         dimension2.getHierarchies().add(hierarchy2);
 

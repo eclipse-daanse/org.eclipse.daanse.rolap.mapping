@@ -65,7 +65,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         role1ConnectionConfig.getRoles().add("role1");
 
         OlapConnectionCheck connectionCheckRole1 = FACTORY.createOlapConnectionCheck();
-        connectionCheckRole1.setName("Cube Gran Check");
+        connectionCheckRole1.setName("Cube Gran Check for role1");
         connectionCheckRole1.setDescription("Connection check for Cube Gran tutorial with role1");
         connectionCheckRole1.setConnectionConfig(role1ConnectionConfig);
         connectionCheckRole1.getCatalogChecks().add(catalogCheck);

@@ -72,6 +72,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private StandardDimension dimension1;
     private TableSource query;
     private ExplicitHierarchy hierarchy1;
+    private ExplicitHierarchy hierarchy2;
 
 
     private static final String CUBE1 = "Cube1";
@@ -163,7 +164,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy1.setQuery(query);
         hierarchy1.getLevels().add(level1);
 
-        ExplicitHierarchy hierarchy2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
+        hierarchy2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setPrimaryKey(keyColumn);
         hierarchy2.setQuery(query);

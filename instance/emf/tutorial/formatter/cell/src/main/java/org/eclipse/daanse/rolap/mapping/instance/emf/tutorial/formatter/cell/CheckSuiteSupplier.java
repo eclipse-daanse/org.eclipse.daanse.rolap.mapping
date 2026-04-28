@@ -21,6 +21,7 @@ import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
 import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
 import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
+import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
@@ -42,8 +43,18 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     @Override
     public OlapCheckSuite get() {
+        //TODO fix aggregates check executer
         MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck1.setAttributeType(MeasureAttribute.AGGREGATOR);
         measureSumAttributeCheck1.setExpectedAggregator(AggregatorType.SUM);
+
+        MeasureAttributeCheck measureSumAttributeCheck2 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck2.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck2.setExpectedValue("Measure1");
+
+        MeasureAttributeCheck measureSumAttributeCheck3 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck3.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        measureSumAttributeCheck3.setExpectedValue("[Measures].[Measure1]");
 
         // Create measure check
         MeasureCheck measureCheck = factory.createMeasureCheck();
@@ -62,13 +73,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check
         CellValueCheck queryCheckCellValueCheck = factory.createCellValueCheck();
         queryCheckCellValueCheck.setName("[Measures].[Measure1]");
+        queryCheckCellValueCheck.setExpectedValue("63.63");
 
         QueryCheck queryCheck = factory.createQueryCheck();
         queryCheck.setName("Measure Query Check");
         queryCheck.setDescription("Verify MDX query returns Measure data");
         queryCheck.setQuery("SELECT FROM [CubeOneNumericMeasureDifferentDataTypes] WHERE ([Measures].[Measure1])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 

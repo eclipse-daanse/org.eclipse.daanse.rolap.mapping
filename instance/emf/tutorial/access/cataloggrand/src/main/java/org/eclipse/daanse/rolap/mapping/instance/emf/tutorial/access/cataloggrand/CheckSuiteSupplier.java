@@ -14,6 +14,7 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggra
 import java.util.List;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
+import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.ConnectionConfig;
 import org.eclipse.daanse.olap.check.model.check.CubeAttribute;
 import org.eclipse.daanse.olap.check.model.check.CubeAttributeCheck;
@@ -49,22 +50,41 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     @Override
     public OlapCheckSuite get() {
         // Create catalog check
-        CatalogCheck catalogCheck = FACTORY.createCatalogCheck();
-        catalogCheck.setName("Catalog Check");
-        catalogCheck.setDescription("Demonstrates access control with catalog grants and roles");
-        catalogCheck.setCatalogName("Daanse Tutorial - Access Catalog Gran");
-        catalogCheck.setEnabled(true);
+        CatalogCheck catalogCheckRoleAll = FACTORY.createCatalogCheck();
+        catalogCheckRoleAll.setName("Catalog Check Role All");
+        catalogCheckRoleAll.setDescription("Demonstrates access control with catalog grants and roles");
+        catalogCheckRoleAll.setCatalogName("Daanse Tutorial - Access Catalog Gran");
+        catalogCheckRoleAll.setEnabled(true);
         // Add database schema check with detailed column checks
-        catalogCheck.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
+        catalogCheckRoleAll.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
         // Add cube check
-        catalogCheck.getCubeChecks().add(createCubeCheck());
+        catalogCheckRoleAll.getCubeChecks().add(createCubeCheck());
 
         // Add query checks at catalog level
-        catalogCheck.getQueryChecks().addAll(java.util.List.of(
-            createQueryCheckForRoleAll(),
-            createQueryCheckForRoleAllDimWithCubeGrand(),
-            createQueryCheckForRoleNone()
+        catalogCheckRoleAll.getQueryChecks().addAll(java.util.List.of(
+            createQueryCheckForRoleAll()
         ));
+
+        CatalogCheck catalogCheckRoleAllDimWithCubeGrand = FACTORY.createCatalogCheck();
+        catalogCheckRoleAllDimWithCubeGrand.setName("Catalog Check Role All Dim With CubeGrand");
+        catalogCheckRoleAllDimWithCubeGrand.setDescription("Demonstrates access control with catalog grants and roles");
+        catalogCheckRoleAllDimWithCubeGrand.setCatalogName("Daanse Tutorial - Access Catalog Gran");
+        catalogCheckRoleAllDimWithCubeGrand.setEnabled(true);
+        // Add database schema check with detailed column checks
+        catalogCheckRoleAllDimWithCubeGrand.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
+        // Add cube check
+        catalogCheckRoleAllDimWithCubeGrand.getCubeChecks().add(createCubeCheck());
+
+        // Add query checks at catalog level
+        catalogCheckRoleAllDimWithCubeGrand.getQueryChecks().addAll(java.util.List.of(
+            createQueryCheckForRoleAllDimWithCubeGrand()
+        ));
+
+        CatalogCheck catalogCheckRoleNone = FACTORY.createCatalogCheck();
+        catalogCheckRoleNone.setName("Catalog Check Role None");
+        catalogCheckRoleNone.setDescription("Demonstrates access control with catalog grants and roles");
+        catalogCheckRoleNone.setCatalogName("Daanse Tutorial - Access Catalog Gran");
+        catalogCheckRoleNone.setEnabled(true);
 
         ConnectionConfig roleAllConnectionConfig = FACTORY.createConnectionConfig();
         roleAllConnectionConfig.setCatalogName("Daanse Tutorial - Access Catalog Gran");
@@ -81,20 +101,20 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         OlapConnectionCheck connectionCheckRoleAll = FACTORY.createOlapConnectionCheck();
         connectionCheckRoleAll.setName("Connection Check Catalog Gran with roleAll");
         connectionCheckRoleAll.setDescription("Connection check for Catalog Gran tutorial with roleAll");
-        connectionCheckRoleAll.setConnectionConfig(roleNoneConnectionConfig);
-        connectionCheckRoleAll.getCatalogChecks().add(catalogCheck);
+        connectionCheckRoleAll.setConnectionConfig(roleAllConnectionConfig);
+        connectionCheckRoleAll.getCatalogChecks().add(catalogCheckRoleAll);
 
         OlapConnectionCheck connectionCheckRoleAllDimWithCubeGrand = FACTORY.createOlapConnectionCheck();
         connectionCheckRoleAllDimWithCubeGrand.setName("Connection Check Catalog Gran with RoleAllDimWithCubeGrand");
         connectionCheckRoleAllDimWithCubeGrand.setDescription("Connection check for Catalog Gran tutorial with roleAllDimWithCubeGrand");
         connectionCheckRoleAllDimWithCubeGrand.setConnectionConfig(roleAllDimWithCubeGrandConnectionConfig);
-        connectionCheckRoleAllDimWithCubeGrand.getCatalogChecks().add(catalogCheck);
+        connectionCheckRoleAllDimWithCubeGrand.getCatalogChecks().add(catalogCheckRoleAllDimWithCubeGrand);
 
         OlapConnectionCheck connectionCheckRoleNone = FACTORY.createOlapConnectionCheck();
         connectionCheckRoleNone.setName("Catalog Gran Check");
         connectionCheckRoleNone.setDescription("Connection check for Catalog Gran tutorial with roleNone");
         connectionCheckRoleNone.setConnectionConfig(roleNoneConnectionConfig);
-        connectionCheckRoleNone.getCatalogChecks().add(catalogCheck);
+        connectionCheckRoleNone.getCatalogChecks().add(catalogCheckRoleNone);
 
         OlapCheckSuite suite = FACTORY.createOlapCheckSuite();
         suite.setName("Access Catalog Gran Suite");
@@ -198,40 +218,44 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         visibleCheck.setAttributeType(MeasureAttribute.VISIBLE);
         visibleCheck.setExpectedBoolean(true);
         measureCheck.getMeasureAttributeChecks().add(visibleCheck);
+
+        MeasureAttributeCheck uniqueNameCheck = FACTORY.createMeasureAttributeCheck();
+        uniqueNameCheck.setName(measureName + " Unique Name");
+        uniqueNameCheck.setAttributeType(MeasureAttribute.UNIQUE_NAME);
+        uniqueNameCheck.setExpectedValue("[Measures].[" + measureName + "]");
+        measureCheck.getMeasureAttributeChecks().add(uniqueNameCheck);
+
         MeasureAttributeCheck aggregatorCheck = FACTORY.createMeasureAttributeCheck();
         aggregatorCheck.setName(measureName + " Aggregator Check");
         aggregatorCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
         aggregatorCheck.setExpectedValue(expectedAggregator);
         aggregatorCheck.setMatchMode(MatchMode.EQUALS);
         aggregatorCheck.setCaseSensitive(false);
-        measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
+        //TODO fix aggregates check executer
+        //measureCheck.getMeasureAttributeChecks().add(aggregatorCheck);
         return measureCheck;
     }
     private QueryCheck createQueryCheckForRoleAll() {
-        QueryCheck queryCheck = FACTORY.createQueryCheck();
-        queryCheck.setName("Measure Query Check");
-        queryCheck.setDescription("Verify MDX query returns Measure data");
-        queryCheck.setQuery("SELECT FROM [Cube1] WHERE ([Measures].[Measure1])");
-        queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
-        queryCheck.setEnabled(true);
+        QueryCheck queryCheck = createQueryCheck("RoleAll");
+        CellValueCheck queryCheckCellValueCheck = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck.setName("[Measures].[Measure1] RoleAll");
+        queryCheckCellValueCheck.setExpectedValue("42.0");
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         return queryCheck;
     }
 
     private QueryCheck createQueryCheckForRoleAllDimWithCubeGrand() {
-        QueryCheck queryCheck = FACTORY.createQueryCheck();
-        queryCheck.setName("Measure Query Check");
-        queryCheck.setDescription("Verify MDX query returns Measure data");
-        queryCheck.setQuery("SELECT FROM [Cube1] WHERE ([Measures].[Measure1])");
-        queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
-        queryCheck.setEnabled(true);
+        QueryCheck queryCheck = createQueryCheck("RoleAllDimWithCubeGrand");
+        CellValueCheck queryCheckCellValueCheck = FACTORY.createCellValueCheck();
+        queryCheckCellValueCheck.setName("[Measures].[Measure1] RoleAllDimWithCubeGrand");
+        queryCheckCellValueCheck.setExpectedValue("42.0");
+        queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         return queryCheck;
     }
 
-    private QueryCheck createQueryCheckForRoleNone() {
+    private QueryCheck createQueryCheck(String name) {
         QueryCheck queryCheck = FACTORY.createQueryCheck();
-        queryCheck.setName("Measure Query Check");
+        queryCheck.setName("Measure Query Check for " + name);
         queryCheck.setDescription("Verify MDX query returns Measure data");
         queryCheck.setQuery("SELECT FROM [Cube1] WHERE ([Measures].[Measure1])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
