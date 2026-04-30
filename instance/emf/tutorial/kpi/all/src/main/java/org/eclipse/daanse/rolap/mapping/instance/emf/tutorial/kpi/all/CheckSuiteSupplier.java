@@ -126,7 +126,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setDescription("Verify MDX query returns Measure data");
         queryCheck.setQuery("SELECT FROM [CubeKPI] WHERE ([Measures].[Measure1-Sum])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
@@ -139,7 +139,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck2.setDescription("Verify MDX query returns Measure data");
         queryCheck2.setQuery("SELECT FROM [CubeKPI] WHERE ([Measures].[Measure2-Count])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheckCellValueCheck2);
         queryCheck2.setEnabled(true);
 

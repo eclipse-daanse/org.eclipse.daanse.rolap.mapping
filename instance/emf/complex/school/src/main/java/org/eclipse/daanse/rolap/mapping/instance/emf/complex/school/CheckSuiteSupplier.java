@@ -59,16 +59,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     // Dimension names
     private static final String DIM_SCHULEN = "Schulen";
-    private static final String DIM_SCHULJAHRE = "Schuljahre";
-    private static final String DIM_ALTERSGRUPPEN_PERSONAL = "Altersgruppen Personal";
+    private static final String DIM_SCHULJAHR = "Schuljahr";
+    private static final String DIM_ALTERSGRUPPE = "Altersgruppe";
     private static final String DIM_GESCHLECHT = "Geschlecht";
-    private static final String DIM_BERUFSGRUPPEN_PERSONAL = "Berufsgruppen Personal";
-    private static final String DIM_EINSCHULUNGEN = "Einschulungen";
+    private static final String DIM_BERUFSGRUPPE = "Berufsgruppe";
+    private static final String DIM_EINSCHULUNGEN = "Einschulung";
     private static final String DIM_KLASSENWIEDERHOLUNG = "Klassenwiederholung";
     private static final String DIM_SCHULABSCHLUSS = "Schulabschluss";
     private static final String DIM_MIGRATIONSHINTERGRUND = "Migrationshintergrund";
     private static final String DIM_WOHNLANDKREIS = "Wohnlandkreis";
-    private static final String DIM_INKLUSION = "Inklusion";
+    private static final String DIM_INKLUSION = "Sonderpädagogische Förderung";
 
     private static final String Q1 = """
         SELECT
@@ -137,16 +137,51 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                 createLevelCheck("Schulkategorie"),
                 createLevelCheck("Schulart"),
                 createLevelCheck("Schule")));
-        DimensionCheck dimCheckSchuljahre = createDimensionCheck(DIM_SCHULJAHRE,
+        DimensionCheck dimCheckSchulen2 = createDimensionCheck(DIM_SCHULEN,
+                createHierarchyCheck("Schulen nach Ganztagsangebot",
+                    createLevelCheck("Art des Ganztagsangebots"),
+                    createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Trägerschaft",
+                    createLevelCheck("Schulträger-Kategorie"),
+                    createLevelCheck("Schulträger-Art"),
+                    createLevelCheck("Schulträger"),
+                    createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Art",
+                    createLevelCheck("Schulkategorie"),
+                    createLevelCheck("Schulart"),
+                    createLevelCheck("Schule")));
+        DimensionCheck dimCheckSchulen3 = createDimensionCheck(DIM_SCHULEN,
+                createHierarchyCheck("Schulen nach Ganztagsangebot",
+                    createLevelCheck("Art des Ganztagsangebots"),
+                    createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Trägerschaft",
+                    createLevelCheck("Schulträger-Kategorie"),
+                    createLevelCheck("Schulträger-Art"),
+                    createLevelCheck("Schulträger"),
+                    createLevelCheck("Schule")),
+                createHierarchyCheck("Schulen nach Art",
+                    createLevelCheck("Schulkategorie"),
+                    createLevelCheck("Schulart"),
+                    createLevelCheck("Schule")));
+        DimensionCheck dimCheckSchuljahre = createDimensionCheck(DIM_SCHULJAHR,
             createHierarchyCheck("Schuljahre",
                 createLevelCheck("Schuljahr")));
+        DimensionCheck dimCheckSchuljahre2 = createDimensionCheck(DIM_SCHULJAHR,
+                createHierarchyCheck("Schuljahre",
+                    createLevelCheck("Schuljahr")));
+        DimensionCheck dimCheckSchuljahre3 = createDimensionCheck(DIM_SCHULJAHR,
+                createHierarchyCheck("Schuljahre",
+                    createLevelCheck("Schuljahr")));
+        DimensionCheck dimCheckAltersgruppe = createDimensionCheck(DIM_ALTERSGRUPPE,
+                createHierarchyCheck("Altersgruppen",
+                        createLevelCheck("Altersgruppe")));
         DimensionCheck dimCheckGeschlecht = createDimensionCheck(DIM_GESCHLECHT,
             createHierarchyCheck("Geschlecht",
                 createLevelCheck("Geschlecht")));
-        DimensionCheck dimCheckAltersgruppenPersonal = createDimensionCheck(DIM_ALTERSGRUPPEN_PERSONAL,
-            createHierarchyCheck("Altersgruppen",
-                createLevelCheck("Altersgruppe")));
-        DimensionCheck dimCheckBerufsgruppenPersonal = createDimensionCheck(DIM_BERUFSGRUPPEN_PERSONAL,
+        DimensionCheck dimCheckGeschlecht3 = createDimensionCheck(DIM_GESCHLECHT,
+                createHierarchyCheck("Geschlecht",
+                    createLevelCheck("Geschlecht")));
+        DimensionCheck dimCheckBerufsgruppenPersonal = createDimensionCheck(DIM_BERUFSGRUPPE,
             createHierarchyCheck("Berufsgruppen",
                 createLevelCheck("Berufsgruppe")));
         DimensionCheck dimCheckEinschulungen = createDimensionCheck(DIM_EINSCHULUNGEN,
@@ -191,9 +226,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckPersonal.setDescription("Check that cube '" + CUBE_PERSONAL_NAME + "' exists");
         cubeCheckPersonal.setCubeName(CUBE_PERSONAL_NAME);
         cubeCheckPersonal.getMeasureChecks().add(measureCheckAnzahlPersonen);
-        cubeCheckPersonal.getDimensionChecks().add(dimCheckSchulen);
-        cubeCheckPersonal.getDimensionChecks().add(dimCheckSchuljahre);
-        cubeCheckPersonal.getDimensionChecks().add(dimCheckAltersgruppenPersonal);
+        cubeCheckPersonal.getDimensionChecks().add(dimCheckSchulen2);
+        cubeCheckPersonal.getDimensionChecks().add(dimCheckSchuljahre2);
+        cubeCheckPersonal.getDimensionChecks().add(dimCheckAltersgruppe);
         cubeCheckPersonal.getDimensionChecks().add(dimCheckGeschlecht);
         cubeCheckPersonal.getDimensionChecks().add(dimCheckBerufsgruppenPersonal);
 
@@ -205,14 +240,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckSchueler.setDescription("Check that cube '" + CUBE_SCHUELER_NAME + "' exists");
         cubeCheckSchueler.setCubeName(CUBE_SCHUELER_NAME);
         cubeCheckSchueler.getMeasureChecks().add(measureCheckAnzahlSchueler);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchulen);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchuljahre);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckGeschlecht);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckEinschulungen);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckKlassenwiederholung);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchulabschluss);
-        cubeCheckSchueler.getDimensionChecks().add(dimCheckMigrationshintergrund);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchulen3);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchuljahre3);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckGeschlecht3);
         cubeCheckSchueler.getDimensionChecks().add(dimCheckWohnlandkreis);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckEinschulungen);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckSchulabschluss);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckKlassenwiederholung);
+        cubeCheckSchueler.getDimensionChecks().add(dimCheckMigrationshintergrund);
         cubeCheckSchueler.getDimensionChecks().add(dimCheckInklusion);
 
         CellValueCheck cellCheck100 = factory.createCellValueCheck();

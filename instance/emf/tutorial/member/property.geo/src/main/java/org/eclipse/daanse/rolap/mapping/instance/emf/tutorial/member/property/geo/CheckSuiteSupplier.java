@@ -80,14 +80,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check
         CellValueCheck queryCheckCellValueCheck = factory.createCellValueCheck();
         queryCheckCellValueCheck.setName("[Measures].[TotalValue]");
-        queryCheckCellValueCheck.setExpectedValue("0");
+        queryCheckCellValueCheck.setExpectedValue("2309.0");
 
         QueryCheck queryCheck = factory.createQueryCheck();
         queryCheck.setName("Measure Query Check");
         queryCheck.setDescription("Verify MDX query returns TotalValue data");
         queryCheck.setQuery("SELECT FROM [Geographic Analysis] WHERE ([Measures].[TotalValue])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 

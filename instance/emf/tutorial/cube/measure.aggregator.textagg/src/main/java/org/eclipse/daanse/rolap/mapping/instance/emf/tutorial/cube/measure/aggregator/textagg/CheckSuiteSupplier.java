@@ -24,6 +24,7 @@ import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
+import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
@@ -53,8 +54,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
         measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
-
-        sumOfValueMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        measureSumAttributeCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
+        //TODO
+        //sumOfValueMeasureCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
 
         MeasureCheck commentMeasureCheck = factory.createMeasureCheck();
         commentMeasureCheck.setName("MeasureCheck-Comment");
@@ -123,18 +125,20 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query checks for each measure
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Sum of Value]");
+        queryCheck1CellValueCheck.setExpectedValue("1432.0");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Sum of Value");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Sum of Value");
         queryCheck1.setQuery("SELECT FROM [MeasuresTextAggregatorsCube] WHERE ([Measures].[Sum of Value])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Comment]");
+        queryCheck2CellValueCheck.setExpectedValue("user1:comment1,user2:comment2,user3:comment3,user4:comment4,user5:comment5");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Comment");

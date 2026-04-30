@@ -68,37 +68,40 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query checks for each measure
         CellValueCheck queryCheckCellValueCheck1 = factory.createCellValueCheck();
         queryCheckCellValueCheck1.setName("[Measures].[Sum of Value1]");
+        queryCheckCellValueCheck1.setExpectedValue("63.0");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Sum of Value1 Query Check");
         queryCheck1.setDescription("Verify MDX query returns Sum of Value1 data");
         queryCheck1.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value1])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheckCellValueCheck1);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheck2 = factory.createCellValueCheck();
         queryCheckCellValueCheck2.setName("[Measures].[Sum of Value2]");
+        queryCheckCellValueCheck2.setExpectedValue("100.0");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Sum of Value2 Query Check");
         queryCheck2.setDescription("Verify MDX query returns Sum of Value2 data");
         queryCheck2.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value2])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheckCellValueCheck2);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheck3 = factory.createCellValueCheck();
         queryCheckCellValueCheck3.setName("[Measures].[Sum of Value3]");
+        queryCheckCellValueCheck3.setExpectedValue("815.0");
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Sum of Value3 Query Check");
         queryCheck3.setDescription("Verify MDX query returns Sum of Value3 data");
         queryCheck3.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value3])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheckCellValueCheck3);
         queryCheck3.setEnabled(true);
 

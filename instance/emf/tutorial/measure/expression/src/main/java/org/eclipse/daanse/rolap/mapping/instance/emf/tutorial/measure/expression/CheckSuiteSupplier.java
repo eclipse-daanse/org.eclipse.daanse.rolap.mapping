@@ -62,28 +62,28 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query check for Measure1-Sum
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Measure1-Sum]");
-        queryCheck1CellValueCheck.setExpectedValue("0");
+        queryCheck1CellValueCheck.setExpectedValue("126.0");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure1 Query Check");
         queryCheck1.setDescription("Verify MDX query returns Measure1-Sum data");
         queryCheck1.setQuery("SELECT FROM [Cube With MeasureExpression] WHERE ([Measures].[Measure1-Sum])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         // Create query check for Measure2-Sum
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Measure2-Sum]");
-        queryCheck2CellValueCheck.setExpectedValue("0");
+        queryCheck2CellValueCheck.setExpectedValue("71.0");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure2 Query Check");
         queryCheck2.setDescription("Verify MDX query returns Measure2-Sum data");
         queryCheck2.setQuery("SELECT FROM [Cube With MeasureExpression] WHERE ([Measures].[Measure2-Sum])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 

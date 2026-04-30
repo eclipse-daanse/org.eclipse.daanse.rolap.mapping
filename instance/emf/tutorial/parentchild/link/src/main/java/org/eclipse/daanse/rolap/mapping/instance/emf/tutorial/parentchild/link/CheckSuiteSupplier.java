@@ -56,20 +56,39 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureCheck.setMeasureName(MEASURE_NAME);
 
         // Create level check with unique members attribute
-        LevelAttributeCheck levelUniqueCheck = factory.createLevelAttributeCheck();
-        levelUniqueCheck.setAttributeType(LevelAttribute.IS_UNIQUE);
-        levelUniqueCheck.setExpectedBoolean(true);
+        LevelAttributeCheck levelUniqueCheck1 = factory.createLevelAttributeCheck();
+        levelUniqueCheck1.setAttributeType(LevelAttribute.IS_UNIQUE);
+        levelUniqueCheck1.setExpectedBoolean(true);
 
-        LevelCheck levelCheck = factory.createLevelCheck();
-        levelCheck.setName("LevelCheck for " + LEVEL_NAME);
-        levelCheck.setLevelName(LEVEL_NAME);
-        levelCheck.getLevelAttributeChecks().add(levelUniqueCheck);
+        LevelCheck levelCheck1 = factory.createLevelCheck();
+        levelCheck1.setName("LevelCheck for " + LEVEL_NAME + "1");
+        levelCheck1.setLevelName(LEVEL_NAME + "1");
+        levelCheck1.getLevelAttributeChecks().add(levelUniqueCheck1);
+
+        LevelAttributeCheck levelUniqueCheck2 = factory.createLevelAttributeCheck();
+        levelUniqueCheck2.setAttributeType(LevelAttribute.IS_UNIQUE);
+        levelUniqueCheck2.setExpectedBoolean(true);
+
+        LevelCheck levelCheck2 = factory.createLevelCheck();
+        levelCheck2.setName("LevelCheck for " + LEVEL_NAME + "2");
+        levelCheck2.setLevelName(LEVEL_NAME + "2");
+        levelCheck2.getLevelAttributeChecks().add(levelUniqueCheck2);
+
+        LevelAttributeCheck levelUniqueCheck3 = factory.createLevelAttributeCheck();
+        levelUniqueCheck3.setAttributeType(LevelAttribute.IS_UNIQUE);
+        levelUniqueCheck3.setExpectedBoolean(true);
+
+        LevelCheck levelCheck3 = factory.createLevelCheck();
+        levelCheck3.setName("LevelCheck for " + LEVEL_NAME + "3");
+        levelCheck3.setLevelName(LEVEL_NAME + "3");
+        levelCheck3.getLevelAttributeChecks().add(levelUniqueCheck3);
 
         // Create hierarchy check for parent-child hierarchy
         HierarchyCheck hierarchyCheck = factory.createHierarchyCheck();
         hierarchyCheck.setName("HierarchyCheck for " + HIERARCHY_NAME);
         hierarchyCheck.setHierarchyName(HIERARCHY_NAME);
-        hierarchyCheck.getLevelChecks().add(levelCheck);
+        hierarchyCheck.getLevelChecks().add(levelCheck1);
+        hierarchyCheck.getLevelChecks().add(levelCheck2);
 
         // Create dimension check
         DimensionCheck dimensionCheck = factory.createDimensionCheck();

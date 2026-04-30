@@ -451,7 +451,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         ORDERED_COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setColumn(COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE);
 
         ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE = RelationalFactory.eINSTANCE.createOrderedColumn();
-        ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setColumn(COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE);
+        ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setColumn(COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE);
 
         // Initialize table queries
         QUERY_CUBE1FACT = SourceFactory.eINSTANCE.createTableSource();
