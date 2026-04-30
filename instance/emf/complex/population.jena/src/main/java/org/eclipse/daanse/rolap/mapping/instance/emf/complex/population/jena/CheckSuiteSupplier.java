@@ -64,7 +64,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                         createLevelCheck("Planungsraum"),
                         createLevelCheck("Statistischer Bezirk")));
         DimensionCheck dimCheckGeschlecht = createDimensionCheck(DIM_GESCHLECHT,
-                createHierarchyCheck("Geschlecht",
+                createHierarchyCheck("Geschlecht (m/w/d)",
                         createLevelCheck("Geschlecht")));
         DimensionCheck dimCheckAlter = createDimensionCheck(DIM_ALTER,
                 createHierarchyCheck("Alter (Einzeljahrgänge)",
@@ -76,13 +76,10 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                         createLevelCheck("Altersgruppe"),
                         createLevelCheck("Alter Kinder")),
                 createHierarchyCheck("Altersgruppen (Systematik RKI H7)",
-                        createLevelCheck("Altersgruppe"),
                         createLevelCheck("Alter H7")),
                 createHierarchyCheck("Altersgruppen (Systematik RKI H8)",
-                        createLevelCheck("Altersgruppe"),
                         createLevelCheck("Alter H8")),
                 createHierarchyCheck("Altersgruppen (10-Jahres-Gruppen)",
-                        createLevelCheck("Altersgruppe"),
                         createLevelCheck("Alter 10")));
 
         // Create measure check

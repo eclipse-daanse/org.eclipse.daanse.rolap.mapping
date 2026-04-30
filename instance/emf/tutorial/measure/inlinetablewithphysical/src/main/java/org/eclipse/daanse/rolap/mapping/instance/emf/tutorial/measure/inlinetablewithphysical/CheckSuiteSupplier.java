@@ -93,7 +93,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.setDescription("Verify MDX query returns Measure-Sum data from inline table (sum of 100.5 + 200.5 + 300.5)");
         queryCheck.setQuery("SELECT FROM [CubeTwoLevelsInlineAndPhysicalTable] WHERE ([Measures].[Measure-Sum])");
         queryCheck.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck.setExpectedColumnCount(1);
+        queryCheck.setExpectedColumnCount(0);
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 

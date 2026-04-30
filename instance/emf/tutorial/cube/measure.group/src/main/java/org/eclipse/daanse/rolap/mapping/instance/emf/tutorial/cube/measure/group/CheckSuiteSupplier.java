@@ -69,37 +69,40 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query checks for each measure
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Measure A]");
+        queryCheck1CellValueCheck.setExpectedValue("63.0");
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Measure A");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Measure A");
         queryCheck1.setQuery("SELECT FROM [MeasureGroupCube] WHERE ([Measures].[Measure A])");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(1);
+        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Measure B]");
+        queryCheck2CellValueCheck.setExpectedValue("63.0");
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Measure B");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Measure B");
         queryCheck2.setQuery("SELECT FROM [MeasureGroupCube] WHERE ([Measures].[Measure B])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Measure 1]");
+        queryCheck3CellValueCheck.setExpectedValue("63.0");
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Measure 1");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Measure 1");
         queryCheck3.setQuery("SELECT FROM [MeasureGroupCube] WHERE ([Measures].[Measure 1])");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(1);
+        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 

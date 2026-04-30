@@ -49,28 +49,28 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         NamedSetCheck namedSetCheck1 = createNamedSetCheck(
             "NsWithFolderDimension1",
             "Check NamedSet with folder using Dimension1",
-            "TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])",
+            "TopCount([Dimension1].[Hierarchy].[Level2].Members, 5, [Measures].[Measure1])",
             "Folder1"
         );
 
         NamedSetCheck namedSetCheck2 = createNamedSetCheck(
             "NsWithoutFolderDimension1",
             "Check NamedSet without folder using Dimension1",
-            "TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])",
+            "TopCount([Dimension1].[Hierarchy].[Level2].Members, 5, [Measures].[Measure1])",
             null
         );
 
         NamedSetCheck namedSetCheck3 = createNamedSetCheck(
             "NSInCubeWithFolder",
             "Check NamedSet with folder in Cube level",
-            "{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}",
+            "{([Dimension1].[Hierarchy].[A], [Dimension2].[Hierarchy].[A]), ([Dimension1].[Hierarchy].[B], [Dimension2].[Hierarchy].[B])}",
             "Folder2"
         );
 
         NamedSetCheck namedSetCheck4 = createNamedSetCheck(
             "NSInCubeWithoutFolder",
             "Check NamedSet without folder in Cube level",
-            "{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}",
+            "{([Dimension1].[Hierarchy].[A], [Dimension2].[Hierarchy].[A]), ([Dimension1].[Hierarchy].[B], [Dimension2].[Hierarchy].[B])}",
             null
         );
 

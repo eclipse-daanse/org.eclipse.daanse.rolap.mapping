@@ -131,8 +131,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         columnCheckHTKey.getColumnAttributeChecks().add(columnKeyTypeCheck);
 
         DatabaseColumnAttributeCheck columnNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnKeyTypeCheck.setExpectedValue("VARCHAR");
+        columnNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
+        columnNameTypeCheck.setExpectedValue("VARCHAR");
 
         DatabaseColumnCheck columnCheckHTName = factory.createDatabaseColumnCheck();
         columnCheckHTName.setName("Database Column Check NAME");
@@ -146,7 +146,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DatabaseColumnCheck columnCheckHTValue = factory.createDatabaseColumnCheck();
         columnCheckHTValue.setName("Database Column Check VALUE");
         columnCheckHTValue.setColumnName("VALUE");
-        columnCheckHTValue.getColumnAttributeChecks().add(columnKeyTypeCheck);
+        columnCheckHTValue.getColumnAttributeChecks().add(columnHTValueTypeCheck);
 
         DatabaseTableCheck databaseTableCheckHT = factory.createDatabaseTableCheck();
         databaseTableCheckHT.setName("Database Table HT Check");

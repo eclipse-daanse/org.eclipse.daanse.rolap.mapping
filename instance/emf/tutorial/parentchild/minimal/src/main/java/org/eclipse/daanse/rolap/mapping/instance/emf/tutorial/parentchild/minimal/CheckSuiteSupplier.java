@@ -63,8 +63,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         levelUniqueCheck.setExpectedBoolean(true);
 
         LevelCheck levelCheck = factory.createLevelCheck();
-        levelCheck.setName("LevelCheck for " + LEVEL_NAME);
-        levelCheck.setLevelName(LEVEL_NAME);
+        levelCheck.setName("LevelCheck for " + LEVEL_NAME + "1");
+        levelCheck.setLevelName(LEVEL_NAME + "1");
         levelCheck.getLevelAttributeChecks().add(levelUniqueCheck);
 
         // Create hierarchy attribute check for hasAll

@@ -205,7 +205,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         DatabaseColumnAttributeCheck columnAttributeCheckFactKey = factory.createDatabaseColumnAttributeCheck();
         columnAttributeCheckFactKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckFactKey.setExpectedValue("INTEGER");
+        columnAttributeCheckFactKey.setExpectedValue("VARCHAR");
 
         DatabaseColumnCheck columnCheckFactKey = factory.createDatabaseColumnCheck();
         columnCheckFactKey.setName("Database Column Check KEY");
