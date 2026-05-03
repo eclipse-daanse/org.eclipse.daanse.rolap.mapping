@@ -56,7 +56,6 @@
 	org.eclipse.daanse.cwm.util;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.dialect.api;version='[0.0.1,0.0.2)',\
-	org.eclipse.daanse.jdbc.db.record;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.model.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.parser.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.api;version='[0.0.1,0.0.2)',\
