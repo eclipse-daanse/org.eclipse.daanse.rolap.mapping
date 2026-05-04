@@ -146,7 +146,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchyHasAllSimple.setHasAll(true);
         hierarchyHasAllSimple.setName("Hierarchy - with HasAll");
         hierarchyHasAllSimple.setPrimaryKey(keyColumn);
-        hierarchyHasAllSimple.setQuery(query);
+        hierarchyHasAllSimple.setSource(query);
         hierarchyHasAllSimple.getLevels().add(level);
 
         hierarchyHasAllComplex = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -155,14 +155,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchyHasAllComplex.setAllMemberName("theAllMemberName");
         hierarchyHasAllComplex.setName("Hierarchy - with HasAll and Names");
         hierarchyHasAllComplex.setPrimaryKey(keyColumn);
-        hierarchyHasAllComplex.setQuery(query);
+        hierarchyHasAllComplex.setSource(query);
         hierarchyHasAllComplex.getLevels().add(level);
 
         hierarchyHasAllFalse = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchyHasAllFalse.setHasAll(false);
         hierarchyHasAllFalse.setName("Hierarchy - Without HasAll");
         hierarchyHasAllFalse.setPrimaryKey(keyColumn);
-        hierarchyHasAllFalse.setQuery(query);
+        hierarchyHasAllFalse.setSource(query);
         hierarchyHasAllFalse.getLevels().add(level);
 
         dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -176,7 +176,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("HasAll Cube");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
 

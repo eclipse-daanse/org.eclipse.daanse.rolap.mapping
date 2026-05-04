@@ -164,7 +164,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy1");
         hierarchy.setPrimaryKey(memberKeyColumn);
-        hierarchy.setQuery(query1);
+        hierarchy.setSource(query1);
         hierarchy.setLevel(level);
         hierarchy.setParentColumn(memberParentKeyColumn);
 
@@ -178,7 +178,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dimensionConnector.setForeignKey(dimKeyColumn);
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 

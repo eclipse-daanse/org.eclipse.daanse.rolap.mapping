@@ -271,7 +271,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(true);
         hierarchy.setPrimaryKey(auotoDimIdColumn);
         hierarchy.setUniqueKeyLevelName("Vehicle Identification Number");
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().addAll(List.of(levelMake, levelModel, levelPlant, levelVehicle, levelLicense));
 
         dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -284,7 +284,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 

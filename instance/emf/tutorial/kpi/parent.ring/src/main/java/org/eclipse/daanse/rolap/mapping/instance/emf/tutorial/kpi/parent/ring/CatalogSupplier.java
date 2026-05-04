@@ -123,7 +123,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube Kpi");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getKpis().add(kpi1);
         cube.getKpis().add(kpi2);

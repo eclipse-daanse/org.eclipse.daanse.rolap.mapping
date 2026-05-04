@@ -150,16 +150,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Table TABLE_D3H3L1TABLE;
 
     // Static queries
-    public static final TableSource QUERY_CUBE1FACT;
-    public static final TableSource QUERY_D1H1L1TABLE;
-    public static final TableSource QUERY_D2H1L1TABLE;
-    public static final TableSource QUERY_D2H2L2TABLE;
-    public static final TableSource QUERY_D3H1L1TABLE;
-    public static final TableSource QUERY_D3H2L2TABLE;
-    public static final TableSource QUERY_D3H2L1TABLE;
-    public static final TableSource QUERY_D3H3L3TABLE;
-    public static final TableSource QUERY_D3H3L2TABLE;
-    public static final TableSource QUERY_D3H3L1TABLE;
+    public static final TableSource SOURCE_CUBE1FACT;
+    public static final TableSource SOURCE_D1H1L1TABLE;
+    public static final TableSource SOURCE_D2H1L1TABLE;
+    public static final TableSource SOURCE_D2H2L2TABLE;
+    public static final TableSource SOURCE_D3H1L1TABLE;
+    public static final TableSource SOURCE_D3H2L2TABLE;
+    public static final TableSource SOURCE_D3H2L1TABLE;
+    public static final TableSource SOURCE_D3H3L3TABLE;
+    public static final TableSource SOURCE_D3H3L2TABLE;
+    public static final TableSource SOURCE_D3H3L1TABLE;
 
     // Static join queries
     public static final JoinSource JOIN_D3H2;
@@ -454,44 +454,44 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         ORDERED_COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setColumn(COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE);
 
         // Initialize table queries
-        QUERY_CUBE1FACT = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_CUBE1FACT.setTable(TABLE_CUBE1FACT);
+        SOURCE_CUBE1FACT = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_CUBE1FACT.setTable(TABLE_CUBE1FACT);
 
-        QUERY_D1H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D1H1L1TABLE.setTable(TABLE_D1H1L1TABLE);
+        SOURCE_D1H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D1H1L1TABLE.setTable(TABLE_D1H1L1TABLE);
 
-        QUERY_D2H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D2H1L1TABLE.setTable(TABLE_D2H1L1TABLE);
+        SOURCE_D2H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D2H1L1TABLE.setTable(TABLE_D2H1L1TABLE);
 
-        QUERY_D2H2L2TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D2H2L2TABLE.setTable(TABLE_D2H2L2TABLE);
+        SOURCE_D2H2L2TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D2H2L2TABLE.setTable(TABLE_D2H2L2TABLE);
 
-        QUERY_D3H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H1L1TABLE.setTable(TABLE_D3H1L1TABLE);
+        SOURCE_D3H1L1TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H1L1TABLE.setTable(TABLE_D3H1L1TABLE);
 
-        QUERY_D3H2L2TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H2L2TABLE.setTable(TABLE_D3H2L2TABLE);
+        SOURCE_D3H2L2TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H2L2TABLE.setTable(TABLE_D3H2L2TABLE);
 
-        QUERY_D3H2L1TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H2L1TABLE.setTable(TABLE_D3H2L1TABLE);
+        SOURCE_D3H2L1TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H2L1TABLE.setTable(TABLE_D3H2L1TABLE);
 
-        QUERY_D3H3L3TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H3L3TABLE.setTable(TABLE_D3H3L3TABLE);
+        SOURCE_D3H3L3TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H3L3TABLE.setTable(TABLE_D3H3L3TABLE);
 
-        QUERY_D3H3L2TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H3L2TABLE.setTable(TABLE_D3H3L2TABLE);
+        SOURCE_D3H3L2TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H3L2TABLE.setTable(TABLE_D3H3L2TABLE);
 
-        QUERY_D3H3L1TABLE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_D3H3L1TABLE.setTable(TABLE_D3H3L1TABLE);
+        SOURCE_D3H3L1TABLE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_D3H3L1TABLE.setTable(TABLE_D3H3L1TABLE);
 
         // Initialize join queries
         JoinedQueryElement leftElement1 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftElement1.setKey(COLUMN_D3H2L1_ID_D3H2L2TABLE);
-        leftElement1.setQuery(QUERY_D3H2L2TABLE);
+        leftElement1.setSource(SOURCE_D3H2L2TABLE);
 
         JoinedQueryElement rightElement1 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightElement1.setKey(COLUMN_D3H2L1_D3H2L1TABLE);
-        rightElement1.setQuery(QUERY_D3H2L1TABLE);
+        rightElement1.setSource(SOURCE_D3H2L1TABLE);
 
         JOIN_D3H2 = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_D3H2.setLeft(leftElement1);
@@ -499,11 +499,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement leftElement2 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftElement2.setKey(COLUMN_D3H3L1_ID_D3H3L2TABLE);
-        leftElement2.setQuery(QUERY_D3H3L2TABLE);
+        leftElement2.setSource(SOURCE_D3H3L2TABLE);
 
         JoinedQueryElement rightElement2 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightElement2.setKey(COLUMN_D3H3L1_D3H3L1TABLE);
-        rightElement2.setQuery(QUERY_D3H3L1TABLE);
+        rightElement2.setSource(SOURCE_D3H3L1TABLE);
 
         JOIN_D3H3_INNER = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_D3H3_INNER.setLeft(leftElement2);
@@ -511,11 +511,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement leftElement3 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftElement3.setKey(COLUMN_D3H3L2_ID_D3H3L3TABLE);
-        leftElement3.setQuery(QUERY_D3H3L3TABLE);
+        leftElement3.setSource(SOURCE_D3H3L3TABLE);
 
         JoinedQueryElement rightElement3 = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightElement3.setKey(COLUMN_D3H3L2_D3H3L2TABLE);
-        rightElement3.setQuery(JOIN_D3H3_INNER);
+        rightElement3.setSource(JOIN_D3H3_INNER);
 
         JOIN_D3H3 = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_D3H3.setLeft(leftElement3);
@@ -587,42 +587,42 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_D1H1.setHasAll(true);
         HIERARCHY_D1H1.setName("D1H1");
         HIERARCHY_D1H1.setPrimaryKey(COLUMN_D1H1L1_D1H1L1TABLE);
-        HIERARCHY_D1H1.setQuery(QUERY_D1H1L1TABLE);
+        HIERARCHY_D1H1.setSource(SOURCE_D1H1L1TABLE);
         HIERARCHY_D1H1.getLevels().add(LEVEL_D1H1L1);
 
         HIERARCHY_D2H1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_D2H1.setHasAll(true);
         HIERARCHY_D2H1.setName("D2H1");
         HIERARCHY_D2H1.setPrimaryKey(COLUMN_D2H1L1_D2H1L1TABLE);
-        HIERARCHY_D2H1.setQuery(QUERY_D2H1L1TABLE);
+        HIERARCHY_D2H1.setSource(SOURCE_D2H1L1TABLE);
         HIERARCHY_D2H1.getLevels().add(LEVEL_D2H1L1);
 
         HIERARCHY_D2H2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_D2H2.setHasAll(true);
         HIERARCHY_D2H2.setName("D2H2");
         HIERARCHY_D2H2.setPrimaryKey(COLUMN_D2H2L2_D2H2L2TABLE);
-        HIERARCHY_D2H2.setQuery(QUERY_D2H2L2TABLE);
+        HIERARCHY_D2H2.setSource(SOURCE_D2H2L2TABLE);
         HIERARCHY_D2H2.getLevels().addAll(List.of(LEVEL_D2H2L1, LEVEL_D2H2L2));
 
         HIERARCHY_D3H1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_D3H1.setHasAll(true);
         HIERARCHY_D3H1.setName("D3H1");
         HIERARCHY_D3H1.setPrimaryKey(COLUMN_D3H1L1_D3H1L1TABLE);
-        HIERARCHY_D3H1.setQuery(QUERY_D3H1L1TABLE);
+        HIERARCHY_D3H1.setSource(SOURCE_D3H1L1TABLE);
         HIERARCHY_D3H1.getLevels().add(LEVEL_D3H1L1);
 
         HIERARCHY_D3H2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_D3H2.setHasAll(true);
         HIERARCHY_D3H2.setName("D3H2");
         HIERARCHY_D3H2.setPrimaryKey(COLUMN_D3H2L2_D3H2L2TABLE);
-        HIERARCHY_D3H2.setQuery(JOIN_D3H2);
+        HIERARCHY_D3H2.setSource(JOIN_D3H2);
         HIERARCHY_D3H2.getLevels().addAll(List.of(LEVEL_D3H2L1, LEVEL_D3H2L2));
 
         HIERARCHY_D3H3 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_D3H3.setHasAll(true);
         HIERARCHY_D3H3.setName("D3H3");
         HIERARCHY_D3H3.setPrimaryKey(COLUMN_D3H3L3_D3H3L3TABLE);
-        HIERARCHY_D3H3.setQuery(JOIN_D3H3);
+        HIERARCHY_D3H3.setSource(JOIN_D3H3);
         HIERARCHY_D3H3.getLevels().addAll(List.of(LEVEL_D3H3L1, LEVEL_D3H3L2, LEVEL_D3H3L3));
 
         // Initialize dimensions
@@ -667,7 +667,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize cube
         CUBE_CUBE1 = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_CUBE1.setName(CUBE_1_NAME);
-        CUBE_CUBE1.setQuery(QUERY_CUBE1FACT);
+        CUBE_CUBE1.setSource(SOURCE_CUBE1FACT);
         CUBE_CUBE1.getDimensionConnectors()
                 .addAll(List.of(CONNECTOR_DIMENSION1, CONNECTOR_DIMENSION2, CONNECTOR_DIMENSION3));
         CUBE_CUBE1.getMeasureGroups().add(MEASUREGROUP_1);

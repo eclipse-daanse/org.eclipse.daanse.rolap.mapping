@@ -82,14 +82,14 @@ public class SchemaExplorer {
 
     private static RelationalSource left(JoinSource join) {
         if (join != null && join.getLeft() != null) {
-            return join.getLeft().getQuery();
+            return join.getLeft().getSource();
         }
         throw new SchemaExplorerException("Join left error");
     }
 
     private static RelationalSource right(JoinSource join) {
         if (join != null && join.getRight() != null) {
-            return join.getRight().getQuery();
+            return join.getRight().getSource();
         }
         throw new SchemaExplorerException("Join right error");
     }

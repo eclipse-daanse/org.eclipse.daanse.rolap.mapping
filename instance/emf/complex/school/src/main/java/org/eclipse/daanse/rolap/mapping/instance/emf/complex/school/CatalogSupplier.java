@@ -607,11 +607,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementSchuleGanztagsartLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleGanztagsartLeft.setKey(columnGanztagsArtIdInSchuleTable);
-        joinElementSchuleGanztagsartLeft.setQuery(tableQuerySchule);
+        joinElementSchuleGanztagsartLeft.setSource(tableQuerySchule);
 
         JoinedQueryElement joinElementSchuleGanztagsartRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleGanztagsartRight.setKey(columnIdInGanztagsArt);
-        joinElementSchuleGanztagsartRight.setQuery(tableQueryGanztagsArt);
+        joinElementSchuleGanztagsartRight.setSource(tableQueryGanztagsArt);
 
         JoinSource joinSchuleGanztagsart = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleGanztagsart.setLeft(joinElementSchuleGanztagsartLeft);
@@ -619,11 +619,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementTraegerKategorieArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerKategorieArtLeft.setKey(columnTraegerKatIdInTraegerArt);
-        joinElementTraegerKategorieArtLeft.setQuery(tableQueryTraegerArt);
+        joinElementTraegerKategorieArtLeft.setSource(tableQueryTraegerArt);
 
         JoinedQueryElement joinElementTraegerKategorieArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerKategorieArtRight.setKey(columnIdInTraegerKategorie);
-        joinElementTraegerKategorieArtRight.setQuery(tableQueryTraegerKategorie);
+        joinElementTraegerKategorieArtRight.setSource(tableQueryTraegerKategorie);
 
         JoinSource joinTraegerKategorieArt = SourceFactory.eINSTANCE.createJoinSource();
         joinTraegerKategorieArt.setLeft(joinElementTraegerKategorieArtLeft);
@@ -631,11 +631,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementTraegerArtTraegerLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerArtTraegerLeft.setKey(columnTraegerArtIdInTraegerTable);
-        joinElementTraegerArtTraegerLeft.setQuery(tableQueryTraeger);
+        joinElementTraegerArtTraegerLeft.setSource(tableQueryTraeger);
 
         JoinedQueryElement joinElementTraegerArtTraegerRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementTraegerArtTraegerRight.setKey(columnIdInTraegerArt);
-        joinElementTraegerArtTraegerRight.setQuery(joinTraegerKategorieArt);
+        joinElementTraegerArtTraegerRight.setSource(joinTraegerKategorieArt);
 
         JoinSource joinTraegerArtTraeger = SourceFactory.eINSTANCE.createJoinSource();
         joinTraegerArtTraeger.setLeft(joinElementTraegerArtTraegerLeft);
@@ -643,11 +643,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementSchuleTraegerHierarchyLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleTraegerHierarchyLeft.setKey(columnTraegerIdInSchuleTable);
-        joinElementSchuleTraegerHierarchyLeft.setQuery(tableQuerySchule);
+        joinElementSchuleTraegerHierarchyLeft.setSource(tableQuerySchule);
 
         JoinedQueryElement joinElementSchuleTraegerHierarchyRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleTraegerHierarchyRight.setKey(columnIdInTraegerTable);
-        joinElementSchuleTraegerHierarchyRight.setQuery(joinTraegerArtTraeger);
+        joinElementSchuleTraegerHierarchyRight.setSource(joinTraegerArtTraeger);
 
         JoinSource joinSchuleTraegerHierarchy = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleTraegerHierarchy.setLeft(joinElementSchuleTraegerHierarchyLeft);
@@ -655,11 +655,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementSchulkategorieArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchulkategorieArtLeft.setKey(columnSchulKategorieInScheduleArt);
-        joinElementSchulkategorieArtLeft.setQuery(tableQueryScheduleArt);
+        joinElementSchulkategorieArtLeft.setSource(tableQueryScheduleArt);
 
         JoinedQueryElement joinElementSchulkategorieArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchulkategorieArtRight.setKey(columnIdInSchulKategorie);
-        joinElementSchulkategorieArtRight.setQuery(tableQueryScheduleKategorie);
+        joinElementSchulkategorieArtRight.setSource(tableQueryScheduleKategorie);
 
         JoinSource joinSchulkategorieArt = SourceFactory.eINSTANCE.createJoinSource();
         joinSchulkategorieArt.setLeft(joinElementSchulkategorieArtLeft);
@@ -667,11 +667,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementSchuleSchulartHierarchyLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleSchulartHierarchyLeft.setKey(columnSchulArtIdInSchuleTable);
-        joinElementSchuleSchulartHierarchyLeft.setQuery(tableQuerySchule);
+        joinElementSchuleSchulartHierarchyLeft.setSource(tableQuerySchule);
 
         JoinedQueryElement joinElementSchuleSchulartHierarchyRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementSchuleSchulartHierarchyRight.setKey(columnIdInScheduleArt);
-        joinElementSchuleSchulartHierarchyRight.setQuery(joinSchulkategorieArt);
+        joinElementSchuleSchulartHierarchyRight.setSource(joinSchulkategorieArt);
 
         JoinSource joinSchuleSchulartHierarchy = SourceFactory.eINSTANCE.createJoinSource();
         joinSchuleSchulartHierarchy.setLeft(joinElementSchuleSchulartHierarchyLeft);
@@ -679,11 +679,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementWohnlandkreisBundeslandLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementWohnlandkreisBundeslandLeft.setKey(columnBundeslandIdInWohnortLandkreis);
-        joinElementWohnlandkreisBundeslandLeft.setQuery(tableQueryWohnortLandkreis);
+        joinElementWohnlandkreisBundeslandLeft.setSource(tableQueryWohnortLandkreis);
 
         JoinedQueryElement joinElementWohnlandkreisBundeslandRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementWohnlandkreisBundeslandRight.setKey(columnIdInBundesland);
-        joinElementWohnlandkreisBundeslandRight.setQuery(tableQueryBundesland);
+        joinElementWohnlandkreisBundeslandRight.setSource(tableQueryBundesland);
 
         JoinSource joinWohnlandkreisBundesland = SourceFactory.eINSTANCE.createJoinSource();
         joinWohnlandkreisBundesland.setLeft(joinElementWohnlandkreisBundeslandLeft);
@@ -691,11 +691,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         JoinedQueryElement joinElementFoerderbedarfArtLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementFoerderbedarfArtLeft.setKey(columnSpFoerderbedarfIdInFoerderungArt);
-        joinElementFoerderbedarfArtLeft.setQuery(tableQueryFoerderungArt);
+        joinElementFoerderbedarfArtLeft.setSource(tableQueryFoerderungArt);
 
         JoinedQueryElement joinElementFoerderbedarfArtRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinElementFoerderbedarfArtRight.setKey(columnIdInSonderpaedFoerderbedart);
-        joinElementFoerderbedarfArtRight.setQuery(tableQuerySonderpaedFoerderbedart);
+        joinElementFoerderbedarfArtRight.setSource(tableQuerySonderpaedFoerderbedart);
 
         OrderedColumn orderedColumnSchulNummerInSchuleTable1 = RelationalFactory.eINSTANCE.createOrderedColumn();
         orderedColumnSchulNummerInSchuleTable1.setColumn(columnSchulNummerInSchuleTable);
@@ -827,7 +827,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenGanztagsangebot.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenGanztagsangebot.setName("Schulen nach Ganztagsangebot");
         hierarchySchulenGanztagsangebot.setPrimaryKey(columnIdInSchuleTable);
-        hierarchySchulenGanztagsangebot.setQuery(joinSchuleGanztagsart);
+        hierarchySchulenGanztagsangebot.setSource(joinSchuleGanztagsart);
         hierarchySchulenGanztagsangebot.getLevels().addAll(List.of(levelGanztagsangebot, levelSchule));
 
         ExplicitHierarchy hierarchySchulenTraegerschaft = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -835,7 +835,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenTraegerschaft.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenTraegerschaft.setName("Schulen nach Trägerschaft");
         hierarchySchulenTraegerschaft.setPrimaryKey(columnIdInSchuleTable);
-        hierarchySchulenTraegerschaft.setQuery(joinSchuleTraegerHierarchy);
+        hierarchySchulenTraegerschaft.setSource(joinSchuleTraegerHierarchy);
         hierarchySchulenTraegerschaft.getLevels()
                 .addAll(List.of(levelTraegerKategorie, levelTraegerArt, levelTraeger, levelSchuleTraegerschaft));
 
@@ -844,14 +844,14 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulenArt.setAllMemberName(ALLE_SCHULEN);
         hierarchySchulenArt.setName("Schulen nach Art");
         hierarchySchulenArt.setPrimaryKey(columnIdInSchuleTable);
-        hierarchySchulenArt.setQuery(joinSchuleSchulartHierarchy);
+        hierarchySchulenArt.setSource(joinSchuleSchulartHierarchy);
         hierarchySchulenArt.getLevels().addAll(List.of(levelSchulkategorie, levelSchulart, levelSchuleArt));
 
         ExplicitHierarchy hierarchySchuljahre = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchySchuljahre.setHasAll(false);
         hierarchySchuljahre.setName("Schuljahre");
         hierarchySchuljahre.setPrimaryKey(columnIdInSchulJahr);
-        hierarchySchuljahre.setQuery(tableQuerySchulJahr);
+        hierarchySchuljahre.setSource(tableQuerySchulJahr);
         hierarchySchuljahre.getLevels().addAll(List.of(levelSchuljahr));
 
         ExplicitHierarchy hierarchyAltersgruppen = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -859,7 +859,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyAltersgruppen.setAllMemberName("Alle Altersgruppen");
         hierarchyAltersgruppen.setName("Altersgruppen");
         hierarchyAltersgruppen.setPrimaryKey(columnIdInAltersGruppe);
-        hierarchyAltersgruppen.setQuery(tableQueryAltersGruppe);
+        hierarchyAltersgruppen.setSource(tableQueryAltersGruppe);
         hierarchyAltersgruppen.getLevels().addAll(List.of(levelAltersgruppe));
 
         ExplicitHierarchy hierarchyGeschlecht = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -867,7 +867,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyGeschlecht.setAllMemberName("Alle Geschlechter");
         hierarchyGeschlecht.setName(GESCHLECHT);
         hierarchyGeschlecht.setPrimaryKey(columnIdInGeschlecht);
-        hierarchyGeschlecht.setQuery(tableQueryGeschlecht);
+        hierarchyGeschlecht.setSource(tableQueryGeschlecht);
         hierarchyGeschlecht.getLevels().addAll(List.of(levelGeschlecht));
 
         ExplicitHierarchy hierarchyBerufsgruppen = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -875,7 +875,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyBerufsgruppen.setAllMemberName("Alle Berufsgruppen");
         hierarchyBerufsgruppen.setName("Berufsgruppen");
         hierarchyBerufsgruppen.setPrimaryKey(columnIdInPersonalArt);
-        hierarchyBerufsgruppen.setQuery(tableQueryPersonalArt);
+        hierarchyBerufsgruppen.setSource(tableQueryPersonalArt);
         hierarchyBerufsgruppen.getLevels().addAll(List.of(levelBerufsgruppe));
 
         ExplicitHierarchy hierarchyEinschulung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -883,7 +883,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyEinschulung.setAllMemberName(GESAMT);
         hierarchyEinschulung.setName(EINSCHULUNG);
         hierarchyEinschulung.setPrimaryKey(columnIdInEinschulung);
-        hierarchyEinschulung.setQuery(tableQueryEinschulung);
+        hierarchyEinschulung.setSource(tableQueryEinschulung);
         hierarchyEinschulung.getLevels().addAll(List.of(levelEinschulung));
 
         ExplicitHierarchy hierarchyKlassenwiederholung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -891,7 +891,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyKlassenwiederholung.setAllMemberName(GESAMT);
         hierarchyKlassenwiederholung.setName(KLASSENWIEDERHOLUNG);
         hierarchyKlassenwiederholung.setPrimaryKey(columnIdInKlassenWiederholung);
-        hierarchyKlassenwiederholung.setQuery(tableQueryKlassenWiederholung);
+        hierarchyKlassenwiederholung.setSource(tableQueryKlassenWiederholung);
         hierarchyKlassenwiederholung.getLevels().addAll(List.of(levelKlassenwiederholung));
 
         ExplicitHierarchy hierarchySchulabschluss = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -899,7 +899,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchySchulabschluss.setAllMemberName(GESAMT);
         hierarchySchulabschluss.setName("Schulabschlüsse");
         hierarchySchulabschluss.setPrimaryKey(columnIdInSchulAbschluss);
-        hierarchySchulabschluss.setQuery(tableQuerySchulAbschluss);
+        hierarchySchulabschluss.setSource(tableQuerySchulAbschluss);
         hierarchySchulabschluss.getLevels().addAll(List.of(levelSchulabschluss));
 
         ExplicitHierarchy hierarchyMigrationshintergrund = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -907,7 +907,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyMigrationshintergrund.setAllMemberName(GESAMT);
         hierarchyMigrationshintergrund.setName(MIGRATIONSHINTERGRUND);
         hierarchyMigrationshintergrund.setPrimaryKey(columnIdInMigrationsHintergrund);
-        hierarchyMigrationshintergrund.setQuery(tableQueryMigrationsHintergrund);
+        hierarchyMigrationshintergrund.setSource(tableQueryMigrationsHintergrund);
         hierarchyMigrationshintergrund.getLevels().addAll(List.of(levelMigrationshintergrund));
 
         ExplicitHierarchy hierarchyWohnlandkreis = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -915,7 +915,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyWohnlandkreis.setAllMemberName("Alle Wohnlandkreise");
         hierarchyWohnlandkreis.setName(WOHNLANDKREIS);
         hierarchyWohnlandkreis.setPrimaryKey(columnIdInWohnortLandkreis);
-        hierarchyWohnlandkreis.setQuery(joinWohnlandkreisBundesland);
+        hierarchyWohnlandkreis.setSource(joinWohnlandkreisBundesland);
         hierarchyWohnlandkreis.getLevels().addAll(List.of(levelBundesland, levelWohnlandkreis));
 
         ExplicitHierarchy hierarchyFoerderung = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -923,7 +923,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyFoerderung.setAllMemberName(GESAMT);
         hierarchyFoerderung.setName("Sonderpädagogische Förderung");
         hierarchyFoerderung.setPrimaryKey(columnIdInFoerderungArt);
-        hierarchyFoerderung.setQuery(joinFoerderbedarfArt);
+        hierarchyFoerderung.setSource(joinFoerderbedarfArt);
         hierarchyFoerderung.getLevels().addAll(List.of(levelFoerderbedarf, levelFoerderungArt));
 
         StandardDimension dimensionSchulen = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -1008,7 +1008,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cubeSchulenInstitutionen = CubeFactory.eINSTANCE.createPhysicalCube();
         cubeSchulenInstitutionen.setName("Schulen in Jena (Institutionen)");
-        cubeSchulenInstitutionen.setQuery(tableQueryFactSchulen);
+        cubeSchulenInstitutionen.setSource(tableQueryFactSchulen);
         cubeSchulenInstitutionen.getDimensionConnectors().addAll(List.of(connectorSchulen1, connectorSchuljahr1));
         cubeSchulenInstitutionen.getMeasureGroups().addAll(List.of(measureGroupSchulenInstitutionen));
 
@@ -1039,7 +1039,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cubePaedagogischesPersonal = CubeFactory.eINSTANCE.createPhysicalCube();
         cubePaedagogischesPersonal.setName("Pädagogisches Personal an Jenaer Schulen");
-        cubePaedagogischesPersonal.setQuery(tableQueryFactPersonal);
+        cubePaedagogischesPersonal.setSource(tableQueryFactPersonal);
         cubePaedagogischesPersonal.getDimensionConnectors().addAll(List.of(connectorSchulen2, connectorSchuljahr2,
                 connectorAltersgruppe, connectorGeschlecht, connectorBerufsgruppe));
         cubePaedagogischesPersonal.getMeasureGroups().addAll(List.of(measureGroupPaedagogischesPersonal));
@@ -1091,7 +1091,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         PhysicalCube cubeSchuelerInnen = CubeFactory.eINSTANCE.createPhysicalCube();
         cubeSchuelerInnen.setName("Schüler:innen an Jenaer Schulen");
-        cubeSchuelerInnen.setQuery(tableQueryFactSchueler);
+        cubeSchuelerInnen.setSource(tableQueryFactSchueler);
         cubeSchuelerInnen.getDimensionConnectors()
                 .addAll(List.of(connectorSchulen3, connectorSchuljahr3, connectorGeschlecht3, connectorWohnlandkreis,
                         connectorEinschulung, connectorSchulabschluss, connectorKlassenwiederholung,

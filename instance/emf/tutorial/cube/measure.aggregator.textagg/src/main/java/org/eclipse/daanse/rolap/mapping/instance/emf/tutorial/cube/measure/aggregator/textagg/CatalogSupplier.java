@@ -176,7 +176,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().add(levelContinent);
         hierarchy.getLevels().add(levelCountry);
         hierarchy.getLevels().add(levelTown);
@@ -203,7 +203,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         ExplicitHierarchy hierarchy1 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy1.setName("TimeHierarchy");
         hierarchy1.setPrimaryKey(keyColumn);
-        hierarchy1.setQuery(query);
+        hierarchy1.setSource(query);
         hierarchy1.getLevels().add(levelYear);
         hierarchy1.getLevels().add(levelMonth);
 
@@ -217,7 +217,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresTextAggregatorsCube");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);
         cube.getMeasureGroups().add(measureGroup);

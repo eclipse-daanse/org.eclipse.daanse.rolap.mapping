@@ -269,10 +269,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement joinLeft = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinLeft.setKey(l1L2Column);
-        joinLeft.setQuery(l1Query);
+        joinLeft.setSource(l1Query);
         JoinedQueryElement joinRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
         joinRight.setKey(l2L2Column);
-        joinRight.setQuery(l2Query);
+        joinRight.setSource(l2Query);
 
         join = SourceFactory.eINSTANCE.createJoinSource();
         join.setLeft(joinLeft);
@@ -300,7 +300,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(true);
         hierarchy.setName("HierarchyWithHasAll");
         hierarchy.setPrimaryKey(l1L2Column);
-        hierarchy.setQuery(join);
+        hierarchy.setSource(join);
         hierarchy.getLevels().addAll(List.of(l1Level, l2Level));
 
         dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -331,7 +331,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.setWritebackTable(writebackTable);

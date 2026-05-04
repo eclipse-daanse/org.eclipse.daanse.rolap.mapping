@@ -92,7 +92,7 @@ import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
 
     public static final StandardDimension DIMENSION_STORE_TYPE;
-    public static final TableSource QUERY_CUSTOMER;
+    public static final TableSource SOURCE_CUSTOMER;
     public static final Level LEVEL_EMPLOYEE_POSITION;
     public static final SumMeasure MEASURE_GROCERY_SQFT;
     public static final Level LEVEL_CITY_TABLE_COLUMN_STORE_CITY;
@@ -102,14 +102,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final SumMeasure MEASURE_STORE_SALES_RAGGED;
     public static final Level LEVEL_CUSTOMER_EDUCATION;
     public static final StandardDimension DIMENSION_DEPARTMENT;
-    public static final StandardDimension DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE;
+    public static final StandardDimension DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE;
     public static final StandardDimension DIMENSION_STORE;
-    public static final TableSource QUERY_PRODUCT_CLASS;
+    public static final TableSource SOURCE_PRODUCT_CLASS;
     public static final SumMeasure MEASURE_STORE_SALES;
     public static final SumMeasure MEASURE_STORE_COST_WITH_PROPERTY;
     public static final Level LEVEL_WAREHOUSE_COUNTRY;
     public static final Level LEVEL_PRODUCT_CATEGORY;
-    public static final TableSource QUERY_EMPLOYEE_CLOSURE;
+    public static final TableSource SOURCE_EMPLOYEE_CLOSURE;
     public static final SumMeasure MEASURE_WAREHOUSE_SUPPLY_TIME;
     public static final ExplicitHierarchy HIERARCHY_PROMOTIONS;
     public static final StandardDimension DIMENSION_MARITAL_STATUS;
@@ -140,14 +140,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Level LEVEL_PRODUCT_BRAND;
     public static final Level LEVEL_CUSTOMER_MARITAL_STATUS;
     public static final Level LEVEL_MARITAL_STATUS;
-    public static final TableSource QUERY_STORE;
+    public static final TableSource SOURCE_STORE;
     public static final Level LEVEL_COUNTRY_WITH_NEVER;
     public static final Level LEVEL_CUSTOMER_STATE;
     public static final Level LEVEL_WAREHOUSE_CITY;
     public static final Level LEVEL_EDUCATION;
     public static final SumMeasure MEASURE_WAREHOUSE_COST;
     public static final StandardDimension DIMENSION_PRODUCT;
-    public static final TableSource QUERY_SALARY;
+    public static final TableSource SOURCE_SALARY;
     public static final PhysicalCube CUBE_WAREHOUSE;
     public static final StandardDimension DIMENSION_CUSTOMERS;
     public static final StandardDimension DIMENSION_PROMOTION_MEDIA;
@@ -157,9 +157,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final ExplicitHierarchy HIERARCHY_EDUCATION_LEVEL;
     public static final Catalog CATALOG_FOODMART;
     public static final SumMeasure MEASURE_ORG_SALARY;
-    public static final TableSource QUERY_PRODUCT;
+    public static final TableSource SOURCE_PRODUCT;
     public static final ExplicitHierarchy HIERARCHY_PAY_TYPE;
-    public static final StandardDimension DIMENSION_STORE_TYPE_WITHOUT_QUERY;
+    public static final StandardDimension DIMENSION_STORE_TYPE_WITHOUT_SOURCE;
     public static final Level LEVEL_CUSTOMER_GENDER;
     public static final Level LEVEL_PRODUCT_NAME;
     public static final Level LEVEL_DEPARTMENT_DESCRIPTION;
@@ -167,33 +167,33 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Level LEVEL_YEAR;
     public static final StandardDimension DIMENSION_PAY_TYPE;
     public static final Level LEVEL_STORE_HAS_COFFEE_BAR;
-    public static final TableSource QUERY_INVENTORY_FACT;
+    public static final TableSource SOURCE_INVENTORY_FACT;
     public static final Level LEVEL_STORE_CYTY_IF_BLANK_NAME;
     public static final Level LEVEL_EMPLOYEE_FULL_NAME;
     public static final PhysicalCube CUBE_STORE;
     public static final SumMeasure MEASURE_WAREHOUSE_SALES;
-    public static final TableSource QUERY_PROMOTION;
+    public static final TableSource SOURCE_PROMOTION;
     public static final SumMeasure MEASURE_UNIT_SALES;
     public static final Level LEVEL_STORE_TYPE;
     public static final StandardDimension DIMENSION_STORE_SALES_RAGGED;
     public static final ExplicitHierarchy HIERARCHY_DEPARTMENT;
-    public static final StandardDimension DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE;
+    public static final StandardDimension DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE;
     public static final Level LEVEL_STATE;
     public static final ExplicitHierarchy HIERARCHY_HR_POSITION;
     public static final StandardDimension DIMENSION_POSITION;
     public static final Level LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY;
     public static final StandardDimension DIMENSION_GENDER;
     public static final Level LEVEL_STORE_CYTY_IF_PARENTS_NAME;
-    public static final TableSource QUERY_DEPARTMENT;
+    public static final TableSource SOURCE_DEPARTMENT;
     public static final CountMeasure MEASURE_CUSTOMER_COUNT_RAGGED;
     public static final Level LEVEL_WAREHOUSE_STATE;
-    public static final TableSource QUERY_EMPLOYEE;
+    public static final TableSource SOURCE_EMPLOYEE;
     public static final CountMeasure MEASURE_SALES_COUNT_WITH_PROPERTY;
     public static final ExplicitHierarchy HIERARCHY_STORE_SIZE_IN_SQFT;
     public static final ExplicitHierarchy HIERARCHY_CUSTOMERS_MARITAL;
     public static final Level LEVEL_PRODUCT_FAMILY;
     public static final Level LEVEL_STORE_CITY;
-    public static final ExplicitHierarchy HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE;
+    public static final ExplicitHierarchy HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE;
     public static final SumMeasure MEASURE_STORE_COST_RAGGED;
     public static final AccessRole ROLE_CALIFORNIA_MANAGER;
     public static final Level LEVEL_STORE_COUNTRY;
@@ -203,7 +203,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final SumMeasure MEASURE_STORE_SALES_WITH_PROPERTY;
     public static final Level LEVEL_MONTH;
     public static final SumMeasure MEASURE_WAREHOUSE_PROFIT;
-    public static final TableSource QUERY_POSITION;
+    public static final TableSource SOURCE_POSITION;
     public static final ExplicitHierarchy HIERARCHY_PROMOTION_MEDIA;
     public static final Level LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR;
     public static final Level LEVEL_WAREHOUSE_NAME;
@@ -211,21 +211,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Level LEVEL_PROMOTION_NAME;
     public static final ExplicitHierarchy HIERARCHY_STORE_TYPE_WITHOUT_TABLE;
     public static final PhysicalCube CUBE_SALES;
-    public static final StandardDimension DIMENSION_STORE_TYPE_WITH_QUERY_STORE;
+    public static final StandardDimension DIMENSION_STORE_TYPE_WITH_SOURCE_STORE;
     public static final TimeDimension DIMENSION_TIME;
     public static final Schema DATABASE_SCHEMA_FOODMART;
     public static final Level LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER;
-    public static final TableSource QUERY_SALES_FACT;
+    public static final TableSource SOURCE_SALES_FACT;
     public static final ExplicitHierarchy HIERARCHY_CUSTOMERS_GENDER;
     public static final StandardDimension DIMENSION_WAREHOUSE;
     public static final Level LEVEL_STORE_COUNTRY_WITH_NEVER;
     public static final StandardDimension DIMENSION_EMPLOYEE;
-    public static final TableSource QUERY_WAREHOUSE;
+    public static final TableSource SOURCE_WAREHOUSE;
     public static final CountMeasure MEASURE_COUNT;
     public static final Level LEVEL_HR_POSITION_TITLE;
     public static final ExplicitHierarchy HIERARCHY_STORE_HAS_COFFEE_BAR;
     public static final Level LEVEL_GENDER;
-    public static final TableSource QUERY_STORE_RAGGED;
+    public static final TableSource SOURCE_STORE_RAGGED;
     public static final SumMeasure MEASURE_UNIT_SALES_RAGGED;
     public static final Level LEVEL_CITY_TABLE_COLUMN_CITY;
     public static final SumMeasure MEASURE_STORE_SQFT;
@@ -246,7 +246,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final StandardDimension DIMENSION_EDUCATION_LEVEL;
     public static final PhysicalCube CUBE_SALES_RAGGED;
     public static final Level LEVEL_QUARTER;
-    public static final TableSource QUERY_TIME_BY_DAY;
+    public static final TableSource SOURCE_TIME_BY_DAY;
 
 
     // Static columns - Sales Fact Table
@@ -570,22 +570,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final AggregationExclude AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997;
 
     // Static table queries
-    //public static final TableSource QUERY_TIME;
-    // field assignment only: QUERY_STORE
-    // field assignment only: QUERY_CUSTOMER
-    // field assignment only: QUERY_PRODUCT
-    // field assignment only: QUERY_SALES_FACT
-    // field assignment only: QUERY_WAREHOUSE
-    // field assignment only: QUERY_INVENTORY_FACT
-    // field assignment only: QUERY_PROMOTION
-    // field assignment only: QUERY_EMPLOYEE
-    // field assignment only: QUERY_DEPARTMENT
-    // field assignment only: QUERY_POSITION
-    // field assignment only: QUERY_SALARY
-    // field assignment only: QUERY_EMPLOYEE_CLOSURE
-    // field assignment only: QUERY_PRODUCT_CLASS
-    // field assignment only: QUERY_TIME_BY_DAY
-    // field assignment only: QUERY_STORE_RAGGED
+    //public static final TableSource SOURCE_TIME;
+    // field assignment only: SOURCE_STORE
+    // field assignment only: SOURCE_CUSTOMER
+    // field assignment only: SOURCE_PRODUCT
+    // field assignment only: SOURCE_SALES_FACT
+    // field assignment only: SOURCE_WAREHOUSE
+    // field assignment only: SOURCE_INVENTORY_FACT
+    // field assignment only: SOURCE_PROMOTION
+    // field assignment only: SOURCE_EMPLOYEE
+    // field assignment only: SOURCE_DEPARTMENT
+    // field assignment only: SOURCE_POSITION
+    // field assignment only: SOURCE_SALARY
+    // field assignment only: SOURCE_EMPLOYEE_CLOSURE
+    // field assignment only: SOURCE_PRODUCT_CLASS
+    // field assignment only: SOURCE_TIME_BY_DAY
+    // field assignment only: SOURCE_STORE_RAGGED
 
     public static final JoinedQueryElement JOIN_PRODUCT_PRODUCT_CLASS_LEFT;
     public static final JoinedQueryElement JOIN_PRODUCT_PRODUCT_CLASS_RIGHT;
@@ -682,7 +682,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final ExplicitHierarchy HIERARCHY_STORE_SALES_RAGGED;
     public static final ExplicitHierarchy HIERARCHY_HR_STORE;
     // field assignment only: HIERARCHY_PAY_TYPE
-    // field assignment only: HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE
+    // field assignment only: HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE
     public static final ExplicitHierarchy HIERARCHY_CUSTOMER;
     public static final ExplicitHierarchy HIERARCHY_CUSTOMERS_GEO;
     // field assignment only: HIERARCHY_CUSTOMERS_GENDER
@@ -713,15 +713,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     // field assignment only: DIMENSION_HR_TIME
     // field assignment only: DIMENSION_STORE
     // field assignment only: DIMENSION_STORE_SALES_RAGGED
-    // field assignment only: DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE
+    // field assignment only: DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE
     // field assignment only: DIMENSION_PAY_TYPE
-    // field assignment only: DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE
+    // field assignment only: DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE
     // field assignment only: DIMENSION_CUSTOMERS
     // field assignment only: DIMENSION_PRODUCT
     // field assignment only: DIMENSION_STORE_SIZE_IN_SQFT
     // field assignment only: DIMENSION_PROMOTIONS
-    // field assignment only: DIMENSION_STORE_TYPE_WITH_QUERY_STORE
-    // field assignment only: DIMENSION_STORE_TYPE_WITHOUT_QUERY
+    // field assignment only: DIMENSION_STORE_TYPE_WITH_SOURCE_STORE
+    // field assignment only: DIMENSION_STORE_TYPE_WITHOUT_SOURCE
     // field assignment only: DIMENSION_EDUCATION_LEVEL
     // field assignment only: DIMENSION_GENDER
     // field assignment only: DIMENSION_MARITAL_STATUS
@@ -812,7 +812,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final DimensionConnector CONNECTOR_HR_TIME;
     public static final DimensionConnector CONNECTOR_HR_STORE;
     public static final DimensionConnector CONNECTOR_HR_PAY_TYPE;
-    public static final DimensionConnector CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE;
+    public static final DimensionConnector CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE;
     public static final DimensionConnector CONNECTOR_HR_EMPLOYEE;
     public static final DimensionConnector CONNECTOR_HR_POSITION;
     public static final DimensionConnector CONNECTOR_HR_DEPARTMENT;
@@ -2364,63 +2364,63 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997.setName("agg_pc_10_sales_fact_1997");
 
         // Initialize table queries
-        QUERY_STORE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_STORE.setTable(TABLE_STORE);
+        SOURCE_STORE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_STORE.setTable(TABLE_STORE);
 
-        QUERY_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_CUSTOMER.setTable(TABLE_CUSTOMER);
+        SOURCE_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_CUSTOMER.setTable(TABLE_CUSTOMER);
 
-        QUERY_PRODUCT = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_PRODUCT.setTable(TABLE_PRODUCT);
+        SOURCE_PRODUCT = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_PRODUCT.setTable(TABLE_PRODUCT);
 
-        QUERY_SALES_FACT = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_SALES_FACT.setTable(TABLE_SALES_FACT);
-        QUERY_SALES_FACT.getAggregationExcludes().addAll(List.of(AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997,
+        SOURCE_SALES_FACT = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_SALES_FACT.setTable(TABLE_SALES_FACT);
+        SOURCE_SALES_FACT.getAggregationExcludes().addAll(List.of(AGGREGATION_EXCLUDE_AGG_LC_100_SALES_FACT_1997,
                 AGGREGATION_EXCLUDE_AGG_LC_10_SALES_FACT_1997,
                 AGGREGATION_EXCLUDE_AGG_PC_10_SALES_FACT_1997));
-        QUERY_SALES_FACT.getAggregationTables().add(AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997);
+        SOURCE_SALES_FACT.getAggregationTables().add(AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997);
 
         // Initialize new table queries
-        QUERY_WAREHOUSE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_WAREHOUSE.setTable(TABLE_WAREHOUSE);
+        SOURCE_WAREHOUSE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_WAREHOUSE.setTable(TABLE_WAREHOUSE);
 
-        QUERY_INVENTORY_FACT = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_INVENTORY_FACT.setTable(TABLE_INVENTORY_FACT);
+        SOURCE_INVENTORY_FACT = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_INVENTORY_FACT.setTable(TABLE_INVENTORY_FACT);
 
-        QUERY_PROMOTION = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_PROMOTION.setTable(TABLE_PROMOTION);
+        SOURCE_PROMOTION = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_PROMOTION.setTable(TABLE_PROMOTION);
 
-        QUERY_EMPLOYEE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_EMPLOYEE.setTable(TABLE_EMPLOYEE);
+        SOURCE_EMPLOYEE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_EMPLOYEE.setTable(TABLE_EMPLOYEE);
 
-        QUERY_DEPARTMENT = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_DEPARTMENT.setTable(TABLE_DEPARTMENT);
+        SOURCE_DEPARTMENT = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_DEPARTMENT.setTable(TABLE_DEPARTMENT);
 
-        QUERY_POSITION = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_POSITION.setTable(TABLE_POSITION);
+        SOURCE_POSITION = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_POSITION.setTable(TABLE_POSITION);
 
-        QUERY_SALARY = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_SALARY.setTable(TABLE_SALARY);
+        SOURCE_SALARY = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_SALARY.setTable(TABLE_SALARY);
 
-        QUERY_EMPLOYEE_CLOSURE = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_EMPLOYEE_CLOSURE.setTable(TABLE_EMPLOYEE_CLOSURE);
+        SOURCE_EMPLOYEE_CLOSURE = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_EMPLOYEE_CLOSURE.setTable(TABLE_EMPLOYEE_CLOSURE);
 
-        QUERY_PRODUCT_CLASS = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_PRODUCT_CLASS.setTable(TABLE_PRODUCT_CLASS);
+        SOURCE_PRODUCT_CLASS = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_PRODUCT_CLASS.setTable(TABLE_PRODUCT_CLASS);
 
-        QUERY_TIME_BY_DAY = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_TIME_BY_DAY.setTable(TABLE_TIME_BY_DAY);
+        SOURCE_TIME_BY_DAY = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_TIME_BY_DAY.setTable(TABLE_TIME_BY_DAY);
 
-        QUERY_STORE_RAGGED = SourceFactory.eINSTANCE.createTableSource();
-        QUERY_STORE_RAGGED.setTable(TABLE_STORE_RAGGED);
+        SOURCE_STORE_RAGGED = SourceFactory.eINSTANCE.createTableSource();
+        SOURCE_STORE_RAGGED.setTable(TABLE_STORE_RAGGED);
 
         JOIN_PRODUCT_PRODUCT_CLASS_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_PRODUCT_CLASS_LEFT.setKey(COLUMN_PRODUCT_CLASS_ID_PRODUCT);
-        JOIN_PRODUCT_PRODUCT_CLASS_LEFT.setQuery(QUERY_PRODUCT);
+        JOIN_PRODUCT_PRODUCT_CLASS_LEFT.setSource(SOURCE_PRODUCT);
 
         JOIN_PRODUCT_PRODUCT_CLASS_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_PRODUCT_CLASS_RIGHT.setKey(COLUMN_PRODUCT_CLASS_ID_PRODUCT_CLASS);
-        JOIN_PRODUCT_PRODUCT_CLASS_RIGHT.setQuery(QUERY_PRODUCT_CLASS);
+        JOIN_PRODUCT_PRODUCT_CLASS_RIGHT.setSource(SOURCE_PRODUCT_CLASS);
 
         JOIN_PRODUCT_PRODUCT_CLASS = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_PRODUCT_PRODUCT_CLASS.setLeft(JOIN_PRODUCT_PRODUCT_CLASS_LEFT);
@@ -2428,11 +2428,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JOIN_EMPLOYEE_POSITION_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_EMPLOYEE_POSITION_LEFT.setKey(COLUMN_POSITION_ID_EMPLOYEE);
-        JOIN_EMPLOYEE_POSITION_LEFT.setQuery(QUERY_EMPLOYEE);
+        JOIN_EMPLOYEE_POSITION_LEFT.setSource(SOURCE_EMPLOYEE);
 
         JOIN_EMPLOYEE_POSITION_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_EMPLOYEE_POSITION_RIGHT.setKey(COLUMN_POSITION_ID_POSITION);
-        JOIN_EMPLOYEE_POSITION_RIGHT.setQuery(QUERY_POSITION);
+        JOIN_EMPLOYEE_POSITION_RIGHT.setSource(SOURCE_POSITION);
 
         JOIN_EMPLOYEE_POSITION = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_EMPLOYEE_POSITION.setLeft(JOIN_EMPLOYEE_POSITION_LEFT);
@@ -2440,11 +2440,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JOIN_EMPLOYEE_STORE_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_EMPLOYEE_STORE_LEFT.setKey(COLUMN_STORE_ID_EMPLOYEE);
-        JOIN_EMPLOYEE_STORE_LEFT.setQuery(QUERY_EMPLOYEE);
+        JOIN_EMPLOYEE_STORE_LEFT.setSource(SOURCE_EMPLOYEE);
 
         JOIN_EMPLOYEE_STORE_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_EMPLOYEE_STORE_RIGHT.setKey(COLUMN_STORE_ID_STORE);
-        JOIN_EMPLOYEE_STORE_RIGHT.setQuery(QUERY_STORE);
+        JOIN_EMPLOYEE_STORE_RIGHT.setSource(SOURCE_STORE);
 
         JOIN_EMPLOYEE_STORE = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_EMPLOYEE_STORE.setLeft(JOIN_EMPLOYEE_STORE_LEFT);
@@ -2943,20 +2943,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_TIME = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_TIME.setHasAll(false);
         HIERARCHY_TIME.setPrimaryKey(COLUMN_TIME_ID_TIME_BY_DAY);
-        HIERARCHY_TIME.setQuery(QUERY_TIME_BY_DAY);
+        HIERARCHY_TIME.setSource(SOURCE_TIME_BY_DAY);
         HIERARCHY_TIME.getLevels().addAll(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH));
 
         HIERARCHY_HR_TIME = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_HR_TIME.setHasAll(false);
         HIERARCHY_HR_TIME.setPrimaryKey(COLUMN_THE_DATE_TIME_BY_DAY);
-        HIERARCHY_HR_TIME.setQuery(QUERY_TIME_BY_DAY);
+        HIERARCHY_HR_TIME.setSource(SOURCE_TIME_BY_DAY);
         HIERARCHY_HR_TIME.getLevels().addAll(List.of(LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR));
 
         HIERARCHY_TIME2 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_TIME2.setHasAll(true);
         HIERARCHY_TIME2.setPrimaryKey(COLUMN_TIME_ID_TIME_BY_DAY);
         HIERARCHY_TIME2.setName("Weekly");
-        HIERARCHY_TIME2.setQuery(QUERY_TIME_BY_DAY);
+        HIERARCHY_TIME2.setSource(SOURCE_TIME_BY_DAY);
         HIERARCHY_TIME2.getLevels().addAll(List.of(LEVEL_YEAR, LEVEL_WEEK, LEVEL_DAY));
 
 
@@ -2965,14 +2965,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_STORE.setPrimaryKey(COLUMN_STORE_ID_STORE);
         HIERARCHY_STORE.setHasAll(true);
         //HIERARCHY_STORE.setAllMemberName("All Stores");
-        HIERARCHY_STORE.setQuery(QUERY_STORE);
+        HIERARCHY_STORE.setSource(SOURCE_STORE);
         HIERARCHY_STORE.getLevels()
                 .addAll(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_STATE, LEVEL_STORE_CITY, LEVEL_STORE_NAME));
 
         HIERARCHY_STORE_SALES_RAGGED = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_STORE_SALES_RAGGED.setPrimaryKey(COLUMN_STORE_ID_STORE_RAGGED);
         HIERARCHY_STORE_SALES_RAGGED.setHasAll(true);
-        HIERARCHY_STORE_SALES_RAGGED.setQuery(QUERY_STORE_RAGGED);
+        HIERARCHY_STORE_SALES_RAGGED.setSource(SOURCE_STORE_RAGGED);
         HIERARCHY_STORE_SALES_RAGGED.getLevels()
                 .addAll(List.of(LEVEL_STORE_COUNTRY_WITH_NEVER, LEVEL_STORE_CYTY_IF_PARENTS_NAME,
                         LEVEL_STORE_CYTY_IF_BLANK_NAME, LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER));
@@ -2980,22 +2980,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_HR_STORE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_HR_STORE.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
         HIERARCHY_HR_STORE.setHasAll(true);
-        HIERARCHY_HR_STORE.setQuery(JOIN_EMPLOYEE_STORE);
+        HIERARCHY_HR_STORE.setSource(JOIN_EMPLOYEE_STORE);
         HIERARCHY_HR_STORE.getLevels()
                 .addAll(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_STATE,
                         LEVEL_STORE_CITY, LEVEL_STORE_NAME));
 
         HIERARCHY_PAY_TYPE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_PAY_TYPE.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
-        HIERARCHY_PAY_TYPE.setQuery(JOIN_EMPLOYEE_POSITION);
+        HIERARCHY_PAY_TYPE.setSource(JOIN_EMPLOYEE_POSITION);
         HIERARCHY_PAY_TYPE.setHasAll(true);
         HIERARCHY_PAY_TYPE.getLevels().addAll(List.of(LEVEL_PAY_TYPE));
 
-        HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
-        HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
-        HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE.setQuery(JOIN_EMPLOYEE_STORE);
-        HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE.setHasAll(true);
-        HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE.getLevels().addAll(List.of(LEVEL_STORE_TYPE));
+        HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
+        HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
+        HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setSource(JOIN_EMPLOYEE_STORE);
+        HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setHasAll(true);
+        HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE.getLevels().addAll(List.of(LEVEL_STORE_TYPE));
 
         HIERARCHY_STORE_HAS_COFFEE_BAR = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_STORE_HAS_COFFEE_BAR.setHasAll(true);
@@ -3006,7 +3006,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMER.setHasAll(true);
         HIERARCHY_CUSTOMER.setAllMemberName("All Customers");
         HIERARCHY_CUSTOMER.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_CUSTOMER.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_CUSTOMER.setSource(SOURCE_CUSTOMER);
         HIERARCHY_CUSTOMER.getLevels()
                 .addAll(List.of(LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY, LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE, LEVEL_CITY_TABLE_COLUMN_CITY, LEVEL_NAME));
 
@@ -3015,7 +3015,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMERS_GEO.setHasAll(true);
         HIERARCHY_CUSTOMERS_GEO.setAllMemberName("All Customers");
         HIERARCHY_CUSTOMERS_GEO.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);//
-        HIERARCHY_CUSTOMERS_GEO.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_CUSTOMERS_GEO.setSource(SOURCE_CUSTOMER);
         HIERARCHY_CUSTOMERS_GEO.getLevels().addAll(
                 List.of(LEVEL_CUSTOMER_COUNTRY, LEVEL_CUSTOMER_STATE, LEVEL_CUSTOMER_CITY, LEVEL_CUSTOMER_NAME));
 
@@ -3024,7 +3024,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMERS_GENDER.setHasAll(true);
         HIERARCHY_CUSTOMERS_GENDER.setAllMemberName("All Gender");
         HIERARCHY_CUSTOMERS_GENDER.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_CUSTOMERS_GENDER.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_CUSTOMERS_GENDER.setSource(SOURCE_CUSTOMER);
         HIERARCHY_CUSTOMERS_GENDER.getLevels().add(LEVEL_CUSTOMER_GENDER);
 
         HIERARCHY_PRODUCT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3032,14 +3032,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PRODUCT.setHasAll(true);
         HIERARCHY_PRODUCT.setPrimaryKey(COLUMN_PRODUCT_ID_PRODUCT);
         //HIERARCHY_PRODUCT.setAllMemberName("All Products");
-        HIERARCHY_PRODUCT.setQuery(JOIN_PRODUCT_PRODUCT_CLASS);
+        HIERARCHY_PRODUCT.setSource(JOIN_PRODUCT_PRODUCT_CLASS);
         HIERARCHY_PRODUCT.getLevels().addAll(List.of(LEVEL_PRODUCT_FAMILY, LEVEL_PRODUCT_DEPARTMENT,
                 LEVEL_PRODUCT_CATEGORY, LEVEL_PRODUCT_SUBCATEGORY, LEVEL_PRODUCT_BRAND, LEVEL_PRODUCT_NAME));
 
         HIERARCHY_STORE_SIZE_IN_SQFT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_STORE_SIZE_IN_SQFT.setHasAll(true);
         HIERARCHY_STORE_SIZE_IN_SQFT.setPrimaryKey(COLUMN_STORE_ID_STORE);
-        HIERARCHY_STORE_SIZE_IN_SQFT.setQuery(QUERY_STORE);
+        HIERARCHY_STORE_SIZE_IN_SQFT.setSource(SOURCE_STORE);
         HIERARCHY_STORE_SIZE_IN_SQFT.getLevels().add(LEVEL_STORE_SQFT);
 
         HIERARCHY_PROMOTIONS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3047,13 +3047,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PROMOTIONS.setAllMemberName("All Promotions");
         HIERARCHY_PROMOTIONS.setPrimaryKey(COLUMN_PROMOTION_ID_PROMOTION);
         HIERARCHY_PROMOTIONS.setDefaultMember("All Promotions");
-        HIERARCHY_PROMOTIONS.setQuery(QUERY_PROMOTION);
+        HIERARCHY_PROMOTIONS.setSource(SOURCE_PROMOTION);
         HIERARCHY_PROMOTIONS.getLevels().add(LEVEL_PROMOTION_NAME);
 
         HIERARCHY_STORE_TYPE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_STORE_TYPE.setHasAll(true);
         HIERARCHY_STORE_TYPE.setPrimaryKey(COLUMN_STORE_ID_STORE);
-        HIERARCHY_STORE_TYPE.setQuery(QUERY_STORE);
+        HIERARCHY_STORE_TYPE.setSource(SOURCE_STORE);
         HIERARCHY_STORE_TYPE.getLevels().add(LEVEL_STORE_TYPE_WITHOUT_TABLE);
 
         HIERARCHY_STORE_TYPE_WITHOUT_TABLE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3064,27 +3064,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_EDUCATION_LEVEL = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_EDUCATION_LEVEL.setHasAll(true);
         HIERARCHY_EDUCATION_LEVEL.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_EDUCATION_LEVEL.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_EDUCATION_LEVEL.setSource(SOURCE_CUSTOMER);
         HIERARCHY_EDUCATION_LEVEL.getLevels().add(LEVEL_EDUCATION);
 
         HIERARCHY_GENDER = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_GENDER.setHasAll(true);
         HIERARCHY_GENDER.setAllMemberName("All Gender");
         HIERARCHY_GENDER.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_GENDER.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_GENDER.setSource(SOURCE_CUSTOMER);
         HIERARCHY_GENDER.getLevels().add(LEVEL_GENDER);
 
         HIERARCHY_MARITAL_STATUS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_MARITAL_STATUS.setHasAll(true);
         HIERARCHY_MARITAL_STATUS.setAllMemberName("All Marital Status");
         HIERARCHY_MARITAL_STATUS.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_MARITAL_STATUS.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_MARITAL_STATUS.setSource(SOURCE_CUSTOMER);
         HIERARCHY_MARITAL_STATUS.getLevels().add(LEVEL_MARITAL_STATUS);
 
         HIERARCHY_YEARLY_INCOME = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_YEARLY_INCOME.setHasAll(true);
         HIERARCHY_YEARLY_INCOME.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_YEARLY_INCOME.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_YEARLY_INCOME.setSource(SOURCE_CUSTOMER);
         HIERARCHY_YEARLY_INCOME.getLevels().add(LEVEL_YEARLY_INCOME);
 
         // Initialize new hierarchies
@@ -3093,7 +3093,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_WAREHOUSE.setHasAll(true);
         HIERARCHY_WAREHOUSE.setAllMemberName("All Warehouses");
         HIERARCHY_WAREHOUSE.setPrimaryKey(COLUMN_WAREHOUSE_ID_WAREHOUSE);
-        HIERARCHY_WAREHOUSE.setQuery(QUERY_WAREHOUSE);
+        HIERARCHY_WAREHOUSE.setSource(SOURCE_WAREHOUSE);
         HIERARCHY_WAREHOUSE.getLevels().addAll(
                 List.of(LEVEL_WAREHOUSE_COUNTRY, LEVEL_WAREHOUSE_STATE, LEVEL_WAREHOUSE_CITY, LEVEL_WAREHOUSE_NAME));
 
@@ -3102,20 +3102,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PROMOTION_MEDIA.setHasAll(true);
         HIERARCHY_PROMOTION_MEDIA.setPrimaryKey(COLUMN_PROMOTION_ID_PROMOTION);
         HIERARCHY_PROMOTION_MEDIA.setAllMemberName("All Media");
-        HIERARCHY_PROMOTION_MEDIA.setQuery(QUERY_PROMOTION);
+        HIERARCHY_PROMOTION_MEDIA.setSource(SOURCE_PROMOTION);
         HIERARCHY_PROMOTION_MEDIA.getLevels().addAll(List.of(LEVEL_PROMOTION_MEDIA));
 
         HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK = HierarchyFactory.eINSTANCE.createParentChildLink();
         HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK.setParentColumn(COLUMN_SUPERVISOR_ID_EMPLOYEE_CLOSURE);
         HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK.setChildColumn(COLUMN_EMPLOYEE_ID_EMPLOYEE_CLOSURE);
-        HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK.setTable(QUERY_EMPLOYEE_CLOSURE);
+        HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK.setTable(SOURCE_EMPLOYEE_CLOSURE);
 
         HIERARCHY_EMPLOYEE = HierarchyFactory.eINSTANCE.createParentChildHierarchy();
         //HIERARCHY_EMPLOYEE.setName("Employee");
         HIERARCHY_EMPLOYEE.setHasAll(true);
         HIERARCHY_EMPLOYEE.setAllMemberName("All Employees");
         HIERARCHY_EMPLOYEE.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
-        HIERARCHY_EMPLOYEE.setQuery(QUERY_EMPLOYEE);
+        HIERARCHY_EMPLOYEE.setSource(SOURCE_EMPLOYEE);
         HIERARCHY_EMPLOYEE.setParentColumn(COLUMN_SUPERVISOR_ID_EMPLOYEE);
         HIERARCHY_EMPLOYEE.setNullParentValue("0");
         HIERARCHY_EMPLOYEE.setParentChildLink(HIERARCHY_EMPLOYEE_PARENT_CHILD_LINK);
@@ -3126,7 +3126,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_DEPARTMENT.setHasAll(true);
         HIERARCHY_DEPARTMENT.setPrimaryKey(COLUMN_DEPARTMENT_ID_DEPARTMENT);
         //HIERARCHY_DEPARTMENT.setAllMemberName("All Departments");
-        HIERARCHY_DEPARTMENT.setQuery(QUERY_DEPARTMENT);
+        HIERARCHY_DEPARTMENT.setSource(SOURCE_DEPARTMENT);
         HIERARCHY_DEPARTMENT.getLevels().addAll(List.of(LEVEL_DEPARTMENT_DESCRIPTION));
 
         HIERARCHY_POSITION = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3134,7 +3134,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_POSITION.setHasAll(true);
         HIERARCHY_POSITION.setAllMemberName("All Positions");
         HIERARCHY_POSITION.setPrimaryKey(COLUMN_POSITION_ID_POSITION);
-        HIERARCHY_POSITION.setQuery(QUERY_POSITION);
+        HIERARCHY_POSITION.setSource(SOURCE_POSITION);
         HIERARCHY_POSITION.getLevels().addAll(List.of(LEVEL_POSITION_TITLE));
 
         HIERARCHY_HR_POSITION = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3142,7 +3142,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_HR_POSITION.setHasAll(true);
         HIERARCHY_HR_POSITION.setAllMemberName("All Position");
         HIERARCHY_HR_POSITION.setPrimaryKey(COLUMN_EMPLOYEE_ID_EMPLOYEE);
-        HIERARCHY_HR_POSITION.setQuery(QUERY_EMPLOYEE);
+        HIERARCHY_HR_POSITION.setSource(SOURCE_EMPLOYEE);
         HIERARCHY_HR_POSITION.getLevels().addAll(List.of(LEVEL_MANAGEMENT_ROLE, LEVEL_HR_POSITION_TITLE));
 
         HIERARCHY_CUSTOMERS_EDUCATION = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3150,7 +3150,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMERS_EDUCATION.setHasAll(true);
         HIERARCHY_CUSTOMERS_EDUCATION.setAllMemberName("All Education Levels");
         HIERARCHY_CUSTOMERS_EDUCATION.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_CUSTOMERS_EDUCATION.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_CUSTOMERS_EDUCATION.setSource(SOURCE_CUSTOMER);
         HIERARCHY_CUSTOMERS_EDUCATION.getLevels().addAll(List.of(LEVEL_CUSTOMER_EDUCATION));
 
         HIERARCHY_CUSTOMERS_MARITAL = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -3158,13 +3158,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMERS_MARITAL.setHasAll(true);
         HIERARCHY_CUSTOMERS_MARITAL.setAllMemberName("All Marital Statuses");
         HIERARCHY_CUSTOMERS_MARITAL.setPrimaryKey(COLUMN_CUSTOMER_ID_CUSTOMER);
-        HIERARCHY_CUSTOMERS_MARITAL.setQuery(QUERY_CUSTOMER);
+        HIERARCHY_CUSTOMERS_MARITAL.setSource(SOURCE_CUSTOMER);
         HIERARCHY_CUSTOMERS_MARITAL.getLevels().addAll(List.of(LEVEL_CUSTOMER_MARITAL_STATUS));
 
         HIERARCHY_GEOGRAPHY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_GEOGRAPHY.setHasAll(true);
         HIERARCHY_GEOGRAPHY.setPrimaryKey(COLUMN_STORE_ID_STORE_RAGGED);
-        HIERARCHY_GEOGRAPHY.setQuery(QUERY_STORE_RAGGED);
+        HIERARCHY_GEOGRAPHY.setSource(SOURCE_STORE_RAGGED);
         HIERARCHY_GEOGRAPHY.getLevels().addAll(List.of(LEVEL_COUNTRY_WITH_NEVER, LEVEL_STATE, LEVEL_CITY_TABLE_COLUMN_STORE_CITY));
 
         // Initialize dimensions
@@ -3184,17 +3184,17 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         DIMENSION_STORE_SALES_RAGGED.setName("Store");
         DIMENSION_STORE_SALES_RAGGED.getHierarchies().add(HIERARCHY_STORE_SALES_RAGGED);
 
-        DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE = DimensionFactory.eINSTANCE.createStandardDimension();
-        DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE.setName("Store");
-        DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE.getHierarchies().add(HIERARCHY_HR_STORE);
+        DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE = DimensionFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE.setName("Store");
+        DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE.getHierarchies().add(HIERARCHY_HR_STORE);
 
         DIMENSION_PAY_TYPE = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_PAY_TYPE.setName("Pay Type");
         DIMENSION_PAY_TYPE.getHierarchies().add(HIERARCHY_PAY_TYPE);
 
-        DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE = DimensionFactory.eINSTANCE.createStandardDimension();
-        DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE.setName("Store Type");
-        DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE.getHierarchies().add(HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE);
+        DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE = DimensionFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setName("Store Type");
+        DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE.getHierarchies().add(HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE);
 
         DIMENSION_STORE_HAS_COFFEE_BAR = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_STORE_HAS_COFFEE_BAR.setName("Has coffee bar");
@@ -3216,13 +3216,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         DIMENSION_PROMOTIONS.setName("Promotions");
         DIMENSION_PROMOTIONS.getHierarchies().add(HIERARCHY_PROMOTIONS);
 
-        DIMENSION_STORE_TYPE_WITH_QUERY_STORE = DimensionFactory.eINSTANCE.createStandardDimension();
-        DIMENSION_STORE_TYPE_WITH_QUERY_STORE.setName("Store Type");
-        DIMENSION_STORE_TYPE_WITH_QUERY_STORE.getHierarchies().add(HIERARCHY_STORE_TYPE);
+        DIMENSION_STORE_TYPE_WITH_SOURCE_STORE = DimensionFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_STORE_TYPE_WITH_SOURCE_STORE.setName("Store Type");
+        DIMENSION_STORE_TYPE_WITH_SOURCE_STORE.getHierarchies().add(HIERARCHY_STORE_TYPE);
 
-        DIMENSION_STORE_TYPE_WITHOUT_QUERY = DimensionFactory.eINSTANCE.createStandardDimension();
-        DIMENSION_STORE_TYPE_WITHOUT_QUERY.setName("Store Type");
-        DIMENSION_STORE_TYPE_WITHOUT_QUERY.getHierarchies().add(HIERARCHY_STORE_TYPE_WITHOUT_TABLE);
+        DIMENSION_STORE_TYPE_WITHOUT_SOURCE = DimensionFactory.eINSTANCE.createStandardDimension();
+        DIMENSION_STORE_TYPE_WITHOUT_SOURCE.setName("Store Type");
+        DIMENSION_STORE_TYPE_WITHOUT_SOURCE.getHierarchies().add(HIERARCHY_STORE_TYPE_WITHOUT_TABLE);
 
         DIMENSION_EDUCATION_LEVEL = DimensionFactory.eINSTANCE.createStandardDimension();
         DIMENSION_EDUCATION_LEVEL.setName("Education Level");
@@ -3485,7 +3485,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CONNECTOR_STORE_TYPE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_STORE_TYPE.setOverrideDimensionName("Store Type");
-        CONNECTOR_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE);
+        CONNECTOR_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITH_SOURCE_STORE);
         CONNECTOR_STORE_TYPE.setForeignKey(COLUMN_STORE_ID_SALESFACT);
 
         CONNECTOR_PROMOTION_MEDIA = DimensionFactory.eINSTANCE.createDimensionConnector();
@@ -3546,7 +3546,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CONNECTOR_WAREHOUSE_STORE_TYPE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_WAREHOUSE_STORE_TYPE.setOverrideDimensionName("Store Type");
-        CONNECTOR_WAREHOUSE_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITH_QUERY_STORE);
+        CONNECTOR_WAREHOUSE_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITH_SOURCE_STORE);
         CONNECTOR_WAREHOUSE_STORE_TYPE.setForeignKey(COLUMN_STORE_ID_INVENTORY_FACT);
 
         CONNECTOR_WAREHOUSE_PRODUCT = DimensionFactory.eINSTANCE.createDimensionConnector();
@@ -3567,7 +3567,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CONNECTOR_HR_STORE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HR_STORE.setOverrideDimensionName("Store");
-        CONNECTOR_HR_STORE.setDimension(DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE);
+        CONNECTOR_HR_STORE.setDimension(DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE);
         CONNECTOR_HR_STORE.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
 
         CONNECTOR_HR_PAY_TYPE = DimensionFactory.eINSTANCE.createDimensionConnector();
@@ -3575,10 +3575,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CONNECTOR_HR_PAY_TYPE.setDimension(DIMENSION_PAY_TYPE);
         CONNECTOR_HR_PAY_TYPE.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
 
-        CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE = DimensionFactory.eINSTANCE.createDimensionConnector();
-        CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE.setOverrideDimensionName("Store Type");
-        CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE.setDimension(DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE);
-        CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
+        CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE = DimensionFactory.eINSTANCE.createDimensionConnector();
+        CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setOverrideDimensionName("Store Type");
+        CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setDimension(DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE);
+        CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE.setForeignKey(COLUMN_EMPLOYEE_ID_SALARY);
 
         CONNECTOR_HR_EMPLOYEE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_HR_EMPLOYEE.setOverrideDimensionName("Employees");
@@ -3598,7 +3598,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize Store cube connectors
         CONNECTOR_STORE_STORE_TYPE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_STORE_STORE_TYPE.setOverrideDimensionName("Store Type");
-        CONNECTOR_STORE_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITHOUT_QUERY);
+        CONNECTOR_STORE_STORE_TYPE.setDimension(DIMENSION_STORE_TYPE_WITHOUT_SOURCE);
 
         CONNECTOR_STORE_STORE = DimensionFactory.eINSTANCE.createDimensionConnector();
         CONNECTOR_STORE_STORE.setOverrideDimensionName("Store");
@@ -3802,7 +3802,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CUBE_SALES = CubeFactory.eINSTANCE.createPhysicalCube();
         //CUBE_SALES.setDefaultMeasure(MEASURE_UNIT_SALES);
         CUBE_SALES.setName("Sales");
-        CUBE_SALES.setQuery(QUERY_SALES_FACT);
+        CUBE_SALES.setSource(SOURCE_SALES_FACT);
         CUBE_SALES.getDimensionConnectors()
                 .addAll(List.of(CONNECTOR_STORE, CONNECTOR_STORE_SIZE_IN_SOFT, CONNECTOR_STORE_TYPE, CONNECTOR_TIME,
                         CONNECTOR_PRODUCT, CONNECTOR_PROMOTION_MEDIA, CONNECTOR_PROMOTIONS, CONNECTOR_CUSTOMER,
@@ -3814,7 +3814,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CUBE_WAREHOUSE = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_WAREHOUSE.setName("Warehouse");
-        CUBE_WAREHOUSE.setQuery(QUERY_INVENTORY_FACT);
+        CUBE_WAREHOUSE.setSource(SOURCE_INVENTORY_FACT);
         CUBE_WAREHOUSE.getDimensionConnectors().addAll(List.of(CONNECTOR_WAREHOUSE_STORE, CONNECTOR_WAREHOUSE_STORE_SIZE_IN_SQFT,
                 CONNECTOR_WAREHOUSE_STORE_TYPE, CONNECTOR_WAREHOUSE_TIME,
                 CONNECTOR_WAREHOUSE_PRODUCT, CONNECTOR_WAREHOUSE_WAREHOUSE));
@@ -3825,21 +3825,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CUBE_STORE = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_STORE.setName("Store");
-        CUBE_STORE.setQuery(QUERY_STORE);
+        CUBE_STORE.setSource(SOURCE_STORE);
         CUBE_STORE.getDimensionConnectors().addAll(List.of(CONNECTOR_STORE_STORE_TYPE, CONNECTOR_STORE_STORE, CONNECTOR_STORE_HAS_COFFEE_BAR));
         CUBE_STORE.getMeasureGroups().add(MEASUREGROUP_STORE);
 
         CUBE_HR = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_HR.setName("HR");
-        CUBE_HR.setQuery(QUERY_SALARY);
-        CUBE_HR.getDimensionConnectors().addAll(List.of(CONNECTOR_HR_TIME, CONNECTOR_HR_STORE, CONNECTOR_HR_PAY_TYPE, CONNECTOR_HR_STORE_TYPE_WITH_QUERY_EMPLOYEE,
+        CUBE_HR.setSource(SOURCE_SALARY);
+        CUBE_HR.getDimensionConnectors().addAll(List.of(CONNECTOR_HR_TIME, CONNECTOR_HR_STORE, CONNECTOR_HR_PAY_TYPE, CONNECTOR_HR_STORE_TYPE_WITH_SOURCE_EMPLOYEE,
                 CONNECTOR_HR_POSITION, CONNECTOR_HR_DEPARTMENT, CONNECTOR_HR_EMPLOYEE));
         CUBE_HR.getMeasureGroups().add(MEASUREGROUP_HR);
         CUBE_HR.getCalculatedMembers().addAll(List.of(CALCULATED_MEMBER_EMPLOYEE_SALARY, CALCULATED_MEMBER_AVG_SALARY));
 
         CUBE_SALES_RAGGED = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_SALES_RAGGED.setName("Sales Ragged");
-        CUBE_SALES_RAGGED.setQuery(QUERY_SALES_FACT);
+        CUBE_SALES_RAGGED.setSource(SOURCE_SALES_FACT);
         CUBE_SALES_RAGGED.getMeasureGroups().add(MEASUREGROUP_RAGGED);
         CUBE_SALES_RAGGED.getDimensionConnectors().addAll(List.of(
             CONNECTOR_SALES_RAGGED_STORE,
@@ -3859,7 +3859,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CUBE_SALES_2 = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_SALES_2.setName("Sales 2");
-        CUBE_SALES_2.setQuery(QUERY_SALES_FACT);
+        CUBE_SALES_2.setSource(SOURCE_SALES_FACT);
         CUBE_SALES_2.getMeasureGroups().add(MEASUREGROUP_SALES2);
         CUBE_SALES_2.getDimensionConnectors().addAll(List.of(
             CONNECTOR_SALES_2_TIME,
@@ -4016,21 +4016,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 List.of(
                         new DocSection("FoodMart Database", foodMartBody, 1, 0, 0, null, 0),
                         new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, DATABASE_SCHEMA_FOODMART, 0),
-                        new DocSection("Sales Fact Query", querySalesBody, 1, 2, 0, QUERY_SALES_FACT, 0),
-                        new DocSection("Inventory Fact Query", queryIventoryFactBody, 1, 3, 0, QUERY_INVENTORY_FACT, 0),
-                        new DocSection("Store Query", queryStoreBody, 1, 4, 0, QUERY_STORE, 0),
-                        new DocSection("Customer Query", queryCustomerBody, 1, 5, 0, QUERY_CUSTOMER, 0),
-                        new DocSection("Product Query", queryProductBody, 1, 6, 0, QUERY_PRODUCT, 0),
-                        new DocSection("Warehouse Query", queryWarehouseBody, 1, 7, 0, QUERY_WAREHOUSE, 0),
-                        new DocSection("Promotion Query", queryPromotionBody, 1, 8, 0, QUERY_PROMOTION, 0),
-                        new DocSection("Employee Query", queryEmployeeBody, 1, 9, 0, QUERY_EMPLOYEE, 0),
-                        new DocSection("Departament Query", queryDepartamentBody, 1, 10, 0, QUERY_DEPARTMENT, 0),
-                        new DocSection("Position Query", queryPositionBody, 1, 11, 0, QUERY_POSITION, 0),
-                        new DocSection("Salary Query", querySalaryBody, 1, 12, 0, QUERY_SALARY, 0),
-                        new DocSection("Employee Closure Query", queryEmployeeClosureBody, 1, 13, 0, QUERY_EMPLOYEE_CLOSURE, 0),
-                        new DocSection("Product Class Query", queryProductClassBody, 1, 14, 0, QUERY_PRODUCT_CLASS, 0),
-                        new DocSection("Time By Day Query", queryTimeByDayBody, 1, 15, 0, QUERY_TIME_BY_DAY, 0),
-                        new DocSection("Store Ragged Query", queryStoreRaggedBody, 1, 16, 0, QUERY_STORE_RAGGED, 0),
+                        new DocSection("Sales Fact Query", querySalesBody, 1, 2, 0, SOURCE_SALES_FACT, 0),
+                        new DocSection("Inventory Fact Query", queryIventoryFactBody, 1, 3, 0, SOURCE_INVENTORY_FACT, 0),
+                        new DocSection("Store Query", queryStoreBody, 1, 4, 0, SOURCE_STORE, 0),
+                        new DocSection("Customer Query", queryCustomerBody, 1, 5, 0, SOURCE_CUSTOMER, 0),
+                        new DocSection("Product Query", queryProductBody, 1, 6, 0, SOURCE_PRODUCT, 0),
+                        new DocSection("Warehouse Query", queryWarehouseBody, 1, 7, 0, SOURCE_WAREHOUSE, 0),
+                        new DocSection("Promotion Query", queryPromotionBody, 1, 8, 0, SOURCE_PROMOTION, 0),
+                        new DocSection("Employee Query", queryEmployeeBody, 1, 9, 0, SOURCE_EMPLOYEE, 0),
+                        new DocSection("Departament Query", queryDepartamentBody, 1, 10, 0, SOURCE_DEPARTMENT, 0),
+                        new DocSection("Position Query", queryPositionBody, 1, 11, 0, SOURCE_POSITION, 0),
+                        new DocSection("Salary Query", querySalaryBody, 1, 12, 0, SOURCE_SALARY, 0),
+                        new DocSection("Employee Closure Query", queryEmployeeClosureBody, 1, 13, 0, SOURCE_EMPLOYEE_CLOSURE, 0),
+                        new DocSection("Product Class Query", queryProductClassBody, 1, 14, 0, SOURCE_PRODUCT_CLASS, 0),
+                        new DocSection("Time By Day Query", queryTimeByDayBody, 1, 15, 0, SOURCE_TIME_BY_DAY, 0),
+                        new DocSection("Store Ragged Query", queryStoreRaggedBody, 1, 16, 0, SOURCE_STORE_RAGGED, 0),
                         new DocSection("Sales Cube", salesCubeBody, 1, 17, 0, CUBE_SALES, 0),
                         new DocSection("Warehouse Cube", warehouseCubeBody, 1, 18, 0, CUBE_WAREHOUSE, 0),
                         new DocSection("Store Cube", storeCubeBody, 1, 19, 0, CUBE_STORE, 0),
@@ -4042,11 +4042,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         new DocSection("Time Dimension", timeBody, 1, 24, 0, DIMENSION_HR_TIME, 0),
                         new DocSection("Store Dimension", storeBody, 1, 25, 0, DIMENSION_STORE, 0),
                         new DocSection("Store Dimension", storeBody, 1, 26, 0, DIMENSION_STORE_SALES_RAGGED, 0),
-                        new DocSection("Store Dimension", storeBody, 1, 27, 0, DIMENSION_STORE_WITH_QUERY_JOIN_EMPLOYEE_STORE, 0),
+                        new DocSection("Store Dimension", storeBody, 1, 27, 0, DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE, 0),
                         new DocSection("Pay Type Dimension", payTypeBody, 1, 28, 0, DIMENSION_PAY_TYPE, 0),
-                        new DocSection("Store Type Dimension", storeTypeBody, 1, 29, 0, DIMENSION_STORE_TYPE_WITH_QUERY_EMPLOYEE, 0),
-                        new DocSection("Store Type Dimension", storeTypeBody, 1, 30, 0, DIMENSION_STORE_TYPE_WITH_QUERY_STORE, 0),
-                        new DocSection("Store Type Dimension", storeTypeBody, 1, 31, 0, DIMENSION_STORE_TYPE_WITHOUT_QUERY, 0),
+                        new DocSection("Store Type Dimension", storeTypeBody, 1, 29, 0, DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE, 0),
+                        new DocSection("Store Type Dimension", storeTypeBody, 1, 30, 0, DIMENSION_STORE_TYPE_WITH_SOURCE_STORE, 0),
+                        new DocSection("Store Type Dimension", storeTypeBody, 1, 31, 0, DIMENSION_STORE_TYPE_WITHOUT_SOURCE, 0),
                         new DocSection("Store Type Dimension", storeTypeBody, 1, 32, 0, DIMENSION_STORE_TYPE, 0),
                         new DocSection("Customers Dimension", customersBody, 1, 33, 0, DIMENSION_CUSTOMERS, 0),
                         new DocSection("Product Dimension", productBody, 1, 34, 0, DIMENSION_PRODUCT, 0),
@@ -4065,7 +4065,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         new DocSection("Position Dimension", positionBody, 1, 47, 0, DIMENSION_POSITION, 0),
                         new DocSection("Position Dimension", positionBody, 1, 48, 0, DIMENSION_HR_POSITION, 0),
                         new DocSection("Pay Type Hierarchy", "The Pay Type provides pay type analysis for employee.", 1, 55, 0, HIERARCHY_PAY_TYPE, 0),
-                        new DocSection("Store Type Hierarchy", "The Store Type provides store type analysis for store.", 1, 56, 0, HIERARCHY_STORE_TYPE_WITH_QUERY_EMPLOYEE, 0),
+                        new DocSection("Store Type Hierarchy", "The Store Type provides store type analysis for store.", 1, 56, 0, HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE, 0),
                         new DocSection("Gender Hierarchy", "The Gender provides customer analysis by gender identity.", 1, 59, 0, HIERARCHY_CUSTOMERS_GENDER, 0),
                         new DocSection("Store Size Hierarchy", "The Store Size provides store analysis by size.", 1, 61, 0, HIERARCHY_STORE_SIZE_IN_SQFT, 0),
                         new DocSection("Promotions Hierarchy", "The Promotions provides sales analysis by promotions.", 1, 62, 0, HIERARCHY_PROMOTIONS, 0),

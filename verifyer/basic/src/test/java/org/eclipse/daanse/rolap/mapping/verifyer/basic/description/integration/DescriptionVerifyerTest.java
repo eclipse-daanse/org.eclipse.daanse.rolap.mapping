@@ -160,7 +160,7 @@ public class DescriptionVerifyerTest {
 
         PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("TestCube");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         return cube;
     }
@@ -346,7 +346,7 @@ public class DescriptionVerifyerTest {
 
         PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("TestCube");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
 
         schema.getCubes().add(cube);
@@ -419,7 +419,7 @@ public class DescriptionVerifyerTest {
 
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TestHierarchy");
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.setPrimaryKey(keyColumn);
         dimension.getHierarchies().add(hierarchy);
 
@@ -459,7 +459,7 @@ public class DescriptionVerifyerTest {
 
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TestHierarchy");
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.getLevels().add(level);
         dimension.getHierarchies().add(hierarchy);
@@ -507,7 +507,7 @@ public class DescriptionVerifyerTest {
 
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TestHierarchy");
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.setPrimaryKey(keyColumn);
         hierarchy.getLevels().add(level);
         dimension.getHierarchies().add(hierarchy);

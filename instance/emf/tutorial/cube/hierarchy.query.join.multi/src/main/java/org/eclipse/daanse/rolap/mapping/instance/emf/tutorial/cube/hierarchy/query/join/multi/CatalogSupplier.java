@@ -230,11 +230,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         queryLevelContinent.setTable(tableContinent);
 
         JoinedQueryElement joinQueryTCElementContinent = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinQueryTCElementContinent.setQuery(queryLevelContinent);
+        joinQueryTCElementContinent.setSource(queryLevelContinent);
         joinQueryTCElementContinent.setKey(columnContinentId);
 
         JoinedQueryElement joinQueryTCElementCountry = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinQueryTCElementCountry.setQuery(queryLevelCountry);
+        joinQueryTCElementCountry.setSource(queryLevelCountry);
         joinQueryTCElementCountry.setKey(columnCountryContinentId);
 
         queryJoinCountryToContinent = SourceFactory.eINSTANCE.createJoinSource();
@@ -242,11 +242,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         queryJoinCountryToContinent.setRight(joinQueryTCElementContinent);
 
         JoinedQueryElement joinQueryCCElementJoinCountry = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinQueryCCElementJoinCountry.setQuery(queryJoinCountryToContinent);
+        joinQueryCCElementJoinCountry.setSource(queryJoinCountryToContinent);
         joinQueryCCElementJoinCountry.setKey(columnCountryId);//
 
         JoinedQueryElement joinQueryCCElementTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinQueryCCElementTown.setQuery(queryLevelTown);
+        joinQueryCCElementTown.setSource(queryLevelTown);
         joinQueryCCElementTown.setKey(columnTownCountryId);
 
         queryJoinTownToCountry = SourceFactory.eINSTANCE.createJoinSource();
@@ -278,7 +278,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("TownHierarchy");
         hierarchy.setPrimaryKey(columnTownId);
-        hierarchy.setQuery(queryJoinTownToCountry);
+        hierarchy.setSource(queryJoinTownToCountry);
         hierarchy.getLevels().add(levelContinent);
         hierarchy.getLevels().add(levelCounty);
         hierarchy.getLevels().add(levelTown);
@@ -293,7 +293,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube Query linked Tables");
-        cube.setQuery(queryFact);
+        cube.setSource(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
 

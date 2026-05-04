@@ -155,7 +155,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube logic functions");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(calculatedMember1, calculatedMember2, calculatedMember3, calculatedMember4,
                 calculatedMember5, calculatedMember6, calculatedMember7, calculatedMember8, calculatedMember9, calculatedMember10,

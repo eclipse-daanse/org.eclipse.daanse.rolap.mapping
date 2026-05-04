@@ -250,11 +250,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement join1Left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         join1Left.setKey(hxL2H1L1KeyColumn);
-        join1Left.setQuery(hxL2Query);
+        join1Left.setSource(hxL2Query);
 
         JoinedQueryElement join1Right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         join1Right.setKey(h1L1KeyColumn);
-        join1Right.setQuery(h1L1Query);
+        join1Right.setSource(h1L1Query);
 
         join1 = SourceFactory.eINSTANCE.createJoinSource();
         join1.setLeft(join1Left);
@@ -262,11 +262,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement join2Left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         join2Left.setKey(hxL2H2L1KeyColumn);
-        join2Left.setQuery(hxL2Query);
+        join2Left.setSource(hxL2Query);
 
         JoinedQueryElement join2Right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         join2Right.setKey(h2L1KeyColumn);
-        join2Right.setQuery(h2L1Query);
+        join2Right.setSource(h2L1Query);
 
         join2 = SourceFactory.eINSTANCE.createJoinSource();
         join2.setLeft(join2Left);
@@ -293,7 +293,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setPrimaryKey(hxL2KeyColumn);
-        hierarchy1.setQuery(join1);
+        hierarchy1.setSource(join1);
         hierarchy1.getLevels().addAll(List.of(level1, level2));
 
         level3 = LevelFactory.eINSTANCE.createLevel();
@@ -310,7 +310,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy2.setHasAll(true);
         hierarchy2.setName("Hierarchy2");
         hierarchy2.setPrimaryKey(hxL2KeyColumn);
-        hierarchy2.setQuery(join2);
+        hierarchy2.setSource(join2);
         hierarchy2.getLevels().addAll(List.of(level3, level4));
 
         dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -348,7 +348,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getAction().addAll(List.of(drillThroughAction1, drillThroughAction2));

@@ -125,9 +125,9 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                     Cause.SCHEMA));
             }
             if (cube instanceof PhysicalCube physicalCube) {
-                if (physicalCube.getQuery() == null
-                    || ((physicalCube.getQuery() instanceof TableSource table) && isEmpty(table.getTable().getName()))
-                    || ((physicalCube.getQuery() instanceof SqlSelectSource view) && isEmpty(view.getAlias()))) {
+                if (physicalCube.getSource() == null
+                    || ((physicalCube.getSource() instanceof TableSource table) && isEmpty(table.getTable().getName()))
+                    || ((physicalCube.getSource() instanceof SqlSelectSource view) && isEmpty(view.getAlias()))) {
                     String msg = String.format(FACT_NAME_MUST_BE_SET, orNotSet(cube.getName()));
                     results.add(new VerificationResultR(CUBE, msg, ERROR,
                         Cause.SCHEMA));
@@ -553,7 +553,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             checkColumnView(table, parentHierarchy);
 
             if (table == null) {
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinSource join) {
+                if (parentHierarchy != null && parentHierarchy.getSource() instanceof JoinSource join) {
                     // relation is join, table should be specified
                     results.add(new VerificationResultR(LEVEL, TABLE_MUST_BE_SET, ERROR,
                         Cause.DATABASE));
@@ -563,7 +563,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             } else {
                 // if using Joins then gets the table name for doesColumnExist
                 // validation.
-                if (parentHierarchy != null && parentHierarchy.getQuery() instanceof JoinSource join) {
+                if (parentHierarchy != null && parentHierarchy.getSource() instanceof JoinSource join) {
                     checkJoinQuery(join);
                 }
             }
@@ -1043,7 +1043,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
 
     private void checkHierarchyJoin(Hierarchy hierarchy, Dimension cubeDimension) {
-        if (hierarchy.getQuery() instanceof JoinSource) {
+        if (hierarchy.getSource() instanceof JoinSource) {
             if (hierarchy.getPrimaryKey() == null) {
                 String msg = String.format(PRIMARY_KEY_MUST_BE_SET_FOR_JOIN, orNotSet(cubeDimension.getName()));
                 results.add(new VerificationResultR(HIERARCHY, msg, ERROR, Cause.SCHEMA));
@@ -1077,7 +1077,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     private void checkHierarchyTable(Hierarchy hierarchy, Dimension cubeDimension) {
-        if (hierarchy.getQuery() instanceof TableSource table) {
+        if (hierarchy.getSource() instanceof TableSource table) {
             checkTable(table);
         }
     }
@@ -1085,9 +1085,9 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     private void checkHierarchyPrimaryKeyTable(Hierarchy hierarchy, Dimension cubeDimension) {
         if (hierarchy.getPrimaryKey() != null) {
             Table primaryKeyTable = Columns.tableOwner(hierarchy.getPrimaryKey()).orElse(null);
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof JoinSource join)) {
+            if (primaryKeyTable != null && (hierarchy.getSource() instanceof JoinSource join)) {
                 TreeSet<String> joinTables = new TreeSet<>();
-                SchemaExplorer.getTableNamesForJoin(hierarchy.getQuery(), joinTables);
+                SchemaExplorer.getTableNamesForJoin(hierarchy.getSource(), joinTables);
                 if (!joinTables.contains(primaryKeyTable.getName())) {
                     String msg = String.format(HIERARCHY_TABLE_VALUE_DOES_NOT_CORRESPOND_TO_ANY_JOIN,
                             orNotSet(primaryKeyTable.getName()), orNotSet(cubeDimension.getName()));
@@ -1096,7 +1096,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 checkJoinQuery(join);
             }
 
-            if (primaryKeyTable != null && (hierarchy.getQuery() instanceof TableSource theTable)) {
+            if (primaryKeyTable != null && (hierarchy.getSource() instanceof TableSource theTable)) {
                 String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                         .trim()
                         .length() > 0) ? theTable.getAlias() : theTable.getTable().getName();
@@ -1167,9 +1167,9 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
         // If table has been changed in join then sets the table value
         // to null to cause "tableMustBeSet" validation fail.
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof JoinSource) {
+            && parentHierarchy.getSource() instanceof JoinSource) {
             TreeSet<String> joinTables = new TreeSet<>();
-            SchemaExplorer.getTableNamesForJoin(parentHierarchy.getQuery(), joinTables);
+            SchemaExplorer.getTableNamesForJoin(parentHierarchy.getSource(), joinTables);
             if (!joinTables.contains(table.getName())) {
 
                 results.add(new VerificationResultR(LEVEL,
@@ -1180,7 +1180,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkColumnTable(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof TableSource parentTable) {
+            && parentHierarchy.getSource() instanceof TableSource parentTable) {
             TableSource theTable = parentTable;
             String compareTo = (theTable.getAlias() != null && theTable.getAlias()
                 .trim()
@@ -1195,7 +1195,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private void checkColumnView(Table table, Hierarchy parentHierarchy) {
         if (table != null && parentHierarchy != null
-            && parentHierarchy.getQuery() instanceof SqlSelectSource) {
+            && parentHierarchy.getSource() instanceof SqlSelectSource) {
             results.add(new VerificationResultR(LEVEL,
                 TABLE_FOR_COLUMN_CANNOT_BE_SET_IN_VIEW, ERROR, Cause.SCHEMA));
         }

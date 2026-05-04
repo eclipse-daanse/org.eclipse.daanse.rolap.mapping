@@ -227,7 +227,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(true);
         hierarchy.setAllMemberName("All Years");
         hierarchy.setPrimaryKey(dateKeyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().addAll(List.of(levelYears, levelQuarters, levelMonths, levelWeek, levelDay));
 
         dimension = DimensionFactory.eINSTANCE.createTimeDimension();
@@ -239,7 +239,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dimensionConnector.setDimension(dimension);
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 

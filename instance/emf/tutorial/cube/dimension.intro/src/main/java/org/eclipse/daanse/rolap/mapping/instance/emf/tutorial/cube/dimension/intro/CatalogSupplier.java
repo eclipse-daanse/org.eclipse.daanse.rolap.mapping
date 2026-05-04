@@ -129,7 +129,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("theHierarchy");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().add(level);
 
         dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -141,7 +141,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("CubeWithSimpleDimension");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 
