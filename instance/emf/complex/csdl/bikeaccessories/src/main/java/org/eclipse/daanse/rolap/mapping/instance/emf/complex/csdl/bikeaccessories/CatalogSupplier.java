@@ -56,7 +56,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Catalog CATALOG;
     public static final PhysicalCube CUBE;
     public static final Schema DATABASE_SCHEMA;
-    public static final TableSource TABLEQUERY_FACT;
+    public static final TableSource TABLESOURCE_FACT;
 
 
     public static final String CATALOG_NAME = "CSDLBI 1.0";
@@ -300,15 +300,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     public static final MeasureGroup MEASURE_GROUP;
 
-    // field assignment only: TABLEQUERY_FACT
-    public static final TableSource TABLEQUERY_CUSTOMER;
-    public static final TableSource TABLEQUERY_EMPLOYEE;
-    public static final TableSource TABLEQUERY_GEOGRAPHY;
-    public static final TableSource TABLEQUERY_PRODUCT;
-    public static final TableSource TABLEQUERY_PRODUCT_CATEGORY;
-    public static final TableSource TABLEQUERY_PRODUCT_SUBCATEGORY;
-    public static final TableSource TABLEQUERY_STORE;
-    public static final TableSource TABLEQUERY_TIME;
+    // field assignment only: TABLESOURCE_FACT
+    public static final TableSource TABLESOURCE_CUSTOMER;
+    public static final TableSource TABLESOURCE_EMPLOYEE;
+    public static final TableSource TABLESOURCE_GEOGRAPHY;
+    public static final TableSource TABLESOURCE_PRODUCT;
+    public static final TableSource TABLESOURCE_PRODUCT_CATEGORY;
+    public static final TableSource TABLESOURCE_PRODUCT_SUBCATEGORY;
+    public static final TableSource TABLESOURCE_STORE;
+    public static final TableSource TABLESOURCE_TIME;
     public static final JoinedQueryElement JOIN_GEOGRAPHY_LEFT;
     public static final JoinedQueryElement JOIN_GEOGRAPHY_RIGHT;
     public static final JoinSource JOIN_GEOGRAPHY;
@@ -1993,40 +1993,40 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         TABLE_STORE,
                         TABLE_TIME));
 
-        TABLEQUERY_FACT = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_FACT.setTable(TABLE_FACT);
+        TABLESOURCE_FACT = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_FACT.setTable(TABLE_FACT);
 
-        TABLEQUERY_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_CUSTOMER.setTable(TABLE_CUSTOMER);
+        TABLESOURCE_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_CUSTOMER.setTable(TABLE_CUSTOMER);
 
-        TABLEQUERY_EMPLOYEE = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_EMPLOYEE.setTable(TABLE_EMPLOYEE);
+        TABLESOURCE_EMPLOYEE = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_EMPLOYEE.setTable(TABLE_EMPLOYEE);
 
-        TABLEQUERY_GEOGRAPHY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_GEOGRAPHY.setTable(TABLE_GEOGRAPHY);
+        TABLESOURCE_GEOGRAPHY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_GEOGRAPHY.setTable(TABLE_GEOGRAPHY);
 
-        TABLEQUERY_PRODUCT = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PRODUCT.setTable(TABLE_PRODUCT);
+        TABLESOURCE_PRODUCT = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PRODUCT.setTable(TABLE_PRODUCT);
 
-        TABLEQUERY_PRODUCT_CATEGORY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PRODUCT_CATEGORY.setTable(TABLE_PRODUCT_CATEGORY);
+        TABLESOURCE_PRODUCT_CATEGORY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PRODUCT_CATEGORY.setTable(TABLE_PRODUCT_CATEGORY);
 
-        TABLEQUERY_PRODUCT_SUBCATEGORY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PRODUCT_SUBCATEGORY.setTable(TABLE_PRODUCT_SUBCATEGORY);
+        TABLESOURCE_PRODUCT_SUBCATEGORY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PRODUCT_SUBCATEGORY.setTable(TABLE_PRODUCT_SUBCATEGORY);
 
-        TABLEQUERY_STORE = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_STORE.setTable(TABLE_STORE);
+        TABLESOURCE_STORE = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_STORE.setTable(TABLE_STORE);
 
-        TABLEQUERY_TIME = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_TIME.setTable(TABLE_TIME);
+        TABLESOURCE_TIME = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_TIME.setTable(TABLE_TIME);
 
         JOIN_GEOGRAPHY_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_GEOGRAPHY_LEFT.setKey(COLUMN_GEOGRAPHY_KEY_CUSTOMER);
-        JOIN_GEOGRAPHY_LEFT.setQuery(TABLEQUERY_CUSTOMER);
+        JOIN_GEOGRAPHY_LEFT.setSource(TABLESOURCE_CUSTOMER);
 
         JOIN_GEOGRAPHY_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_GEOGRAPHY_RIGHT.setKey(COLUMN_GEOGRAPHY_KEY_GEOGRAPHY);
-        JOIN_GEOGRAPHY_RIGHT.setQuery(TABLEQUERY_GEOGRAPHY);
+        JOIN_GEOGRAPHY_RIGHT.setSource(TABLESOURCE_GEOGRAPHY);
 
         JOIN_GEOGRAPHY = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_GEOGRAPHY.setLeft(JOIN_GEOGRAPHY_LEFT);
@@ -2034,11 +2034,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JOIN_SUBCATEGORY_CATEGORY_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_SUBCATEGORY_CATEGORY_LEFT.setKey(COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_SUBCATEGORY);
-        JOIN_SUBCATEGORY_CATEGORY_LEFT.setQuery(TABLEQUERY_PRODUCT_SUBCATEGORY);
+        JOIN_SUBCATEGORY_CATEGORY_LEFT.setSource(TABLESOURCE_PRODUCT_SUBCATEGORY);
 
         JOIN_SUBCATEGORY_CATEGORY_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_SUBCATEGORY_CATEGORY_RIGHT.setKey(COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_CATEGORY);
-        JOIN_SUBCATEGORY_CATEGORY_RIGHT.setQuery(TABLEQUERY_PRODUCT_CATEGORY);
+        JOIN_SUBCATEGORY_CATEGORY_RIGHT.setSource(TABLESOURCE_PRODUCT_CATEGORY);
 
         JOIN_SUBCATEGORY_CATEGORY = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_SUBCATEGORY_CATEGORY.setLeft(JOIN_SUBCATEGORY_CATEGORY_LEFT);
@@ -2046,11 +2046,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JOIN_PRODUCT_CATEGORY_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_CATEGORY_LEFT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT);
-        JOIN_PRODUCT_CATEGORY_LEFT.setQuery(TABLEQUERY_PRODUCT);
+        JOIN_PRODUCT_CATEGORY_LEFT.setSource(TABLESOURCE_PRODUCT);
 
         JOIN_PRODUCT_CATEGORY_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_CATEGORY_RIGHT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY);
-        JOIN_PRODUCT_CATEGORY_RIGHT.setQuery(JOIN_SUBCATEGORY_CATEGORY);
+        JOIN_PRODUCT_CATEGORY_RIGHT.setSource(JOIN_SUBCATEGORY_CATEGORY);
 
         JOIN_PRODUCT_CATEGORY = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_PRODUCT_CATEGORY.setLeft(JOIN_PRODUCT_CATEGORY_LEFT);
@@ -2058,11 +2058,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JOIN_PRODUCT_SUBCATEGORY_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_SUBCATEGORY_LEFT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT);
-        JOIN_PRODUCT_SUBCATEGORY_LEFT.setQuery(TABLEQUERY_PRODUCT);
+        JOIN_PRODUCT_SUBCATEGORY_LEFT.setSource(TABLESOURCE_PRODUCT);
 
         JOIN_PRODUCT_SUBCATEGORY_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_PRODUCT_SUBCATEGORY_RIGHT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY);
-        JOIN_PRODUCT_SUBCATEGORY_RIGHT.setQuery(TABLEQUERY_PRODUCT_SUBCATEGORY);
+        JOIN_PRODUCT_SUBCATEGORY_RIGHT.setSource(TABLESOURCE_PRODUCT_SUBCATEGORY);
 
         JOIN_PRODUCT_SUBCATEGORY = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_PRODUCT_SUBCATEGORY.setLeft(JOIN_PRODUCT_SUBCATEGORY_LEFT);
@@ -2071,7 +2071,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMER = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_CUSTOMER.setHasAll(true);
         HIERARCHY_CUSTOMER.setPrimaryKey(COLUMN_CUSTOMER_KEY_CUSTOMER);
-        HIERARCHY_CUSTOMER.setQuery(TABLEQUERY_CUSTOMER);
+        HIERARCHY_CUSTOMER.setSource(TABLESOURCE_CUSTOMER);
         HIERARCHY_CUSTOMER.getLevels().addAll(List.of(
                 LEVEL_CUSTOMER_ROW_NUMBER,
                 LEVEL_CUSTOMER_CUSTOMER_KEY,
@@ -2105,7 +2105,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_EMPLOYEE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_EMPLOYEE.setHasAll(true);
         HIERARCHY_EMPLOYEE.setPrimaryKey(COLUMN_EMPLOYEE_KEY_EMPLOYEE);
-        HIERARCHY_EMPLOYEE.setQuery(TABLEQUERY_EMPLOYEE);
+        HIERARCHY_EMPLOYEE.setSource(TABLESOURCE_EMPLOYEE);
         HIERARCHY_EMPLOYEE.getLevels().addAll(List.of(
                 LEVEL_EMPLOYEE_ROW_NUMBER,
                 LEVEL_EMPLOYEE_EMPLOYEE_KEY,
@@ -2142,7 +2142,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_GEOGRAPHY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_GEOGRAPHY.setHasAll(true);
         HIERARCHY_GEOGRAPHY.setPrimaryKey(COLUMN_GEOGRAPHY_KEY_GEOGRAPHY);
-        HIERARCHY_GEOGRAPHY.setQuery(JOIN_GEOGRAPHY);
+        HIERARCHY_GEOGRAPHY.setSource(JOIN_GEOGRAPHY);
         HIERARCHY_GEOGRAPHY.getLevels().addAll(List.of(
                 LEVEL_GEOGRAPHY_ROW_NUMBER,
                 LEVEL_GEOGRAPHY_GEOGRAPHY_KEY,
@@ -2159,7 +2159,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PRODUCT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_PRODUCT.setHasAll(true);
         HIERARCHY_PRODUCT.setPrimaryKey(COLUMN_PRODUCT_KEY_PRODUCT);
-        HIERARCHY_PRODUCT.setQuery(TABLEQUERY_PRODUCT);
+        HIERARCHY_PRODUCT.setSource(TABLESOURCE_PRODUCT);
         HIERARCHY_PRODUCT.getLevels().addAll(List.of(
                 LEVEL_PRODUCT_ROW_NUMBER,
                 LEVEL_PRODUCT_PRODUCT_KEY,
@@ -2199,7 +2199,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PRODUCT_CATEGORY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_PRODUCT_CATEGORY.setHasAll(true);
         HIERARCHY_PRODUCT_CATEGORY.setPrimaryKey(COLUMN_PRODUCT_KEY_PRODUCT);
-        HIERARCHY_PRODUCT_CATEGORY.setQuery(JOIN_PRODUCT_CATEGORY);
+        HIERARCHY_PRODUCT_CATEGORY.setSource(JOIN_PRODUCT_CATEGORY);
         HIERARCHY_PRODUCT_CATEGORY.getLevels().addAll(List.of(
                 LEVEL_PRODUCT_CATEGORY_ROW_NUMBER,
                 LEVEL_PRODUCT_CATEGORY_PRODUCT_CATEGORY_KEY,
@@ -2211,7 +2211,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PRODUCT_SUBCATEGORY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_PRODUCT_SUBCATEGORY.setHasAll(true);
         HIERARCHY_PRODUCT_SUBCATEGORY.setPrimaryKey(COLUMN_PRODUCT_KEY_PRODUCT);
-        HIERARCHY_PRODUCT_SUBCATEGORY.setQuery(JOIN_PRODUCT_SUBCATEGORY);
+        HIERARCHY_PRODUCT_SUBCATEGORY.setSource(JOIN_PRODUCT_SUBCATEGORY);
         HIERARCHY_PRODUCT_SUBCATEGORY.getLevels().addAll(List.of(
                 LEVEL_PRODUCT_SUBCATEGORY_ROW_NUMBER,
                 LEVEL_PRODUCT_SUBCATEGORY_PRODUCT_SUBCATEGORY_KEY,
@@ -2224,7 +2224,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_STORE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_STORE.setHasAll(true);
         HIERARCHY_STORE.setPrimaryKey(COLUMN_STORE_KEY_STORE);
-        HIERARCHY_STORE.setQuery(TABLEQUERY_STORE);
+        HIERARCHY_STORE.setSource(TABLESOURCE_STORE);
         HIERARCHY_STORE.getLevels().addAll(List.of(
                 LEVEL_STORE_ROW_NUMBER,
                 LEVEL_STORE_STORE_KEY,
@@ -2236,7 +2236,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_TIME = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_TIME.setHasAll(true);
         HIERARCHY_TIME.setPrimaryKey(COLUMN_TIME_KEY_TIME);
-        HIERARCHY_TIME.setQuery(TABLEQUERY_TIME);
+        HIERARCHY_TIME.setSource(TABLESOURCE_TIME);
         HIERARCHY_TIME.getLevels().addAll(List.of(
                 LEVEL_TIME_ROW_NUMBER,
                 LEVEL_TIME_TIME_KEY,
@@ -2349,7 +2349,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 CONNECTOR_DIM_PRODUCT_SUB_CATEGORY,
                 CONNECTOR_DIM_STORE,
                 CONNECTOR_DIM_TIME));
-        CUBE.setQuery(TABLEQUERY_FACT);
+        CUBE.setSource(TABLESOURCE_FACT);
         CUBE.getMeasureGroups().add(MEASURE_GROUP);
 
         CATALOG = CatalogFactory.eINSTANCE.createCatalog();
@@ -2371,7 +2371,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 List.of(
                         new DocSection(CATALOG_NAME, introBody, 1, 0, 0, null, 0),
                         new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, DATABASE_SCHEMA, 3),
-                        new DocSection("Query", queryBody, 1, 2, 0, TABLEQUERY_FACT, 2),
+                        new DocSection("Query", queryBody, 1, 2, 0, TABLESOURCE_FACT, 2),
                         new DocSection("Cube CSDLBI 1.0", cubeBody, 1, 3, 0, CUBE, 2)),
                 List.of(new CatalogRef("catalog", this::get)));
     }

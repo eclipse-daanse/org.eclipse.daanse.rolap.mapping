@@ -514,16 +514,16 @@ class MandantoriesVerifyerTest {
 
         JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         // No key set
-        left.setQuery(leftTableQuery);
+        left.setSource(leftTableQuery);
 
         JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         // No key set
-        right.setQuery(rightTableQuery);
+        right.setSource(rightTableQuery);
 
         joinQuery.setLeft(left);
         joinQuery.setRight(right);
 
-        hierarchy.setQuery(joinQuery);
+        hierarchy.setSource(joinQuery);
         dimension.getHierarchies().add(hierarchy);
 
         schema.getCubes().add(cube);
@@ -612,7 +612,7 @@ class MandantoriesVerifyerTest {
 
         // Create JoinSource for hierarchy (with null left/right - triggers join validation)
         JoinSource joinQuery = SourceFactory.eINSTANCE.createJoinSource();
-        hierarchy.setQuery(joinQuery);
+        hierarchy.setSource(joinQuery);
 
         dimension.getHierarchies().add(hierarchy);
 
@@ -668,7 +668,7 @@ class MandantoriesVerifyerTest {
         cube.getDimensionConnectors().add(dimensionConnector);
 
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
-        hierarchy.setQuery(tableQuery);
+        hierarchy.setSource(tableQuery);
 
         dimension.getHierarchies().add(hierarchy);
 
@@ -725,15 +725,15 @@ class MandantoriesVerifyerTest {
         JoinSource joinQuery = SourceFactory.eINSTANCE.createJoinSource();
 
         JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        left.setQuery(tableQuery);
+        left.setSource(tableQuery);
 
         JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        right.setQuery(tableQuery);
+        right.setSource(tableQuery);
 
         joinQuery.setLeft(left);
         joinQuery.setRight(right);
 
-        hierarchy.setQuery(joinQuery);
+        hierarchy.setSource(joinQuery);
         dimension.getHierarchies().add(hierarchy);
 
         schema.getCubes().add(cube);

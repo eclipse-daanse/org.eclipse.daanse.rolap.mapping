@@ -161,12 +161,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setQuery(query1);
+        cube1.setSource(query1);
         cube1.getMeasureGroups().add(measureGroup1);
 
         PhysicalCube cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
-        cube2.setQuery(query2);
+        cube2.setSource(query2);
         cube2.getMeasureGroups().add(measureGroup2);
 
         CubeConnector cubeConnector1 = CubeFactory.eINSTANCE.createCubeConnector();

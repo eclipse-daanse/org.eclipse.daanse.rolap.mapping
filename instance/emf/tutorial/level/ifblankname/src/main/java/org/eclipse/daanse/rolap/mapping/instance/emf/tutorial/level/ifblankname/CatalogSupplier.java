@@ -197,11 +197,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement queryJoin1Left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoin1Left.setKey(level2NullL1KeyColumn);
-        queryJoin1Left.setQuery(queryLevel2Null);
+        queryJoin1Left.setSource(queryLevel2Null);
 
         JoinedQueryElement queryJoin1Right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoin1Right.setKey(level1KeyColumn);
-        queryJoin1Right.setQuery(queryLevel1);
+        queryJoin1Right.setSource(queryLevel1);
 
         queryJoin = SourceFactory.eINSTANCE.createJoinSource();
         queryJoin.setLeft(queryJoin1Left);
@@ -229,7 +229,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchyDimensionMembersHiddenIfBlankName.setHasAll(true);
         hierarchyDimensionMembersHiddenIfBlankName.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenIfBlankName.setPrimaryKey(level2NullKeyColumn);
-        hierarchyDimensionMembersHiddenIfBlankName.setQuery(queryJoin);
+        hierarchyDimensionMembersHiddenIfBlankName.setSource(queryJoin);
         hierarchyDimensionMembersHiddenIfBlankName.getLevels().addAll(List.of(hierarchyDdimensionMembersHiddenIfBlankNameLevel1, hierarchyDdimensionMembersHiddenIfBlankNameLevel2));
 
         dimensionMembersHiddenIfBlankName = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -243,7 +243,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setQuery(queryFact);
+        cube1.setSource(queryFact);
         cube1.getMeasureGroups().add(measureGroup1);
         cube1.getDimensionConnectors().add(dimensionMembersHiddenIfBlankNameConnector);
 

@@ -124,7 +124,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setQuery(query);
+        cube1.setSource(query);
         cube1.getMeasureGroups().add(measureGroup);
 
         AccessColumnGrant accessColumnGrantAll1 = DatabaseFactory.eINSTANCE.createAccessColumnGrant();

@@ -54,20 +54,20 @@ import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
 
-    public static final TableSource TABLEQUERY_ORDERSTATUS;
+    public static final TableSource TABLESOURCE_ORDERSTATUS;
     public static final Level LEVEL_PRODUCT_LINE;
     public static final SumMeasure MEASURE_QUANTITY;
-    public static final TableSource TABLEQUERY_PRODUCTS;
+    public static final TableSource TABLESOURCE_PRODUCTS;
     public static final ExplicitHierarchy HIERARCHY_MARKETS;
     public static final Catalog CATALOG_STEELWHEELS;
     public static final SumMeasure MEASURE_SALES;
-    public static final TableSource TABLEQUERY_TIME;
+    public static final TableSource TABLESOURCE_TIME;
     public static final Level LEVEL_MARKETS_STATE;
     public static final ExplicitHierarchy HIERARCHY_CUSTOMERS;
     public static final Level LEVEL_MARKETS_COUNTRY;
     public static final StandardDimension DIMENSION_PRODUCT;
     public static final ExplicitHierarchy HIERARCHY_ORDERSTATUS;
-    public static final TableSource TABLEQUERY_FACT;
+    public static final TableSource TABLESOURCE_FACT;
     public static final StandardDimension DIMENSION_CUSTOMERS;
     public static final PhysicalCube CUBE_STEELWHEELSSALES;
     public static final Level LEVEL_TIME_MONTHS;
@@ -76,7 +76,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final StandardDimension DIMENSION_MARKETS;
     public static final Level LEVEL_PRODUCT_PRODUCT;
     public static final StandardDimension DIMENSION_ORDERSTATUS;
-    public static final TableSource TABLEQUERY_CUSTOMER;
+    public static final TableSource TABLESOURCE_CUSTOMER;
     public static final Level LEVEL_MARKETS_CITY;
     public static final Level LEVEL_MARKETS_TERRITORY;
     public static final Level LEVEL_CUSTOMERS_CUSTOMER;
@@ -163,11 +163,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     // field assignment only: CUBE_STEELWHEELSSALES
 
     // Static table queries
-    // field assignment only: TABLEQUERY_CUSTOMER
-    // field assignment only: TABLEQUERY_PRODUCTS
-    // field assignment only: TABLEQUERY_TIME
-    // field assignment only: TABLEQUERY_ORDERSTATUS
-    // field assignment only: TABLEQUERY_FACT
+    // field assignment only: TABLESOURCE_CUSTOMER
+    // field assignment only: TABLESOURCE_PRODUCTS
+    // field assignment only: TABLESOURCE_TIME
+    // field assignment only: TABLESOURCE_ORDERSTATUS
+    // field assignment only: TABLESOURCE_FACT
 
     // Static dimension connectors
     public static final DimensionConnector CONNECTOR_MARKETS;
@@ -494,20 +494,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         LEVEL_ORDERSTATUS_TYPE.setHideMemberIf(HideMemberIf.NEVER);
 
         // Initialize table queries
-        TABLEQUERY_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_CUSTOMER.setTable(TABLE_CUSTOMER);
+        TABLESOURCE_CUSTOMER = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_CUSTOMER.setTable(TABLE_CUSTOMER);
 
-        TABLEQUERY_PRODUCTS = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PRODUCTS.setTable(TABLE_PRODUCTS);
+        TABLESOURCE_PRODUCTS = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PRODUCTS.setTable(TABLE_PRODUCTS);
 
-        TABLEQUERY_TIME = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_TIME.setTable(TABLE_TIME);
+        TABLESOURCE_TIME = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_TIME.setTable(TABLE_TIME);
 
-        TABLEQUERY_ORDERSTATUS = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_ORDERSTATUS.setTable(TABLE_ORDERFACT);
+        TABLESOURCE_ORDERSTATUS = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_ORDERSTATUS.setTable(TABLE_ORDERFACT);
 
-        TABLEQUERY_FACT = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_FACT.setTable(TABLE_ORDERFACT);
+        TABLESOURCE_FACT = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_FACT.setTable(TABLE_ORDERFACT);
 
         // Initialize hierarchies
         HIERARCHY_MARKETS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -515,7 +515,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_MARKETS.setHasAll(true);
         HIERARCHY_MARKETS.setPrimaryKey(COLUMN_CUSTOMERNUMBER_CUSTOMER);
         HIERARCHY_MARKETS.setAllMemberName("All Markets");
-        HIERARCHY_MARKETS.setQuery(TABLEQUERY_CUSTOMER);
+        HIERARCHY_MARKETS.setSource(TABLESOURCE_CUSTOMER);
         HIERARCHY_MARKETS.getLevels().addAll(
                 List.of(LEVEL_MARKETS_TERRITORY, LEVEL_MARKETS_COUNTRY, LEVEL_MARKETS_STATE, LEVEL_MARKETS_CITY));
 
@@ -524,7 +524,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMERS.setHasAll(true);
         HIERARCHY_CUSTOMERS.setAllMemberName("All Customers");
         HIERARCHY_CUSTOMERS.setPrimaryKey(COLUMN_CUSTOMERNUMBER_CUSTOMER);
-        HIERARCHY_CUSTOMERS.setQuery(TABLEQUERY_CUSTOMER);
+        HIERARCHY_CUSTOMERS.setSource(TABLESOURCE_CUSTOMER);
         HIERARCHY_CUSTOMERS.getLevels().add(LEVEL_CUSTOMERS_CUSTOMER);
 
         HIERARCHY_PRODUCT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -532,7 +532,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PRODUCT.setHasAll(true);
         HIERARCHY_PRODUCT.setAllMemberName("All Products");
         HIERARCHY_PRODUCT.setPrimaryKey(COLUMN_PRODUCTCODE_PRODUCTS);
-        HIERARCHY_PRODUCT.setQuery(TABLEQUERY_PRODUCTS);
+        HIERARCHY_PRODUCT.setSource(TABLESOURCE_PRODUCTS);
         HIERARCHY_PRODUCT.getLevels().addAll(List.of(LEVEL_PRODUCT_LINE, LEVEL_PRODUCT_VENDOR, LEVEL_PRODUCT_PRODUCT));
 
         HIERARCHY_TIME = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -540,7 +540,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_TIME.setHasAll(true);
         HIERARCHY_TIME.setAllMemberName("All Years");
         HIERARCHY_TIME.setPrimaryKey(COLUMN_TIME_ID_TIME);
-        HIERARCHY_TIME.setQuery(TABLEQUERY_TIME);
+        HIERARCHY_TIME.setSource(TABLESOURCE_TIME);
         HIERARCHY_TIME.getLevels().addAll(List.of(LEVEL_TIME_YEARS, LEVEL_TIME_QUARTERS, LEVEL_TIME_MONTHS));
 
         HIERARCHY_ORDERSTATUS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -548,7 +548,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ORDERSTATUS.setHasAll(true);
         HIERARCHY_ORDERSTATUS.setAllMemberName("All Status Types");
         HIERARCHY_ORDERSTATUS.setPrimaryKey(COLUMN_STATUS_ORDERFACT);
-        //HIERARCHY_ORDERSTATUS.setQuery(TABLEQUERY_ORDERSTATUS);
+        //HIERARCHY_ORDERSTATUS.setSource(TABLESOURCE_ORDERSTATUS);
         HIERARCHY_ORDERSTATUS.getLevels().add(LEVEL_ORDERSTATUS_TYPE);
 
         // Initialize dimensions
@@ -615,7 +615,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize cube
         CUBE_STEELWHEELSSALES = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_STEELWHEELSSALES.setName("SteelWheelsSales");
-        CUBE_STEELWHEELSSALES.setQuery(TABLEQUERY_FACT);
+        CUBE_STEELWHEELSSALES.setSource(TABLESOURCE_FACT);
         CUBE_STEELWHEELSSALES.getDimensionConnectors().addAll(List.of(CONNECTOR_MARKETS, CONNECTOR_CUSTOMERS,
                 CONNECTOR_PRODUCT, CONNECTOR_TIME, CONNECTOR_ORDERSTATUS));
         CUBE_STEELWHEELSSALES.getMeasureGroups().add(MEASUREGROUP_STEELWHEELSSALES);
@@ -650,11 +650,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         return new TutorialDescription(
                 List.of(
                         new DocSection("SteelWheels Database", steelWheelsBody, 1, 0, 1, null, 0),
-                        new DocSection("Customer Query", queryCustomerBody, 1, 1, 1, TABLEQUERY_CUSTOMER, 0),
-                        new DocSection("Product Query", queryProductBody, 1, 2, 1, TABLEQUERY_PRODUCTS, 0),
-                        new DocSection("Time Query", queryTimeBody, 1, 3, 1, TABLEQUERY_TIME, 0),
-                        new DocSection("Status Query", queryStatusBody, 1, 4, 1, TABLEQUERY_ORDERSTATUS, 0),
-                        new DocSection("Fact Query", queryBody, 1, 5, 1, TABLEQUERY_FACT, 0),
+                        new DocSection("Customer Query", queryCustomerBody, 1, 1, 1, TABLESOURCE_CUSTOMER, 0),
+                        new DocSection("Product Query", queryProductBody, 1, 2, 1, TABLESOURCE_PRODUCTS, 0),
+                        new DocSection("Time Query", queryTimeBody, 1, 3, 1, TABLESOURCE_TIME, 0),
+                        new DocSection("Status Query", queryStatusBody, 1, 4, 1, TABLESOURCE_ORDERSTATUS, 0),
+                        new DocSection("Fact Query", queryBody, 1, 5, 1, TABLESOURCE_FACT, 0),
                         new DocSection("Markets Dimension", marketsBody, 1, 6, 1, DIMENSION_MARKETS, 0),
                         new DocSection("Customers Dimension", customersBody, 1, 7, 1, DIMENSION_CUSTOMERS, 0),
                         new DocSection("Product Dimension", productBody, 1, 8, 1, DIMENSION_PRODUCT, 0),

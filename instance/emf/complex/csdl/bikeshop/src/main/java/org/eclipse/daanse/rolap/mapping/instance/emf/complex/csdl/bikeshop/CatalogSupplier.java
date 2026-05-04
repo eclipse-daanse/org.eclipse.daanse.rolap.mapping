@@ -57,7 +57,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Catalog CATALOG;
     public static final PhysicalCube CUBE;
     public static final Schema DATABASE_SCHEMA;
-    public static final TableSource TABLEQUERY_BIKE;
+    public static final TableSource TABLESOURCE_BIKE;
 
 
     public static final String CATALOG_NAME = "CSDLBI 1.1";
@@ -170,13 +170,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     public static final Kpi KPI;
 
-    // field assignment only: TABLEQUERY_BIKE
-    public static final TableSource TABLEQUERY_BIKE_SALES;
-    public static final TableSource TABLEQUERY_BIKE_SUBCATEGORY;
-    public static final TableSource TABLEQUERY_CALENDAR_QUARTER;
-    public static final TableSource TABLEQUERY_COUNTRY;
-    public static final TableSource TABLEQUERY_CURRENCY;
-    public static final TableSource TABLEQUERY_SALES_CHANNEL;
+    // field assignment only: TABLESOURCE_BIKE
+    public static final TableSource TABLESOURCE_BIKE_SALES;
+    public static final TableSource TABLESOURCE_BIKE_SUBCATEGORY;
+    public static final TableSource TABLESOURCE_CALENDAR_QUARTER;
+    public static final TableSource TABLESOURCE_COUNTRY;
+    public static final TableSource TABLESOURCE_CURRENCY;
+    public static final TableSource TABLESOURCE_SALES_CHANNEL;
     public static final JoinedQueryElement JOIN_SUBCATEGORY_LEFT;
     public static final JoinedQueryElement JOIN_SUBCATEGORY_RIGHT;
     public static final JoinSource JOIN_SUBCATEGORY;
@@ -742,45 +742,45 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         DATABASE_SCHEMA.getOwnedElement()
                 .addAll(List.of(TABLE_BIKE, TABLE_BIKE_SALES, TABLE_BIKE_SUBCATEGORY, TABLE_CALENDAR_QUARTER, TABLE_COUNTRY, TABLE_CURRENCY, TABLE_SALES_CHANNEL));
 
-        TABLEQUERY_BIKE = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_BIKE.setTable(TABLE_BIKE);
+        TABLESOURCE_BIKE = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_BIKE.setTable(TABLE_BIKE);
 
-        TABLEQUERY_BIKE_SALES = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_BIKE_SALES.setTable(TABLE_BIKE_SALES);
+        TABLESOURCE_BIKE_SALES = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_BIKE_SALES.setTable(TABLE_BIKE_SALES);
 
-        TABLEQUERY_BIKE_SUBCATEGORY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_BIKE_SUBCATEGORY.setTable(TABLE_BIKE_SUBCATEGORY);
+        TABLESOURCE_BIKE_SUBCATEGORY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_BIKE_SUBCATEGORY.setTable(TABLE_BIKE_SUBCATEGORY);
 
         JOIN_SUBCATEGORY_LEFT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_SUBCATEGORY_LEFT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE);
-        JOIN_SUBCATEGORY_LEFT.setQuery(TABLEQUERY_BIKE);
+        JOIN_SUBCATEGORY_LEFT.setSource(TABLESOURCE_BIKE);
 
         JOIN_SUBCATEGORY_RIGHT = SourceFactory.eINSTANCE.createJoinedQueryElement();
         JOIN_SUBCATEGORY_RIGHT.setKey(COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE_SUBCATEGORY);
-        JOIN_SUBCATEGORY_RIGHT.setQuery(TABLEQUERY_BIKE_SUBCATEGORY);
+        JOIN_SUBCATEGORY_RIGHT.setSource(TABLESOURCE_BIKE_SUBCATEGORY);
 
         JOIN_SUBCATEGORY = SourceFactory.eINSTANCE.createJoinSource();
         JOIN_SUBCATEGORY.setLeft(JOIN_SUBCATEGORY_LEFT);
         JOIN_SUBCATEGORY.setRight(JOIN_SUBCATEGORY_RIGHT);
 
 
-        TABLEQUERY_CALENDAR_QUARTER = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_CALENDAR_QUARTER.setTable(TABLE_CALENDAR_QUARTER);
+        TABLESOURCE_CALENDAR_QUARTER = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_CALENDAR_QUARTER.setTable(TABLE_CALENDAR_QUARTER);
 
-        TABLEQUERY_COUNTRY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_COUNTRY.setTable(TABLE_COUNTRY);
+        TABLESOURCE_COUNTRY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_COUNTRY.setTable(TABLE_COUNTRY);
 
-        TABLEQUERY_CURRENCY = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_CURRENCY.setTable(TABLE_CURRENCY);
+        TABLESOURCE_CURRENCY = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_CURRENCY.setTable(TABLE_CURRENCY);
 
-        TABLEQUERY_SALES_CHANNEL = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_SALES_CHANNEL.setTable(TABLE_SALES_CHANNEL);
+        TABLESOURCE_SALES_CHANNEL = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_SALES_CHANNEL.setTable(TABLE_SALES_CHANNEL);
 
         HIERARCHY_BIKE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_BIKE.setName("Product_Hierarchy");
         HIERARCHY_BIKE.setHasAll(true);
         HIERARCHY_BIKE.setPrimaryKey(COLUMN_PRODUCT_KEY_BIKE);
-        HIERARCHY_BIKE.setQuery(TABLEQUERY_BIKE);
+        HIERARCHY_BIKE.setSource(TABLESOURCE_BIKE);
         HIERARCHY_BIKE.getLevels().addAll(List.of(
                 LEVEL_BIKE_ROW_NUMBER,
                 LEVEL_BIKE_PRODUCT_KEY,
@@ -809,7 +809,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_BIKE_SUBCATEGORY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_BIKE_SUBCATEGORY.setHasAll(true);
         HIERARCHY_BIKE_SUBCATEGORY.setPrimaryKey(COLUMN_PRODUCT_KEY_BIKE);
-        HIERARCHY_BIKE_SUBCATEGORY.setQuery(JOIN_SUBCATEGORY);
+        HIERARCHY_BIKE_SUBCATEGORY.setSource(JOIN_SUBCATEGORY);
         HIERARCHY_BIKE_SUBCATEGORY.getLevels().addAll(List.of(
                 LEVEL_BIKE_SUBCATEGORY_ROW_NUMBER,
                 LEVEL_BIKE_SUBCATEGORY_PRODUCT_SUBCATEGORY_KEY,
@@ -818,7 +818,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CALENDAR_QUARTER = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_CALENDAR_QUARTER.setHasAll(true);
         HIERARCHY_CALENDAR_QUARTER.setPrimaryKey(COLUMN_CALENDAR_QUARTER2_CALENDAR_QUARTER);
-        HIERARCHY_CALENDAR_QUARTER.setQuery(TABLEQUERY_CALENDAR_QUARTER);
+        HIERARCHY_CALENDAR_QUARTER.setSource(TABLESOURCE_CALENDAR_QUARTER);
         HIERARCHY_CALENDAR_QUARTER.getLevels().addAll(List.of(
                 LEVEL_CALENDAR_QUARTER_ROW_NUMBER,
                 LEVEL_CALENDAR_QUARTER_CALENDAR_QUARTER2));
@@ -826,7 +826,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_COUNTRY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_COUNTRY.setHasAll(true);
         HIERARCHY_COUNTRY.setPrimaryKey(COLUMN_COUNTRY_CODE_COUNTRY);
-        HIERARCHY_COUNTRY.setQuery(TABLEQUERY_COUNTRY);
+        HIERARCHY_COUNTRY.setSource(TABLESOURCE_COUNTRY);
         HIERARCHY_COUNTRY.getLevels().addAll(List.of(
                 LEVEL_COUNTRY_ROW_NUMBER,
                 LEVEL_COUNTRY_COUNTRY_CODE,
@@ -835,7 +835,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CURRENCY = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_CURRENCY.setHasAll(true);
         HIERARCHY_CURRENCY.setPrimaryKey(COLUMN_CURRENCY_KEY_CURRENCY);
-        HIERARCHY_CURRENCY.setQuery(TABLEQUERY_CURRENCY);
+        HIERARCHY_CURRENCY.setSource(TABLESOURCE_CURRENCY);
         HIERARCHY_CURRENCY.getLevels().addAll(List.of(
                 LEVEL_CURRENCY_ROW_NUMBER,
                 LEVEL_CURRENCY_CURRENCY_KEY,
@@ -845,7 +845,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_SALES_CHANNEL = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_SALES_CHANNEL.setHasAll(true);
         HIERARCHY_SALES_CHANNEL.setPrimaryKey(COLUMN_SALES_CHANNEL_CODE_SALES_CHANNEL);
-        HIERARCHY_SALES_CHANNEL.setQuery(TABLEQUERY_SALES_CHANNEL);
+        HIERARCHY_SALES_CHANNEL.setSource(TABLESOURCE_SALES_CHANNEL);
         HIERARCHY_SALES_CHANNEL.getLevels().addAll(List.of(
                 LEVEL_SALES_CHANNEL_ROW_NUMBER,
                 LEVEL_SALES_CHANNEL_SALES_CHANNEL_CODE,
@@ -931,7 +931,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 CONNECTOR_COUNTRY,
                 CONNECTOR_CURRENCY,
                 CONNECTOR_SALES_CHANNEL));
-        CUBE.setQuery(TABLEQUERY_BIKE_SALES);
+        CUBE.setSource(TABLESOURCE_BIKE_SALES);
         CUBE.getMeasureGroups().add(MEASURE_GROUP);
         CUBE.getKpis().add(KPI);
 
@@ -955,7 +955,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 List.of(
                         new DocSection(CATALOG_NAME, introBody, 1, 0, 0, null, 0),
                         new DocSection("Database Schema", databaseSchemaBody, 1, 1, 0, DATABASE_SCHEMA, 3),
-                        new DocSection("Query", queryBody, 1, 2, 0, TABLEQUERY_BIKE, 2),
+                        new DocSection("Query", queryBody, 1, 2, 0, TABLESOURCE_BIKE, 2),
                         new DocSection("Cube CSDLBI 1.1", cubeBody, 1, 3, 0, CUBE, 2)),
                 List.of(new CatalogRef("catalog", this::get)));
     }

@@ -147,7 +147,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(false);
         hierarchy.setName("HierarchyWithoutHasAll");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -166,14 +166,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
-        cube1.setQuery(query);
+        cube1.setSource(query);
         cube1.getDimensionConnectors().add(dimensionConnector1);
         cube1.getMeasureGroups().add(measureGroup1);
         dimensionConnector1.setPhysicalCube(cube1);
 
         PhysicalCube cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
-        cube2.setQuery(query);
+        cube2.setSource(query);
         cube2.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
         dimensionConnector2.setPhysicalCube(cube2);

@@ -201,11 +201,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         // Join query for hierarchy (Fact -> Member)
         JoinedQueryElement joinElementFact = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinElementFact.setQuery(queryFact);
+        joinElementFact.setSource(queryFact);
         joinElementFact.setKey(columnFactMemberId);
 
         JoinedQueryElement joinElementMember = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinElementMember.setQuery(queryMember);
+        joinElementMember.setSource(queryMember);
         joinElementMember.setKey(columnMemberId);
 
         queryJoin = SourceFactory.eINSTANCE.createJoinSource();
@@ -245,7 +245,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.setName("LocationHierarchy");
         hierarchy.setPrimaryKey(columnMemberId);
-        hierarchy.setQuery(queryJoin);
+        hierarchy.setSource(queryJoin);
         hierarchy.getLevels().add(level);
 
         // Dimension
@@ -269,7 +269,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Cube
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Geographic Analysis");
-        cube.setQuery(queryFact);
+        cube.setSource(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector);
 

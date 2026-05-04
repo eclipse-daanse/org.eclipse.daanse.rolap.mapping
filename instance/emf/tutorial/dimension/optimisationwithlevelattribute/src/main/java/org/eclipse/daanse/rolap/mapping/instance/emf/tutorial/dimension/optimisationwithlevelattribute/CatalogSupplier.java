@@ -191,11 +191,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement left = SourceFactory.eINSTANCE.createJoinedQueryElement();
         left.setKey(hxL2H1L1KeyColumn);
-        left.setQuery(queryHxL2);
+        left.setSource(queryHxL2);
 
         JoinedQueryElement right = SourceFactory.eINSTANCE.createJoinedQueryElement();
         right.setKey(h1L1KeyColumn);
-        right.setQuery(queryH1L1);
+        right.setSource(queryH1L1);
 
         joinQuery = SourceFactory.eINSTANCE.createJoinSource();
         joinQuery.setLeft(left);
@@ -222,7 +222,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy1.setHasAll(true);
         hierarchy1.setName("Hierarchy1");
         hierarchy1.setPrimaryKey(hxL2KeyColumn);
-        hierarchy1.setQuery(joinQuery);
+        hierarchy1.setSource(joinQuery);
         hierarchy1.getLevels().add(h1Level1);
         hierarchy1.getLevels().add(h1Level2);
 
@@ -244,7 +244,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);

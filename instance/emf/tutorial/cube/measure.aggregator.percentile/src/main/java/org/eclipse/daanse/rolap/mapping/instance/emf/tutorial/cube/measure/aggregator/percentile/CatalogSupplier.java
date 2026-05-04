@@ -185,7 +185,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchy.setHasAll(true);
         hierarchy.setName("Hierarchy");
         hierarchy.setPrimaryKey(keyColumn);
-        hierarchy.setQuery(query);
+        hierarchy.setSource(query);
         hierarchy.getLevels().add(level);
 
         StandardDimension dimension = DimensionFactory.eINSTANCE.createStandardDimension();
@@ -199,7 +199,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         PhysicalCube cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("MeasuresAggregatorsCube");
-        cube.setQuery(query);
+        cube.setSource(query);
         cube.getDimensionConnectors().add(dimensionConnector);
         cube.getMeasureGroups().add(measureGroup);
 

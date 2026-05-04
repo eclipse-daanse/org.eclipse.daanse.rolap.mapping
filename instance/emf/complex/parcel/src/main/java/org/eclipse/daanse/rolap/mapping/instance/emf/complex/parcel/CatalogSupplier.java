@@ -154,10 +154,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     // field assignment only: CUBE_PARCELS
 
     // Static table queries
-    public static final TableSource TABLEQUERY_PARCELS;
-    public static final TableSource TABLEQUERY_PARCEL_TYPES;
-    public static final TableSource TABLEQUERY_DEFECTS;
-    public static final TableSource TABLEQUERY_ADDRESSES;
+    public static final TableSource TABLESOURCE_PARCELS;
+    public static final TableSource TABLESOURCE_PARCEL_TYPES;
+    public static final TableSource TABLESOURCE_DEFECTS;
+    public static final TableSource TABLESOURCE_ADDRESSES;
 
     // Static dimension connectors
     public static final DimensionConnector CONNECTOR_WIDTH;
@@ -410,17 +410,17 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         LEVEL_STREET.setColumn(COLUMN_STREET_ADDRESS);
 
         // Initialize table queries
-        TABLEQUERY_PARCELS = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PARCELS.setTable(TABLE_PARCELS);
+        TABLESOURCE_PARCELS = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PARCELS.setTable(TABLE_PARCELS);
 
-        TABLEQUERY_PARCEL_TYPES = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PARCEL_TYPES.setTable(TABLE_PARCEL_TYPES);
+        TABLESOURCE_PARCEL_TYPES = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PARCEL_TYPES.setTable(TABLE_PARCEL_TYPES);
 
-        TABLEQUERY_DEFECTS = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_DEFECTS.setTable(TABLE_DEFECTS);
+        TABLESOURCE_DEFECTS = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_DEFECTS.setTable(TABLE_DEFECTS);
 
-        TABLEQUERY_ADDRESSES = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_ADDRESSES.setTable(TABLE_ADDRESSES);
+        TABLESOURCE_ADDRESSES = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_ADDRESSES.setTable(TABLE_ADDRESSES);
 
         // Initialize hierarchies
         HIERARCHY_WIDTH = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -428,7 +428,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_WIDTH.setHasAll(true);
         HIERARCHY_WIDTH.setAllMemberName("All Widths");
         HIERARCHY_WIDTH.setPrimaryKey(COLUMN_WIDTH_FACT);
-        HIERARCHY_WIDTH.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_WIDTH.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_WIDTH.getLevels().add(LEVEL_WIDTH);
 
         HIERARCHY_DEPTH = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -436,7 +436,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_DEPTH.setHasAll(true);
         HIERARCHY_DEPTH.setAllMemberName("All Depths");
         HIERARCHY_DEPTH.setPrimaryKey(COLUMN_DEPTH_FACT);
-        HIERARCHY_DEPTH.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_DEPTH.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_DEPTH.getLevels().add(LEVEL_DEPTH);
 
         HIERARCHY_HEIGHT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -444,7 +444,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_HEIGHT.setHasAll(true);
         HIERARCHY_HEIGHT.setAllMemberName("All Heights");
         HIERARCHY_HEIGHT.setPrimaryKey(COLUMN_HEIGHT_FACT);
-        HIERARCHY_HEIGHT.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_HEIGHT.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_HEIGHT.getLevels().add(LEVEL_HEIGHT);
 
         HIERARCHY_PARCEL_TYPE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -452,7 +452,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_PARCEL_TYPE.setHasAll(true);
         HIERARCHY_PARCEL_TYPE.setAllMemberName("All Types");
         HIERARCHY_PARCEL_TYPE.setPrimaryKey(COLUMN_TYPE_ID_TYPE);
-        HIERARCHY_PARCEL_TYPE.setQuery(TABLEQUERY_PARCEL_TYPES);
+        HIERARCHY_PARCEL_TYPE.setSource(TABLESOURCE_PARCEL_TYPES);
         HIERARCHY_PARCEL_TYPE.getLevels().add(LEVEL_PARCEL_TYPE);
 
         HIERARCHY_DEFECT = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -460,7 +460,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_DEFECT.setHasAll(true);
         HIERARCHY_DEFECT.setAllMemberName("All Defects");
         HIERARCHY_DEFECT.setPrimaryKey(COLUMN_DEFECT_ID_DEFECT);
-        HIERARCHY_DEFECT.setQuery(TABLEQUERY_DEFECTS);
+        HIERARCHY_DEFECT.setSource(TABLESOURCE_DEFECTS);
         HIERARCHY_DEFECT.getLevels().add(LEVEL_DEFECT);
 
         HIERARCHY_DELIVERABLE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -468,7 +468,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_DELIVERABLE.setHasAll(true);
         HIERARCHY_DELIVERABLE.setAllMemberName("All Deliverable");
         HIERARCHY_DELIVERABLE.setPrimaryKey(COLUMN_DELIVERABLE_FACT);
-        HIERARCHY_DELIVERABLE.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_DELIVERABLE.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_DELIVERABLE.getLevels().add(LEVEL_DELIVERABLE);
 
         HIERARCHY_CUSTOMS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -476,7 +476,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_CUSTOMS.setHasAll(true);
         HIERARCHY_CUSTOMS.setAllMemberName("All Customs");
         HIERARCHY_CUSTOMS.setPrimaryKey(COLUMN_CUSTOMS_FACT);
-        HIERARCHY_CUSTOMS.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_CUSTOMS.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_CUSTOMS.getLevels().add(LEVEL_CUSTOMS);
 
         HIERARCHY_RETURN = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -484,7 +484,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_RETURN.setHasAll(true);
         HIERARCHY_RETURN.setAllMemberName("All Return");
         HIERARCHY_RETURN.setPrimaryKey(COLUMN_RETURN_FACT);
-        HIERARCHY_RETURN.setQuery(TABLEQUERY_PARCELS);
+        HIERARCHY_RETURN.setSource(TABLESOURCE_PARCELS);
         HIERARCHY_RETURN.getLevels().add(LEVEL_RETURN);
 
         HIERARCHY_ADDRESS = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -492,7 +492,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ADDRESS.setHasAll(true);
         HIERARCHY_ADDRESS.setAllMemberName("All Addresses");
         HIERARCHY_ADDRESS.setPrimaryKey(COLUMN_ADDRESS_ID_ADDRESS);
-        HIERARCHY_ADDRESS.setQuery(TABLEQUERY_ADDRESSES);
+        HIERARCHY_ADDRESS.setSource(TABLESOURCE_ADDRESSES);
         HIERARCHY_ADDRESS.getLevels()
                 .addAll(List.of(LEVEL_CONTINENT, LEVEL_COUNTRY, LEVEL_CITY, LEVEL_POSTAL_CODE, LEVEL_STREET));
 
@@ -644,7 +644,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize cube
         CUBE_PARCELS = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_PARCELS.setName("Parcels");
-        CUBE_PARCELS.setQuery(TABLEQUERY_PARCELS);
+        CUBE_PARCELS.setSource(TABLESOURCE_PARCELS);
         CUBE_PARCELS.getDimensionConnectors()
                 .addAll(List.of(CONNECTOR_WIDTH, CONNECTOR_DEPTH, CONNECTOR_HEIGHT, CONNECTOR_PARCEL_TYPE,
                         CONNECTOR_DEFECT, CONNECTOR_DELIVERABLE, CONNECTOR_CUSTOMS, CONNECTOR_RETURN,

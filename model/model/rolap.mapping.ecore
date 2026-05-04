@@ -1075,7 +1075,7 @@
             <details key="documentation" value="Column that serves as the join key for connecting this query element to its JOIN partner. The key column must contain values that can be matched with the corresponding key column from the other side of the JOIN operation, typically representing a foreign key to primary key relationship. The column must be accessible within the query's result set and have compatible data types with its JOIN partner to ensure proper relational connectivity and optimal query performance."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1"
+        <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
             eType="#//database/source/RelationalSource">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Reference to the query that provides the data source for this side of the JOIN operation. The query can be any type from the Query hierarchy including TableQuery for direct table access, JoinQuery for nested join operations, SqlSelectQuery for custom SQL views, or InlineTableQuery for in-memory data. This composable design enables complex query trees where joins can be nested and combined to create sophisticated data access patterns for advanced dimensional modeling scenarios."/>
@@ -1337,7 +1337,7 @@
             <details key="documentation" value="Collection of dimension connectors that link this physical cube to its analytical dimensions. Each DimensionConnector defines how a dimension relates to the cube's fact table, specifying the foreign key columns that connect facts to dimension members. These connectors enable the cube to be sliced and diced along different analytical axes, such as time, geography, product categories, or customer segments. The connectors handle both shared dimensions (used across multiple cubes) and cube-specific dimensions."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="query" lowerBound="1"
+        <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
             eType="#//database/source/RelationalSource">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Reference to the Query object that defines how to retrieve the fact data for this cube. This is typically a TableQuery pointing to a fact table, but can also be a more complex JoinQuery for snowflake schemas or a SqlSelectQuery for custom fact views. The query defines the primary data source for all measures in this cube and serves as the foundation for SQL generation during OLAP operations. This is a required field as every physical cube must have a data source."/>
@@ -1988,7 +1988,7 @@
               <details key="documentation" value="Name of the level within this hierarchy that contains unique key values for member identification, establishing the granularity level where member keys become distinct and enabling proper member resolution in MDX queries, drill-through operations, and dimensional navigation scenarios. The unique key level defines the point in the hierarchical structure where member identification transitions from potentially shared keys at higher levels to guaranteed unique identifiers, which is crucial for maintaining data integrity."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EReference" name="query" eType="#//database/source/RelationalSource">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//database/source/RelationalSource">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Reference to the Query object that defines how hierarchy members are retrieved from the underlying data source, specifying the SQL logic, table relationships, and data transformation rules required to populate this hierarchy with members from the dimensional database structures. The query reference establishes the critical link between the logical hierarchy definition and the physical data sources, enabling sophisticated data integration scenarios where hierarchy members may be sourced from complex table joins, views, stored procedures, or federated data sources. "/>
             </eAnnotations>

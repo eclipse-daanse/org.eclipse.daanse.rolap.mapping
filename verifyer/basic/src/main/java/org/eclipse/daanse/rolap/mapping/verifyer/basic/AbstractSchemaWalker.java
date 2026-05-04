@@ -254,7 +254,7 @@ public abstract class AbstractSchemaWalker {
         if (hierarchy != null) {
             checkAnnotationList(hierarchy.getAnnotations());
             checkMemberReaderParameterList(hierarchy.getMemberReaderParameters());
-            checkQuery(hierarchy.getQuery());
+            checkQuery(hierarchy.getSource());
             if (hierarchy instanceof ExplicitHierarchy eh) {
                 // Level
                 if (eh.getLevels() != null) {
@@ -289,7 +289,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkJoinedQueryElement(JoinedQueryElement element) {
         if (element != null) {
-            checkQuery(element.getQuery());
+            checkQuery(element.getSource());
         }
     }
 
@@ -527,7 +527,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkPhysicalCube(PhysicalCube physicalCube, Catalog schema) {
         if (physicalCube != null) {
-            checkQuery(physicalCube.getQuery());
+            checkQuery(physicalCube.getSource());
             checkWritebackTable(physicalCube.getWritebackTable(), physicalCube);
             checkActionList(physicalCube.getAction());
             checkMeasureGroupList(physicalCube.getMeasureGroups(), physicalCube);

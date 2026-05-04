@@ -241,11 +241,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement queryJoinRightLeftElement = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoinRightLeftElement.setKey(level2MultipleL1KeyColumn);
-        queryJoinRightLeftElement.setQuery(queryLevel2Multiple);
+        queryJoinRightLeftElement.setSource(queryLevel2Multiple);
 
         JoinedQueryElement queryJoinRightRightElement = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoinRightRightElement.setKey(level1MultipleKeyColumn);
-        queryJoinRightRightElement.setQuery(queryLevel1Multiple);
+        queryJoinRightRightElement.setSource(queryLevel1Multiple);
 
         queryJoinRight = SourceFactory.eINSTANCE.createJoinSource();
         queryJoinRight.setLeft(queryJoinRightLeftElement);
@@ -253,11 +253,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         JoinedQueryElement queryJoinLeftElement = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoinLeftElement.setKey(level3MultipleL2KeyColumn);
-        queryJoinLeftElement.setQuery(queryLevel3Multiple);
+        queryJoinLeftElement.setSource(queryLevel3Multiple);
 
         JoinedQueryElement queryJoinRightElement = SourceFactory.eINSTANCE.createJoinedQueryElement();
         queryJoinRightElement.setKey(level2MultipleKeyColumn);
-        queryJoinRightElement.setQuery(queryJoinRight);
+        queryJoinRightElement.setSource(queryJoinRight);
 
         queryJoin = SourceFactory.eINSTANCE.createJoinSource();
         queryJoin.setLeft(queryJoinLeftElement);
@@ -291,7 +291,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         hierarchyDimensionMembersHiddenMultipleLevels.setHasAll(true);
         hierarchyDimensionMembersHiddenMultipleLevels.setName("Hierarchy1");
         hierarchyDimensionMembersHiddenMultipleLevels.setPrimaryKey(level3MultipleKeyColumn);
-        hierarchyDimensionMembersHiddenMultipleLevels.setQuery(queryJoin);
+        hierarchyDimensionMembersHiddenMultipleLevels.setSource(queryJoin);
         hierarchyDimensionMembersHiddenMultipleLevels.getLevels().addAll(List.of(level1,
                 level2, level3));
 
@@ -306,7 +306,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
-        cube.setQuery(queryFact);
+        cube.setSource(queryFact);
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionMembersHiddenMultipleLevelsConnector);
 

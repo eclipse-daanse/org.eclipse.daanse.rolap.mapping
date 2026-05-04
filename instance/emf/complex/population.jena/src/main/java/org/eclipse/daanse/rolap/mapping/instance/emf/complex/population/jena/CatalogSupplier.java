@@ -169,16 +169,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     // field assignment only: CUBE_BEVOELKERUNG
 
     // Static table queries
-    public static final TableSource TABLEQUERY_YEAR;
-    public static final TableSource TABLEQUERY_TOWN;
-    public static final TableSource TABLEQUERY_PLRAUM;
-    public static final TableSource TABLEQUERY_STATBEZ;
-    public static final TableSource TABLEQUERY_GENDER;
-    public static final TableSource TABLEQUERY_AGEGROUPS;
-    public static final TableSource TABLEQUERY_FACT;
+    public static final TableSource TABLESOURCE_YEAR;
+    public static final TableSource TABLESOURCE_TOWN;
+    public static final TableSource TABLESOURCE_PLRAUM;
+    public static final TableSource TABLESOURCE_STATBEZ;
+    public static final TableSource TABLESOURCE_GENDER;
+    public static final TableSource TABLESOURCE_AGEGROUPS;
+    public static final TableSource TABLESOURCE_FACT;
 
     // Join queries
-    public static final JoinSource JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK;
+    public static final JoinSource JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK;
 
     // Static dimension connectors
     public static final DimensionConnector CONNECTOR_JAHR;
@@ -534,60 +534,60 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         LEVEL_ALTER_10JAHRE.setColumn(COLUMN_AGE_AGEGROUPS);
 
         // Initialize table queries
-        TABLEQUERY_YEAR = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_YEAR.setTable(TABLE_YEAR);
+        TABLESOURCE_YEAR = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_YEAR.setTable(TABLE_YEAR);
 
-        TABLEQUERY_TOWN = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_TOWN.setTable(TABLE_TOWN);
+        TABLESOURCE_TOWN = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_TOWN.setTable(TABLE_TOWN);
 
-        TABLEQUERY_PLRAUM = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_PLRAUM.setTable(TABLE_PLRAUM);
+        TABLESOURCE_PLRAUM = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_PLRAUM.setTable(TABLE_PLRAUM);
 
-        TABLEQUERY_STATBEZ = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_STATBEZ.setTable(TABLE_STATBEZ);
+        TABLESOURCE_STATBEZ = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_STATBEZ.setTable(TABLE_STATBEZ);
 
-        TABLEQUERY_GENDER = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_GENDER.setTable(TABLE_GENDER);
+        TABLESOURCE_GENDER = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_GENDER.setTable(TABLE_GENDER);
 
-        TABLEQUERY_AGEGROUPS = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_AGEGROUPS.setTable(TABLE_AGEGROUPS);
+        TABLESOURCE_AGEGROUPS = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_AGEGROUPS.setTable(TABLE_AGEGROUPS);
 
-        TABLEQUERY_FACT = SourceFactory.eINSTANCE.createTableSource();
-        TABLEQUERY_FACT.setTable(TABLE_EINWOHNER);
+        TABLESOURCE_FACT = SourceFactory.eINSTANCE.createTableSource();
+        TABLESOURCE_FACT.setTable(TABLE_EINWOHNER);
 
         // Initialize join query for Stadt-Planungsraum-Statistischer Bezirk hierarchy
-        JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK = SourceFactory.eINSTANCE.createJoinSource();
+        JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK = SourceFactory.eINSTANCE.createJoinSource();
 
         // Left side: statbez table
         JoinedQueryElement leftStatbez = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftStatbez.setKey(COLUMN_PLRAUM_STATBEZ);
-        leftStatbez.setQuery(TABLEQUERY_STATBEZ);
-        JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK.setLeft(leftStatbez);
+        leftStatbez.setSource(TABLESOURCE_STATBEZ);
+        JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK.setLeft(leftStatbez);
 
         // Right side: join of plraum and town tables
         JoinSource joinPlraumTown = SourceFactory.eINSTANCE.createJoinSource();
 
         JoinedQueryElement leftPlraum = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftPlraum.setKey(COLUMN_TOWNID_PLRAUM);
-        leftPlraum.setQuery(TABLEQUERY_PLRAUM);
+        leftPlraum.setSource(TABLESOURCE_PLRAUM);
         joinPlraumTown.setLeft(leftPlraum);
 
         JoinedQueryElement rightTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightTown.setKey(COLUMN_ID_TOWN);
-        rightTown.setQuery(TABLEQUERY_TOWN);
+        rightTown.setSource(TABLESOURCE_TOWN);
         joinPlraumTown.setRight(rightTown);
 
         JoinedQueryElement rightPlraumTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightPlraumTown.setKey(COLUMN_GID_PLRAUM);
-        rightPlraumTown.setQuery(joinPlraumTown);
-        JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK.setRight(rightPlraumTown);
+        rightPlraumTown.setSource(joinPlraumTown);
+        JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK.setRight(rightPlraumTown);
 
         // Initialize hierarchies
         HIERARCHY_JAHR = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         HIERARCHY_JAHR.setName("Jahr");
         HIERARCHY_JAHR.setHasAll(false);
         HIERARCHY_JAHR.setPrimaryKey(COLUMN_YEAR_YEAR);
-        HIERARCHY_JAHR.setQuery(TABLEQUERY_YEAR);
+        HIERARCHY_JAHR.setSource(TABLESOURCE_YEAR);
         HIERARCHY_JAHR.setDefaultMember("2023");
         HIERARCHY_JAHR.getLevels().add(LEVEL_JAHR);
 
@@ -596,7 +596,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.setHasAll(true);
         HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.setAllMemberName("Alle Gebiete");
         HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.setPrimaryKey(COLUMN_GID_STATBEZ);
-        HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.setQuery(JOINQUERY_STADT_PLANUNGSRAUM_STATBEZIRK);
+        HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.setSource(JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK);
         HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK.getLevels()
                 .addAll(List.of(LEVEL_STADT, LEVEL_PLANUNGSRAUM, LEVEL_STATISTISCHER_BEZIRK));
 
@@ -605,7 +605,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_GESCHLECHT.setHasAll(true);
         HIERARCHY_GESCHLECHT.setAllMemberName("Alle Geschlechter");
         HIERARCHY_GESCHLECHT.setPrimaryKey(COLUMN_KEY_GENDER);
-        HIERARCHY_GESCHLECHT.setQuery(TABLEQUERY_GENDER);
+        HIERARCHY_GESCHLECHT.setSource(TABLESOURCE_GENDER);
         HIERARCHY_GESCHLECHT.getLevels().add(LEVEL_GESCHLECHT);
 
         HIERARCHY_ALTER_EINZELJAHRGAENGE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -613,7 +613,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTER_EINZELJAHRGAENGE.setHasAll(true);
         HIERARCHY_ALTER_EINZELJAHRGAENGE.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTER_EINZELJAHRGAENGE.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTER_EINZELJAHRGAENGE.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTER_EINZELJAHRGAENGE.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTER_EINZELJAHRGAENGE.getLevels().add(LEVEL_ALTER_EINZELJAHRGAENGE);
 
         HIERARCHY_ALTERSGRUPPEN_STANDARD = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -621,7 +621,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTERSGRUPPEN_STANDARD.setHasAll(true);
         HIERARCHY_ALTERSGRUPPEN_STANDARD.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTERSGRUPPEN_STANDARD.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTERSGRUPPEN_STANDARD.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTERSGRUPPEN_STANDARD.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTERSGRUPPEN_STANDARD.getLevels().addAll(List.of(LEVEL_ALTERSGRUPPE_STANDARD, LEVEL_ALTER_STANDARD));
 
         HIERARCHY_ALTERSGRUPPEN_KINDER = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -629,7 +629,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTERSGRUPPEN_KINDER.setHasAll(true);
         HIERARCHY_ALTERSGRUPPEN_KINDER.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTERSGRUPPEN_KINDER.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTERSGRUPPEN_KINDER.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTERSGRUPPEN_KINDER.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTERSGRUPPEN_KINDER.getLevels().addAll(List.of(LEVEL_ALTERSGRUPPE_KINDER, LEVEL_ALTER_KINDER));
 
         HIERARCHY_ALTERSGRUPPEN_RKI_H7 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -637,7 +637,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTERSGRUPPEN_RKI_H7.setHasAll(true);
         HIERARCHY_ALTERSGRUPPEN_RKI_H7.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTERSGRUPPEN_RKI_H7.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTERSGRUPPEN_RKI_H7.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTERSGRUPPEN_RKI_H7.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTERSGRUPPEN_RKI_H7.getLevels().add(LEVEL_ALTER_RKI_H7);
 
         HIERARCHY_ALTERSGRUPPEN_RKI_H8 = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -645,7 +645,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTERSGRUPPEN_RKI_H8.setHasAll(true);
         HIERARCHY_ALTERSGRUPPEN_RKI_H8.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTERSGRUPPEN_RKI_H8.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTERSGRUPPEN_RKI_H8.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTERSGRUPPEN_RKI_H8.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTERSGRUPPEN_RKI_H8.getLevels().add(LEVEL_ALTER_RKI_H8);
 
         HIERARCHY_ALTERSGRUPPEN_10JAHRE = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
@@ -653,7 +653,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         HIERARCHY_ALTERSGRUPPEN_10JAHRE.setHasAll(true);
         HIERARCHY_ALTERSGRUPPEN_10JAHRE.setAllMemberName("Alle Altersgruppen");
         HIERARCHY_ALTERSGRUPPEN_10JAHRE.setPrimaryKey(COLUMN_AGE_AGEGROUPS);
-        HIERARCHY_ALTERSGRUPPEN_10JAHRE.setQuery(TABLEQUERY_AGEGROUPS);
+        HIERARCHY_ALTERSGRUPPEN_10JAHRE.setSource(TABLESOURCE_AGEGROUPS);
         HIERARCHY_ALTERSGRUPPEN_10JAHRE.getLevels().add(LEVEL_ALTER_10JAHRE);
 
         // Initialize dimensions
@@ -709,7 +709,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize cube
         CUBE_BEVOELKERUNG = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE_BEVOELKERUNG.setName("Bevölkerung");
-        CUBE_BEVOELKERUNG.setQuery(TABLEQUERY_FACT);
+        CUBE_BEVOELKERUNG.setSource(TABLESOURCE_FACT);
         CUBE_BEVOELKERUNG.getDimensionConnectors()
                 .addAll(List.of(CONNECTOR_JAHR, CONNECTOR_STATISTISCHER_BEZIRK, CONNECTOR_GESCHLECHT, CONNECTOR_ALTER));
         CUBE_BEVOELKERUNG.getMeasureGroups().add(MEASUREGROUP_BEVOELKERUNG);
