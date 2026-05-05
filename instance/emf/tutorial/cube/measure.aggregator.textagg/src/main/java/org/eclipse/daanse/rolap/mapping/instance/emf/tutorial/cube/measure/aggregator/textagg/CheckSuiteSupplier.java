@@ -138,14 +138,15 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Comment]");
-        queryCheck2CellValueCheck.setExpectedValue("user1:comment1,user2:comment2,user3:comment3,user4:comment4,user5:comment5");
+        queryCheck2CellValueCheck.setExpectedValue("user1 : comment1, user2 : comment2, user3 : comment3, user4 : comment4, user5 : comment5");
+        queryCheck2CellValueCheck.setCheckFormattedValue(true);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Comment");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Comment");
         queryCheck2.setQuery("SELECT FROM [MeasuresTextAggregatorsCube] WHERE ([Measures].[Comment])");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(1);
+        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 

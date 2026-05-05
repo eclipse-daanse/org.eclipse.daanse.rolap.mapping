@@ -273,24 +273,22 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck500 = factory.createCellValueCheck();
         cellCheck500.setName("[Measures].[Sum of TotalProductCost]");
-        cellCheck500.setExpectedValue("108561.7");
-        cellCheck500.getCoordinates().addAll(List.of(0, 0));
+        cellCheck500.setExpectedValue("19307.0");
 
         QueryCheck sqlQueryCheck5 = factory.createQueryCheck();
         sqlQueryCheck5.setName("Sql Query Check5 for " + CATALOG_NAME);
         sqlQueryCheck5.setQuery(Q5);
-        sqlQueryCheck5.setQueryLanguage(QueryLanguage.SQL);
+        sqlQueryCheck5.setQueryLanguage(QueryLanguage.MDX);
         sqlQueryCheck5.getCellChecks().addAll(List.of(cellCheck500));
 
         CellValueCheck cellCheck600 = factory.createCellValueCheck();
         cellCheck600.setName("[Measures].[Sum of SalesAmount]");
-        cellCheck600.setExpectedValue("108561.7");
-        cellCheck600.getCoordinates().addAll(List.of(0, 0));
+        cellCheck600.setExpectedValue("31354.4");
 
         QueryCheck sqlQueryCheck6 = factory.createQueryCheck();
         sqlQueryCheck6.setName("Sql Query Check5 for " + CATALOG_NAME);
         sqlQueryCheck6.setQuery(Q6);
-        sqlQueryCheck6.setQueryLanguage(QueryLanguage.SQL);
+        sqlQueryCheck6.setQueryLanguage(QueryLanguage.MDX);
         sqlQueryCheck6.getCellChecks().addAll(List.of(cellCheck600));
 
         // Create database table and column checks

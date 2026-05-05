@@ -187,6 +187,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         accessDatabaseSchemaGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         accessDatabaseSchemaGrant.setDatabaseSchema(databaseSchema);
 
+        AccessDatabaseSchemaGrant accessDatabaseSchemaGrant1 = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
+        accessDatabaseSchemaGrant1.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
+        accessDatabaseSchemaGrant1.setDatabaseSchema(databaseSchema);
+
+        AccessDatabaseSchemaGrant accessDatabaseSchemaGrant2 = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
+        accessDatabaseSchemaGrant2.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
+        accessDatabaseSchemaGrant2.setDatabaseSchema(databaseSchema);
+
+        AccessDatabaseSchemaGrant accessDatabaseSchemaGrant3 = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
+        accessDatabaseSchemaGrant3.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
+        accessDatabaseSchemaGrant3.setDatabaseSchema(databaseSchema);
+
         AccessCubeGrant accessCubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
         accessCubeGrant.setCubeAccess(CubeAccess.ALL);
         accessCubeGrant.setCube(cube1);
@@ -198,16 +210,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         AccessCatalogGrant accessCatalogGrantNone = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantNone.setCatalogAccess(CatalogAccess.NONE);
-        accessCatalogGrantNone.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
+        accessCatalogGrantNone.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant1);
 
         AccessCatalogGrant accessCatalogGrantAllDimWithCubeGrand = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantAllDimWithCubeGrand.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        accessCatalogGrantAllDimWithCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
+        accessCatalogGrantAllDimWithCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant2);
         accessCatalogGrantAllDimWithCubeGrand.getCubeGrants().add(accessCubeGrant);
 
         AccessCatalogGrant accessCatalogGrantAllDimWithoutCubeGrand = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         accessCatalogGrantAllDimWithoutCubeGrand.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        accessCatalogGrantAllDimWithoutCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant);
+        accessCatalogGrantAllDimWithoutCubeGrand.getDatabaseSchemaGrants().add(accessDatabaseSchemaGrant3);
 
         roleAll = CommonFactory.eINSTANCE.createAccessRole();
         roleAll.setName("roleAll");

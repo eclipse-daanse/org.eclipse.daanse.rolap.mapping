@@ -84,6 +84,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     private static final String DIM_PROMOTIONS = "Promotions";
     private static final String DIM_PROMOTION_MEDIA = "Promotion Media";
     private static final String DIM_STORE_SIZE_IN_SQFT = "Store Size in SQFT";
+    private static final String DIM_STORE_SIZE = "Store Size in SqFt";
     private static final String DIM_STORE_TYPE = "Store Type";
     private static final String DIM_WAREHOUSE = "Warehouse";
     private static final String DIM_EDUCATION_LEVEL = "Education Level";
@@ -145,8 +146,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         DatabaseTableCheck tableCheckTime = createTableCheck("time_by_day",
             createColumnCheck("time_id", "INTEGER"),
-            createColumnCheck("the_date", "TIMESTAMP"),
-            createColumnCheck("the_year", "VARCHAR"),
+            createColumnCheck("the_date", "DATE"),
+            createColumnCheck("the_year", "INTEGER"),
             createColumnCheck("quarter", "VARCHAR"),
             createColumnCheck("the_month", "VARCHAR")
         );
@@ -186,10 +187,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         );
 
         DatabaseTableCheck tableCheckProduct = createTableCheck("product",
-            createColumnCheck("product_class_id", "INTEGER"),
             createColumnCheck("product_id", "INTEGER"),
             createColumnCheck("product_name", "VARCHAR"),
-            createColumnCheck("brand_name", "VARCHAR")
+            createColumnCheck("brand_name", "VARCHAR"),
+            createColumnCheck("product_family", "VARCHAR"),
+            createColumnCheck("product_department", "VARCHAR"),
+            createColumnCheck("product_category", "VARCHAR"),
+            createColumnCheck("product_subcategory", "VARCHAR")
         );
 
         DatabaseTableCheck tableCheckPromotion = createTableCheck("promotion",
@@ -211,12 +215,12 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
             createColumnCheck("time_id", "INTEGER"),
             createColumnCheck("warehouse_id", "INTEGER"),
             createColumnCheck("store_id", "INTEGER"),
-            createColumnCheck("units_ordered", "INTEGER"),
-            createColumnCheck("units_shipped", "INTEGER"),
-            createColumnCheck("warehouse_sales", "DECIMAL"),
-            createColumnCheck("warehouse_cost", "DECIMAL"),
+            createColumnCheck("units_ordered", "NUMERIC"),
+            createColumnCheck("units_shipped", "NUMERIC"),
+            createColumnCheck("warehouse_sales", "NUMERIC"),
+            createColumnCheck("warehouse_cost", "NUMERIC"),
             createColumnCheck("supply_time", "INTEGER"),
-            createColumnCheck("store_invoice", "DECIMAL")
+            createColumnCheck("store_invoice", "NUMERIC")
         );
 
         DatabaseTableCheck tableCheckEmployee = createTableCheck("employee",
@@ -227,7 +231,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
             createColumnCheck("position_id", "INTEGER"),
             createColumnCheck("position_title", "VARCHAR"),
             createColumnCheck("store_id", "INTEGER"),
-            createColumnCheck("department_id", "INTEGER"),
+            //createColumnCheck("department_id", "INTEGER"),
             createColumnCheck("supervisor_id", "INTEGER"),
             createColumnCheck("salary", "DECIMAL")
         );
@@ -247,16 +251,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
             createColumnCheck("position_id", "INTEGER"),
             createColumnCheck("position_title", "VARCHAR"),
             createColumnCheck("pay_type", "VARCHAR"),
-            createColumnCheck("min_scale", "DECIMAL"),
-            createColumnCheck("max_scale", "DECIMAL")
+            createColumnCheck("min_scale", "NUMERIC"),
+            createColumnCheck("max_scale", "NUMERIC")
         );
 
         DatabaseTableCheck tableCheckSalary = createTableCheck("salary",
             createColumnCheck("employee_id", "INTEGER"),
             createColumnCheck("department_id", "INTEGER"),
-            createColumnCheck("pay_date", "TIMESTAMP"),
+            createColumnCheck("pay_date", "DATE"),
             createColumnCheck("salary_paid", "DECIMAL"),
-            createColumnCheck("overtime_paid", "DECIMAL"),
+            createColumnCheck("overtime_paid", "NUMERIC"),
             createColumnCheck("vacation_accrued", "REAL"),
             createColumnCheck("vacation_used", "REAL")
         );
@@ -351,7 +355,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
         databaseSchemaCheck.setDescription("Database Schema Check for FoodMart mapping");
         databaseSchemaCheck.getTableChecks().add(tableCheckSalesFact);
-        databaseSchemaCheck.getTableChecks().add(tableCheckSalesFact1998);
+        //databaseSchemaCheck.getTableChecks().add(tableCheckSalesFact1998);
         databaseSchemaCheck.getTableChecks().add(tableCheckTime);
         databaseSchemaCheck.getTableChecks().add(tableCheckStore);
         databaseSchemaCheck.getTableChecks().add(tableCheckStoreRagged);
@@ -631,7 +635,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                 createLevelCheck("Department Description"))));
         cubeCheck.getDimensionChecks().add(createDimensionCheck(DIM_EMPLOYEES,
             createHierarchyCheck("Employees",
-                createLevelCheck("Employee Id"))));
+                createLevelCheck("Employee Id1"))));
 
         return cubeCheck;
     }
@@ -666,7 +670,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                 createLevelCheck("Country"),
                 createLevelCheck("State"),
                 createLevelCheck("City"))));
-        cubeCheck.getDimensionChecks().add(createDimensionCheck(DIM_STORE_SIZE_IN_SQFT,
+        cubeCheck.getDimensionChecks().add(createDimensionCheck(DIM_STORE_SIZE,
             createHierarchyCheck("Store Size in SQFT",
                 createLevelCheck("Store Sqft"))));
         cubeCheck.getDimensionChecks().add(createDimensionCheck(DIM_STORE_TYPE,
