@@ -149,8 +149,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         columnDimKeyTypeCheck.setExpectedValue("VARCHAR");
 
         DatabaseColumnCheck columnCheckDimKey = factory.createDatabaseColumnCheck();
-        columnCheckDimKey.setName("Database Column Check DIM_KEY");
-        columnCheckDimKey.setColumnName("DIM_KEY");
+        columnCheckDimKey.setName("Database Column Check KEY");
+        columnCheckDimKey.setColumnName("KEY");
         columnCheckDimKey.getColumnAttributeChecks().add(columnDimKeyTypeCheck);
 
         DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();

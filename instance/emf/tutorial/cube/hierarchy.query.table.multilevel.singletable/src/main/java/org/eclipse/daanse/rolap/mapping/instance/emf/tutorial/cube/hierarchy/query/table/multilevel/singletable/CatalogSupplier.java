@@ -109,7 +109,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         columnValue.setType(SqlSimpleTypes.Sql99.integerType());
 
         Column columnCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        columnCountry.setName("KEY");
+        columnCountry.setName("COUNTRY");
         columnCountry.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Table tableFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

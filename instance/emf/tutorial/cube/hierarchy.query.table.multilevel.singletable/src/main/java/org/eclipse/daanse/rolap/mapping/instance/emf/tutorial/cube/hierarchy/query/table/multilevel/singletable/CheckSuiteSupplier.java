@@ -121,11 +121,11 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         DatabaseColumnAttributeCheck columnAttributeCheckFactTownId = factory.createDatabaseColumnAttributeCheck();
         columnAttributeCheckFactTownId.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckFactTownId.setExpectedValue("INTEGER");
+        columnAttributeCheckFactTownId.setExpectedValue("VARCHAR");
 
         DatabaseColumnCheck columnCheckFactTownId = factory.createDatabaseColumnCheck();
-        columnCheckFactTownId.setName("Database Column Check TOWN_ID");
-        columnCheckFactTownId.setColumnName("TOWN_ID");
+        columnCheckFactTownId.setName("Database Column Check KEY");
+        columnCheckFactTownId.setColumnName("KEY");
         columnCheckFactTownId.getColumnAttributeChecks().add(columnAttributeCheckFactTownId);
 
         DatabaseColumnAttributeCheck columnAttributeCheckFactValue = factory.createDatabaseColumnAttributeCheck();

@@ -256,7 +256,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column columnBezeichnungInGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInGeschlecht.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInGeschlecht.setType(SqlSimpleTypes.Sql99.integerType());
+        columnBezeichnungInGeschlecht.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Table tableGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableGeschlecht.setName("geschlecht");

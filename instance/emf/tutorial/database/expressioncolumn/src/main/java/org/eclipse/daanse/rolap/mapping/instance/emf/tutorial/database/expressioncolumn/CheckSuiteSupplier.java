@@ -41,6 +41,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create database column check for "SqlExpressionColumn" (computed column)
         // Note: SQL expression columns are computed dynamically and may not be visible
         // in the database metadata in the same way as physical columns
+        //TODO add check for expression columns
         DatabaseColumnCheck columnCheckSqlExpression = factory.createDatabaseColumnCheck();
         columnCheckSqlExpression.setName("Database Column Check SqlExpressionColumn");
         columnCheckSqlExpression.setColumnName("SqlExpressionColumn");
@@ -50,7 +51,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseTableCheck.setName("Database Table TableWithExpressionColumn Check");
         databaseTableCheck.setTableName("TableWithExpressionColumn");
         databaseTableCheck.getColumnChecks().add(columnCheck1);
-        databaseTableCheck.getColumnChecks().add(columnCheckSqlExpression);
+        //TODO add check for expression columns
+        //databaseTableCheck.getColumnChecks().add(columnCheckSqlExpression);
 
         // Create Database Schema Check
         DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();

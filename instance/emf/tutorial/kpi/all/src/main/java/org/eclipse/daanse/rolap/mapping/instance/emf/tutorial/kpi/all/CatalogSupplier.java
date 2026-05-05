@@ -102,7 +102,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column valueNumericColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
-        valueNumericColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueNumericColumn.setType(SqlSimpleTypes.Sql99.numericType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);

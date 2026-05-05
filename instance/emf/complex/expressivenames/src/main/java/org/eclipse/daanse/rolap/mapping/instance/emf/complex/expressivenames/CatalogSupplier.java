@@ -272,11 +272,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setName("D2H2L2_Ordinal");
-        COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
 
         COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setName("D2H2L1_Ordinal");
-        COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H1L1 table
         COLUMN_D3H1L1_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -390,7 +390,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         TABLE_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_D2H2L2TABLE.setName("D2H2L2Table");
-        TABLE_D2H2L2TABLE.getFeature().addAll(List.of(COLUMN_D2H2L2_D2H2L2TABLE, COLUMN_D2H2L2_NAME_D2H2L2TABLE,
+        TABLE_D2H2L2TABLE.getFeature().addAll(List.of(COLUMN_D2H2L1_D2H2L2TABLE, COLUMN_D2H2L2_D2H2L2TABLE, COLUMN_D2H2L2_NAME_D2H2L2TABLE,
                 COLUMN_D2H2L1_NAME_D2H2L2TABLE, COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE, COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE));
 
         TABLE_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

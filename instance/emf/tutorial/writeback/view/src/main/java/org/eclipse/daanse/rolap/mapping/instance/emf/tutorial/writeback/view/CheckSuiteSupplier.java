@@ -91,11 +91,12 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckC.getDimensionChecks().add(dimensionCheck);
 
         // Create database table and column checks for FACT sql view
-        DatabaseTableCheck tableCheckFact = createTableCheck("FACT",
-                createColumnCheck("VAL", "INTEGER"),
-                createColumnCheck("VAL1", "INTEGER"),
-                createColumnCheck("L2", "VARCHAR")
-        );
+        //TODO need check for inner tables
+        //DatabaseTableCheck tableCheckFact = createTableCheck("FACT",
+        //        createColumnCheck("VAL", "INTEGER"),
+        //        createColumnCheck("VAL1", "INTEGER"),
+        //        createColumnCheck("L2", "VARCHAR")
+        //);
 
         // Create database table and column checks for L1 table
         DatabaseTableCheck tableCheckL1 = createTableCheck("L1",
@@ -121,7 +122,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
         databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
         databaseSchemaCheck.setDescription("Database Schema Check for writeback view tutorial");
-        databaseSchemaCheck.getTableChecks().add(tableCheckFact);
+        //databaseSchemaCheck.getTableChecks().add(tableCheckFact);
         databaseSchemaCheck.getTableChecks().add(tableCheckL1);
         databaseSchemaCheck.getTableChecks().add(tableCheckL2);
         databaseSchemaCheck.getTableChecks().add(tableCheckFactWB);

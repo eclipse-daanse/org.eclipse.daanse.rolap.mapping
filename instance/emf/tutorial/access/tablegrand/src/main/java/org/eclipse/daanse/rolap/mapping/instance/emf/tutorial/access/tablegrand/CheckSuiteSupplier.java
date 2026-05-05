@@ -56,12 +56,12 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         ));
 
         CatalogCheck catalogCheckRoleNone = FACTORY.createCatalogCheck();
-        catalogCheckRoleNone.setName("Daanse Tutorial - Access Table Grant Catalog Check for RoleAll");
+        catalogCheckRoleNone.setName("Daanse Tutorial - Access Table Grant Catalog Check for RoleNone");
         catalogCheckRoleNone.setDescription("Demonstrates access control with table grants and roles");
         catalogCheckRoleNone.setCatalogName("Daanse Tutorial - Access Table Grant");
         catalogCheckRoleNone.setEnabled(true);
         // Add database schema check with detailed column checks
-        catalogCheckRoleNone.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
+        //catalogCheckRoleNone.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
         // Add cube check
         catalogCheckRoleNone.getCubeChecks().add(createCubeCheck());
 

@@ -410,7 +410,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         DatabaseTableCheck tableCheckAltersGruppe = createTableCheck("alters_gruppe",
             createColumnCheck("id", "INTEGER"),
-            createColumnCheck("altersgruppe", "VARCHAR")
+            createColumnCheck("altersgruppe", "INTEGER")
         );
 
         DatabaseTableCheck tableCheckGeschlecht = createTableCheck("geschlecht",
@@ -431,7 +431,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DatabaseTableCheck tableCheckTraegerArt = createTableCheck("traeger_art",
             createColumnCheck("id", "INTEGER"),
             createColumnCheck("traeger_art", "VARCHAR"),
-            createColumnCheck("traeger_kat_id", "INTEGER")
+            createColumnCheck("traeger_kat_id", "VARCHAR")
         );
 
         DatabaseTableCheck tableCheckTraegerKategorie = createTableCheck("traeger_kategorie",

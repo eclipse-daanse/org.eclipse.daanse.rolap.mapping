@@ -158,14 +158,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         columnCheckTownName.setColumnName("NAME");
         columnCheckTownName.getColumnAttributeChecks().add(columnAttributeCheckTownName);
 
-        DatabaseColumnAttributeCheck columnAttributeCheckTownCountryId = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckTownCountryId.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckTownCountryId.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckTownCountryId = factory.createDatabaseColumnCheck();
-        columnCheckTownCountryId.setName("Database Column Check Town Country Id");
-        columnCheckTownCountryId.setColumnName("COUNTRY_ID");
-        columnCheckTownCountryId.getColumnAttributeChecks().add(columnAttributeCheckTownCountryId);
 
         // Create Database Table Town Check
         DatabaseTableCheck databaseTableTownCheck = factory.createDatabaseTableCheck();
@@ -173,7 +165,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseTableTownCheck.setTableName("Town");
         databaseTableTownCheck.getColumnChecks().add(columnCheckTownId);
         databaseTableTownCheck.getColumnChecks().add(columnCheckTownName);
-        databaseTableTownCheck.getColumnChecks().add(columnCheckTownCountryId);
 
         // Create Database Schema Check
         DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();

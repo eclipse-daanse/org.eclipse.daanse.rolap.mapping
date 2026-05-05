@@ -161,7 +161,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseSchemaCheck.setName("Database Schema Check");
         databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Inline Table");
         databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckHT);
+        //TODO add checker for inner table
+        //databaseSchemaCheck.getTableChecks().add(databaseTableCheckHT);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();

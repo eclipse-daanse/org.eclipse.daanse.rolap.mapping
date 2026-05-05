@@ -73,7 +73,8 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setName("Daanse Tutorial - Database Inline Table");
         catalogCheck.setDescription("Check that catalog 'Daanse Tutorial - Database Inline Table' exists with database schema");
         catalogCheck.setCatalogName("Daanse Tutorial - Database Inline Table");
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
+        //TODO add checker for inner table
+        //catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

@@ -58,7 +58,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     private static final String DIM_GEOGRAPHY = "DimGeography";
     private static final String DIM_PRODUCT = "DimProduct";
     private static final String DIM_PRODUCT_CATEGORY = "DimProductCategory";
-    private static final String DIM_PRODUCT_SUBCATEGORY = "DimProductSubcategory";
+    private static final String DIM_PRODUCT_SUBCATEGORY = "DimProductSubCategory";
     private static final String DIM_STORE = "DimStore";
     private static final String DIM_TIME = "DimTime";
 
@@ -89,7 +89,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     private static final String Q3 = """
         SELECT
-            t.CalendarYear AS Year,
+            t.CalendarYear AS Y,
             count(*) AS NumberOfSales,
             sum(f.OrderQuantity) AS TotalQuantity
         FROM Fact f
@@ -237,7 +237,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                 createLevelCheck("SpanishProductCategoryName"),
                 createLevelCheck("FrenchProductCategoryName")));
         DimensionCheck dimCheckProductSubcategory = createDimensionCheck(DIM_PRODUCT_SUBCATEGORY,
-            createHierarchyCheck("DimProductSubcategory",
+            createHierarchyCheck("DimProductSubCategory",
                 createLevelCheck("RowNumber"),
                 createLevelCheck("ProductSubcategoryKey"),
                 createLevelCheck("ProductSubcategoryAlternateKey"),
@@ -306,7 +306,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck102 = factory.createCellValueCheck();
         cellCheck102.setName("TOTAL_QUANTITY");
-        cellCheck102.setExpectedValue("78");
+        cellCheck102.setExpectedValue("78.0000");
         cellCheck102.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck1 = factory.createQueryCheck();
@@ -328,7 +328,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck202 = factory.createCellValueCheck();
         cellCheck202.setName("TOTAL_QUANTITY");
-        cellCheck202.setExpectedValue("348");
+        cellCheck202.setExpectedValue("348.0000");
         cellCheck202.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck2 = factory.createQueryCheck();
@@ -350,7 +350,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck302 = factory.createCellValueCheck();
         cellCheck302.setName("TOTAL_QUANTITY");
-        cellCheck302.setExpectedValue("470");
+        cellCheck302.setExpectedValue("470.0000");
         cellCheck302.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck3 = factory.createQueryCheck();
@@ -372,7 +372,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck402 = factory.createCellValueCheck();
         cellCheck402.setName("TOTAL_QUANTITY");
-        cellCheck402.setExpectedValue("119");
+        cellCheck402.setExpectedValue("119.0000");
         cellCheck402.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck4 = factory.createQueryCheck();
@@ -384,12 +384,11 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         CellValueCheck cellCheck500 = factory.createCellValueCheck();
         cellCheck500.setName("[Measures].[FactInternetSales]");
         cellCheck500.setExpectedValue("108561.7");
-        cellCheck500.getCoordinates().addAll(List.of(0, 0));
 
         QueryCheck sqlQueryCheck5 = factory.createQueryCheck();
         sqlQueryCheck5.setName("Sql Query Check5 for " + CATALOG_NAME);
         sqlQueryCheck5.setQuery(Q5);
-        sqlQueryCheck5.setQueryLanguage(QueryLanguage.SQL);
+        sqlQueryCheck5.setQueryLanguage(QueryLanguage.MDX);
         sqlQueryCheck5.getCellChecks().addAll(List.of(cellCheck500));
 
         // Create database table and column checks
