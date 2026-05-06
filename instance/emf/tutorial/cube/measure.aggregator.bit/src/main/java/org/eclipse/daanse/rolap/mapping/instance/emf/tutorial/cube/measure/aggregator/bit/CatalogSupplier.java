@@ -133,7 +133,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_measureBitAggregators");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Bit");
         catalog.setDescription("Bitwise aggregation functions");

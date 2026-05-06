@@ -71,7 +71,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database SQL View");
         catalog.setDescription("SQL view definitions and usage");
-        catalog.setId("_catalog_databaseSqlView");
         catalog.getDbschemas().add(databaseSchema);
 
 

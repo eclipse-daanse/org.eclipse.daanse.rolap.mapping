@@ -255,7 +255,6 @@ public class TransformTask {
         Optional<AccessRoleMappingImpl> oDefaultAccessRole = findAccessRole(accessRoles, accessRoleName);
         oDefaultAccessRole.ifPresent(ar -> s.setDefaultAccessRole(ar));
 
-        s.setId("s_" + 1);
         s.setName(mondrianSchema.name());
         s.setDescription(mondrianSchema.description());
         s.setAccessRoles(accessRoles);
@@ -277,7 +276,6 @@ public class TransformTask {
         org.eclipse.daanse.rolap.mapping.mondrian.model.VirtualCube virtualCube
     ) {
         VirtualCubeMappingImpl vc = VirtualCubeMappingImpl.builder().build();
-        vc.setId("vc_" + counterVirtualCube.incrementAndGet());
         vc.setName(virtualCube.name());
         vc.setDescription(virtualCube.description());
         vc.setCubeUsages(transformCubeConnector(virtualCube.cubeUsages()));
@@ -487,7 +485,6 @@ public class TransformTask {
         } else {
             dim = StandardDimensionMappingImpl.builder().build();
         }
-        dim.setId("d_" + counterDimension.incrementAndGet());
         dim.setName(dimension.name());
         dim.setDescription(dimension.description());
         dim.setUsagePrefix(dimension.usagePrefix());
@@ -503,7 +500,6 @@ public class TransformTask {
         VirtualCubeDimension virtualCubeDimension
     ) {
         DimensionConnectorMappingImpl dc = DimensionConnectorMappingImpl.builder().build();
-//        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (virtualCubeDimension.cubeName() != null) {
             Optional<DimensionMappingImpl> oDim = findDimensionByCubeNameByDimensionName(
                 virtualCubeDimension.cubeName(), virtualCubeDimension.name());
@@ -523,7 +519,6 @@ public class TransformTask {
     ) {
 
         DimensionConnectorMappingImpl dc = DimensionConnectorMappingImpl.builder().build();
-//        dc.setId("dc_" + counterDimensionConnector.incrementAndGet());
         if (dimensionUsageOrDimensions instanceof org.eclipse.daanse.rolap.mapping.mondrian.model.Dimension d) {
             DimensionMappingImpl dim = transformDimension(d);
             catalog.getDimensions().add(dim);
@@ -564,7 +559,6 @@ public class TransformTask {
 
     private HierarchyMappingImpl transformHierarchy(Hierarchy hierarchy) {
         ExplicitHierarchyMappingImpl h = ExplicitHierarchyMappingImpl.builder().build();
-        h.setId("h_" + counterHierarchy.incrementAndGet());
         h.setName(hierarchy.name());
         h.setAllLevelName(hierarchy.allLevelName());
         h.setAllMemberCaption(hierarchy.allMemberCaption());
@@ -613,7 +607,6 @@ public class TransformTask {
     private LevelMappingImpl transformLevel(Level level) {
         LevelMappingImpl l = LevelMappingImpl.builder().build();
 
-        l.setId("l_" + counterLevel.incrementAndGet());
         l.setName(level.name());
         l.setDescription(level.description());
         l.setApproxRowCount(level.approxRowCount());
@@ -661,7 +654,6 @@ public class TransformTask {
         if (property != null) {
             MemberPropertyMappingImpl mp = MemberPropertyMappingImpl.builder().build();
             mp.setAnnotations(transformAnnotations(property.annotations()));
-            mp.setId("p_" + counterProperty.incrementAndGet());
             mp.setDescription(property.description());
             mp.setName(property.name());
             mp.setFormatter(transformMemberPropertyFormatter(property.formatter()));
@@ -703,7 +695,6 @@ public class TransformTask {
             if (memberFormatter.className() != null) {
                 mf.setRef(memberFormatter.className());
             }
-            mf.setId("mf_" + counterMemberFormatter.incrementAndGet());
             catalog.getFormatters().add(mf);
             return mf;
         }
@@ -727,7 +718,6 @@ public class TransformTask {
         MeasureMappingImpl m = MeasureMappingImpl.builder().build();
         //TODO
         //m.setAggregatorType(MeasureAggregatorType.fromValue(measure.aggregator()));
-        m.setId("m_" + counterMeasure.incrementAndGet());
         m.setBackColor(measure.backColor());
         m.setCellFormatter(transformCellFormatter(measure.cellFormatter()));
         //TODO
@@ -770,7 +760,6 @@ public class TransformTask {
 
     private PhysicalCubeMappingImpl transformPhysicalCube(org.eclipse.daanse.rolap.mapping.mondrian.model.Cube cube) {
         PhysicalCubeMappingImpl pc = PhysicalCubeMappingImpl.builder().build();
-        pc.setId("pc_" + counterPhysicalCube.incrementAndGet());
         pc.setName(cube.name());
         pc.setCache(cube.cache());
         pc.setDescription(cube.description());
@@ -864,7 +853,6 @@ public class TransformTask {
 
     private KpiMappingImpl transformKpi(org.eclipse.daanse.rolap.mapping.mondrian.model.Kpi kpiM) {
         KpiMappingImpl kpi = KpiMappingImpl.builder().build();
-        kpi.setId("kpi_" + counterKpi.incrementAndGet());
         kpi.setDescription(kpiM.description());
         kpi.setName(kpiM.name());
         kpi.setAnnotations(transformAnnotations(kpiM.annotations()));
@@ -913,7 +901,6 @@ public class TransformTask {
 
     private NamedSetMappingImpl transformNamedSet(org.eclipse.daanse.rolap.mapping.mondrian.model.NamedSet namedSet) {
         NamedSetMappingImpl ns = NamedSetMappingImpl.builder().build();
-        ns.setId("ns_" + counterNamedSet.incrementAndGet());
         ns.setDescription(namedSet.description());
         ns.setName(namedSet.name());
         ns.setAnnotations(transformAnnotations(namedSet.annotations()));
@@ -939,7 +926,6 @@ public class TransformTask {
         org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMember calculatedMember
     ) {
         CalculatedMemberMappingImpl cm = CalculatedMemberMappingImpl.builder().build();
-        cm.setId("cm_" + counterCalculatedMember.incrementAndGet());
         cm.setName(calculatedMember.name());
         cm.setDescription(calculatedMember.description());
         cm.setCalculatedMemberProperties(
@@ -982,7 +968,6 @@ public class TransformTask {
         org.eclipse.daanse.rolap.mapping.mondrian.model.CalculatedMemberProperty calculatedMemberProperty
     ) {
         CalculatedMemberPropertyMappingImpl cmp = CalculatedMemberPropertyMappingImpl.builder().build();
-        cmp.setId("cmp_" + counterCalculatedMemberProperty.incrementAndGet());
         cmp.setDescription(calculatedMemberProperty.description());
         cmp.setName(calculatedMemberProperty.name());
         cmp.setAnnotations(transformAnnotations(calculatedMemberProperty.annotations()));
@@ -996,7 +981,6 @@ public class TransformTask {
     ) {
         if (cellFormatter != null) {
             CellFormatterMappingImpl cf = CellFormatterMappingImpl.builder().build();
-            cf.setId("cf_" + counterCellFormatter.incrementAndGet());
             cf.setAnnotations(List.of());
             if (cellFormatter.className() != null) {
                 cf.setRef(cellFormatter.className());
@@ -1162,7 +1146,6 @@ public class TransformTask {
     private AggregationTableMappingImpl transformAggregationTable(AggTable aggTable) {
         if (aggTable instanceof AggName aggName) {
             AggregationNameMappingImpl an = AggregationNameMappingImpl.builder().build();
-            an.setId("an_" + counterAggregationName.incrementAndGet());
             an.setAggregationFactCount(transformAggregationColumnName(aggName.aggFactCount()));
             an.setAggregationIgnoreColumns(transformAggregationColumnNames(aggName.aggIgnoreColumns()));
             an.setAggregationForeignKeys(transformAggregationForeignKeys(aggName.aggForeignKeys()));
@@ -1178,7 +1161,6 @@ public class TransformTask {
         }
         if (aggTable instanceof AggPattern aggPattern) {
             AggregationPatternMappingImpl ap = AggregationPatternMappingImpl.builder().build();
-            ap.setId("ap_" + counterAggregationPattern.incrementAndGet());
             ap.setAggregationFactCount(transformAggregationColumnName(aggPattern.aggFactCount()));
             ap.setAggregationIgnoreColumns(transformAggregationColumnNames(aggPattern.aggIgnoreColumns()));
             ap.setAggregationForeignKeys(transformAggregationForeignKeys(aggPattern.aggForeignKeys()));
@@ -1291,7 +1273,6 @@ public class TransformTask {
 
     private AggregationExcludeMappingImpl transformAggregationExclude(AggExclude aggExclude) {
         AggregationExcludeMappingImpl ae = AggregationExcludeMappingImpl.builder().build();
-        ae.setId("ae_" + counterAggregationExclude.incrementAndGet());
         ae.setIgnorecase(aggExclude.ignorecase());
         ae.setName(aggExclude.name());
         ae.setPattern(aggExclude.pattern());
@@ -1302,7 +1283,6 @@ public class TransformTask {
     private AccessRoleMappingImpl transformRole(Role role) {
         AccessRoleMappingImpl accessRole = AccessRoleMappingImpl.builder().build();
         accessRole.setName(role.name());
-        accessRole.setId("ar_" + counterAccessRole.incrementAndGet());
         accessRole.setDescription(role.description());
         accessRole.setAccessCatalogGrants(transformAccessSchemaGrants(role.schemaGrants()));
         accessRole.setAnnotations(transformAnnotations(role.annotations()));

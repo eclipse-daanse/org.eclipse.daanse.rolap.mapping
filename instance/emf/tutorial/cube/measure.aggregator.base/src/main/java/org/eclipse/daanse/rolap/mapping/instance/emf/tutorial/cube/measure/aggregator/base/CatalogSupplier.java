@@ -116,7 +116,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_measureBasicAggregators");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Base");
         catalog.setDescription("Basic measure aggregation functions");

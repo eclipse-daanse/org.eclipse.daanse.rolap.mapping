@@ -144,7 +144,6 @@ public class DescriptionVerifyerTest {
 
     private Catalog createBaseCatalog() {
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_test");
         catalog.setName("TestCatalog");
         catalog.getDbschemas().add(databaseSchema);
         return catalog;

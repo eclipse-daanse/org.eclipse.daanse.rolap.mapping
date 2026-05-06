@@ -103,7 +103,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.getDbschemas().add(databaseSchema);
-        catalog.setId("_catalog_minimal");
         catalog.setName(CATALOG_NAME);
         catalog.setDescription(CATALOG_DESCRIPTION);
         catalog.getCubes().add(cube);

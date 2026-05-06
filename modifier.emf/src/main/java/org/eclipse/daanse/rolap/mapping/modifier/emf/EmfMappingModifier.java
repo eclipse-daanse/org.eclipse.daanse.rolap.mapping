@@ -287,7 +287,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         databaseSchema.getTables()
                 .addAll((Collection<? extends Table>) tables);
         databaseSchema.setName(name);
-        databaseSchema.setId(id);
         return databaseSchema;
     }
 
@@ -299,7 +298,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends AccessRoleMapping> referencedAccessRoles) {
         AccessRole accessRole = CommonFactory.eINSTANCE.createAccessRole();
         accessRole.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        accessRole.setId(id);
         accessRole.setDescription(description);
         accessRole.setName(name);
         accessRole.getAccessCatalogGrants().addAll((Collection<? extends AccessCatalogGrant>) accessCatalogGrants);
@@ -320,7 +318,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         InlineTableQuery inlineTableQuery = RolapMappingFactory.eINSTANCE.createInlineTableQuery();
         inlineTableQuery.setAlias(alias);
         inlineTableQuery.setTable((InlineTable) table);
-        inlineTableQuery.setId(id);
         return inlineTableQuery;
     }
 
@@ -329,7 +326,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         JoinQuery joinQuery = RolapMappingFactory.eINSTANCE.createJoinQuery();
         joinQuery.setLeft((JoinedQueryElement) left);
         joinQuery.setRight((JoinedQueryElement) right);
-        joinQuery.setId(id);
         return joinQuery;
     }
 
@@ -347,7 +343,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         SqlSelectQuery sqlSelectQuery = RolapMappingFactory.eINSTANCE.createSqlSelectQuery();
         sqlSelectQuery.setAlias(alias);
         sqlSelectQuery.setSql((SqlView) sqlView);
-        sqlSelectQuery.setId(id);
         return sqlSelectQuery;
     }
 
@@ -364,7 +359,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         tableQuery.getOptimizationHints().addAll((Collection<? extends TableQueryOptimizationHint>) optimizationHints);
         tableQuery.setTable((Table) table);
         tableQuery.getAggregationTables().addAll((Collection<? extends AggregationTable>) aggregationTables);
-        tableQuery.setId(id);
         return tableQuery;
     }
 
@@ -389,7 +383,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         aggregationPattern.getAggregationMeasureFactCounts()
                 .addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
         aggregationPattern.setIgnorecase(ignorecase);
-        aggregationPattern.setId(id);
         aggregationPattern.setPattern(pattern);
         aggregationPattern.getExcludes().addAll((Collection<? extends AggregationExclude>) excludes);
         return aggregationPattern;
@@ -415,7 +408,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         aggregationName.getAggregationMeasureFactCounts()
                 .addAll((Collection<? extends AggregationMeasureFactCount>) aggregationMeasureFactCounts);
         aggregationName.setIgnorecase(ignorecase);
-        aggregationName.setId(id);
         aggregationName.setApproxRowCount(approxRowCount);
         aggregationName.setName((Table) name);
         return aggregationName;
@@ -493,7 +485,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         aggregationExclude.setIgnorecase(ignorecase);
         aggregationExclude.setName(name);
         aggregationExclude.setPattern(pattern);
-        aggregationExclude.setId(id);
         return aggregationExclude;
     }
 
@@ -517,7 +508,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String uniqueKeyLevelName, boolean visible, QueryMapping query) {
         ExplicitHierarchy hierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        hierarchy.setId(id);
         hierarchy.setDescription(description);
         hierarchy.setName(name);
         hierarchy.getLevels().addAll((Collection<? extends Level>) levels);
@@ -550,7 +540,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             boolean parentAsLeafEnable, String parentAsLeafNameFormat) {
         ParentChildHierarchy hierarchy = HierarchyFactory.eINSTANCE.createParentChildHierarchy();
         hierarchy.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        hierarchy.setId(id);
         hierarchy.setDescription(description);
         hierarchy.setName(name);
         hierarchy.setLevel((Level) level);
@@ -577,7 +566,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name, String ref) {
         MemberFormatter memberFormatter = FormatFactory.eINSTANCE.createMemberFormatter();
         memberFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        memberFormatter.setId(id);
         memberFormatter.setDescription(description);
         memberFormatter.setName(name);
         memberFormatter.setRef(ref);
@@ -591,7 +579,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             MemberPropertyFormatterMapping formatter, ColumnMapping column, boolean dependsOnLevelValue, InternalDataType dataType) {
         MemberProperty memberProperty = LevelFactory.eINSTANCE.createMemberProperty();
         memberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        memberProperty.setId(id);
         memberProperty.setDescription(description);
         memberProperty.setName(name);
         memberProperty.setFormatter((MemberPropertyFormatter) formatter);
@@ -650,7 +637,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         level.setUniqueMembers(uniqueMembers);
         level.setVisible(visible);
         level.setName(name);
-        level.setId(id);
         level.setDescription(description);
         return level;
     }
@@ -677,7 +663,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
         TimeDimension timeDimension = DimensionFactory.eINSTANCE.createTimeDimension();
         timeDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        timeDimension.setId(id);
         timeDimension.setDescription(description);
         timeDimension.setName(name);
         timeDimension.getHierarchies().addAll((Collection<? extends Hierarchy>) hierarchies);
@@ -693,7 +678,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends HierarchyMapping> hierarchies, String usagePrefix, boolean visible) {
         StandardDimension standardDimension = DimensionFactory.eINSTANCE.createStandardDimension();
         standardDimension.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        standardDimension.setId(id);
         standardDimension.setDescription(description);
         standardDimension.setName(name);
         standardDimension.getHierarchies().addAll((Collection<? extends Hierarchy>) hierarchies);
@@ -744,7 +728,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name, String displayFolder, String formula) {
         NamedSet namedSet = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        namedSet.setId(id);
         namedSet.setDescription(description);
         namedSet.setName(name);
         namedSet.setDisplayFolder(displayFolder);
@@ -771,7 +754,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends CubeConnectorMapping> cubeUsages) {
         VirtualCube virtualCube = CubeFactory.eINSTANCE.createVirtualCube();
         virtualCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        virtualCube.setId(id);
         virtualCube.setDescription(description);
         virtualCube.setName(name);
         virtualCube.getDimensionConnectors().addAll((Collection<? extends DimensionConnector>) dimensionConnectors);
@@ -798,7 +780,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends ActionMapping> action, boolean cache) {
         PhysicalCube physicalCube = CubeFactory.eINSTANCE.createPhysicalCube();
         physicalCube.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        physicalCube.setId(id);
         physicalCube.setDescription(description);
         physicalCube.setName(name);
         physicalCube.getDimensionConnectors().addAll((Collection<? extends DimensionConnector>) dimensionConnectors);
@@ -824,7 +805,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             List<? extends MeasureMapping> drillThroughMeasure, boolean def) {
         DrillThroughAction action = ActionFactory.eINSTANCE.createDrillThroughAction();
         action.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        action.setId(id);
         action.setDescription(description);
         action.setName(name);
         action.getDrillThroughAttribute().addAll((Collection<? extends DrillThroughAttribute>) drillThroughAttribute);
@@ -899,7 +879,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         return measure;
     }
 
@@ -922,7 +901,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setNot(not);
         measure.setAggType(toEmf(bitAggrigationType));
         return measure;
@@ -946,7 +924,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setPercentile(percentile);
         measure.setPercentType(toEmf(percentileType));
         measure.setColumn((OrderedColumn) ordColumn);
@@ -972,7 +949,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setIgnoreNulls(ignoreNulls);;
         measure.setN(n);
         measure.getOrderByColumns().addAll((Collection<? extends OrderedColumn>) orderByColumns);
@@ -997,7 +973,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         return measure;
     }
 
@@ -1019,7 +994,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         return measure;
     }
 
@@ -1041,7 +1015,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         return measure;
     }
 
@@ -1063,7 +1036,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setDistinct(distinct);
         return measure;
     }
@@ -1074,7 +1046,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String description, String name, String ref) {
         CellFormatter cellFormatter = FormatFactory.eINSTANCE.createCellFormatter();
         cellFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        cellFormatter.setId(id);
         cellFormatter.setDescription(description);
         cellFormatter.setName(name);
         cellFormatter.setRef(ref);
@@ -1088,7 +1059,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String expression, String value) {
         CalculatedMemberProperty calculatedMemberProperty = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         calculatedMemberProperty.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        calculatedMemberProperty.setId(id);
         calculatedMemberProperty.setDescription(description);
         calculatedMemberProperty.setName(name);
         calculatedMemberProperty.setExpression(expression);
@@ -1118,7 +1088,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             KpiMapping parentKpi) {
         Kpi kpi = CubeFactory.eINSTANCE.createKpi();
         kpi.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        kpi.setId(id);
         kpi.setDescription(description);
         kpi.setName(name);
         kpi.getTranslations().addAll((Collection<? extends Translation>) translations);
@@ -1145,7 +1114,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             HierarchyMapping hierarchy, String parent, boolean visible) {
         CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        calculatedMember.setId(id);
         calculatedMember.setDescription(description);
         calculatedMember.setName(name);
         calculatedMember.getCalculatedMemberProperties()
@@ -1192,7 +1160,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String measuresDimensionName, List<? extends DatabaseSchemaMapping> dbschemas) {
         Catalog schema = CatalogFactory.eINSTANCE.createCatalog();
         schema.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        schema.setId(id);
         schema.setDescription(description);
         schema.setName(name);
         schema.getParameters().addAll((Collection<? extends Parameter>) parameters);
@@ -1244,7 +1211,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
             String ref) {
         MemberPropertyFormatter memberPropertyFormatter = FormatFactory.eINSTANCE.createMemberPropertyFormatter();
         memberPropertyFormatter.getAnnotations().addAll((Collection<? extends Annotation>) annotations);
-        memberPropertyFormatter.setId(id);
         memberPropertyFormatter.setDescription(description);
         memberPropertyFormatter.setName(name);
         memberPropertyFormatter.setRef(ref);
@@ -1395,7 +1361,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setDistinct(distinct);
         measure.getOrderByColumns().addAll((Collection<? extends OrderedColumn>) orderByColumns);
         measure.setSeparator(separator);
@@ -1430,7 +1395,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         measure.setTemplate(template);
         measure.getColumns().addAll((Collection<? extends Column>) columns);
         measure.getProperties().addAll(properties);
@@ -1455,7 +1419,6 @@ public class EmfMappingModifier extends AbstractMappingModifier {
         measure.setFormatter(formatter);
         measure.setVisible(visible);
         measure.setName(name);
-        measure.setId(id);
         return measure;
     }
 
