@@ -193,7 +193,6 @@ class MandantoriesVerifyerTest {
 
     private Catalog createBaseCatalog() {
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_test");
         // No name set - to test validation
         catalog.getDbschemas().add(databaseSchema);
         return catalog;

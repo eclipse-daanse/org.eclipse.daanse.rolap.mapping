@@ -616,19 +616,19 @@ public class ResourceSetWriteReadTest {
      * fragment paths (e.g. {@code /21/@ownedElement.18}).
      */
     private void assignXmiIds(org.eclipse.emf.ecore.xmi.XMIResource xmi, List<EObject> elements) {
-        Map<String, Integer> collisions = new HashMap<>();
+        // Track every id we've actually assigned (not just bases). This way a
+        // disambiguated id like `_table_foo_1` can't later collide with a
+        // naturally-derived `_table_foo_1` from a different element.
+        Set<String> used = new HashSet<>();
         for (EObject eo : elements) {
-            String id = idFor(eo);
-            if (id == null) {
+            String base = idFor(eo);
+            if (base == null) {
                 continue;
             }
-            Integer n = collisions.get(id);
-            if (n != null) {
-                n = n + 1;
-                collisions.put(id, n);
-                id = id + "_" + n;
-            } else {
-                collisions.put(id, 0);
+            String id = base;
+            int n = 1;
+            while (!used.add(id)) {
+                id = base + "_" + n++;
             }
             xmi.setID(eo, id);
         }
@@ -675,14 +675,6 @@ public class ResourceSetWriteReadTest {
 
     /** Build a short human-readable, lowercase id for an EObject. */
     private String idFor(EObject eo) {
-        // Prefer an explicit Daanse id attribute if present and non-blank.
-        org.eclipse.emf.ecore.EStructuralFeature idFeat = eo.eClass().getEStructuralFeature("id");
-        if (idFeat != null) {
-            Object idVal = eo.eGet(idFeat);
-            if (idVal instanceof String s && !s.isBlank()) {
-                return (s.startsWith("_") ? s : "_" + s).toLowerCase();
-            }
-        }
         String typeName = eo.eClass().getName();
         org.eclipse.emf.ecore.EStructuralFeature nameFeat = eo.eClass().getEStructuralFeature("name");
         Object nameVal = nameFeat != null ? eo.eGet(nameFeat) : null;
@@ -937,26 +929,20 @@ public class ResourceSetWriteReadTest {
                 return value;
             }
 
-            Object s1 = "";
-            Object s2 = "";
-            EStructuralFeature eStructuralFeature1 = eClass1.getEStructuralFeature("id");
-            if (eStructuralFeature1 != null) {
+            String s1 = nameOf(o1);
+            String s2 = nameOf(o2);
+            return s1.compareToIgnoreCase(s2);
+        }
 
-                s1 = o1.eGet(eStructuralFeature1);
+        private static String nameOf(EObject o) {
+            EStructuralFeature nameFeat = o.eClass().getEStructuralFeature("name");
+            if (nameFeat != null) {
+                Object v = o.eGet(nameFeat);
+                if (v instanceof String s) {
+                    return s;
+                }
             }
-            EStructuralFeature eStructuralFeature2 = eClass2.getEStructuralFeature("id");
-            if (eStructuralFeature2 != null) {
-
-                s2 = o2.eGet(eStructuralFeature2);
-            }
-            if (s1 == null) {
-                s1 = "";
-            }
-            if (s2 == null) {
-                s2 = "";
-            }
-
-            return s1.toString().compareToIgnoreCase(s2.toString());
+            return "";
         }
     };
 
@@ -1006,26 +992,20 @@ public class ResourceSetWriteReadTest {
                 return value;
             }
 
-            Object s1 = "";
-            Object s2 = "";
-            EStructuralFeature eStructuralFeature1 = eClass1.getEStructuralFeature("id");
-            if (eStructuralFeature1 != null) {
+            String s1 = nameOf(o1);
+            String s2 = nameOf(o2);
+            return s1.compareToIgnoreCase(s2);
+        }
 
-                s1 = o1.eGet(eStructuralFeature1);
+        private static String nameOf(EObject o) {
+            EStructuralFeature nameFeat = o.eClass().getEStructuralFeature("name");
+            if (nameFeat != null) {
+                Object v = o.eGet(nameFeat);
+                if (v instanceof String s) {
+                    return s;
+                }
             }
-            EStructuralFeature eStructuralFeature2 = eClass2.getEStructuralFeature("id");
-            if (eStructuralFeature2 != null) {
-
-                s2 = o2.eGet(eStructuralFeature2);
-            }
-            if (s1 == null) {
-                s1 = "";
-            }
-            if (s2 == null) {
-                s2 = "";
-            }
-
-            return s1.toString().compareToIgnoreCase(s2.toString());
+            return "";
         }
     };
 

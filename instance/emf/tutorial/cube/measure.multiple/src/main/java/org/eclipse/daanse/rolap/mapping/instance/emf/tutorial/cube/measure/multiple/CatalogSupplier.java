@@ -123,7 +123,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.setDefaultMeasure(measure3);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_measureMultipleMeasures");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Multiple");
         catalog.setDescription("Multiple measures in cubes");

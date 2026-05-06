@@ -94,7 +94,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Table");
         catalog.setDescription("Physical table definitions and types");
-        catalog.setId("_catalog_databaseTable");
         catalog.getDbschemas().add(databaseSchema);
 
 

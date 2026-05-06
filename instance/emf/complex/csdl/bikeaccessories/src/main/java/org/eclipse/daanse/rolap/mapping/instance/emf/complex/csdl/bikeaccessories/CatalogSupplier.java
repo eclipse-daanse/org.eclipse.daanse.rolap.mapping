@@ -1925,7 +1925,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         LEVEL_PRODUCT_SUBCATEGORY = LevelFactory.eINSTANCE.createLevel();
         LEVEL_PRODUCT_SUBCATEGORY.setName("Subcategory");
         LEVEL_PRODUCT_SUBCATEGORY.setColumn(COLUMN_SUBCATEGORY_PRODUCT);
-        LEVEL_PRODUCT_SUBCATEGORY.setId("_level_product_subcategory"); //TODO need remove
 
         LEVEL_PRODUCT_CATEGORY_ROW_NUMBER = LevelFactory.eINSTANCE.createLevel();
         LEVEL_PRODUCT_CATEGORY_ROW_NUMBER.setName("RowNumber");

@@ -146,7 +146,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
 //        CalculatedMemberProperty calculatedMemberProperty = RolapMappingFactory.eINSTANCE
 //        .createCalculatedMemberProperty();
-//        calculatedMemberProperty.setId("_cmp_1");
 //        calculatedMemberProperty.setName("FORMAT_STRING");
 //        calculatedMemberProperty.setValue("0.0%");
 

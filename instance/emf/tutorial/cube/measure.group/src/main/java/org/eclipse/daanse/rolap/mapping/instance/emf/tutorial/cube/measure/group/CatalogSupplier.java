@@ -112,7 +112,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup2);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.setId("_catalog_measureMeasureGroups");
         catalog.getDbschemas().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Group");
         catalog.setDescription("Measure group organization");

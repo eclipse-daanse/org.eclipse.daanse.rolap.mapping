@@ -148,7 +148,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Dimension Intro");
         catalog.setDescription("Introduction to cube dimensions");
-        catalog.setId("_catalog_dimensionIntro");
         catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);
 

@@ -100,7 +100,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Inline Table");
         catalog.setDescription("Inline table definitions with row data");
-        catalog.setId("_catalog_databaseInlineTable");
         catalog.getDbschemas().add(databaseSchema);
 
 

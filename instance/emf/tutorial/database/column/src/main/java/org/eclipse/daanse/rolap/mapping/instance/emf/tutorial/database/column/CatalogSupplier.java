@@ -132,7 +132,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Column");
         catalog.setDescription("Database column types and configuration");
-        catalog.setId("_catalog_databaseColumnTypes");
         catalog.getDbschemas().add(databaseSchema);
 
 

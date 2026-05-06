@@ -1100,7 +1100,6 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.setId("_catalog_schulwesen");
         catalog.getCubes().addAll(List.of(cubeSchulenInstitutionen, cubePaedagogischesPersonal, cubeSchuelerInnen));
         catalog.getDbschemas().add(databaseSchema);
 

@@ -85,7 +85,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Intro");
         catalog.setDescription("Basic introduction to database schema configuration");
-        catalog.setId("_catalog_databaseIntro");
         catalog.getDbschemas().add(schema);
 
         return catalog;
