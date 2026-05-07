@@ -10,7 +10,6 @@
 * SPDX-License-Identifier: EPL-2.0
 **********************************************************************/
 -->
-
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
     nsPrefix="roma">
@@ -1076,13 +1075,6 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Abstract base for a data source used by a cube or hierarchy. Replaces the previous Query/RelationalQuery hierarchy. Concrete sub-types point at a CWM NamedColumnSet (table/view), an inline SQL select, a join, or an inline table."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1"
-            eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-            iD="true">
-          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-            <details key="documentation" value="Stable identifier for cross-reference from Cube/Hierarchy/Level definitions."/>
-          </eAnnotations>
-        </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EAttribute" name="alias" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Optional SQL table alias used when this source participates in joins or SQL generation."/>
