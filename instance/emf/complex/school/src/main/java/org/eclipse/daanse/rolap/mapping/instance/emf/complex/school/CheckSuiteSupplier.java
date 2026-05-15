@@ -121,6 +121,38 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
             ORDER BY count(DISTINCT fact_schulen.schule_id) DESC
         """;
 
+    private static final String Q5 = """
+        SELECT NON EMPTY Hierarchize(AddCalculatedMembers({DrilldownLevel({[Altersgruppe].[Altersgruppen].[Alle Altersgruppen]})}))
+         DIMENSION PROPERTIES PARENT_UNIQUE_NAME,[Altersgruppe].[Altersgruppen].[Altersgruppe].[$name] ON COLUMNS
+         FROM [Pädagogisches Personal an Jenaer Schulen] WHERE ([Measures].[Anzahl Personen]) CELL PROPERTIES VALUE, FORMAT_STRING, LANGUAGE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+        """;
+
+    private static final String Q6 = """
+        SELECT NON EMPTY Hierarchize(AddCalculatedMembers({DrilldownLevel({[Berufsgruppe].[Berufsgruppen].[Alle Berufsgruppen]})}))
+         DIMENSION PROPERTIES PARENT_UNIQUE_NAME,[Berufsgruppe].[Berufsgruppen].[Berufsgruppe].[$name] ON COLUMNS
+           FROM [Pädagogisches Personal an Jenaer Schulen] WHERE ([Measures].[Anzahl Personen]) CELL PROPERTIES VALUE, FORMAT_STRING, LANGUAGE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+            """;
+
+    private static final String Q7 = """
+        SELECT NON EMPTY Hierarchize(AddCalculatedMembers({DrilldownLevel({[Geschlecht].[Geschlecht].[Alle Geschlechter]})}))
+         DIMENSION PROPERTIES PARENT_UNIQUE_NAME,[Geschlecht].[Geschlecht].[Geschlecht].[$name] ON COLUMNS
+           FROM [Pädagogisches Personal an Jenaer Schulen] WHERE ([Measures].[Anzahl Personen]) CELL PROPERTIES VALUE, FORMAT_STRING, LANGUAGE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+            """;
+
+    private static final String Q8 = """
+        SELECT NON EMPTY Hierarchize(AddCalculatedMembers({[Schuljahr].[Schuljahre].[Schuljahr].members}))
+         DIMENSION PROPERTIES PARENT_UNIQUE_NAME,[Schuljahr].[Schuljahre].[Schuljahr].[$name] ON COLUMNS
+           FROM [Pädagogisches Personal an Jenaer Schulen] WHERE ([Measures].[Anzahl Personen]) CELL PROPERTIES VALUE, FORMAT_STRING, LANGUAGE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+                """;
+    private static final String Q9 = """
+        SELECT NON EMPTY CrossJoin(CrossJoin(Hierarchize(AddCalculatedMembers({DrilldownLevel({[Schulen].[Schulen nach Art].[Alle Schulen]})})),
+        Hierarchize(AddCalculatedMembers({DrilldownLevel({[Schulen].[Schulen nach Ganztagsangebot].[Alle Schulen]})}))),
+        Hierarchize(AddCalculatedMembers({DrilldownLevel({[Schulen].[Schulen nach Trägerschaft].[Alle Schulen]})})))
+         DIMENSION PROPERTIES PARENT_UNIQUE_NAME,[Schulen].[Schulen nach Trägerschaft].[Schulträger-Kategorie].[$name],
+         [Schulen].[Schulen nach Ganztagsangebot].[Art des Ganztagsangebots].[$name],[Schulen].[Schulen nach Art].[Schulkategorie].[$name] ON COLUMNS
+           FROM [Pädagogisches Personal an Jenaer Schulen] WHERE ([Measures].[Anzahl Personen]) CELL PROPERTIES VALUE, FORMAT_STRING, LANGUAGE, BACK_COLOR, FORE_COLOR, FONT_FLAGS
+                """;
+
     @Override
     public OlapCheckSuite get() {
         // Create dimension checks for shared dimensions
@@ -356,6 +388,161 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         sqlQueryCheck4.setQueryLanguage(QueryLanguage.SQL);
         sqlQueryCheck4.getCellChecks().addAll(List.of(cellCheck400, cellCheck401, cellCheck402));
 
+        CellValueCheck cellCheck500 = factory.createCellValueCheck();
+        cellCheck500.setName("Check for All");
+        cellCheck500.setExpectedValue("1479.0");
+        cellCheck500.getCoordinates().addAll(List.of(0));
+
+        CellValueCheck cellCheck501 = factory.createCellValueCheck();
+        cellCheck501.setName("Check for bis unter 30 Jahre");
+        cellCheck501.setExpectedValue("421.0");
+        cellCheck501.getCoordinates().addAll(List.of(1));
+
+        CellValueCheck cellCheck502 = factory.createCellValueCheck();
+        cellCheck502.setName("Check for 30 bis unter 45 Jahre");
+        cellCheck502.setExpectedValue("306.0");
+        cellCheck502.getCoordinates().addAll(List.of(2));
+
+        CellValueCheck cellCheck503 = factory.createCellValueCheck();
+        cellCheck503.setName("Check for 45 bis unter 55 Jahre");
+        cellCheck503.setExpectedValue("244.0");
+        cellCheck503.getCoordinates().addAll(List.of(3));
+
+        CellValueCheck cellCheck504 = factory.createCellValueCheck();
+        cellCheck504.setName("Check for 55 bis unter 60 Jahre");
+        cellCheck504.setExpectedValue("251.0");
+        cellCheck504.getCoordinates().addAll(List.of(4));
+
+        CellValueCheck cellCheck505 = factory.createCellValueCheck();
+        cellCheck505.setName("Check for 60 Jahre und älter");
+        cellCheck505.setExpectedValue("257.0");
+        cellCheck505.getCoordinates().addAll(List.of(5));
+
+        QueryCheck sqlQueryCheck5 = factory.createQueryCheck();
+        sqlQueryCheck5.setName("Sql Query Check5 for " + CATALOG_NAME);
+        sqlQueryCheck5.setQuery(Q5);
+        sqlQueryCheck5.setQueryLanguage(QueryLanguage.MDX);
+        sqlQueryCheck5.setExpectedColumnCount(6);
+        sqlQueryCheck5.getCellChecks().addAll(List.of(cellCheck500, cellCheck501, cellCheck502, cellCheck503, cellCheck504, cellCheck505));
+
+        CellValueCheck cellCheck600 = factory.createCellValueCheck();
+        cellCheck600.setName("Check for All");
+        cellCheck600.setExpectedValue("1479.0");
+        cellCheck600.getCoordinates().addAll(List.of(0));
+
+        CellValueCheck cellCheck601 = factory.createCellValueCheck();
+        cellCheck601.setName("Check for Lehrer:in");
+        cellCheck601.setExpectedValue("1122.0");
+        cellCheck601.getCoordinates().addAll(List.of(1));
+
+        CellValueCheck cellCheck602 = factory.createCellValueCheck();
+        cellCheck602.setName("Check for Erzieher:in");
+        cellCheck602.setExpectedValue("214.0");
+        cellCheck602.getCoordinates().addAll(List.of(2));
+
+        CellValueCheck cellCheck603 = factory.createCellValueCheck();
+        cellCheck603.setName("Check for Sonderpädagogische Fachkraft");
+        cellCheck603.setExpectedValue("38.0");
+        cellCheck603.getCoordinates().addAll(List.of(3));
+
+        CellValueCheck cellCheck604 = factory.createCellValueCheck();
+        cellCheck604.setName("Check for Lehramtsanwärter:in");
+        cellCheck604.setExpectedValue("105.0");
+        cellCheck604.getCoordinates().addAll(List.of(4));
+
+        QueryCheck sqlQueryCheck6 = factory.createQueryCheck();
+        sqlQueryCheck6.setName("Sql Query Check6 for " + CATALOG_NAME);
+        sqlQueryCheck6.setQuery(Q6);
+        sqlQueryCheck6.setQueryLanguage(QueryLanguage.MDX);
+        sqlQueryCheck6.setExpectedColumnCount(5);
+        sqlQueryCheck6.getCellChecks().addAll(List.of(cellCheck600, cellCheck601, cellCheck602, cellCheck603, cellCheck604));
+
+        CellValueCheck cellCheck700 = factory.createCellValueCheck();
+        cellCheck700.setName("Check for All");
+        cellCheck700.setExpectedValue("1479.0");
+        cellCheck700.getCoordinates().addAll(List.of(0));
+
+        CellValueCheck cellCheck701 = factory.createCellValueCheck();
+        cellCheck701.setName("Check for männlich");
+        cellCheck701.setExpectedValue("469.0");
+        cellCheck701.getCoordinates().addAll(List.of(1));
+
+        CellValueCheck cellCheck702 = factory.createCellValueCheck();
+        cellCheck702.setName("Check for weiblich");
+        cellCheck702.setExpectedValue("1010.0");
+        cellCheck702.getCoordinates().addAll(List.of(2));
+
+        QueryCheck sqlQueryCheck7 = factory.createQueryCheck();
+        sqlQueryCheck7.setName("Sql Query Check7 for " + CATALOG_NAME);
+        sqlQueryCheck7.setQuery(Q7);
+        sqlQueryCheck7.setQueryLanguage(QueryLanguage.MDX);
+        sqlQueryCheck7.setExpectedColumnCount(3);
+        sqlQueryCheck7.getCellChecks().addAll(List.of(cellCheck700, cellCheck701, cellCheck702));
+
+        CellValueCheck cellCheck800 = factory.createCellValueCheck();
+        cellCheck800.setName("Check for 2022/2023");
+        cellCheck800.setExpectedValue("1479.0");
+        cellCheck800.getCoordinates().addAll(List.of(0));
+
+        CellValueCheck cellCheck801 = factory.createCellValueCheck();
+        cellCheck801.setName("Check for 2021/2022");
+        cellCheck801.setExpectedValue("1454.0");
+        cellCheck801.getCoordinates().addAll(List.of(1));
+
+        CellValueCheck cellCheck802 = factory.createCellValueCheck();
+        cellCheck802.setName("Check for 2020/2021");
+        cellCheck802.setExpectedValue("1350.0");
+        cellCheck802.getCoordinates().addAll(List.of(2));
+
+        CellValueCheck cellCheck803 = factory.createCellValueCheck();
+        cellCheck803.setName("Check for 2019/2020");
+        cellCheck803.setExpectedValue("1464.0");
+        cellCheck803.getCoordinates().addAll(List.of(3));
+
+        CellValueCheck cellCheck804 = factory.createCellValueCheck();
+        cellCheck804.setName("Check for 2018/2019");
+        cellCheck804.setExpectedValue("1308.0");
+        cellCheck804.getCoordinates().addAll(List.of(4));
+
+        QueryCheck sqlQueryCheck8 = factory.createQueryCheck();
+        sqlQueryCheck8.setName("Sql Query Check8 for " + CATALOG_NAME);
+        sqlQueryCheck8.setQuery(Q8);
+        sqlQueryCheck8.setQueryLanguage(QueryLanguage.MDX);
+        sqlQueryCheck8.setExpectedColumnCount(5);
+        sqlQueryCheck8.getCellChecks().addAll(List.of(cellCheck800, cellCheck801, cellCheck802, cellCheck803, cellCheck804));
+
+        CellValueCheck cellCheck900 = factory.createCellValueCheck();
+        cellCheck900.setName("Check for c0");
+        cellCheck900.setExpectedValue("1479.0");
+        cellCheck900.getCoordinates().addAll(List.of(0));
+
+        CellValueCheck cellCheck901 = factory.createCellValueCheck();
+        cellCheck901.setName("Check for c1");
+        cellCheck901.setExpectedValue("1154.0");
+        cellCheck901.getCoordinates().addAll(List.of(1));
+
+        CellValueCheck cellCheck902 = factory.createCellValueCheck();
+        cellCheck902.setName("Check for c2");
+        cellCheck902.setExpectedValue("325.0");
+        cellCheck902.getCoordinates().addAll(List.of(2));
+
+        CellValueCheck cellCheck903 = factory.createCellValueCheck();
+        cellCheck903.setName("Check for c34");
+        cellCheck903.setExpectedValue("107.0");
+        cellCheck903.getCoordinates().addAll(List.of(34));
+
+        CellValueCheck cellCheck904 = factory.createCellValueCheck();
+        cellCheck904.setName("Check for c35");
+        cellCheck904.setExpectedValue("79.0");
+        cellCheck904.getCoordinates().addAll(List.of(35));
+
+        QueryCheck sqlQueryCheck9 = factory.createQueryCheck();
+        sqlQueryCheck9.setName("Sql Query Check8 for " + CATALOG_NAME);
+        sqlQueryCheck9.setQuery(Q9);
+        sqlQueryCheck9.setQueryLanguage(QueryLanguage.MDX);
+        sqlQueryCheck9.setExpectedColumnCount(36);
+        sqlQueryCheck9.getCellChecks().addAll(List.of(cellCheck900, cellCheck901, cellCheck902, cellCheck903, cellCheck904));
+
         // Create database table and column checks
         DatabaseTableCheck tableCheckFactSchueler = createTableCheck("fact_schueler",
             createColumnCheck("schule_id", "INTEGER"),
@@ -470,6 +657,11 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(sqlQueryCheck2);
         catalogCheck.getQueryChecks().add(sqlQueryCheck3);
         catalogCheck.getQueryChecks().add(sqlQueryCheck4);
+        catalogCheck.getQueryChecks().add(sqlQueryCheck5);
+        catalogCheck.getQueryChecks().add(sqlQueryCheck6);
+        catalogCheck.getQueryChecks().add(sqlQueryCheck7);
+        catalogCheck.getQueryChecks().add(sqlQueryCheck8);
+        catalogCheck.getQueryChecks().add(sqlQueryCheck9);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
