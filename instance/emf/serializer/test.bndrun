@@ -93,6 +93,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.action.drillthrough',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.view',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tck.hierarchy.levelswithsamenames',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measure.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube',\
@@ -177,6 +178,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.serializer-tests;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tck.hierarchy.levelswithsamenames;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cataloggrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.cubegrand;version='[0.0.1,0.0.2)',\
