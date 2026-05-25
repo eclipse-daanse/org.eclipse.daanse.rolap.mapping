@@ -51,6 +51,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
     private Catalog catalog;
     private PhysicalCube cube;
     private Level levelObject;
+    private Level levelObject1;
     private Level levelId;
     private Level levelYear;
     private TableSource queryHier;
@@ -140,10 +141,9 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         levelObject.setColumn(objectIdColumnTown);
         levelObject.setNameColumn(objectColumnTown);
 
-        levelObject = LevelFactory.eINSTANCE.createLevel();
-        levelObject.setName("Objects");
-        levelObject.setColumn(objectIdColumnTown);
-        levelObject.setNameColumn(objectColumnTown);
+        levelObject1 = LevelFactory.eINSTANCE.createLevel();
+        levelObject1.setName("Objects1");
+        levelObject1.setColumn(objectIdColumnTown);
 
         levelId = LevelFactory.eINSTANCE.createLevel();
         levelId.setName("Id");
@@ -163,6 +163,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         hierarchyObject.setName("ObjectsHierarchy");
         hierarchyObject.setPrimaryKey(idColumnTown);
         hierarchyObject.setSource(queryHier1);
+        hierarchyObject.getLevels().add(levelObject1);
         hierarchyObject.getLevels().add(levelObject);
         hierarchyObject.getLevels().add(levelId);
 
