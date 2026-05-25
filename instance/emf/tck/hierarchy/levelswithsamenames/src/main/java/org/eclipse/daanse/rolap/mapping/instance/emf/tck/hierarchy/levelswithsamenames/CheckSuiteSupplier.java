@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tck.hierarchy.levelswithsamenames;
 
+import java.util.List;
+
 import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
@@ -154,6 +156,71 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
+        CellValueCheck queryCheck2CellValueCheck1 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck1.setName("DRILLTHROUGH value1");
+        queryCheck2CellValueCheck1.setExpectedValue("2025.0");
+        queryCheck2CellValueCheck1.setExpectedNumericValue(2025.0);
+        queryCheck2CellValueCheck1.getCoordinates().addAll(List.of(0, 0));
+
+        CellValueCheck queryCheck2CellValueCheck2 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck2.setName("DRILLTHROUGH value2");
+        queryCheck2CellValueCheck2.setExpectedValue("Berlin");
+        queryCheck2CellValueCheck2.getCoordinates().addAll(List.of(0, 1));
+
+        CellValueCheck queryCheck2CellValueCheck3 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck3.setName("DRILLTHROUGH value3");
+        queryCheck2CellValueCheck3.setExpectedValue("1");
+        queryCheck2CellValueCheck3.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck3.getCoordinates().addAll(List.of(0, 2));
+
+        CellValueCheck queryCheck2CellValueCheck4 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck4.setName("DRILLTHROUGH value4");
+        queryCheck2CellValueCheck4.setExpectedValue("11");
+        queryCheck2CellValueCheck4.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck4.getCoordinates().addAll(List.of(0, 3));
+
+        CellValueCheck queryCheck2CellValueCheck5 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck5.setName("DRILLTHROUGH value5");
+        queryCheck2CellValueCheck5.setExpectedValue("square");
+        queryCheck2CellValueCheck5.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck5.getCoordinates().addAll(List.of(0, 4));
+
+        CellValueCheck queryCheck2CellValueCheck6 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck6.setName("DRILLTHROUGH value6");
+        queryCheck2CellValueCheck6.setExpectedValue("11");
+        queryCheck2CellValueCheck6.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck6.getCoordinates().addAll(List.of(0, 5));
+
+        CellValueCheck queryCheck2CellValueCheck7 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck7.setName("DRILLTHROUGH value7");
+        queryCheck2CellValueCheck7.setExpectedValue("1");
+        queryCheck2CellValueCheck7.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck7.getCoordinates().addAll(List.of(0, 6));
+
+        CellValueCheck queryCheck2CellValueCheck8 = factory.createCellValueCheck();
+        queryCheck2CellValueCheck8.setName("DRILLTHROUGH value8");
+        queryCheck2CellValueCheck8.setExpectedValue("2");
+        queryCheck2CellValueCheck8.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck8.getCoordinates().addAll(List.of(0, 7));
+
+        QueryCheck queryCheck2 = factory.createQueryCheck();
+        queryCheck2.setName("DRILLTHROUGH Query Check");
+        queryCheck2.setDescription("Verify MDX query returns DRILLTHROUGH");
+        queryCheck2.setQuery("DRILLTHROUGH MAXROWS 1000 SELECT FROM [Cube with levels with same names of values] WHERE (([Measures].[theMeasure],[Town].[TownHierarchy].[Berlin]))");
+        queryCheck2.setQueryLanguage(QueryLanguage.MDX);
+        queryCheck2.setExpectedColumnCount(8);
+        queryCheck2.setExpectedRowCount(4);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck1);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck2);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck3);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck4);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck5);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck6);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck7);
+        queryCheck2.getCellChecks().add(queryCheck2CellValueCheck8);
+
+        queryCheck2.setEnabled(true);
+
         DatabaseColumnAttributeCheck columnAttributeCheckFactYear = factory.createDatabaseColumnAttributeCheck();
         columnAttributeCheckFactYear.setAttributeType(DatabaseColumnAttribute.TYPE);
         columnAttributeCheckFactYear.setExpectedValue("INTEGER");
@@ -258,6 +325,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tck - Hierarchy with levels with same names of values");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck1);
+        catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
