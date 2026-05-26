@@ -71,7 +71,6 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
-import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ParentChildHierarchy;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.RollupPolicy;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
@@ -151,7 +150,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     private ExplicitHierarchy yearHierarchy;
     private ExplicitHierarchy planStageHierarchy;
-    private ParentChildHierarchy accountHierarchy;
+    private ExplicitHierarchy accountHierarchy;
     private ExplicitHierarchy orgUnitHierarchy;
     private ExplicitHierarchy budgetHierarchy;
     private Level orgUnitLevelL1;
@@ -162,12 +161,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private TextAggMeasure commentsMeasure;
     private CalculatedMember varianceMember;
     private CalculatedMember variancePctMember;
-    // KPI and named sets temporarily disabled — the MDX formulas need rework
-    // for the parent-child Account hierarchy ([All Accounts] /
-    // Descendants(member, level) semantics differ from explicit hierarchies),
-    // and the KPI status/value formulas reference measures that are not yet
-    // resolvable in the current engine. Re-enable once the formulas parse
-    // cleanly against daanse.
+    // KPI and named sets temporarily disabled — the KPI status/value formulas
+    // reference measures that are not yet resolvable in the current daanse
+    // engine, and the named-set Descendants() formulas need adjusting now that
+    // the Account hierarchy is a three-level explicit hierarchy
+    // (Category → Group → Account) instead of the original parent-child shape.
+    // Re-enable once the formulas parse cleanly.
     // private Kpi budgetUtilizationKpi;
     // private NamedSet topExpenseAccountsSet;
     // private NamedSet planOverrunSet;
@@ -192,8 +191,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
             The cube further demonstrates:
 
-            - **Parent-child `Account` (Sachkonto) dimension** — self-referencing
-              `ParentChildHierarchy` for arbitrary-depth account trees.
+            - **Three-level `Account` (Sachkonto) dimension** — a snowflake-free
+              `ExplicitHierarchy` on a single denormalised table (`Category` →
+              `Group` → `Account`). For a worked example of writeback against a
+              true parent-child hierarchy see `tutorial.writeback.parentchild`.
             - **`Year` time dimension** with `TIME_YEARS` semantics and a
               `defaultMember` pinned to the highest year (`2027`).
             - **`PlanStage` dimension** whose member names include the year they belong
@@ -211,8 +212,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             *Note:* a `BudgetUtilization` KPI and three named sets
             (`Top5ExpenseAccounts`, `PlanOverrun`, `AccountsWithoutComment`) are
             kept in the source code as commented-out blocks. They are temporarily
-            disabled because their MDX formulas need rework for the parent-child
-            `Account` hierarchy. Re-enable them once the formulas resolve cleanly.
+            disabled because their MDX formulas need adjusting to the new
+            three-level `Account` hierarchy (Category → Group → Account).
+            Re-enable them once the formulas resolve cleanly.
             - **`BOOKINGWB` writeback table** — plan amounts and comments can be entered
               per org-unit, budget, account, year and planning stage; IST stays
               read-only because the writeback table simply has no `AMOUNT_IST` column.
@@ -233,8 +235,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
               `BOOKING`, plus `ID` and `USER` for audit, plus `AMOUNT_PLAN` and
               `COMMENT`. Only plan data and comments can be written; `AMOUNT_IST` has
               no writeback column on purpose.
-            - **`ACCOUNT`** — self-referencing parent-child table (`KEY`, `NAME`,
-              `PARENT_KEY`). Root rows have an empty `PARENT_KEY`.
+            - **`ACCOUNT`** — single denormalised table with three level keys
+              and names: `L1_KEY`/`L1_NAME` (Category, e.g. `EXPENSES`),
+              `L2_KEY`/`L2_NAME` (Group, e.g. `PERSONNEL`), `L3_KEY`/`L3_NAME`
+              (leaf account, e.g. `SALARIES`). The fact table joins on
+              `BOOKING.ACCOUNT_KEY = ACCOUNT.L3_KEY`.
             - **`YEAR`** — `YEAR_KEY`, `YEAR_NAME` (one row per business year).
             - **`PLANSTAGE`** — `KEY`, `NAME`, `YEAR_KEY`, `ORDINAL`. The `ORDINAL`
               column drives stable ordering; the highest ordinal wins as default member.
@@ -252,13 +257,24 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             """;
 
     private static final String accountDimensionBody = """
-            The `Account` (Sachkonto) dimension uses a `ParentChildHierarchy`. Each row
-            in the `ACCOUNT` table represents one ledger account. The `PARENT_KEY`
-            column references the parent account's `KEY`; root accounts have an empty
-            `PARENT_KEY`, which matches the configured `nullParentValue = ""`.
+            The `Account` (Sachkonto) dimension is a 3-level `ExplicitHierarchy`
+            on a single denormalised `ACCOUNT` table (same snowflake-free
+            pattern as `OrgUnit`). The levels are:
 
-            This is the recommended modeling pattern when the depth of the hierarchy is
-            variable or unknown, or when child accounts can themselves act as parents.
+            - **`Category`** (L1) — e.g. `Expenses`, `Revenue`.
+            - **`Group`** (L2) — e.g. `Personnel`, `Rent`, `Travel`, `Sales`.
+            - **`Account`** (L3, leaf) — e.g. `Salaries`, `Office Rent`,
+              `Flights`, `Product Sales`.
+
+            The fact table joins on the leaf level via
+            `BOOKING.ACCOUNT_KEY = ACCOUNT.L3_KEY`. Aggregations across an L2
+            or L1 member roll up the underlying leaves through the usual SQL
+            `GROUP BY` path.
+
+            *Note:* if the accounting domain calls for a variable-depth tree,
+            switch this dimension to a `ParentChildHierarchy` — the
+            `tutorial.writeback.parentchild` example demonstrates that
+            variant together with writeback.
             """;
 
     private static final String yearDimensionBody = """
@@ -608,12 +624,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         wbOrgUnitKeyColumn, wbBudgetKeyColumn, wbAmountPlanColumn, wbCommentColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);
 
-        Column accountKeyColumn = createColumn("KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column accountNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column accountParentKeyColumn = createColumn("PARENT_KEY", SqlSimpleTypes.Sql99.varcharType());
+        // Account dimension is a 3-level explicit hierarchy on a single
+        // denormalised table (same shape as ORGUNIT). L1 is the top
+        // category (EXPENSES / REVENUE), L2 the account group
+        // (PERSONNEL / RENT / ...) and L3 the leaf ledger account.
+        Column accountL1KeyColumn = createColumn("L1_KEY", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL1NameColumn = createColumn("L1_NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL2KeyColumn = createColumn("L2_KEY", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL2NameColumn = createColumn("L2_NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL3KeyColumn = createColumn("L3_KEY", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL3NameColumn = createColumn("L3_NAME", SqlSimpleTypes.Sql99.varcharType());
 
         Table accountTable = createTable(TABLE_ACCOUNT,
-                List.of(accountKeyColumn, accountNameColumn, accountParentKeyColumn));
+                List.of(accountL1KeyColumn, accountL1NameColumn,
+                        accountL2KeyColumn, accountL2NameColumn,
+                        accountL3KeyColumn, accountL3NameColumn));
         databaseSchema.getOwnedElement().add(accountTable);
 
         Column yearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
@@ -709,21 +734,31 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         planStageDimension.setName(DIM_PLANSTAGE);
         planStageDimension.getHierarchies().add(planStageHierarchy);
 
-        Level accountLevel = LevelFactory.eINSTANCE.createLevel();
-        accountLevel.setName("Account");
-        accountLevel.setUniqueMembers(true);
-        accountLevel.setColumn(accountKeyColumn);
-        accountLevel.setNameColumn(accountNameColumn);
+        Level accountLevelL1 = LevelFactory.eINSTANCE.createLevel();
+        accountLevelL1.setName("Category");
+        accountLevelL1.setColumn(accountL1KeyColumn);
+        accountLevelL1.setNameColumn(accountL1NameColumn);
+        accountLevelL1.setUniqueMembers(true);
 
-        accountHierarchy = HierarchyFactory.eINSTANCE.createParentChildHierarchy();
+        Level accountLevelL2 = LevelFactory.eINSTANCE.createLevel();
+        accountLevelL2.setName("Group");
+        accountLevelL2.setColumn(accountL2KeyColumn);
+        accountLevelL2.setNameColumn(accountL2NameColumn);
+        accountLevelL2.setUniqueMembers(false);
+
+        Level accountLevelL3 = LevelFactory.eINSTANCE.createLevel();
+        accountLevelL3.setName("Account");
+        accountLevelL3.setColumn(accountL3KeyColumn);
+        accountLevelL3.setNameColumn(accountL3NameColumn);
+        accountLevelL3.setUniqueMembers(false);
+
+        accountHierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
         accountHierarchy.setName(DIM_ACCOUNT);
         accountHierarchy.setHasAll(true);
         accountHierarchy.setAllMemberName("All Accounts");
-        accountHierarchy.setPrimaryKey(accountKeyColumn);
+        accountHierarchy.setPrimaryKey(accountL3KeyColumn);
         accountHierarchy.setSource(accountSource);
-        accountHierarchy.setParentColumn(accountParentKeyColumn);
-        accountHierarchy.setNullParentValue("");
-        accountHierarchy.setLevel(accountLevel);
+        accountHierarchy.getLevels().addAll(List.of(accountLevelL1, accountLevelL2, accountLevelL3));
 
         accountDimension = DimensionFactory.eINSTANCE.createStandardDimension();
         accountDimension.setName(DIM_ACCOUNT);

@@ -49,7 +49,10 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DimensionCheck planStageDim = createDimensionCheck("PlanStage",
                 createHierarchyCheck("PlanStage", createLevelCheck("PlanStage")));
         DimensionCheck accountDim = createDimensionCheck("Account",
-                createHierarchyCheck("Account", createLevelCheck("Account")));
+                createHierarchyCheck("Account",
+                        createLevelCheck("Category"),
+                        createLevelCheck("Group"),
+                        createLevelCheck("Account")));
         DimensionCheck orgUnitDim = createDimensionCheck("OrgUnit", createHierarchyCheck("OrgUnit",
                 createLevelCheck("L1"), createLevelCheck("L2"), createLevelCheck("L3")));
         DimensionCheck budgetDim = createDimensionCheck("Budget",
@@ -84,8 +87,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                 createColumnCheck("ORG_UNIT_KEY", "VARCHAR"), createColumnCheck("BUDGET_KEY", "VARCHAR"),
                 createColumnCheck("AMOUNT_PLAN", "INTEGER"), createColumnCheck("COMMENT", "VARCHAR"));
 
-        DatabaseTableCheck accountTable = createTableCheck("ACCOUNT", createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"), createColumnCheck("PARENT_KEY", "VARCHAR"));
+        DatabaseTableCheck accountTable = createTableCheck("ACCOUNT",
+                createColumnCheck("L1_KEY", "VARCHAR"),
+                createColumnCheck("L1_NAME", "VARCHAR"),
+                createColumnCheck("L2_KEY", "VARCHAR"),
+                createColumnCheck("L2_NAME", "VARCHAR"),
+                createColumnCheck("L3_KEY", "VARCHAR"),
+                createColumnCheck("L3_NAME", "VARCHAR"));
 
         DatabaseTableCheck yearTable = createTableCheck("YEAR", createColumnCheck("YEAR_KEY", "INTEGER"),
                 createColumnCheck("YEAR_NAME", "VARCHAR"));

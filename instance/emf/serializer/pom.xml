@@ -529,6 +529,27 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.parentchild</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcomment</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcommentandmultidim</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.databaseschemagrand</artifactId>
       <version>${project.version}</version>
     </dependency>

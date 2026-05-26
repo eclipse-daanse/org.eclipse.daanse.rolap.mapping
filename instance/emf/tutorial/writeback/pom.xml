@@ -28,6 +28,9 @@
     <module>view</module>
     <module>withoutdimension</module>
     <module>textagg</module>
+    <module>parentchild</module>
+    <module>decimalandcomment</module>
+    <module>decimalandcommentandmultidim</module>
   </modules>
 
 </project>
