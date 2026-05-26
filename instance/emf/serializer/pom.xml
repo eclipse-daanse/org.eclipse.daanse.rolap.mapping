@@ -661,6 +661,13 @@
       <version>${project.version}</version>
     </dependency>
 
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>org.eclipse.daanse</groupId>

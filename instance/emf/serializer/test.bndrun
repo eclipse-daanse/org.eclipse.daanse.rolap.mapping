@@ -132,7 +132,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting'
 
 -runbundles+: \
 	org.eclipse.emf.common;startlevel=1,\
@@ -168,6 +169,7 @@
 	org.eclipse.daanse.olap.check.model.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.check.runtime;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;version='[0.0.1,0.0.2)',\
