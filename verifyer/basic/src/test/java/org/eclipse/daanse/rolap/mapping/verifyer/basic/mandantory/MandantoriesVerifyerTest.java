@@ -127,7 +127,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Verifyer;
@@ -290,7 +290,7 @@ class MandantoriesVerifyerTest {
         // No dimension or column set
         writebackTable.getWritebackAttribute().add(writebackAttribute);
 
-        WritebackMeasure writebackMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         // No name or column set
         writebackTable.getWritebackMeasure().add(writebackMeasure);
 

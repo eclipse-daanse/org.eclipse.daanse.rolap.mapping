@@ -27,6 +27,7 @@
     <module>table</module>
     <module>view</module>
     <module>withoutdimension</module>
+    <module>textagg</module>
   </modules>
 
 </project>

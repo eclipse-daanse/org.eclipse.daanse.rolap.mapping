@@ -35,7 +35,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.StandardDimension;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.osgi.service.component.annotations.Component;
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
@@ -248,11 +248,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         writebackAttribute.setDimensionConnector(dimensionConnector);
         writebackAttribute.setColumn(l2Column);
 
-        WritebackMeasure writebackMeasure1 = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure1 = MeasureFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure1.setName("Measure1");
         writebackMeasure1.setColumn(valColumn);
 
-        WritebackMeasure writebackMeasure2 = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure2 = MeasureFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure2.setName("Measure2");
         writebackMeasure2.setColumn(val1Column);
 

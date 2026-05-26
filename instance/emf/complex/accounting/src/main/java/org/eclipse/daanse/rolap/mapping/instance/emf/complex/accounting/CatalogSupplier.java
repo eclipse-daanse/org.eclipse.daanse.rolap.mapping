@@ -53,7 +53,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackFactory;
-import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
@@ -471,6 +471,25 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             `AMOUNT_IST` deliberately has no writeback mapping. The extra `ID` and
             `USER` columns are technical bookkeeping columns that the writeback engine
             populates with the row id and the current user.
+
+            **Note on the model package.** `WritebackMeasure` lives in the
+            `olap/cube/measure/` ecore package alongside `SumMeasure`,
+            `TextAggMeasure` and the other base measures — it is conceptually a
+            measure (named by its logical cube-measure name, paired with a
+            database column for persistence). Only the writeback *infrastructure*
+            (`WritebackTable`, `WritebackAttribute`) remains in
+            `database/writeback/`. In Java that means
+            `MeasureFactory.eINSTANCE.createWritebackMeasure()` (not
+            `WritebackFactory`), and the XMI tag carries the `rolapmeas:`
+            namespace prefix.
+
+            **`Comments` writeback specifically.** Because `Comments` is a
+            `TextAggMeasure`, the daanse runtime detects its character bind type
+            automatically (no extra declaration on the model). The
+            `[Measures].[Comments]` cell is written as a single row at the
+            cell's exact coordinates — allocation is skipped — and the
+            read-side `ListAggAggregator` aggregates the new comment alongside
+            any fact-table comments via the standard SQL `LISTAGG` path.
             """;
 
     private static final String rolesBody = """
@@ -865,11 +884,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         WritebackAttribute wbOrgUnitAttribute = createWritebackAttribute(orgUnitConnector, wbOrgUnitKeyColumn);
         WritebackAttribute wbBudgetAttribute = createWritebackAttribute(budgetConnector, wbBudgetKeyColumn);
 
-        WritebackMeasure wbAmountPlanMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure wbAmountPlanMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbAmountPlanMeasure.setName("AmountPlan");
         wbAmountPlanMeasure.setColumn(wbAmountPlanColumn);
 
-        WritebackMeasure wbCommentsMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure wbCommentsMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbCommentsMeasure.setName("Comments");
         wbCommentsMeasure.setColumn(wbCommentColumn);
 
