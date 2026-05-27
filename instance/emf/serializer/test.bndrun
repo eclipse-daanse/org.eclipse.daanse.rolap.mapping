@@ -104,6 +104,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.calculatedmember',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.virtualcube',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.table',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view',\
@@ -263,6 +264,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.table;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.textagg;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.virtualcube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.withoutdimension;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.model;version='[0.0.1,0.0.2)';startlevel=30,\
 	org.eclipse.daanse.sql.guard.api;version='[0.0.1,0.0.2)',\
