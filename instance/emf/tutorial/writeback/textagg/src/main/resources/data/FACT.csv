@@ -1,0 +1,7 @@
+CATEGORY,AMOUNT,COMMENT
+VARCHAR,INTEGER,VARCHAR
+A,10,initial entry for A
+A,20,follow-up on A
+B,30,opening row for B
+B,40,
+C,50,only entry on C

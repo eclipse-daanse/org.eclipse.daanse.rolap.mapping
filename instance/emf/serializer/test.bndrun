@@ -104,10 +104,15 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.calculatedmember',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.virtualcube',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.inlinetable',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.table',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.withoutdimension',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.textagg',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.parentchild',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcomment',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcommentandmultidim',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.databaseschemagrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.tablegrand',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand',\
@@ -132,7 +137,8 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting'
 
 -runbundles+: \
 	org.eclipse.emf.common;startlevel=1,\
@@ -168,6 +174,7 @@
 	org.eclipse.daanse.olap.check.model.emf;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.check.runtime;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;version='[0.0.1,0.0.2)',\
@@ -250,9 +257,14 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcomment;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcommentandmultidim;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.inlinetable;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.parentchild;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.table;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.textagg;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.view;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.virtualcube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.withoutdimension;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.model;version='[0.0.1,0.0.2)';startlevel=30,\
 	org.eclipse.daanse.sql.guard.api;version='[0.0.1,0.0.2)',\

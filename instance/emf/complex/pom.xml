@@ -27,5 +27,7 @@
     <module>population.jena</module>
     <module>parcel</module>
     <module>csdl</module>
+    <module>accounting</module>
+    <module>accountingonecube</module>
   </modules>
 </project>

@@ -81,7 +81,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimiza
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.TimeDimension;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
