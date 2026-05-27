@@ -50,8 +50,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     public OlapCheckSuite get() {
         // The full dimension shape — surfaced on every cube.
         DimensionCheck yearDim = createDimensionCheck("Year", createHierarchyCheck("Year", createLevelCheck("Year")));
-        DimensionCheck planStageDim = createDimensionCheck("PlanStage",
-                createHierarchyCheck("PlanStage", createLevelCheck("PlanStage")));
         DimensionCheck accountDim = createDimensionCheck("Account",
                 createHierarchyCheck("Account",
                         createLevelCheck("Category"),
@@ -59,8 +57,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                         createLevelCheck("Account")));
         DimensionCheck orgUnitDim = createDimensionCheck("OrgUnit", createHierarchyCheck("OrgUnit",
                 createLevelCheck("L1"), createLevelCheck("L2"), createLevelCheck("L3")));
-        DimensionCheck budgetDim = createDimensionCheck("Budget",
-                createHierarchyCheck("Budget", createLevelCheck("Budget")));
 
         // AccountingIst — read-only, holds only AmountIst.
         CubeCheck cubeIstCheck = factory.createCubeCheck();
@@ -88,21 +84,19 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeVCheck.getMeasureChecks().add(createMeasureCheck("AmountPlan"));
         cubeVCheck.getMeasureChecks().add(createMeasureCheck("Comments"));
         cubeVCheck.getDimensionChecks().add(yearDim);
-        cubeVCheck.getDimensionChecks().add(planStageDim);
         cubeVCheck.getDimensionChecks().add(accountDim);
         cubeVCheck.getDimensionChecks().add(orgUnitDim);
-        cubeVCheck.getDimensionChecks().add(budgetDim);
 
         DatabaseTableCheck bookingTable = createTableCheck("BOOKING", createColumnCheck("BOOKING_ID", "INTEGER"),
-                createColumnCheck("YEAR_KEY", "INTEGER"), createColumnCheck("PLAN_STAGE_KEY", "VARCHAR"),
+                createColumnCheck("YEAR_KEY", "INTEGER"),
                 createColumnCheck("ACCOUNT_KEY", "VARCHAR"), createColumnCheck("ORG_UNIT_KEY", "VARCHAR"),
-                createColumnCheck("BUDGET_KEY", "VARCHAR"), createColumnCheck("AMOUNT_IST", "INTEGER"),
+                createColumnCheck("AMOUNT_IST", "INTEGER"),
                 createColumnCheck("AMOUNT_PLAN", "INTEGER"), createColumnCheck("COMMENT", "VARCHAR"));
 
         DatabaseTableCheck bookingWbTable = createTableCheck("BOOKINGWB", createColumnCheck("ID", "VARCHAR"),
                 createColumnCheck("USER", "VARCHAR"), createColumnCheck("YEAR_KEY", "INTEGER"),
-                createColumnCheck("PLAN_STAGE_KEY", "VARCHAR"), createColumnCheck("ACCOUNT_KEY", "VARCHAR"),
-                createColumnCheck("ORG_UNIT_KEY", "VARCHAR"), createColumnCheck("BUDGET_KEY", "VARCHAR"),
+                createColumnCheck("ACCOUNT_KEY", "VARCHAR"),
+                createColumnCheck("ORG_UNIT_KEY", "VARCHAR"),
                 createColumnCheck("AMOUNT_PLAN", "INTEGER"), createColumnCheck("COMMENT", "VARCHAR"));
 
         DatabaseTableCheck accountTable = createTableCheck("ACCOUNT",
@@ -116,17 +110,10 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DatabaseTableCheck yearTable = createTableCheck("YEAR", createColumnCheck("YEAR_KEY", "INTEGER"),
                 createColumnCheck("YEAR_NAME", "VARCHAR"));
 
-        DatabaseTableCheck planStageTable = createTableCheck("PLANSTAGE", createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"), createColumnCheck("YEAR_KEY", "INTEGER"),
-                createColumnCheck("ORDINAL", "INTEGER"));
-
         DatabaseTableCheck orgUnitTable = createTableCheck("ORGUNIT", createColumnCheck("L1_KEY", "VARCHAR"),
                 createColumnCheck("L1_NAME", "VARCHAR"), createColumnCheck("L2_KEY", "VARCHAR"),
                 createColumnCheck("L2_NAME", "VARCHAR"), createColumnCheck("L3_KEY", "VARCHAR"),
                 createColumnCheck("L3_NAME", "VARCHAR"));
-
-        DatabaseTableCheck budgetTable = createTableCheck("BUDGET", createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"));
 
         DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
         databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
@@ -135,9 +122,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseSchemaCheck.getTableChecks().add(bookingWbTable);
         databaseSchemaCheck.getTableChecks().add(accountTable);
         databaseSchemaCheck.getTableChecks().add(yearTable);
-        databaseSchemaCheck.getTableChecks().add(planStageTable);
         databaseSchemaCheck.getTableChecks().add(orgUnitTable);
-        databaseSchemaCheck.getTableChecks().add(budgetTable);
 
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName(CATALOG_NAME);
@@ -161,12 +146,10 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return suite;
     }
 
-    /** Adds the full 5-dimension shape onto the given CubeCheck. */
+    /** Adds the full 3-dimension shape onto the given CubeCheck. */
     private void addAllDimensions(CubeCheck cube) {
         cube.getDimensionChecks().add(createDimensionCheck("Year",
                 createHierarchyCheck("Year", createLevelCheck("Year"))));
-        cube.getDimensionChecks().add(createDimensionCheck("PlanStage",
-                createHierarchyCheck("PlanStage", createLevelCheck("PlanStage"))));
         cube.getDimensionChecks().add(createDimensionCheck("Account",
                 createHierarchyCheck("Account",
                         createLevelCheck("Category"),
@@ -174,8 +157,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                         createLevelCheck("Account"))));
         cube.getDimensionChecks().add(createDimensionCheck("OrgUnit", createHierarchyCheck("OrgUnit",
                 createLevelCheck("L1"), createLevelCheck("L2"), createLevelCheck("L3"))));
-        cube.getDimensionChecks().add(createDimensionCheck("Budget",
-                createHierarchyCheck("Budget", createLevelCheck("Budget"))));
     }
 
     private MeasureCheck createMeasureCheck(String measureName) {

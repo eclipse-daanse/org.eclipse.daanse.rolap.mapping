@@ -46,8 +46,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     @Override
     public OlapCheckSuite get() {
         DimensionCheck yearDim = createDimensionCheck("Year", createHierarchyCheck("Year", createLevelCheck("Year")));
-        DimensionCheck planStageDim = createDimensionCheck("PlanStage",
-                createHierarchyCheck("PlanStage", createLevelCheck("PlanStage")));
         DimensionCheck accountDim = createDimensionCheck("Account",
                 createHierarchyCheck("Account",
                         createLevelCheck("Category"),
@@ -55,8 +53,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
                         createLevelCheck("Account")));
         DimensionCheck orgUnitDim = createDimensionCheck("OrgUnit", createHierarchyCheck("OrgUnit",
                 createLevelCheck("L1"), createLevelCheck("L2"), createLevelCheck("L3")));
-        DimensionCheck budgetDim = createDimensionCheck("Budget",
-                createHierarchyCheck("Budget", createLevelCheck("Budget")));
 
         MeasureCheck amountIst = createMeasureCheck("AmountIst");
         MeasureCheck amountPlan = createMeasureCheck("AmountPlan");
@@ -70,21 +66,20 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getMeasureChecks().add(amountPlan);
         cubeCheck.getMeasureChecks().add(comments);
         cubeCheck.getDimensionChecks().add(yearDim);
-        cubeCheck.getDimensionChecks().add(planStageDim);
         cubeCheck.getDimensionChecks().add(accountDim);
         cubeCheck.getDimensionChecks().add(orgUnitDim);
-        cubeCheck.getDimensionChecks().add(budgetDim);
 
         DatabaseTableCheck bookingTable = createTableCheck("BOOKING", createColumnCheck("BOOKING_ID", "INTEGER"),
-                createColumnCheck("YEAR_KEY", "INTEGER"), createColumnCheck("PLAN_STAGE_KEY", "VARCHAR"),
+                createColumnCheck("YEAR_KEY", "INTEGER"),
                 createColumnCheck("ACCOUNT_KEY", "VARCHAR"), createColumnCheck("ORG_UNIT_KEY", "VARCHAR"),
-                createColumnCheck("BUDGET_KEY", "VARCHAR"), createColumnCheck("AMOUNT_IST", "INTEGER"),
+                createColumnCheck("AMOUNT_IST", "INTEGER"),
                 createColumnCheck("AMOUNT_PLAN", "INTEGER"), createColumnCheck("COMMENT", "VARCHAR"));
 
         DatabaseTableCheck bookingWbTable = createTableCheck("BOOKINGWB", createColumnCheck("ID", "VARCHAR"),
                 createColumnCheck("USER", "VARCHAR"), createColumnCheck("YEAR_KEY", "INTEGER"),
-                createColumnCheck("PLAN_STAGE_KEY", "VARCHAR"), createColumnCheck("ACCOUNT_KEY", "VARCHAR"),
-                createColumnCheck("ORG_UNIT_KEY", "VARCHAR"), createColumnCheck("BUDGET_KEY", "VARCHAR"),
+                createColumnCheck("ACCOUNT_KEY", "VARCHAR"),
+                createColumnCheck("ORG_UNIT_KEY", "VARCHAR"),
+                createColumnCheck("AMOUNT_IST", "INTEGER"),
                 createColumnCheck("AMOUNT_PLAN", "INTEGER"), createColumnCheck("COMMENT", "VARCHAR"));
 
         DatabaseTableCheck accountTable = createTableCheck("ACCOUNT",
@@ -98,17 +93,10 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DatabaseTableCheck yearTable = createTableCheck("YEAR", createColumnCheck("YEAR_KEY", "INTEGER"),
                 createColumnCheck("YEAR_NAME", "VARCHAR"));
 
-        DatabaseTableCheck planStageTable = createTableCheck("PLANSTAGE", createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"), createColumnCheck("YEAR_KEY", "INTEGER"),
-                createColumnCheck("ORDINAL", "INTEGER"));
-
         DatabaseTableCheck orgUnitTable = createTableCheck("ORGUNIT", createColumnCheck("L1_KEY", "VARCHAR"),
                 createColumnCheck("L1_NAME", "VARCHAR"), createColumnCheck("L2_KEY", "VARCHAR"),
                 createColumnCheck("L2_NAME", "VARCHAR"), createColumnCheck("L3_KEY", "VARCHAR"),
                 createColumnCheck("L3_NAME", "VARCHAR"));
-
-        DatabaseTableCheck budgetTable = createTableCheck("BUDGET", createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"));
 
         DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
         databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
@@ -117,9 +105,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         databaseSchemaCheck.getTableChecks().add(bookingWbTable);
         databaseSchemaCheck.getTableChecks().add(accountTable);
         databaseSchemaCheck.getTableChecks().add(yearTable);
-        databaseSchemaCheck.getTableChecks().add(planStageTable);
         databaseSchemaCheck.getTableChecks().add(orgUnitTable);
-        databaseSchemaCheck.getTableChecks().add(budgetTable);
 
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName(CATALOG_NAME);

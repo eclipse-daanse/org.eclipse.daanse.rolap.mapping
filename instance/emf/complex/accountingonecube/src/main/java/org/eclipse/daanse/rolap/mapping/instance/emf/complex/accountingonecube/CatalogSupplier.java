@@ -93,29 +93,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private static final String TABLE_BOOKINGWB = "BOOKINGWB";
     private static final String TABLE_ACCOUNT = "ACCOUNT";
     private static final String TABLE_YEAR = "YEAR";
-    private static final String TABLE_PLANSTAGE = "PLANSTAGE";
     private static final String TABLE_ORGUNIT = "ORGUNIT";
-    private static final String TABLE_BUDGET = "BUDGET";
 
     private static final String DIM_YEAR = "Year";
-    private static final String DIM_PLANSTAGE = "PlanStage";
     private static final String DIM_ACCOUNT = "Account";
     private static final String DIM_ORGUNIT = "OrgUnit";
-    private static final String DIM_BUDGET = "Budget";
 
     private static final String HIGHEST_YEAR = "2027";
-    private static final String HIGHEST_PLAN_STAGE = "P27_DRAFT";
-    /** Display name of the {@link #HIGHEST_PLAN_STAGE} member — taken from PlanStage.NAME. */
-    private static final String HIGHEST_PLAN_STAGE_NAME = "Plan 2027 Draft";
 
     /**
-     * Fully-qualified unique member names for {@code setDefaultMember}. daanse
+     * Fully-qualified unique member name for {@code setDefaultMember}. daanse
      * resolves these against the level's {@code nameColumn}, not its key column,
      * so the trailing segment must be the displayed name, not the database KEY.
      */
     private static final String DEFAULT_YEAR_MEMBER = "[Year].[Year].[" + HIGHEST_YEAR + "]";
-    private static final String DEFAULT_PLAN_STAGE_MEMBER =
-            "[PlanStage].[PlanStage].[" + HIGHEST_PLAN_STAGE_NAME + "]";
 
     private static final String CURRENCY_FORMAT = "#,##0 €";
     private static final String PERCENT_FORMAT = "#,##0.00%";
@@ -138,21 +129,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private TableSource bookingSource;
     private TableSource accountSource;
     private TableSource yearSource;
-    private TableSource planStageSource;
     private TableSource orgUnitSource;
-    private TableSource budgetSource;
 
     private TimeDimension yearDimension;
-    private StandardDimension planStageDimension;
     private StandardDimension accountDimension;
     private StandardDimension orgUnitDimension;
-    private StandardDimension budgetDimension;
 
     private ExplicitHierarchy yearHierarchy;
-    private ExplicitHierarchy planStageHierarchy;
     private ExplicitHierarchy accountHierarchy;
     private ExplicitHierarchy orgUnitHierarchy;
-    private ExplicitHierarchy budgetHierarchy;
     private Level orgUnitLevelL1;
     private Level orgUnitLevelL3;
 
@@ -197,11 +182,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
               true parent-child hierarchy see `tutorial.writeback.parentchild`.
             - **`Year` time dimension** with `TIME_YEARS` semantics and a
               `defaultMember` pinned to the highest year (`2027`).
-            - **`PlanStage` dimension** whose member names include the year they belong
-              to; the row with the highest ordinal (`P27_DRAFT`) is the default member.
             - **Three-level `OrgUnit` dimension** on a single denormalised table; access
               rights are anchored at the lowest level.
-            - **`Budget` dimension** to slice planning data by budget pot.
             - **Currency-formatted measures** (`#,##0 €`) — `AmountIst` and
               `AmountPlan` render as `1.234.567 €` in tools that respect format strings.
             - **`Variance` and `VariancePct` calculated members** — IST vs. PLAN gap
@@ -215,9 +197,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             disabled because their MDX formulas need adjusting to the new
             three-level `Account` hierarchy (Category → Group → Account).
             Re-enable them once the formulas resolve cleanly.
-            - **`BOOKINGWB` writeback table** — plan amounts and comments can be entered
-              per org-unit, budget, account, year and planning stage; IST stays
-              read-only because the writeback table simply has no `AMOUNT_IST` column.
+            - **`BOOKINGWB` writeback table** — actual, plan amounts and comments can be
+              entered per org-unit, account and year.
             - **Six access roles** — one per leaf org unit, one whole-division role, a
               full-access accounting role, and a read-only role that explicitly hides
               the writeback table at the schema level.
@@ -226,28 +207,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private static final String databaseSchemaBody = """
             The database schema contains the following tables:
 
-            - **`BOOKING`** (fact) — `BOOKING_ID`, `YEAR_KEY`, `PLAN_STAGE_KEY`,
-              `ACCOUNT_KEY`, `ORG_UNIT_KEY`, `BUDGET_KEY`, `AMOUNT_IST`, `AMOUNT_PLAN`,
-              `COMMENT`. Both IST and PLAN amounts live in the same row and are exposed
-              as two separate measures. The `COMMENT` column feeds the text-aggregator
-              measure.
+            - **`BOOKING`** (fact) — `BOOKING_ID`, `YEAR_KEY`, `ACCOUNT_KEY`,
+              `ORG_UNIT_KEY`, `AMOUNT_IST`, `AMOUNT_PLAN`, `COMMENT`. Both IST and
+              PLAN amounts live in the same row and are exposed as two separate
+              measures. The `COMMENT` column feeds the text-aggregator measure.
             - **`BOOKINGWB`** (writeback target) — same dimensional key columns as
-              `BOOKING`, plus `ID` and `USER` for audit, plus `AMOUNT_PLAN` and
-              `COMMENT`. Only plan data and comments can be written; `AMOUNT_IST` has
-              no writeback column on purpose.
+              `BOOKING`, plus `ID` and `USER` for audit, plus `AMOUNT_IST`,
+              `AMOUNT_PLAN` and `COMMENT`.
             - **`ACCOUNT`** — single denormalised table with three level keys
               and names: `L1_KEY`/`L1_NAME` (Category, e.g. `EXPENSES`),
               `L2_KEY`/`L2_NAME` (Group, e.g. `PERSONNEL`), `L3_KEY`/`L3_NAME`
               (leaf account, e.g. `SALARIES`). The fact table joins on
               `BOOKING.ACCOUNT_KEY = ACCOUNT.L3_KEY`.
             - **`YEAR`** — `YEAR_KEY`, `YEAR_NAME` (one row per business year).
-            - **`PLANSTAGE`** — `KEY`, `NAME`, `YEAR_KEY`, `ORDINAL`. The `ORDINAL`
-              column drives stable ordering; the highest ordinal wins as default member.
-              The `NAME` always includes the year (e.g. `"Plan 2027 Draft"`).
             - **`ORGUNIT`** — single denormalised table with three level keys and
               names: `L1_KEY`/`L1_NAME`, `L2_KEY`/`L2_NAME`, `L3_KEY`/`L3_NAME`. The
               fact table joins on the lowest level (`L3_KEY`) via `ORG_UNIT_KEY`.
-            - **`BUDGET`** — `KEY`, `NAME` (single-level dimension).
             """;
 
     private static final String factQueryBody = """
@@ -290,19 +265,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             `Can not find Default Member`.
             """;
 
-    private static final String planStageDimensionBody = """
-            A "PlanStage" (Planstufe) groups planning iterations within a year. Every
-            stage name contains the year it belongs to (for example `"Plan 2027 Draft"`).
-
-            The single level is ordered by the `ORDINAL` column via an `OrderedColumn`,
-            and the hierarchy's `defaultMember` is the stage with the highest ordinal,
-            referenced by its fully-qualified unique name
-            `[PlanStage].[PlanStage].[Plan 2027 Draft]`. **Important:** daanse
-            resolves the default-member name against the level's `nameColumn` (the
-            displayed name), not its `column` (the database key). Using the bare
-            `P27_DRAFT` key would fail at cube init.
-            """;
-
     private static final String orgUnitDimensionBody = """
             `OrgUnit` is a three-level explicit hierarchy that lives on a single
             denormalised table. The three levels are `L1` (e.g. the company), `L2`
@@ -313,11 +275,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             Access rights are also pinned to the lowest level: there is one role per
             `L3` member that grants `MemberAccess.ALL` on that member only (its
             ancestors stay visible via `RollupPolicy.FULL`).
-            """;
-
-    private static final String budgetDimensionBody = """
-            `Budget` is a single-level dimension that distinguishes budget pots such as
-            `OPEX`, `CAPEX` or `MARKETING`. Plan amounts are entered per budget pot.
             """;
 
     private static final String measuresBody = """
@@ -444,7 +401,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             ```
 
             Because named-set formulas are re-evaluated against the current slicer,
-            picking a different `Year`, `OrgUnit` or `Budget` automatically refreshes
+            picking a different `Year` or `OrgUnit` automatically refreshes
             the list of overrun accounts.
 
             **`AccountsWithoutComment`** — accounts where no booking carried a
@@ -473,20 +430,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
             | Cube dimension | Writeback column |
             |---|---|
-            | `Year`      | `YEAR_KEY` |
-            | `PlanStage` | `PLAN_STAGE_KEY` |
-            | `Account`   | `ACCOUNT_KEY` |
-            | `OrgUnit`   | `ORG_UNIT_KEY` |
-            | `Budget`    | `BUDGET_KEY` |
+            | `Year`    | `YEAR_KEY` |
+            | `Account` | `ACCOUNT_KEY` |
+            | `OrgUnit` | `ORG_UNIT_KEY` |
 
-            Two `WritebackMeasure` entries describe the writeable measures:
+            Three `WritebackMeasure` entries describe the writeable measures:
 
+            - `AmountIst`  → `AMOUNT_IST`
             - `AmountPlan` → `AMOUNT_PLAN`
             - `Comments`   → `COMMENT`
 
-            `AMOUNT_IST` deliberately has no writeback mapping. The extra `ID` and
-            `USER` columns are technical bookkeeping columns that the writeback engine
-            populates with the row id and the current user.
+            The extra `ID` and `USER` columns are technical bookkeeping columns that
+            the writeback engine populates with the row id and the current user.
 
             **Note on the model package.** `WritebackMeasure` lives in the
             `olap/cube/measure/` ecore package alongside `SumMeasure`,
@@ -595,35 +550,31 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column bookingIdColumn = createColumn("BOOKING_ID", SqlSimpleTypes.Sql99.integerType());
         Column bookingYearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column bookingPlanStageKeyColumn = createColumn("PLAN_STAGE_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column bookingAccountKeyColumn = createColumn("ACCOUNT_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column bookingOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column bookingBudgetKeyColumn = createColumn("BUDGET_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column bookingAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
         Column bookingAmountPlanColumn = createColumn("AMOUNT_PLAN", SqlSimpleTypes.Sql99.integerType());
         Column bookingCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
 
         Table bookingTable = createTable(TABLE_BOOKING,
-                List.of(bookingIdColumn, bookingYearKeyColumn, bookingPlanStageKeyColumn, bookingAccountKeyColumn,
-                        bookingOrgUnitKeyColumn, bookingBudgetKeyColumn, bookingAmountIstColumn,
+                List.of(bookingIdColumn, bookingYearKeyColumn, bookingAccountKeyColumn,
+                        bookingOrgUnitKeyColumn, bookingAmountIstColumn,
                         bookingAmountPlanColumn, bookingCommentColumn));
         databaseSchema.getOwnedElement().add(bookingTable);
 
         Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
         Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
         Column wbYearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column wbPlanStageKeyColumn = createColumn("PLAN_STAGE_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column wbAccountKeyColumn = createColumn("ACCOUNT_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column wbOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column wbBudgetKeyColumn = createColumn("BUDGET_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column wbBookingAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
         Column wbAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
         Column wbAmountPlanColumn = createColumn("AMOUNT_PLAN", SqlSimpleTypes.Sql99.integerType());
         Column wbCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
 
         writebackPhysicalTable = createTable(TABLE_BOOKINGWB,
-                List.of(wbIdColumn, wbUserColumn, wbYearKeyColumn, wbPlanStageKeyColumn, wbAccountKeyColumn,
-                        wbOrgUnitKeyColumn, wbBudgetKeyColumn, wbBookingAmountIstColumn, wbAmountPlanColumn, wbCommentColumn));
+                List.of(wbIdColumn, wbUserColumn, wbYearKeyColumn, wbAccountKeyColumn,
+                        wbOrgUnitKeyColumn, wbBookingAmountIstColumn, wbAmountPlanColumn, wbCommentColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);
 
         // Account dimension is a 3-level explicit hierarchy on a single
@@ -649,15 +600,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Table yearTable = createTable(TABLE_YEAR, List.of(yearKeyColumn, yearNameColumn));
         databaseSchema.getOwnedElement().add(yearTable);
 
-        Column planStageKeyColumn = createColumn("KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column planStageNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column planStageYearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column planStageOrdinalColumn = createColumn("ORDINAL", SqlSimpleTypes.Sql99.integerType());
-
-        Table planStageTable = createTable(TABLE_PLANSTAGE,
-                List.of(planStageKeyColumn, planStageNameColumn, planStageYearKeyColumn, planStageOrdinalColumn));
-        databaseSchema.getOwnedElement().add(planStageTable);
-
         Column ouL1KeyColumn = createColumn("L1_KEY", SqlSimpleTypes.Sql99.varcharType());
         Column ouL1NameColumn = createColumn("L1_NAME", SqlSimpleTypes.Sql99.varcharType());
         Column ouL2KeyColumn = createColumn("L2_KEY", SqlSimpleTypes.Sql99.varcharType());
@@ -669,12 +611,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 List.of(ouL1KeyColumn, ouL1NameColumn, ouL2KeyColumn, ouL2NameColumn, ouL3KeyColumn, ouL3NameColumn));
         databaseSchema.getOwnedElement().add(orgUnitTable);
 
-        Column budgetKeyColumn = createColumn("KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column budgetNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
-
-        Table budgetTable = createTable(TABLE_BUDGET, List.of(budgetKeyColumn, budgetNameColumn));
-        databaseSchema.getOwnedElement().add(budgetTable);
-
         bookingSource = SourceFactory.eINSTANCE.createTableSource();
         bookingSource.setTable(bookingTable);
 
@@ -684,14 +620,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         yearSource = SourceFactory.eINSTANCE.createTableSource();
         yearSource.setTable(yearTable);
 
-        planStageSource = SourceFactory.eINSTANCE.createTableSource();
-        planStageSource.setTable(planStageTable);
-
         orgUnitSource = SourceFactory.eINSTANCE.createTableSource();
         orgUnitSource.setTable(orgUnitTable);
-
-        budgetSource = SourceFactory.eINSTANCE.createTableSource();
-        budgetSource.setTable(budgetTable);
 
         Level yearLevel = LevelFactory.eINSTANCE.createLevel();
         yearLevel.setName("Year");
@@ -712,29 +642,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         yearDimension = DimensionFactory.eINSTANCE.createTimeDimension();
         yearDimension.setName(DIM_YEAR);
         yearDimension.getHierarchies().add(yearHierarchy);
-
-        OrderedColumn planStageOrderedColumn = RelationalFactory.eINSTANCE.createOrderedColumn();
-        planStageOrderedColumn.setColumn(planStageOrdinalColumn);
-
-        Level planStageLevel = LevelFactory.eINSTANCE.createLevel();
-        planStageLevel.setName("PlanStage");
-        planStageLevel.setColumn(planStageKeyColumn);
-        planStageLevel.setNameColumn(planStageNameColumn);
-        planStageLevel.setUniqueMembers(true);
-        planStageLevel.getOrdinalColumns().add(planStageOrderedColumn);
-
-        planStageHierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
-        planStageHierarchy.setName(DIM_PLANSTAGE);
-        planStageHierarchy.setHasAll(true);
-        planStageHierarchy.setAllMemberName("All Plan Stages");
-        planStageHierarchy.setPrimaryKey(planStageKeyColumn);
-        planStageHierarchy.setSource(planStageSource);
-        planStageHierarchy.setDefaultMember(DEFAULT_PLAN_STAGE_MEMBER);
-        planStageHierarchy.getLevels().add(planStageLevel);
-
-        planStageDimension = DimensionFactory.eINSTANCE.createStandardDimension();
-        planStageDimension.setName(DIM_PLANSTAGE);
-        planStageDimension.getHierarchies().add(planStageHierarchy);
 
         Level accountLevelL1 = LevelFactory.eINSTANCE.createLevel();
         accountLevelL1.setName("Category");
@@ -795,24 +702,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         orgUnitDimension = DimensionFactory.eINSTANCE.createStandardDimension();
         orgUnitDimension.setName(DIM_ORGUNIT);
         orgUnitDimension.getHierarchies().add(orgUnitHierarchy);
-
-        Level budgetLevel = LevelFactory.eINSTANCE.createLevel();
-        budgetLevel.setName("Budget");
-        budgetLevel.setColumn(budgetKeyColumn);
-        budgetLevel.setNameColumn(budgetNameColumn);
-        budgetLevel.setUniqueMembers(true);
-
-        budgetHierarchy = HierarchyFactory.eINSTANCE.createExplicitHierarchy();
-        budgetHierarchy.setName(DIM_BUDGET);
-        budgetHierarchy.setHasAll(true);
-        budgetHierarchy.setAllMemberName("All Budgets");
-        budgetHierarchy.setPrimaryKey(budgetKeyColumn);
-        budgetHierarchy.setSource(budgetSource);
-        budgetHierarchy.getLevels().add(budgetLevel);
-
-        budgetDimension = DimensionFactory.eINSTANCE.createStandardDimension();
-        budgetDimension.setName(DIM_BUDGET);
-        budgetDimension.getHierarchies().add(budgetHierarchy);
 
         amountIstMeasure = MeasureFactory.eINSTANCE.createSumMeasure();
         amountIstMeasure.setName("AmountIst");
@@ -895,11 +784,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         yearConnector.setDimension(yearDimension);
         yearConnector.setForeignKey(bookingYearKeyColumn);
 
-        DimensionConnector planStageConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        planStageConnector.setOverrideDimensionName(DIM_PLANSTAGE);
-        planStageConnector.setDimension(planStageDimension);
-        planStageConnector.setForeignKey(bookingPlanStageKeyColumn);
-
         DimensionConnector accountConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
         accountConnector.setOverrideDimensionName(DIM_ACCOUNT);
         accountConnector.setDimension(accountDimension);
@@ -910,16 +794,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         orgUnitConnector.setDimension(orgUnitDimension);
         orgUnitConnector.setForeignKey(bookingOrgUnitKeyColumn);
 
-        DimensionConnector budgetConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        budgetConnector.setOverrideDimensionName(DIM_BUDGET);
-        budgetConnector.setDimension(budgetDimension);
-        budgetConnector.setForeignKey(bookingBudgetKeyColumn);
-
         WritebackAttribute wbYearAttribute = createWritebackAttribute(yearConnector, wbYearKeyColumn);
-        WritebackAttribute wbPlanStageAttribute = createWritebackAttribute(planStageConnector, wbPlanStageKeyColumn);
         WritebackAttribute wbAccountAttribute = createWritebackAttribute(accountConnector, wbAccountKeyColumn);
         WritebackAttribute wbOrgUnitAttribute = createWritebackAttribute(orgUnitConnector, wbOrgUnitKeyColumn);
-        WritebackAttribute wbBudgetAttribute = createWritebackAttribute(budgetConnector, wbBudgetKeyColumn);
 
         WritebackMeasure wbAmountPlanMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbAmountPlanMeasure.setName("AmountPlan");
@@ -935,15 +812,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         writebackTable = WritebackFactory.eINSTANCE.createWritebackTable();
         writebackTable.setName(TABLE_BOOKINGWB);
-        writebackTable.getWritebackAttribute().addAll(List.of(wbYearAttribute, wbPlanStageAttribute, wbAccountAttribute,
-                wbOrgUnitAttribute, wbBudgetAttribute));
+        writebackTable.getWritebackAttribute().addAll(List.of(wbYearAttribute, wbAccountAttribute, wbOrgUnitAttribute));
         writebackTable.getWritebackMeasure().addAll(List.of(wbAmountIstMeasure, wbAmountPlanMeasure, wbCommentsMeasure));
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE_NAME);
         cube.setSource(bookingSource);
-        cube.getDimensionConnectors().addAll(
-                List.of(yearConnector, planStageConnector, accountConnector, orgUnitConnector, budgetConnector));
+        cube.getDimensionConnectors().addAll(List.of(yearConnector, accountConnector, orgUnitConnector));
         cube.getMeasureGroups().add(measureGroup);
         cube.getCalculatedMembers().addAll(List.of(varianceMember, variancePctMember));
         // KPI and named sets disabled — re-enable after fixing formulas.
@@ -967,12 +842,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.setDescription("Accounting catalog with IST/PLAN postings, parent-child accounts, "
-                + "three-level org units, planning stages, budgets, writeback for plan data and "
-                + "text-aggregated comments. Includes Variance/VariancePct calculated members, "
-                + "a BudgetUtilization KPI, a Top-5 expense accounts named set and a set of "
-                + "access roles ranging from single-department to division-wide, an accounting "
-                + "all-access role and a read-only role.");
+        catalog.setDescription("Accounting catalog with IST/PLAN postings, three-level accounts and "
+                + "org units, writeback for actual, plan data and text-aggregated comments. "
+                + "Includes Variance/VariancePct calculated members and a set of access roles "
+                + "ranging from single-department to division-wide, an accounting all-access "
+                + "role and a read-only role.");
         catalog.getDbschemas().add(databaseSchema);
         catalog.getCubes().add(cube);
         catalog.getAccessRoles()
@@ -990,10 +864,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 new DocSection("Account (parent-child Sachkonto)", accountDimensionBody, 1, 3, 0, accountDimension, 0),
                 new DocSection("Year (TimeDimension, default = " + HIGHEST_YEAR + ")", yearDimensionBody, 1, 4, 0,
                         yearDimension, 0),
-                new DocSection("PlanStage (default = " + HIGHEST_PLAN_STAGE + ")", planStageDimensionBody, 1, 5, 0,
-                        planStageDimension, 0),
                 new DocSection("OrgUnit (three-level)", orgUnitDimensionBody, 1, 6, 0, orgUnitDimension, 0),
-                new DocSection("Budget", budgetDimensionBody, 1, 7, 0, budgetDimension, 0),
                 new DocSection("Measures (IST / PLAN / Comments)", measuresBody, 1, 8, 0, null, 0),
                 new DocSection("Currency Format", currencyFormatBody, 1, 9, 0, amountIstMeasure, 0),
                 new DocSection("Calculated Members (Variance, VariancePct)", calculatedMembersBody, 1, 10, 0,
