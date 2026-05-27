@@ -1,0 +1,5 @@
+REGION,NAME
+VARCHAR,VARCHAR
+N,North
+S,South
+E,East

@@ -1,0 +1,7 @@
+PRODUCT,CITY,AMOUNT,COMMENT
+VARCHAR,VARCHAR,DECIMAL,VARCHAR
+P1,BER,19.95,launch promo
+P1,MUC,21.50,
+P2,BER,99.00,bulk order
+P2,VIE,42.00,winter discount
+P3,VIE,12.75,sample shipment

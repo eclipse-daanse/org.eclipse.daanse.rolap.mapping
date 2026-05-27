@@ -181,7 +181,7 @@ import org.eclipse.daanse.rolap.mapping.model.Translation;
 import org.eclipse.daanse.rolap.mapping.model.ViewTable;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
-import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackMeasure;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.model.impl.InlineTableImpl;
 import org.eclipse.daanse.rolap.mapping.model.impl.PhysicalColumnImpl;
@@ -834,7 +834,7 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @Override
     protected WritebackMeasureMapping createwritebackMeasure(ColumnMapping column, String name) {
-        WritebackMeasure writebackMeasure = WritebackFactory.eINSTANCE.createWritebackMeasure();
+        WritebackMeasure writebackMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         writebackMeasure.setColumn((Column) column);
         writebackMeasure.setName(name);
         return writebackMeasure;

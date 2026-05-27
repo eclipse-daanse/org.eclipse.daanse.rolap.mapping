@@ -1211,22 +1211,6 @@
           </eAnnotations>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure">
-        <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="Defines a measure that participates in writeback operations, enabling sophisticated collaborative planning, budgeting, forecasting, and analytical data modification scenarios where business users can directly update measure values through OLAP client applications and have those changes automatically persisted to designated database tables."/>
-        </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
-          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-            <details key="documentation" value="Required reference to the database Column that stores the measure values that can be modified through writeback operations, establishing the physical data storage location where updated measure values will be persisted when users perform analytical data modifications."/>
-          </eAnnotations>
-        </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-            <details key="documentation" value="Logical name identifier for the measure that will be modified through writeback operations. This name is used to reference the measure in allocation policies and writeback procedures, corresponding to the measure definition in the cube schema."/>
-          </eAnnotations>
-        </eStructuralFeatures>
-      </eClassifiers>
       <eClassifiers xsi:type="ecore:EClass" name="WritebackTable">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Defines the physical database table structure that receives modified analytical data when users perform writeback operations. Maps cube measures and dimensional attributes to specific database columns where user modifications are persisted. Required for cubes that support data modification through OLAP interfaces. Integrates with WritebackUtil for SQL generation and allocation policy processing."/>
@@ -1238,7 +1222,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="writebackMeasure" upperBound="-1"
-            eType="#//database/writeback/WritebackMeasure" containment="true">
+            eType="#//olap/cube/measure/WritebackMeasure" containment="true">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Collection of measures that can be modified through writeback operations. Each WritebackMeasure maps a cube measure to a database column where modified values are stored. Supports allocation policies (equal, weighted, increment) for distributing values across atomic cells."/>
           </eAnnotations>
@@ -1787,6 +1771,22 @@
               <details key="documentation" value="Continuous percentage calculation using interpolated values for smooth statistical distributions and percentile analysis."/>
             </eAnnotations>
           </eLiterals>
+        </eClassifiers>
+        <eClassifiers xsi:type="ecore:EClass" name="WritebackMeasure">
+          <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+            <details key="documentation" value="Defines a measure that participates in writeback operations, enabling sophisticated collaborative planning, budgeting, forecasting, and analytical data modification scenarios where business users can directly update measure values through OLAP client applications and have those changes automatically persisted to designated database tables. Conceptually a measure (lives in the olap.cube.measure package); paired with a database Column that stores the modified value."/>
+          </eAnnotations>
+          <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="Required reference to the database Column that stores the measure values that can be modified through writeback operations, establishing the physical data storage location where updated measure values will be persisted when users perform analytical data modifications."/>
+            </eAnnotations>
+          </eStructuralFeatures>
+          <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+            <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+              <details key="documentation" value="Logical name identifier for the cube measure that will be modified through writeback operations. This name resolves to the corresponding base measure (SumMeasure, TextAggMeasure, etc.) in the cube schema; the runtime uses the resolved measure's aggregator to decide the SQL bind type (text vs numeric)."/>
+            </eAnnotations>
+          </eStructuralFeatures>
         </eClassifiers>
       </eSubpackages>
     </eSubpackages>
