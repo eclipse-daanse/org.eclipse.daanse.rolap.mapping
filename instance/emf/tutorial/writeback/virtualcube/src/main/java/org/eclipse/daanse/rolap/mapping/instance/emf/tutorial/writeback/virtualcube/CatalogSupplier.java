@@ -286,6 +286,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         regConn1.setDimension(regionDimension);
         regConn1.setForeignKey(factNRegionColumn);
 
+        DimensionConnector catConn3 = DimensionFactory.eINSTANCE.createDimensionConnector();
+        catConn3.setOverrideDimensionName("Category");
+        catConn3.setDimension(categoryDimension);
+        catConn3.setForeignKey(factNCategoryColumn);
+
+        DimensionConnector regConn3 = DimensionFactory.eINSTANCE.createDimensionConnector();
+        regConn3.setOverrideDimensionName("Region");
+        regConn3.setDimension(regionDimension);
+        regConn3.setForeignKey(factNRegionColumn);
+        
         DimensionConnector catConn2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         catConn2.setOverrideDimensionName("Category");
         catConn2.setDimension(categoryDimension);
@@ -353,7 +363,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName(CUBE_V);
         vCube.setDefaultMeasure(amountMeasure);
-        vCube.getDimensionConnectors().addAll(List.of(catConn1, regConn1, catConn2, regConn2));
+        vCube.getDimensionConnectors().addAll(List.of(catConn3, regConn3));
         vCube.getReferencedMeasures().addAll(List.of(amountMeasure, commentsMeasure));
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
