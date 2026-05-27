@@ -60,6 +60,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.Kpi;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.MeasureGroup;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.PhysicalCube;
+import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.SumMeasure;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.TextAggMeasure;
@@ -87,7 +88,9 @@ import org.osgi.service.component.annotations.Component;
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
 
     private static final String CATALOG_NAME = "Accounting";
-    private static final String CUBE_NAME = "Accounting";
+    private static final String CUBE_IST_NAME = "AccountingIst";
+    private static final String CUBE_WB_NAME = "AccountingWb";
+    private static final String CUBE_V_NAME = "Accounting";
 
     private static final String TABLE_BOOKING = "BOOKING";
     private static final String TABLE_BOOKINGWB = "BOOKINGWB";
@@ -131,7 +134,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private Catalog catalog;
     private Schema databaseSchema;
 
-    private PhysicalCube cube;
+    private PhysicalCube cubeIst;
+    private PhysicalCube cubeWb;
+    private VirtualCube vCube;
     private WritebackTable writebackTable;
     private Table writebackPhysicalTable;
 
@@ -159,8 +164,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private SumMeasure amountIstMeasure;
     private SumMeasure amountPlanMeasure;
     private TextAggMeasure commentsMeasure;
-    private CalculatedMember varianceMember;
-    private CalculatedMember variancePctMember;
     // KPI and named sets temporarily disabled — the KPI status/value formulas
     // reference measures that are not yet resolvable in the current daanse
     // engine, and the named-set Descendants() formulas need adjusting now that
@@ -575,13 +578,32 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             dimensions) remain accessible.
             """;
 
-    private static final String cubeBody = """
-            The `Accounting` physical cube binds everything together. It uses the
-            `BOOKING` fact `TableSource`, declares one `DimensionConnector` per
-            dimension (each with its own `ForeignKey` column on the fact), groups the
-            three measures `AmountIst`, `AmountPlan` and `Comments` in a single
-            `MeasureGroup`, and references the `BOOKINGWB` `WritebackTable` so plan
-            data and comments can be entered.
+    private static final String cubeIstBody = """
+            `AccountingIst` is the read-only `PhysicalCube` over `BOOKING`. It carries
+            **only** the `AmountIst` measure and has no `writebackTable` — actuals are
+            read but never written. All five dimensions are wired through their own
+            `DimensionConnector` instances (`yearConn1`, `planStageConn1`, …),
+            distinct from the `AccountingWb` cube's connectors but pointing at the
+            same shared `StandardDimension` instances.
+            """;
+
+    private static final String cubeWbBody = """
+            `AccountingWb` is the writeback-enabled `PhysicalCube` over the same
+            `BOOKING` fact table. It holds two measures — `AmountPlan` (numeric
+            writeback) and `Comments` (text writeback via `TextAggMeasure` /
+            `ListAggAggregator`) — and binds the `BOOKINGWB` writeback table.
+            Each cell-update on either measure produces a row in `BOOKINGWB`: a
+            numeric value for `AmountPlan` via allocation, a single per-coordinate
+            row for `Comments` via the text short-path.
+            """;
+
+    private static final String cubeVBody = """
+            `Accounting` is a `VirtualCube` that combines `AccountingIst` and
+            `AccountingWb` and exposes all three measures (`AmountIst`,
+            `AmountPlan`, `Comments`) together. It is the public-facing cube — the
+            name `Accounting` is preserved so existing client tools, MDX
+            statements and saved reports continue to work after the split.
+            `defaultMeasure` points at `AmountIst`.
             """;
 
     @Override
@@ -831,25 +853,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         commentsMeasure.setSeparator(" | ");
         commentsMeasure.getOrderByColumns().add(commentOrderedColumn);
 
-        MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
-        measureGroup.getMeasures().addAll(List.of(amountIstMeasure, amountPlanMeasure, commentsMeasure));
+        MeasureGroup measureGroupIst = CubeFactory.eINSTANCE.createMeasureGroup();
+        measureGroupIst.getMeasures().add(amountIstMeasure);
 
-        varianceMember = LevelFactory.eINSTANCE.createCalculatedMember();
-        varianceMember.setName("Variance");
-        varianceMember.setFormula("[Measures].[AmountIst] - [Measures].[AmountPlan]");
-        CalculatedMemberProperty varianceFormatProp = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
-        varianceFormatProp.setName("FORMAT_STRING");
-        varianceFormatProp.setValue(VARIANCE_FORMAT);
-        varianceMember.getCalculatedMemberProperties().add(varianceFormatProp);
-
-        variancePctMember = LevelFactory.eINSTANCE.createCalculatedMember();
-        variancePctMember.setName("VariancePct");
-        variancePctMember.setFormula("iif([Measures].[AmountPlan] = 0, NULL,"
-                + " ([Measures].[AmountIst] - [Measures].[AmountPlan]) / [Measures].[AmountPlan])");
-        CalculatedMemberProperty variancePctFormatProp = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
-        variancePctFormatProp.setName("FORMAT_STRING");
-        variancePctFormatProp.setValue(VARIANCE_PCT_FORMAT);
-        variancePctMember.getCalculatedMemberProperties().add(variancePctFormatProp);
+        MeasureGroup measureGroupWb = CubeFactory.eINSTANCE.createMeasureGroup();
+        measureGroupWb.getMeasures().addAll(List.of(amountPlanMeasure, commentsMeasure));
 
         // KPI and named sets temporarily disabled — formulas need rework
         // (see field declarations above).
@@ -888,36 +896,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         //                 + " IsEmpty([Measures].[Comments]))");
         // accountsWithoutCommentSet.setDisplayFolder("Analysis");
 
-        DimensionConnector yearConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        yearConnector.setOverrideDimensionName(DIM_YEAR);
-        yearConnector.setDimension(yearDimension);
-        yearConnector.setForeignKey(bookingYearKeyColumn);
+        // Per-cube DimensionConnectors. Both PhysicalCubes need their own
+        // connector instances pointing at the same shared StandardDimension —
+        // mirrors the pattern used in tutorial/virtualcube/dimensions.
+        DimensionConnector yearConn1 = createConnector(DIM_YEAR, yearDimension, bookingYearKeyColumn);
+        DimensionConnector planStageConn1 = createConnector(DIM_PLANSTAGE, planStageDimension, bookingPlanStageKeyColumn);
+        DimensionConnector accountConn1 = createConnector(DIM_ACCOUNT, accountDimension, bookingAccountKeyColumn);
+        DimensionConnector orgUnitConn1 = createConnector(DIM_ORGUNIT, orgUnitDimension, bookingOrgUnitKeyColumn);
+        DimensionConnector budgetConn1 = createConnector(DIM_BUDGET, budgetDimension, bookingBudgetKeyColumn);
 
-        DimensionConnector planStageConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        planStageConnector.setOverrideDimensionName(DIM_PLANSTAGE);
-        planStageConnector.setDimension(planStageDimension);
-        planStageConnector.setForeignKey(bookingPlanStageKeyColumn);
+        DimensionConnector yearConn2 = createConnector(DIM_YEAR, yearDimension, bookingYearKeyColumn);
+        DimensionConnector planStageConn2 = createConnector(DIM_PLANSTAGE, planStageDimension, bookingPlanStageKeyColumn);
+        DimensionConnector accountConn2 = createConnector(DIM_ACCOUNT, accountDimension, bookingAccountKeyColumn);
+        DimensionConnector orgUnitConn2 = createConnector(DIM_ORGUNIT, orgUnitDimension, bookingOrgUnitKeyColumn);
+        DimensionConnector budgetConn2 = createConnector(DIM_BUDGET, budgetDimension, bookingBudgetKeyColumn);
 
-        DimensionConnector accountConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        accountConnector.setOverrideDimensionName(DIM_ACCOUNT);
-        accountConnector.setDimension(accountDimension);
-        accountConnector.setForeignKey(bookingAccountKeyColumn);
-
-        DimensionConnector orgUnitConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        orgUnitConnector.setOverrideDimensionName(DIM_ORGUNIT);
-        orgUnitConnector.setDimension(orgUnitDimension);
-        orgUnitConnector.setForeignKey(bookingOrgUnitKeyColumn);
-
-        DimensionConnector budgetConnector = DimensionFactory.eINSTANCE.createDimensionConnector();
-        budgetConnector.setOverrideDimensionName(DIM_BUDGET);
-        budgetConnector.setDimension(budgetDimension);
-        budgetConnector.setForeignKey(bookingBudgetKeyColumn);
-
-        WritebackAttribute wbYearAttribute = createWritebackAttribute(yearConnector, wbYearKeyColumn);
-        WritebackAttribute wbPlanStageAttribute = createWritebackAttribute(planStageConnector, wbPlanStageKeyColumn);
-        WritebackAttribute wbAccountAttribute = createWritebackAttribute(accountConnector, wbAccountKeyColumn);
-        WritebackAttribute wbOrgUnitAttribute = createWritebackAttribute(orgUnitConnector, wbOrgUnitKeyColumn);
-        WritebackAttribute wbBudgetAttribute = createWritebackAttribute(budgetConnector, wbBudgetKeyColumn);
+        // Writeback attributes target the writeback cube's connectors (Conn2).
+        WritebackAttribute wbYearAttribute = createWritebackAttribute(yearConn2, wbYearKeyColumn);
+        WritebackAttribute wbPlanStageAttribute = createWritebackAttribute(planStageConn2, wbPlanStageKeyColumn);
+        WritebackAttribute wbAccountAttribute = createWritebackAttribute(accountConn2, wbAccountKeyColumn);
+        WritebackAttribute wbOrgUnitAttribute = createWritebackAttribute(orgUnitConn2, wbOrgUnitKeyColumn);
+        WritebackAttribute wbBudgetAttribute = createWritebackAttribute(budgetConn2, wbBudgetKeyColumn);
 
         WritebackMeasure wbAmountPlanMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbAmountPlanMeasure.setName("AmountPlan");
@@ -933,17 +932,34 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 wbOrgUnitAttribute, wbBudgetAttribute));
         writebackTable.getWritebackMeasure().addAll(List.of(wbAmountPlanMeasure, wbCommentsMeasure));
 
-        cube = CubeFactory.eINSTANCE.createPhysicalCube();
-        cube.setName(CUBE_NAME);
-        cube.setSource(bookingSource);
-        cube.getDimensionConnectors().addAll(
-                List.of(yearConnector, planStageConnector, accountConnector, orgUnitConnector, budgetConnector));
-        cube.getMeasureGroups().add(measureGroup);
-        cube.getCalculatedMembers().addAll(List.of(varianceMember, variancePctMember));
-        // KPI and named sets disabled — re-enable after fixing formulas.
-        // cube.getKpis().add(budgetUtilizationKpi);
-        // cube.getNamedSets().addAll(List.of(topExpenseAccountsSet, planOverrunSet, accountsWithoutCommentSet));
-        cube.setWritebackTable(writebackTable);
+        // Cube 1 — read-only, holds only AmountIst. No writeback table.
+        cubeIst = CubeFactory.eINSTANCE.createPhysicalCube();
+        cubeIst.setName(CUBE_IST_NAME);
+        cubeIst.setSource(bookingSource);
+        cubeIst.getDimensionConnectors().addAll(
+                List.of(yearConn1, planStageConn1, accountConn1, orgUnitConn1, budgetConn1));
+        cubeIst.getMeasureGroups().add(measureGroupIst);
+
+        // Cube 2 — writeback-enabled, holds AmountPlan + Comments and binds
+        // the BOOKINGWB writeback table.
+        cubeWb = CubeFactory.eINSTANCE.createPhysicalCube();
+        cubeWb.setName(CUBE_WB_NAME);
+        cubeWb.setSource(bookingSource);
+        cubeWb.getDimensionConnectors().addAll(
+                List.of(yearConn2, planStageConn2, accountConn2, orgUnitConn2, budgetConn2));
+        cubeWb.getMeasureGroups().add(measureGroupWb);
+        cubeWb.setWritebackTable(writebackTable);
+
+        // VirtualCube — combines both physical cubes and exposes all three
+        // measures together. Keeps the original public name "Accounting" so
+        // existing clients don't break.
+        vCube = CubeFactory.eINSTANCE.createVirtualCube();
+        vCube.setName(CUBE_V_NAME);
+        vCube.setDefaultMeasure(amountIstMeasure);
+        vCube.getDimensionConnectors().addAll(List.of(
+                yearConn1, planStageConn1, accountConn1, orgUnitConn1, budgetConn1,
+                yearConn2, planStageConn2, accountConn2, orgUnitConn2, budgetConn2));
+        vCube.getReferencedMeasures().addAll(List.of(amountIstMeasure, amountPlanMeasure, commentsMeasure));
 
         // Member unique names use the level's nameColumn value (the display name),
         // not the database KEY — same rule as setDefaultMember above. The
@@ -961,14 +977,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.setDescription("Accounting catalog with IST/PLAN postings, parent-child accounts, "
-                + "three-level org units, planning stages, budgets, writeback for plan data and "
-                + "text-aggregated comments. Includes Variance/VariancePct calculated members, "
-                + "a BudgetUtilization KPI, a Top-5 expense accounts named set and a set of "
-                + "access roles ranging from single-department to division-wide, an accounting "
-                + "all-access role and a read-only role.");
+        catalog.setDescription("Accounting catalog split into three cubes: "
+                + "AccountingIst (read-only, holds AmountIst), "
+                + "AccountingWb (writeback-enabled, holds AmountPlan + Comments with the BOOKINGWB writeback table), "
+                + "and Accounting (VirtualCube combining both — the public-facing cube). "
+                + "All three share the same five dimensions (Year, PlanStage, Account, OrgUnit, Budget) "
+                + "and read from the same BOOKING fact table. Access roles ranging from single-department "
+                + "to division-wide grant on all three cubes.");
         catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().add(cube);
+        catalog.getCubes().addAll(List.of(cubeIst, cubeWb, vCube));
         catalog.getAccessRoles()
                 .addAll(List.of(roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly));
 
@@ -990,8 +1007,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 new DocSection("Budget", budgetDimensionBody, 1, 7, 0, budgetDimension, 0),
                 new DocSection("Measures (IST / PLAN / Comments)", measuresBody, 1, 8, 0, null, 0),
                 new DocSection("Currency Format", currencyFormatBody, 1, 9, 0, amountIstMeasure, 0),
-                new DocSection("Calculated Members (Variance, VariancePct)", calculatedMembersBody, 1, 10, 0,
-                        varianceMember, 0),
                 // KPI and named-set DocSections disabled while their underlying
                 // model elements are commented out (bad formulas):
                 // new DocSection("KPI (BudgetUtilization)", kpiBody, 1, 11, 0, budgetUtilizationKpi, 0),
@@ -1001,7 +1016,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 new DocSection("Access Roles", rolesBody, 1, 14, 0, roleAccounting, 0),
                 new DocSection("Whole-Division Role (role_division_A)", divisionRoleBody, 1, 15, 0, roleDivisionA, 2),
                 new DocSection("Read-Only Role (role_readonly)", readonlyRoleBody, 1, 16, 0, roleReadonly, 2),
-                new DocSection("Cube", cubeBody, 1, 17, 0, cube, 2)), List.of(new CatalogRef("catalog", () -> c)));
+                new DocSection("Cube AccountingIst (read-only)", cubeIstBody, 1, 17, 0, cubeIst, 2),
+                new DocSection("Cube AccountingWb (writeback)", cubeWbBody, 1, 18, 0, cubeWb, 2),
+                new DocSection("Virtual Cube Accounting", cubeVBody, 1, 19, 0, vCube, 2)),
+                List.of(new CatalogRef("catalog", () -> c)));
     }
 
     private static Column createColumn(String name,
@@ -1026,11 +1044,32 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         return a;
     }
 
-    private AccessRole createOrgUnitRole(String roleName, String memberName) {
-        AccessDatabaseSchemaGrant dbGrant = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
-        dbGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
-        dbGrant.setDatabaseSchema(databaseSchema);
+    private static DimensionConnector createConnector(String name,
+            org.eclipse.daanse.rolap.mapping.model.olap.dimension.Dimension dim, Column foreignKey) {
+        DimensionConnector c = DimensionFactory.eINSTANCE.createDimensionConnector();
+        c.setOverrideDimensionName(name);
+        c.setDimension(dim);
+        c.setForeignKey(foreignKey);
+        return c;
+    }
 
+    /**
+     * Builds an {@link AccessCubeGrant} for the given cube with full access
+     * and (optionally) a single hierarchy restriction. Used to fan a single
+     * role out across all three cubes (Ist, Wb, virtual) after the split.
+     */
+    private AccessCubeGrant cubeGrantAll(org.eclipse.daanse.rolap.mapping.model.olap.cube.Cube targetCube,
+            AccessHierarchyGrant hierarchyGrant) {
+        AccessCubeGrant cubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
+        cubeGrant.setCube(targetCube);
+        cubeGrant.setCubeAccess(CubeAccess.ALL);
+        if (hierarchyGrant != null) {
+            cubeGrant.getHierarchyGrants().add(hierarchyGrant);
+        }
+        return cubeGrant;
+    }
+
+    private AccessHierarchyGrant orgUnitHierarchyGrant(String memberName, Level topLevel, Level bottomLevel) {
         AccessMemberGrant memberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
         memberGrant.setMemberAccess(MemberAccess.ALL);
         memberGrant.setMember(memberName);
@@ -1038,19 +1077,28 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         AccessHierarchyGrant hierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant.setHierarchy(orgUnitHierarchy);
         hierarchyGrant.setHierarchyAccess(HierarchyAccess.CUSTOM);
-        hierarchyGrant.setTopLevel(orgUnitLevelL3);
-        hierarchyGrant.setBottomLevel(orgUnitLevelL3);
+        hierarchyGrant.setTopLevel(topLevel);
+        hierarchyGrant.setBottomLevel(bottomLevel);
         hierarchyGrant.setRollupPolicy(RollupPolicy.FULL);
         hierarchyGrant.getMemberGrants().add(memberGrant);
+        return hierarchyGrant;
+    }
 
-        AccessCubeGrant cubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
-        cubeGrant.setCube(cube);
-        cubeGrant.setCubeAccess(CubeAccess.ALL);
-        cubeGrant.getHierarchyGrants().add(hierarchyGrant);
+    private AccessRole createOrgUnitRole(String roleName, String memberName) {
+        AccessDatabaseSchemaGrant dbGrant = DatabaseFactory.eINSTANCE.createAccessDatabaseSchemaGrant();
+        dbGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
+        dbGrant.setDatabaseSchema(databaseSchema);
 
+        // Each cube needs its own AccessHierarchyGrant — they aren't reusable
+        // across CubeGrants because each grant owns its hierarchy-grant child.
         AccessCatalogGrant catalogGrant = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         catalogGrant.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        catalogGrant.getCubeGrants().add(cubeGrant);
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(cubeIst, orgUnitHierarchyGrant(memberName, orgUnitLevelL3, orgUnitLevelL3)));
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(cubeWb, orgUnitHierarchyGrant(memberName, orgUnitLevelL3, orgUnitLevelL3)));
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(vCube, orgUnitHierarchyGrant(memberName, orgUnitLevelL3, orgUnitLevelL3)));
         catalogGrant.getDatabaseSchemaGrants().add(dbGrant);
 
         AccessRole role = CommonFactory.eINSTANCE.createAccessRole();
@@ -1064,13 +1112,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dbGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         dbGrant.setDatabaseSchema(databaseSchema);
 
-        AccessCubeGrant cubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
-        cubeGrant.setCube(cube);
-        cubeGrant.setCubeAccess(CubeAccess.ALL);
-
         AccessCatalogGrant catalogGrant = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         catalogGrant.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        catalogGrant.getCubeGrants().add(cubeGrant);
+        catalogGrant.getCubeGrants().add(cubeGrantAll(cubeIst, null));
+        catalogGrant.getCubeGrants().add(cubeGrantAll(cubeWb, null));
+        catalogGrant.getCubeGrants().add(cubeGrantAll(vCube, null));
         catalogGrant.getDatabaseSchemaGrants().add(dbGrant);
 
         AccessRole role = CommonFactory.eINSTANCE.createAccessRole();
@@ -1084,26 +1130,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dbGrant.setDatabaseSchemaAccess(DatabaseSchemaAccess.ALL);
         dbGrant.setDatabaseSchema(databaseSchema);
 
-        AccessMemberGrant memberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
-        memberGrant.setMemberAccess(MemberAccess.ALL);
-        memberGrant.setMember(memberName);
-
-        AccessHierarchyGrant hierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
-        hierarchyGrant.setHierarchy(orgUnitHierarchy);
-        hierarchyGrant.setHierarchyAccess(HierarchyAccess.CUSTOM);
-        hierarchyGrant.setTopLevel(orgUnitLevelL1);
-        hierarchyGrant.setBottomLevel(orgUnitLevelL3);
-        hierarchyGrant.setRollupPolicy(RollupPolicy.FULL);
-        hierarchyGrant.getMemberGrants().add(memberGrant);
-
-        AccessCubeGrant cubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
-        cubeGrant.setCube(cube);
-        cubeGrant.setCubeAccess(CubeAccess.ALL);
-        cubeGrant.getHierarchyGrants().add(hierarchyGrant);
-
         AccessCatalogGrant catalogGrant = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         catalogGrant.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        catalogGrant.getCubeGrants().add(cubeGrant);
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(cubeIst, orgUnitHierarchyGrant(memberName, orgUnitLevelL1, orgUnitLevelL3)));
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(cubeWb, orgUnitHierarchyGrant(memberName, orgUnitLevelL1, orgUnitLevelL3)));
+        catalogGrant.getCubeGrants().add(
+                cubeGrantAll(vCube, orgUnitHierarchyGrant(memberName, orgUnitLevelL1, orgUnitLevelL3)));
         catalogGrant.getDatabaseSchemaGrants().add(dbGrant);
 
         AccessRole role = CommonFactory.eINSTANCE.createAccessRole();
@@ -1122,13 +1156,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         dbGrant.setDatabaseSchema(databaseSchema);
         dbGrant.getTableGrants().add(denyWriteback);
 
-        AccessCubeGrant cubeGrant = OlapFactory.eINSTANCE.createAccessCubeGrant();
-        cubeGrant.setCube(cube);
-        cubeGrant.setCubeAccess(CubeAccess.ALL);
-
         AccessCatalogGrant catalogGrant = CommonFactory.eINSTANCE.createAccessCatalogGrant();
         catalogGrant.setCatalogAccess(CatalogAccess.ALL_DIMENSIONS);
-        catalogGrant.getCubeGrants().add(cubeGrant);
+        catalogGrant.getCubeGrants().add(cubeGrantAll(cubeIst, null));
+        catalogGrant.getCubeGrants().add(cubeGrantAll(cubeWb, null));
+        catalogGrant.getCubeGrants().add(cubeGrantAll(vCube, null));
         catalogGrant.getDatabaseSchemaGrants().add(dbGrant);
 
         AccessRole role = CommonFactory.eINSTANCE.createAccessRole();

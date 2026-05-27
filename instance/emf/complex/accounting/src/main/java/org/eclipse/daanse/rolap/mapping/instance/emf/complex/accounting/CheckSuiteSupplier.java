@@ -31,9 +31,10 @@ import org.eclipse.daanse.olap.check.runtime.api.OlapCheckSuiteSupplier;
 import org.osgi.service.component.annotations.Component;
 
 /**
- * Check suite for the Accounting complex mapping. Asserts that the catalog, its
- * single cube, all measures, dimensions/hierarchies/levels, and the full
- * database schema (tables + column types) materialise as expected.
+ * Check suite for the Accounting complex mapping. Asserts that the catalog,
+ * the three cubes (AccountingIst read-only, AccountingWb writeback, and
+ * Accounting VirtualCube), all measures, dimensions/hierarchies/levels, and
+ * the full database schema (tables + column types) materialise as expected.
  */
 @Component(service = OlapCheckSuiteSupplier.class)
 public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
@@ -41,10 +42,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     private static final OlapCheckFactory factory = OlapCheckFactory.eINSTANCE;
 
     private static final String CATALOG_NAME = "Accounting";
-    private static final String CUBE_NAME = "Accounting";
+    private static final String CUBE_IST_NAME = "AccountingIst";
+    private static final String CUBE_WB_NAME = "AccountingWb";
+    private static final String CUBE_V_NAME = "Accounting";
 
     @Override
     public OlapCheckSuite get() {
+        // The full dimension shape — surfaced on every cube.
         DimensionCheck yearDim = createDimensionCheck("Year", createHierarchyCheck("Year", createLevelCheck("Year")));
         DimensionCheck planStageDim = createDimensionCheck("PlanStage",
                 createHierarchyCheck("PlanStage", createLevelCheck("PlanStage")));
@@ -58,22 +62,36 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         DimensionCheck budgetDim = createDimensionCheck("Budget",
                 createHierarchyCheck("Budget", createLevelCheck("Budget")));
 
-        MeasureCheck amountIst = createMeasureCheck("AmountIst");
-        MeasureCheck amountPlan = createMeasureCheck("AmountPlan");
-        MeasureCheck comments = createMeasureCheck("Comments");
+        // AccountingIst — read-only, holds only AmountIst.
+        CubeCheck cubeIstCheck = factory.createCubeCheck();
+        cubeIstCheck.setName("CubeCheck-" + CUBE_IST_NAME);
+        cubeIstCheck.setDescription("Read-only cube AccountingIst — AmountIst measure only, no writeback");
+        cubeIstCheck.setCubeName(CUBE_IST_NAME);
+        cubeIstCheck.getMeasureChecks().add(createMeasureCheck("AmountIst"));
+        addAllDimensions(cubeIstCheck);
 
-        CubeCheck cubeCheck = factory.createCubeCheck();
-        cubeCheck.setName("CubeCheck-" + CUBE_NAME);
-        cubeCheck.setDescription("Check that cube '" + CUBE_NAME + "' exists with all dimensions and measures");
-        cubeCheck.setCubeName(CUBE_NAME);
-        cubeCheck.getMeasureChecks().add(amountIst);
-        cubeCheck.getMeasureChecks().add(amountPlan);
-        cubeCheck.getMeasureChecks().add(comments);
-        cubeCheck.getDimensionChecks().add(yearDim);
-        cubeCheck.getDimensionChecks().add(planStageDim);
-        cubeCheck.getDimensionChecks().add(accountDim);
-        cubeCheck.getDimensionChecks().add(orgUnitDim);
-        cubeCheck.getDimensionChecks().add(budgetDim);
+        // AccountingWb — writeback-enabled, holds AmountPlan + Comments.
+        CubeCheck cubeWbCheck = factory.createCubeCheck();
+        cubeWbCheck.setName("CubeCheck-" + CUBE_WB_NAME);
+        cubeWbCheck.setDescription("Writeback cube AccountingWb — AmountPlan + Comments, bound to BOOKINGWB");
+        cubeWbCheck.setCubeName(CUBE_WB_NAME);
+        cubeWbCheck.getMeasureChecks().add(createMeasureCheck("AmountPlan"));
+        cubeWbCheck.getMeasureChecks().add(createMeasureCheck("Comments"));
+        addAllDimensions(cubeWbCheck);
+
+        // Accounting — VirtualCube exposing all three measures.
+        CubeCheck cubeVCheck = factory.createCubeCheck();
+        cubeVCheck.setName("CubeCheck-" + CUBE_V_NAME);
+        cubeVCheck.setDescription("VirtualCube Accounting — combines AccountingIst + AccountingWb, exposes all three measures");
+        cubeVCheck.setCubeName(CUBE_V_NAME);
+        cubeVCheck.getMeasureChecks().add(createMeasureCheck("AmountIst"));
+        cubeVCheck.getMeasureChecks().add(createMeasureCheck("AmountPlan"));
+        cubeVCheck.getMeasureChecks().add(createMeasureCheck("Comments"));
+        cubeVCheck.getDimensionChecks().add(yearDim);
+        cubeVCheck.getDimensionChecks().add(planStageDim);
+        cubeVCheck.getDimensionChecks().add(accountDim);
+        cubeVCheck.getDimensionChecks().add(orgUnitDim);
+        cubeVCheck.getDimensionChecks().add(budgetDim);
 
         DatabaseTableCheck bookingTable = createTableCheck("BOOKING", createColumnCheck("BOOKING_ID", "INTEGER"),
                 createColumnCheck("YEAR_KEY", "INTEGER"), createColumnCheck("PLAN_STAGE_KEY", "VARCHAR"),
@@ -123,9 +141,11 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName(CATALOG_NAME);
-        catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with cube and dimensions");
+        catalogCheck.setDescription("Catalog '" + CATALOG_NAME + "' with three cubes (Ist / Wb / Virtual) and full dimensions");
         catalogCheck.setCatalogName(CATALOG_NAME);
-        catalogCheck.getCubeChecks().add(cubeCheck);
+        catalogCheck.getCubeChecks().add(cubeIstCheck);
+        catalogCheck.getCubeChecks().add(cubeWbCheck);
+        catalogCheck.getCubeChecks().add(cubeVCheck);
         catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -139,6 +159,23 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         suite.getConnectionChecks().add(connectionCheck);
 
         return suite;
+    }
+
+    /** Adds the full 5-dimension shape onto the given CubeCheck. */
+    private void addAllDimensions(CubeCheck cube) {
+        cube.getDimensionChecks().add(createDimensionCheck("Year",
+                createHierarchyCheck("Year", createLevelCheck("Year"))));
+        cube.getDimensionChecks().add(createDimensionCheck("PlanStage",
+                createHierarchyCheck("PlanStage", createLevelCheck("PlanStage"))));
+        cube.getDimensionChecks().add(createDimensionCheck("Account",
+                createHierarchyCheck("Account",
+                        createLevelCheck("Category"),
+                        createLevelCheck("Group"),
+                        createLevelCheck("Account"))));
+        cube.getDimensionChecks().add(createDimensionCheck("OrgUnit", createHierarchyCheck("OrgUnit",
+                createLevelCheck("L1"), createLevelCheck("L2"), createLevelCheck("L3"))));
+        cube.getDimensionChecks().add(createDimensionCheck("Budget",
+                createHierarchyCheck("Budget", createLevelCheck("Budget"))));
     }
 
     private MeasureCheck createMeasureCheck(String measureName) {

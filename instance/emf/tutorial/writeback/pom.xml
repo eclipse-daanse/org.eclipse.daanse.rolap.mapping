@@ -31,6 +31,7 @@
     <module>parentchild</module>
     <module>decimalandcomment</module>
     <module>decimalandcommentandmultidim</module>
+    <module>virtualcube</module>
   </modules>
 
 </project>

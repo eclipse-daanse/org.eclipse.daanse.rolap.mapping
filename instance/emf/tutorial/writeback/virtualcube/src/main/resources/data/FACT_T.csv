@@ -1,0 +1,7 @@
+CATEGORY,REGION,COMMENT
+VARCHAR,VARCHAR,VARCHAR
+A,N,initial entry for A/N
+A,S,follow-up on A/S
+B,N,opening row for B/N
+B,E,note on B/E
+C,N,only entry on C/N
