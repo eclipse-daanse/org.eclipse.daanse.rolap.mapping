@@ -133,7 +133,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Table tableTown = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTown.setName("Town");
-        tableTown.getFeature().addAll(List.of(columnTownId, columnTownName));
+        tableTown.getFeature().addAll(List.of(columnTownId, columnTownName, columnTownCapital));
         databaseSchema.getOwnedElement().add(tableTown);
 
         queryFact = SourceFactory.eINSTANCE.createTableSource();
