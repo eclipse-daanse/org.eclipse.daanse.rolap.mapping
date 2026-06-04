@@ -182,12 +182,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CalculatedMember cm1 = LevelFactory.eINSTANCE.createCalculatedMember();
         cm1.setName("CalculatedValue");
-        cm1.setHierarchy(hierarchy);
         cm1.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
 
         CalculatedMember cm2 = LevelFactory.eINSTANCE.createCalculatedMember();
         cm2.setName("CalculatedTrend");
-        cm2.setHierarchy(hierarchy);
         cm2.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
 
         kpi = CubeFactory.eINSTANCE.createKpi();
