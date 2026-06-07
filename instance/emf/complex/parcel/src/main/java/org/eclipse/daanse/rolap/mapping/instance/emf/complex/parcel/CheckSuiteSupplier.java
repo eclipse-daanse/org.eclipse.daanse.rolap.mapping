@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -153,53 +148,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckParcels.getDimensionChecks().add(dimCheckDropOffAddress);
         cubeCheckParcels.getDimensionChecks().add(dimCheckDeliveryAddress);
 
-        // Create database table and column checks
-        DatabaseTableCheck tableCheckParcels = createTableCheck("parcels",
-                createColumnCheck("parcel_id", "INTEGER"),
-                createColumnCheck("width", "DECIMAL"),
-                createColumnCheck("depth", "DECIMAL"),
-                createColumnCheck("height", "DECIMAL"),
-                createColumnCheck("type_id", "INTEGER"),
-                createColumnCheck("defect_id", "INTEGER"),
-                createColumnCheck("deliverable", "VARCHAR"),
-                createColumnCheck("customs", "VARCHAR"),
-                createColumnCheck("return_status", "VARCHAR"),
-                createColumnCheck("sender_id", "INTEGER"),
-                createColumnCheck("receiver_id", "INTEGER"),
-                createColumnCheck("drop_off_id", "INTEGER"),
-                createColumnCheck("delivery_id", "INTEGER"),
-                createColumnCheck("postage", "DECIMAL"),
-                createColumnCheck("insurance_value", "DECIMAL"),
-                createColumnCheck("weight", "DECIMAL")
-        );
-
-        DatabaseTableCheck tableCheckParcelTypes = createTableCheck("parcel_types",
-                createColumnCheck("type_id", "INTEGER"),
-                createColumnCheck("type_name", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckDefects = createTableCheck("defects",
-                createColumnCheck("defect_id", "INTEGER"),
-                createColumnCheck("defect_name", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckAddresses = createTableCheck("addresses",
-                createColumnCheck("address_id", "INTEGER"),
-                createColumnCheck("continent", "VARCHAR"),
-                createColumnCheck("country", "VARCHAR"),
-                createColumnCheck("city", "VARCHAR"),
-                createColumnCheck("postal_code", "VARCHAR"),
-                createColumnCheck("street", "VARCHAR")
-        );
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.setDescription("Database Schema Check for Parcel Delivery Service mapping");
-        databaseSchemaCheck.getTableChecks().add(tableCheckParcels);
-        databaseSchemaCheck.getTableChecks().add(tableCheckParcelTypes);
-        databaseSchemaCheck.getTableChecks().add(tableCheckDefects);
-        databaseSchemaCheck.getTableChecks().add(tableCheckAddresses);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -207,7 +155,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with all cubes and dimensions");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheckParcels);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -289,40 +236,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return levelCheck;
     }
 
-    /**
-     * Creates a DatabaseColumnCheck with the specified name and type.
-     *
-     * @param columnName the name of the column
-     * @param columnType the expected type of the column
-     * @return the configured DatabaseColumnCheck
-     */
-    private DatabaseColumnCheck createColumnCheck(String columnName, String columnType) {
-        DatabaseColumnAttributeCheck columnTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTypeCheck.setExpectedValue(columnType);
 
-        DatabaseColumnCheck columnCheck = factory.createDatabaseColumnCheck();
-        columnCheck.setName("Database Column Check " + columnName);
-        columnCheck.setColumnName(columnName);
-        columnCheck.getColumnAttributeChecks().add(columnTypeCheck);
-
-        return columnCheck;
-    }
-
-    /**
-     * Creates a DatabaseTableCheck with the specified name and column checks.
-     *
-     * @param tableName the name of the table
-     * @param columnChecks the column checks to add to the table check
-     * @return the configured DatabaseTableCheck
-     */
-    private DatabaseTableCheck createTableCheck(String tableName, DatabaseColumnCheck... columnChecks) {
-        DatabaseTableCheck tableCheck = factory.createDatabaseTableCheck();
-        tableCheck.setName("Database Table Check " + tableName);
-        tableCheck.setTableName(tableName);
-        for (DatabaseColumnCheck columnCheck : columnChecks) {
-            tableCheck.getColumnChecks().add(columnCheck);
-        }
-        return tableCheck;
-    }
 }

@@ -201,19 +201,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         tableTraegerKategorie.getFeature()
                 .addAll(List.of(columnIdInTraegerKategorie, columnTraegerKategorieInTraegerKategorie));
 
-        // id,schulart_name,schul_kategorie_id
-        // INTEGER,VARCHAR,INTEGER
-        Column columnIdInScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        columnIdInScheduleArt.setName("id");
-        columnIdInScheduleArt.setType(SqlSimpleTypes.Sql99.integerType());
-
+        // schul_art's 3 columns (id, schulart_name, schul_kategorie_id) are
+        // declared together near the level-mapping site below. This block used
+        // to redundantly redeclare schul_art as a second CWM Table with only
+        // (id, schul_kategorie_id) — DDL would then either create two
+        // tables or merge incorrectly. Keep `columnSchulKategorieInScheduleArt`
+        // local to the level-mapping below as a single source of truth.
         Column columnSchulKategorieInScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulKategorieInScheduleArt.setName("schul_kategorie_id");
         columnSchulKategorieInScheduleArt.setType(SqlSimpleTypes.Sql99.integerType());
-
-        Table tableScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
-        tableScheduleArt.setName("schul_art");
-        tableScheduleArt.getFeature().addAll(List.of(columnIdInScheduleArt, columnSchulKategorieInScheduleArt));
 
         // "id","schul_jahr","order"
         // SqlSimpleTypes.Sql99.integerType(),SqlSimpleTypes.Sql99.varcharType(),SqlSimpleTypes.Sql99.integerType()
@@ -242,7 +238,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column columnAltersgruppeInAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAltersgruppeInAltersGruppe.setName("altersgruppe");
-        columnAltersgruppeInAltersGruppe.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAltersgruppeInAltersGruppe.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Table tableAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableAltersGruppe.setName("alters_gruppe");
@@ -281,7 +277,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         columnIdInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.integerType());
         Column columnKlassenwiedlerholungInKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKlassenwiedlerholungInKlassenWiederholung.setName("klassenwiederholung");
-        columnKlassenwiedlerholungInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.integerType());
+        columnKlassenwiedlerholungInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Table tableKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableKlassenWiederholung.setName("klassen_wiederholung");
@@ -349,7 +345,8 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Table tableSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulArt.setName("schul_art");
-        tableSchulArt.getFeature().addAll(List.of(columnIdInSchulArt, columnSchulartNameInSchulArt));
+        tableSchulArt.getFeature().addAll(List.of(columnIdInSchulArt, columnSchulartNameInSchulArt,
+                columnSchulKategorieInScheduleArt));
 
         // id,schul_kategorie_name
         // INTEGER,VARCHAR
@@ -534,7 +531,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
                         columnFoerderArtIdInFactSchueler, columnAnzahlSchuelerInFactSchueler));
 
         databaseSchema.getOwnedElement().addAll(List.of(tableSchule, tableGanztagsArt, tableTraeger, tableTraegerArt,
-                tableTraegerKategorie, tableScheduleArt, tableSchulJahr, tableAltersGruppe, tableGeschlecht,
+                tableTraegerKategorie, tableSchulJahr, tableAltersGruppe, tableGeschlecht,
                 tableEinschulung, tableKlassenWiederholung, tableSchulAbschluss, tableMigrationsHintergrund,
                 tableWohnortLandkreis, tableSchulArt, tableSchulKategorie, tableFoerderungArt, tablePersonalArt,
                 tableBundesland, tableSonderpaedFoerderbedart, tableFactSchulen, tableFactPersonal, tableFactSchueler));
@@ -555,7 +552,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         tableQueryTraegerKategorie.setTable(tableTraegerKategorie);
 
         TableSource tableQueryScheduleArt = SourceFactory.eINSTANCE.createTableSource();
-        tableQueryScheduleArt.setTable(tableScheduleArt);
+        tableQueryScheduleArt.setTable(tableSchulArt);
 
         TableSource tableQueryScheduleKategorie = SourceFactory.eINSTANCE.createTableSource();
         tableQueryScheduleKategorie.setTable(tableSchulKategorie);
@@ -670,7 +667,7 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         joinElementSchuleSchulartHierarchyLeft.setSource(tableQuerySchule);
 
         JoinedQueryElement joinElementSchuleSchulartHierarchyRight = SourceFactory.eINSTANCE.createJoinedQueryElement();
-        joinElementSchuleSchulartHierarchyRight.setKey(columnIdInScheduleArt);
+        joinElementSchuleSchulartHierarchyRight.setKey(columnIdInSchulArt);
         joinElementSchuleSchulartHierarchyRight.setSource(joinSchulkategorieArt);
 
         JoinSource joinSchuleSchulartHierarchy = SourceFactory.eINSTANCE.createJoinSource();

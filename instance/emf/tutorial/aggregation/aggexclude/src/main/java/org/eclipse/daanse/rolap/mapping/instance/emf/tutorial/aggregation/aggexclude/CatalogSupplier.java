@@ -103,8 +103,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         aggKeyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Column aggValueCountColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        aggValueCountColumn.setName("KEY");
-        aggValueCountColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        aggValueCountColumn.setName("VALUE_count");
+        aggValueCountColumn.setType(SqlSimpleTypes.Sql99.integerType());
 
         Table aggTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggTable.setName("agg_01_Fact");

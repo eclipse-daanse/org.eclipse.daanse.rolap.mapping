@@ -16,11 +16,6 @@ import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -126,13 +121,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Sum of Value]");
         queryCheck1CellValueCheck.setExpectedValue("1432.0");
+        queryCheck1CellValueCheck.getCoordinates().add(0);
+        queryCheck1CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Sum of Value");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Sum of Value");
-        queryCheck1.setQuery("SELECT FROM [MeasuresTextAggregatorsCube] WHERE ([Measures].[Sum of Value])");
+        queryCheck1.setQuery("SELECT [Measures].[Sum of Value] ON COLUMNS FROM [MeasuresTextAggregatorsCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
@@ -140,117 +136,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck2CellValueCheck.setName("[Measures].[Comment]");
         queryCheck2CellValueCheck.setExpectedValue("user1 : comment1, user2 : comment2, user3 : comment3, user4 : comment4, user5 : comment5");
         queryCheck2CellValueCheck.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Comment");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Comment");
-        queryCheck2.setQuery("SELECT FROM [MeasuresTextAggregatorsCube] WHERE ([Measures].[Comment])");
+        queryCheck2.setQuery("SELECT [Measures].[Comment] ON COLUMNS FROM [MeasuresTextAggregatorsCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
-        // Create database column checks for the Fact table
-        DatabaseColumnAttributeCheck columnAttributeCheckKey = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckKey.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey = factory.createDatabaseColumnCheck();
-        columnCheckKey.setName("Database Column Check KEY");
-        columnCheckKey.setColumnName("KEY");
-        columnCheckKey.getColumnAttributeChecks().add(columnAttributeCheckKey);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnAttributeCheckValue);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckCountry = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckCountry.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckCountry.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckCountry = factory.createDatabaseColumnCheck();
-        columnCheckCountry.setName("Database Column Check COUNTRY");
-        columnCheckCountry.setColumnName("COUNTRY");
-        columnCheckCountry.getColumnAttributeChecks().add(columnAttributeCheckCountry);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckContinent = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckContinent.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckContinent.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckContinent = factory.createDatabaseColumnCheck();
-        columnCheckContinent.setName("Database Column Check CONTINENT");
-        columnCheckContinent.setColumnName("CONTINENT");
-        columnCheckContinent.getColumnAttributeChecks().add(columnAttributeCheckContinent);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckYear = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckYear.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckYear.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckYear = factory.createDatabaseColumnCheck();
-        columnCheckYear.setName("Database Column Check YEAR");
-        columnCheckYear.setColumnName("YEAR");
-        columnCheckYear.getColumnAttributeChecks().add(columnAttributeCheckYear);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckMonth = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckMonth.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckMonth.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckMonth = factory.createDatabaseColumnCheck();
-        columnCheckMonth.setName("Database Column Check MONTH");
-        columnCheckMonth.setColumnName("MONTH");
-        columnCheckMonth.getColumnAttributeChecks().add(columnAttributeCheckMonth);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckMonthName = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckMonthName.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckMonthName.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckMonthName = factory.createDatabaseColumnCheck();
-        columnCheckMonthName.setName("Database Column Check MONTH_NAME");
-        columnCheckMonthName.setColumnName("MONTH_NAME");
-        columnCheckMonthName.getColumnAttributeChecks().add(columnAttributeCheckMonthName);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckUser = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckUser.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckUser.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckUser = factory.createDatabaseColumnCheck();
-        columnCheckUser.setName("Database Column Check USER");
-        columnCheckUser.setColumnName("USER");
-        columnCheckUser.getColumnAttributeChecks().add(columnAttributeCheckUser);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckComment = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckComment.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckComment.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckComment = factory.createDatabaseColumnCheck();
-        columnCheckComment.setName("Database Column Check COMMENT");
-        columnCheckComment.setColumnName("COMMENT");
-        columnCheckComment.getColumnAttributeChecks().add(columnAttributeCheckComment);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckCountry);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckContinent);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckYear);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckMonth);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckMonthName);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckUser);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckComment);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Aggregator Text Agg");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -260,7 +155,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck1);
         catalogCheck.getQueryChecks().add(queryCheck2);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

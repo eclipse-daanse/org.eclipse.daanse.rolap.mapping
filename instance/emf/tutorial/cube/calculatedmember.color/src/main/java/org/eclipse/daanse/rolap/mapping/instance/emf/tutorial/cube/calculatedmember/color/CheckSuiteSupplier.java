@@ -16,11 +16,6 @@ import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -120,85 +115,59 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Measure-Sum]");
         queryCheck1CellValueCheck.setExpectedValue("63.0");
+        queryCheck1CellValueCheck.getCoordinates().add(0);
+        queryCheck1CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Measure-Sum");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Measure-Sum");
-        queryCheck1.setQuery("SELECT FROM [Cube CalculatedMember with different colors] WHERE ([Measures].[Measure-Sum])");
+        queryCheck1.setQuery("SELECT [Measures].[Measure-Sum] ON COLUMNS FROM [Cube CalculatedMember with different colors]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Measure-Count]");
         queryCheck2CellValueCheck.setExpectedValue("2.0");
+        queryCheck2CellValueCheck.getCoordinates().add(0);
+        queryCheck2CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Measure-Count");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Measure-Count");
-        queryCheck2.setQuery("SELECT FROM [Cube CalculatedMember with different colors] WHERE ([Measures].[Measure-Count])");
+        queryCheck2.setQuery("SELECT [Measures].[Measure-Count] ON COLUMNS FROM [Cube CalculatedMember with different colors]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Calculated Member 1]");
         queryCheck3CellValueCheck.setExpectedValue("31.5");
+        queryCheck3CellValueCheck.getCoordinates().add(0);
+        queryCheck3CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Calculated Member 1");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Calculated Member 1");
-        queryCheck3.setQuery("SELECT FROM [Cube CalculatedMember with different colors] WHERE ([theHierarchy].[Calculated Member 1])");
+        queryCheck3.setQuery("SELECT [theHierarchy].[Calculated Member 1] ON COLUMNS FROM [Cube CalculatedMember with different colors]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[Calculated Member 2]");
         queryCheck4CellValueCheck.setExpectedValue("31.5");
+        queryCheck4CellValueCheck.getCoordinates().add(0);
+        queryCheck4CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check Calculated Member 2");
         queryCheck4.setDescription("Verify MDX query returns Measure data for Calculated Member 2");
-        queryCheck4.setQuery("SELECT FROM [Cube CalculatedMember with different colors] WHERE ([Measures].[Calculated Member 2])");
+        queryCheck4.setQuery("SELECT [Measures].[Calculated Member 2] ON COLUMNS FROM [Cube CalculatedMember with different colors]");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
-        DatabaseColumnAttributeCheck columnAttributeCheckKey = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckKey.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey = factory.createDatabaseColumnCheck();
-        columnCheckKey.setName("Database Column Check Key");
-        columnCheckKey.setColumnName("KEY");
-        columnCheckKey.getColumnAttributeChecks().add(columnAttributeCheckKey);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check Value");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnAttributeCheckValue);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Cube Calculated Member Color catalog check");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -210,7 +179,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getQueryChecks().add(queryCheck3);
         catalogCheck.getQueryChecks().add(queryCheck4);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

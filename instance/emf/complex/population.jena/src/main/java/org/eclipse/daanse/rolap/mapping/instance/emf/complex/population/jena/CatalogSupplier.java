@@ -54,6 +54,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.3", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -248,8 +249,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_ANZAHL_EINWOHNER.setType(SqlSimpleTypes.Sql99.integerType());
 
         COLUMN_GEOJSON_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        COLUMN_GEOJSON_EINWOHNER.setName("GEOJSON");
+        COLUMN_GEOJSON_EINWOHNER.setName("geojson");
         COLUMN_GEOJSON_EINWOHNER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_EINWOHNER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Year Table columns
         COLUMN_YEAR_YEAR = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -272,6 +274,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_GEOJSON_TOWN = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_TOWN.setName("geojson");
         COLUMN_GEOJSON_TOWN.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_TOWN.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Plraum Table columns
         COLUMN_GID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -285,10 +288,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_UUID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UUID_PLRAUM.setName("uuid");
         COLUMN_UUID_PLRAUM.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_UUID_PLRAUM.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GEOJSON_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_PLRAUM.setName("geojson");
         COLUMN_GEOJSON_PLRAUM.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_PLRAUM.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_TOWNID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOWNID_PLRAUM.setName("townid");
@@ -310,10 +315,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_UUID_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UUID_STATBEZ.setName("uuid");
         COLUMN_UUID_STATBEZ.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_UUID_STATBEZ.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GEOJSON_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_STATBEZ.setName("geojson");
         COLUMN_GEOJSON_STATBEZ.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_STATBEZ.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Gender Table columns
         COLUMN_KEY_GENDER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();

@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.nullp
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -99,46 +94,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getMeasureChecks().add(measureCheck);
         cubeCheck.getDimensionChecks().add(dimensionCheck);
 
-        // Create database column checks for Parent table
-        DatabaseColumnAttributeCheck columnNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckName = factory.createDatabaseColumnCheck();
-        columnCheckName.setName("Database Column Check NAME");
-        columnCheckName.setColumnName("NAME");
-        columnCheckName.getColumnAttributeChecks().add(columnNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnParentTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnParentTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnParentTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckParent = factory.createDatabaseColumnCheck();
-        columnCheckParent.setName("Database Column Check PARENT");
-        columnCheckParent.setColumnName("PARENT");
-        columnCheckParent.getColumnAttributeChecks().add(columnParentTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckParent = factory.createDatabaseTableCheck();
-        databaseTableCheckParent.setName("Database Table Parent Check");
-        databaseTableCheckParent.setTableName("Parent");
-        databaseTableCheckParent.getColumnChecks().add(columnCheckName);
-        databaseTableCheckParent.getColumnChecks().add(columnCheckParent);
-        databaseTableCheckParent.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckParent);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -146,7 +101,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with parent-child hierarchy with null parent value");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

@@ -16,11 +16,6 @@ import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttribute;
 import org.eclipse.daanse.olap.check.model.check.MeasureAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
@@ -141,13 +136,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck1CellValueCheck.setName("[Measures].[Format #,##0.00]");
         queryCheck1CellValueCheck.setExpectedValue("63.00");
         queryCheck1CellValueCheck.setCheckFormattedValue(true);
+        queryCheck1CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Format #,##0.00");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Format #,##0.00");
-        queryCheck1.setQuery("SELECT FROM [MeasuresFormatCube] WHERE ([Measures].[Format #,##0.00])");
+        queryCheck1.setQuery("SELECT [Measures].[Format #,##0.00] ON COLUMNS FROM [MeasuresFormatCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
@@ -155,13 +150,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck2CellValueCheck.setName("[Measures].[Format #,##0]");
         queryCheck2CellValueCheck.setExpectedValue("63");
         queryCheck2CellValueCheck.setCheckFormattedValue(true);
+        queryCheck2CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Format #,##0");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Format #,##0");
-        queryCheck2.setQuery("SELECT FROM [MeasuresFormatCube] WHERE ([Measures].[Format #,##0])");
+        queryCheck2.setQuery("SELECT [Measures].[Format #,##0] ON COLUMNS FROM [MeasuresFormatCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
@@ -169,47 +164,16 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck3CellValueCheck.setName("[Measures].[Format #,##0.]");
         queryCheck3CellValueCheck.setExpectedValue("63.");
         queryCheck3CellValueCheck.setCheckFormattedValue(true);
+        queryCheck3CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Format #,##0.");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Format #,##0.");
-        queryCheck3.setQuery("SELECT FROM [MeasuresFormatCube] WHERE ([Measures].[Format #,##0.])");
+        queryCheck3.setQuery("SELECT [Measures].[Format #,##0.] ON COLUMNS FROM [MeasuresFormatCube]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
-        // Create database column checks for the Fact table
-        DatabaseColumnAttributeCheck columnAttributeCheckKey = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckKey.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey = factory.createDatabaseColumnCheck();
-        columnCheckKey.setName("Database Column Check KEY");
-        columnCheckKey.setColumnName("KEY");
-        columnCheckKey.getColumnAttributeChecks().add(columnAttributeCheckKey);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnAttributeCheckValue);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Format");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -220,7 +184,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck1);
         catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getQueryChecks().add(queryCheck3);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

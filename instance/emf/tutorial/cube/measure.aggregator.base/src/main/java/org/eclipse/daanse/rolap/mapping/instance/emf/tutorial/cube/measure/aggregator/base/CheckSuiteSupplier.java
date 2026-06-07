@@ -16,11 +16,6 @@ import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -149,90 +144,60 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Sum of Value]");
-        queryCheck1CellValueCheck.setExpectedValue("63.0");
         queryCheck1CellValueCheck.setExpectedNumericValue(63.0);
+        queryCheck1CellValueCheck.setTolerance(0.001);
+        queryCheck1CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Sum of Value");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Sum of Value");
-        queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Sum of Value])");
+        queryCheck1.setQuery("SELECT [Measures].[Sum of Value] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Max of Value]");
-        queryCheck2CellValueCheck.setExpectedValue("42");
         queryCheck2CellValueCheck.setExpectedNumericValue(42);
+        queryCheck2CellValueCheck.setTolerance(0.001);
+        queryCheck2CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Max of Value");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Max of Value");
-        queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Max of Value])");
+        queryCheck2.setQuery("SELECT [Measures].[Max of Value] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Min of Value]");
-        queryCheck3CellValueCheck.setExpectedValue("21");
         queryCheck3CellValueCheck.setExpectedNumericValue(21);
+        queryCheck3CellValueCheck.setTolerance(0.001);
+        queryCheck3CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Min of Value");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Min of Value");
-        queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Min of Value])");
+        queryCheck3.setQuery("SELECT [Measures].[Min of Value] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[Avg of Value]");
-        queryCheck4CellValueCheck.setExpectedValue("31.5");
         queryCheck4CellValueCheck.setExpectedNumericValue(31.5);
+        queryCheck4CellValueCheck.setTolerance(0.001);
+        queryCheck4CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check Avg of Value");
         queryCheck4.setDescription("Verify MDX query returns Measure data for Avg of Value");
-        queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Avg of Value])");
+        queryCheck4.setQuery("SELECT [Measures].[Avg of Value] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
-        DatabaseColumnAttributeCheck columnAttributeCheckFactKey = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckFactKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckFactKey.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckFactKey = factory.createDatabaseColumnCheck();
-        columnCheckFactKey.setName("Database Column Check KEY");
-        columnCheckFactKey.setColumnName("KEY");
-        columnCheckFactKey.getColumnAttributeChecks().add(columnAttributeCheckFactKey);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckFactValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckFactValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckFactValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckFactValue = factory.createDatabaseColumnCheck();
-        columnCheckFactValue.setName("Database Column Check Value");
-        columnCheckFactValue.setColumnName("VALUE");
-        columnCheckFactValue.getColumnAttributeChecks().add(columnAttributeCheckFactValue);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckFactKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckFactValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Aggregator Base");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -244,7 +209,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getQueryChecks().add(queryCheck3);
         catalogCheck.getQueryChecks().add(queryCheck4);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

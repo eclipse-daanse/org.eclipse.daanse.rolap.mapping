@@ -1,6 +1,0 @@
-PRODUCT_CLASS_ID,PRODUCT_ID,brand_name,product_name
-INTEGER,INTEGER,VARCHAR(60),VARCHAR(60)
-1,1,High Top,High Top Almonds
-2,2,High Top,High Top Mixed Nuts
-3,3,High Top,High Top Canned Peanuts
-1,4,High Top,High Top Walnuts

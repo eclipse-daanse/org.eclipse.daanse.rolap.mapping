@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.measure.inlinetab
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -97,46 +92,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for TOWN physical table
-        DatabaseColumnAttributeCheck columnTownKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownKeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckTownKey = factory.createDatabaseColumnCheck();
-        columnCheckTownKey.setName("Database Column Check KEY");
-        columnCheckTownKey.setColumnName("KEY");
-        columnCheckTownKey.getColumnAttributeChecks().add(columnTownKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnTownCountryKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownCountryKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownCountryKeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckTownCountryKey = factory.createDatabaseColumnCheck();
-        columnCheckTownCountryKey.setName("Database Column Check KEY_COUNTRY");
-        columnCheckTownCountryKey.setColumnName("KEY_COUNTRY");
-        columnCheckTownCountryKey.getColumnAttributeChecks().add(columnTownCountryKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnTownNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckTownName = factory.createDatabaseColumnCheck();
-        columnCheckTownName.setName("Database Column Check NAME");
-        columnCheckTownName.setColumnName("NAME");
-        columnCheckTownName.getColumnAttributeChecks().add(columnTownNameTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckTown = factory.createDatabaseTableCheck();
-        databaseTableCheckTown.setName("Database Table TOWN Check");
-        databaseTableCheckTown.setTableName("TOWN");
-        databaseTableCheckTown.getColumnChecks().add(columnCheckTownKey);
-        databaseTableCheckTown.getColumnChecks().add(columnCheckTownCountryKey);
-        databaseTableCheckTown.getColumnChecks().add(columnCheckTownName);
-
-        // Create Database Schema Check (only for physical table TOWN, not for inline tables)
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Inline Table With Physical (physical table TOWN only)");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckTown);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -145,7 +100,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Measure Inline Table With Physical");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

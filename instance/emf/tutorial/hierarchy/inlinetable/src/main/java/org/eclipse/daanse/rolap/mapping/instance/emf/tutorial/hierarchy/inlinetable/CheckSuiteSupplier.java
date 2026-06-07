@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.hierarchy.inlinet
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -96,73 +91,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnDimKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnDimKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnDimKeyTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckDimKey = factory.createDatabaseColumnCheck();
-        columnCheckDimKey.setName("Database Column Check DIM_KEY");
-        columnCheckDimKey.setColumnName("DIM_KEY");
-        columnCheckDimKey.getColumnAttributeChecks().add(columnDimKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckDimKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create database column checks for HT inline table
-        DatabaseColumnAttributeCheck columnHTKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnHTKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnHTKeyTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckHTKey = factory.createDatabaseColumnCheck();
-        columnCheckHTKey.setName("Database Column Check KEY (HT)");
-        columnCheckHTKey.setColumnName("KEY");
-        columnCheckHTKey.getColumnAttributeChecks().add(columnHTKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnHTValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnHTValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnHTValueTypeCheck.setExpectedValue("NUMERIC");
-
-        DatabaseColumnCheck columnCheckHTValue = factory.createDatabaseColumnCheck();
-        columnCheckHTValue.setName("Database Column Check VALUE (HT)");
-        columnCheckHTValue.setColumnName("VALUE");
-        columnCheckHTValue.getColumnAttributeChecks().add(columnHTValueTypeCheck);
-
-        DatabaseColumnAttributeCheck columnHTNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnHTNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnHTNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckHTName = factory.createDatabaseColumnCheck();
-        columnCheckHTName.setName("Database Column Check NAME (HT)");
-        columnCheckHTName.setColumnName("NAME");
-        columnCheckHTName.getColumnAttributeChecks().add(columnHTNameTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckHT = factory.createDatabaseTableCheck();
-        databaseTableCheckHT.setName("Database Table HT Check");
-        databaseTableCheckHT.setTableName("HT");
-        databaseTableCheckHT.getColumnChecks().add(columnCheckHTKey);
-        databaseTableCheckHT.getColumnChecks().add(columnCheckHTValue);
-        databaseTableCheckHT.getColumnChecks().add(columnCheckHTName);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Inline Table");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
-        //TODO add checker for inner table
-        //databaseSchemaCheck.getTableChecks().add(databaseTableCheckHT);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -171,7 +99,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Inline Table");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

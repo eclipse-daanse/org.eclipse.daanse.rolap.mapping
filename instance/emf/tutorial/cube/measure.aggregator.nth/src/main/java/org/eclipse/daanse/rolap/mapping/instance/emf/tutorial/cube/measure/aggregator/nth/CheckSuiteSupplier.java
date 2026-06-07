@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggr
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
@@ -93,13 +88,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[NthAgg1]");
         queryCheck1CellValueCheck.setExpectedValue("1");
+        queryCheck1CellValueCheck.getCoordinates().add(0);
+        queryCheck1CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check NthAgg1");
         queryCheck1.setDescription("Verify MDX query returns Measure data for NthAgg1");
-        queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg1])");
+        queryCheck1.setQuery("SELECT [Measures].[NthAgg1] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
@@ -107,13 +103,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck2CellValueCheck.setName("[Measures].[NthAgg2]");
         queryCheck2CellValueCheck.setCheckFormattedValue(true);
         queryCheck2CellValueCheck.setExpectedValue("");
+        queryCheck2CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check NthAgg2");
         queryCheck2.setDescription("Verify MDX query returns Measure data for NthAgg2");
-        queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg2])");
+        queryCheck2.setQuery("SELECT [Measures].[NthAgg2] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
@@ -121,14 +117,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck3CellValueCheck.setName("[Measures].[NthAgg3]");
         queryCheck3CellValueCheck.setCheckFormattedValue(true);
         queryCheck3CellValueCheck.setExpectedValue("");
+        queryCheck3CellValueCheck.getCoordinates().add(0);
 
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check NthAgg3");
         queryCheck3.setDescription("Verify MDX query returns Measure data for NthAgg3");
-        queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg3])");
+        queryCheck3.setQuery("SELECT [Measures].[NthAgg3] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
@@ -136,14 +132,14 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck4CellValueCheck.setName("[Measures].[NthAgg4]");
         queryCheck4CellValueCheck.setCheckFormattedValue(true);
         queryCheck4CellValueCheck.setExpectedValue("");
+        queryCheck4CellValueCheck.getCoordinates().add(0);
 
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check NthAgg4");
         queryCheck4.setDescription("Verify MDX query returns Measure data for NthAgg4");
-        queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg4])");
+        queryCheck4.setQuery("SELECT [Measures].[NthAgg4] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
@@ -151,13 +147,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck5CellValueCheck.setName("[Measures].[NthAgg5]");
         queryCheck5CellValueCheck.setCheckFormattedValue(true);
         queryCheck5CellValueCheck.setExpectedValue("");
+        queryCheck5CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck5 = factory.createQueryCheck();
         queryCheck5.setName("Measure Query Check NthAgg5");
         queryCheck5.setDescription("Verify MDX query returns Measure data for NthAgg5");
-        queryCheck5.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg5])");
+        queryCheck5.setQuery("SELECT [Measures].[NthAgg5] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck5.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck5.setExpectedColumnCount(0);
         queryCheck5.getCellChecks().add(queryCheck5CellValueCheck);
         queryCheck5.setEnabled(true);
 
@@ -165,13 +161,13 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck6CellValueCheck.setName("[Measures].[NthAgg6]");
         queryCheck6CellValueCheck.setCheckFormattedValue(true);
         queryCheck6CellValueCheck.setExpectedValue("");
+        queryCheck6CellValueCheck.getCoordinates().add(0);
 
         QueryCheck queryCheck6 = factory.createQueryCheck();
         queryCheck6.setName("Measure Query Check NthAgg6");
         queryCheck6.setDescription("Verify MDX query returns Measure data for NthAgg6");
-        queryCheck6.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg6])");
+        queryCheck6.setQuery("SELECT [Measures].[NthAgg6] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck6.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck6.setExpectedColumnCount(0);
         queryCheck6.getCellChecks().add(queryCheck6CellValueCheck);
         queryCheck6.setEnabled(true);
 
@@ -179,58 +175,17 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck7CellValueCheck.setName("[Measures].[NthAgg7]");
         queryCheck7CellValueCheck.setCheckFormattedValue(true);
         queryCheck7CellValueCheck.setExpectedValue("");
+        queryCheck7CellValueCheck.getCoordinates().add(0);
 
 
         QueryCheck queryCheck7 = factory.createQueryCheck();
         queryCheck7.setName("Measure Query Check NthAgg7");
         queryCheck7.setDescription("Verify MDX query returns Measure data for NthAgg7");
-        queryCheck7.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[NthAgg7])");
+        queryCheck7.setQuery("SELECT [Measures].[NthAgg7] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck7.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck7.setExpectedColumnCount(0);
         queryCheck7.getCellChecks().add(queryCheck7CellValueCheck);
         queryCheck7.setEnabled(true);
 
-        // Create database column checks for the Fact table
-        DatabaseColumnAttributeCheck columnAttributeCheckId = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckId.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckId.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckId = factory.createDatabaseColumnCheck();
-        columnCheckId.setName("Database Column Check ID");
-        columnCheckId.setColumnName("ID");
-        columnCheckId.getColumnAttributeChecks().add(columnAttributeCheckId);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnAttributeCheckValue);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckName = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckName.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckName.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckName = factory.createDatabaseColumnCheck();
-        columnCheckName.setName("Database Column Check NAME");
-        columnCheckName.setColumnName("NAME");
-        columnCheckName.getColumnAttributeChecks().add(columnAttributeCheckName);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckId);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckName);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Aggregator Nth");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -245,7 +200,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck5);
         catalogCheck.getQueryChecks().add(queryCheck6);
         catalogCheck.getQueryChecks().add(queryCheck7);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

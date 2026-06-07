@@ -46,6 +46,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.17.01", source = Source.EMF, group = "Parent Child") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -135,6 +136,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column memberParentKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         memberParentKeyColumn.setName("PARENT_KEY");
         memberParentKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        memberParentKeyColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Table table1 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table1.setName("Hier_One_Top_Member");

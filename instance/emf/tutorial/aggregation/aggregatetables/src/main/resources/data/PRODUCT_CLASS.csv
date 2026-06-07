@@ -1,5 +1,0 @@
-PRODUCT_CLASS_ID,product_subcategory,PRODUCT_CATEGORY,PRODUCT_DEPARTMENT,PRODUCT_FAMILE
-INTEGER,VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
-1,Nuts,Specialty,Produce,Food1
-2,Shellfish,Seafood,Seafood,Food2
-3,Canned Fruit,Fruit,Canned Products,Food3

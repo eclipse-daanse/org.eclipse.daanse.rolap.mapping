@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.ifparentsna
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -105,98 +100,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnDimKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnDimKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnDimKeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckDimKey = factory.createDatabaseColumnCheck();
-        columnCheckDimKey.setName("Database Column Check DIM_KEY");
-        columnCheckDimKey.setColumnName("DIM_KEY");
-        columnCheckDimKey.getColumnAttributeChecks().add(columnDimKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckDimKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create database column checks for Level_1 table
-        DatabaseColumnAttributeCheck columnLevel1KeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnLevel1KeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnLevel1KeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckLevel1Key = factory.createDatabaseColumnCheck();
-        columnCheckLevel1Key.setName("Database Column Check KEY");
-        columnCheckLevel1Key.setColumnName("KEY");
-        columnCheckLevel1Key.getColumnAttributeChecks().add(columnLevel1KeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnLevel1NameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnLevel1NameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnLevel1NameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckLevel1Name = factory.createDatabaseColumnCheck();
-        columnCheckLevel1Name.setName("Database Column Check NAME");
-        columnCheckLevel1Name.setColumnName("NAME");
-        columnCheckLevel1Name.getColumnAttributeChecks().add(columnLevel1NameTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckLevel1 = factory.createDatabaseTableCheck();
-        databaseTableCheckLevel1.setName("Database Table Level_1 Check");
-        databaseTableCheckLevel1.setTableName("Level_1");
-        databaseTableCheckLevel1.getColumnChecks().add(columnCheckLevel1Key);
-        databaseTableCheckLevel1.getColumnChecks().add(columnCheckLevel1Name);
-
-        // Create database column checks for Level_2 table
-        DatabaseColumnAttributeCheck columnLevel2KeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnLevel2KeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnLevel2KeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckLevel2Key = factory.createDatabaseColumnCheck();
-        columnCheckLevel2Key.setName("Database Column Check KEY");
-        columnCheckLevel2Key.setColumnName("KEY");
-        columnCheckLevel2Key.getColumnAttributeChecks().add(columnLevel2KeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnLevel2NameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnLevel2NameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnLevel2NameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckLevel2Name = factory.createDatabaseColumnCheck();
-        columnCheckLevel2Name.setName("Database Column Check NAME");
-        columnCheckLevel2Name.setColumnName("NAME");
-        columnCheckLevel2Name.getColumnAttributeChecks().add(columnLevel2NameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnLevel2L1KeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnLevel2L1KeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnLevel2L1KeyTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckLevel2L1Key = factory.createDatabaseColumnCheck();
-        columnCheckLevel2L1Key.setName("Database Column Check L1_KEY");
-        columnCheckLevel2L1Key.setColumnName("L1_KEY");
-        columnCheckLevel2L1Key.getColumnAttributeChecks().add(columnLevel2L1KeyTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckLevel2 = factory.createDatabaseTableCheck();
-        databaseTableCheckLevel2.setName("Database Table Level_2 Check");
-        databaseTableCheckLevel2.setTableName("Level_2");
-        databaseTableCheckLevel2.getColumnChecks().add(columnCheckLevel2Key);
-        databaseTableCheckLevel2.getColumnChecks().add(columnCheckLevel2Name);
-        databaseTableCheckLevel2.getColumnChecks().add(columnCheckLevel2L1Key);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Level If Parents Name");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckLevel1);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckLevel2);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -205,7 +108,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Level If Parents Name");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

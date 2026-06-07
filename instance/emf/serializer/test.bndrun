@@ -156,6 +156,7 @@
 
 
 -runbundles: \
+	de.siegmar.fastcsv;version='[3.1.0,3.1.1)',\
 	junit-jupiter-api;version='[5.12.2,5.12.3)',\
 	junit-jupiter-engine;version='[5.12.2,5.12.3)',\
 	junit-jupiter-params;version='[5.12.2,5.12.3)',\
@@ -164,10 +165,17 @@
 	junit-platform-launcher;version='[1.12.2,1.12.3)',\
 	org.apache.felix.configadmin;version='[1.9.26,1.9.27)',\
 	org.apache.felix.scr;version='[2.2.10,2.2.11)',\
+	org.eclipse.daanse.cwm.data.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.cwm.data.sink.jdbc;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.cwm.data.source.csv;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.cwm.model.cwm;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.cwm.resource.relational.ddl;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.cwm.testkit;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.cwm.util;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.jdbc.db.dialect.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.jdbc.db.impl;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.jdbc.db.record;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.model.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.parser.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.api;version='[0.0.1,0.0.2)',\

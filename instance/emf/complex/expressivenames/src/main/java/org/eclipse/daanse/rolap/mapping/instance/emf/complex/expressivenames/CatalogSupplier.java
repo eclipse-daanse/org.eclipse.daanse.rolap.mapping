@@ -400,7 +400,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         TABLE_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_D3H2L2TABLE.setName("D3H2L2Table");
-        TABLE_D3H2L2TABLE.getFeature().addAll(List.of(COLUMN_D3H2L2_D3H2L2TABLE, COLUMN_D3H2L2_ID_D3H2L2TABLE,
+        TABLE_D3H2L2TABLE.getFeature().addAll(List.of(COLUMN_D3H2L2_D3H2L2TABLE,
                 COLUMN_D3H2L1_ID_D3H2L2TABLE, COLUMN_D3H2L2_NAME_D3H2L2TABLE, COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE));
 
         TABLE_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

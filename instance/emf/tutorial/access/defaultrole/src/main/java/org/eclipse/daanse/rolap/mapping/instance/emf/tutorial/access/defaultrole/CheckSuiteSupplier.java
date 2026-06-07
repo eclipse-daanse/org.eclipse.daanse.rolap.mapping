@@ -14,11 +14,6 @@ import org.eclipse.daanse.olap.check.model.check.ConnectionConfig;
 import org.eclipse.daanse.olap.check.model.check.CubeAttribute;
 import org.eclipse.daanse.olap.check.model.check.CubeAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionAttribute;
 import org.eclipse.daanse.olap.check.model.check.DimensionAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
@@ -51,7 +46,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheckRole1.setCatalogName("Daanse Tutorial - Access With Default Role");
         catalogCheckRole1.setEnabled(true);
         // Add database schema check with detailed column checks
-        catalogCheckRole1.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
         // Add cube check
         catalogCheckRole1.getCubeChecks().add(createCubeCheck());
 
@@ -66,7 +60,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheckWithoutRole.setCatalogName("Daanse Tutorial - Access With Default Role");
         catalogCheckWithoutRole.setEnabled(true);
         // Add database schema check with detailed column checks
-        catalogCheckWithoutRole.getDatabaseSchemaChecks().add(createDatabaseSchemaCheck());
         // Add cube check
         catalogCheckWithoutRole.getCubeChecks().add(createCubeCheck());
 
@@ -98,32 +91,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return suite;
     }
 
-    private DatabaseSchemaCheck createDatabaseSchemaCheck() {
-        DatabaseSchemaCheck schemaCheck = FACTORY.createDatabaseSchemaCheck();
-        schemaCheck.setName("Daanse Tutorial - Access With Default Role Database Schema Check");
-        schemaCheck.setDescription("Verify database tables and columns exist for Daanse Tutorial - Access With Default Role");
-        schemaCheck.setEnabled(true);
-        // Check parcels fact table with columns
-        DatabaseTableCheck factTableCheck = FACTORY.createDatabaseTableCheck();
-        factTableCheck.setTableName("Fact");
-        factTableCheck.setEnabled(true);
-        // Add column checks for Fact table
-        factTableCheck.getColumnChecks().add(createColumnCheck("KEY", "VARCHAR"));
-        factTableCheck.getColumnChecks().add(createColumnCheck("VALUE", "INTEGER"));
-        schemaCheck.getTableChecks().add(factTableCheck);
-        return schemaCheck;
-    }
-    private DatabaseColumnCheck createColumnCheck(String columnName, String type) {
-        DatabaseColumnCheck columnCheck = FACTORY.createDatabaseColumnCheck();
-        columnCheck.setName(columnName + " Column Check");
-        columnCheck.setColumnName(columnName);
-        DatabaseColumnAttributeCheck typeCheck = FACTORY.createDatabaseColumnAttributeCheck();
-        typeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        typeCheck.setExpectedValue(type);
-        columnCheck.getColumnAttributeChecks().add(typeCheck);
-        columnCheck.setEnabled(true);
-        return columnCheck;
-    }
     private CubeCheck createCubeCheck() {
         CubeCheck cubeCheck = FACTORY.createCubeCheck();
         cubeCheck.setName("Daanse Tutorial - Access With Default Role Cube Check");

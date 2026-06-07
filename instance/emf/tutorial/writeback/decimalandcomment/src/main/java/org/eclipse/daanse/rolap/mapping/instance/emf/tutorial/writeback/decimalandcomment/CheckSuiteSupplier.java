@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimal
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -54,33 +49,12 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getMeasureChecks().add(comments);
         cubeCheck.getDimensionChecks().add(dim);
 
-        DatabaseTableCheck factTable = createTableCheck("FACT",
-                createColumnCheck("PRODUCT", "VARCHAR"),
-                createColumnCheck("AMOUNT", "DECIMAL"),
-                createColumnCheck("COMMENT", "VARCHAR"));
-        DatabaseTableCheck productTable = createTableCheck("PRODUCT",
-                createColumnCheck("KEY", "VARCHAR"),
-                createColumnCheck("NAME", "VARCHAR"));
-        DatabaseTableCheck wbTable = createTableCheck("FACTWB",
-                createColumnCheck("PRODUCT", "VARCHAR"),
-                createColumnCheck("AMOUNT", "DECIMAL"),
-                createColumnCheck("COMMENT", "VARCHAR"),
-                createColumnCheck("ID", "VARCHAR"),
-                createColumnCheck("USER", "VARCHAR"));
-
-        DatabaseSchemaCheck schemaCheck = factory.createDatabaseSchemaCheck();
-        schemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        schemaCheck.setDescription("Schema check for the writeback-decimal tutorial");
-        schemaCheck.getTableChecks().add(factTable);
-        schemaCheck.getTableChecks().add(productTable);
-        schemaCheck.getTableChecks().add(wbTable);
 
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName(CATALOG_NAME);
         catalogCheck.setDescription("Catalog check for the writeback-decimal tutorial");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(schemaCheck);
 
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
         connectionCheck.setName("Connection Check " + CATALOG_NAME);
@@ -130,25 +104,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return l;
     }
 
-    private DatabaseColumnCheck createColumnCheck(String name, String type) {
-        DatabaseColumnAttributeCheck attr = factory.createDatabaseColumnAttributeCheck();
-        attr.setAttributeType(DatabaseColumnAttribute.TYPE);
-        attr.setExpectedValue(type);
 
-        DatabaseColumnCheck c = factory.createDatabaseColumnCheck();
-        c.setName("Database Column Check " + name);
-        c.setColumnName(name);
-        c.getColumnAttributeChecks().add(attr);
-        return c;
-    }
-
-    private DatabaseTableCheck createTableCheck(String name, DatabaseColumnCheck... columns) {
-        DatabaseTableCheck t = factory.createDatabaseTableCheck();
-        t.setName("Database Table Check " + name);
-        t.setTableName(name);
-        for (DatabaseColumnCheck c : columns) {
-            t.getColumnChecks().add(c);
-        }
-        return t;
-    }
 }

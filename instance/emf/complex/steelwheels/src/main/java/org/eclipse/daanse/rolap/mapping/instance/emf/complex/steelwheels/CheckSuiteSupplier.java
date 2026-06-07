@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -97,59 +92,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckSteelWheelsSales.getDimensionChecks().add(dimCheckTime);
         cubeCheckSteelWheelsSales.getDimensionChecks().add(dimCheckOrderStatus);
 
-        // Create database table and column checks
-        DatabaseTableCheck tableCheckOrderFact = createTableCheck("orderfact",
-                createColumnCheck("CUSTOMERNUMBER", "INTEGER"),
-                createColumnCheck("PRODUCTCODE", "VARCHAR"),
-                createColumnCheck("TIME_ID", "VARCHAR"),
-                createColumnCheck("QUANTITYORDERED", "INTEGER"),
-                createColumnCheck("TOTALPRICE", "NUMERIC"),
-                createColumnCheck("STATUS", "VARCHAR"),
-                createColumnCheck("ORDERDATE", "TIMESTAMP"),
-                createColumnCheck("PRICEEACH", "NUMERIC"),
-                createColumnCheck("REQUIREDDATE", "TIMESTAMP"),
-                createColumnCheck("SHIPPEDDATE", "TIMESTAMP")
-        );
-
-        DatabaseTableCheck tableCheckCustomer = createTableCheck("customer_w_ter",
-                createColumnCheck("CUSTOMERNUMBER", "INTEGER"),
-                createColumnCheck("CUSTOMERNAME", "VARCHAR"),
-                createColumnCheck("TERRITORY", "VARCHAR"),
-                createColumnCheck("COUNTRY", "VARCHAR"),
-                createColumnCheck("STATE", "VARCHAR"),
-                createColumnCheck("CITY", "VARCHAR"),
-                createColumnCheck("CONTACTFIRSTNAME", "VARCHAR"),
-                createColumnCheck("CONTACTLASTNAME", "VARCHAR"),
-                createColumnCheck("PHONE", "VARCHAR"),
-                createColumnCheck("ADDRESSLINE1", "VARCHAR"),
-                createColumnCheck("CREDITLIMIT", "NUMERIC")
-        );
-
-        DatabaseTableCheck tableCheckProducts = createTableCheck("products",
-                createColumnCheck("PRODUCTCODE", "VARCHAR"),
-                createColumnCheck("PRODUCTNAME", "VARCHAR"),
-                createColumnCheck("PRODUCTLINE", "VARCHAR"),
-                createColumnCheck("PRODUCTVENDOR", "VARCHAR"),
-                createColumnCheck("PRODUCTDESCRIPTION", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckTime = createTableCheck("time",
-                createColumnCheck("TIME_ID", "VARCHAR"),
-                createColumnCheck("YEAR_ID", "INTEGER"),
-                createColumnCheck("QTR_NAME", "VARCHAR"),
-                createColumnCheck("QTR_ID", "INTEGER"),
-                createColumnCheck("MONTH_NAME", "VARCHAR"),
-                createColumnCheck("MONTH_ID", "INTEGER")
-        );
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.setDescription("Database Schema Check for SteelWheels mapping");
-        databaseSchemaCheck.getTableChecks().add(tableCheckOrderFact);
-        databaseSchemaCheck.getTableChecks().add(tableCheckCustomer);
-        databaseSchemaCheck.getTableChecks().add(tableCheckProducts);
-        databaseSchemaCheck.getTableChecks().add(tableCheckTime);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -157,7 +99,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with all cubes and dimensions");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheckSteelWheelsSales);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -239,40 +180,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return levelCheck;
     }
 
-    /**
-     * Creates a DatabaseColumnCheck with the specified name and type.
-     *
-     * @param columnName the name of the column
-     * @param columnType the expected type of the column
-     * @return the configured DatabaseColumnCheck
-     */
-    private DatabaseColumnCheck createColumnCheck(String columnName, String columnType) {
-        DatabaseColumnAttributeCheck columnTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTypeCheck.setExpectedValue(columnType);
 
-        DatabaseColumnCheck columnCheck = factory.createDatabaseColumnCheck();
-        columnCheck.setName("Database Column Check " + columnName);
-        columnCheck.setColumnName(columnName);
-        columnCheck.getColumnAttributeChecks().add(columnTypeCheck);
-
-        return columnCheck;
-    }
-
-    /**
-     * Creates a DatabaseTableCheck with the specified name and column checks.
-     *
-     * @param tableName the name of the table
-     * @param columnChecks the column checks to add to the table check
-     * @return the configured DatabaseTableCheck
-     */
-    private DatabaseTableCheck createTableCheck(String tableName, DatabaseColumnCheck... columnChecks) {
-        DatabaseTableCheck tableCheck = factory.createDatabaseTableCheck();
-        tableCheck.setName("Database Table Check " + tableName);
-        tableCheck.setTableName(tableName);
-        for (DatabaseColumnCheck columnCheck : columnChecks) {
-            tableCheck.getColumnChecks().add(columnCheck);
-        }
-        return tableCheck;
-    }
 }

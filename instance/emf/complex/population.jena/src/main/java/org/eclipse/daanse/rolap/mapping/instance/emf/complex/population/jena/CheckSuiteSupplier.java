@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -96,73 +91,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckBevoelkerung.getDimensionChecks().add(dimCheckGeschlecht);
         cubeCheckBevoelkerung.getDimensionChecks().add(dimCheckAlter);
 
-        // Create database table and column checks
-        DatabaseTableCheck tableCheckEinwohner = createTableCheck("einwohner",
-                createColumnCheck("JAHR", "INTEGER"),
-                createColumnCheck("STATBEZ", "INTEGER"),
-                createColumnCheck("KER_GESCH", "VARCHAR"),
-                createColumnCheck("AGE", "INTEGER"),
-                createColumnCheck("Anzahl", "INTEGER"),
-                createColumnCheck("GEOJSON", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckYear = createTableCheck("year",
-                createColumnCheck("year", "INTEGER"),
-                createColumnCheck("ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckTown = createTableCheck("town",
-                createColumnCheck("id", "INTEGER"),
-                createColumnCheck("name", "VARCHAR"),
-                createColumnCheck("geojson", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckPlraum = createTableCheck("plraum",
-                createColumnCheck("gid", "INTEGER"),
-                createColumnCheck("plraum", "VARCHAR"),
-                createColumnCheck("uuid", "VARCHAR"),
-                createColumnCheck("geojson", "VARCHAR"),
-                createColumnCheck("townid", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckStatbez = createTableCheck("statbez",
-                createColumnCheck("gid", "INTEGER"),
-                createColumnCheck("plraum", "INTEGER"),
-                createColumnCheck("statbez_name", "VARCHAR"),
-                createColumnCheck("uuid", "VARCHAR"),
-                createColumnCheck("geojson", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckGender = createTableCheck("gender",
-                createColumnCheck("key", "VARCHAR"),
-                createColumnCheck("name", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckAgeGroups = createTableCheck("AgeGroups",
-                createColumnCheck("Age", "INTEGER"),
-                createColumnCheck("H1", "VARCHAR"),
-                createColumnCheck("H1_Order", "INTEGER"),
-                createColumnCheck("H2", "VARCHAR"),
-                createColumnCheck("H2_Order", "INTEGER"),
-                createColumnCheck("H7", "VARCHAR"),
-                createColumnCheck("H7_Order", "INTEGER"),
-                createColumnCheck("H8", "VARCHAR"),
-                createColumnCheck("H8_Order", "INTEGER"),
-                createColumnCheck("H9", "VARCHAR"),
-                createColumnCheck("H9_Order", "INTEGER")
-        );
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.setDescription("Database Schema Check for Bevölkerung Jena mapping");
-        databaseSchemaCheck.getTableChecks().add(tableCheckEinwohner);
-        databaseSchemaCheck.getTableChecks().add(tableCheckYear);
-        databaseSchemaCheck.getTableChecks().add(tableCheckTown);
-        databaseSchemaCheck.getTableChecks().add(tableCheckPlraum);
-        databaseSchemaCheck.getTableChecks().add(tableCheckStatbez);
-        databaseSchemaCheck.getTableChecks().add(tableCheckGender);
-        databaseSchemaCheck.getTableChecks().add(tableCheckAgeGroups);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -170,7 +98,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with all cubes and dimensions");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheckBevoelkerung);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -252,40 +179,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return levelCheck;
     }
 
-    /**
-     * Creates a DatabaseColumnCheck with the specified name and type.
-     *
-     * @param columnName the name of the column
-     * @param columnType the expected type of the column
-     * @return the configured DatabaseColumnCheck
-     */
-    private DatabaseColumnCheck createColumnCheck(String columnName, String columnType) {
-        DatabaseColumnAttributeCheck columnTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTypeCheck.setExpectedValue(columnType);
 
-        DatabaseColumnCheck columnCheck = factory.createDatabaseColumnCheck();
-        columnCheck.setName("Database Column Check " + columnName);
-        columnCheck.setColumnName(columnName);
-        columnCheck.getColumnAttributeChecks().add(columnTypeCheck);
-
-        return columnCheck;
-    }
-
-    /**
-     * Creates a DatabaseTableCheck with the specified name and column checks.
-     *
-     * @param tableName the name of the table
-     * @param columnChecks the column checks to add to the table check
-     * @return the configured DatabaseTableCheck
-     */
-    private DatabaseTableCheck createTableCheck(String tableName, DatabaseColumnCheck... columnChecks) {
-        DatabaseTableCheck tableCheck = factory.createDatabaseTableCheck();
-        tableCheck.setName("Database Table Check " + tableName);
-        tableCheck.setTableName(tableName);
-        for (DatabaseColumnCheck columnCheck : columnChecks) {
-            tableCheck.getColumnChecks().add(columnCheck);
-        }
-        return tableCheck;
-    }
 }

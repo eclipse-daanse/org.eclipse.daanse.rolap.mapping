@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.property.i
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -91,72 +86,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnFactTownIdTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnFactTownIdTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnFactTownIdTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckFactTownId = factory.createDatabaseColumnCheck();
-        columnCheckFactTownId.setName("Database Column Check TOWN_ID");
-        columnCheckFactTownId.setColumnName("TOWN_ID");
-        columnCheckFactTownId.getColumnAttributeChecks().add(columnFactTownIdTypeCheck);
-
-        DatabaseColumnAttributeCheck columnFactValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnFactValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnFactValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckFactValue = factory.createDatabaseColumnCheck();
-        columnCheckFactValue.setName("Database Column Check VALUE");
-        columnCheckFactValue.setColumnName("VALUE");
-        columnCheckFactValue.getColumnAttributeChecks().add(columnFactValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckFactTownId);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckFactValue);
-
-        // Create database column checks for Town table
-        DatabaseColumnAttributeCheck columnTownIdTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownIdTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownIdTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckTownId = factory.createDatabaseColumnCheck();
-        columnCheckTownId.setName("Database Column Check ID");
-        columnCheckTownId.setColumnName("ID");
-        columnCheckTownId.getColumnAttributeChecks().add(columnTownIdTypeCheck);
-
-        DatabaseColumnAttributeCheck columnTownNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckTownName = factory.createDatabaseColumnCheck();
-        columnCheckTownName.setName("Database Column Check NAME");
-        columnCheckTownName.setColumnName("NAME");
-        columnCheckTownName.getColumnAttributeChecks().add(columnTownNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnTownCapitalTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTownCapitalTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTownCapitalTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckTownCapital = factory.createDatabaseColumnCheck();
-        columnCheckTownCapital.setName("Database Column Check CAPITAL");
-        columnCheckTownCapital.setColumnName("CAPITAL");
-        columnCheckTownCapital.getColumnAttributeChecks().add(columnTownCapitalTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckTown = factory.createDatabaseTableCheck();
-        databaseTableCheckTown.setName("Database Table Town Check");
-        databaseTableCheckTown.setTableName("Town");
-        databaseTableCheckTown.getColumnChecks().add(columnCheckTownId);
-        databaseTableCheckTown.getColumnChecks().add(columnCheckTownName);
-        //databaseTableCheckTown.getColumnChecks().add(columnCheckTownCapital);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Level Member Property Intro");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckTown);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -165,7 +94,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Level Member Property Intro");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

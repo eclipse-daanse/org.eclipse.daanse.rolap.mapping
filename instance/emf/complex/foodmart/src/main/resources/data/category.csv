@@ -1,6 +1,0 @@
-category_id,category_parent,category_description,category_rollup
-VARCHAR(30),VARCHAR(30),VARCHAR(30),VARCHAR(30)
-ACTUAL,NULL,Current Year's Actuals,NULL
-ADJUSTMENT,NULL,Adjustment for Budget input,NULL
-BUDGET,NULL,Current Year's Budget,NULL
-FORECAST,NULL,Forecast,NULL
