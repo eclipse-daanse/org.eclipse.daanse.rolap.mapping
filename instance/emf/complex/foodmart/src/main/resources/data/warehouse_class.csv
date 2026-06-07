@@ -1,8 +1,0 @@
-warehouse_class_id,description
-INTEGER,VARCHAR(30)
-1,Small Independent
-2,Medium Independent
-3,Large Independent
-4,Small Owned
-5,Medium Owned
-6,Large Owned

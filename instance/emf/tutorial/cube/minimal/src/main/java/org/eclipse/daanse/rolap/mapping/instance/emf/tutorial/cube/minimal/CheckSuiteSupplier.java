@@ -12,12 +12,16 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal;
 
+import org.eclipse.daanse.olap.check.model.check.AxisCheck;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
+import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
 import org.eclipse.daanse.olap.check.model.check.OlapConnectionCheck;
+import org.eclipse.daanse.olap.check.model.check.QueryCheck;
+import org.eclipse.daanse.olap.check.model.check.QueryLanguage;
 import org.eclipse.daanse.olap.check.runtime.api.OlapCheckSuiteSupplier;
 import org.osgi.service.component.annotations.Component;
 
@@ -45,12 +49,37 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.setCubeName(CatalogSupplier.CUBE_NAME);
         cubeCheck.getMeasureChecks().add(measureCheck);
 
+        // MDX QueryCheck — verify SUM of VALUE column is 63 (42 + 21).
+        CellValueCheck sumCell = factory.createCellValueCheck();
+        sumCell.setName("CellValue-MeasureSum-Total");
+        sumCell.setExpectedNumericValue(63.0);
+        sumCell.setTolerance(0.001);
+        sumCell.getCoordinates().add(0);
+
+        // AxisCheck — verify columns axis has 1 position (only the one measure)
+        // whose first member is [Measures].[Measure-Sum].
+        AxisCheck columnsAxis = factory.createAxisCheck();
+        columnsAxis.setName("Axis-Columns");
+        columnsAxis.setAxisIndex(0);
+        columnsAxis.setExpectedPositionCount(1);
+        columnsAxis.setExpectedFirstMemberUniqueName("[Measures].[" + CatalogSupplier.MEASURE_NAME + "]");
+
+        QueryCheck mdxSum = factory.createQueryCheck();
+        mdxSum.setName("MDX-MinimalCube-Sum-Total");
+        mdxSum.setDescription("SUM(VALUE) across both rows should be 63 (42 + 21)");
+        mdxSum.setQuery("SELECT [Measures].[" + CatalogSupplier.MEASURE_NAME
+                + "] ON COLUMNS FROM [" + CatalogSupplier.CUBE_NAME + "]");
+        mdxSum.setQueryLanguage(QueryLanguage.MDX);
+        mdxSum.getCellChecks().add(sumCell);
+        mdxSum.getAxisChecks().add(columnsAxis);
+
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName("CatalogCheck-" + CatalogSupplier.CATALOG_NAME);
         catalogCheck.setDescription("Check that catalog '" + CatalogSupplier.CATALOG_NAME + "' exists with its cubes");
         catalogCheck.setCatalogName(CatalogSupplier.CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheck);
+        catalogCheck.getQueryChecks().add(mdxSum);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

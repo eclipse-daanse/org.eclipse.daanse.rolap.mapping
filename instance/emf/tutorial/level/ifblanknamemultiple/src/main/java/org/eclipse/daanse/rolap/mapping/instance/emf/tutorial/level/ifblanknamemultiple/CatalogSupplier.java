@@ -49,6 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.04", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -187,6 +188,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column level1MultipleNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level1MultipleNameColumn.setName("NAME");
         level1MultipleNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level1MultipleNameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Table level1MultipleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         level1MultipleTable.setName("Level_1_Multiple");
@@ -200,6 +202,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column level2MultipleNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2MultipleNameColumn.setName("NAME");
         level2MultipleNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level2MultipleNameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Column level2MultipleL1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2MultipleL1KeyColumn.setName("L1_KEY");
@@ -217,6 +220,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column level3MultipleNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level3MultipleNameColumn.setName("NAME");
         level3MultipleNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level3MultipleNameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Column level3MultipleL2KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level3MultipleL2KeyColumn.setName("L2_KEY");

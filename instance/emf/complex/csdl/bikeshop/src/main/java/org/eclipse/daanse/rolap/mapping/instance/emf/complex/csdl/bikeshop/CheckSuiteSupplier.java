@@ -17,11 +17,6 @@ import java.util.List;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -291,99 +286,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         sqlQueryCheck6.setQueryLanguage(QueryLanguage.MDX);
         sqlQueryCheck6.getCellChecks().addAll(List.of(cellCheck600));
 
-        // Create database table and column checks
-        DatabaseTableCheck tableCheckBikeSales = createTableCheck("BikeSales",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("SalesOrderNumber", "VARCHAR"),
-            createColumnCheck("SalesOrderLineNumber", "INTEGER"),
-            createColumnCheck("RevisionNumber", "INTEGER"),
-            createColumnCheck("ProductKey", "INTEGER"),
-            createColumnCheck("CountryCode", "VARCHAR"),
-            createColumnCheck("CurrencyKey", "INTEGER"),
-            createColumnCheck("CalendarQuarter", "VARCHAR"),
-            createColumnCheck("SalesChannelCode", "VARCHAR"),
-            createColumnCheck("OrderQuantity", "INTEGER"),
-            createColumnCheck("UnitPrice", "DECIMAL"),
-            createColumnCheck("ExtendedAmount", "DECIMAL"),
-            createColumnCheck("UnitPriceDiscountPct", "DOUBLE"),
-            createColumnCheck("DiscountAmount", "DOUBLE"),
-            createColumnCheck("ProductStandardCost", "DECIMAL"),
-            createColumnCheck("TotalProductCost", "DECIMAL"),
-            createColumnCheck("SalesAmount", "DECIMAL"),
-            createColumnCheck("TaxAmt", "DECIMAL"),
-            createColumnCheck("Freight", "DECIMAL"),
-            createColumnCheck("CarrierTrackingNumber", "VARCHAR"),
-            createColumnCheck("CustomerPONumber", "VARCHAR"),
-            createColumnCheck("CustomerAccountNumber", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckBike = createTableCheck("Bike",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("ProductKey", "INTEGER"),
-            createColumnCheck("ProductAlternateKey", "VARCHAR"),
-            createColumnCheck("ProductSubcategoryKey", "INTEGER"),
-            createColumnCheck("ProductName", "VARCHAR"),
-            createColumnCheck("StandardCost", "DECIMAL"),
-            createColumnCheck("FinishedGoodsFlag", "BOOLEAN"),
-            createColumnCheck("Color", "VARCHAR"),
-            createColumnCheck("ListPrice", "DECIMAL"),
-            createColumnCheck("Size", "VARCHAR"),
-            createColumnCheck("SizeRange", "VARCHAR"),
-            createColumnCheck("Weight", "DOUBLE"),
-            createColumnCheck("DealerPrice", "DECIMAL"),
-            createColumnCheck("Class", "VARCHAR"),
-            createColumnCheck("Style", "VARCHAR"),
-            createColumnCheck("ModelName", "VARCHAR"),
-            createColumnCheck("Description", "VARCHAR"),
-            createColumnCheck("WeightUnitMeasureCode", "VARCHAR"),
-            createColumnCheck("SizeUnitMeasureCode", "INTEGER"),
-            createColumnCheck("SafetyStockLevel", "INTEGER"),
-            createColumnCheck("ReorderPoint", "INTEGER"),
-            createColumnCheck("DaysToManufacture", "INTEGER"),
-            createColumnCheck("ProductLine", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckBikeSubcategory = createTableCheck("BikeSubcategory",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("ProductSubcategoryKey", "INTEGER"),
-            createColumnCheck("Subcategory", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckCalendarQuarter = createTableCheck("CalendarQuarter",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("CalendarQuarter2", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckCountry = createTableCheck("Country",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("CountryCode", "INTEGER"),
-            createColumnCheck("CountryName", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckCurrency = createTableCheck("Currency",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("CurrencyKey", "INTEGER"),
-            createColumnCheck("CurrencyAlternateKey", "VARCHAR"),
-            createColumnCheck("CurrencyName", "VARCHAR")
-        );
-
-        DatabaseTableCheck tableCheckSalesChannel = createTableCheck("SalesChannel",
-            createColumnCheck("RowNumber", "INTEGER"),
-            createColumnCheck("SalesChannelCode", "VARCHAR"),
-            createColumnCheck("SalesChannelName", "VARCHAR")
-        );
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.setDescription("Database Schema Check for CSDL BikeShop mapping");
-        databaseSchemaCheck.getTableChecks().add(tableCheckBikeSales);
-        databaseSchemaCheck.getTableChecks().add(tableCheckBike);
-        databaseSchemaCheck.getTableChecks().add(tableCheckBikeSubcategory);
-        databaseSchemaCheck.getTableChecks().add(tableCheckCalendarQuarter);
-        databaseSchemaCheck.getTableChecks().add(tableCheckCountry);
-        databaseSchemaCheck.getTableChecks().add(tableCheckCurrency);
-        databaseSchemaCheck.getTableChecks().add(tableCheckSalesChannel);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -397,7 +299,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(sqlQueryCheck4);
         catalogCheck.getQueryChecks().add(sqlQueryCheck5);
         catalogCheck.getQueryChecks().add(sqlQueryCheck6);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -479,40 +380,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return levelCheck;
     }
 
-    /**
-     * Creates a DatabaseColumnCheck with the specified name and type.
-     *
-     * @param columnName the name of the column
-     * @param columnType the expected type of the column
-     * @return the configured DatabaseColumnCheck
-     */
-    private DatabaseColumnCheck createColumnCheck(String columnName, String columnType) {
-        DatabaseColumnAttributeCheck columnTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTypeCheck.setExpectedValue(columnType);
 
-        DatabaseColumnCheck columnCheck = factory.createDatabaseColumnCheck();
-        columnCheck.setName("Database Column Check " + columnName);
-        columnCheck.setColumnName(columnName);
-        columnCheck.getColumnAttributeChecks().add(columnTypeCheck);
-
-        return columnCheck;
-    }
-
-    /**
-     * Creates a DatabaseTableCheck with the specified name and column checks.
-     *
-     * @param tableName    the name of the table
-     * @param columnChecks the column checks to add to the table check
-     * @return the configured DatabaseTableCheck
-     */
-    private DatabaseTableCheck createTableCheck(String tableName, DatabaseColumnCheck... columnChecks) {
-        DatabaseTableCheck tableCheck = factory.createDatabaseTableCheck();
-        tableCheck.setName("Database Table Check " + tableName);
-        tableCheck.setTableName(tableName);
-        for (DatabaseColumnCheck columnCheck : columnChecks) {
-            tableCheck.getColumnChecks().add(columnCheck);
-        }
-        return tableCheck;
-    }
 }

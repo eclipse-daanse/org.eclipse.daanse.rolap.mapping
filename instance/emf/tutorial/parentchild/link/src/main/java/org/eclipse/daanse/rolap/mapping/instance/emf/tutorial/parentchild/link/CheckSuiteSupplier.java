@@ -14,11 +14,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.parentchild.link;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelAttribute;
@@ -104,82 +99,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheck.getMeasureChecks().add(measureCheck);
         cubeCheck.getDimensionChecks().add(dimensionCheck);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckName = factory.createDatabaseColumnCheck();
-        columnCheckName.setName("Database Column Check NAME");
-        columnCheckName.setColumnName("NAME");
-        columnCheckName.getColumnAttributeChecks().add(columnNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnParentTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnParentTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnParentTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckParent = factory.createDatabaseColumnCheck();
-        columnCheckParent.setName("Database Column Check PARENT");
-        columnCheckParent.setColumnName("PARENT");
-        columnCheckParent.getColumnAttributeChecks().add(columnParentTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckName);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckParent);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create database column checks for Closure table
-        DatabaseColumnAttributeCheck columnClosureNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnClosureNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnClosureNameTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckClosureName = factory.createDatabaseColumnCheck();
-        columnCheckClosureName.setName("Database Column Check Closure NAME");
-        columnCheckClosureName.setColumnName("NAME");
-        columnCheckClosureName.getColumnAttributeChecks().add(columnClosureNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnClosureParentTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnClosureParentTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnClosureParentTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckClosureParent = factory.createDatabaseColumnCheck();
-        columnCheckClosureParent.setName("Database Column Check Closure PARENT");
-        columnCheckClosureParent.setColumnName("PARENT");
-        columnCheckClosureParent.getColumnAttributeChecks().add(columnClosureParentTypeCheck);
-
-        DatabaseColumnAttributeCheck columnDistanceTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnDistanceTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnDistanceTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckDistance = factory.createDatabaseColumnCheck();
-        columnCheckDistance.setName("Database Column Check DISTANCE");
-        columnCheckDistance.setColumnName("DISTANCE");
-        columnCheckDistance.getColumnAttributeChecks().add(columnDistanceTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckClosure = factory.createDatabaseTableCheck();
-        databaseTableCheckClosure.setName("Database Table Closure Check");
-        databaseTableCheckClosure.setTableName("Closure");
-        databaseTableCheckClosure.getColumnChecks().add(columnCheckClosureName);
-        databaseTableCheckClosure.getColumnChecks().add(columnCheckClosureParent);
-        databaseTableCheckClosure.getColumnChecks().add(columnCheckDistance);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckClosure);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -187,7 +106,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with parent-child hierarchy");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

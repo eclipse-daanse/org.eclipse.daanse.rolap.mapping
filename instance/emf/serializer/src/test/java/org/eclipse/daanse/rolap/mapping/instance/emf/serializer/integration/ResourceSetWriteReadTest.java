@@ -956,12 +956,6 @@ public class ResourceSetWriteReadTest {
         CheckSuiteEObjectComparator() {
             add(OlapCheckPackage.Literals.CATALOG_CHECK);
             add(OlapCheckPackage.Literals.CATALOG_ATTRIBUTE_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_SCHEMA_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_SCHEMA_ATTRIBUTE_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_TABLE_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_TABLE_ATTRIBUTE_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_COLUMN_CHECK);
-            add(OlapCheckPackage.Literals.DATABASE_COLUMN_ATTRIBUTE_CHECK);
             add(OlapCheckPackage.Literals.CUBE_CHECK);
             add(OlapCheckPackage.Literals.CUBE_ATTRIBUTE_CHECK);
             add(OlapCheckPackage.Literals.DIMENSION_CHECK);

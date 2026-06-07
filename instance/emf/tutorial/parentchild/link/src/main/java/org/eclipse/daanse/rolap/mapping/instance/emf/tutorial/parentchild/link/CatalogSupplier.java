@@ -139,7 +139,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column closureNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         closureNameColumn.setName("NAME");
-        closureNameColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        closureNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
 
         Column closureParentColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         closureParentColumn.setName("PARENT");

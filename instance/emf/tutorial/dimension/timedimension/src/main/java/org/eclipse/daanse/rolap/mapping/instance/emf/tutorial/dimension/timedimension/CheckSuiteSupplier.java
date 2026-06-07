@@ -16,11 +16,6 @@ import org.eclipse.daanse.olap.check.model.check.AggregatorType;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -140,106 +135,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnDateKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnDateKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnDateKeyTypeCheck.setExpectedValue("TIMESTAMP");
-
-        DatabaseColumnCheck columnCheckDateKey = factory.createDatabaseColumnCheck();
-        columnCheckDateKey.setName("Database Column Check DATE_KEY");
-        columnCheckDateKey.setColumnName("DATE_KEY");
-        columnCheckDateKey.getColumnAttributeChecks().add(columnDateKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseColumnAttributeCheck columnYearIdTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnYearIdTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnYearIdTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckYearId = factory.createDatabaseColumnCheck();
-        columnCheckYearId.setName("Database Column Check YEAR_ID");
-        columnCheckYearId.setColumnName("YEAR_ID");
-        columnCheckYearId.getColumnAttributeChecks().add(columnYearIdTypeCheck);
-
-        DatabaseColumnAttributeCheck columnQtrIdTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnQtrIdTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnQtrIdTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckQtrId = factory.createDatabaseColumnCheck();
-        columnCheckQtrId.setName("Database Column Check QTR_ID");
-        columnCheckQtrId.setColumnName("QTR_ID");
-        columnCheckQtrId.getColumnAttributeChecks().add(columnQtrIdTypeCheck);
-
-        DatabaseColumnAttributeCheck columnQtrNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnQtrNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnQtrNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckQtrName = factory.createDatabaseColumnCheck();
-        columnCheckQtrName.setName("Database Column Check QTR_NAME");
-        columnCheckQtrName.setColumnName("QTR_NAME");
-        columnCheckQtrName.getColumnAttributeChecks().add(columnQtrNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnMonthIdTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnMonthIdTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnMonthIdTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckMonthId = factory.createDatabaseColumnCheck();
-        columnCheckMonthId.setName("Database Column Check MONTH_ID");
-        columnCheckMonthId.setColumnName("MONTH_ID");
-        columnCheckMonthId.getColumnAttributeChecks().add(columnMonthIdTypeCheck);
-
-        DatabaseColumnAttributeCheck columnMonthNameTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnMonthNameTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnMonthNameTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckMonthName = factory.createDatabaseColumnCheck();
-        columnCheckMonthName.setName("Database Column Check MONTH_NAME");
-        columnCheckMonthName.setColumnName("MONTH_NAME");
-        columnCheckMonthName.getColumnAttributeChecks().add(columnMonthNameTypeCheck);
-
-        DatabaseColumnAttributeCheck columnWeekInMonthTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnWeekInMonthTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnWeekInMonthTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckWeekInMonth = factory.createDatabaseColumnCheck();
-        columnCheckWeekInMonth.setName("Database Column Check WEEK_IN_MONTH");
-        columnCheckWeekInMonth.setColumnName("WEEK_IN_MONTH");
-        columnCheckWeekInMonth.getColumnAttributeChecks().add(columnWeekInMonthTypeCheck);
-
-        DatabaseColumnAttributeCheck columnDayInMonthTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnDayInMonthTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnDayInMonthTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckDayInMonth = factory.createDatabaseColumnCheck();
-        columnCheckDayInMonth.setName("Database Column Check DAY_IN_MONTH");
-        columnCheckDayInMonth.setColumnName("DAY_IN_MONTH");
-        columnCheckDayInMonth.getColumnAttributeChecks().add(columnDayInMonthTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckDateKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckYearId);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckQtrId);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckQtrName);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckMonthId);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckMonthName);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckWeekInMonth);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckDayInMonth);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Dimension Time Dimension");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -248,7 +143,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Dimension Time Dimension");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

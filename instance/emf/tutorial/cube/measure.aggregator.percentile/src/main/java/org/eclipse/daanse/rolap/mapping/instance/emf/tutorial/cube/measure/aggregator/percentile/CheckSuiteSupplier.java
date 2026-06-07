@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggr
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttribute;
 import org.eclipse.daanse.olap.check.model.check.HierarchyAttributeCheck;
@@ -140,164 +135,143 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         CellValueCheck queryCheck1CellValueCheck = factory.createCellValueCheck();
         queryCheck1CellValueCheck.setName("[Measures].[Percentile disc 0.25]");
         queryCheck1CellValueCheck.setExpectedValue("4");
+        queryCheck1CellValueCheck.getCoordinates().add(0);
+        queryCheck1CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Measure Query Check Percentile disc 0.25");
         queryCheck1.setDescription("Verify MDX query returns Measure data for Percentile disc 0.25");
-        queryCheck1.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile disc 0.25])");
+        queryCheck1.setQuery("SELECT [Measures].[Percentile disc 0.25] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheck1CellValueCheck);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[Percentile cont 0.25]");
         queryCheck2CellValueCheck.setExpectedValue("4.0");
+        queryCheck2CellValueCheck.getCoordinates().add(0);
+        queryCheck2CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check Percentile cont 0.25");
         queryCheck2.setDescription("Verify MDX query returns Measure data for Percentile cont 0.25");
-        queryCheck2.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile cont 0.25])");
+        queryCheck2.setQuery("SELECT [Measures].[Percentile cont 0.25] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheck2CellValueCheck);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[Percentile disc 0.42]");
         queryCheck3CellValueCheck.setExpectedValue("6");
+        queryCheck3CellValueCheck.getCoordinates().add(0);
+        queryCheck3CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Measure Query Check Percentile disc 0.42");
         queryCheck3.setDescription("Verify MDX query returns Measure data for Percentile disc 0.42");
-        queryCheck3.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile disc 0.42])");
+        queryCheck3.setQuery("SELECT [Measures].[Percentile disc 0.42] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheck3CellValueCheck);
         queryCheck3.setEnabled(true);
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[Percentile cont 0.42]");
         queryCheck4CellValueCheck.setExpectedValue("6.0");
+        queryCheck4CellValueCheck.getCoordinates().add(0);
+        queryCheck4CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
         queryCheck4.setName("Measure Query Check Percentile cont 0.42");
         queryCheck4.setDescription("Verify MDX query returns Measure data for Percentile cont 0.42");
-        queryCheck4.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile cont 0.42])");
+        queryCheck4.setQuery("SELECT [Measures].[Percentile cont 0.42] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck4.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck4.setExpectedColumnCount(0);
         queryCheck4.getCellChecks().add(queryCheck4CellValueCheck);
         queryCheck4.setEnabled(true);
 
         CellValueCheck queryCheck5CellValueCheck = factory.createCellValueCheck();
         queryCheck5CellValueCheck.setName("[Measures].[Percentile disc 0.5]");
         queryCheck5CellValueCheck.setExpectedValue("7");
+        queryCheck5CellValueCheck.getCoordinates().add(0);
+        queryCheck5CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck5 = factory.createQueryCheck();
         queryCheck5.setName("Measure Query Check Percentile disc 0.5");
         queryCheck5.setDescription("Verify MDX query returns Measure data for Percentile disc 0.5");
-        queryCheck5.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile disc 0.5])");
+        queryCheck5.setQuery("SELECT [Measures].[Percentile disc 0.5] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck5.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck5.setExpectedColumnCount(0);
         queryCheck5.getCellChecks().add(queryCheck5CellValueCheck);
         queryCheck5.setEnabled(true);
 
         CellValueCheck queryCheck6CellValueCheck = factory.createCellValueCheck();
         queryCheck6CellValueCheck.setName("[Measures].[Percentile cont 0.5]");
         queryCheck6CellValueCheck.setExpectedValue("7.5");
+        queryCheck6CellValueCheck.getCoordinates().add(0);
+        queryCheck6CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck6 = factory.createQueryCheck();
         queryCheck6.setName("Measure Query Check Percentile cont 0.5");
         queryCheck6.setDescription("Verify MDX query returns Measure data for Percentile cont 0.5");
-        queryCheck6.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile cont 0.5])");
+        queryCheck6.setQuery("SELECT [Measures].[Percentile cont 0.5] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck6.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck6.setExpectedColumnCount(0);
         queryCheck6.getCellChecks().add(queryCheck6CellValueCheck);
         queryCheck6.setEnabled(true);
 
         CellValueCheck queryCheck7CellValueCheck = factory.createCellValueCheck();
         queryCheck7CellValueCheck.setName("[Measures].[Percentile disc 0.75]");
         queryCheck7CellValueCheck.setExpectedValue("10");
+        queryCheck7CellValueCheck.getCoordinates().add(0);
+        queryCheck7CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck7 = factory.createQueryCheck();
         queryCheck7.setName("Measure Query Check Percentile disc 0.75");
         queryCheck7.setDescription("Verify MDX query returns Measure data for Percentile disc 0.75");
-        queryCheck7.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile disc 0.75])");
+        queryCheck7.setQuery("SELECT [Measures].[Percentile disc 0.75] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck7.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck7.setExpectedColumnCount(0);
         queryCheck7.getCellChecks().add(queryCheck7CellValueCheck);
         queryCheck7.setEnabled(true);
 
         CellValueCheck queryCheck8CellValueCheck = factory.createCellValueCheck();
         queryCheck8CellValueCheck.setName("[Measures].[Percentile cont 0.75]");
         queryCheck8CellValueCheck.setExpectedValue("10.5");
+        queryCheck8CellValueCheck.getCoordinates().add(0);
+        queryCheck8CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck8 = factory.createQueryCheck();
         queryCheck8.setName("Measure Query Check Percentile cont 0.75");
         queryCheck8.setDescription("Verify MDX query returns Measure data for Percentile cont 0.75");
-        queryCheck8.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile cont 0.75])");
+        queryCheck8.setQuery("SELECT [Measures].[Percentile cont 0.75] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck8.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck8.setExpectedColumnCount(0);
         queryCheck8.getCellChecks().add(queryCheck8CellValueCheck);
         queryCheck8.setEnabled(true);
 
         CellValueCheck queryCheck9CellValueCheck = factory.createCellValueCheck();
         queryCheck9CellValueCheck.setName("[Measures].[Percentile disc 1.00]");
         queryCheck9CellValueCheck.setExpectedValue("20");
+        queryCheck9CellValueCheck.getCoordinates().add(0);
+        queryCheck9CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck9 = factory.createQueryCheck();
         queryCheck9.setName("Measure Query Check Percentile disc 1.00");
         queryCheck9.setDescription("Verify MDX query returns Measure data for Percentile disc 1.00");
-        queryCheck9.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile disc 1.00])");
+        queryCheck9.setQuery("SELECT [Measures].[Percentile disc 1.00] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck9.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck9.setExpectedColumnCount(0);
         queryCheck9.getCellChecks().add(queryCheck9CellValueCheck);
         queryCheck9.setEnabled(true);
 
         CellValueCheck queryCheck10CellValueCheck = factory.createCellValueCheck();
         queryCheck10CellValueCheck.setName("[Measures].[Percentile cont 1.00]");
         queryCheck10CellValueCheck.setExpectedValue("20.0");
+        queryCheck10CellValueCheck.getCoordinates().add(0);
+        queryCheck10CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck10 = factory.createQueryCheck();
         queryCheck10.setName("Measure Query Check Percentile cont 1.00");
         queryCheck10.setDescription("Verify MDX query returns Measure data for Percentile cont 1.00");
-        queryCheck10.setQuery("SELECT FROM [MeasuresAggregatorsCube] WHERE ([Measures].[Percentile cont 1.00])");
+        queryCheck10.setQuery("SELECT [Measures].[Percentile cont 1.00] ON COLUMNS FROM [MeasuresAggregatorsCube]");
         queryCheck10.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck10.setExpectedColumnCount(0);
         queryCheck10.getCellChecks().add(queryCheck10CellValueCheck);
         queryCheck10.setEnabled(true);
 
-        // Create database column checks for the Fact table
-        DatabaseColumnAttributeCheck columnAttributeCheckKey = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckKey.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckKey.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey = factory.createDatabaseColumnCheck();
-        columnCheckKey.setName("Database Column Check KEY");
-        columnCheckKey.setColumnName("KEY");
-        columnCheckKey.getColumnAttributeChecks().add(columnAttributeCheckKey);
-
-        DatabaseColumnAttributeCheck columnAttributeCheckValue = factory.createDatabaseColumnAttributeCheck();
-        columnAttributeCheckValue.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnAttributeCheckValue.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnAttributeCheckValue);
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Aggregator Percentile");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -315,7 +289,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck8);
         catalogCheck.getQueryChecks().add(queryCheck9);
         catalogCheck.getQueryChecks().add(queryCheck10);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

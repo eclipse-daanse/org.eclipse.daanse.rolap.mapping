@@ -50,6 +50,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.5", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -290,18 +291,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_TERRITORY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TERRITORY_CUSTOMER.setName("TERRITORY");
         COLUMN_TERRITORY_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_TERRITORY_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_COUNTRY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_CUSTOMER.setName("COUNTRY");
         COLUMN_COUNTRY_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COUNTRY_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATE_CUSTOMER.setName("STATE");
         COLUMN_STATE_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATE_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CITY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CITY_CUSTOMER.setName("CITY");
         COLUMN_CITY_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CITY_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CONTACTFIRSTNAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CONTACTFIRSTNAME_CUSTOMER.setName("CONTACTFIRSTNAME");
@@ -322,6 +327,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_CREDITLIMIT_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CREDITLIMIT_CUSTOMER.setName("CREDITLIMIT");
         COLUMN_CREDITLIMIT_CUSTOMER.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_CREDITLIMIT_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Products Table columns
         COLUMN_PRODUCTCODE_PRODUCTS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();

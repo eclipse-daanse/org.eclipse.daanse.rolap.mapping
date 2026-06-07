@@ -16,11 +16,6 @@ import java.util.List;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -89,89 +84,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         cubeCheckCube1.getDimensionChecks().add(dimCheckDimension2);
         cubeCheckCube1.getDimensionChecks().add(dimCheckDimension3);
 
-        // Create database table and column checks
-        DatabaseTableCheck tableCheckCube1Fact = createTableCheck("Cube1Fact",
-                createColumnCheck("D1", "VARCHAR"),
-                createColumnCheck("D2", "VARCHAR"),
-                createColumnCheck("D3", "VARCHAR"),
-                createColumnCheck("M1", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD1H1L1Table = createTableCheck("D1H1L1Table",
-                createColumnCheck("D1H1L1", "INTEGER"),
-                createColumnCheck("D1H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D1H1L1_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD2H1L1Table = createTableCheck("D2H1L1Table",
-                createColumnCheck("D2H1L1", "INTEGER"),
-                createColumnCheck("D2H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D2H1L1_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD2H2L2Table = createTableCheck("D2H2L2Table",
-                createColumnCheck("D2H2L2", "INTEGER"),
-                createColumnCheck("D2H2L1", "INTEGER"),
-                createColumnCheck("D2H2L2_NAME", "VARCHAR"),
-                createColumnCheck("D2H2L1_NAME", "VARCHAR"),
-                createColumnCheck("D2H2L2_Ordinal", "INTEGER"),
-                createColumnCheck("D2H2L1_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H1L1Table = createTableCheck("D3H1L1Table",
-                createColumnCheck("D3H1L1", "INTEGER"),
-                createColumnCheck("D3H1L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H1L1_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H2L2Table = createTableCheck("D3H2L2Table",
-                createColumnCheck("D3H2L2", "INTEGER"),
-                createColumnCheck("D3H2L2_id", "INTEGER"),
-                createColumnCheck("D3H2L1_id", "INTEGER"),
-                createColumnCheck("D3H2L2_NAME", "VARCHAR"),
-                createColumnCheck("D3H2L2_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H2L1Table = createTableCheck("D3H2L1Table",
-                createColumnCheck("D3H2L1", "INTEGER"),
-                createColumnCheck("D3H2L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H2L1_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H3L3Table = createTableCheck("D3H3L3Table",
-                createColumnCheck("D3H3L3", "INTEGER"),
-                createColumnCheck("D3H3L2_id", "INTEGER"),
-                createColumnCheck("D3H3L3_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L3_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H3L2Table = createTableCheck("D3H3L2Table",
-                createColumnCheck("D3H3L2", "INTEGER"),
-                createColumnCheck("D3H3L1_id", "INTEGER"),
-                createColumnCheck("D3H3L2_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L2_Ordinal", "INTEGER")
-        );
-
-        DatabaseTableCheck tableCheckD3H3L1Table = createTableCheck("D3H3L1Table",
-                createColumnCheck("D3H3L1", "INTEGER"),
-                createColumnCheck("D3H3L1_NAME", "VARCHAR"),
-                createColumnCheck("D3H3L1_Ordinal", "INTEGER")
-        );
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check for " + CATALOG_NAME);
-        databaseSchemaCheck.setDescription("Database Schema Check for ExpressiveNames mapping");
-        databaseSchemaCheck.getTableChecks().add(tableCheckCube1Fact);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD1H1L1Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD2H1L1Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD2H2L2Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H1L1Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H2L2Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H2L1Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H3L3Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H3L2Table);
-        databaseSchemaCheck.getTableChecks().add(tableCheckD3H3L1Table);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -179,7 +91,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setDescription("Check that catalog '" + CATALOG_NAME + "' exists with all cubes and dimensions");
         catalogCheck.setCatalogName(CATALOG_NAME);
         catalogCheck.getCubeChecks().add(cubeCheckCube1);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
@@ -261,40 +172,5 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         return levelCheck;
     }
 
-    /**
-     * Creates a DatabaseColumnCheck with the specified name and type.
-     *
-     * @param columnName the name of the column
-     * @param columnType the expected type of the column
-     * @return the configured DatabaseColumnCheck
-     */
-    private DatabaseColumnCheck createColumnCheck(String columnName, String columnType) {
-        DatabaseColumnAttributeCheck columnTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnTypeCheck.setExpectedValue(columnType);
 
-        DatabaseColumnCheck columnCheck = factory.createDatabaseColumnCheck();
-        columnCheck.setName("Database Column Check " + columnName);
-        columnCheck.setColumnName(columnName);
-        columnCheck.getColumnAttributeChecks().add(columnTypeCheck);
-
-        return columnCheck;
-    }
-
-    /**
-     * Creates a DatabaseTableCheck with the specified name and column checks.
-     *
-     * @param tableName the name of the table
-     * @param columnChecks the column checks to add to the table check
-     * @return the configured DatabaseTableCheck
-     */
-    private DatabaseTableCheck createTableCheck(String tableName, DatabaseColumnCheck... columnChecks) {
-        DatabaseTableCheck tableCheck = factory.createDatabaseTableCheck();
-        tableCheck.setName("Database Table Check " + tableName);
-        tableCheck.setTableName(tableName);
-        for (DatabaseColumnCheck columnCheck : columnChecks) {
-            tableCheck.getColumnChecks().add(columnCheck);
-        }
-        return tableCheck;
-    }
 }

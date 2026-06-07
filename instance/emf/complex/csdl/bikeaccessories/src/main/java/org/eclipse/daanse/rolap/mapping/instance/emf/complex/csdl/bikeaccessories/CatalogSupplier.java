@@ -49,6 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.6", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -523,6 +524,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_SALES_TERITORY_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERITORY_KEY_FACT.setName("SalesTerritoryKey");
         COLUMN_SALES_TERITORY_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERITORY_KEY_FACT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SALES_ORDER_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_ORDER_NUMBER_FACT.setName("SalesOrderNumber");
@@ -623,6 +625,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_MIDDLE_NAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MIDDLE_NAME_CUSTOMER.setName("MiddleName");
         COLUMN_MIDDLE_NAME_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MIDDLE_NAME_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_LAST_NAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LAST_NAME_CUSTOMER.setName("LastName");
@@ -643,6 +646,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_SUFFIX_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SUFFIX_CUSTOMER.setName("Suffix");
         COLUMN_SUFFIX_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SUFFIX_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GENDER_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GENDER_CUSTOMER.setName("Gender");
@@ -703,6 +707,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_ADDRESS_LINE2_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ADDRESS_LINE2_CUSTOMER.setName("AddressLine2");
         COLUMN_ADDRESS_LINE2_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ADDRESS_LINE2_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_PHONE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PHONE_CUSTOMER.setName("Phone");
@@ -735,10 +740,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setName("ParentEmployeeNationalIDAlternateKey");
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setName("SalesTerritoryKey");
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_FIRST_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FIRST_NAME_EMPLOYEE.setName("FirstName");
@@ -751,6 +758,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_MIDDLE_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MIDDLE_NAME_EMPLOYEE.setName("MiddleName");
         COLUMN_MIDDLE_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MIDDLE_NAME_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_NAME_STYLE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NAME_STYLE_EMPLOYEE.setName("NameStyle");
@@ -835,6 +843,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_END_DATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_END_DATE_EMPLOYEE.setName("EndDate");
         COLUMN_END_DATE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_END_DATE_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATUS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATUS_EMPLOYEE.setName("Status");
@@ -855,6 +864,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setName("StateProvinceCode");
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY.setName("StateProvinceName");
@@ -883,6 +893,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setName("SalesTerritoryKey");
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_ROW_NUMBER_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_PRODUCT.setName("RowNumber");
@@ -951,6 +962,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_SIZE_RANGE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_RANGE_PRODUCT.setName("SizeRange");
         COLUMN_SIZE_RANGE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_RANGE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WEIGHT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_PRODUCT.setName("Weight");
@@ -963,6 +975,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_PRODUCT_LINE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_LINE_PRODUCT.setName("ProductLine");
         COLUMN_PRODUCT_LINE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_LINE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_DEALER_PRICE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEALER_PRICE_PRODUCT.setName("DealerPrice");
@@ -1011,6 +1024,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_END_DATE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_END_DATE_PRODUCT.setName("EndDate");
         COLUMN_END_DATE_PRODUCT.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_END_DATE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATUS_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATUS_PRODUCT.setName("Status");

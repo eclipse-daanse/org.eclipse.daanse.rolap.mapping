@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring;
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.KPIAttribute;
 import org.eclipse.daanse.olap.check.model.check.KPIAttributeCheck;
 import org.eclipse.daanse.olap.check.model.check.KPICheck;
@@ -109,26 +104,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - KPI Parent Ring");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -137,7 +112,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - KPI Parent Ring");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

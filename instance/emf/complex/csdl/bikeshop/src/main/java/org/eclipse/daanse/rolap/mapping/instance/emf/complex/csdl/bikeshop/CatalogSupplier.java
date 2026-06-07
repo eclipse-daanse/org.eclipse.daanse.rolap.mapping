@@ -50,6 +50,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.7", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -327,10 +328,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setName("CarrierTrackingNumber");
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setName("CustomerPONumber");
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES.setName("CustomerAccountNumber");
@@ -375,10 +378,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_SIZE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_BIKE.setName("Size");
         COLUMN_SIZE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SIZE_RANGE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_RANGE_BIKE.setName("SizeRange");
         COLUMN_SIZE_RANGE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_RANGE_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WIGHT_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WIGHT_BIKE.setName("Weight");
@@ -403,6 +408,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_DESCRIPTION_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DESCRIPTION_BIKE.setName("Description");
         COLUMN_DESCRIPTION_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_DESCRIPTION_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE.setName("WeightUnitMeasureCode");

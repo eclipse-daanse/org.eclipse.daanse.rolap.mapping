@@ -49,6 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.04", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -163,6 +164,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column level2NullNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2NullNameColumn.setName("NAME");
         level2NullNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level2NullNameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Column level2NullL1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2NullL1KeyColumn.setName("L1_KEY");
@@ -180,6 +182,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column level1NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level1NameColumn.setName("NAME");
         level1NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level1NameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Table level1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         level1Table.setName("Level_1");

@@ -13,9 +13,6 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn;
 
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
 import org.eclipse.daanse.olap.check.model.check.OlapConnectionCheck;
@@ -33,39 +30,12 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
     @Override
     public OlapCheckSuite get() {
-        // Create database column check for "column1" (physical column)
-        DatabaseColumnCheck columnCheck1 = factory.createDatabaseColumnCheck();
-        columnCheck1.setName("Database Column Check column1");
-        columnCheck1.setColumnName("column1");
-
-        // Create database column check for "SqlExpressionColumn" (computed column)
-        // Note: SQL expression columns are computed dynamically and may not be visible
-        // in the database metadata in the same way as physical columns
-        //TODO add check for expression columns
-        DatabaseColumnCheck columnCheckSqlExpression = factory.createDatabaseColumnCheck();
-        columnCheckSqlExpression.setName("Database Column Check SqlExpressionColumn");
-        columnCheckSqlExpression.setColumnName("SqlExpressionColumn");
-
-        // Create Database Table Check
-        DatabaseTableCheck databaseTableCheck = factory.createDatabaseTableCheck();
-        databaseTableCheck.setName("Database Table TableWithExpressionColumn Check");
-        databaseTableCheck.setTableName("TableWithExpressionColumn");
-        databaseTableCheck.getColumnChecks().add(columnCheck1);
-        //TODO add check for expression columns
-        //databaseTableCheck.getColumnChecks().add(columnCheckSqlExpression);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Database Expression Column");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheck);
 
         // Create catalog check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
         catalogCheck.setName("Daanse Tutorial - Database Expression Column");
         catalogCheck.setDescription("Check that catalog 'Daanse Tutorial - Database Expression Column' exists with database schema");
         catalogCheck.setCatalogName("Daanse Tutorial - Database Expression Column");
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

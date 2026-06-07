@@ -146,7 +146,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Table table1 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table1.setName(MEASURE_TABLE);
-        table1.getFeature().addAll(List.of(idColumn, value1Column, flagColumn, measureExpression1, measureExpression2));
+        table1.getFeature().addAll(List.of(idColumn, value1Column, flagColumn));
         databaseSchema.getOwnedElement().add(table1);
 
         query = SourceFactory.eINSTANCE.createTableSource();

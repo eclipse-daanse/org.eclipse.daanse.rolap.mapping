@@ -1,7 +1,0 @@
-CATEGORY,REGION,VALUE,COMMENT
-VARCHAR,VARCHAR,INTEGER,VARCHAR
-A,N,100,initial entry for A/N
-A,S,150,follow-up on A/S
-B,N,200,opening row for B/N
-B,E,250,note on B/E
-C,N,300,only entry on C/N

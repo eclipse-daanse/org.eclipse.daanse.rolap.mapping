@@ -1,5 +1,4 @@
 "ID","NAME","CAPITAL"
-INTEGER,VARCHAR,VARCHAR
 1,Berlin,YES
 2,Paris,YES
 3,Hamburg,NO

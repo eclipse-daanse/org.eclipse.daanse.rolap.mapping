@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.mult
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.MeasureCheck;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckFactory;
 import org.eclipse.daanse.olap.check.model.check.OlapCheckSuite;
@@ -68,93 +63,46 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         // Create query checks for each measure
         CellValueCheck queryCheckCellValueCheck1 = factory.createCellValueCheck();
         queryCheckCellValueCheck1.setName("[Measures].[Sum of Value1]");
-        queryCheckCellValueCheck1.setExpectedValue("63.0");
+        queryCheckCellValueCheck1.setExpectedNumericValue(63.0);
+        queryCheckCellValueCheck1.setTolerance(0.001);
+        queryCheckCellValueCheck1.getCoordinates().add(0);
 
         QueryCheck queryCheck1 = factory.createQueryCheck();
         queryCheck1.setName("Sum of Value1 Query Check");
         queryCheck1.setDescription("Verify MDX query returns Sum of Value1 data");
-        queryCheck1.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value1])");
+        queryCheck1.setQuery("SELECT [Measures].[Sum of Value1] ON COLUMNS FROM [MultipleMeasuresCube]");
         queryCheck1.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck1.setExpectedColumnCount(0);
         queryCheck1.getCellChecks().add(queryCheckCellValueCheck1);
         queryCheck1.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheck2 = factory.createCellValueCheck();
         queryCheckCellValueCheck2.setName("[Measures].[Sum of Value2]");
-        queryCheckCellValueCheck2.setExpectedValue("100.0");
+        queryCheckCellValueCheck2.setExpectedNumericValue(100.0);
+        queryCheckCellValueCheck2.setTolerance(0.001);
+        queryCheckCellValueCheck2.getCoordinates().add(0);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Sum of Value2 Query Check");
         queryCheck2.setDescription("Verify MDX query returns Sum of Value2 data");
-        queryCheck2.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value2])");
+        queryCheck2.setQuery("SELECT [Measures].[Sum of Value2] ON COLUMNS FROM [MultipleMeasuresCube]");
         queryCheck2.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck2.setExpectedColumnCount(0);
         queryCheck2.getCellChecks().add(queryCheckCellValueCheck2);
         queryCheck2.setEnabled(true);
 
         CellValueCheck queryCheckCellValueCheck3 = factory.createCellValueCheck();
         queryCheckCellValueCheck3.setName("[Measures].[Sum of Value3]");
-        queryCheckCellValueCheck3.setExpectedValue("815.0");
+        queryCheckCellValueCheck3.setExpectedNumericValue(815.0);
+        queryCheckCellValueCheck3.setTolerance(0.001);
+        queryCheckCellValueCheck3.getCoordinates().add(0);
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
         queryCheck3.setName("Sum of Value3 Query Check");
         queryCheck3.setDescription("Verify MDX query returns Sum of Value3 data");
-        queryCheck3.setQuery("SELECT FROM [MultipleMeasuresCube] WHERE ([Measures].[Sum of Value3])");
+        queryCheck3.setQuery("SELECT [Measures].[Sum of Value3] ON COLUMNS FROM [MultipleMeasuresCube]");
         queryCheck3.setQueryLanguage(QueryLanguage.MDX);
-        queryCheck3.setExpectedColumnCount(0);
         queryCheck3.getCellChecks().add(queryCheckCellValueCheck3);
         queryCheck3.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnKeyTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnKeyTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnKeyTypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey = factory.createDatabaseColumnCheck();
-        columnCheckKey.setName("Database Column Check KEY");
-        columnCheckKey.setColumnName("KEY");
-        columnCheckKey.getColumnAttributeChecks().add(columnKeyTypeCheck);
-
-        DatabaseColumnAttributeCheck columnValue1TypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValue1TypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValue1TypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue1 = factory.createDatabaseColumnCheck();
-        columnCheckValue1.setName("Database Column Check VALUE1");
-        columnCheckValue1.setColumnName("VALUE1");
-        columnCheckValue1.getColumnAttributeChecks().add(columnValue1TypeCheck);
-
-        DatabaseColumnAttributeCheck columnValue2TypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValue2TypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValue2TypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue2 = factory.createDatabaseColumnCheck();
-        columnCheckValue2.setName("Database Column Check VALUE2");
-        columnCheckValue2.setColumnName("VALUE2");
-        columnCheckValue2.getColumnAttributeChecks().add(columnValue2TypeCheck);
-
-        DatabaseColumnAttributeCheck columnValue3TypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValue3TypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValue3TypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue3 = factory.createDatabaseColumnCheck();
-        columnCheckValue3.setName("Database Column Check VALUE3");
-        columnCheckValue3.setColumnName("VALUE3");
-        columnCheckValue3.getColumnAttributeChecks().add(columnValue3TypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue1);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue2);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue3);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Measure Multiple");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -165,7 +113,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.getQueryChecks().add(queryCheck1);
         catalogCheck.getQueryChecks().add(queryCheck2);
         catalogCheck.getQueryChecks().add(queryCheck3);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();

@@ -15,11 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.member.identifier
 import org.eclipse.daanse.olap.check.model.check.CatalogCheck;
 import org.eclipse.daanse.olap.check.model.check.CellValueCheck;
 import org.eclipse.daanse.olap.check.model.check.CubeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttribute;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnAttributeCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseColumnCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseSchemaCheck;
-import org.eclipse.daanse.olap.check.model.check.DatabaseTableCheck;
 import org.eclipse.daanse.olap.check.model.check.DimensionCheck;
 import org.eclipse.daanse.olap.check.model.check.HierarchyCheck;
 import org.eclipse.daanse.olap.check.model.check.LevelCheck;
@@ -97,46 +92,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         queryCheck.getCellChecks().add(queryCheckCellValueCheck);
         queryCheck.setEnabled(true);
 
-        // Create database column checks for Fact table
-        DatabaseColumnAttributeCheck columnKey1TypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnKey1TypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnKey1TypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey1 = factory.createDatabaseColumnCheck();
-        columnCheckKey1.setName("Database Column Check KEY1");
-        columnCheckKey1.setColumnName("KEY1");
-        columnCheckKey1.getColumnAttributeChecks().add(columnKey1TypeCheck);
-
-        DatabaseColumnAttributeCheck columnKey2TypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnKey2TypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnKey2TypeCheck.setExpectedValue("VARCHAR");
-
-        DatabaseColumnCheck columnCheckKey2 = factory.createDatabaseColumnCheck();
-        columnCheckKey2.setName("Database Column Check KEY2");
-        columnCheckKey2.setColumnName("KEY2");
-        columnCheckKey2.getColumnAttributeChecks().add(columnKey2TypeCheck);
-
-        DatabaseColumnAttributeCheck columnValueTypeCheck = factory.createDatabaseColumnAttributeCheck();
-        columnValueTypeCheck.setAttributeType(DatabaseColumnAttribute.TYPE);
-        columnValueTypeCheck.setExpectedValue("INTEGER");
-
-        DatabaseColumnCheck columnCheckValue = factory.createDatabaseColumnCheck();
-        columnCheckValue.setName("Database Column Check VALUE");
-        columnCheckValue.setColumnName("VALUE");
-        columnCheckValue.getColumnAttributeChecks().add(columnValueTypeCheck);
-
-        DatabaseTableCheck databaseTableCheckFact = factory.createDatabaseTableCheck();
-        databaseTableCheckFact.setName("Database Table Fact Check");
-        databaseTableCheckFact.setTableName("Fact");
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey1);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckKey2);
-        databaseTableCheckFact.getColumnChecks().add(columnCheckValue);
-
-        // Create Database Schema Check
-        DatabaseSchemaCheck databaseSchemaCheck = factory.createDatabaseSchemaCheck();
-        databaseSchemaCheck.setName("Database Schema Check");
-        databaseSchemaCheck.setDescription("Database Schema Check for Daanse Tutorial - Member Identifier");
-        databaseSchemaCheck.getTableChecks().add(databaseTableCheckFact);
 
         // Create catalog check with cube check
         CatalogCheck catalogCheck = factory.createCatalogCheck();
@@ -145,7 +100,6 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         catalogCheck.setCatalogName("Daanse Tutorial - Member Identifier");
         catalogCheck.getCubeChecks().add(cubeCheck);
         catalogCheck.getQueryChecks().add(queryCheck);
-        catalogCheck.getDatabaseSchemaChecks().add(databaseSchemaCheck);
 
         // Create connection check (uses default connection)
         OlapConnectionCheck connectionCheck = factory.createOlapConnectionCheck();
