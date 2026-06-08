@@ -303,10 +303,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Column COLUMN_PRODUCT_CLASS_ID_PRODUCT;
     public static final Column COLUMN_PRODUCT_ID_PRODUCT;
     public static final Column COLUMN_PRODUCT_NAME_PRODUCT;
-    public static final Column COLUMN_PRODUCT_FAMILY_PRODUCT;
-    public static final Column COLUMN_PRODUCT_DEPARTMENT_PRODUCT;
-    public static final Column COLUMN_PRODUCT_CATEGORY_PRODUCT;
-    public static final Column COLUMN_PRODUCT_SUBCATEGORY_PRODUCT;
     public static final Column COLUMN_BRAND_NAME_PRODUCT;
     public static final Column COLUMN_SKU_PRODUCT;
     public static final Column COLUMN_SRP_PRODUCT;
@@ -1344,22 +1340,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_PRODUCT_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_NAME_PRODUCT.setName("product_name");
         COLUMN_PRODUCT_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
-
-        COLUMN_PRODUCT_FAMILY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        COLUMN_PRODUCT_FAMILY_PRODUCT.setName("product_family");
-        COLUMN_PRODUCT_FAMILY_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
-
-        COLUMN_PRODUCT_DEPARTMENT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        COLUMN_PRODUCT_DEPARTMENT_PRODUCT.setName("product_department");
-        COLUMN_PRODUCT_DEPARTMENT_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
-
-        COLUMN_PRODUCT_CATEGORY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        COLUMN_PRODUCT_CATEGORY_PRODUCT.setName("product_category");
-        COLUMN_PRODUCT_CATEGORY_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
-
-        COLUMN_PRODUCT_SUBCATEGORY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
-        COLUMN_PRODUCT_SUBCATEGORY_PRODUCT.setName("product_subcategory");
-        COLUMN_PRODUCT_SUBCATEGORY_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
 
         COLUMN_BRAND_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_BRAND_NAME_PRODUCT.setName("brand_name");
