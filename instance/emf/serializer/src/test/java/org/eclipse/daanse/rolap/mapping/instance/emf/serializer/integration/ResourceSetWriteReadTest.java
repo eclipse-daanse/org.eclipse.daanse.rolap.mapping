@@ -23,12 +23,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.JDBCType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +94,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Lev
 import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatPackage;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionPackage;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLDataType;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 @ExtendWith(ConfigurationExtension.class)
@@ -205,6 +209,11 @@ public class ResourceSetWriteReadTest {
         Bundle b = FrameworkUtil.getBundle(catalogMappingSupplier.getClass());
 
         Catalog cm = catalogMappingSupplier.get();
+
+        // Capture column -> JDBC type from the pristine catalog: the serialization
+        // below moves model objects into the XMI resource (EMF single-containment
+        // detaches them from the catalog tree), so this must run first.
+        Map<String, Map<String, String>> columnTypeMap = buildColumnTypeMap(cm);
 
         StringBuilder sbReadme = new StringBuilder();
 
@@ -497,14 +506,18 @@ public class ResourceSetWriteReadTest {
         sbReadme.append("<a href=\"./zip/" + name + ".zip\" download>Download Zip File</a>");
         sbReadme.append("\n");
 
-        // List all XML files in the OSGI-INF directory and below
+        // The source CSVs are pure data (row 1 = column names, row 2+ = data).
+        // CsvDataImporter however expects row 2 to be the JDBC column types, so
+        // inject them (computed above from the pristine catalog) as a new second
+        // line while copying each CSV into the zip.
         Enumeration<URL> eCsvs = b.findEntries("data", "*.csv", true);
 
         if (eCsvs != null) {
 
             while (eCsvs.hasMoreElements()) {
                 URL csvFile = eCsvs.nextElement();
-                byte[] csv = csvFile.openStream().readAllBytes();
+                byte[] raw = csvFile.openStream().readAllBytes();
+                byte[] csv = injectCsvTypeRow(raw, tableNameOf(csvFile.getPath()), columnTypeMap);
 
                 ZipEntry entryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
                 zos.putNextEntry(entryCsv);
@@ -566,6 +579,104 @@ public class ResourceSetWriteReadTest {
 
         Files.writeString(fileReadme, sbReadme);
         zos.close();
+    }
+
+    /**
+     * Builds {@code tableName -> (columnName -> JDBC type name)} from the
+     * mapping's physical columns. Keys are lower-cased for case-insensitive
+     * matching against the CSV header. Used to synthesize the JDBC-type row
+     * that {@code CsvDataImporter} expects as line 2 of each CSV.
+     */
+    private Map<String, Map<String, String>> buildColumnTypeMap(EObject root) {
+        Map<String, Map<String, String>> result = new HashMap<>();
+        // The mapping model wires elements via cross-references, not pure
+        // containment, so walk the full reference graph (same as allRef).
+        for (EObject eo : allRef(new HashSet<>(), root)) {
+            if (!"Table".equals(eo.eClass().getName())) {
+                continue;
+            }
+            String tableName = featureString(eo, "name");
+            if (tableName == null) {
+                continue;
+            }
+            Map<String, String> cols = new LinkedHashMap<>();
+            for (EObject child : eo.eContents()) {
+                if (!"Column".equals(child.eClass().getName())) {
+                    continue;
+                }
+                String colName = featureString(child, "name");
+                if (colName == null) {
+                    continue;
+                }
+                cols.put(colName.toLowerCase(Locale.ROOT), jdbcTypeToken(child));
+            }
+            result.put(tableName.toLowerCase(Locale.ROOT), cols);
+        }
+        return result;
+    }
+
+    /** Simple {@code VARCHAR}/{@code INTEGER}/... token for a Column's type. */
+    private static String jdbcTypeToken(EObject column) {
+        EStructuralFeature typeFeat = column.eClass().getEStructuralFeature("type");
+        if (typeFeat != null && column.eGet(typeFeat) instanceof SQLDataType sdt) {
+            JDBCType jt = SqlSimpleTypes.toJdbcType(sdt);
+            if (jt != null && jt != JDBCType.OTHER) {
+                return jt.getName();
+            }
+        }
+        return JDBCType.VARCHAR.getName();
+    }
+
+    private static String featureString(EObject eo, String featureName) {
+        EStructuralFeature f = eo.eClass().getEStructuralFeature(featureName);
+        if (f == null) {
+            return null;
+        }
+        Object v = eo.eGet(f);
+        return v == null ? null : v.toString();
+    }
+
+    /** Table name for a CSV resource path, e.g. {@code .../data/Fact.csv -> Fact}. */
+    private static String tableNameOf(String csvPath) {
+        String base = csvPath.substring(csvPath.lastIndexOf('/') + 1);
+        return base.endsWith(".csv") ? base.substring(0, base.length() - ".csv".length()) : base;
+    }
+
+    /**
+     * Inserts a JDBC-type row as line 2 of a CSV: keeps line 1 (the column
+     * names) and the data rows untouched, and emits one type token per header
+     * column (looked up by name; {@code VARCHAR} when unknown).
+     */
+    private static byte[] injectCsvTypeRow(byte[] raw, String tableName,
+            Map<String, Map<String, String>> typeMap) {
+        String text = new String(raw, StandardCharsets.UTF_8);
+        int nl = text.indexOf('\n');
+        if (nl < 0) {
+            return raw; // no header line / empty file - leave untouched
+        }
+        String firstLine = text.substring(0, nl);
+        String rest = text.substring(nl + 1);
+        boolean crlf = firstLine.endsWith("\r");
+        String header = crlf ? firstLine.substring(0, firstLine.length() - 1) : firstLine;
+
+        Map<String, String> cols = typeMap.getOrDefault(tableName.toLowerCase(Locale.ROOT), Map.of());
+
+        String[] names = header.split(",", -1);
+        StringBuilder typeLine = new StringBuilder();
+        for (int idx = 0; idx < names.length; idx++) {
+            if (idx > 0) {
+                typeLine.append(',');
+            }
+            String col = names[idx].trim();
+            if (col.length() >= 2 && col.startsWith("\"") && col.endsWith("\"")) {
+                col = col.substring(1, col.length() - 1);
+            }
+            typeLine.append(cols.getOrDefault(col.toLowerCase(Locale.ROOT), JDBCType.VARCHAR.getName()));
+        }
+        if (crlf) {
+            typeLine.append('\r');
+        }
+        return (firstLine + "\n" + typeLine + "\n" + rest).getBytes(StandardCharsets.UTF_8);
     }
 
     private void removeContentsOfLevel(EObject eoc, int contain) {
