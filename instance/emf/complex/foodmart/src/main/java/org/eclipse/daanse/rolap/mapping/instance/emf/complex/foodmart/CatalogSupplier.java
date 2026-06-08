@@ -308,6 +308,17 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final Column COLUMN_PRODUCT_CATEGORY_PRODUCT;
     public static final Column COLUMN_PRODUCT_SUBCATEGORY_PRODUCT;
     public static final Column COLUMN_BRAND_NAME_PRODUCT;
+    public static final Column COLUMN_SKU_PRODUCT;
+    public static final Column COLUMN_SRP_PRODUCT;
+    public static final Column COLUMN_GROSS_WEIGHT_PRODUCT;
+    public static final Column COLUMN_NET_WEIGHT_PRODUCT;
+    public static final Column COLUMN_RECYCLABLE_PACKAGE_PRODUCT;
+    public static final Column COLUMN_LOW_FAT_PRODUCT;
+    public static final Column COLUMN_UNITS_PER_CASE_PRODUCT;
+    public static final Column COLUMN_CASES_PER_PALLET_PRODUCT;
+    public static final Column COLUMN_SHELF_WIDTH_PRODUCT;
+    public static final Column COLUMN_SHELF_HEIGHT_PRODUCT;
+    public static final Column COLUMN_SHELF_DEPTH_PRODUCT;
 
     // Warehouse table columns
     public static final Column COLUMN_WAREHOUSE_ID_WAREHOUSE;
@@ -1354,6 +1365,50 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         COLUMN_BRAND_NAME_PRODUCT.setName("brand_name");
         COLUMN_BRAND_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
 
+        COLUMN_SKU_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_SKU_PRODUCT.setName("SKU");
+        COLUMN_SKU_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+
+        COLUMN_SRP_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_SRP_PRODUCT.setName("SRP");
+        COLUMN_SRP_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
+        COLUMN_GROSS_WEIGHT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_GROSS_WEIGHT_PRODUCT.setName("gross_weight");
+        COLUMN_GROSS_WEIGHT_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
+        COLUMN_NET_WEIGHT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_NET_WEIGHT_PRODUCT.setName("net_weight");
+        COLUMN_NET_WEIGHT_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
+        COLUMN_RECYCLABLE_PACKAGE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_RECYCLABLE_PACKAGE_PRODUCT.setName("recyclable_package");
+        COLUMN_RECYCLABLE_PACKAGE_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+
+        COLUMN_LOW_FAT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_LOW_FAT_PRODUCT.setName("low_fat");
+        COLUMN_LOW_FAT_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+
+        COLUMN_UNITS_PER_CASE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_UNITS_PER_CASE_PRODUCT.setName("units_per_case");
+        COLUMN_UNITS_PER_CASE_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+
+        COLUMN_CASES_PER_PALLET_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_CASES_PER_PALLET_PRODUCT.setName("cases_per_pallet");
+        COLUMN_CASES_PER_PALLET_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+
+        COLUMN_SHELF_WIDTH_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_SHELF_WIDTH_PRODUCT.setName("shelf_width");
+        COLUMN_SHELF_WIDTH_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
+        COLUMN_SHELF_HEIGHT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_SHELF_HEIGHT_PRODUCT.setName("shelf_height");
+        COLUMN_SHELF_HEIGHT_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
+        COLUMN_SHELF_DEPTH_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        COLUMN_SHELF_DEPTH_PRODUCT.setName("shelf_depth");
+        COLUMN_SHELF_DEPTH_PRODUCT.setType(SqlSimpleTypes.decimalType(10, 4));
+
         // Initialize warehouse columns
         COLUMN_WAREHOUSE_ID_WAREHOUSE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WAREHOUSE_ID_WAREHOUSE.setName("warehouse_id");
@@ -1399,7 +1454,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_STORE_INVOICE_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STORE_INVOICE_INVENTORY_FACT.setName("store_invoice");
-        COLUMN_STORE_INVOICE_INVENTORY_FACT.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_STORE_INVOICE_INVENTORY_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
         COLUMN_SUPPLY_TIME_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SUPPLY_TIME_INVENTORY_FACT.setName("supply_time");
@@ -1407,19 +1462,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_WAREHOUSE_COST_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WAREHOUSE_COST_INVENTORY_FACT.setName("warehouse_cost");
-        COLUMN_WAREHOUSE_COST_INVENTORY_FACT.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_WAREHOUSE_COST_INVENTORY_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
         COLUMN_WAREHOUSE_SALES_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WAREHOUSE_SALES_INVENTORY_FACT.setName("warehouse_sales");
-        COLUMN_WAREHOUSE_SALES_INVENTORY_FACT.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_WAREHOUSE_SALES_INVENTORY_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
 
         COLUMN_UNITS_SHIPPED_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNITS_SHIPPED_INVENTORY_FACT.setName("units_shipped");
-        COLUMN_UNITS_SHIPPED_INVENTORY_FACT.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_UNITS_SHIPPED_INVENTORY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
         COLUMN_UNITS_ORDERED_INVENTORY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNITS_ORDERED_INVENTORY_FACT.setName("units_ordered");
-        COLUMN_UNITS_ORDERED_INVENTORY_FACT.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_UNITS_ORDERED_INVENTORY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
 
         // Initialize promotion columns
         COLUMN_PROMOTION_ID_PROMOTION = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -1516,11 +1571,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_MIN_SCALE_POSITION = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MIN_SCALE_POSITION.setName("min_scale");
-        COLUMN_MIN_SCALE_POSITION.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_MIN_SCALE_POSITION.setType(SqlSimpleTypes.decimalType(18, 4));
 
         COLUMN_MAX_SCALE_POSITION = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MAX_SCALE_POSITION.setName("max_scale");
-        COLUMN_MAX_SCALE_POSITION.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_MAX_SCALE_POSITION.setType(SqlSimpleTypes.decimalType(18, 4));
 
         // Initialize salary columns
         COLUMN_EMPLOYEE_ID_SALARY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -1537,7 +1592,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_PAY_DATE_SALARY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PAY_DATE_SALARY.setName("pay_date");
-        COLUMN_PAY_DATE_SALARY.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_PAY_DATE_SALARY.setType(SqlSimpleTypes.Sql99.timestampType());
 
         COLUMN_SALARY_PAID_SALARY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALARY_PAID_SALARY.setName("salary_paid");
@@ -1545,7 +1600,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_OVERTIME_PAID_SALARY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_OVERTIME_PAID_SALARY.setName("overtime_paid");
-        COLUMN_OVERTIME_PAID_SALARY.setType(SqlSimpleTypes.numericType(18, 4));
+        COLUMN_OVERTIME_PAID_SALARY.setType(SqlSimpleTypes.decimalType(18, 4));
 
         COLUMN_VACATION_ACCRUED_SALARY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_VACATION_ACCRUED_SALARY.setName("vacation_accrued");
@@ -1811,7 +1866,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setName("fact_count");
-        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_FACT_COUNT_AGG_PL_01_SALES_FACT_1997.setType(SqlSimpleTypes.Sql99.integerType());
 
         COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TIME_ID_AGG_L_03_SALES_FACT_1997.setName("time_id");
@@ -2126,9 +2181,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         TABLE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_PRODUCT.setName("product");
         TABLE_PRODUCT.getFeature()
-                .addAll(List.of(COLUMN_PRODUCT_ID_PRODUCT, COLUMN_PRODUCT_NAME_PRODUCT, COLUMN_BRAND_NAME_PRODUCT,
-                        COLUMN_PRODUCT_FAMILY_PRODUCT, COLUMN_PRODUCT_DEPARTMENT_PRODUCT,
-                        COLUMN_PRODUCT_CATEGORY_PRODUCT, COLUMN_PRODUCT_SUBCATEGORY_PRODUCT));
+                .addAll(List.of(COLUMN_PRODUCT_CLASS_ID_PRODUCT, COLUMN_PRODUCT_ID_PRODUCT,
+                        COLUMN_BRAND_NAME_PRODUCT, COLUMN_PRODUCT_NAME_PRODUCT,
+                        COLUMN_SKU_PRODUCT, COLUMN_SRP_PRODUCT,
+                        COLUMN_GROSS_WEIGHT_PRODUCT, COLUMN_NET_WEIGHT_PRODUCT,
+                        COLUMN_RECYCLABLE_PACKAGE_PRODUCT, COLUMN_LOW_FAT_PRODUCT,
+                        COLUMN_UNITS_PER_CASE_PRODUCT, COLUMN_CASES_PER_PALLET_PRODUCT,
+                        COLUMN_SHELF_WIDTH_PRODUCT, COLUMN_SHELF_HEIGHT_PRODUCT,
+                        COLUMN_SHELF_DEPTH_PRODUCT));
 
         // Initialize new business tables
         TABLE_WAREHOUSE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
@@ -4002,7 +4062,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         DATABASE_SCHEMA_FOODMART = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
         //DATABASE_SCHEMA_FOODMART.setName("foodmart");
         DATABASE_SCHEMA_FOODMART.getOwnedElement()
-                .addAll(List.of(TABLE_SALES_FACT, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
+                .addAll(List.of(TABLE_SALES_FACT, TABLE_SALES_FACT1998, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
                         TABLE_WAREHOUSE, TABLE_INVENTORY_FACT, TABLE_PROMOTION, TABLE_EMPLOYEE, TABLE_DEPARTMENT,
                         TABLE_POSITION, TABLE_SALARY, TABLE_EMPLOYEE_CLOSURE, TABLE_PRODUCT_CLASS, TABLE_AGG_C_SPECIAL_SALES_FACT_1997,
                         TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT, TABLE_AGG_PL_01_SALES_FACT, TABLE_AGG_G_MS_PCAT_SALES_FACT,
