@@ -50,7 +50,6 @@ public class ExpressiveNamesDatabaseCheckSuiteSupplier implements DatabaseCheckS
                                 col("D3H1L1_Ordinal", "INTEGER")),
                         table("D3H2L2Table",
                                 col("D3H2L2", "INTEGER"),
-                                col("D3H2L2_id", "INTEGER"),
                                 col("D3H2L1_id", "INTEGER"),
                                 col("D3H2L2_NAME", "VARCHAR"),
                                 col("D3H2L2_Ordinal", "INTEGER")),

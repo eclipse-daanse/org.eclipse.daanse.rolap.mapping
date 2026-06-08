@@ -23,6 +23,7 @@ import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
+import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.relational.ExpressionColumn;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
@@ -59,6 +60,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column.setName("column1");
+        column.setType(SqlSimpleTypes.Sql99.varcharType());
 
         SqlStatement sqlStatement1 = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement1.setSql("SUBSTRING(column1,1,3)");
