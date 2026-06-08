@@ -38,9 +38,9 @@ public class ParentChildTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("NODE", getClass().getResource("data/NODE.csv"));
-            put("FACT", getClass().getResource("data/FACT.csv"));
-            put("FACTWB", getClass().getResource("data/FACTWB.csv"));
+            put("NODE", getClass().getResource("/data/NODE.csv"));
+            put("FACT", getClass().getResource("/data/FACT.csv"));
+            put("FACTWB", getClass().getResource("/data/FACTWB.csv"));
         }};
     }
 

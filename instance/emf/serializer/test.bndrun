@@ -138,7 +138,9 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel',\
-	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting'
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.complex.accountingonecube',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.property'
 
 -runbundles+: \
 	org.eclipse.emf.common;startlevel=1,\
@@ -183,6 +185,7 @@
 	org.eclipse.daanse.olap.check.runtime;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.complex.accountingonecube;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeaccessories;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;version='[0.0.1,0.0.2)',\
@@ -208,6 +211,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.color;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.intro;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.property;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.dimension.intro;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.hasall;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.join.base;version='[0.0.1,0.0.2)',\

@@ -37,10 +37,10 @@ public class DrillThroughTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("H1_L1", getClass().getResource("data/H1_L1.csv"));
-            put("H2_L1", getClass().getResource("data/H2_L1.csv"));
-            put("HX_L2", getClass().getResource("data/HX_L2.csv"));
-            put("Fact", getClass().getResource("data/Fact.csv"));
+            put("H1_L1", getClass().getResource("/data/H1_L1.csv"));
+            put("H2_L1", getClass().getResource("/data/H2_L1.csv"));
+            put("HX_L2", getClass().getResource("/data/HX_L2.csv"));
+            put("Fact", getClass().getResource("/data/Fact.csv"));
         }};
     }
 

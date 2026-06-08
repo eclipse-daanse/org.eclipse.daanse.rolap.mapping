@@ -37,13 +37,13 @@ public class AggregateTablesTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("PRODUCT_CLASS", getClass().getResource("data/PRODUCT_CLASS.csv"));
-            put("PRODUCT", getClass().getResource("data/PRODUCT.csv"));
-            put("SALES_FACT_1997", getClass().getResource("data/SALES_FACT_1997.csv"));
-            put("AGG_C_14_SALES_FACT_1997", getClass().getResource("data/AGG_C_14_SALES_FACT_1997.csv"));
-            put("AGG_C_SPECIAL_SALES_FACT_1997", getClass().getResource("data/AGG_C_SPECIAL_SALES_FACT_1997.csv"));
-            put("AGG_LC_100_SALES_FACT_1997", getClass().getResource("data/AGG_LC_100_SALES_FACT_1997.csv"));
-            put("aGG_PL_01_SALES_FACT_1997", getClass().getResource("data/aGG_PL_01_SALES_FACT_1997.csv"));
+            put("PRODUCT_CLASS", getClass().getResource("/data/PRODUCT_CLASS.csv"));
+            put("PRODUCT", getClass().getResource("/data/PRODUCT.csv"));
+            put("SALES_FACT_1997", getClass().getResource("/data/SALES_FACT_1997.csv"));
+            put("AGG_C_14_SALES_FACT_1997", getClass().getResource("/data/AGG_C_14_SALES_FACT_1997.csv"));
+            put("AGG_C_SPECIAL_SALES_FACT_1997", getClass().getResource("/data/AGG_C_SPECIAL_SALES_FACT_1997.csv"));
+            put("AGG_LC_100_SALES_FACT_1997", getClass().getResource("/data/AGG_LC_100_SALES_FACT_1997.csv"));
+            put("aGG_PL_01_SALES_FACT_1997", getClass().getResource("/data/aGG_PL_01_SALES_FACT_1997.csv"));
         }};
     }
 

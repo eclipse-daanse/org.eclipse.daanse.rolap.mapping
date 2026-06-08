@@ -37,8 +37,8 @@ public class AggExcludeTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("Fact", getClass().getResource("data/Fact.csv"));
-            put("agg_01_Fact", getClass().getResource("data/agg_01_Fact.csv"));
+            put("Fact", getClass().getResource("/data/Fact.csv"));
+            put("agg_01_Fact", getClass().getResource("/data/agg_01_Fact.csv"));
         }};
     }
 

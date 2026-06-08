@@ -34,8 +34,8 @@ public class HierarchyQueryTableBaseTestInstance implements CatalogTestInstance 
     @Override
     public Map<String, URL> csvResources() {
         return Map.of(
-                "Fact", getClass().getResource("data/Fact.csv"),
-                "Town", getClass().getResource("data/Town.csv"));
+                "Fact", getClass().getResource("/data/Fact.csv"),
+                "Town", getClass().getResource("/data/Town.csv"));
     }
 
 

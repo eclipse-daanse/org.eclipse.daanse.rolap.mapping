@@ -1,9 +1,0 @@
-L1_KEY,L1_NAME,L2_KEY,L2_NAME,L3_KEY,L3_NAME
-EXPENSES,Expenses,PERSONNEL,Personnel,SALARIES,Salaries
-EXPENSES,Expenses,PERSONNEL,Personnel,SOCIAL_SEC,Social Security
-EXPENSES,Expenses,RENT,Rent,OFFICE_RENT,Office Rent
-EXPENSES,Expenses,RENT,Rent,WAREHOUSE_RENT,Warehouse Rent
-EXPENSES,Expenses,TRAVEL,Travel,FLIGHTS,Flights
-EXPENSES,Expenses,TRAVEL,Travel,HOTELS,Hotels
-REVENUE,Revenue,SALES,Sales,PRODUCT_SALES,Product Sales
-REVENUE,Revenue,SERVICES,Services,CONSULTING,Consulting
