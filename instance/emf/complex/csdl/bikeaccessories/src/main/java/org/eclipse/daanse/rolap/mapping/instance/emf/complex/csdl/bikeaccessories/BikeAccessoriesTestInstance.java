@@ -38,15 +38,15 @@ public class BikeAccessoriesTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("ProductCategory", getClass().getResource("data/ProductCategory.csv"));
-            put("ProductSubcategory", getClass().getResource("data/ProductSubcategory.csv"));
-            put("Product", getClass().getResource("data/Product.csv"));
-            put("Customer", getClass().getResource("data/Customer.csv"));
-            put("Employee", getClass().getResource("data/Employee.csv"));
-            put("Geography", getClass().getResource("data/Geography.csv"));
-            put("Store", getClass().getResource("data/Store.csv"));
-            put("Time", getClass().getResource("data/Time.csv"));
-            put("Fact", getClass().getResource("data/Fact.csv"));
+            put("ProductCategory", getClass().getResource("/data/ProductCategory.csv"));
+            put("ProductSubcategory", getClass().getResource("/data/ProductSubcategory.csv"));
+            put("Product", getClass().getResource("/data/Product.csv"));
+            put("Customer", getClass().getResource("/data/Customer.csv"));
+            put("Employee", getClass().getResource("/data/Employee.csv"));
+            put("Geography", getClass().getResource("/data/Geography.csv"));
+            put("Store", getClass().getResource("/data/Store.csv"));
+            put("Time", getClass().getResource("/data/Time.csv"));
+            put("Fact", getClass().getResource("/data/Fact.csv"));
         }};
     }
 

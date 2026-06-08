@@ -38,8 +38,8 @@ public class MinTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("C1_Fact", getClass().getResource("data/C1_Fact.csv"));
-            put("C2_Fact", getClass().getResource("data/C2_Fact.csv"));
+            put("C1_Fact", getClass().getResource("/data/C1_Fact.csv"));
+            put("C2_Fact", getClass().getResource("/data/C2_Fact.csv"));
         }};
     }
 

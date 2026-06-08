@@ -37,8 +37,8 @@ public class ViewTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("HT", getClass().getResource("data/HT.csv"));
-            put("Fact", getClass().getResource("data/Fact.csv"));
+            put("HT", getClass().getResource("/data/HT.csv"));
+            put("Fact", getClass().getResource("/data/Fact.csv"));
         }};
     }
 

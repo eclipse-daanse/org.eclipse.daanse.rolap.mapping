@@ -15,7 +15,6 @@ package org.eclipse.daanse.rolap.mapping.instance.api;
 import java.net.URL;
 import java.util.Map;
 
-import org.eclipse.daanse.cwm.testkit.api.CsvAutoDetect;
 import org.eclipse.daanse.cwm.testkit.api.DataSupplier;
 import org.eclipse.daanse.cwm.testkit.api.DatabaseCheckSuiteSupplier;
 import org.eclipse.daanse.cwm.testkit.api.DatabaseSupplier;
@@ -52,14 +51,15 @@ public interface CatalogTestInstance {
     /**
      * CSV files to load into the test database, keyed by target table name.
      *
-     * <p>The default scans the classpath / jar for files matching
-     * {@code <package-of-this-class>/data/*.csv}, sorted alphabetically.
-     * Order matters: {@code CsvDataImporter} does not topologically sort by
-     * foreign keys, so override this method to enforce parent-before-child
-     * ordering if the data has FK dependencies.
+     * <p>The default scans the classpath / jar for files matching the
+     * bundle-root {@code /data/*.csv} (i.e. {@code src/main/resources/data/}),
+     * sorted alphabetically. Every mapping-instance module uses this uniform
+     * layout. Order matters: {@code CsvDataImporter} does not topologically
+     * sort by foreign keys, so override this method to enforce
+     * parent-before-child ordering if the data has FK dependencies.
      */
     default Map<String, URL> csvResources() {
-        return CsvAutoDetect.detect(getClass(), "data");
+        return RootCsvDetect.detect(getClass());
     }
 
     // -----------------------------------------------------------------

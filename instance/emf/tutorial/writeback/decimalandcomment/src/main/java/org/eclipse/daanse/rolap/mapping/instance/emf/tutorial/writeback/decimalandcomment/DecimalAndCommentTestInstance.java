@@ -38,9 +38,9 @@ public class DecimalAndCommentTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("PRODUCT", getClass().getResource("data/PRODUCT.csv"));
-            put("FACT", getClass().getResource("data/FACT.csv"));
-            put("FACTWB", getClass().getResource("data/FACTWB.csv"));
+            put("PRODUCT", getClass().getResource("/data/PRODUCT.csv"));
+            put("FACT", getClass().getResource("/data/FACT.csv"));
+            put("FACTWB", getClass().getResource("/data/FACTWB.csv"));
         }};
     }
 
