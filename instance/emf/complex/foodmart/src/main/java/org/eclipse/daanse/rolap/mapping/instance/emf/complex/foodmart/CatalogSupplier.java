@@ -4002,7 +4002,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         DATABASE_SCHEMA_FOODMART = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSchema();
         //DATABASE_SCHEMA_FOODMART.setName("foodmart");
         DATABASE_SCHEMA_FOODMART.getOwnedElement()
-                .addAll(List.of(TABLE_SALES_FACT, TABLE_TIME, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
+                .addAll(List.of(TABLE_SALES_FACT, TABLE_STORE, TABLE_CUSTOMER, TABLE_PRODUCT,
                         TABLE_WAREHOUSE, TABLE_INVENTORY_FACT, TABLE_PROMOTION, TABLE_EMPLOYEE, TABLE_DEPARTMENT,
                         TABLE_POSITION, TABLE_SALARY, TABLE_EMPLOYEE_CLOSURE, TABLE_PRODUCT_CLASS, TABLE_AGG_C_SPECIAL_SALES_FACT_1997,
                         TABLE_AGG_L_05_SALES_FACT, TABLE_AGG_L_03_SALES_FACT, TABLE_AGG_PL_01_SALES_FACT, TABLE_AGG_G_MS_PCAT_SALES_FACT,
