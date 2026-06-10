@@ -805,6 +805,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         WritebackMeasure wbAmountIstMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbAmountIstMeasure.setName("AmountIst");
         wbAmountIstMeasure.setColumn(wbAmountIstColumn);
+        wbAmountIstMeasure.setEditable(false);
 
         WritebackMeasure wbCommentsMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbCommentsMeasure.setName("Comments");
