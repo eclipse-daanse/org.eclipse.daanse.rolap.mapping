@@ -855,7 +855,7 @@
       </eAnnotations>
       <eClassifiers xsi:type="ecore:EClass" name="ExpressionColumn" eSuperTypes="http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-          <details key="documentation" value="Daanse-specific extension of a CWM relational Column that is not backed by a physical column but by one or more SQL expressions (optionally per database dialect)."/>
+          <details key="documentation" value="Daanse-specific extension of a CWM relational Column that is not backed by a physical column but by one or more SQL expressions (optionally per database dialect). We recommend using the column name together with the table name in SQL expressions."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="sqls" lowerBound="1"
             upperBound="-1" eType="#//database/source/SqlStatement" containment="true">
