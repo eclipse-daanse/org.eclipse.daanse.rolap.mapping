@@ -39,7 +39,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
-@MappingInstance(kind = Kind.TUTORIAL, number = "2.01", source = Source.EMF, group = "Cube")
+@MappingInstance(kind = Kind.TUTORIAL, number = "2.01.01", source = Source.EMF, group = "Cube")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
 
