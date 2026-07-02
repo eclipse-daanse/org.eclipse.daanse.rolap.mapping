@@ -23,6 +23,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>minimal</module>
+    <module>sqlview</module>
     <module>measure.multiple</module>
     <module>measure.datatype</module>
     <module>measure.format</module>

@@ -64,7 +64,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema.getOwnedElement().add(sqlview);
 
         SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement.setSql("select t.c as ColumnOne from table t");
+        sqlStatement.setSql("select \"table\".\"c\" as \"ColumnOne\" from table");
         sqlStatement.getDialects().add("h2");
         sqlview.getDialectStatements().add(sqlStatement);
 

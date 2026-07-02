@@ -58,6 +58,7 @@
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.sqlview',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.table',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal',\
+	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.sqlview',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.base',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.bit',\
 	bnd.identity;id='org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.percentile',\
@@ -229,6 +230,7 @@
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.group;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.multiple;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.minimal;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.sqlview;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.column;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.inlinetable;version='[0.0.1,0.0.2)',\
