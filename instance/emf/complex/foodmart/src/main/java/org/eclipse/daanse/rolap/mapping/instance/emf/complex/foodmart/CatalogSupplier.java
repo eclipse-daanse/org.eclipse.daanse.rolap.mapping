@@ -2108,8 +2108,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.getDialects().add("generic");
-        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.setSql("&quot;warehouse_sales&quot; - &quot;inventory_fact_1997&quot;.&quot;" +
-                "warehouse_cost&quot;");
+        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.setSql("\"warehouse_sales\" - \"inventory_fact_1997\".\"" +
+                "warehouse_cost\"");
 
         MEASURE_WAREHOUSE_PROFIT_COL = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         MEASURE_WAREHOUSE_PROFIT_COL.getSqls().addAll(List.of(MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1, MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2));
@@ -2987,7 +2987,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         NAME_ORDER_COL_SQL_STATEMENT6.setSql("fullname");
 
         SQL_EXPRESSION_COLUMN_NAME_ORDER = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
-        SQL_EXPRESSION_COLUMN_NAME_ORDER.getSqls().addAll(List.of(NAME_ORDER_COL_SQL_STATEMENT1, NAME_ORDER_COL_SQL_STATEMENT2, NAME_ORDER_COL_SQL_STATEMENT3, NAME_ORDER_COL_SQL_STATEMENT4));
+        SQL_EXPRESSION_COLUMN_NAME_ORDER.getSqls().addAll(List.of(NAME_ORDER_COL_SQL_STATEMENT1, NAME_ORDER_COL_SQL_STATEMENT2, NAME_ORDER_COL_SQL_STATEMENT3, NAME_ORDER_COL_SQL_STATEMENT4,
+                NAME_ORDER_COL_SQL_STATEMENT5, NAME_ORDER_COL_SQL_STATEMENT6));
         SQL_EXPRESSION_COLUMN_NAME_ORDER.setType(SqlSimpleTypes.Sql99.varcharType());
 
         ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER = RelationalFactory.eINSTANCE.createOrderedColumn();

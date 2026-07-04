@@ -37,10 +37,10 @@ public class IfBlankNameMultipleTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("Level_1_Multiple", getClass().getResource("/data/Level_1_Multiple.csv"));
-            put("Level_2_Multiple", getClass().getResource("/data/Level_2_Multiple.csv"));
-            put("Level_3_Multiple", getClass().getResource("/data/Level_3_Multiple.csv"));
-            put("Fact_Multiple", getClass().getResource("/data/Fact_Multiple.csv"));
+            put("Level_1_Multiple", getClass().getResource("data/Level_1_Multiple.csv"));
+            put("Level_2_Multiple", getClass().getResource("data/Level_2_Multiple.csv"));
+            put("Level_3_Multiple", getClass().getResource("data/Level_3_Multiple.csv"));
+            put("Fact_Multiple", getClass().getResource("data/Fact_Multiple.csv"));
         }};
     }
 

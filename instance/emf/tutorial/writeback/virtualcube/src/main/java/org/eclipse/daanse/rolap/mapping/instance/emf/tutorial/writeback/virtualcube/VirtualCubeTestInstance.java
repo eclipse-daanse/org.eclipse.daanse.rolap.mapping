@@ -38,11 +38,11 @@ public class VirtualCubeTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("CATEGORY", getClass().getResource("/data/CATEGORY.csv"));
-            put("REGION", getClass().getResource("/data/REGION.csv"));
-            put("FACT_N", getClass().getResource("/data/FACT_N.csv"));
-            put("FACT_T", getClass().getResource("/data/FACT_T.csv"));
-            put("FACTWB_T", getClass().getResource("/data/FACTWB_T.csv"));
+            put("CATEGORY", getClass().getResource("data/CATEGORY.csv"));
+            put("REGION", getClass().getResource("data/REGION.csv"));
+            put("FACT_N", getClass().getResource("data/FACT_N.csv"));
+            put("FACT_T", getClass().getResource("data/FACT_T.csv"));
+            put("FACTWB_T", getClass().getResource("data/FACTWB_T.csv"));
         }};
     }
 

@@ -41,7 +41,7 @@ public class SchoolDataSupplier implements DataSupplier {
     public Map<String, URL> csvResources() {
         Map<String, URL> m = new LinkedHashMap<>();
         for (String t : LOAD_ORDER) {
-            URL u = getClass().getResource("/data/" + t + ".csv");
+            URL u = getClass().getResource("data/" + t + ".csv");
             if (u != null) {
                 m.put(t, u);
             }

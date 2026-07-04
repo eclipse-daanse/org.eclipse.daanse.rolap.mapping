@@ -37,9 +37,9 @@ public class IfParentsNameTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("Level_1", getClass().getResource("/data/Level_1.csv"));
-            put("Level_2", getClass().getResource("/data/Level_2.csv"));
-            put("Fact", getClass().getResource("/data/Fact.csv"));
+            put("Level_1", getClass().getResource("data/Level_1.csv"));
+            put("Level_2", getClass().getResource("data/Level_2.csv"));
+            put("Fact", getClass().getResource("data/Fact.csv"));
         }};
     }
 

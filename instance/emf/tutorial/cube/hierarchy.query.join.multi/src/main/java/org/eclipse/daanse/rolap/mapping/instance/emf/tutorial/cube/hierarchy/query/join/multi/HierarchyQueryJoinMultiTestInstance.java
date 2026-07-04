@@ -34,10 +34,10 @@ public class HierarchyQueryJoinMultiTestInstance implements CatalogTestInstance 
     @Override
     public Map<String, URL> csvResources() {
         return Map.of(
-                "Continent", getClass().getResource("/data/Continent.csv"),
-                "Country", getClass().getResource("/data/Country.csv"),
-                "Fact", getClass().getResource("/data/Fact.csv"),
-                "Town", getClass().getResource("/data/Town.csv"));
+                "Continent", getClass().getResource("data/Continent.csv"),
+                "Country", getClass().getResource("data/Country.csv"),
+                "Fact", getClass().getResource("data/Fact.csv"),
+                "Town", getClass().getResource("data/Town.csv"));
     }
 
 

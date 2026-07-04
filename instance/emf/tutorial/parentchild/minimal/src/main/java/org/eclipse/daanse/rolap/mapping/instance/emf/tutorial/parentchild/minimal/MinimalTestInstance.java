@@ -37,8 +37,8 @@ public class MinimalTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("Hier_One_Top_Member", getClass().getResource("/data/Hier_One_Top_Member.csv"));
-            put("Fact", getClass().getResource("/data/Fact.csv"));
+            put("Hier_One_Top_Member", getClass().getResource("data/Hier_One_Top_Member.csv"));
+            put("Fact", getClass().getResource("data/Fact.csv"));
         }};
     }
 
