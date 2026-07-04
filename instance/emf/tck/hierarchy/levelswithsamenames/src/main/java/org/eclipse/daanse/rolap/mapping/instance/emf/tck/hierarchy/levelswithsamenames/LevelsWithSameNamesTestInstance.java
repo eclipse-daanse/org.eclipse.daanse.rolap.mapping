@@ -37,8 +37,8 @@ public class LevelsWithSameNamesTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("Town", getClass().getResource("/data/Town.csv"));
-            put("Fact", getClass().getResource("/data/Fact.csv"));
+            put("Town", getClass().getResource("data/Town.csv"));
+            put("Fact", getClass().getResource("data/Fact.csv"));
         }};
     }
 

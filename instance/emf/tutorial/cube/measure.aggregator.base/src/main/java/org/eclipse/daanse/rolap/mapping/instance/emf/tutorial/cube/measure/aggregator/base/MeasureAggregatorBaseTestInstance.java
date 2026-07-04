@@ -41,7 +41,7 @@ public class MeasureAggregatorBaseTestInstance implements CatalogTestInstance {
 
     @Override
     public Map<String, URL> csvResources() {
-        return Map.of("Fact", getClass().getResource("/data/Fact.csv"));
+        return Map.of("Fact", getClass().getResource("data/Fact.csv"));
     }
 
 

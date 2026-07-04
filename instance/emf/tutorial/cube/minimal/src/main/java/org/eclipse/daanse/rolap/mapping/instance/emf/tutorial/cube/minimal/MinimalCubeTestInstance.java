@@ -46,7 +46,7 @@ public class MinimalCubeTestInstance implements CatalogTestInstance {
     public Map<String, URL> csvResources() {
         // Package-scoped path avoids classpath collision with other tutorial
         // jars that also ship a {@code /data/Fact.csv}.
-        return Map.of("Fact", getClass().getResource("/data/Fact.csv"));
+        return Map.of("Fact", getClass().getResource("data/Fact.csv"));
     }
 
 

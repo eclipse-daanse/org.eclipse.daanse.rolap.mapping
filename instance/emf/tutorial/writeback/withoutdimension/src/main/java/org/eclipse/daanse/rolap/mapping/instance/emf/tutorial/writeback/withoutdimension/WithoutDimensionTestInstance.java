@@ -38,8 +38,8 @@ public class WithoutDimensionTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("FACT", getClass().getResource("/data/FACT.csv"));
-            put("FACTWB", getClass().getResource("/data/FACTWB.csv"));
+            put("FACT", getClass().getResource("data/FACT.csv"));
+            put("FACTWB", getClass().getResource("data/FACTWB.csv"));
         }};
     }
 

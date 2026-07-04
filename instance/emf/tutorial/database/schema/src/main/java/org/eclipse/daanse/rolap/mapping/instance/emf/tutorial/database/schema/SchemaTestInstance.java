@@ -37,9 +37,9 @@ public class SchemaTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return Map.of(
-                "theTable", getClass().getResource("/data/theTable.csv"),
-                "nonref.theTable", getClass().getResource("/data/nonref/theTable.csv"),
-                "theschema.theTable", getClass().getResource("/data/theschema/theTable.csv"));
+                "theTable", getClass().getResource("data/theTable.csv"),
+                "nonref.theTable", getClass().getResource("data/nonref/theTable.csv"),
+                "theschema.theTable", getClass().getResource("data/theschema/theTable.csv"));
     }
 
 

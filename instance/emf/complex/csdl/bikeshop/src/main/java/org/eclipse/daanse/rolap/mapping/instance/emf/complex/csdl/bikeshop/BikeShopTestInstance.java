@@ -38,13 +38,13 @@ public class BikeShopTestInstance implements CatalogTestInstance {
     @Override
     public Map<String, URL> csvResources() {
         return new java.util.LinkedHashMap<String, URL>() {{
-            put("BikeSubcategory", getClass().getResource("/data/BikeSubcategory.csv"));
-            put("Bike", getClass().getResource("/data/Bike.csv"));
-            put("CalendarQuarter", getClass().getResource("/data/CalendarQuarter.csv"));
-            put("Country", getClass().getResource("/data/Country.csv"));
-            put("Currency", getClass().getResource("/data/Currency.csv"));
-            put("SalesChannel", getClass().getResource("/data/SalesChannel.csv"));
-            put("BikeSales", getClass().getResource("/data/BikeSales.csv"));
+            put("BikeSubcategory", getClass().getResource("data/BikeSubcategory.csv"));
+            put("Bike", getClass().getResource("data/Bike.csv"));
+            put("CalendarQuarter", getClass().getResource("data/CalendarQuarter.csv"));
+            put("Country", getClass().getResource("data/Country.csv"));
+            put("Currency", getClass().getResource("data/Currency.csv"));
+            put("SalesChannel", getClass().getResource("data/SalesChannel.csv"));
+            put("BikeSales", getClass().getResource("data/BikeSales.csv"));
         }};
     }
 

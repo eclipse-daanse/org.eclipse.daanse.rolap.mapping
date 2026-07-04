@@ -30,32 +30,33 @@ import java.util.jar.JarFile;
 import java.util.stream.Stream;
 
 /**
- * Finds the CSV files packaged at the <em>bundle root</em> {@code data/}
- * folder, keyed by file name without extension.
+ * Finds the CSV files packaged in the <em>anchor's own package</em> under a
+ * {@code data/} sub-folder, keyed by file name without extension.
  *
- * <p>Every mapping-instance module keeps its CSV data uniformly under
- * {@code src/main/resources/data/}, which lands at {@code /data/} on the
- * classpath. Unlike a package-relative scan, this anchor-independent lookup
- * lets all modules share the exact same on-disk and in-jar layout.
+ * <p>Every mapping-instance module keeps its CSV data under
+ * {@code src/main/resources/<package>/data/} — the same package as the
+ * test-instance class — which lands at {@code <package-path>/data/} on the
+ * classpath. Anchoring the scan to the anchor's package makes the resource path
+ * unique per module, so co-locating many instance jars on one class path (the
+ * discovered-all run) can never resolve one catalog's CSV for another.
  *
  * <p>The returned map keeps alphabetical order, so name files to load parents
  * before children when foreign keys require it.
  */
 public final class RootCsvDetect {
 
-    private static final String PREFIX = "data/";
-
     private RootCsvDetect() {
     }
 
     /**
-     * Returns the {@code .csv} resources under the classpath-root
-     * {@code data/} folder, keyed by file name without extension.
+     * Returns the {@code .csv} resources under the anchor package's {@code data/}
+     * folder, keyed by file name without extension.
      *
-     * @param anchor any class of the module whose class loader exposes the
-     *               {@code data/} resources (typically the test-instance class)
+     * @param anchor any class of the module whose package holds the {@code data/}
+     *               resources (typically the test-instance class)
      */
     public static Map<String, URL> detect(Class<?> anchor) {
+        String prefix = anchor.getPackageName().replace('.', '/') + "/data/";
         TreeSet<String> sortedNames = new TreeSet<>();
         Map<String, URL> byName = new LinkedHashMap<>();
 
@@ -65,13 +66,13 @@ public final class RootCsvDetect {
         }
 
         try {
-            Enumeration<URL> roots = cl.getResources(PREFIX);
+            Enumeration<URL> roots = cl.getResources(prefix);
             for (URL root : Collections.list(roots)) {
-                collectFrom(root, sortedNames, byName);
+                collectFrom(root, prefix, sortedNames, byName);
             }
         } catch (IOException e) {
             throw new IllegalStateException(
-                    "Failed to scan classpath for " + PREFIX + " (anchor=" + anchor.getName() + ")", e);
+                    "Failed to scan classpath for " + prefix + " (anchor=" + anchor.getName() + ")", e);
         }
 
         LinkedHashMap<String, URL> ordered = new LinkedHashMap<>();
@@ -81,12 +82,12 @@ public final class RootCsvDetect {
         return ordered;
     }
 
-    private static void collectFrom(URL root, TreeSet<String> sortedNames, Map<String, URL> byName)
+    private static void collectFrom(URL root, String prefix, TreeSet<String> sortedNames, Map<String, URL> byName)
             throws IOException {
         switch (root.getProtocol()) {
         case "file" -> collectFromFile(root, sortedNames, byName);
-        case "jar" -> collectFromJar(root, sortedNames, byName);
-        default -> collectFromGenericFs(root, sortedNames, byName);
+        case "jar" -> collectFromJar(root, prefix, sortedNames, byName);
+        default -> collectFromGenericFs(root, prefix, sortedNames, byName);
         }
     }
 
@@ -99,7 +100,7 @@ public final class RootCsvDetect {
         }
     }
 
-    private static void collectFromJar(URL root, TreeSet<String> sortedNames, Map<String, URL> byName)
+    private static void collectFromJar(URL root, String prefix, TreeSet<String> sortedNames, Map<String, URL> byName)
             throws IOException {
         String spec = root.getFile();
         int bang = spec.indexOf("!/");
@@ -112,10 +113,10 @@ public final class RootCsvDetect {
                     continue;
                 }
                 String name = e.getName();
-                if (!name.startsWith(PREFIX) || !name.endsWith(".csv")) {
+                if (!name.startsWith(prefix) || !name.endsWith(".csv")) {
                     continue;
                 }
-                String fileName = name.substring(PREFIX.length());
+                String fileName = name.substring(prefix.length());
                 if (fileName.contains("/")) {
                     continue;
                 }
@@ -125,8 +126,8 @@ public final class RootCsvDetect {
         }
     }
 
-    private static void collectFromGenericFs(URL root, TreeSet<String> sortedNames, Map<String, URL> byName)
-            throws IOException {
+    private static void collectFromGenericFs(URL root, String prefix, TreeSet<String> sortedNames,
+            Map<String, URL> byName) throws IOException {
         URI uri;
         try {
             uri = root.toURI();
@@ -134,7 +135,7 @@ public final class RootCsvDetect {
             throw new IOException("Bad URI: " + root, e);
         }
         try (FileSystem fs = FileSystems.newFileSystem(uri, Collections.emptyMap())) {
-            Path dir = fs.getPath("/" + PREFIX);
+            Path dir = fs.getPath("/" + prefix);
             try (Stream<Path> walk = Files.list(dir)) {
                 walk.filter(p -> p.toString().endsWith(".csv"))
                         .forEach(p -> add(p.getFileName().toString(), pathToUrl(p), sortedNames, byName));

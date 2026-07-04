@@ -36,7 +36,7 @@ public class UniqueKeyLevelNameTestInstance implements CatalogTestInstance {
 
     @Override
     public Map<String, URL> csvResources() {
-        return Map.of("AUTOMOTIVE_DIM", getClass().getResource("/data/AUTOMOTIVE_DIM.csv"));
+        return Map.of("AUTOMOTIVE_DIM", getClass().getResource("data/AUTOMOTIVE_DIM.csv"));
     }
 
 
