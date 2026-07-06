@@ -47,5 +47,6 @@ header:
     - '**/logback-test.xml'
     - '**/*.svg'
     - '**/*.peb'
+    - '**/org.eclipse.daanse.rolap.mapping.instance.api.CatalogTestInstance'
 
   comment: always
