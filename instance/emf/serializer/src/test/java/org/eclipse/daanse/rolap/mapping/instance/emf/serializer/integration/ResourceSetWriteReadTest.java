@@ -14,6 +14,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.serializer.integration;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -199,6 +200,7 @@ public class ResourceSetWriteReadTest {
             CatalogMappingSupplier catalogMappingSupplier, Dictionary<String, Object> dictionary, ZipOutputStream combinedZos, OlapCheckSuiteSupplier checkSuiteSupplier) throws IOException {
 
         String name = catalogMappingSupplier.getClass().getPackageName();
+        String packageName = catalogMappingSupplier.getClass().getPackageName().replace(".", File.separator);
         name = name.substring(46);
 
         Path fileReadme = Files.createFile(tempDir.resolve(name + ".md"));
@@ -510,7 +512,7 @@ public class ResourceSetWriteReadTest {
         // CsvDataImporter however expects row 2 to be the JDBC column types, so
         // inject them (computed above from the pristine catalog) as a new second
         // line while copying each CSV into the zip.
-        Enumeration<URL> eCsvs = b.findEntries("data", "*.csv", true);
+        Enumeration<URL> eCsvs = b.findEntries(packageName + "/data", "*.csv", true);
 
         if (eCsvs != null) {
 
@@ -518,20 +520,19 @@ public class ResourceSetWriteReadTest {
                 URL csvFile = eCsvs.nextElement();
                 byte[] raw = csvFile.openStream().readAllBytes();
                 byte[] csv = injectCsvTypeRow(raw, tableNameOf(csvFile.getPath()), columnTypeMap);
-
-                ZipEntry entryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
+                ZipEntry entryCsv = new ZipEntry(name + csvFile.getPath().substring(1).replace(packageName, ""));
                 zos.putNextEntry(entryCsv);
                 zos.write(csv);
                 zos.closeEntry();
 
                 // Add to combined ZIP
-                ZipEntry combinedEntryCsv = new ZipEntry(name + csvFile.getPath().substring(0));
+                ZipEntry combinedEntryCsv = new ZipEntry(name + csvFile.getPath().substring(1).replace(packageName, ""));
                 combinedZos.putNextEntry(combinedEntryCsv);
                 combinedZos.write(csv);
                 combinedZos.closeEntry();
             }
         }
-        Enumeration<URL> keepCsvs = b.findEntries("data", "*.keep", true);
+        Enumeration<URL> keepCsvs = b.findEntries(packageName + "/data", "*.keep", true);
         if (keepCsvs != null) {
             URL keepFile = keepCsvs.nextElement();
             ZipEntry entryKeep = new ZipEntry(name + keepFile.getPath().substring(0));
