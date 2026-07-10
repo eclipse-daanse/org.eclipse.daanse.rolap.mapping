@@ -2196,6 +2196,12 @@
                 <details key="documentation" value="Controls whether this level appears in client tool level browsers, dimension trees, and metadata discovery. When false, the level becomes hidden from normal user interfaces but remains accessible for programmatic queries and advanced users who know the level name explicitly."/>
               </eAnnotations>
             </eStructuralFeatures>
+            <eStructuralFeatures xsi:type="ecore:EReference" name="relationalSource"
+                eType="#//database/source/RelationalSource">
+              <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+                <details key="documentation" value="Optional reference to the specific relational source that this level's columns are read from. The target is the abstract RelationalSource, so it may be any source form (TableSource, InlineTableSource, SqlSelectSource, or a JoinSource occurrence), typically one alias of a self-join. When set, the SQL alias for this level's key/name/caption/ordinal/property columns is taken from this source's alias, disambiguating cases where the same physical source appears under multiple aliases. When null, the alias is inferred from the key column's owning table via identity search over the hierarchy's join tree (backward compatible)."/>
+              </eAnnotations>
+            </eStructuralFeatures>
           </eClassifiers>
           <eClassifiers xsi:type="ecore:EClass" name="MemberProperty" eSuperTypes="#//AbstractElement">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
