@@ -31,5 +31,6 @@
     <module>ifparentsname</module>
     <module>unique</module>
     <module>ordinalcolumns</module>
+    <module>relationalsource</module>
   </modules>
 </project>
