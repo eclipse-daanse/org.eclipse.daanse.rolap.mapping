@@ -1,0 +1,11 @@
+employee_id,name,supervisor_id,management_role
+1,Sheri Nowmer,0,Senior Management
+2,Derrick Whelply,1,Middle Management
+3,Michael Spence,1,Middle Management
+4,Maya Gutierrez,2,Store Management
+5,Roberta Damstra,3,Store Management
+6,Rebecca Kanagaki,3,Store Management
+7,Kim Brunner,4,Store Full Time Staf
+8,Brenda Blumberg,4,Store Full Time Staf
+9,Darren Stanz,5,Store Full Time Staf
+10,Jonathan Murraiin,6,Store Full Time Staf
