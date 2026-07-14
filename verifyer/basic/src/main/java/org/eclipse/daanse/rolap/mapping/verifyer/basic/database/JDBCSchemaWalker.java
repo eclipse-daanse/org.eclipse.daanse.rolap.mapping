@@ -31,10 +31,10 @@ import org.eclipse.daanse.cwm.util.resource.relational.ColumnSets;
 import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
 import org.eclipse.daanse.cwm.util.resource.relational.RowSets;
 import org.eclipse.daanse.cwm.util.resource.relational.Schemas;
-import org.eclipse.daanse.jdbc.db.api.DatabaseService;
-import org.eclipse.daanse.jdbc.db.api.schema.ColumnReference;
-import org.eclipse.daanse.jdbc.db.api.schema.SchemaReference;
-import org.eclipse.daanse.jdbc.db.api.schema.TableReference;
+import org.eclipse.daanse.sql.jdbc.api.DatabaseService;
+import org.eclipse.daanse.sql.model.schema.ColumnReference;
+import org.eclipse.daanse.sql.model.schema.SchemaReference;
+import org.eclipse.daanse.sql.model.schema.TableReference;
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
@@ -154,7 +154,7 @@ public class JDBCSchemaWalker {
         try {
             TableReference tableReference = getTableReference(s.getName(), tableName);
             if (!databaseService.tableExists(databaseMetaData.getConnection(),
-                    org.eclipse.daanse.jdbc.db.api.MetadataProvider.EMPTY, tableReference)) {
+                    org.eclipse.daanse.sql.jdbc.api.MetadataProvider.EMPTY, tableReference)) {
                 String msg = String.format(TABLE_S_DOES_NOT_EXIST_IN_DATABASE, tableName);
                 results.add(new VerificationResultR(TABLE, msg, ERROR, DATABASE));
             } else {
@@ -175,7 +175,7 @@ public class JDBCSchemaWalker {
             TableReference tableReference = getTableReference(schemaName, table.getName());
             ColumnReference columnReference = new ColumnReference(Optional.of(tableReference), column.getName());
             if (!databaseService.columnExists(databaseMetaData.getConnection(),
-                    org.eclipse.daanse.jdbc.db.api.MetadataProvider.EMPTY, columnReference)) {
+                    org.eclipse.daanse.sql.jdbc.api.MetadataProvider.EMPTY, columnReference)) {
                 String msg =
                     String.format(COLUMN_S_DOES_NOT_EXIST_IN_TABLE_S, column.getName(), table.getName());
                 results.add(new VerificationResultR(TABLE, msg, ERROR, DATABASE));
@@ -268,7 +268,7 @@ public class JDBCSchemaWalker {
         if (schema != null && !isEmpty(schema.getName())) {
             try {
                 List<SchemaReference> schemaList = databaseService.getSchemas(databaseMetaData.getConnection(),
-                        org.eclipse.daanse.jdbc.db.api.MetadataProvider.EMPTY, null);
+                        org.eclipse.daanse.sql.jdbc.api.MetadataProvider.EMPTY, null);
                 if (!isEmpty(schema.getName()) && !schemaList.stream().filter(sr -> schema.getName().equals(sr.name())).findFirst().isPresent()) {
                     String msg = String.format(SCHEMA_S_DOES_NOT_EXIST, schema);
                     results.add(new VerificationResultR(TABLE, msg, ERROR, DATABASE));
