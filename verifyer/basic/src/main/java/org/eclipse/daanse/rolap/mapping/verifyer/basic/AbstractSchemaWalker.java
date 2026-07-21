@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
-import org.eclipse.daanse.cwm.util.resource.relational.ColumnSets;
-import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
-import org.eclipse.daanse.cwm.util.resource.relational.RowSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.ColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.NamedColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.RowSets;
 import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessDimensionGrant;

@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.TreeSet;
 
-import org.eclipse.daanse.cwm.util.resource.relational.Columns;
-import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.Columns;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.NamedColumnSets;
 import org.eclipse.daanse.rolap.mapping.model.access.common.AccessCatalogGrant;
 import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessCubeGrant;
 import org.eclipse.daanse.rolap.mapping.model.access.olap.AccessDimensionGrant;
