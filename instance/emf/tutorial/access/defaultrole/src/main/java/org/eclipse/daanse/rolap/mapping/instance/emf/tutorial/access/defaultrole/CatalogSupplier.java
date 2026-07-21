@@ -59,7 +59,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.04.07", source = Source.EMF, group = "Access") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {

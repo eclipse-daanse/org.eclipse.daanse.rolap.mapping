@@ -15,7 +15,7 @@ package org.eclipse.daanse.rolap.mapping.verifyer.basic;
 
 import java.util.SortedSet;
 
-import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.NamedColumnSets;
 import org.eclipse.daanse.rolap.mapping.model.database.source.JoinSource;
 import org.eclipse.daanse.rolap.mapping.model.database.source.RelationalSource;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;

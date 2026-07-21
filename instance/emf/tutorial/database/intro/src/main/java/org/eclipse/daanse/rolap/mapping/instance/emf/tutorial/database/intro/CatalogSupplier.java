@@ -25,7 +25,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.rolap.mapping.model.RolapMappingFactory;
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
-import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
 import org.osgi.service.component.annotations.Component;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;

@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
-import org.eclipse.daanse.cwm.util.objectmodel.core.Namespaces;
-import org.eclipse.daanse.cwm.util.resource.relational.ColumnSets;
-import org.eclipse.daanse.cwm.util.resource.relational.NamedColumnSets;
-import org.eclipse.daanse.cwm.util.resource.relational.RowSets;
-import org.eclipse.daanse.cwm.util.resource.relational.Schemas;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.util.Namespaces;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.ColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.NamedColumnSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.RowSets;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.Schemas;
 import org.eclipse.daanse.sql.jdbc.api.DatabaseService;
 import org.eclipse.daanse.sql.model.schema.ColumnReference;
 import org.eclipse.daanse.sql.model.schema.SchemaReference;

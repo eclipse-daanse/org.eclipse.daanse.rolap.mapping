@@ -33,7 +33,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
 import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
-import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.01", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {

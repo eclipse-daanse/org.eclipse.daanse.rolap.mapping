@@ -230,7 +230,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="databaseSchema" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Schema">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Schema">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="References the specific database schema to which this access grant applies, establishing the security boundary at the database level."/>
           </eAnnotations>
@@ -253,7 +253,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/NamedColumnSet">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//NamedColumnSet">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="References the specific table to which this access grant applies, establishing the security boundary at the table level."/>
           </eAnnotations>
@@ -270,7 +270,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="References the specific column to which this access grant applies, establishing the security boundary at the individual column level."/>
           </eAnnotations>
@@ -565,7 +565,7 @@
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="dbschemas" upperBound="-1"
-          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Schema">
+          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Schema">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Collection of database schemas that define the physical data model underlying this catalog. Each DatabaseSchema represents a logical grouping of tables, views, and columns from one or more physical databases. The catalog can integrate data from multiple database schemas, enabling cross-database analysis and federated OLAP scenarios. These schemas provide the foundation for all cube queries and define the available tables and columns for fact tables, dimension tables, and lookup tables."/>
         </eAnnotations>
@@ -576,14 +576,14 @@
         <details key="documentation" value="Represents a database catalog that organizes database schemas and external data links. DatabaseCatalog serves as the top-level container for database metadata, providing structured access to schema definitions and connection management."/>
       </eAnnotations>
       <eStructuralFeatures xsi:type="ecore:EReference" name="schemas" upperBound="-1"
-          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Schema"
+          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Schema"
           containment="true">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Collection of database schemas contained within this catalog. Each schema defines tables, columns, and relationships that form the physical data foundation for OLAP cubes and dimensions."/>
         </eAnnotations>
       </eStructuralFeatures>
       <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
-          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/ForeignKey"
+          eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//ForeignKey"
           containment="true">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Collection of external data links that connect to remote databases or data sources. Links enable distributed OLAP architectures where data can be accessed from multiple database systems."/>
@@ -633,13 +633,13 @@
           <details key="documentation" value="Defines column relationships between aggregation tables and fact tables that enable query optimization through transparent fact-to-aggregation table substitution. Maps foreign key columns in aggregation tables to their corresponding columns in fact tables, maintaining referential integrity and dimensional relationships for performance-optimized OLAP query processing."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="aggregationColumn"
-            lowerBound="1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            lowerBound="1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the foreign key column in the aggregation table that corresponds to a dimension key. This column maintains dimensional relationships in the pre-aggregated data, enabling proper joins with dimension tables during query processing and supporting transparent substitution of fact table queries with optimized aggregation table queries."/>
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the original foreign key column in the fact table that this aggregation column represents. This mapping enables the OLAP engine to understand the correspondence between fact and aggregation table structures, supporting query rewriting where fact table foreign key references are substituted with their aggregation table equivalents while maintaining proper dimensional relationships and join semantics."/>
           </eAnnotations>
@@ -656,7 +656,7 @@
             <details key="documentation" value="Collection of property mappings that define how level properties are represented in the aggregation table. Each AggregationLevelProperty maps a level property (such as member captions, descriptions, or custom attributes) to its corresponding column in the aggregation table, enabling rich dimensional data access in aggregated queries."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Optional reference to the column in the aggregation table that contains member caption values for this level. Caption columns provide user-friendly display names that can be shown in analytical interfaces instead of the technical key values."/>
           </eAnnotations>
@@ -668,7 +668,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the column in the aggregation table that stores the key values for this dimension level. This column contains the dimension member keys that correspond to the level definition, enabling proper aggregation matching and query optimization."/>
           </eAnnotations>
@@ -679,13 +679,13 @@
             <details key="documentation" value="Required name identifier for the dimension level that this aggregation level represents. This name must correspond to a level defined in the cube schema, enabling the aggregation matching algorithm to identify appropriate aggregations for queries involving this level."/>
           </eAnnotations>
         </eStructuralFeatures>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Optional reference to the column in the aggregation table that contains member name values for this level. Name columns provide alternative identification for dimension members beyond the primary key column."/>
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="ordinalColumns" lowerBound="1"
-            upperBound="-1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            upperBound="-1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Optional reference to the columns in the aggregation table that contains ordinal values for level members. Ordinal columns provide explicit sort ordering for dimension members, enabling consistent member ordering in analytical results and user interfaces."/>
           </eAnnotations>
@@ -695,7 +695,7 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Maps a level property to its corresponding column in an aggregation table, enabling access to dimensional member properties in aggregated queries. Level properties provide additional descriptive information about dimension members beyond their keys and names, such as member descriptions, custom attributes, or categorization data."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="column" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Reference to the column in the aggregation table that stores the property values. This column contains the actual property data that corresponds to the level property definition in the cube schema."/>
           </eAnnotations>
@@ -712,7 +712,7 @@
           <details key="documentation" value="Maps a cube measure to a column in an aggregation table that contains pre-computed aggregated values for that measure. AggregationMeasure is central to the performance optimization provided by aggregation tables, enabling the OLAP engine to substitute pre-calculated summary values for expensive fact table aggregations. Each mapping defines the relationship between a logical measure (such as Sales Amount, Quantity Sold, or Profit Margin) and the physical column in the aggregation table that stores the corresponding aggregated values. The mapping includes critical information about rollup behavior, specifying how aggregated values can be further combined when rolling up to higher levels of granularity. This supports complex aggregation scenarios including additive measures that use SUM rollup, semi-additive measures that require special handling across time dimensions, non-additive measures like ratios that need weighted averaging, and distinct count measures that have strict rollup requirements to maintain accuracy."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Reference to the aggregation table column that contains the pre-computed aggregated values for this measure. The column must contain numeric data that represents the measure values aggregated according to the granularity defined by the aggregation table's level mappings. The data type and precision of this column should be appropriate for the measure's value range and the aggregation function used, ensuring that no precision is lost during aggregation operations and that the values can be further aggregated if rollup operations are required. The column should be indexed appropriately to support efficient querying when the aggregation table is used in place of fact table scans."/>
           </eAnnotations>
@@ -734,13 +734,13 @@
           <details key="documentation" value="Defines the fact count measure in an aggregation table that tracks the number of fact table rows contributing to each aggregated row. The fact count is essential for computing accurate averages, weighted calculations, and other statistical operations that require knowledge of the underlying data density."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the column in the aggregation table that stores the fact count values. This column contains the number of fact table rows that were aggregated to produce each aggregated row."/>
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="factColumn" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to a column in the fact table that is used as the basis for counting fact table rows. Typically references a non-null column in the fact table to ensure accurate row counting."/>
           </eAnnotations>
@@ -813,7 +813,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="name" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/NamedColumnSet">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//NamedColumnSet">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Reference to the specific database table that contains the pre-computed aggregation data. This table reference must point to an existing physical table within the database schema that has been populated with aggregated measures and dimension keys according to the mappings defined in the parent AggregationTable. The referenced table should have appropriate indexes for the dimensional columns and measure columns to ensure optimal query performance when the OLAP engine substitutes this aggregation for fact table access. The table structure must be compatible with the aggregation mappings defined in aggregationMeasures, aggregationLevels, and other aggregation configuration elements."/>
           </eAnnotations>
@@ -841,7 +841,7 @@
           <details key="documentation" value="Specifies the column that stores fact count data in an aggregation table, enabling ROLAP engines to determine the number of base fact table rows that were aggregated into each summary row."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="References the physical database column containing the aggregated fact count values used by the ROLAP engine for query optimization and result validation."/>
           </eAnnotations>
@@ -853,7 +853,7 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Daanse-specific extensions of cwm::relational (ExpressionColumn, InlineTable, DialectSqlView)."/>
       </eAnnotations>
-      <eClassifiers xsi:type="ecore:EClass" name="ExpressionColumn" eSuperTypes="http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+      <eClassifiers xsi:type="ecore:EClass" name="ExpressionColumn" eSuperTypes="http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Daanse-specific extension of a CWM relational Column that is not backed by a physical column but by one or more SQL expressions (optionally per database dialect). We recommend using the column name together with the table name in SQL expressions."/>
         </eAnnotations>
@@ -864,7 +864,7 @@
           </eAnnotations>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="DialectSqlView" eSuperTypes="http://www.omg.org/spec/CWM/1.1/#//resource/relational/View">
+      <eClassifiers xsi:type="ecore:EClass" name="DialectSqlView" eSuperTypes="http://www.omg.org/spec/CWM/1.1/resource/relational#//View">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Daanse-specific extension of a CWM View that carries additional dialect-specific SQL statements beyond the standard queryExpression inherited from CWM View. The standard SQL is in View.queryExpression; only deviating dialects need an additional SqlStatement."/>
         </eAnnotations>
@@ -875,11 +875,11 @@
           </eAnnotations>
         </eStructuralFeatures>
       </eClassifiers>
-      <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="http://www.omg.org/spec/CWM/1.1/#//resource/relational/ColumnSet">
+      <eClassifiers xsi:type="ecore:EClass" name="InlineTable" eSuperTypes="http://www.omg.org/spec/CWM/1.1/resource/relational#//ColumnSet">
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Daanse-specific CWM ColumnSet extension that carries its data inline as Rows rather than referencing external persisted data. Unlike cwm::Table it is not a DB-schema element (no persistence, triggers, temporary-scope or SQL-structured-type semantics apply). It is a peer of cwm::QueryColumnSet: both sit under ColumnSet as non-persistent named column sets. Typically used for small lookup tables or test fixtures."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="extent" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/RowSet"
+        <eStructuralFeatures xsi:type="ecore:EReference" name="extent" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//RowSet"
             containment="true">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Inline data for this table, modeled as a CWM RowSet (Extent of Row instances). Each Row carries DataSlots that bind a Column to a literal data value. Replaces the previous bespoke rows/Row/RowValue structure with standard CWM instance-level classes."/>
@@ -1011,7 +1011,7 @@
           <details key="documentation" value="Represents a column with specific ordering information used in queries and result sets. OrderedColumn is typically used in OLAP contexts where explicit column ordering is required for query processing or result presentation."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the column that provides the ordering basis. This column's values determine the sort order for query results and dimensional member presentation."/>
           </eAnnotations>
@@ -1059,7 +1059,7 @@
           </eAnnotations>
         </eStructuralFeatures>
         <eStructuralFeatures xsi:type="ecore:EReference" name="key" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Column that serves as the join key for connecting this query element to its JOIN partner. The key column must contain values that can be matched with the corresponding key column from the other side of the JOIN operation, typically representing a foreign key to primary key relationship. The column must be accessible within the query's result set and have compatible data types with its JOIN partner to ensure proper relational connectivity and optimal query performance."/>
           </eAnnotations>
@@ -1086,7 +1086,7 @@
           <details key="documentation" value="References a CWM NamedColumnSet (Table or View) as the data source. May carry optimization hints, an optional SQL WHERE pre-filter, aggregation-table references and aggregation-exclude rules."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="table" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/NamedColumnSet">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//NamedColumnSet">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="The backing CWM table or view."/>
           </eAnnotations>
@@ -1199,7 +1199,7 @@
           <details key="documentation" value="Defines a dimensional attribute that participates in writeback operations, enabling sophisticated data modification scenarios where users can update dimensional context information alongside measure values through interactive OLAP applications. WritebackAttribute represents a critical component of advanced business intelligence systems that support collaborative planning, budgeting, forecasting, and other scenarios where analytical applications must enable direct data modification rather than read-only consumption."/>
         </eAnnotations>
         <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Required reference to the database Column that stores the dimensional attribute values that can be modified through writeback operations, establishing the physical data storage location that will receive updated values when users perform dimensional data modifications through analytical applications. The column reference defines the specific database field that will be updated during writeback operations, ensuring that dimensional changes are properly persisted to the underlying data storage while maintaining referential integrity and data consistency across the analytical system."/>
           </eAnnotations>
@@ -1677,7 +1677,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1"
-              upperBound="-1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              upperBound="-1" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Collection of columns that provide data inputs for the custom measure calculation. These columns supply the raw data values that are processed through the custom template logic. At least one column must be specified to provide meaningful data for the custom aggregation. The columns are referenced in the template through placeholders or positional parameters."/>
             </eAnnotations>
@@ -1705,7 +1705,7 @@
             <details key="documentation" value="Abstract base class for measures that derive their values from direct column references in the database. ColumnBaseMeasure represents the most common and highest-performance type of measure where aggregation functions (SUM, COUNT, AVG, etc.) are applied directly to specific table columns. This provides optimal query performance, supports fast aggregation capabilities, and enables efficient use of database indexes and pre-computed aggregation tables."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Reference to the database column that provides the source data for this measure. The column must contain numeric data appropriate for the measure's aggregation function (e.g., numeric columns for SUM, any column for COUNT). This direct column reference enables optimal SQL generation, efficient database query execution, and automatic optimization through indexes and aggregate tables."/>
             </eAnnotations>
@@ -1777,7 +1777,7 @@
             <details key="documentation" value="Defines a measure that participates in writeback operations, enabling sophisticated collaborative planning, budgeting, forecasting, and analytical data modification scenarios where business users can directly update measure values through OLAP client applications and have those changes automatically persisted to designated database tables. Conceptually a measure (lives in the olap.cube.measure package); paired with a database Column that stores the modified value."/>
           </eAnnotations>
           <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Required reference to the database Column that stores the measure values that can be modified through writeback operations, establishing the physical data storage location where updated measure values will be persisted when users perform analytical data modifications."/>
             </eAnnotations>
@@ -1833,7 +1833,7 @@
         <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
           <details key="documentation" value="Connects a cube to a dimension, establishing the relationship between fact table and dimensional data through foreign key references and enabling dimensional analysis within the cube's multidimensional space."/>
         </eAnnotations>
-        <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+        <eStructuralFeatures xsi:type="ecore:EReference" name="foreignKey" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
           <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
             <details key="documentation" value="Optional reference to  to foreign key column in the fact table that references the primary key of the dimension table, establishing the relational link between fact data and dimensional context for OLAP analysis. Foreign key can be absent if dimension hierarchies and Cube fact table use same table"/>
           </eAnnotations>
@@ -1966,7 +1966,7 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" lowerBound="1"
-              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Reference to the database column that serves as the primary key for this hierarchy's main dimension table, establishing the unique identifier system that enables proper member identification, hierarchical relationships, and join operations across the dimensional model. The primary key column is fundamental to the hierarchy's data integrity and query performance, providing the basis for all member lookups, parent-child relationships, and cross-dimensional joins that enable multidimensional analysis."/>
             </eAnnotations>
@@ -2016,7 +2016,7 @@
               <details key="documentation" value="String value in the parent column that indicates root-level members (those without parents). Common values include '0', 'NULL', or empty string. This value identifies which members serve as the top-level roots of the hierarchy tree structure."/>
             </eAnnotations>
           </eStructuralFeatures>
-          <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+          <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Column containing the parent reference for each member, establishing the self-referencing relationship. This column typically contains the primary key value of the parent member, or the nullParentValue for root members. The column enables the recursive traversal that defines the hierarchy structure."/>
             </eAnnotations>
@@ -2051,13 +2051,13 @@
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="childColumn" lowerBound="1"
-              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Reference to the database column in the closure table that stores the child member identifier in each ancestor-descendant relationship record, representing the descendant side of the hierarchical relationship and enabling efficient identification of all members that are children, grandchildren, or deeper descendants of any given parent member."/>
             </eAnnotations>
           </eStructuralFeatures>
           <eStructuralFeatures xsi:type="ecore:EReference" name="parentColumn" lowerBound="1"
-              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+              eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
             <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
               <details key="documentation" value="Reference to the database column in the closure table that stores the parent member identifier in each ancestor-descendant relationship record, representing the ancestor side of the hierarchical relationship and enabling efficient identification of all members that are parents, grandparents, or higher-level ancestors of any given child member. The parent column complements the child column to create complete ancestor-descendant relationship records that eliminate the need for recursive SQL operations during hierarchical navigation and aggregation processes, providing the foundation for high-performance parent-child analytical operations across complex organizational and taxonomic structures."/>
             </eAnnotations>
@@ -2147,13 +2147,13 @@
               </eAnnotations>
             </eStructuralFeatures>
             <eStructuralFeatures xsi:type="ecore:EReference" name="captionColumn"
-                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="Optional column providing display captions for level members that may differ from the name column. Captions are typically used for localized or business-friendly display names while preserving technical names for internal processing. When not specified, the nameColumn or column value is used for display purposes."/>
               </eAnnotations>
             </eStructuralFeatures>
             <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="Primary key column that uniquely identifies members at this level. This column provides the essential identity for each member and is used for joins, grouping, and member references in queries. It serves as both the key and default display value when nameColumn is not specified."/>
               </eAnnotations>
@@ -2168,7 +2168,7 @@
                 <details key="documentation" value="Semantic type of this level indicating its role in business analysis. Types include temporal levels (TIME_YEARS, TIME_MONTHS, TIME_DAYS), geographic levels (GEO_COUNTRY, GEO_STATE, GEO_CITY), business levels (CUSTOMER, PRODUCT, ACCOUNT), and general REGULAR type. This metadata enables specialized behavior, validation, and client tool integration."/>
               </eAnnotations>
             </eStructuralFeatures>
-            <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+            <eStructuralFeatures xsi:type="ecore:EReference" name="nameColumn" eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="Optional column providing human-readable names for level members. When specified, this column supplies the display names used in client tools and reports, while the main column serves as the key. If not specified, the main column value is used for both key and display purposes."/>
               </eAnnotations>
@@ -2214,7 +2214,7 @@
               </eAnnotations>
             </eStructuralFeatures>
             <eStructuralFeatures xsi:type="ecore:EReference" name="column" lowerBound="1"
-                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/#//resource/relational/Column">
+                eType="ecore:EClass http://www.omg.org/spec/CWM/1.1/resource/relational#//Column">
               <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
                 <details key="documentation" value="Database column or SQL expression that provides the property values for members at the associated level. This column must be accessible through the level's query context and should contain values that correspond to each member identified by the level's key column. The column can reference any table or view that is joined or accessible within the dimension's query structure, enabling properties to be sourced from lookup tables, calculated expressions, or denormalized dimension tables."/>
               </eAnnotations>

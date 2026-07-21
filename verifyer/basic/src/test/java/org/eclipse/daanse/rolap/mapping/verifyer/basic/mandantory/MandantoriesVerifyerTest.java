@@ -154,7 +154,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
-import org.eclipse.daanse.cwm.util.resource.relational.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
 class MandantoriesVerifyerTest {
