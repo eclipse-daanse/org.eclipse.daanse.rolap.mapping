@@ -213,15 +213,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize columns - Fact table
         COLUMN_D1_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1_CUBE1FACT.setName("D1");
-        COLUMN_D1_CUBE1FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D1_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
 
         COLUMN_D2_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2_CUBE1FACT.setName("D2");
-        COLUMN_D2_CUBE1FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
 
         COLUMN_D3_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3_CUBE1FACT.setName("D3");
-        COLUMN_D3_CUBE1FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
 
         COLUMN_M1_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_M1_CUBE1FACT.setName("M1");
@@ -234,7 +234,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D1H1L1_NAME_D1H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1H1L1_NAME_D1H1L1TABLE.setName("D1H1L1_NAME");
-        COLUMN_D1H1L1_NAME_D1H1L1TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D1H1L1_NAME_D1H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setName("D1H1L1_Ordinal");
@@ -247,7 +247,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D2H1L1_NAME_D2H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H1L1_NAME_D2H1L1TABLE.setName("D2H1L1_NAME");
-        COLUMN_D2H1L1_NAME_D2H1L1TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2H1L1_NAME_D2H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setName("D2H1L1_Ordinal");
@@ -264,11 +264,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D2H2L2_NAME_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_NAME_D2H2L2TABLE.setName("D2H2L2_NAME");
-        COLUMN_D2H2L2_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2H2L2_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D2H2L1_NAME_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L1_NAME_D2H2L2TABLE.setName("D2H2L1_NAME");
-        COLUMN_D2H2L1_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D2H2L1_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setName("D2H2L2_Ordinal");
@@ -285,7 +285,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H1L1_NAME_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H1L1_NAME_D3H1L1TABLE.setName("D3H1L1_NAME");
-        COLUMN_D3H1L1_NAME_D3H1L1TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H1L1_NAME_D3H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setName("D3H1L1_Ordinal");
@@ -306,7 +306,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H2L2_NAME_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_NAME_D3H2L2TABLE.setName("D3H2L2_NAME");
-        COLUMN_D3H2L2_NAME_D3H2L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H2L2_NAME_D3H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setName("D3H2L2_Ordinal");
@@ -319,7 +319,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H2L1_NAME_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_NAME_D3H2L1TABLE.setName("D3H2L1_NAME");
-        COLUMN_D3H2L1_NAME_D3H2L1TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H2L1_NAME_D3H2L1TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setName("D3H2L1_Ordinal");
@@ -336,7 +336,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H3L3_NAME_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L3_NAME_D3H3L3TABLE.setName("D3H3L3_NAME");
-        COLUMN_D3H3L3_NAME_D3H3L3TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H3L3_NAME_D3H3L3TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setName("D3H3L3_Ordinal");
@@ -353,7 +353,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H3L2_NAME_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_NAME_D3H3L2TABLE.setName("D3H3L2_NAME");
-        COLUMN_D3H3L2_NAME_D3H3L2TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H3L2_NAME_D3H3L2TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setName("D3H3L2_Ordinal");
@@ -366,7 +366,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_D3H3L1_NAME_D3H3L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_NAME_D3H3L1TABLE.setName("D3H3L1_NAME");
-        COLUMN_D3H3L1_NAME_D3H3L1TABLE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_D3H3L1_NAME_D3H3L1TABLE.setType(SqlSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setName("D3H3L1_Ordinal");
@@ -679,6 +679,23 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         TABLE_D3H1L1TABLE, TABLE_D3H2L2TABLE, TABLE_D3H2L1TABLE, TABLE_D3H3L3TABLE, TABLE_D3H3L2TABLE,
                         TABLE_D3H3L1TABLE));
 
+        // The indexes the dataset ships; none of them unique.
+        DATABASE_SCHEMA_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(
+                index("D1H1L1", false, TABLE_D1H1L1TABLE, COLUMN_D1H1L1_D1H1L1TABLE),
+                index("D2H1L1", false, TABLE_D2H1L1TABLE, COLUMN_D2H1L1_D2H1L1TABLE),
+                index("D2H2L2", false, TABLE_D2H2L2TABLE, COLUMN_D2H2L2_D2H2L2TABLE),
+                index("D3H1L1", false, TABLE_D3H1L1TABLE, COLUMN_D3H1L1_D3H1L1TABLE),
+                index("D3H2L1", false, TABLE_D3H2L1TABLE, COLUMN_D3H2L1_D3H2L1TABLE),
+                index("D3H2L2", false, TABLE_D3H2L2TABLE, COLUMN_D3H2L2_D3H2L2TABLE),
+                index("D3H3L1", false, TABLE_D3H3L1TABLE, COLUMN_D3H3L1_D3H3L1TABLE),
+                index("D3H3L2", false, TABLE_D3H3L2TABLE, COLUMN_D3H3L2_D3H3L2TABLE),
+                index("D3H3L1_id", false, TABLE_D3H3L2TABLE, COLUMN_D3H3L1_ID_D3H3L2TABLE),
+                index("D3H3L3", false, TABLE_D3H3L3TABLE, COLUMN_D3H3L3_D3H3L3TABLE, COLUMN_D3H3L2_ID_D3H3L3TABLE),
+                index("D1", false, TABLE_CUBE1FACT, COLUMN_D1_CUBE1FACT),
+                index("D2", false, TABLE_CUBE1FACT, COLUMN_D2_CUBE1FACT),
+                index("D3", false, TABLE_CUBE1FACT, COLUMN_D3_CUBE1FACT)));
+
+
         CATALOG_EXPRESSIVENAMES = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_EXPRESSIVENAMES.setName(CATALOG_NAME);
         CATALOG_EXPRESSIVENAMES.getCubes().add(CUBE_CUBE1);
@@ -699,5 +716,23 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         new DocSection("ExpressiveNames Database", "Sample catalog demonstrating complex hierarchies and naming patterns", 1, 0, 0, null, 0),
                         new DocSection("Test Cube", "Cube with multiple dimensions and complex hierarchies", 1, 1, 0, CUBE_CUBE1, 0)),
                 List.of(new CatalogRef("catalog", this::get)));
+    }
+
+    /**
+     * One SQL index over {@code columns} of {@code table}. These describe the
+     * database the dataset ships, not anything the mapping reads.
+     */
+    private static org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLIndex index(String name, boolean unique, org.eclipse.daanse.cwm.model.cwm.resource.relational.Table table,
+            org.eclipse.daanse.cwm.model.cwm.resource.relational.Column... columns) {
+        org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLIndex idx = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSQLIndex();
+        idx.setName(name);
+        idx.setIsUnique(unique);
+        idx.setSpannedClass(table);
+        for (org.eclipse.daanse.cwm.model.cwm.resource.relational.Column column : columns) {
+            org.eclipse.daanse.cwm.model.cwm.foundation.keysindexes.IndexedFeature feature = org.eclipse.daanse.cwm.model.cwm.foundation.keysindexes.KeysindexesFactory.eINSTANCE.createIndexedFeature();
+            feature.setFeature(column);
+            idx.getIndexedFeature().add(feature);
+        }
+        return idx;
     }
 }
