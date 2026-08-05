@@ -49,7 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.6", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -226,110 +226,110 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize Parcels (Fact) columns
         COLUMN_PARCEL_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PARCEL_ID_FACT.setName("parcel_id");
-        COLUMN_PARCEL_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PARCEL_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_WIDTH_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WIDTH_FACT.setName("width");
-        COLUMN_WIDTH_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_WIDTH_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_DEPTH_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEPTH_FACT.setName("depth");
-        COLUMN_DEPTH_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_DEPTH_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_HEIGHT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_HEIGHT_FACT.setName("height");
-        COLUMN_HEIGHT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_HEIGHT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_TYPE_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_ID_FACT.setName("type_id");
-        COLUMN_TYPE_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TYPE_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DEFECT_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_ID_FACT.setName("defect_id");
-        COLUMN_DEFECT_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DEFECT_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DELIVERABLE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DELIVERABLE_FACT.setName("deliverable");
-        COLUMN_DELIVERABLE_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_DELIVERABLE_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CUSTOMS_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMS_FACT.setName("customs");
-        COLUMN_CUSTOMS_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMS_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_RETURN_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_RETURN_FACT.setName("return_status");
-        COLUMN_RETURN_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_RETURN_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SENDER_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SENDER_ID_FACT.setName("sender_id");
-        COLUMN_SENDER_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SENDER_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_RECEIVER_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_RECEIVER_ID_FACT.setName("receiver_id");
-        COLUMN_RECEIVER_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_RECEIVER_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DROP_OFF_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DROP_OFF_ID_FACT.setName("drop_off_id");
-        COLUMN_DROP_OFF_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DROP_OFF_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DELIVERY_ID_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DELIVERY_ID_FACT.setName("delivery_id");
-        COLUMN_DELIVERY_ID_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DELIVERY_ID_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_POSTAGE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_POSTAGE_FACT.setName("postage");
-        COLUMN_POSTAGE_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_POSTAGE_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_INSURANCE_VALUE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_INSURANCE_VALUE_FACT.setName("insurance_value");
-        COLUMN_INSURANCE_VALUE_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_INSURANCE_VALUE_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_WEIGHT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_FACT.setName("weight");
-        COLUMN_WEIGHT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_WEIGHT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         // Initialize Parcel Type Table columns
         COLUMN_TYPE_ID_TYPE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_ID_TYPE.setName("type_id");
-        COLUMN_TYPE_ID_TYPE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TYPE_ID_TYPE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_TYPE_NAME_TYPE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TYPE_NAME_TYPE.setName("type_name");
-        COLUMN_TYPE_NAME_TYPE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_TYPE_NAME_TYPE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         // Initialize Defect Table columns
         COLUMN_DEFECT_ID_DEFECT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_ID_DEFECT.setName("defect_id");
-        COLUMN_DEFECT_ID_DEFECT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DEFECT_ID_DEFECT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DEFECT_NAME_DEFECT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEFECT_NAME_DEFECT.setName("defect_name");
-        COLUMN_DEFECT_NAME_DEFECT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_DEFECT_NAME_DEFECT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         // Initialize Address Table columns
         COLUMN_ADDRESS_ID_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ADDRESS_ID_ADDRESS.setName("address_id");
-        COLUMN_ADDRESS_ID_ADDRESS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ADDRESS_ID_ADDRESS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CONTINENT_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CONTINENT_ADDRESS.setName("continent");
-        COLUMN_CONTINENT_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CONTINENT_ADDRESS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_COUNTRY_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_ADDRESS.setName("country");
-        COLUMN_COUNTRY_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COUNTRY_ADDRESS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CITY_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CITY_ADDRESS.setName("city");
-        COLUMN_CITY_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CITY_ADDRESS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_POSTAL_CODE_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_POSTAL_CODE_ADDRESS.setName("postal_code");
-        COLUMN_POSTAL_CODE_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_POSTAL_CODE_ADDRESS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STREET_ADDRESS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STREET_ADDRESS.setName("street");
-        COLUMN_STREET_ADDRESS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STREET_ADDRESS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         // Initialize tables
         TABLE_PARCELS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

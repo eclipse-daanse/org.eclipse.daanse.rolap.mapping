@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.07.03", source = Source.EMF, group = "Kpi") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -89,7 +89,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");

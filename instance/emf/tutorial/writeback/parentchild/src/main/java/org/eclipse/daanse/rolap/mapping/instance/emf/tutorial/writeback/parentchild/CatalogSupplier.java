@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
 import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
@@ -187,21 +187,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE
                 .createSchema();
 
-        Column factNodeColumn = createColumn("NODE", SqlSimpleTypes.Sql99.varcharType());
-        Column factValueColumn = createColumn("VALUE", SqlSimpleTypes.Sql99.integerType());
+        Column factNodeColumn = createColumn("NODE", SQLSimpleTypes.Sql99.varcharType());
+        Column factValueColumn = createColumn("VALUE", SQLSimpleTypes.Sql99.integerType());
         Table factTable = createTable(FACT, List.of(factNodeColumn, factValueColumn));
         databaseSchema.getOwnedElement().add(factTable);
 
-        Column nodeKeyColumn = createColumn("KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column nodeNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column nodeParentKeyColumn = createColumn("PARENT_KEY", SqlSimpleTypes.Sql99.varcharType());
+        Column nodeKeyColumn = createColumn("KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column nodeNameColumn = createColumn("NAME", SQLSimpleTypes.Sql99.varcharType());
+        Column nodeParentKeyColumn = createColumn("PARENT_KEY", SQLSimpleTypes.Sql99.varcharType());
         Table nodeTable = createTable(NODE, List.of(nodeKeyColumn, nodeNameColumn, nodeParentKeyColumn));
         databaseSchema.getOwnedElement().add(nodeTable);
 
-        Column wbNodeColumn = createColumn("NODE", SqlSimpleTypes.Sql99.varcharType());
-        Column wbValueColumn = createColumn("VALUE", SqlSimpleTypes.Sql99.integerType());
-        Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
-        Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
+        Column wbNodeColumn = createColumn("NODE", SQLSimpleTypes.Sql99.varcharType());
+        Column wbValueColumn = createColumn("VALUE", SQLSimpleTypes.Sql99.integerType());
+        Column wbIdColumn = createColumn("ID", SQLSimpleTypes.Sql99.varcharType());
+        Column wbUserColumn = createColumn("USER", SQLSimpleTypes.Sql99.varcharType());
         Table writebackPhysicalTable = createTable(FACTWB,
                 List.of(wbNodeColumn, wbValueColumn, wbIdColumn, wbUserColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);

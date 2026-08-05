@@ -48,7 +48,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.04", source = Source.EMF, group = "Level") // NOSONAR
@@ -146,11 +146,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column dimKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        dimKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table factTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         factTable.setName(FACT);
@@ -159,16 +159,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column level2NullKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2NullKeyColumn.setName("KEY");
-        level2NullKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        level2NullKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column level2NullNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2NullNameColumn.setName("NAME");
-        level2NullNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level2NullNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
         level2NullNameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Column level2NullL1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level2NullL1KeyColumn.setName("L1_KEY");
-        level2NullL1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        level2NullL1KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table level2NullTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         level2NullTable.setName("Level_2_NULL");
@@ -177,11 +177,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column level1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level1KeyColumn.setName("KEY");
-        level1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        level1KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column level1NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         level1NameColumn.setName("NAME");
-        level1NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        level1NameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
         level1NameColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Table level1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

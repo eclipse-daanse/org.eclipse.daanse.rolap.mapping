@@ -33,7 +33,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
 import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.01", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -66,7 +66,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column.setName("ColumnOne");
-        column.setType(SqlSimpleTypes.Sql99.varcharType());
+        column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableOne");
@@ -75,7 +75,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column column2 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column2.setName("ColumnOne");
-        column2.setType(SqlSimpleTypes.Sql99.varcharType());
+        column2.setType(SQLSimpleTypes.Sql99.varcharType());
 
         table2 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createView();
         table2.setName("ViewOne");
@@ -84,7 +84,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column column3 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column3.setName("ColumnOne");
-        column3.setType(SqlSimpleTypes.Sql99.varcharType());
+        column3.setType(SQLSimpleTypes.Sql99.varcharType());
 
         table3 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table3.setName("TableOne");

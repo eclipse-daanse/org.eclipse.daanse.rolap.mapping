@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
 import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
@@ -207,37 +207,37 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE
                 .createSchema();
 
-        Column factNCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column factNRegionColumn = createColumn("REGION", SqlSimpleTypes.Sql99.varcharType());
-        Column factNAmountColumn = createColumn("AMOUNT", SqlSimpleTypes.Sql99.integerType());
+        Column factNCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column factNRegionColumn = createColumn("REGION", SQLSimpleTypes.Sql99.varcharType());
+        Column factNAmountColumn = createColumn("AMOUNT", SQLSimpleTypes.Sql99.integerType());
         Table factNTable = createTable(FACT_N,
                 List.of(factNCategoryColumn, factNRegionColumn, factNAmountColumn));
         databaseSchema.getOwnedElement().add(factNTable);
 
-        Column factTCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column factTRegionColumn = createColumn("REGION", SqlSimpleTypes.Sql99.varcharType());
-        Column factTValueColumn = createColumn("VALUE", SqlSimpleTypes.Sql99.integerType());
-        Column factTCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
+        Column factTCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column factTRegionColumn = createColumn("REGION", SQLSimpleTypes.Sql99.varcharType());
+        Column factTValueColumn = createColumn("VALUE", SQLSimpleTypes.Sql99.integerType());
+        Column factTCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
         Table factTTable = createTable(FACT_T,
                 List.of(factTCategoryColumn, factTRegionColumn, factTValueColumn, factTCommentColumn));
         databaseSchema.getOwnedElement().add(factTTable);
 
-        Column catCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column catNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column catCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column catNameColumn = createColumn("NAME", SQLSimpleTypes.Sql99.varcharType());
         Table categoryTable = createTable(CATEGORY, List.of(catCategoryColumn, catNameColumn));
         databaseSchema.getOwnedElement().add(categoryTable);
 
-        Column regRegionColumn = createColumn("REGION", SqlSimpleTypes.Sql99.varcharType());
-        Column regNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column regRegionColumn = createColumn("REGION", SQLSimpleTypes.Sql99.varcharType());
+        Column regNameColumn = createColumn("NAME", SQLSimpleTypes.Sql99.varcharType());
         Table regionTable = createTable(REGION, List.of(regRegionColumn, regNameColumn));
         databaseSchema.getOwnedElement().add(regionTable);
 
-        Column wbCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column wbRegionColumn = createColumn("REGION", SqlSimpleTypes.Sql99.varcharType());
-        Column wbValueColumn = createColumn("VALUE", SqlSimpleTypes.Sql99.integerType());
-        Column wbCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
-        Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
-        Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
+        Column wbCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column wbRegionColumn = createColumn("REGION", SQLSimpleTypes.Sql99.varcharType());
+        Column wbValueColumn = createColumn("VALUE", SQLSimpleTypes.Sql99.integerType());
+        Column wbCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
+        Column wbIdColumn = createColumn("ID", SQLSimpleTypes.Sql99.varcharType());
+        Column wbUserColumn = createColumn("USER", SQLSimpleTypes.Sql99.varcharType());
         Table writebackPhysicalTable = createTable(FACTWB_T,
                 List.of(wbCategoryColumn, wbRegionColumn, wbValueColumn, wbCommentColumn, wbIdColumn, wbUserColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);

@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationFa
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.01", source = Source.EMF, group = "Aggregation") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -84,11 +84,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -100,11 +100,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column aggKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggKeyColumn.setName("KEY");
-        aggKeyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        aggKeyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column aggValueCountColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggValueCountColumn.setName("VALUE_count");
-        aggValueCountColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        aggValueCountColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table aggTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggTable.setName("agg_01_Fact");

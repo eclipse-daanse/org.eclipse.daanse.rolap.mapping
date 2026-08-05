@@ -21,6 +21,8 @@ import org.eclipse.daanse.rolap.mapping.instance.api.MappingInstance;
 import org.eclipse.daanse.rolap.mapping.instance.api.Source;
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
+import static org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLIndexes.index;
+
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionConnector;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.ExplicitHierarchy;
@@ -50,7 +52,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.2", group = "Full Examples")
 @Component(service = CatalogMappingSupplier.class, scope = ServiceScope.PROTOTYPE)
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -213,164 +215,164 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize columns - Fact table
         COLUMN_D1_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1_CUBE1FACT.setName("D1");
-        COLUMN_D1_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
+        COLUMN_D1_CUBE1FACT.setType(SQLSimpleTypes.varcharType(30));
 
         COLUMN_D2_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2_CUBE1FACT.setName("D2");
-        COLUMN_D2_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
+        COLUMN_D2_CUBE1FACT.setType(SQLSimpleTypes.varcharType(30));
 
         COLUMN_D3_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3_CUBE1FACT.setName("D3");
-        COLUMN_D3_CUBE1FACT.setType(SqlSimpleTypes.varcharType(30));
+        COLUMN_D3_CUBE1FACT.setType(SQLSimpleTypes.varcharType(30));
 
         COLUMN_M1_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_M1_CUBE1FACT.setName("M1");
-        COLUMN_M1_CUBE1FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_M1_CUBE1FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D1H1L1 table
         COLUMN_D1H1L1_D1H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1H1L1_D1H1L1TABLE.setName(D_1_H_1_L_1);
-        COLUMN_D1H1L1_D1H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D1H1L1_D1H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D1H1L1_NAME_D1H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1H1L1_NAME_D1H1L1TABLE.setName("D1H1L1_NAME");
-        COLUMN_D1H1L1_NAME_D1H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D1H1L1_NAME_D1H1L1TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setName("D1H1L1_Ordinal");
-        COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D1H1L1_ORDINAL_D1H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D2H1L1 table
         COLUMN_D2H1L1_D2H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H1L1_D2H1L1TABLE.setName(D_2_H_1_L_1);
-        COLUMN_D2H1L1_D2H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H1L1_D2H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D2H1L1_NAME_D2H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H1L1_NAME_D2H1L1TABLE.setName("D2H1L1_NAME");
-        COLUMN_D2H1L1_NAME_D2H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D2H1L1_NAME_D2H1L1TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setName("D2H1L1_Ordinal");
-        COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H1L1_ORDINAL_D2H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D2H2L2 table
         COLUMN_D2H2L2_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_D2H2L2TABLE.setName(D_2_H_2_L_2);
-        COLUMN_D2H2L2_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H2L2_D2H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D2H2L1_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L1_D2H2L2TABLE.setName("D2H2L1");
-        COLUMN_D2H2L1_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H2L1_D2H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D2H2L2_NAME_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_NAME_D2H2L2TABLE.setName("D2H2L2_NAME");
-        COLUMN_D2H2L2_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D2H2L2_NAME_D2H2L2TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D2H2L1_NAME_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L1_NAME_D2H2L2TABLE.setName("D2H2L1_NAME");
-        COLUMN_D2H2L1_NAME_D2H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D2H2L1_NAME_D2H2L2TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setName("D2H2L2_Ordinal");
-        COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H2L2_ORDINAL_D2H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setName("D2H2L1_Ordinal");
-        COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D2H2L1_ORDINAL_D2H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H1L1 table
         COLUMN_D3H1L1_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H1L1_D3H1L1TABLE.setName(D_3_H_1_L_1);
-        COLUMN_D3H1L1_D3H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H1L1_D3H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H1L1_NAME_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H1L1_NAME_D3H1L1TABLE.setName("D3H1L1_NAME");
-        COLUMN_D3H1L1_NAME_D3H1L1TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H1L1_NAME_D3H1L1TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setName("D3H1L1_Ordinal");
-        COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H1L1_ORDINAL_D3H1L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H2L2 table
         COLUMN_D3H2L2_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_D3H2L2TABLE.setName(D_3_H_2_L_2);
-        COLUMN_D3H2L2_D3H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L2_D3H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H2L2_ID_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_ID_D3H2L2TABLE.setName("D3H2L2_id");
-        COLUMN_D3H2L2_ID_D3H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L2_ID_D3H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H2L1_ID_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_ID_D3H2L2TABLE.setName("D3H2L1_id");
-        COLUMN_D3H2L1_ID_D3H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L1_ID_D3H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H2L2_NAME_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_NAME_D3H2L2TABLE.setName("D3H2L2_NAME");
-        COLUMN_D3H2L2_NAME_D3H2L2TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H2L2_NAME_D3H2L2TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setName("D3H2L2_Ordinal");
-        COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L2_ORDINAL_D3H2L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H2L1 table
         COLUMN_D3H2L1_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_D3H2L1TABLE.setName(D_3_H_2_L_1);
-        COLUMN_D3H2L1_D3H2L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L1_D3H2L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H2L1_NAME_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_NAME_D3H2L1TABLE.setName("D3H2L1_NAME");
-        COLUMN_D3H2L1_NAME_D3H2L1TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H2L1_NAME_D3H2L1TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setName("D3H2L1_Ordinal");
-        COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H2L1_ORDINAL_D3H2L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H3L3 table
         COLUMN_D3H3L3_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L3_D3H3L3TABLE.setName(D_3_H_3_L_3);
-        COLUMN_D3H3L3_D3H3L3TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L3_D3H3L3TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H3L2_ID_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_ID_D3H3L3TABLE.setName("D3H3L2_id");
-        COLUMN_D3H3L2_ID_D3H3L3TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L2_ID_D3H3L3TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H3L3_NAME_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L3_NAME_D3H3L3TABLE.setName("D3H3L3_NAME");
-        COLUMN_D3H3L3_NAME_D3H3L3TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H3L3_NAME_D3H3L3TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setName("D3H3L3_Ordinal");
-        COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L3_ORDINAL_D3H3L3TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H3L2 table
         COLUMN_D3H3L2_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_D3H3L2TABLE.setName(D_3_H_3_L_2);
-        COLUMN_D3H3L2_D3H3L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L2_D3H3L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H3L1_ID_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_ID_D3H3L2TABLE.setName("D3H3L1_id");
-        COLUMN_D3H3L1_ID_D3H3L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L1_ID_D3H3L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H3L2_NAME_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_NAME_D3H3L2TABLE.setName("D3H3L2_NAME");
-        COLUMN_D3H3L2_NAME_D3H3L2TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H3L2_NAME_D3H3L2TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setName("D3H3L2_Ordinal");
-        COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L2_ORDINAL_D3H3L2TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize columns - D3H3L1 table
         COLUMN_D3H3L1_D3H3L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_D3H3L1TABLE.setName(D_3_H_3_L_1);
-        COLUMN_D3H3L1_D3H3L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L1_D3H3L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_D3H3L1_NAME_D3H3L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_NAME_D3H3L1TABLE.setName("D3H3L1_NAME");
-        COLUMN_D3H3L1_NAME_D3H3L1TABLE.setType(SqlSimpleTypes.varcharType(255));
+        COLUMN_D3H3L1_NAME_D3H3L1TABLE.setType(SQLSimpleTypes.varcharType(255));
 
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setName("D3H3L1_Ordinal");
-        COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_D3H3L1_ORDINAL_D3H3L1TABLE.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize tables
         TABLE_CUBE1FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
@@ -718,21 +720,4 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 List.of(new CatalogRef("catalog", this::get)));
     }
 
-    /**
-     * One SQL index over {@code columns} of {@code table}. These describe the
-     * database the dataset ships, not anything the mapping reads.
-     */
-    private static org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLIndex index(String name, boolean unique, org.eclipse.daanse.cwm.model.cwm.resource.relational.Table table,
-            org.eclipse.daanse.cwm.model.cwm.resource.relational.Column... columns) {
-        org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLIndex idx = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createSQLIndex();
-        idx.setName(name);
-        idx.setIsUnique(unique);
-        idx.setSpannedClass(table);
-        for (org.eclipse.daanse.cwm.model.cwm.resource.relational.Column column : columns) {
-            org.eclipse.daanse.cwm.model.cwm.foundation.keysindexes.IndexedFeature feature = org.eclipse.daanse.cwm.model.cwm.foundation.keysindexes.KeysindexesFactory.eINSTANCE.createIndexedFeature();
-            feature.setFeature(column);
-            idx.getIndexedFeature().add(feature);
-        }
-        return idx;
-    }
 }

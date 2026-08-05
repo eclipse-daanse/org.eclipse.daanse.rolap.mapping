@@ -45,7 +45,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.02.02", source = Source.EMF, group = "Hierarchy")//NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -122,11 +122,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column townIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         townIdColumn.setName("TOWN_ID");
-        townIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        townIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");
@@ -135,15 +135,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumnTown = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumnTown.setName("ID");
-        keyColumnTown.setType(SqlSimpleTypes.Sql99.integerType());
+        keyColumnTown.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column nameColumnTown = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameColumnTown.setName("NAME");
-        nameColumnTown.setType(SqlSimpleTypes.Sql99.varcharType());
+        nameColumnTown.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column keyColumnCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumnCountry.setName("COUNTRY");
-        keyColumnCountry.setType(SqlSimpleTypes.Sql99.varcharType());
+        keyColumnCountry.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableTown = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTown.setName("Town");

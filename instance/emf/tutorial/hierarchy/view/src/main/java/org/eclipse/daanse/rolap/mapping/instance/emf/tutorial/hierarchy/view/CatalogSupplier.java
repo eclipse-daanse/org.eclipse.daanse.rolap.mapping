@@ -48,7 +48,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.16.02", source = Source.EMF, group = "Hierarchy") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -121,11 +121,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column dimKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        dimKeyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -134,15 +134,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column nameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameColumn.setName("NAME");
-        nameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        nameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column htValueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         htValueColumn.setName("VALUE");
-        htValueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        htValueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table htTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         htTable.setName("HT");
@@ -158,15 +158,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyViewColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyViewColumn.setName("KEY");
-        keyViewColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        keyViewColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column nameViewColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameViewColumn.setName("NAME");
-        nameViewColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        nameViewColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column htValueViewColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         htValueViewColumn.setName("VALUE");
-        htValueViewColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        htValueViewColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         sqlView.getFeature().addAll(List.of(keyViewColumn, nameViewColumn, htValueViewColumn));
 

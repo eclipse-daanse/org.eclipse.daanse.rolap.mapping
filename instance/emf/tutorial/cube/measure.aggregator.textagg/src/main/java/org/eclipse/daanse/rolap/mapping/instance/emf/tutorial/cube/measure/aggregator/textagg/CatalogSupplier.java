@@ -52,7 +52,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.08", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -93,39 +93,39 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountry.setName("COUNTRY");
-        columnCountry.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnCountry.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnContinent = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnContinent.setName("CONTINENT");
-        columnContinent.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnContinent.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnYear = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnYear.setName("YEAR");
-        columnYear.setType(SqlSimpleTypes.Sql99.integerType());
+        columnYear.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnMonth = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMonth.setName("MONTH");
-        columnMonth.setType(SqlSimpleTypes.Sql99.integerType());
+        columnMonth.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnMonthName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMonthName.setName("MONTH_NAME");
-        columnMonthName.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnMonthName.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnUser = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnUser.setName("USER");
-        columnUser.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnUser.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnComment = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnComment.setName("COMMENT");
-        columnComment.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnComment.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");

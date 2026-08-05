@@ -48,7 +48,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.6", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
@@ -491,706 +491,706 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     static {
         COLUMN_ROW_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_FACT.setName("RowNumber");
-        COLUMN_ROW_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_KEY_FACT.setName("ProductKey");
-        COLUMN_PRODUCT_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ORDER_DATE_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ORDER_DATE_KEY_FACT.setName("OrderDateKey");
-        COLUMN_ORDER_DATE_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ORDER_DATE_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DUE_DATE_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DUE_DATE_KEY_FACT.setName("DueDateKey");
-        COLUMN_DUE_DATE_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DUE_DATE_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SHIP_DATE_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SHIP_DATE_KEY_FACT.setName("ShipDateKey");
-        COLUMN_SHIP_DATE_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SHIP_DATE_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CUSTOMER_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_KEY_FACT.setName("CustomerKey");
-        COLUMN_CUSTOMER_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CUSTOMER_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PROMOTION_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PROMOTION_KEY_FACT.setName("PromotionKey");
-        COLUMN_PROMOTION_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PROMOTION_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CURENCY_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURENCY_KEY_FACT.setName("CurrencyKey");
-        COLUMN_CURENCY_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CURENCY_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SALES_TERITORY_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERITORY_KEY_FACT.setName("SalesTerritoryKey");
-        COLUMN_SALES_TERITORY_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERITORY_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
         COLUMN_SALES_TERITORY_KEY_FACT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SALES_ORDER_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_ORDER_NUMBER_FACT.setName("SalesOrderNumber");
-        COLUMN_SALES_ORDER_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_ORDER_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SALES_ORDER_LINE_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_ORDER_LINE_NUMBER_FACT.setName("SalesOrderLineNumber");
-        COLUMN_SALES_ORDER_LINE_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SALES_ORDER_LINE_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_REVISION_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_REVISION_NUMBER_FACT.setName("RevisionNumber");
-        COLUMN_REVISION_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_REVISION_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ORDER_QUANTITY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ORDER_QUANTITY_FACT.setName("OrderQuantity");
-        COLUMN_ORDER_QUANTITY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ORDER_QUANTITY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_UNIT_PRICE_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNIT_PRICE_FACT.setName("UnitPrice");
-        COLUMN_UNIT_PRICE_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_UNIT_PRICE_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_EXTENDED_AMOUNT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EXTENDED_AMOUNT_FACT.setName("ExtendedAmount");
-        COLUMN_EXTENDED_AMOUNT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_EXTENDED_AMOUNT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_UNIT_PRICE_DISCOUNT_PCT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNIT_PRICE_DISCOUNT_PCT_FACT.setName("UnitPriceDiscountPct");
-        COLUMN_UNIT_PRICE_DISCOUNT_PCT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_UNIT_PRICE_DISCOUNT_PCT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_DISCOUNT_AMOUNT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DISCOUNT_AMOUNT_FACT.setName("DiscountAmount");
-        COLUMN_DISCOUNT_AMOUNT_FACT.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_DISCOUNT_AMOUNT_FACT.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_PRODUCT_STANDART_COST_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_STANDART_COST_FACT.setName("ProductStandardCost");
-        COLUMN_PRODUCT_STANDART_COST_FACT.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_PRODUCT_STANDART_COST_FACT.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_TOTAL_PRODUCT_COST_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOTAL_PRODUCT_COST_FACT.setName("TotalProductCost");
-        COLUMN_TOTAL_PRODUCT_COST_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_TOTAL_PRODUCT_COST_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_SALES_AMOUNT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_AMOUNT_FACT.setName("SalesAmount");
-        COLUMN_SALES_AMOUNT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_SALES_AMOUNT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_TAX_AMT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TAX_AMT_FACT.setName("TaxAmt");
-        COLUMN_TAX_AMT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_TAX_AMT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_FREIGHT_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FREIGHT_FACT.setName("Freight");
-        COLUMN_FREIGHT_FACT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_FREIGHT_FACT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_CARRIER_TRACKING_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CARRIER_TRACKING_NUMBER_FACT.setName("CarrierTrackingNumber");
-        COLUMN_CARRIER_TRACKING_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CARRIER_TRACKING_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CUSTOMER_PO_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_PO_NUMBER_FACT.setName("CustomerPONumber");
-        COLUMN_CUSTOMER_PO_NUMBER_FACT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMER_PO_NUMBER_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_EMPLOYEE_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMPLOYEE_KEY_FACT.setName("EmployeeKey");
-        COLUMN_EMPLOYEE_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_EMPLOYEE_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_BILLING_CUSTOMER_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_BILLING_CUSTOMER_KEY_FACT.setName("BillingCustomerKey");
-        COLUMN_BILLING_CUSTOMER_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_BILLING_CUSTOMER_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_STORE_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STORE_KEY_FACT.setName("StoreKey");
-        COLUMN_STORE_KEY_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_STORE_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_TOTAL_SALES_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOTAL_SALES_FACT.setName("TotalSales");
-        COLUMN_TOTAL_SALES_FACT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TOTAL_SALES_FACT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ROW_NUMBER_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_CUSTOMER.setName("RowNumber");
-        COLUMN_ROW_NUMBER_CUSTOMER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_CUSTOMER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CUSTOMER_KEY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_KEY_CUSTOMER.setName("CustomerKey");
-        COLUMN_CUSTOMER_KEY_CUSTOMER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CUSTOMER_KEY_CUSTOMER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_GEOGRAPHY_KEY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOGRAPHY_KEY_CUSTOMER.setName("GeographyKey");
-        COLUMN_GEOGRAPHY_KEY_CUSTOMER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_GEOGRAPHY_KEY_CUSTOMER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CUSTOMER_ALTERNATE_KEY_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_ALTERNATE_KEY_CUSTOMER.setName("CustomerAlternateKey");
-        COLUMN_CUSTOMER_ALTERNATE_KEY_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMER_ALTERNATE_KEY_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FIRST_NAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FIRST_NAME_CUSTOMER.setName("FirstName");
-        COLUMN_FIRST_NAME_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FIRST_NAME_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MIDDLE_NAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MIDDLE_NAME_CUSTOMER.setName("MiddleName");
-        COLUMN_MIDDLE_NAME_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MIDDLE_NAME_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_MIDDLE_NAME_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_LAST_NAME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LAST_NAME_CUSTOMER.setName("LastName");
-        COLUMN_LAST_NAME_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_LAST_NAME_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_NAME_STYLE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NAME_STYLE_CUSTOMER.setName("NameStyle");
-        COLUMN_NAME_STYLE_CUSTOMER.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_NAME_STYLE_CUSTOMER.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_BIRTH_DATE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_BIRTH_DATE_CUSTOMER.setName("BirthDate");
-        COLUMN_BIRTH_DATE_CUSTOMER.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_BIRTH_DATE_CUSTOMER.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_MARITAL_STATUS_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MARITAL_STATUS_CUSTOMER.setName("MaritalStatus");
-        COLUMN_MARITAL_STATUS_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MARITAL_STATUS_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SUFFIX_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SUFFIX_CUSTOMER.setName("Suffix");
-        COLUMN_SUFFIX_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SUFFIX_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_SUFFIX_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GENDER_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GENDER_CUSTOMER.setName("Gender");
-        COLUMN_GENDER_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GENDER_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_EMAIL_ADDRESS_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMAIL_ADDRESS_CUSTOMER.setName("EmailAddress");
-        COLUMN_EMAIL_ADDRESS_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_EMAIL_ADDRESS_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_YARLY_INCOME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_YARLY_INCOME_CUSTOMER.setName("YearlyIncome");
-        COLUMN_YARLY_INCOME_CUSTOMER.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_YARLY_INCOME_CUSTOMER.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_TOTAL_CHILDREN_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOTAL_CHILDREN_CUSTOMER.setName("TotalChildren");
-        COLUMN_TOTAL_CHILDREN_CUSTOMER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TOTAL_CHILDREN_CUSTOMER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_NUMBER_CHILDREN_AT_HOME_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NUMBER_CHILDREN_AT_HOME_CUSTOMER.setName("NumberChildrenAtHome");
-        COLUMN_NUMBER_CHILDREN_AT_HOME_CUSTOMER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_NUMBER_CHILDREN_AT_HOME_CUSTOMER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ENGLISH_EDUCATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_EDUCATION_CUSTOMER.setName("EnglishEducation");
-        COLUMN_ENGLISH_EDUCATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_EDUCATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_EDUCATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_EDUCATION_CUSTOMER.setName("SpanishEducation");
-        COLUMN_SPANISH_EDUCATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_EDUCATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_EDUCATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_EDUCATION_CUSTOMER.setName("FrenchEducation");
-        COLUMN_FRENCH_EDUCATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_EDUCATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ENGLISH_OCCUPATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_OCCUPATION_CUSTOMER.setName("EnglishOccupation");
-        COLUMN_ENGLISH_OCCUPATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_OCCUPATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_OCCUPATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_OCCUPATION_CUSTOMER.setName("SpanishOccupation");
-        COLUMN_SPANISH_OCCUPATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_OCCUPATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_OCCUPATION_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_OCCUPATION_CUSTOMER.setName("FrenchOccupation");
-        COLUMN_FRENCH_OCCUPATION_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_OCCUPATION_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_HOUSE_OWNER_FLAG_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_HOUSE_OWNER_FLAG_CUSTOMER.setName("HouseOwnerFlag");
-        COLUMN_HOUSE_OWNER_FLAG_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_HOUSE_OWNER_FLAG_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_NUMBER_CARS_OWNED_FLAG_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NUMBER_CARS_OWNED_FLAG_CUSTOMER.setName("NumberCarsOwned");
-        COLUMN_NUMBER_CARS_OWNED_FLAG_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_NUMBER_CARS_OWNED_FLAG_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ADDRESS_LINE1_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ADDRESS_LINE1_CUSTOMER.setName("AddressLine1");
-        COLUMN_ADDRESS_LINE1_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ADDRESS_LINE1_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ADDRESS_LINE2_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ADDRESS_LINE2_CUSTOMER.setName("AddressLine2");
-        COLUMN_ADDRESS_LINE2_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ADDRESS_LINE2_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_ADDRESS_LINE2_CUSTOMER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_PHONE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PHONE_CUSTOMER.setName("Phone");
-        COLUMN_PHONE_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PHONE_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_DATE_FIRST_PURCHASE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DATE_FIRST_PURCHASE_CUSTOMER.setName("DateFirstPurchase");
-        COLUMN_DATE_FIRST_PURCHASE_CUSTOMER.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_DATE_FIRST_PURCHASE_CUSTOMER.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_COMMUTE_DISTANCE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COMMUTE_DISTANCE_CUSTOMER.setName("CommuteDistance");
-        COLUMN_COMMUTE_DISTANCE_CUSTOMER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COMMUTE_DISTANCE_CUSTOMER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_EMPLOYEE.setName("RowNumber");
-        COLUMN_ROW_NUMBER_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_EMPLOYEE_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMPLOYEE_KEY_EMPLOYEE.setName("EmployeeKey");
-        COLUMN_EMPLOYEE_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_EMPLOYEE_KEY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PARENT_EMPLOYEE_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PARENT_EMPLOYEE_KEY_EMPLOYEE.setName("ParentEmployeeKey");
-        COLUMN_PARENT_EMPLOYEE_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PARENT_EMPLOYEE_KEY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setName("EmployeeNationalIDAlternateKey");
-        COLUMN_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setName("ParentEmployeeNationalIDAlternateKey");
-        COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_PARENT_EMPLOYEE_NATIONAL_ID_ALTERNATE_KEY_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setName("SalesTerritoryKey");
-        COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
         COLUMN_SALES_TERRITORY_KEY_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_FIRST_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FIRST_NAME_EMPLOYEE.setName("FirstName");
-        COLUMN_FIRST_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FIRST_NAME_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_LAST_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LAST_NAME_EMPLOYEE.setName("LastName");
-        COLUMN_LAST_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_LAST_NAME_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MIDDLE_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MIDDLE_NAME_EMPLOYEE.setName("MiddleName");
-        COLUMN_MIDDLE_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MIDDLE_NAME_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_MIDDLE_NAME_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_NAME_STYLE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NAME_STYLE_EMPLOYEE.setName("NameStyle");
-        COLUMN_NAME_STYLE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_NAME_STYLE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_TITLE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TITLE_EMPLOYEE.setName("Title");
-        COLUMN_TITLE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_TITLE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_HIRE_DATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_HIRE_DATE_EMPLOYEE.setName("HireDate");
-        COLUMN_HIRE_DATE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_HIRE_DATE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_BIRTH_DATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_BIRTH_DATE_EMPLOYEE.setName("BirthDate");
-        COLUMN_BIRTH_DATE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_BIRTH_DATE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_LOGIN_ID_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LOGIN_ID_EMPLOYEE.setName("LoginID");
-        COLUMN_LOGIN_ID_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_LOGIN_ID_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_EMAIL_ADDRESS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMAIL_ADDRESS_EMPLOYEE.setName("EmailAddress");
-        COLUMN_EMAIL_ADDRESS_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_EMAIL_ADDRESS_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PHONE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PHONE_EMPLOYEE.setName("Phone");
-        COLUMN_PHONE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PHONE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MARITAL_STATUS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MARITAL_STATUS_EMPLOYEE.setName("MaritalStatus");
-        COLUMN_MARITAL_STATUS_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MARITAL_STATUS_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_EMERGENCY_CONTACT_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMERGENCY_CONTACT_NAME_EMPLOYEE.setName("EmergencyContactName");
-        COLUMN_EMERGENCY_CONTACT_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_EMERGENCY_CONTACT_NAME_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_EMERGENCY_CONTACT_PHONE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EMERGENCY_CONTACT_PHONE_EMPLOYEE.setName("EmergencyContactPhone");
-        COLUMN_EMERGENCY_CONTACT_PHONE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_EMERGENCY_CONTACT_PHONE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SALARIED_FLAG_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALARIED_FLAG_EMPLOYEE.setName("SalariedFlag");
-        COLUMN_SALARIED_FLAG_EMPLOYEE.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_SALARIED_FLAG_EMPLOYEE.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_GENDER_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GENDER_EMPLOYEE.setName("Gender");
-        COLUMN_GENDER_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GENDER_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PAY_FREQUENCY_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PAY_FREQUENCY_EMPLOYEE.setName("PayFrequency");
-        COLUMN_PAY_FREQUENCY_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PAY_FREQUENCY_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_BASE_RATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_BASE_RATE_EMPLOYEE.setName("BaseRate");
-        COLUMN_BASE_RATE_EMPLOYEE.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_BASE_RATE_EMPLOYEE.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_VACATION_HOURS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_VACATION_HOURS_EMPLOYEE.setName("VacationHours");
-        COLUMN_VACATION_HOURS_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_VACATION_HOURS_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SICK_LEAVE_HOURS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SICK_LEAVE_HOURS_EMPLOYEE.setName("SickLeaveHours");
-        COLUMN_SICK_LEAVE_HOURS_EMPLOYEE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SICK_LEAVE_HOURS_EMPLOYEE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CURRENT_FLAG_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURRENT_FLAG_EMPLOYEE.setName("CurrentFlag");
-        COLUMN_CURRENT_FLAG_EMPLOYEE.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_CURRENT_FLAG_EMPLOYEE.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_SALES_PERSONE_FLAG_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_PERSONE_FLAG_EMPLOYEE.setName("SalesPersonFlag");
-        COLUMN_SALES_PERSONE_FLAG_EMPLOYEE.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_SALES_PERSONE_FLAG_EMPLOYEE.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_DEPARTAMENT_NAME_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEPARTAMENT_NAME_EMPLOYEE.setName("DepartmentName");
-        COLUMN_DEPARTAMENT_NAME_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_DEPARTAMENT_NAME_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_START_DATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_START_DATE_EMPLOYEE.setName("StartDate");
-        COLUMN_START_DATE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_START_DATE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_END_DATE_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_END_DATE_EMPLOYEE.setName("EndDate");
-        COLUMN_END_DATE_EMPLOYEE.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_END_DATE_EMPLOYEE.setType(SQLSimpleTypes.Sql99.dateType());
         COLUMN_END_DATE_EMPLOYEE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATUS_EMPLOYEE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATUS_EMPLOYEE.setName("Status");
-        COLUMN_STATUS_EMPLOYEE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATUS_EMPLOYEE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_GEOGRAPHY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_GEOGRAPHY_KEY_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOGRAPHY_KEY_GEOGRAPHY.setName("GeographyKey");
-        COLUMN_GEOGRAPHY_KEY_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_GEOGRAPHY_KEY_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CITY_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CITY_GEOGRAPHY.setName("City");
-        COLUMN_CITY_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CITY_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setName("StateProvinceCode");
-        COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_STATE_PROVINCE_CODE_GEOGRAPHY.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY.setName("StateProvinceName");
-        COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATE_PROVINCE_NAME_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_COUNTRY_REGION_CODE_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_REGION_CODE_GEOGRAPHY.setName("CountryRegionCode");
-        COLUMN_COUNTRY_REGION_CODE_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COUNTRY_REGION_CODE_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ENGLISH_COUNTRY_REGION_NAME_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_COUNTRY_REGION_NAME_GEOGRAPHY.setName("EnglishCountryRegionName");
-        COLUMN_ENGLISH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_COUNTRY_REGION_NAME_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_COUNTRY_REGION_NAME_GEOGRAPHY.setName("SpanishCountryRegionName");
-        COLUMN_SPANISH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_COUNTRY_REGION_NAME_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_COUNTRY_REGION_NAME_GEOGRAPHY.setName("FrenchCountryRegionName");
-        COLUMN_FRENCH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_COUNTRY_REGION_NAME_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_POSTAL_CODE_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_POSTAL_CODE_GEOGRAPHY.setName("PostalCode");
-        COLUMN_POSTAL_CODE_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_POSTAL_CODE_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setName("SalesTerritoryKey");
-        COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setType(SQLSimpleTypes.Sql99.integerType());
         COLUMN_SALES_TERRITORY_KEY_GEOGRAPHY.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_ROW_NUMBER_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_PRODUCT.setName("RowNumber");
-        COLUMN_ROW_NUMBER_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_KEY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_KEY_PRODUCT.setName("ProductKey");
-        COLUMN_PRODUCT_KEY_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_KEY_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT.setName("ProductAlternateKey");
-        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT.setName("ProductSubcategoryKey");
-        COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_PRODUCT.setName("WeightUnitMeasureCode");
-        COLUMN_WEIGHT_UNIT_MEASURE_CODE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_WEIGHT_UNIT_MEASURE_CODE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SIZE_UNIT_MEASURE_CODE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_UNIT_MEASURE_CODE_PRODUCT.setName("SizeUnitMeasureCode");
-        COLUMN_SIZE_UNIT_MEASURE_CODE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_UNIT_MEASURE_CODE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ENGLISH_PRODUCT_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_PRODUCT_NAME_PRODUCT.setName("EnglishProductName");
-        COLUMN_ENGLISH_PRODUCT_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_PRODUCT_NAME_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_PRODUCT_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_PRODUCT_NAME_PRODUCT.setName("SpanishProductName");
-        COLUMN_SPANISH_PRODUCT_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_PRODUCT_NAME_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_PRODUCT_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_PRODUCT_NAME_PRODUCT.setName("FrenchProductName");
-        COLUMN_FRENCH_PRODUCT_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_PRODUCT_NAME_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STANDART_COST_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STANDART_COST_PRODUCT.setName("StandardCost");
-        COLUMN_STANDART_COST_PRODUCT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_STANDART_COST_PRODUCT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_FINISH_GOODS_FLAG_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FINISH_GOODS_FLAG_PRODUCT.setName("FinishedGoodsFlag");
-        COLUMN_FINISH_GOODS_FLAG_PRODUCT.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_FINISH_GOODS_FLAG_PRODUCT.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_COLOR_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COLOR_PRODUCT.setName("Color");
-        COLUMN_COLOR_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COLOR_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SAFETY_STOCK_LEVEL_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SAFETY_STOCK_LEVEL_PRODUCT.setName("SafetyStockLevel");
-        COLUMN_SAFETY_STOCK_LEVEL_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SAFETY_STOCK_LEVEL_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_REORDER_POINT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_REORDER_POINT_PRODUCT.setName("ReorderPoint");
-        COLUMN_REORDER_POINT_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_REORDER_POINT_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_LIST_PRICE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LIST_PRICE_PRODUCT.setName("ListPrice");
-        COLUMN_LIST_PRICE_PRODUCT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_LIST_PRICE_PRODUCT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_SIZE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_PRODUCT.setName("Size");
-        COLUMN_SIZE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SIZE_RANGE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_RANGE_PRODUCT.setName("SizeRange");
-        COLUMN_SIZE_RANGE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_RANGE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_SIZE_RANGE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WEIGHT_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_PRODUCT.setName("Weight");
-        COLUMN_WEIGHT_PRODUCT.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_WEIGHT_PRODUCT.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_DAYS_TO_MANUFACTURE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DAYS_TO_MANUFACTURE_PRODUCT.setName("DaysToManufacture");
-        COLUMN_DAYS_TO_MANUFACTURE_PRODUCT.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DAYS_TO_MANUFACTURE_PRODUCT.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_LINE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_LINE_PRODUCT.setName("ProductLine");
-        COLUMN_PRODUCT_LINE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_LINE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_PRODUCT_LINE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_DEALER_PRICE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEALER_PRICE_PRODUCT.setName("DealerPrice");
-        COLUMN_DEALER_PRICE_PRODUCT.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_DEALER_PRICE_PRODUCT.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_CLASS_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CLASS_PRODUCT.setName("Class");
-        COLUMN_CLASS_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CLASS_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STYLE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STYLE_PRODUCT.setName("Style");
-        COLUMN_STYLE_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STYLE_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MODEL_NAME_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MODEL_NAME_PRODUCT.setName("ModelName");
-        COLUMN_MODEL_NAME_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MODEL_NAME_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ENGLISH_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_DESCRIPTION_PRODUCT.setName("EnglishDescription");
-        COLUMN_ENGLISH_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_DESCRIPTION_PRODUCT.setName("FrenchDescription");
-        COLUMN_FRENCH_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CHINESE_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CHINESE_DESCRIPTION_PRODUCT.setName("ChineseDescription");
-        COLUMN_CHINESE_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CHINESE_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ARABIC_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ARABIC_DESCRIPTION_PRODUCT.setName("ArabicDescription");
-        COLUMN_ARABIC_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ARABIC_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_HEBREW_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_HEBREW_DESCRIPTION_PRODUCT.setName("HebrewDescription");
-        COLUMN_HEBREW_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_HEBREW_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_THAI_DESCRIPTION_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_THAI_DESCRIPTION_PRODUCT.setName("ThaiDescription");
-        COLUMN_THAI_DESCRIPTION_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_THAI_DESCRIPTION_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_START_DATE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_START_DATE_PRODUCT.setName("StartDate");
-        COLUMN_START_DATE_PRODUCT.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_START_DATE_PRODUCT.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_END_DATE_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_END_DATE_PRODUCT.setName("EndDate");
-        COLUMN_END_DATE_PRODUCT.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_END_DATE_PRODUCT.setType(SQLSimpleTypes.Sql99.dateType());
         COLUMN_END_DATE_PRODUCT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_STATUS_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATUS_PRODUCT.setName("Status");
-        COLUMN_STATUS_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATUS_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SUBCATEGORY_PRODUCT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SUBCATEGORY_PRODUCT.setName("Subcategory");
-        COLUMN_SUBCATEGORY_PRODUCT.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SUBCATEGORY_PRODUCT.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_PRODUCT_CATEGORY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_CATEGORY.setName("ProductCategoryKey");
-        COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_CATEGORY.setName("ProductCategoryAlternateKey");
-        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ENGLISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setName("EnglishProductCategoryName");
-        COLUMN_ENGLISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setName("SpanishProductCategoryName");
-        COLUMN_SPANISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setName("FrenchProductCategoryName");
-        COLUMN_FRENCH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_PRODUCT_CATEGORY_NAME_PRODUCT_CATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_PRODUCT_SUBCATEGORY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY.setName("ProductSubcategoryKey");
-        COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_SUBCATEGORY_KEY_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_SUBCATEGORY.setName("ProductSubcategoryAlternateKey");
-        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_ALTERNATE_KEY_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ENGLISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setName("EnglishProductSubcategoryName");
-        COLUMN_ENGLISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setName("SpanishProductSubcategoryName");
-        COLUMN_SPANISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setName("FrenchProductSubcategoryName");
-        COLUMN_FRENCH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_PRODUCT_SUBCATEGORY_NAME_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_SUBCATEGORY.setName("ProductCategoryKey");
-        COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_CATEGORY_KEY_PRODUCT_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         //"RowNumber","StoreKey","Geography_Key","StoreName","Number_of_Employees","Sales"
         //INTEGER,INTEGER,INTEGER,VARCHAR,INTEGER,DECIMAL(19.4)
         COLUMN_ROW_NUMBER_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_STORE.setName("RowNumber");
-        COLUMN_ROW_NUMBER_STORE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_STORE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_STORE_KEY_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STORE_KEY_STORE.setName("StoreKey");
-        COLUMN_STORE_KEY_STORE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_STORE_KEY_STORE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_GEOGRAPHY_KEY_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOGRAPHY_KEY_STORE.setName("Geography_Key");
-        COLUMN_GEOGRAPHY_KEY_STORE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_GEOGRAPHY_KEY_STORE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_STORE_NAME_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STORE_NAME_STORE.setName("StoreName");
-        COLUMN_STORE_NAME_STORE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STORE_NAME_STORE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_NUMBER_OF_EMPLOYEES_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NUMBER_OF_EMPLOYEES_STORE.setName("Number_of_Employees");
-        COLUMN_NUMBER_OF_EMPLOYEES_STORE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_NUMBER_OF_EMPLOYEES_STORE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SALES_STORE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_STORE.setName("Sales");
-        COLUMN_SALES_STORE.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_SALES_STORE.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_ROW_NUMBER_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_TIME.setName("RowNumber");
-        COLUMN_ROW_NUMBER_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_TIME_KEY_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TIME_KEY_TIME.setName("TimeKey");
-        COLUMN_TIME_KEY_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TIME_KEY_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_FULL_DATE_ALTERNATE_KEY_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FULL_DATE_ALTERNATE_KEY_TIME.setName("FullDateAlternateKey");
-        COLUMN_FULL_DATE_ALTERNATE_KEY_TIME.setType(SqlSimpleTypes.Sql99.dateType());
+        COLUMN_FULL_DATE_ALTERNATE_KEY_TIME.setType(SQLSimpleTypes.Sql99.dateType());
 
         COLUMN_DAY_NUMBER_OF_WEEK_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DAY_NUMBER_OF_WEEK_TIME.setName("DayNumberOfWeek");
-        COLUMN_DAY_NUMBER_OF_WEEK_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DAY_NUMBER_OF_WEEK_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ENGLISH_DAY_NAME_OF_WEEK_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_DAY_NAME_OF_WEEK_TIME.setName("EnglishDayNameOfWeek");
-        COLUMN_ENGLISH_DAY_NAME_OF_WEEK_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_DAY_NAME_OF_WEEK_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_DAY_NAME_OF_WEEK_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_DAY_NAME_OF_WEEK_TIME.setName("SpanishDayNameOfWeek");
-        COLUMN_SPANISH_DAY_NAME_OF_WEEK_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_DAY_NAME_OF_WEEK_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_DAY_NAME_OF_WEEK_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_DAY_NAME_OF_WEEK_TIME.setName("FrenchDayNameOfWeek");
-        COLUMN_FRENCH_DAY_NAME_OF_WEEK_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_DAY_NAME_OF_WEEK_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_DAY_NUMBER_OF_MONTH_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DAY_NUMBER_OF_MONTH_TIME.setName("DayNumberOfMonth");
-        COLUMN_DAY_NUMBER_OF_MONTH_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DAY_NUMBER_OF_MONTH_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DAY_NUMBER_OF_YEAR_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DAY_NUMBER_OF_YEAR_TIME.setName("DayNumberOfYear");
-        COLUMN_DAY_NUMBER_OF_YEAR_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DAY_NUMBER_OF_YEAR_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_WEEK_NUMBER_OF_YEAR_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEEK_NUMBER_OF_YEAR_TIME.setName("WeekNumberOfYear");
-        COLUMN_WEEK_NUMBER_OF_YEAR_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_WEEK_NUMBER_OF_YEAR_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ENGLISH_MONTH_NAME_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ENGLISH_MONTH_NAME_TIME.setName("EnglishMonthName");
-        COLUMN_ENGLISH_MONTH_NAME_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_ENGLISH_MONTH_NAME_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SPANISH_MONTH_NAME_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SPANISH_MONTH_NAME_TIME.setName("SpanishMonthName");
-        COLUMN_SPANISH_MONTH_NAME_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SPANISH_MONTH_NAME_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FRENCH_MONTH_NAME_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FRENCH_MONTH_NAME_TIME.setName("FrenchMonthName");
-        COLUMN_FRENCH_MONTH_NAME_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FRENCH_MONTH_NAME_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MONTH_NUMBER_OF_YEAR_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MONTH_NUMBER_OF_YEAR_TIME.setName("MonthNumberOfYear");
-        COLUMN_MONTH_NUMBER_OF_YEAR_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_MONTH_NUMBER_OF_YEAR_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CALENDAR_QUARTER_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CALENDAR_QUARTER_TIME.setName("CalendarQuarter");
-        COLUMN_CALENDAR_QUARTER_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CALENDAR_QUARTER_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CALENDAR_YEAR_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CALENDAR_YEAR_TIME.setName("CalendarYear");
-        COLUMN_CALENDAR_YEAR_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CALENDAR_YEAR_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CALENDAR_SEMESTER_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CALENDAR_SEMESTER_TIME.setName("CalendarSemester");
-        COLUMN_CALENDAR_SEMESTER_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CALENDAR_SEMESTER_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_FISCAL_QUARTER_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FISCAL_QUARTER_TIME.setName("FiscalQuarter");
-        COLUMN_FISCAL_QUARTER_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_FISCAL_QUARTER_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_FISCAL_YEAR_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FISCAL_YEAR_TIME.setName("FiscalYear");
-        COLUMN_FISCAL_YEAR_TIME.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_FISCAL_YEAR_TIME.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_FISCAL_SEMESTER_TIME = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FISCAL_SEMESTER_TIME.setName("FiscalSemester");
-        COLUMN_FISCAL_SEMESTER_TIME.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_FISCAL_SEMESTER_TIME.setType(SQLSimpleTypes.Sql99.integerType());
 
         TABLE_CUSTOMER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_CUSTOMER.setName("Customer");

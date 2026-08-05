@@ -38,7 +38,7 @@ import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.02", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -79,19 +79,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column value1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE1");
-        value1Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value1Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column value2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value2Column.setName("VALUE2");
-        value2Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value2Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column value3Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value3Column.setName("VALUE3");
-        value3Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value3Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("Fact");

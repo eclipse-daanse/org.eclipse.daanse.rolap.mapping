@@ -47,7 +47,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.16.03", source = Source.EMF, group = "Hierarchy") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -131,67 +131,67 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column auotoDimIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         auotoDimIdColumn.setName("AUTO_DIM_ID");
-        auotoDimIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        auotoDimIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column makeIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         makeIdColumn.setName("MAKE_ID");
-        makeIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        makeIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column makeColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         makeColumn.setName("MAKE");
-        makeColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        makeColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column modelIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         modelIdColumn.setName("MODEL_ID");
-        modelIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        modelIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column modelColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         modelColumn.setName("MODEL");
-        modelColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        modelColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column plantIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantIdColumn.setName("PLANT_ID");
-        plantIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        plantIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column plantColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantColumn.setName("PLANT");
-        plantColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        plantColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column plantStateIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantStateIdColumn.setName("PLANT_STATE_ID");
-        plantStateIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        plantStateIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column plantCityIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         plantCityIdColumn.setName("PLANT_CITY_ID");
-        plantCityIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        plantCityIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column vehicleIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         vehicleIdColumn.setName("VEHICLE_ID");
-        vehicleIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        vehicleIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column colorIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         colorIdColumn.setName("COLOR_ID");
-        colorIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        colorIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column trimIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         trimIdColumn.setName("TRIM_ID");
-        trimIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        trimIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column licenseIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseIdColumn.setName("LICENSE_ID");
-        licenseIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        licenseIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column licenseColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseColumn.setName("LICENSE");
-        licenseColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        licenseColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column licenseStateIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         licenseStateIdColumn.setName("LICENSE_STATE_ID");
-        licenseStateIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        licenseStateIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column priceColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         priceColumn.setName("PRICE");
-        priceColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        priceColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);

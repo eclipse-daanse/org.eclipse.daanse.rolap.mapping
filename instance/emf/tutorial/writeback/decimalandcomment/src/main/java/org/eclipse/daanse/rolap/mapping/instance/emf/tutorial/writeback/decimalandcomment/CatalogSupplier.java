@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
 import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
@@ -166,22 +166,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE
                 .createSchema();
 
-        Column factProductColumn = createColumn("PRODUCT", SqlSimpleTypes.Sql99.varcharType());
-        Column factAmountColumn = createColumn("AMOUNT", SqlSimpleTypes.decimalType(18, 2));
-        Column factCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
+        Column factProductColumn = createColumn("PRODUCT", SQLSimpleTypes.Sql99.varcharType());
+        Column factAmountColumn = createColumn("AMOUNT", SQLSimpleTypes.decimalType(18, 2));
+        Column factCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
         Table factTable = createTable(FACT, List.of(factProductColumn, factAmountColumn, factCommentColumn));
         databaseSchema.getOwnedElement().add(factTable);
 
-        Column productKeyColumn = createColumn("KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column productNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column productKeyColumn = createColumn("KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column productNameColumn = createColumn("NAME", SQLSimpleTypes.Sql99.varcharType());
         Table productTable = createTable(PRODUCT, List.of(productKeyColumn, productNameColumn));
         databaseSchema.getOwnedElement().add(productTable);
 
-        Column wbProductColumn = createColumn("PRODUCT", SqlSimpleTypes.Sql99.varcharType());
-        Column wbAmountColumn = createColumn("AMOUNT", SqlSimpleTypes.decimalType(18, 2));
-        Column wbCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
-        Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
-        Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
+        Column wbProductColumn = createColumn("PRODUCT", SQLSimpleTypes.Sql99.varcharType());
+        Column wbAmountColumn = createColumn("AMOUNT", SQLSimpleTypes.decimalType(18, 2));
+        Column wbCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
+        Column wbIdColumn = createColumn("ID", SQLSimpleTypes.Sql99.varcharType());
+        Column wbUserColumn = createColumn("USER", SQLSimpleTypes.Sql99.varcharType());
         Table writebackPhysicalTable = createTable(FACTWB,
                 List.of(wbProductColumn, wbAmountColumn, wbCommentColumn, wbIdColumn, wbUserColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);

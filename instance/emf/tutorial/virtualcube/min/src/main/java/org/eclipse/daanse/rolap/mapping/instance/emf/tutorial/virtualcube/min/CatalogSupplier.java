@@ -42,7 +42,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.01", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -115,11 +115,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column key1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         key1Column.setName("KEY");
-        key1Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        key1Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column value1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE");
-        value1Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value1Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table c1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         c1Table.setName(C1_FACT);
@@ -128,11 +128,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column key2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         key2Column.setName("KEY");
-        key2Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        key2Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column value2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value2Column.setName("VALUE");
-        value2Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value2Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table c2Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         c2Table.setName(C2_FACT);

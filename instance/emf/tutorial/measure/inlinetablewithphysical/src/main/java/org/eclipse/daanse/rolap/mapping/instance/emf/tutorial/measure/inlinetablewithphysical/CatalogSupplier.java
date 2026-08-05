@@ -54,7 +54,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.12.03", source = Source.EMF, group = "Measure") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -144,15 +144,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column townKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         townKeyColumn.setName("KEY");
-        townKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        townKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column townCountryKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         townCountryKeyColumn.setName("KEY_COUNTRY");
-        townCountryKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        townCountryKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column townNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         townNameColumn.setName("NAME");
-        townNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        townNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table townTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         townTable.setName("TOWN");
@@ -161,11 +161,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column countryKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         countryKeyColumn.setName("KEY");
-        countryKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        countryKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column countryNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         countryNameColumn.setName("NAME");
-        countryNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        countryNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         DataSlot rowCountryValue11 = InstanceFactory.eINSTANCE.createDataSlot();
         rowCountryValue11.setFeature(countryKeyColumn);
@@ -200,11 +200,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         DataSlot rowValue11 = InstanceFactory.eINSTANCE.createDataSlot();
         rowValue11.setFeature(keyColumn);

@@ -47,7 +47,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.09.02", source = Source.EMF, group = "Dimension") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -135,11 +135,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column dimKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        dimKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -148,11 +148,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column h1L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         h1L1KeyColumn.setName("KEY");
-        h1L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        h1L1KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column h1L1NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         h1L1NameColumn.setName("NAME");
-        h1L1NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        h1L1NameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table h1L1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         h1L1Table.setName("H1_L1");
@@ -161,19 +161,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column hxL2KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2KeyColumn.setName("KEY");
-        hxL2KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        hxL2KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column hxL2NameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2NameColumn.setName("NAME");
-        hxL2NameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        hxL2NameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column hxL2H1L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2H1L1KeyColumn.setName("H1L1_KEY");
-        hxL2H1L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        hxL2H1L1KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column hxL2H2L1KeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         hxL2H2L1KeyColumn.setName("H2L1_KEY");
-        hxL2H2L1KeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        hxL2H2L1KeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table hxL2Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         hxL2Table.setName("HX_L2");

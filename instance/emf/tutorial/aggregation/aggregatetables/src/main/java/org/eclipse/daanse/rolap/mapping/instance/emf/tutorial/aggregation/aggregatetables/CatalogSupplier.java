@@ -53,7 +53,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.02", source = Source.EMF, group = "Aggregation") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -142,11 +142,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column productIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productIdColumn.setName("PRODUCT_ID");
-        productIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        productIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column storeCostColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         storeCostColumn.setName("STORE_COST");
-        storeCostColumn.setType(SqlSimpleTypes.decimalType(18, 4));
+        storeCostColumn.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Table salesFact1997 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         salesFact1997.setName(SALES_FACT_1997);
@@ -155,19 +155,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column productProductClassIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productProductClassIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        productProductClassIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column productProductIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductIdColumn.setName("PRODUCT_ID");
-        productProductIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        productProductIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column productBrandNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productBrandNameColumn.setName("brand_name");
-        productBrandNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        productBrandNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column productProductNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productProductNameColumn.setName("product_name");
-        productProductNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        productProductNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table productTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         productTable.setName("PRODUCT");
@@ -177,11 +177,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column productClassProductClassIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productClassProductClassIdColumn.setName("PRODUCT_CLASS_ID");
-        productClassProductClassIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        productClassProductClassIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column productClassProductFamileColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         productClassProductFamileColumn.setName("PRODUCT_FAMILE");
-        productClassProductFamileColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        productClassProductFamileColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table productClassTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         productClassTable.setName("PRODUCT_CLASS");
@@ -191,15 +191,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column aggCSpecialSalesFact1997ProductIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997ProductIdColumn.setName("PRODUCT_ID");
-        aggCSpecialSalesFact1997ProductIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        aggCSpecialSalesFact1997ProductIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column aggCSpecialSalesFact1997StoreCostSumColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997StoreCostSumColumn.setName("STORE_COST_SUM");
-        aggCSpecialSalesFact1997StoreCostSumColumn.setType(SqlSimpleTypes.decimalType(18, 4));
+        aggCSpecialSalesFact1997StoreCostSumColumn.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Column aggCSpecialSalesFact1997FactCountColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         aggCSpecialSalesFact1997FactCountColumn.setName("FACT_COUNT");
-        aggCSpecialSalesFact1997FactCountColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        aggCSpecialSalesFact1997FactCountColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         //PRODUCT_ID,STORE_COST_SUM,FACT_COUNT
         //INTEGER,DECIMAL(10.4),INTEGER

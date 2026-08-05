@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
 import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
@@ -548,13 +548,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE
                 .createSchema();
 
-        Column bookingIdColumn = createColumn("BOOKING_ID", SqlSimpleTypes.Sql99.integerType());
-        Column bookingYearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column bookingAccountKeyColumn = createColumn("ACCOUNT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column bookingOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column bookingAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
-        Column bookingAmountPlanColumn = createColumn("AMOUNT_PLAN", SqlSimpleTypes.Sql99.integerType());
-        Column bookingCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
+        Column bookingIdColumn = createColumn("BOOKING_ID", SQLSimpleTypes.Sql99.integerType());
+        Column bookingYearKeyColumn = createColumn("YEAR_KEY", SQLSimpleTypes.Sql99.integerType());
+        Column bookingAccountKeyColumn = createColumn("ACCOUNT_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column bookingOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column bookingAmountIstColumn = createColumn("AMOUNT_IST", SQLSimpleTypes.Sql99.integerType());
+        Column bookingAmountPlanColumn = createColumn("AMOUNT_PLAN", SQLSimpleTypes.Sql99.integerType());
+        Column bookingCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
 
         Table bookingTable = createTable(TABLE_BOOKING,
                 List.of(bookingIdColumn, bookingYearKeyColumn, bookingAccountKeyColumn,
@@ -562,15 +562,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         bookingAmountPlanColumn, bookingCommentColumn));
         databaseSchema.getOwnedElement().add(bookingTable);
 
-        Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
-        Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
-        Column wbYearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column wbAccountKeyColumn = createColumn("ACCOUNT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column wbOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column wbBookingAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
-        Column wbAmountIstColumn = createColumn("AMOUNT_IST", SqlSimpleTypes.Sql99.integerType());
-        Column wbAmountPlanColumn = createColumn("AMOUNT_PLAN", SqlSimpleTypes.Sql99.integerType());
-        Column wbCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
+        Column wbIdColumn = createColumn("ID", SQLSimpleTypes.Sql99.varcharType());
+        Column wbUserColumn = createColumn("USER", SQLSimpleTypes.Sql99.varcharType());
+        Column wbYearKeyColumn = createColumn("YEAR_KEY", SQLSimpleTypes.Sql99.integerType());
+        Column wbAccountKeyColumn = createColumn("ACCOUNT_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column wbOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column wbBookingAmountIstColumn = createColumn("AMOUNT_IST", SQLSimpleTypes.Sql99.integerType());
+        Column wbAmountIstColumn = createColumn("AMOUNT_IST", SQLSimpleTypes.Sql99.integerType());
+        Column wbAmountPlanColumn = createColumn("AMOUNT_PLAN", SQLSimpleTypes.Sql99.integerType());
+        Column wbCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
 
         writebackPhysicalTable = createTable(TABLE_BOOKINGWB,
                 List.of(wbIdColumn, wbUserColumn, wbYearKeyColumn, wbAccountKeyColumn,
@@ -581,12 +581,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // denormalised table (same shape as ORGUNIT). L1 is the top
         // category (EXPENSES / REVENUE), L2 the account group
         // (PERSONNEL / RENT / ...) and L3 the leaf ledger account.
-        Column accountL1KeyColumn = createColumn("L1_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column accountL1NameColumn = createColumn("L1_NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column accountL2KeyColumn = createColumn("L2_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column accountL2NameColumn = createColumn("L2_NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column accountL3KeyColumn = createColumn("L3_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column accountL3NameColumn = createColumn("L3_NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column accountL1KeyColumn = createColumn("L1_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column accountL1NameColumn = createColumn("L1_NAME", SQLSimpleTypes.Sql99.varcharType());
+        Column accountL2KeyColumn = createColumn("L2_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column accountL2NameColumn = createColumn("L2_NAME", SQLSimpleTypes.Sql99.varcharType());
+        Column accountL3KeyColumn = createColumn("L3_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column accountL3NameColumn = createColumn("L3_NAME", SQLSimpleTypes.Sql99.varcharType());
 
         Table accountTable = createTable(TABLE_ACCOUNT,
                 List.of(accountL1KeyColumn, accountL1NameColumn,
@@ -594,18 +594,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         accountL3KeyColumn, accountL3NameColumn));
         databaseSchema.getOwnedElement().add(accountTable);
 
-        Column yearKeyColumn = createColumn("YEAR_KEY", SqlSimpleTypes.Sql99.integerType());
-        Column yearNameColumn = createColumn("YEAR_NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column yearKeyColumn = createColumn("YEAR_KEY", SQLSimpleTypes.Sql99.integerType());
+        Column yearNameColumn = createColumn("YEAR_NAME", SQLSimpleTypes.Sql99.varcharType());
 
         Table yearTable = createTable(TABLE_YEAR, List.of(yearKeyColumn, yearNameColumn));
         databaseSchema.getOwnedElement().add(yearTable);
 
-        Column ouL1KeyColumn = createColumn("L1_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column ouL1NameColumn = createColumn("L1_NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column ouL2KeyColumn = createColumn("L2_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column ouL2NameColumn = createColumn("L2_NAME", SqlSimpleTypes.Sql99.varcharType());
-        Column ouL3KeyColumn = createColumn("L3_KEY", SqlSimpleTypes.Sql99.varcharType());
-        Column ouL3NameColumn = createColumn("L3_NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column ouL1KeyColumn = createColumn("L1_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column ouL1NameColumn = createColumn("L1_NAME", SQLSimpleTypes.Sql99.varcharType());
+        Column ouL2KeyColumn = createColumn("L2_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column ouL2NameColumn = createColumn("L2_NAME", SQLSimpleTypes.Sql99.varcharType());
+        Column ouL3KeyColumn = createColumn("L3_KEY", SQLSimpleTypes.Sql99.varcharType());
+        Column ouL3NameColumn = createColumn("L3_NAME", SQLSimpleTypes.Sql99.varcharType());
 
         Table orgUnitTable = createTable(TABLE_ORGUNIT,
                 List.of(ouL1KeyColumn, ouL1NameColumn, ouL2KeyColumn, ouL2NameColumn, ouL3KeyColumn, ouL3NameColumn));

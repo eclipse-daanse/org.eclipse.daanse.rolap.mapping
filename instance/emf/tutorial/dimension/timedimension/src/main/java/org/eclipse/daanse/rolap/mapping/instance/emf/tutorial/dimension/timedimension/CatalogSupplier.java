@@ -49,7 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.09.01", source = Source.EMF, group = "Dimension") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -133,39 +133,39 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column dateKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dateKeyColumn.setName("DATE_KEY");
-        dateKeyColumn.setType(SqlSimpleTypes.Sql99.timestampType());
+        dateKeyColumn.setType(SQLSimpleTypes.Sql99.timestampType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column yearIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         yearIdColumn.setName("YEAR_ID");
-        yearIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        yearIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column qtrIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         qtrIdColumn.setName("QTR_ID");
-        qtrIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        qtrIdColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column qtrNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         qtrNameColumn.setName("QTR_NAME");
-        qtrNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        qtrNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column monthIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         monthIdColumn.setName("MONTH_ID");
-        monthIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        monthIdColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column monthNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         monthNameColumn.setName("MONTH_NAME");
-        monthNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        monthNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column weekInMonthColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         weekInMonthColumn.setName("WEEK_IN_MONTH");
-        weekInMonthColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        weekInMonthColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column dayInMonthColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dayInMonthColumn.setName("DAY_IN_MONTH");
-        dayInMonthColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        dayInMonthColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
