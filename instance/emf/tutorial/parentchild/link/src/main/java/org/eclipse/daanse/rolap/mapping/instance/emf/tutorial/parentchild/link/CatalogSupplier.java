@@ -46,7 +46,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.17.02", source = Source.EMF, group = "Parent Child") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -122,15 +122,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column nameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameColumn.setName("NAME");
-        nameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        nameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column parentColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         parentColumn.setName("PARENT");
-        parentColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        parentColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -139,15 +139,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column closureNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         closureNameColumn.setName("NAME");
-        closureNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        closureNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column closureParentColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         closureParentColumn.setName("PARENT");
-        closureParentColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        closureParentColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column closureDistanceColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         closureDistanceColumn.setName("DISTANCE");
-        closureDistanceColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        closureDistanceColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table closureTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         closureTable.setName("Closure");

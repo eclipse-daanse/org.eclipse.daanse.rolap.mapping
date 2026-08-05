@@ -58,7 +58,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.01", source = Source.EMF, group = "Writeback") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -132,15 +132,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column valColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valColumn.setName("VAL");
-        valColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column val1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         val1Column.setName("VAL1");
-        val1Column.setType(SqlSimpleTypes.Sql99.integerType());
+        val1Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column l2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l2Column.setName("L2");
-        l2Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        l2Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         DataSlot r1V1 = InstanceFactory.eINSTANCE.createDataSlot();
         r1V1.setFeature(valColumn);
@@ -211,11 +211,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column l1L1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l1L1Column.setName("L1");
-        l1L1Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        l1L1Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column l1L2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l1L2Column.setName("L2");
-        l1L2Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        l1L2Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table l1Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         l1Table.setName("L1");
@@ -224,7 +224,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column l2L2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         l2L2Column.setName("L2");
-        l2L2Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        l2L2Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table l2Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         l2Table.setName("L2");
@@ -233,23 +233,23 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column factwbValColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbValColumn.setName("VAL");
-        factwbValColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        factwbValColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column factwbVal1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbVal1Column.setName("VAL1");
-        factwbVal1Column.setType(SqlSimpleTypes.Sql99.integerType());
+        factwbVal1Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column factwbL2Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbL2Column.setName("L2");
-        factwbL2Column.setType(SqlSimpleTypes.Sql99.varcharType());
+        factwbL2Column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column factwbIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbIdColumn.setName("ID");
-        factwbIdColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        factwbIdColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column factwbUserColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         factwbUserColumn.setName("USER");
-        factwbUserColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        factwbUserColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table factwbTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         factwbTable.setName("FACTWB");

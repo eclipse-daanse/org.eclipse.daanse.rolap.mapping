@@ -40,7 +40,7 @@ import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.12.01", source = Source.EMF, group = "Measure") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -100,15 +100,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column keyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         keyColumn.setName("KEY");
-        keyColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        keyColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueNumericColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueNumericColumn.setName("VALUE_NUMERIC");
-        valueNumericColumn.setType(SqlSimpleTypes.numericType(18, 4));
+        valueNumericColumn.setType(SQLSimpleTypes.numericType(18, 4));
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -117,15 +117,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column idColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         idColumn.setName("ID");
-        idColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        idColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column value1Column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         value1Column.setName("VALUE");
-        value1Column.setType(SqlSimpleTypes.Sql99.integerType());
+        value1Column.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column flagColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         flagColumn.setName("FLAG");
-        flagColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        flagColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         SqlStatement sql1 = SourceFactory.eINSTANCE.createSqlStatement();
         sql1.getDialects().addAll(List.of("generic", "h2"));

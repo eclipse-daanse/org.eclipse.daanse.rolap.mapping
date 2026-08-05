@@ -94,7 +94,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelPackage;
 import org.eclipse.daanse.rolap.mapping.model.olap.format.FormatPackage;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionPackage;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLDataType;
 @ExtendWith(BundleContextExtension.class)
 @ExtendWith(ServiceExtension.class)
@@ -272,7 +272,7 @@ public class ResourceSetWriteReadTest {
 
         // Deduplicate SQLSimpleType instances with identical semantics (same
         // name + length + precision + scale). CatalogSupplier code calls
-        // SqlSimpleTypes.Sql99.varcharType() once per column, so many freshly-built
+        // SQLSimpleTypes.Sql99.varcharType() once per column, so many freshly-built
         // instances describe e.g. VARCHAR(255) redundantly. Collapse them to a
         // single shared instance per catalog before serialization.
         sortedList = deduplicateSqlTypes(sortedList);
@@ -620,7 +620,7 @@ public class ResourceSetWriteReadTest {
     private static String jdbcTypeToken(EObject column) {
         EStructuralFeature typeFeat = column.eClass().getEStructuralFeature("type");
         if (typeFeat != null && column.eGet(typeFeat) instanceof SQLDataType sdt) {
-            JDBCType jt = SqlSimpleTypes.toJdbcType(sdt);
+            JDBCType jt = SQLSimpleTypes.toJdbcType(sdt);
             if (jt != null && jt != JDBCType.OTHER) {
                 return jt.getName();
             }

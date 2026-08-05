@@ -53,7 +53,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.3", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
@@ -230,151 +230,151 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize Einwohner (Fact) columns
         COLUMN_JAHR_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_JAHR_EINWOHNER.setName("JAHR");
-        COLUMN_JAHR_EINWOHNER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_JAHR_EINWOHNER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_STATBEZ_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATBEZ_EINWOHNER.setName("STATBEZ");
-        COLUMN_STATBEZ_EINWOHNER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_STATBEZ_EINWOHNER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_KER_GESCH_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_KER_GESCH_EINWOHNER.setName("KER_GESCH");
-        COLUMN_KER_GESCH_EINWOHNER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_KER_GESCH_EINWOHNER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_AGE_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_AGE_EINWOHNER.setName("AGE");
-        COLUMN_AGE_EINWOHNER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_AGE_EINWOHNER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ANZAHL_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ANZAHL_EINWOHNER.setName("Anzahl");
-        COLUMN_ANZAHL_EINWOHNER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ANZAHL_EINWOHNER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_GEOJSON_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_EINWOHNER.setName("geojson");
-        COLUMN_GEOJSON_EINWOHNER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_EINWOHNER.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_GEOJSON_EINWOHNER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Year Table columns
         COLUMN_YEAR_YEAR = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_YEAR_YEAR.setName("year");
-        COLUMN_YEAR_YEAR.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_YEAR_YEAR.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_ORDINAL_YEAR = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ORDINAL_YEAR.setName("ordinal");
-        COLUMN_ORDINAL_YEAR.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ORDINAL_YEAR.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize Town Table columns
         COLUMN_ID_TOWN = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ID_TOWN.setName("id");
-        COLUMN_ID_TOWN.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ID_TOWN.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_NAME_TOWN = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NAME_TOWN.setName("name");
-        COLUMN_NAME_TOWN.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_NAME_TOWN.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_GEOJSON_TOWN = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_TOWN.setName("geojson");
-        COLUMN_GEOJSON_TOWN.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_TOWN.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_GEOJSON_TOWN.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Plraum Table columns
         COLUMN_GID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GID_PLRAUM.setName("gid");
-        COLUMN_GID_PLRAUM.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_GID_PLRAUM.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PLRAUM_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PLRAUM_PLRAUM.setName("plraum");
-        COLUMN_PLRAUM_PLRAUM.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PLRAUM_PLRAUM.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_UUID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UUID_PLRAUM.setName("uuid");
-        COLUMN_UUID_PLRAUM.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_UUID_PLRAUM.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_UUID_PLRAUM.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GEOJSON_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_PLRAUM.setName("geojson");
-        COLUMN_GEOJSON_PLRAUM.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_PLRAUM.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_GEOJSON_PLRAUM.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_TOWNID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOWNID_PLRAUM.setName("townid");
-        COLUMN_TOWNID_PLRAUM.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_TOWNID_PLRAUM.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize Statbez Table columns
         COLUMN_GID_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GID_STATBEZ.setName("gid");
-        COLUMN_GID_STATBEZ.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_GID_STATBEZ.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PLRAUM_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PLRAUM_STATBEZ.setName("plraum");
-        COLUMN_PLRAUM_STATBEZ.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PLRAUM_STATBEZ.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_STATBEZ_NAME_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STATBEZ_NAME_STATBEZ.setName("statbez_name");
-        COLUMN_STATBEZ_NAME_STATBEZ.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STATBEZ_NAME_STATBEZ.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_UUID_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UUID_STATBEZ.setName("uuid");
-        COLUMN_UUID_STATBEZ.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_UUID_STATBEZ.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_UUID_STATBEZ.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_GEOJSON_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_STATBEZ.setName("geojson");
-        COLUMN_GEOJSON_STATBEZ.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_STATBEZ.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_GEOJSON_STATBEZ.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Gender Table columns
         COLUMN_KEY_GENDER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_KEY_GENDER.setName("key");
-        COLUMN_KEY_GENDER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_KEY_GENDER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_NAME_GENDER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_NAME_GENDER.setName("name");
-        COLUMN_NAME_GENDER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_NAME_GENDER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         // Initialize Age Groups Table columns
         COLUMN_AGE_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_AGE_AGEGROUPS.setName("Age");
-        COLUMN_AGE_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_AGE_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_H1_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H1_AGEGROUPS.setName("H1");
-        COLUMN_H1_AGEGROUPS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_H1_AGEGROUPS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_H1_ORDER_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H1_ORDER_AGEGROUPS.setName("H1_Order");
-        COLUMN_H1_ORDER_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_H1_ORDER_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_H2_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H2_AGEGROUPS.setName("H2");
-        COLUMN_H2_AGEGROUPS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_H2_AGEGROUPS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_H2_ORDER_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H2_ORDER_AGEGROUPS.setName("H2_Order");
-        COLUMN_H2_ORDER_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_H2_ORDER_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_H7_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H7_AGEGROUPS.setName("H7");
-        COLUMN_H7_AGEGROUPS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_H7_AGEGROUPS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_H7_ORDER_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H7_ORDER_AGEGROUPS.setName("H7_Order");
-        COLUMN_H7_ORDER_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_H7_ORDER_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_H8_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H8_AGEGROUPS.setName("H8");
-        COLUMN_H8_AGEGROUPS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_H8_AGEGROUPS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_H8_ORDER_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H8_ORDER_AGEGROUPS.setName("H8_Order");
-        COLUMN_H8_ORDER_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_H8_ORDER_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_H9_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H9_AGEGROUPS.setName("H9");
-        COLUMN_H9_AGEGROUPS.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_H9_AGEGROUPS.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_H9_ORDER_AGEGROUPS = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_H9_ORDER_AGEGROUPS.setName("H9_Order");
-        COLUMN_H9_ORDER_AGEGROUPS.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_H9_ORDER_AGEGROUPS.setType(SQLSimpleTypes.Sql99.integerType());
 
         // Initialize tables
         TABLE_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

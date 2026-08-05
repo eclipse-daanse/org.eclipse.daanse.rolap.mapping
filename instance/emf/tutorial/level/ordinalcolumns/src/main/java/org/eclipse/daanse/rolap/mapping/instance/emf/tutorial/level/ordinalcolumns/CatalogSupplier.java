@@ -48,7 +48,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.06", source = Source.EMF, group = "Level") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -117,15 +117,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column columnKey = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKey.setName("KEY");
-        columnKey.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnKey.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnValue = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnValue.setName("VALUE");
-        columnValue.setType(SqlSimpleTypes.Sql99.integerType());
+        columnValue.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnCountry = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCountry.setName("COUNTRY");
-        columnCountry.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnCountry.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFact.setName("Fact");

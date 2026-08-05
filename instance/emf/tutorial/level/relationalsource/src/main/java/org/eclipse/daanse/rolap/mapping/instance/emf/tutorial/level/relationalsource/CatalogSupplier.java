@@ -48,7 +48,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.08", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -113,11 +113,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column employeeIdFactColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         employeeIdFactColumn.setName("employee_id");
-        employeeIdFactColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        employeeIdFactColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column salaryFactColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         salaryFactColumn.setName("salary");
-        salaryFactColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        salaryFactColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table factTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         factTable.setName(FACT);
@@ -126,20 +126,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column employeeIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         employeeIdColumn.setName("employee_id");
-        employeeIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        employeeIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column supervisorIdColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         supervisorIdColumn.setName("supervisor_id");
-        supervisorIdColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        supervisorIdColumn.setType(SQLSimpleTypes.Sql99.integerType());
         supervisorIdColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Column nameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         nameColumn.setName("name");
-        nameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        nameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column managementRroleColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         managementRroleColumn.setName("management_role");
-        managementRroleColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        managementRroleColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table employeeTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         employeeTable.setName(EMPLOYEE);

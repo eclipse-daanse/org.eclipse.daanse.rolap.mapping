@@ -31,7 +31,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
 import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -64,7 +64,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column columnOther = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnOther.setName("theColumn");
-        columnOther.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnOther.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableOther = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableOther.setName("theTable");
@@ -75,7 +75,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column columnDefault = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnDefault.setName("theColumn");
-        columnDefault.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnDefault.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableDefault = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableDefault.setName("theTable");

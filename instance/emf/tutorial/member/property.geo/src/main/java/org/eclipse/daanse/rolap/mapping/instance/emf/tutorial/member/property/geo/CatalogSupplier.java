@@ -49,7 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.06.02.02", source = Source.EMF, group = "Member") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -150,11 +150,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Fact table columns
         Column columnFactMemberId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFactMemberId.setName("MEMBER_ID");
-        columnFactMemberId.setType(SqlSimpleTypes.Sql99.integerType());
+        columnFactMemberId.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnFactValue = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFactValue.setName("VALUE");
-        columnFactValue.setType(SqlSimpleTypes.decimalType(18, 4));
+        columnFactValue.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Table tableFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFact.setName("Fact");
@@ -164,27 +164,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Member table columns
         Column columnMemberId = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberId.setName("ID");
-        columnMemberId.setType(SqlSimpleTypes.Sql99.integerType());
+        columnMemberId.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnMemberName = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberName.setName("NAME");
-        columnMemberName.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnMemberName.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnMemberLocation = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLocation.setName("LOCATION");
-        columnMemberLocation.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnMemberLocation.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnMemberLatitude = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLatitude.setName("LATITUDE");
-        columnMemberLatitude.setType(SqlSimpleTypes.decimalType(18, 4));
+        columnMemberLatitude.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Column columnMemberLongitude = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberLongitude.setName("LONGITUDE");
-        columnMemberLongitude.setType(SqlSimpleTypes.decimalType(18, 4));
+        columnMemberLongitude.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Column columnMemberDescription = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMemberDescription.setName("DESCRIPTION");
-        columnMemberDescription.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnMemberDescription.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableMember = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableMember.setName("Member");

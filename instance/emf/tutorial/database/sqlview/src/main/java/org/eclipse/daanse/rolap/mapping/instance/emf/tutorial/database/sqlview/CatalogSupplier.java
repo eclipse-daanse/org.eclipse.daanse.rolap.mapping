@@ -33,7 +33,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.02", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -56,7 +56,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         column.setName("ColumnOne");
-        column.setType(SqlSimpleTypes.Sql99.varcharType());
+        column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         sqlview = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createDialectSqlView();
         sqlview.setName("sqlview");

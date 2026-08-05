@@ -49,7 +49,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.7", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
@@ -251,248 +251,248 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     static {
         COLUMN_ROW_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_BIKE_SALES.setName("RowNumber");
-        COLUMN_ROW_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SALES_ORDER_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_ORDER_NUMBER_BIKE_SALES.setName("SalesOrderNumber");
-        COLUMN_SALES_ORDER_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SALES_ORDER_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SALES_ORDER_LINE_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_ORDER_LINE_NUMBER_BIKE_SALES.setName("SalesOrderLineNumber");
-        COLUMN_SALES_ORDER_LINE_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_ORDER_LINE_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_REVISION_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_REVISION_NUMBER_BIKE_SALES.setName("RevisionNumber");
-        COLUMN_REVISION_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_REVISION_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_KEY_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_KEY_BIKE_SALES.setName("ProductKey");
-        COLUMN_PRODUCT_KEY_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_KEY_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_COUNTRY_CODE_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_CODE_BIKE_SALES.setName("CountryCode");
-        COLUMN_COUNTRY_CODE_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COUNTRY_CODE_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CURENCY_KEY_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURENCY_KEY_BIKE_SALES.setName("CurrencyKey");
-        COLUMN_CURENCY_KEY_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CURENCY_KEY_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CALENDAR_QUARTER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CALENDAR_QUARTER_BIKE_SALES.setName("CalendarQuarter");
-        COLUMN_CALENDAR_QUARTER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CALENDAR_QUARTER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SALES_CHANNEL_CODE_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_CHANNEL_CODE_BIKE_SALES.setName("SalesChannelCode");
-        COLUMN_SALES_CHANNEL_CODE_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SALES_CHANNEL_CODE_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ORDER_QUANTITY_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ORDER_QUANTITY_BIKE_SALES.setName("OrderQuantity");
-        COLUMN_ORDER_QUANTITY_BIKE_SALES.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ORDER_QUANTITY_BIKE_SALES.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_UNIT_PRICE_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNIT_PRICE_BIKE_SALES.setName("UnitPrice");
-        COLUMN_UNIT_PRICE_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_UNIT_PRICE_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_EXTENDED_AMOUNT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_EXTENDED_AMOUNT_BIKE_SALES.setName("ExtendedAmount");
-        COLUMN_EXTENDED_AMOUNT_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_EXTENDED_AMOUNT_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_UNIT_PRICE_DISCOUNT_PCT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_UNIT_PRICE_DISCOUNT_PCT_BIKE_SALES.setName("UnitPriceDiscountPct");
-        COLUMN_UNIT_PRICE_DISCOUNT_PCT_BIKE_SALES.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_UNIT_PRICE_DISCOUNT_PCT_BIKE_SALES.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_DISCOUNT_AMOUNT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DISCOUNT_AMOUNT_BIKE_SALES.setName("DiscountAmount");
-        COLUMN_DISCOUNT_AMOUNT_BIKE_SALES.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_DISCOUNT_AMOUNT_BIKE_SALES.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_PRODUCT_STANDART_COST_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_STANDART_COST_BIKE_SALES.setName("ProductStandardCost");
-        COLUMN_PRODUCT_STANDART_COST_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_PRODUCT_STANDART_COST_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_TOTAL_PRODUCT_COST_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TOTAL_PRODUCT_COST_BIKE_SALES.setName("TotalProductCost");
-        COLUMN_TOTAL_PRODUCT_COST_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_TOTAL_PRODUCT_COST_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_SALES_AMOUNT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_AMOUNT_BIKE_SALES.setName("SalesAmount");
-        COLUMN_SALES_AMOUNT_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_SALES_AMOUNT_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_TAX_AMT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_TAX_AMT_BIKE_SALES.setName("TaxAmt");
-        COLUMN_TAX_AMT_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_TAX_AMT_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_FREIGHT_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FREIGHT_BIKE_SALES.setName("Freight");
-        COLUMN_FREIGHT_BIKE_SALES.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_FREIGHT_BIKE_SALES.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setName("CarrierTrackingNumber");
-        COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_CARRIER_TRACKING_NUMBER_BIKE_SALES.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setName("CustomerPONumber");
-        COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_CUSTOMER_PO_NUMBER_BIKE_SALES.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES.setName("CustomerAccountNumber");
-        COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CUSTOMER_ACCOUNT_NUMBER_BIKE_SALES.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_BIKE.setName("RowNumber");
-        COLUMN_ROW_NUMBER_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_KEY_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_KEY_BIKE.setName("ProductKey");
-        COLUMN_PRODUCT_KEY_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_KEY_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_ALTERNATE_KEY_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_ALTERNATE_KEY_BIKE.setName("ProductAlternateKey");
-        COLUMN_PRODUCT_ALTERNATE_KEY_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_ALTERNATE_KEY_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE.setName("ProductSubcategoryKey");
-        COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_NAME_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_NAME_BIKE.setName("ProductName");
-        COLUMN_PRODUCT_NAME_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_NAME_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STARDART_COST_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STARDART_COST_BIKE.setName("StandardCost");
-        COLUMN_STARDART_COST_BIKE.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_STARDART_COST_BIKE.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_FINISHED_GOODS_FLAG_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_FINISHED_GOODS_FLAG_BIKE.setName("FinishedGoodsFlag");
-        COLUMN_FINISHED_GOODS_FLAG_BIKE.setType(SqlSimpleTypes.Sql99.booleanType());
+        COLUMN_FINISHED_GOODS_FLAG_BIKE.setType(SQLSimpleTypes.Sql99.booleanType());
 
         COLUMN_COLOR_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COLOR_BIKE.setName("Color");
-        COLUMN_COLOR_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COLOR_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_LIST_PRICE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_LIST_PRICE_BIKE.setName("ListPrice");
-        COLUMN_LIST_PRICE_BIKE.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_LIST_PRICE_BIKE.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_SIZE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_BIKE.setName("Size");
-        COLUMN_SIZE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_SIZE_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SIZE_RANGE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_RANGE_BIKE.setName("SizeRange");
-        COLUMN_SIZE_RANGE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SIZE_RANGE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_SIZE_RANGE_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WIGHT_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WIGHT_BIKE.setName("Weight");
-        COLUMN_WIGHT_BIKE.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        COLUMN_WIGHT_BIKE.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         COLUMN_DEALER_PRICE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DEALER_PRICE_BIKE.setName("DealerPrice");
-        COLUMN_DEALER_PRICE_BIKE.setType(SqlSimpleTypes.decimalType(18, 4));
+        COLUMN_DEALER_PRICE_BIKE.setType(SQLSimpleTypes.decimalType(18, 4));
 
         COLUMN_CLASS_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CLASS_BIKE.setName("Class");
-        COLUMN_CLASS_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CLASS_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_STYLE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_STYLE_BIKE.setName("Style");
-        COLUMN_STYLE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_STYLE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_MODEL_NAME_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_MODEL_NAME_BIKE.setName("ModelName");
-        COLUMN_MODEL_NAME_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_MODEL_NAME_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_DESCRIPTION_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DESCRIPTION_BIKE.setName("Description");
-        COLUMN_DESCRIPTION_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_DESCRIPTION_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_DESCRIPTION_BIKE.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE.setName("WeightUnitMeasureCode");
-        COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_WEIGHT_UNIT_MEASURE_CODE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setName("SizeUnitMeasureCode");
-        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SAFETY_STOCK_LEVEL_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SAFETY_STOCK_LEVEL_BIKE.setName("SafetyStockLevel");
-        COLUMN_SAFETY_STOCK_LEVEL_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_SAFETY_STOCK_LEVEL_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_REORDER_POINT_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_REORDER_POINT_BIKE.setName("ReorderPoint");
-        COLUMN_REORDER_POINT_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_REORDER_POINT_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_DAYS_TO_MANUFACTURE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_DAYS_TO_MANUFACTURE_BIKE.setName("DaysToManufacture");
-        COLUMN_DAYS_TO_MANUFACTURE_BIKE.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_DAYS_TO_MANUFACTURE_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_LINE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_LINE_BIKE.setName("ProductLine");
-        COLUMN_PRODUCT_LINE_BIKE.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_PRODUCT_LINE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_BIKE_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_BIKE_SUBCATEGORY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_BIKE_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_BIKE_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE_SUBCATEGORY.setName("ProductSubcategoryKey");
-        COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_PRODUCT_SUBCATEGORY_KEY_BIKE_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SUBCATEGORY_BIKE_SUBCATEGORY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SUBCATEGORY_BIKE_SUBCATEGORY.setName("Subcategory");
-        COLUMN_SUBCATEGORY_BIKE_SUBCATEGORY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SUBCATEGORY_BIKE_SUBCATEGORY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_CALENDAR_QUARTER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_CALENDAR_QUARTER.setName("RowNumber");
-        COLUMN_ROW_NUMBER_CALENDAR_QUARTER.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_CALENDAR_QUARTER.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CALENDAR_QUARTER2_CALENDAR_QUARTER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CALENDAR_QUARTER2_CALENDAR_QUARTER.setName("CalendarQuarter2");
-        COLUMN_CALENDAR_QUARTER2_CALENDAR_QUARTER.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CALENDAR_QUARTER2_CALENDAR_QUARTER.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_COUNTRY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_COUNTRY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_COUNTRY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_COUNTRY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_COUNTRY_CODE_COUNTRY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_CODE_COUNTRY.setName("CountryCode");
-        COLUMN_COUNTRY_CODE_COUNTRY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_COUNTRY_CODE_COUNTRY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_COUNTRY_NAME_COUNTRY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_COUNTRY_NAME_COUNTRY.setName("CountryName");
-        COLUMN_COUNTRY_NAME_COUNTRY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_COUNTRY_NAME_COUNTRY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_CURRENCY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_CURRENCY.setName("RowNumber");
-        COLUMN_ROW_NUMBER_CURRENCY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_CURRENCY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CURRENCY_KEY_CURRENCY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURRENCY_KEY_CURRENCY.setName("CurrencyKey");
-        COLUMN_CURRENCY_KEY_CURRENCY.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_CURRENCY_KEY_CURRENCY.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_CURRENCY_ALTERNATE_KEY_CURRENCY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURRENCY_ALTERNATE_KEY_CURRENCY.setName("CurrencyAlternateKey");
-        COLUMN_CURRENCY_ALTERNATE_KEY_CURRENCY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CURRENCY_ALTERNATE_KEY_CURRENCY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_CURRENCY_NAME_CURRENCY = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_CURRENCY_NAME_CURRENCY.setName("CurrencyName");
-        COLUMN_CURRENCY_NAME_CURRENCY.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_CURRENCY_NAME_CURRENCY.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_ROW_NUMBER_SALES_CHANNEL = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_ROW_NUMBER_SALES_CHANNEL.setName("RowNumber");
-        COLUMN_ROW_NUMBER_SALES_CHANNEL.setType(SqlSimpleTypes.Sql99.integerType());
+        COLUMN_ROW_NUMBER_SALES_CHANNEL.setType(SQLSimpleTypes.Sql99.integerType());
 
         COLUMN_SALES_CHANNEL_CODE_SALES_CHANNEL = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_CHANNEL_CODE_SALES_CHANNEL.setName("SalesChannelCode");
-        COLUMN_SALES_CHANNEL_CODE_SALES_CHANNEL.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SALES_CHANNEL_CODE_SALES_CHANNEL.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SALES_CHANNEL_NAME_SALES_CHANNEL = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_CHANNEL_NAME_SALES_CHANNEL.setName("SalesChannelName");
-        COLUMN_SALES_CHANNEL_NAME_SALES_CHANNEL.setType(SqlSimpleTypes.Sql99.varcharType());
+        COLUMN_SALES_CHANNEL_NAME_SALES_CHANNEL.setType(SQLSimpleTypes.Sql99.varcharType());
 
         TABLE_BIKE_SALES = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         TABLE_BIKE_SALES.setName("BikeSales");

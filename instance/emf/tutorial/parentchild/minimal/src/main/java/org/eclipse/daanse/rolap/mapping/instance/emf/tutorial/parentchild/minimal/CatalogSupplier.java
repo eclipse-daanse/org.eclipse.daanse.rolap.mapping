@@ -45,7 +45,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.enumerations.NullableType;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.17.01", source = Source.EMF, group = "Parent Child") // NOSONAR
@@ -114,11 +114,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column dimKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         dimKeyColumn.setName("DIM_KEY");
-        dimKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        dimKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
@@ -127,15 +127,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column memberKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         memberKeyColumn.setName("KEY");
-        memberKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        memberKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column memberNameColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         memberNameColumn.setName("NAME");
-        memberNameColumn.setType(SqlSimpleTypes.Sql99.varcharType());
+        memberNameColumn.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column memberParentKeyColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         memberParentKeyColumn.setName("PARENT_KEY");
-        memberParentKeyColumn.setType(SqlSimpleTypes.Sql99.integerType());
+        memberParentKeyColumn.setType(SQLSimpleTypes.Sql99.integerType());
         memberParentKeyColumn.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         Table table1 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();

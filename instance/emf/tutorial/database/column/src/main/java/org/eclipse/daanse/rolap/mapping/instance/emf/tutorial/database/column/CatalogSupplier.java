@@ -31,7 +31,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescription;
 import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.02.01", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -93,35 +93,35 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         columnCommon = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnCommon.setName("ColumnWithDescription");
-        columnCommon.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnCommon.setType(SQLSimpleTypes.Sql99.varcharType());
 
         columnVarchar = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnVarchar.setName("ColumnVarchar");
-        columnVarchar.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnVarchar.setType(SQLSimpleTypes.Sql99.varcharType());
 
         columnDecimal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnDecimal.setName("ColumnDecimal");
-        columnDecimal.setType(SqlSimpleTypes.decimalType(18, 4));
+        columnDecimal.setType(SQLSimpleTypes.decimalType(18, 4));
 
         columnNumeric = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnNumeric.setName("ColumnNumeric");
-        columnNumeric.setType(SqlSimpleTypes.numericType(18, 4));
+        columnNumeric.setType(SQLSimpleTypes.numericType(18, 4));
 
         columnFloat = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFloat.setName("ColumnFloat");
-        columnFloat.setType(SqlSimpleTypes.Sql99.floatType());
+        columnFloat.setType(SQLSimpleTypes.Sql99.floatType());
 
         columnReal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnReal.setName("ColumnReal");
-        columnReal.setType(SqlSimpleTypes.Sql99.realType());
+        columnReal.setType(SQLSimpleTypes.Sql99.realType());
 
         columnDouble = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnDouble.setName("ColumnDouble");
-        columnDouble.setType(SqlSimpleTypes.Sql99.doublePrecisionType());
+        columnDouble.setType(SQLSimpleTypes.Sql99.doublePrecisionType());
 
         columnInteger = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnInteger.setName("ColumnInteger");
-        columnInteger.setType(SqlSimpleTypes.Sql99.integerType());
+        columnInteger.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableWithColumnTypes");

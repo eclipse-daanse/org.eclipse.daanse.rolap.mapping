@@ -17,7 +17,7 @@ import java.util.List;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogRef;
 import org.eclipse.daanse.rolap.mapping.instance.api.DocSection;
@@ -185,22 +185,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE
                 .createSchema();
 
-        Column factCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column factAmountColumn = createColumn("AMOUNT", SqlSimpleTypes.Sql99.integerType());
-        Column factCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
+        Column factCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column factAmountColumn = createColumn("AMOUNT", SQLSimpleTypes.Sql99.integerType());
+        Column factCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
         Table factTable = createTable(FACT, List.of(factCategoryColumn, factAmountColumn, factCommentColumn));
         databaseSchema.getOwnedElement().add(factTable);
 
-        Column catCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column catNameColumn = createColumn("NAME", SqlSimpleTypes.Sql99.varcharType());
+        Column catCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column catNameColumn = createColumn("NAME", SQLSimpleTypes.Sql99.varcharType());
         Table categoryTable = createTable(CATEGORY, List.of(catCategoryColumn, catNameColumn));
         databaseSchema.getOwnedElement().add(categoryTable);
 
-        Column wbCategoryColumn = createColumn("CATEGORY", SqlSimpleTypes.Sql99.varcharType());
-        Column wbAmountColumn = createColumn("AMOUNT", SqlSimpleTypes.Sql99.integerType());
-        Column wbCommentColumn = createColumn("COMMENT", SqlSimpleTypes.Sql99.varcharType());
-        Column wbIdColumn = createColumn("ID", SqlSimpleTypes.Sql99.varcharType());
-        Column wbUserColumn = createColumn("USER", SqlSimpleTypes.Sql99.varcharType());
+        Column wbCategoryColumn = createColumn("CATEGORY", SQLSimpleTypes.Sql99.varcharType());
+        Column wbAmountColumn = createColumn("AMOUNT", SQLSimpleTypes.Sql99.integerType());
+        Column wbCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
+        Column wbIdColumn = createColumn("ID", SQLSimpleTypes.Sql99.varcharType());
+        Column wbUserColumn = createColumn("USER", SQLSimpleTypes.Sql99.varcharType());
         Table writebackPhysicalTable = createTable(FACTWB,
                 List.of(wbCategoryColumn, wbAmountColumn, wbCommentColumn, wbIdColumn, wbUserColumn));
         databaseSchema.getOwnedElement().add(writebackPhysicalTable);

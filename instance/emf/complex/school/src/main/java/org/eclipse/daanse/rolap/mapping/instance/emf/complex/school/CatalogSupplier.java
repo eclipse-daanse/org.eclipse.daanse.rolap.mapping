@@ -44,7 +44,7 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @Component(service = CatalogMappingSupplier.class)
 @MappingInstance(kind = Kind.COMPLEX, number = "99.1.1", source = Source.EMF, group = "Full Examples") // NOSONAR
 
@@ -106,27 +106,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,INTEGER,VARCHAR,INTEGER,INTEGER,INTEGER
         Column columnIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchuleTable.setName("id");
-        columnIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSchuleTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulNameInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulNameInSchuleTable.setName(COL_NAME_SCHUL_NAME);
-        columnSchulNameInSchuleTable.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulNameInSchuleTable.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnSchulNummerInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulNummerInSchuleTable.setName(COL_NAME_SCHUL_NUMMER);
-        columnSchulNummerInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulNummerInSchuleTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnGanztagsArtIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGanztagsArtIdInSchuleTable.setName("ganztags_art_id");
-        columnGanztagsArtIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnGanztagsArtIdInSchuleTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnTraegerIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerIdInSchuleTable.setName("traeger_id");
-        columnTraegerIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnTraegerIdInSchuleTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulArtIdInSchuleTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulArtIdInSchuleTable.setName("schul_art_id");
-        columnSchulArtIdInSchuleTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulArtIdInSchuleTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableSchule = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchule.setName(TAB_NAME_SCHULE);
@@ -138,11 +138,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInGanztagsArt.setName("id");
-        columnIdInGanztagsArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInGanztagsArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulUmfangInGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulUmfangInGanztagsArt.setName("schul_umfang");
-        columnSchulUmfangInGanztagsArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulUmfangInGanztagsArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableGanztagsArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableGanztagsArt.setName("ganztags_art");
@@ -152,15 +152,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,INTEGER
         Column columnIdInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerTable.setName("id");
-        columnIdInTraegerTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInTraegerTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnTraegerNameInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerNameInTraegerTable.setName("traeger_name");
-        columnTraegerNameInTraegerTable.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnTraegerNameInTraegerTable.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnTraegerArtIdInTraegerTable = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerArtIdInTraegerTable.setName("traeger_art_id");
-        columnTraegerArtIdInTraegerTable.setType(SqlSimpleTypes.Sql99.integerType());
+        columnTraegerArtIdInTraegerTable.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableTraeger = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraeger.setName("traeger");
@@ -171,15 +171,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,VARCHAR
         Column columnIdInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerArt.setName("id");
-        columnIdInTraegerArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInTraegerArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnTraegerArtInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerArtInTraegerArt.setName(COL_NAME_TRAEGER_ART);
-        columnTraegerArtInTraegerArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnTraegerArtInTraegerArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnTraegerKatIdInTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerKatIdInTraegerArt.setName("traeger_kat_id");
-        columnTraegerKatIdInTraegerArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnTraegerKatIdInTraegerArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableTraegerArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraegerArt.setName(COL_NAME_TRAEGER_ART);
@@ -190,11 +190,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInTraegerKategorie.setName("id");
-        columnIdInTraegerKategorie.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInTraegerKategorie.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnTraegerKategorieInTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnTraegerKategorieInTraegerKategorie.setName(COL_NAME_TRAEGER_KATEGORIE);
-        columnTraegerKategorieInTraegerKategorie.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnTraegerKategorieInTraegerKategorie.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableTraegerKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableTraegerKategorie.setName(COL_NAME_TRAEGER_KATEGORIE);
@@ -209,21 +209,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // local to the level-mapping below as a single source of truth.
         Column columnSchulKategorieInScheduleArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulKategorieInScheduleArt.setName("schul_kategorie_id");
-        columnSchulKategorieInScheduleArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulKategorieInScheduleArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         // "id","schul_jahr","order"
-        // SqlSimpleTypes.Sql99.integerType(),SqlSimpleTypes.Sql99.varcharType(),SqlSimpleTypes.Sql99.integerType()
+        // SQLSimpleTypes.Sql99.integerType(),SQLSimpleTypes.Sql99.varcharType(),SQLSimpleTypes.Sql99.integerType()
         Column columnIdInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulJahr.setName("id");
-        columnIdInSchulJahr.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSchulJahr.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulJahrInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrInSchulJahr.setName(COL_NAME_SCHUL_JAHR);
-        columnSchulJahrInSchulJahr.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulJahrInSchulJahr.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnOrderInSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnOrderInSchulJahr.setName("order");
-        columnOrderInSchulJahr.setType(SqlSimpleTypes.Sql99.integerType());
+        columnOrderInSchulJahr.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableSchulJahr = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulJahr.setName(COL_NAME_SCHUL_JAHR);
@@ -234,11 +234,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInAltersGruppe.setName("id");
-        columnIdInAltersGruppe.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInAltersGruppe.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAltersgruppeInAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAltersgruppeInAltersGruppe.setName("altersgruppe");
-        columnAltersgruppeInAltersGruppe.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnAltersgruppeInAltersGruppe.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableAltersGruppe = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableAltersGruppe.setName("alters_gruppe");
@@ -248,11 +248,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,VARCHAR
         Column columnIdInGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInGeschlecht.setName("id");
-        columnIdInGeschlecht.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInGeschlecht.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnBezeichnungInGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInGeschlecht.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInGeschlecht.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnBezeichnungInGeschlecht.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableGeschlecht = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableGeschlecht.setName("geschlecht");
@@ -260,11 +260,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column columnIdInEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInEinschulung.setName("id");
-        columnIdInEinschulung.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInEinschulung.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnEinschulungInEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnEinschulungInEinschulung.setName(COL_NAME_EINSCHULUNG2);
-        columnEinschulungInEinschulung.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnEinschulungInEinschulung.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableEinschulung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableEinschulung.setName(COL_NAME_EINSCHULUNG2);
@@ -274,10 +274,10 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInKlassenWiederholung.setName("id");
-        columnIdInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInKlassenWiederholung.setType(SQLSimpleTypes.Sql99.integerType());
         Column columnKlassenwiedlerholungInKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKlassenwiedlerholungInKlassenWiederholung.setName("klassenwiederholung");
-        columnKlassenwiedlerholungInKlassenWiederholung.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnKlassenwiedlerholungInKlassenWiederholung.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableKlassenWiederholung = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableKlassenWiederholung.setName("klassen_wiederholung");
@@ -288,11 +288,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulAbschluss.setName("id");
-        columnIdInSchulAbschluss.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSchulAbschluss.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulabschlussInSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulabschlussInSchulAbschluss.setName("schulabschluss");
-        columnSchulabschlussInSchulAbschluss.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulabschlussInSchulAbschluss.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableSchulAbschluss = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulAbschluss.setName("schul_abschluss");
@@ -303,11 +303,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInMigrationsHintergrund.setName("id");
-        columnIdInMigrationsHintergrund.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInMigrationsHintergrund.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnMigrationsHintergrundInMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMigrationsHintergrundInMigrationsHintergrund.setName(MIGRATIONS_HINTERGRUND);
-        columnMigrationsHintergrundInMigrationsHintergrund.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnMigrationsHintergrundInMigrationsHintergrund.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableMigrationsHintergrund = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableMigrationsHintergrund.setName(MIGRATIONS_HINTERGRUND);
@@ -318,15 +318,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,VARCHAR,INTEGER
         Column columnIdInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInWohnortLandkreis.setName("id");
-        columnIdInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInWohnortLandkreis.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnBezeichnungInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInWohnortLandkreis.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnBezeichnungInWohnortLandkreis.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnBundeslandIdInWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBundeslandIdInWohnortLandkreis.setName("bundesland_id");
-        columnBundeslandIdInWohnortLandkreis.setType(SqlSimpleTypes.Sql99.integerType());
+        columnBundeslandIdInWohnortLandkreis.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableWohnortLandkreis = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableWohnortLandkreis.setName(COL_NAME_WOHNORT_LANDKREIS);
@@ -337,11 +337,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,INTEGER
         Column columnIdInSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulArt.setName("id");
-        columnIdInSchulArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSchulArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulartNameInSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulartNameInSchulArt.setName("schulart_name");
-        columnSchulartNameInSchulArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulartNameInSchulArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableSchulArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulArt.setName("schul_art");
@@ -352,11 +352,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR
         Column columnIdInSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSchulKategorie.setName("id");
-        columnIdInSchulKategorie.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSchulKategorie.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulKategorieNameInSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulKategorieNameInSchulKategorie.setName("schul_kategorie_name");
-        columnSchulKategorieNameInSchulKategorie.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSchulKategorieNameInSchulKategorie.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableSchulKategorie = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSchulKategorie.setName("schul_kategorie");
@@ -367,15 +367,15 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,INTEGER,
         Column columnIdInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInFoerderungArt.setName("id");
-        columnIdInFoerderungArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInFoerderungArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnFoerderungArtInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFoerderungArtInFoerderungArt.setName(COL_NAME_FOERDERUNG_ART);
-        columnFoerderungArtInFoerderungArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnFoerderungArtInFoerderungArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnSpFoerderbedarfIdInFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSpFoerderbedarfIdInFoerderungArt.setName("sp_foerderbedarf_id");
-        columnSpFoerderbedarfIdInFoerderungArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSpFoerderbedarfIdInFoerderungArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableFoerderungArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFoerderungArt.setName(COL_NAME_FOERDERUNG_ART);
@@ -386,11 +386,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,,,,,,,,,,,,,,,,,INTEGER,VARCHAR
         Column columnIdInPersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInPersonalArt.setName("id");
-        columnIdInPersonalArt.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInPersonalArt.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnBezeichnungInPersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInPersonalArt.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInPersonalArt.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnBezeichnungInPersonalArt.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tablePersonalArt = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tablePersonalArt.setName("personal_art");
@@ -400,11 +400,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,VARCHAR,VARCHAR
         Column columnIdInBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInBundesland.setName("id");
-        columnIdInBundesland.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInBundesland.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnBezeichnungInBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnBezeichnungInBundesland.setName(COL_NAME_BEZEICHNUNG);
-        columnBezeichnungInBundesland.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnBezeichnungInBundesland.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableBundesland = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableBundesland.setName("bundesland");
@@ -412,11 +412,11 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Column columnIdInSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnIdInSonderpaedFoerderbedart.setName("id");
-        columnIdInSonderpaedFoerderbedart.setType(SqlSimpleTypes.Sql99.integerType());
+        columnIdInSonderpaedFoerderbedart.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSonderpaedBedarfInSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSonderpaedBedarfInSonderpaedFoerderbedart.setName("sonderpaed_bedarf");
-        columnSonderpaedBedarfInSonderpaedFoerderbedart.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnSonderpaedBedarfInSonderpaedFoerderbedart.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Table tableSonderpaedFoerderbedart = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableSonderpaedFoerderbedart.setName("sonderpaed_foerderbedarf");
@@ -427,19 +427,19 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,INTEGER,INTEGER,INTEGER
         Column columnSchuleIdInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactSchulen.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchuleIdInFactSchulen.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulJahrIdInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactSchulen.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulJahrIdInFactSchulen.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAnzahlSchulenInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlSchulenInFactSchulen.setName("anzahl_schulen");
-        columnAnzahlSchulenInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAnzahlSchulenInFactSchulen.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAnzahlKlassenInFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlKlassenInFactSchulen.setName("anzahl_klassen");
-        columnAnzahlKlassenInFactSchulen.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAnzahlKlassenInFactSchulen.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableFactSchulen = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactSchulen.setName("fact_schulen");
@@ -450,27 +450,27 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
         Column columnSchuleIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactPersonal.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchuleIdInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulJahrIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactPersonal.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulJahrIdInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAltersGroupIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAltersGroupIdInFactPersonal.setName("alters_gruppe_id");
-        columnAltersGroupIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAltersGroupIdInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnGeschlechtIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGeschlechtIdInFactPersonal.setName("geschlecht_id");
-        columnGeschlechtIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnGeschlechtIdInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnPersonalArtIdInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnPersonalArtIdInFactPersonal.setName("personal_art_id");
-        columnPersonalArtIdInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnPersonalArtIdInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAnzahlPersonenInFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlPersonenInFactPersonal.setName("anzahl_personen");
-        columnAnzahlPersonenInFactPersonal.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAnzahlPersonenInFactPersonal.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableFactPersonal = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactPersonal.setName("fact_personal");
@@ -483,43 +483,43 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         // INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER,INTEGER
         Column columnSchuleIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchuleIdInFactSchueler.setName(COL_NAME_SCHULE_ID);
-        columnSchuleIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchuleIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulJahrIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulJahrIdInFactSchueler.setName(COL_NAME_SCHUL_JAHR_ID);
-        columnSchulJahrIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulJahrIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnGeschlechtIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnGeschlechtIdInFactSchueler.setName("geschlecht_id");
-        columnGeschlechtIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnGeschlechtIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnWohnLkIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnWohnLkIdInFactSchueler.setName("wohn_lk_id");
-        columnWohnLkIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnWohnLkIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnEinschulungIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnEinschulungIdInFactSchueler.setName("einschulung_id");
-        columnEinschulungIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnEinschulungIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnSchulAbschlussIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnSchulAbschlussIdInFactSchueler.setName("schul_abschluss_id");
-        columnSchulAbschlussIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnSchulAbschlussIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnKlassenWdhInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKlassenWdhInFactSchueler.setName("klassen_wdh");
-        columnKlassenWdhInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnKlassenWdhInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnMigrationsHgIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnMigrationsHgIdInFactSchueler.setName("migrations_hg_id");
-        columnMigrationsHgIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnMigrationsHgIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnFoerderArtIdInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnFoerderArtIdInFactSchueler.setName("foerder_art_id");
-        columnFoerderArtIdInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnFoerderArtIdInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Column columnAnzahlSchuelerInFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnAnzahlSchuelerInFactSchueler.setName("anzahl_schueler");
-        columnAnzahlSchuelerInFactSchueler.setType(SqlSimpleTypes.Sql99.integerType());
+        columnAnzahlSchuelerInFactSchueler.setType(SQLSimpleTypes.Sql99.integerType());
 
         Table tableFactSchueler = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         tableFactSchueler.setName("fact_schueler");

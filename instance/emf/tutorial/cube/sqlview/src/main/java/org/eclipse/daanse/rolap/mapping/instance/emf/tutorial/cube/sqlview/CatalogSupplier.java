@@ -39,7 +39,7 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SqlSelectSource;
-import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SqlSimpleTypes;
+import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.01.02", source = Source.EMF, group = "Cube")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -71,11 +71,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column columnKeyFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKeyFact.setName("KEY");
-        columnKeyFact.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnKeyFact.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnValueFact = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnValueFact.setName("VALUE");
-        columnValueFact.setType(SqlSimpleTypes.Sql99.integerType());
+        columnValueFact.setType(SQLSimpleTypes.Sql99.integerType());
 
         table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("FACT");
@@ -84,11 +84,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column columnKey = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnKey.setName("Key");
-        columnKey.setType(SqlSimpleTypes.Sql99.varcharType());
+        columnKey.setType(SQLSimpleTypes.Sql99.varcharType());
 
         Column columnValue = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         columnValue.setName("Value");
-        columnValue.setType(SqlSimpleTypes.Sql99.integerType());
+        columnValue.setType(SQLSimpleTypes.Sql99.integerType());
 
         sqlview = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createDialectSqlView();
         sqlview.setName("sqlview");
