@@ -250,7 +250,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_GEOJSON_EINWOHNER = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_EINWOHNER.setName("geojson");
-        COLUMN_GEOJSON_EINWOHNER.setType(SQLSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_EINWOHNER.setType(SQLSimpleTypes.Sql99.clobType());
         COLUMN_GEOJSON_EINWOHNER.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Year Table columns
@@ -273,7 +273,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_GEOJSON_TOWN = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_TOWN.setName("geojson");
-        COLUMN_GEOJSON_TOWN.setType(SQLSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_TOWN.setType(SQLSimpleTypes.Sql99.clobType());
         COLUMN_GEOJSON_TOWN.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Plraum Table columns
@@ -292,7 +292,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_GEOJSON_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_PLRAUM.setName("geojson");
-        COLUMN_GEOJSON_PLRAUM.setType(SQLSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_PLRAUM.setType(SQLSimpleTypes.Sql99.clobType());
         COLUMN_GEOJSON_PLRAUM.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_TOWNID_PLRAUM = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
@@ -319,7 +319,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_GEOJSON_STATBEZ = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_GEOJSON_STATBEZ.setName("geojson");
-        COLUMN_GEOJSON_STATBEZ.setType(SQLSimpleTypes.Sql99.varcharType());
+        COLUMN_GEOJSON_STATBEZ.setType(SQLSimpleTypes.Sql99.clobType());
         COLUMN_GEOJSON_STATBEZ.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         // Initialize Gender Table columns
