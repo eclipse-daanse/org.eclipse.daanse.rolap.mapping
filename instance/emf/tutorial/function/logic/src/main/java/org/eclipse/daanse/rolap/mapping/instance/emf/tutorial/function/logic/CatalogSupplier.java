@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.function.logic;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -42,6 +45,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.06", source = Source.EMF, group = "Cube") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -103,55 +108,55 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         calculatedMember1 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("IIF([Measures].[Measure-Sum]>100,[Measures].[Measure-Sum],Null)");
-        calculatedMember1.setFormula("IIF([Measures].[Measure-Sum]>100,[Measures].[Measure-Sum],Null)");
+        calculatedMember1.setFormula(Expressions.mdx("IIF([Measures].[Measure-Sum]>100,[Measures].[Measure-Sum],Null)"));
 
         CalculatedMember calculatedMember2 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("IIF([Measures].[Measure-Sum]>10,[Measures].[Measure-Sum],Null)");
-        calculatedMember2.setFormula("IIF([Measures].[Measure-Sum]>10,[Measures].[Measure-Sum],Null)");
+        calculatedMember2.setFormula(Expressions.mdx("IIF([Measures].[Measure-Sum]>10,[Measures].[Measure-Sum],Null)"));
 
         CalculatedMember calculatedMember3 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember3.setName("IIF([Measures].[Measure-Sum]>10,5,10)");
-        calculatedMember3.setFormula("IIF([Measures].[Measure-Sum]>10,5,10)");
+        calculatedMember3.setFormula(Expressions.mdx("IIF([Measures].[Measure-Sum]>10,5,10)"));
 
         CalculatedMember calculatedMember4 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember4.setName("case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end");
-        calculatedMember4.setFormula("case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end");
+        calculatedMember4.setFormula(Expressions.mdx("case when [Measures].[Measure-Sum]>10 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end"));
 
         CalculatedMember calculatedMember5 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember5.setName("case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end");
-        calculatedMember5.setFormula("case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end");
+        calculatedMember5.setFormula(Expressions.mdx("case when [Measures].[Measure-Sum]>100 then [Measures].[Measure-Sum] else [Measures].[Measure-Count] end"));
 
         CalculatedMember calculatedMember6 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember6.setName("[Measures].[Measure-Sum]>10 and [Measures].[Measure-Count]>0");
-        calculatedMember6.setFormula("[Measures].[Measure-Sum]>10 and [Measures].[Measure-Count]>0");
+        calculatedMember6.setFormula(Expressions.mdx("[Measures].[Measure-Sum]>10 and [Measures].[Measure-Count]>0"));
 
         CalculatedMember calculatedMember7 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember7.setName("[Measures].[Measure-Sum]>10 or [Measures].[Measure-Count]>0");
-        calculatedMember7.setFormula("[Measures].[Measure-Sum]>10 or [Measures].[Measure-Count]>0");
+        calculatedMember7.setFormula(Expressions.mdx("[Measures].[Measure-Sum]>10 or [Measures].[Measure-Count]>0"));
 
         CalculatedMember calculatedMember8 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember8.setName("IsEmpty([Measures].[Measure-Sum])");
-        calculatedMember8.setFormula("IsEmpty([Measures].[Measure-Sum])");
+        calculatedMember8.setFormula(Expressions.mdx("IsEmpty([Measures].[Measure-Sum])"));
 
         CalculatedMember calculatedMember9 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember9.setName("NOT IsEmpty([Measures].[Measure-Sum])");
-        calculatedMember9.setFormula("NOT IsEmpty([Measures].[Measure-Sum])");
+        calculatedMember9.setFormula(Expressions.mdx("NOT IsEmpty([Measures].[Measure-Sum])"));
 
         CalculatedMember calculatedMember10 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember10.setName("[Measures].[Measure-Sum] IS NULL");
-        calculatedMember10.setFormula("[Measures].[Measure-Sum] IS NULL");
+        calculatedMember10.setFormula(Expressions.mdx("[Measures].[Measure-Sum] IS NULL"));
 
         CalculatedMember calculatedMember11 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember11.setName("[Measures].[Measure-Sum]=10");
-        calculatedMember11.setFormula("[Measures].[Measure-Sum]=10");
+        calculatedMember11.setFormula(Expressions.mdx("[Measures].[Measure-Sum]=10"));
 
         CalculatedMember calculatedMember12 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember12.setName("[Measures].[Measure-Sum]<>10");
-        calculatedMember12.setFormula("[Measures].[Measure-Sum]<>10");
+        calculatedMember12.setFormula(Expressions.mdx("[Measures].[Measure-Sum]<>10"));
 
         CalculatedMember calculatedMember13 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember13.setName("[Measures].[Measure-Sum]=10 XOR [Measures].[Measure-Sum]>10");
-        calculatedMember13.setFormula("[Measures].[Measure-Sum]=10 XOR [Measures].[Measure-Sum]>10");
+        calculatedMember13.setFormula(Expressions.mdx("[Measures].[Measure-Sum]=10 XOR [Measures].[Measure-Sum]>10"));
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName("Cube logic functions");
@@ -163,9 +168,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Function Logic");
-        catalog.setDescription("Logic function implementations");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Logic function implementations");
+
+
+
+
+            Naming.complete(catalog);
+
 
 
 

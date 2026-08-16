@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.sqlview;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -40,6 +42,8 @@ import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SqlSelectSource;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.01.02", source = Source.EMF, group = "Cube")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -96,7 +100,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         databaseSchema.getOwnedElement().add(sqlview);
 
         SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement.setSql("select \"FACT\".\"KEY\" as \"Key\", \"FACT\".\"VALUE\" as \"Value\" from FACT");
+        sqlStatement.setBody("select \"FACT\".\"KEY\" as \"Key\", \"FACT\".\"VALUE\" as \"Value\" from FACT");
         sqlStatement.getDialects().add("h2");
         sqlview.getDialectStatements().add(sqlStatement);
 
@@ -118,9 +122,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database SQL View Cube");
-        catalog.setDescription("SQL view definitions and usage in cube");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(sqlSelectSource, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "SQL view definitions and usage in cube");
+
+
+        Naming.complete(catalog);
+
 
         return catalog;
     }

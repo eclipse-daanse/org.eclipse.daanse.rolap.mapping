@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.columngrand;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -53,6 +55,8 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.04.03", source = Source.EMF, group = "Access") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -188,11 +192,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Access Column Grant");
-        catalog.setDescription("Demonstrates access control with column-level grants");
-        catalog.getCubes().add(cube1);
-        catalog.getAccessRoles().add(roleAll);
-        catalog.getAccessRoles().add(roleNone);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, cube1, roleAll, roleNone));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Demonstrates access control with column-level grants");
+
+
+
+
+        Naming.complete(catalog);
+
 
 
 

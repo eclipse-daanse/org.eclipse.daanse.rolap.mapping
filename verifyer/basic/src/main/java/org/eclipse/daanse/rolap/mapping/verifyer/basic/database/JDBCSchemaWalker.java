@@ -13,6 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.database;
 
+
 import static org.eclipse.daanse.rolap.mapping.verifyer.api.Cause.DATABASE;
 import static org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR;
 
@@ -53,6 +54,7 @@ import org.eclipse.daanse.cwm.model.cwm.resource.relational.View;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.VerificationResultR;
 
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.util.Packages;
 public class JDBCSchemaWalker {
 
     public static final String TABLE = "Table";
@@ -114,11 +116,11 @@ public class JDBCSchemaWalker {
     }
 
     protected void checkSqlStatement(SqlStatement sql) {
-        if (sql != null && sql.getSql() != null) {
+        if (sql != null && sql.getBody() != null) {
             try {
                 Connection con = databaseMetaData.getConnection();
                 Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery(sql.getSql());
+                ResultSet rs = stmt.executeQuery(sql.getBody());
             } catch (SQLException e) {
                 results.add(new VerificationResultR(SQL, e.getMessage().replace("\n", ""), ERROR, DATABASE));
             }
@@ -131,9 +133,9 @@ public class JDBCSchemaWalker {
     }
 
     public List<VerificationResult> checkCatalog(Catalog catalog) {
-        List<? extends Schema> dbschemas = catalog.getDbschemas();
+        List<? extends Schema> dbschemas = Packages.available(catalog, Schema.class);
         if (dbschemas != null) {
-            catalog.getDbschemas().forEach(s -> checkSchema(s));
+            dbschemas.forEach(s -> checkSchema(s));
             dbschemas.forEach(s -> checkTables(s));
         }
         return results;
@@ -142,9 +144,8 @@ public class JDBCSchemaWalker {
     private void checkTables(Schema s) {
         if (s != null && s.getOwnedElement() != null) {
             Schemas.tableStream(s).forEach(t -> checkTable(s, t));
-            // InlineTable no longer extends cwm::Table (it extends cwm::ColumnSet),
-            // so it is not picked up by the Table filter above. Walk inline tables
-            // separately.
+            // InlineTable extends cwm::ColumnSet, not cwm::Table, so it is not
+            // picked up by the Table filter above. Walk inline tables separately.
             Namespaces.ownedElementStream(s, InlineTable.class).forEach(it -> checkInlineTable(s, it));
         }
     }
@@ -257,8 +258,8 @@ public class JDBCSchemaWalker {
         } else if (table != null) {
             checkPhysicalOrSystemTable(s, table);
         }
-        // InlineTables are walked separately in checkTables() — they no longer
-        // extend cwm::Table so this method receives only real Tables/Views.
+        // InlineTables are walked separately in checkTables() — they extend
+        // cwm::ColumnSet, not cwm::Table, so this method receives only real Tables/Views.
         if (table instanceof DialectSqlView sv) {
             checkSqlView(s, sv);
         }

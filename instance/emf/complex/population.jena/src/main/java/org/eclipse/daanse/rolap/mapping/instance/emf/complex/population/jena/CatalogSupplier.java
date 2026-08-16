@@ -13,6 +13,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.population.jena;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -180,6 +181,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     // Join queries
     public static final JoinSource JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK;
+    public static final JoinSource JOINSOURCE_PLRAUM_TOWN;
 
     // Static dimension connectors
     public static final DimensionConnector CONNECTOR_JAHR;
@@ -572,21 +574,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK.setLeft(leftStatbez);
 
         // Right side: join of plraum and town tables
-        JoinSource joinPlraumTown = SourceFactory.eINSTANCE.createJoinSource();
+        JOINSOURCE_PLRAUM_TOWN = SourceFactory.eINSTANCE.createJoinSource();
 
         JoinedQueryElement leftPlraum = SourceFactory.eINSTANCE.createJoinedQueryElement();
         leftPlraum.setKey(COLUMN_TOWNID_PLRAUM);
         leftPlraum.setSource(TABLESOURCE_PLRAUM);
-        joinPlraumTown.setLeft(leftPlraum);
+        JOINSOURCE_PLRAUM_TOWN.setLeft(leftPlraum);
 
         JoinedQueryElement rightTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightTown.setKey(COLUMN_ID_TOWN);
         rightTown.setSource(TABLESOURCE_TOWN);
-        joinPlraumTown.setRight(rightTown);
+        JOINSOURCE_PLRAUM_TOWN.setRight(rightTown);
 
         JoinedQueryElement rightPlraumTown = SourceFactory.eINSTANCE.createJoinedQueryElement();
         rightPlraumTown.setKey(COLUMN_GID_PLRAUM);
-        rightPlraumTown.setSource(joinPlraumTown);
+        rightPlraumTown.setSource(JOINSOURCE_PLRAUM_TOWN);
         JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK.setRight(rightPlraumTown);
 
         // Initialize hierarchies
@@ -729,14 +731,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG_POPULATION_JENA = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_POPULATION_JENA.setName("Bevölkerung");
-        CATALOG_POPULATION_JENA.getDbschemas().add(DATABASE_SCHEMA_POPULATION_JENA);
-        CATALOG_POPULATION_JENA.getCubes().add(CUBE_BEVOELKERUNG);
+        CATALOG_POPULATION_JENA.getImportedElement().add(DATABASE_SCHEMA_POPULATION_JENA);
 
         // Add documentation
     }
 
     @Override
     public Catalog get() {
+        CATALOG_POPULATION_JENA.getOwnedElement().addAll(List.of(LEVEL_JAHR, LEVEL_STADT, LEVEL_PLANUNGSRAUM, LEVEL_STATISTISCHER_BEZIRK, LEVEL_GESCHLECHT, LEVEL_ALTER_EINZELJAHRGAENGE, LEVEL_ALTERSGRUPPE_STANDARD, LEVEL_ALTER_STANDARD));
+        CATALOG_POPULATION_JENA.getOwnedElement().addAll(List.of(LEVEL_ALTERSGRUPPE_KINDER, LEVEL_ALTER_KINDER, LEVEL_ALTERSGRUPPE_RKI_H7, LEVEL_ALTER_RKI_H7, LEVEL_ALTERSGRUPPE_RKI_H8, LEVEL_ALTER_RKI_H8, LEVEL_ALTERSGRUPPE_10JAHRE, LEVEL_ALTER_10JAHRE));
+        CATALOG_POPULATION_JENA.getOwnedElement().addAll(List.of(TABLESOURCE_YEAR, TABLESOURCE_TOWN, TABLESOURCE_PLRAUM, TABLESOURCE_STATBEZ, TABLESOURCE_GENDER, TABLESOURCE_AGEGROUPS, TABLESOURCE_FACT, JOINSOURCE_STADT_PLANUNGSRAUM_STATBEZIRK));
+        CATALOG_POPULATION_JENA.getOwnedElement().addAll(List.of(JOINSOURCE_PLRAUM_TOWN, HIERARCHY_JAHR, HIERARCHY_STADT_PLANUNGSRAUM_STATBEZIRK, HIERARCHY_GESCHLECHT, HIERARCHY_ALTER_EINZELJAHRGAENGE, HIERARCHY_ALTERSGRUPPEN_STANDARD, HIERARCHY_ALTERSGRUPPEN_KINDER, HIERARCHY_ALTERSGRUPPEN_RKI_H7));
+        CATALOG_POPULATION_JENA.getOwnedElement().addAll(List.of(HIERARCHY_ALTERSGRUPPEN_RKI_H8, HIERARCHY_ALTERSGRUPPEN_10JAHRE, DIMENSION_JAHR, DIMENSION_STATISTISCHER_BEZIRK, DIMENSION_GESCHLECHT, DIMENSION_ALTER, CUBE_BEVOELKERUNG));
+
+        Naming.complete(CATALOG_POPULATION_JENA);
+
         return CATALOG_POPULATION_JENA;
     }
 

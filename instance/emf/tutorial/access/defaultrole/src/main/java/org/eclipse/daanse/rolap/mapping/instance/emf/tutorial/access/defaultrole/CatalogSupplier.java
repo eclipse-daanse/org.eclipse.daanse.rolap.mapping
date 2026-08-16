@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.access.defaultrole;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -60,6 +62,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.04.07", source = Source.EMF, group = "Access") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -226,11 +230,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Access With Default Role");
-        catalog.setDescription("Access control with default role");
-        catalog.getCubes().add(cube1);
         catalog.setDefaultAccessRole(role);
-        catalog.getAccessRoles().add(role);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level1, level2, hierarchy1, hierarchy2, dimension1, cube1, role));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Access control with default role");
+
+
+
+
+
+        Naming.complete(catalog);
+
 
 
 

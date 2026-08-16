@@ -13,7 +13,7 @@ group: Class
 ## Extends
 {% for s in class.eSuperTypes %}
 {% if not isEClassInterface(s) %}
-- {{ s.name }} {% if s.EPackage == package %}[🔗](./class-{{ s.name }}){% endif %}
+- {{ s.name }}{% if s.EPackage == package %} [🔗](./class-{{ s.name }}){% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

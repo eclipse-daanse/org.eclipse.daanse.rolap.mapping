@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.unvisiblereferencecubes;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -47,6 +49,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.04", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -181,11 +185,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube1.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
 
-        measureGroup1.setPhysicalCube(cube1);
-        measureGroup2.setPhysicalCube(cube2);
-        dimensionConnector1.setPhysicalCube(cube1);
-        dimensionConnector2.setPhysicalCube(cube2);
-
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName("Cube1Cube2");
         vCube.setDefaultMeasure(measure1);
@@ -195,9 +194,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Unvisible Reference Cubes");
-        catalog.setDescription("Virtual cubes with invisible reference cubes");
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension1, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Virtual cubes with invisible reference cubes");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

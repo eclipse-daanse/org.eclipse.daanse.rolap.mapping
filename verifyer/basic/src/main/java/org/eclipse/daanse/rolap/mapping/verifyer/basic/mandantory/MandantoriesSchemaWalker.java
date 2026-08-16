@@ -13,6 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.mandantory;
 
+
 import static org.eclipse.daanse.rolap.mapping.verifyer.api.Level.ERROR;
 import static org.eclipse.daanse.rolap.mapping.verifyer.api.Level.WARNING;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.*;
@@ -38,10 +39,11 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLe
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Table;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.PatternAggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
-import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.TaggedValue;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
@@ -91,7 +93,13 @@ import org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaExplorer;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.VerificationResultR;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.Description;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.ModelElement;
 
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.util.Packages;
 public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MandantoriesSchemaWalker.class);
@@ -108,6 +116,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(SCHEMA, SCHEMA_NAME_MUST_BE_SET, ERROR,
                     Cause.SCHEMA));
             }
+            checkBusinessInformation(schema);
         } else {
             results.add(new VerificationResultR(SCHEMA, SCHEMA_MUST_BE_NOT_NULL, ERROR,
                 Cause.SCHEMA));
@@ -214,30 +223,30 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
 
             }
 
-            if (isEmpty(kpi.getValue())) {
+            if (isEmpty(body(kpi.getValue()))) {
                 String msg = String.format(KPI_VALUE_MUST_BE_SET, orNotSet(kpi.getName()), orNotSet(cubeName));
                 results.add(new VerificationResultR(KPI, msg, ERROR, Cause.SCHEMA));
             } else {
-                checkMeasureCalculationName(kpi.getValue(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Value");
+                checkMeasureCalculationName(body(kpi.getValue()), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Value");
             }
 
-            if (!isEmpty(kpi.getGoal())) {
-                checkMeasureCalculationName(kpi.getGoal(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Goal");
+            if (!isEmpty(body(kpi.getGoal()))) {
+                checkMeasureCalculationName(body(kpi.getGoal()), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Goal");
             }
-            if (!isEmpty(kpi.getStatus())) {
-                checkMeasureCalculationName(kpi.getStatus(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Status");
+            if (!isEmpty(body(kpi.getStatus()))) {
+                checkMeasureCalculationName(body(kpi.getStatus()), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Status");
             }
 
-            if (!isEmpty(kpi.getTrend())) {
-                checkMeasureCalculationName(kpi.getTrend(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Trend");
+            if (!isEmpty(body(kpi.getTrend()))) {
+                checkMeasureCalculationName(body(kpi.getTrend()), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Trend");
             }
 
             if (!isEmpty(kpi.getWeight())) {
                 checkMeasureCalculationName(kpi.getWeight(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "Weight");
             }
 
-            if (!isEmpty(kpi.getCurrentTimeMember())) {
-                checkMeasureCalculationName(kpi.getCurrentTimeMember(), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "CurrentTimeMember");
+            if (!isEmpty(body(kpi.getCurrentTimeMember()))) {
+                checkMeasureCalculationName(body(kpi.getCurrentTimeMember()), cubeName, measureNames, calculatedMemberNames, kpi.getName(), "CurrentTimeMember");
             }
 
         }
@@ -323,7 +332,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
             if (dimensionConnector.getPhysicalCube() == null) {
                 results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, VIRTUAL_CUBE_DIMENSION_CUBE_NAME_MUST_BE_SET, ERROR, Cause.SCHEMA));
             } else {
-                Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> dimensionConnector.getPhysicalCube().equals(c)).findFirst();
+                Optional<? extends Cube> oCube = Packages.available(schema, Cube.class).stream().filter(c -> dimensionConnector.getPhysicalCube().equals(c)).findFirst();
                 if (!oCube.isPresent()) {
                     String msg = String.format(VIRTUAL_CUBE_DIMENSION_CUBE_NAME_IS_WRONG_CUBE_ABSENT_IN_SCHEMA, dimensionConnector.getPhysicalCube().getName(), dimensionConnector.getPhysicalCube().getName());
                     results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, msg, ERROR, Cause.SCHEMA));
@@ -336,7 +345,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     protected void checkVirtualCubeMeasure(BaseMeasure virtualCubeMeasure, VirtualCube vCube, Catalog schema) {
         super.checkVirtualCubeMeasure(virtualCubeMeasure, vCube, schema);
         if (virtualCubeMeasure != null) {
-            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> (c instanceof PhysicalCube pCube && pCube.getMeasureGroups() != null
+            Optional<? extends Cube> oCube = Packages.available(schema, Cube.class).stream().filter(c -> (c instanceof PhysicalCube pCube && pCube.getMeasureGroups() != null
                 && pCube.getMeasureGroups().stream().anyMatch(mg -> mg.getMeasures().stream().anyMatch(m -> m.equals(virtualCubeMeasure))))).findFirst();
             if (!oCube.isPresent()) {
                 results.add(new VerificationResultR(VIRTUAL_CUBE_DIMENSIONS, VIRTUAL_CUBE_MEASURE_IS_WRONG_CUBE_ABSENT_IN_SCHEMA, ERROR, Cause.SCHEMA));
@@ -511,7 +520,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                     orNotSet(calculatedMember.getName()));
                 results.add(new VerificationResultR(CALCULATED_MEMBER, msg, ERROR, Cause.SCHEMA));
             }
-            if (isEmpty(calculatedMember.getFormula())) {
+            if (calculatedMember.getFormula() == null || isEmpty(calculatedMember.getFormula().getBody())) {
                 String msg = String.format(FORMULA_MUST_BE_SET_FOR_CALCULATED_MEMBER,
                     orNotSet(calculatedMember.getName()));
                 results.add(new VerificationResultR(CALCULATED_MEMBER, msg, ERROR, Cause.SCHEMA));
@@ -578,7 +587,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 results.add(new VerificationResultR(NAMED_SET, NAMED_SET_NAME_MUST_BE_SET, ERROR,
                     Cause.SCHEMA));
             }
-            if (isEmpty(namedSet.getFormula())) {
+            if (namedSet.getFormula() == null || isEmpty(namedSet.getFormula().getBody())) {
                 results.add(new VerificationResultR(NAMED_SET, NAMED_SET_FORMULA_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -701,16 +710,16 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAggregationName(AggregationName aggName) {
+    protected void checkAggregationName(ExplicitAggregationTable aggName) {
         super.checkAggregationName(aggName);
-        if (aggName != null && aggName.getName() == null) {
+        if (aggName != null && aggName.getTable() == null) {
             results.add(new VerificationResultR(AGG_NAME, AGG_NAME_NAME_MUST_BE_SET,
                 ERROR, Cause.SCHEMA));
         }
     }
 
     @Override
-    protected void checkAggregationPattern(AggregationPattern aggPattern, Schema schema) {
+    protected void checkAggregationPattern(PatternAggregationTable aggPattern, Schema schema) {
         super.checkAggregationPattern(aggPattern, schema);
         if (aggPattern != null && isEmpty(aggPattern.getPattern())) {
             results.add(new VerificationResultR(AGG_PATTERN, AGG_PATTERN_PATTERN_MUST_BE_SET,
@@ -816,7 +825,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 ERROR, Cause.SCHEMA));
         }
         if (cubeGrant != null && cubeGrant.getCube() != null) {
-            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cubeGrant.getCube().equals(c)).findFirst();
+            Optional<? extends Cube> oCube = Packages.available(schema, Cube.class).stream().filter(c -> cubeGrant.getCube().equals(c)).findFirst();
             if (!oCube.isPresent()) {
                 String msg = String.format(CUBE_GRANT_CUBE_ABSENT_IN_SCHEMA, cubeGrant.getCube());
                 results.add(new VerificationResultR(CUBE_GRANT, msg,
@@ -847,7 +856,7 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
                 ERROR, Cause.SCHEMA));
         }
         if (hierarchyGrant != null && hierarchyGrant.getHierarchy() != null) {
-            Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
+            Optional<? extends Cube> oCube = Packages.available(schema, Cube.class).stream().filter(c -> cube.equals(c)).findFirst();
             if (oCube.isPresent()) {
                 List<Dimension> dimList = getCubeDimensionConnectors(oCube.get()).stream().map(dc -> dc.getDimension()).toList();
                 Optional<Dimension> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.equals(hierarchyGrant.getHierarchy()))).findFirst();
@@ -876,14 +885,14 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     protected void checkMemberGrant(AccessMemberGrant memberGrant, Cube cube, Catalog schema) {
         super.checkMemberGrant(memberGrant, cube, schema);
         if (memberGrant != null) {
-            if (isEmpty(memberGrant.getMember())) {
+            if (memberGrant.getMember() == null || isEmpty(memberGrant.getMember().getBody())) {
                 results.add(new VerificationResultR(MEMBER_GRANT, MEMBER_GRANT_MEMBER_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             } else {
-                String[] ms = memberGrant.getMember().split("\\.");
+                String[] ms = memberGrant.getMember().getBody().split("\\.");
                 if (ms.length > 0) {
                     String hierarchy = removeBrackets(ms[0]);
-                    Optional<? extends Cube> oCube = schema.getCubes().stream().filter(c -> cube.equals(c)).findFirst();
+                    Optional<? extends Cube> oCube = Packages.available(schema, Cube.class).stream().filter(c -> cube.equals(c)).findFirst();
                     if (oCube.isPresent()) {
                         List<Dimension> dimList = getCubeDimensionConnectors( oCube.get()).stream().map(dc -> dc.getDimension()).toList();
                         Optional<Dimension> oDim = dimList.stream().filter(d -> d.getHierarchies().stream().anyMatch(h -> h.getName().equals(hierarchy))).findFirst();
@@ -920,10 +929,10 @@ public class MandantoriesSchemaWalker extends AbstractSchemaWalker {
     }
 
     @Override
-    protected void checkAnnotation(Annotation annotation) {
+    protected void checkAnnotation(TaggedValue annotation) {
         if (annotation != null) {
             super.checkAnnotation(annotation);
-            if (isEmpty(annotation.getName())) {
+            if (isEmpty(annotation.getTag())) {
                 results.add(new VerificationResultR(ANNOTATION, ANNOTATION_NAME_MUST_BE_SET,
                     ERROR, Cause.SCHEMA));
             }
@@ -1211,5 +1220,73 @@ if(cube instanceof VirtualCube vcube) {
             return vcube.getDimensionConnectors();
         }
         return null;
+    }
+
+    private static String body(org.eclipse.daanse.cwm.model.cwm.objectmodel.core.Expression e) {
+        return e == null ? null : e.getBody();
+    }
+
+    /**
+     * Businessinformation rules over the catalog and its referenced schema
+     * roots: canonical BCP-47 language (error), one Description per
+     * (element, type, language) (error), no orphan Descriptions (warning).
+     */
+    private void checkBusinessInformation(Catalog catalog) {
+        java.util.Set<EObject> roots = new java.util.LinkedHashSet<>();
+        roots.add(EcoreUtil.getRootContainer(catalog));
+        Packages.available(catalog, Schema.class).forEach(s -> roots.add(EcoreUtil.getRootContainer(s)));
+        java.util.Set<String> seen = new java.util.HashSet<>();
+        for (EObject root : roots) {
+            // Cross-file references (the import concept) resolve lazily; a
+            // broken href surfaces as an unresolved proxy - report it.
+            org.eclipse.emf.ecore.util.EcoreUtil.UnresolvedProxyCrossReferencer.find(root)
+                .keySet().forEach(proxy -> results.add(new VerificationResultR(BUSINESS_INFORMATION,
+                    String.format(UNRESOLVED_PROXY,
+                        org.eclipse.emf.ecore.util.EcoreUtil.getURI(proxy)),
+                    ERROR, Cause.SCHEMA)));
+        }
+        for (EObject root : roots) {
+            java.util.Iterator<EObject> it = root.eAllContents();
+            while (it.hasNext()) {
+                EObject next = it.next();
+                if (next instanceof Description description) {
+                    checkDescription(description, seen);
+                } else if (next instanceof org.eclipse.daanse.cwm.model.cwm.objectmodel.core.TaggedValue taggedValue
+                        && !org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper
+                                .followsNamingScheme(taggedValue.getTag())) {
+                    String owner = taggedValue.eContainer() instanceof ModelElement modelElement
+                            ? modelElement.getName() : null;
+                    results.add(new VerificationResultR(BUSINESS_INFORMATION,
+                        String.format(TAGGED_VALUE_TAG_UNCONVENTIONAL, orNotSet(owner), taggedValue.getTag()),
+                        Level.WARNING, Cause.SCHEMA));
+                }
+            }
+        }
+    }
+
+    private void checkDescription(Description description, java.util.Set<String> seen) {
+        String language = description.getLanguage();
+        // canonical means: already the BCP-47 form, or the neutral tag itself
+        if (language == null || !(org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper.LANGUAGE_NEUTRAL
+                .equals(language)
+                || Descriptions.languageTag(language).filter(language::equals).isPresent())) {
+            results.add(new VerificationResultR(BUSINESS_INFORMATION,
+                String.format(DESCRIPTION_LANGUAGE_NOT_BCP47, orNotSet(description.getName()), language),
+                ERROR, Cause.SCHEMA));
+        }
+        if (description.getModelElement().isEmpty()) {
+            results.add(new VerificationResultR(BUSINESS_INFORMATION,
+                String.format(DESCRIPTION_ORPHAN, orNotSet(description.getName())),
+                Level.WARNING, Cause.SCHEMA));
+        }
+        for (ModelElement element : description.getModelElement()) {
+            String key = System.identityHashCode(element) + "|" + description.getType() + "|" + language;
+            if (!seen.add(key)) {
+                results.add(new VerificationResultR(BUSINESS_INFORMATION,
+                    String.format(DESCRIPTION_DUPLICATE, orNotSet(element.getName()),
+                        description.getType(), language),
+                    ERROR, Cause.SCHEMA));
+            }
+        }
     }
 }

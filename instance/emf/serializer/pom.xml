@@ -305,6 +305,20 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.documentation.intro</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
+        org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.sharing.intro</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>
         org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.parent.ring</artifactId>
       <version>${project.version}</version>
     </dependency>

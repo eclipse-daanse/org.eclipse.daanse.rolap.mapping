@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.percentile;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -49,6 +51,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.07", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -124,55 +128,73 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         measure2.setName("Percentile cont 0.25");
         measure2.setPercentType(PercentType.CONT);
         measure2.setPercentile(0.25);
-        measure2.setColumn(orderedColumn);
+        OrderedColumn orderedColumn2 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn2.setColumn(valueColumn);
+        measure2.setColumn(orderedColumn2);
 
         PercentileMeasure measure3 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure3.setName("Percentile disc 0.42");
         measure3.setPercentType(PercentType.DISC);
         measure3.setPercentile(0.42);
-        measure3.setColumn(orderedColumn);
+        OrderedColumn orderedColumn3 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn3.setColumn(valueColumn);
+        measure3.setColumn(orderedColumn3);
 
         PercentileMeasure measure4 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure4.setName("Percentile cont 0.42");
         measure4.setPercentType(PercentType.CONT);
         measure4.setPercentile(0.42);
-        measure4.setColumn(orderedColumn);
+        OrderedColumn orderedColumn4 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn4.setColumn(valueColumn);
+        measure4.setColumn(orderedColumn4);
 
         PercentileMeasure measure5 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure5.setName("Percentile disc 0.5");
         measure5.setPercentType(PercentType.DISC);
         measure5.setPercentile(0.5);
-        measure5.setColumn(orderedColumn);
+        OrderedColumn orderedColumn5 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn5.setColumn(valueColumn);
+        measure5.setColumn(orderedColumn5);
 
         PercentileMeasure measure6 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure6.setName("Percentile cont 0.5");
         measure6.setPercentType(PercentType.CONT);
         measure6.setPercentile(0.5);
-        measure6.setColumn(orderedColumn);
+        OrderedColumn orderedColumn6 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn6.setColumn(valueColumn);
+        measure6.setColumn(orderedColumn6);
 
         PercentileMeasure measure7 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure7.setName("Percentile disc 0.75");
         measure7.setPercentType(PercentType.DISC);
         measure7.setPercentile(0.75);
-        measure7.setColumn(orderedColumn);
+        OrderedColumn orderedColumn7 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn7.setColumn(valueColumn);
+        measure7.setColumn(orderedColumn7);
 
         PercentileMeasure measure8 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure8.setName("Percentile cont 0.75");
         measure8.setPercentType(PercentType.CONT);
         measure8.setPercentile(0.75);
-        measure8.setColumn(orderedColumn);
+        OrderedColumn orderedColumn8 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn8.setColumn(valueColumn);
+        measure8.setColumn(orderedColumn8);
 
         PercentileMeasure measure9 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure9.setName("Percentile disc 1.00");
         measure9.setPercentType(PercentType.DISC);
         measure9.setPercentile(1.00);
-        measure9.setColumn(orderedColumn);
+        OrderedColumn orderedColumn9 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn9.setColumn(valueColumn);
+        measure9.setColumn(orderedColumn9);
 
         PercentileMeasure measure10 = MeasureFactory.eINSTANCE.createPercentileMeasure();
         measure10.setName("Percentile cont 1.00");
         measure10.setPercentType(PercentType.CONT);
         measure10.setPercentile(1.00);
-        measure10.setColumn(orderedColumn);
+        OrderedColumn orderedColumn10 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn10.setColumn(valueColumn);
+        measure10.setColumn(orderedColumn10);
 
         MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().addAll(List.of(measure1, measure1, measure2, measure3, measure4, measure5, measure6, measure7, measure8, measure9, measure10));
@@ -204,10 +226,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Percentile");
-        catalog.setDescription("Percentile aggregation functions");
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Percentile aggregation functions");
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.hierarchy.query.table.multilevel.singletable;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -46,6 +48,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.02.03", source = Source.EMF, group = "Hierarchy") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -157,10 +161,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getDimensionConnectors().add(dimensionConnector1);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Hierarchy Query Table Multilevel Singletable");
-        catalog.setDescription("Multi-level hierarchy in single table");
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(query, levelTown, levelCountry, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Multi-level hierarchy in single table");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

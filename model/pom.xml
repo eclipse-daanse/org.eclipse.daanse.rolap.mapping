@@ -25,9 +25,10 @@
 
 
   <dependencies>
-    <!-- Das CWM-Metamodell ist in Einheiten geschnitten; rolap.mapping.ecore erbt und
-         referenziert ausschliesslich resource/relational, die Helfer liegen im util-Paket
-         der jeweiligen Einheit. -->
+    <!-- The CWM metamodel is cut into units; rolap.mapping.ecore inherits from
+         objectmodel/core and resource/relational, instances additionally use
+         foundation/businessinformation (Description/Document in ownedElement); the
+         helpers live in the util package of the respective unit. -->
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.cwm.model.cwm.resource.relational</artifactId>
@@ -43,6 +44,18 @@
     <dependency>
       <groupId>org.eclipse.daanse</groupId>
       <artifactId>org.eclipse.daanse.cwm.model.cwm.objectmodel.core</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.daanse</groupId>
+      <artifactId>org.eclipse.daanse.cwm.model.cwm.analysis.businessnomenclature</artifactId>
       <version>0.0.1-SNAPSHOT</version>
       <scope>compile</scope>
     </dependency>

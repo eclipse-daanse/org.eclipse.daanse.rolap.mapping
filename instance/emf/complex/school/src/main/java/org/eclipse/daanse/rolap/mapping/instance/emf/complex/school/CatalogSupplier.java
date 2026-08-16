@@ -12,6 +12,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.school;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -1097,8 +1098,21 @@ public class CatalogSupplier implements CatalogMappingSupplier {
 
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.getCubes().addAll(List.of(cubeSchulenInstitutionen, cubePaedagogischesPersonal, cubeSchuelerInnen));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(tableQuerySchule, tableQueryGanztagsArt, tableQueryTraeger, tableQueryTraegerArt, tableQueryTraegerKategorie, tableQueryScheduleArt, tableQueryScheduleKategorie, tableQuerySchulJahr));
+        catalog.getOwnedElement().addAll(List.of(tableQueryAltersGruppe, tableQueryGeschlecht, tableQueryPersonalArt, tableQueryEinschulung, tableQueryKlassenWiederholung, tableQuerySchulAbschluss, tableQueryMigrationsHintergrund, tableQueryWohnortLandkreis));
+        catalog.getOwnedElement().addAll(List.of(tableQueryBundesland, tableQueryFoerderungArt, tableQuerySonderpaedFoerderbedart, tableQueryFactSchulen, tableQueryFactPersonal, tableQueryFactSchueler, joinSchuleGanztagsart, joinTraegerKategorieArt));
+        catalog.getOwnedElement().addAll(List.of(joinTraegerArtTraeger, joinSchuleTraegerHierarchy, joinSchulkategorieArt, joinSchuleSchulartHierarchy, joinWohnlandkreisBundesland, joinFoerderbedarfArt, levelGanztagsangebot, levelSchule));
+        catalog.getOwnedElement().addAll(List.of(levelTraegerKategorie, levelTraegerArt, levelTraeger, levelSchuleTraegerschaft, levelSchulkategorie, levelSchulart, levelSchuleArt, levelSchuljahr));
+        catalog.getOwnedElement().addAll(List.of(levelAltersgruppe, levelGeschlecht, levelBerufsgruppe, levelEinschulung, levelKlassenwiederholung, levelSchulabschluss, levelMigrationshintergrund, levelBundesland));
+        catalog.getOwnedElement().addAll(List.of(levelWohnlandkreis, levelFoerderbedarf, levelFoerderungArt, hierarchySchulenGanztagsangebot, hierarchySchulenTraegerschaft, hierarchySchulenArt, hierarchySchuljahre, hierarchyAltersgruppen));
+        catalog.getOwnedElement().addAll(List.of(hierarchyGeschlecht, hierarchyBerufsgruppen, hierarchyEinschulung, hierarchyKlassenwiederholung, hierarchySchulabschluss, hierarchyMigrationshintergrund, hierarchyWohnlandkreis, hierarchyFoerderung));
+        catalog.getOwnedElement().addAll(List.of(dimensionSchulen, dimensionSchuljahre, dimensionAltersgruppenPersonal, dimensionGeschlecht, dimensionBerufsgruppenPersonal, dimensionEinschulungen, dimensionKlassenwiederholung, dimensionSchulabschluss));
+        catalog.getOwnedElement().addAll(List.of(dimensionMigrationshintergrund, dimensionWohnlandkreis, dimensionInklusion, cubeSchulenInstitutionen, cubePaedagogischesPersonal, cubeSchuelerInnen));
+
+
+        Naming.complete(catalog);
+
 
         return catalog;
     }

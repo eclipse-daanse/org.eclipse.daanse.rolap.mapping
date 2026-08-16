@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.virtualcube;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -50,6 +53,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.07.04", source = Source.EMF, group = "Kpi") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -175,23 +180,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube2.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
 
-        dimensionConnector1.setPhysicalCube(cube1);
-        dimensionConnector2.setPhysicalCube(cube2);
-        measureGroup1.setPhysicalCube(cube1);
-        measureGroup2.setPhysicalCube(cube2);
-
         CalculatedMember cm1 = LevelFactory.eINSTANCE.createCalculatedMember();
         cm1.setName("CalculatedValue");
-        cm1.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
+        cm1.setFormula(Expressions.mdx("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]"));
 
         CalculatedMember cm2 = LevelFactory.eINSTANCE.createCalculatedMember();
         cm2.setName("CalculatedTrend");
-        cm2.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
+        cm2.setFormula(Expressions.mdx("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]"));
 
         kpi = CubeFactory.eINSTANCE.createKpi();
         kpi.setName("Kpi1");
-        kpi.setValue("[Measures].[CalculatedValue]");
-        kpi.setTrend("[Measures].[CalculatedTrend]");
+        kpi.setValue(Expressions.mdx("[Measures].[CalculatedValue]"));
+        kpi.setTrend(Expressions.mdx("[Measures].[CalculatedTrend]"));
         kpi.setDisplayFolder("Kpi1Folder1\\Kpi1Folder3");
         kpi.setAssociatedMeasureGroupID("Kpi2MeasureGroupID");
 
@@ -205,9 +205,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - KPI Virtual Cube");
-        catalog.setDescription("KPI implementation in virtual cubes");
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "KPI implementation in virtual cubes");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

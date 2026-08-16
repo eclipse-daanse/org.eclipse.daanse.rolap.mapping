@@ -40,6 +40,8 @@
     <module>level</module>
     <module>parentchild</module>
     <module>formatter</module>
+    <module>documentation</module>
+    <module>sharing</module>
   </modules>
 
   <dependencies>

@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.datatype;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -40,6 +42,8 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.03", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -120,10 +124,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Datatype");
-        catalog.setDescription("Measure data types");
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(query, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Measure data types");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.calculatedmember.property;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -49,6 +52,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.03.06", source = Source.EMF, group = "Cube") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -166,7 +171,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         calculatedMember1 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Calculated Member 1");
         calculatedMember1.setDisplayFolder("folder");
-        calculatedMember1.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
+        calculatedMember1.setFormula(Expressions.mdx("[Measures].[Measure-Sum] / [Measures].[Measure-Count]"));
         calculatedMember1.setDisplayFolder("folder");
         calculatedMember1.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty3, memberOrdina1lCalculatedMemberProperty1));
 
@@ -181,7 +186,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         calculatedMember2 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Calculated Member 2");
-        calculatedMember2.setFormula("[Measures].[Measure-Sum] / [Measures].[Measure-Count]");
+        calculatedMember2.setFormula(Expressions.mdx("[Measures].[Measure-Sum] / [Measures].[Measure-Count]"));
         calculatedMember2.setDisplayFolder("folder");
         calculatedMember2.getCalculatedMemberProperties().addAll(List.of(memberOrdinalCalculatedMemberProperty4, memberOrdina1lCalculatedMemberProperty2));
 
@@ -194,9 +199,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Cube Calculated Member Property");
-        catalog.setDescription("Properties for calculated members");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Properties for calculated members");
+
+
+
+
+
+
+            Naming.complete(catalog);
+
 
 
 

@@ -13,6 +13,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.expressivenames;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -700,14 +701,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG_EXPRESSIVENAMES = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_EXPRESSIVENAMES.setName(CATALOG_NAME);
-        CATALOG_EXPRESSIVENAMES.getCubes().add(CUBE_CUBE1);
-        CATALOG_EXPRESSIVENAMES.getDbschemas().add(DATABASE_SCHEMA_EXPRESSIVENAMES);
+        CATALOG_EXPRESSIVENAMES.getImportedElement().add(DATABASE_SCHEMA_EXPRESSIVENAMES);
 
         // Add documentation
     }
 
     @Override
     public Catalog get() {
+        CATALOG_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(SOURCE_CUBE1FACT, SOURCE_D1H1L1TABLE, SOURCE_D2H1L1TABLE, SOURCE_D2H2L2TABLE, SOURCE_D3H1L1TABLE, SOURCE_D3H2L2TABLE, SOURCE_D3H2L1TABLE, SOURCE_D3H3L3TABLE));
+        CATALOG_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(SOURCE_D3H3L2TABLE, SOURCE_D3H3L1TABLE, JOIN_D3H2, JOIN_D3H3_INNER, JOIN_D3H3, LEVEL_D1H1L1, LEVEL_D2H1L1, LEVEL_D2H2L1));
+        CATALOG_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(LEVEL_D2H2L2, LEVEL_D3H1L1, LEVEL_D3H2L1, LEVEL_D3H2L2, LEVEL_D3H3L1, LEVEL_D3H3L2, LEVEL_D3H3L3, HIERARCHY_D1H1));
+        CATALOG_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(HIERARCHY_D2H1, HIERARCHY_D2H2, HIERARCHY_D3H1, HIERARCHY_D3H2, HIERARCHY_D3H3, DIMENSION_SCHEMA1, DIMENSION_SCHEMA2, DIMENSION_SCHEMA3));
+        CATALOG_EXPRESSIVENAMES.getOwnedElement().addAll(List.of(CUBE_CUBE1));
+
+        Naming.complete(CATALOG_EXPRESSIVENAMES);
+
         return CATALOG_EXPRESSIVENAMES;
     }
 

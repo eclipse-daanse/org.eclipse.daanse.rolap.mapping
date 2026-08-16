@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.virtualcube;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -59,6 +61,8 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.06", source = Source.EMF, group = "Writeback") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -201,6 +205,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
 
@@ -300,16 +305,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         regConn1.setDimension(regionDimension);
         regConn1.setForeignKey(factNRegionColumn);
 
-        DimensionConnector catConn3 = DimensionFactory.eINSTANCE.createDimensionConnector();
-        catConn3.setOverrideDimensionName("Category");
-        catConn3.setDimension(categoryDimension);
-        catConn3.setForeignKey(factNCategoryColumn);
-
-        DimensionConnector regConn3 = DimensionFactory.eINSTANCE.createDimensionConnector();
-        regConn3.setOverrideDimensionName("Region");
-        regConn3.setDimension(regionDimension);
-        regConn3.setForeignKey(factNRegionColumn);
-
         DimensionConnector catConn2 = DimensionFactory.eINSTANCE.createDimensionConnector();
         catConn2.setOverrideDimensionName("Category");
         catConn2.setDimension(categoryDimension);
@@ -371,8 +366,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube1.setSource(factNSource);
         cube1.getDimensionConnectors().addAll(List.of(catConn1, regConn1));
         cube1.getMeasureGroups().add(measureGroupN);
-        catConn1.setPhysicalCube(cube1);
-        regConn1.setPhysicalCube(cube1);
 
         cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE_T);
@@ -380,23 +373,26 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube2.getDimensionConnectors().addAll(List.of(catConn2, regConn2));
         cube2.getMeasureGroups().add(measureGroupT);
         cube2.setWritebackTable(writebackTable);
-        catConn2.setPhysicalCube(cube2);
-        regConn2.setPhysicalCube(cube2);
 
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName(CUBE_V);
         vCube.setDefaultMeasure(amountMeasure);
-        vCube.getDimensionConnectors().addAll(List.of(catConn3, regConn3));
+        vCube.getDimensionConnectors().addAll(List.of(catConn1, regConn1)); // borrowed from cube1
         vCube.getReferencedMeasures().addAll(List.of(amountMeasure, valueMeasure, commentsMeasure));
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Writeback Virtual Cube");
-        catalog.setDescription("Two physical cubes sharing Category + Region dimensions — one read-only"
+        catalog.getImportedElement().add(databaseSchema);
+
+        catalog.getOwnedElement().addAll(List.of(factNSource, factTSource, categorySource, regionSource, categoryLevel, categoryHierarchy, categoryDimension, regionLevel));
+        catalog.getOwnedElement().addAll(List.of(regionHierarchy, regionDimension, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Two physical cubes sharing Category + Region dimensions — one read-only"
                 + " (SumMeasure 'Amount'), one with text writeback (TextAggMeasure 'Comments') — combined"
                 + " through a VirtualCube. Demonstrates that writeback lives on the underlying PhysicalCube"
                 + " even when queries flow through the VirtualCube.");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
+
+        Naming.complete(catalog);
 
         return catalog;
     }

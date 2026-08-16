@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.inlinetable;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -37,6 +39,8 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.03.03", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -99,8 +103,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Inline Table");
-        catalog.setDescription("Inline table definitions with row data");
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+
+
+
+
+
+
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Inline table definitions with row data");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

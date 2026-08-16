@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.aggregation.aggregatetables;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -23,7 +25,7 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationCo
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationExclude;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema;
@@ -54,6 +56,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.02", source = Source.EMF, group = "Aggregation") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -236,8 +240,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         AggregationExclude aggregationExclude2 = AggregationFactory.eINSTANCE.createAggregationExclude();
         aggregationExclude2.setName("AGG_LC_100_SALES_FACT_1997");
 
-        AggregationName aggregationName = AggregationFactory.eINSTANCE.createAggregationName();
-        aggregationName.setName(aggCSpecialSalesFact1997Table);
+        ExplicitAggregationTable aggregationName = AggregationFactory.eINSTANCE.createExplicitAggregationTable();
+        aggregationName.setTable(aggCSpecialSalesFact1997Table);
         aggregationName.setAggregationFactCount(aggregationColumnName);
         aggregationName.getAggregationMeasures().add(aggregationMeasure);
         aggregationName.getAggregationLevels().add(aggregationLevel);
@@ -302,9 +306,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Aggregation Aggregate Tables");
-        catalog.setDescription("Aggregate table optimization techniques");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().add(cube);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(productQuery, productClassQuery, query, joinQuery, level, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Aggregate table optimization techniques");
+
+
+        Naming.complete(catalog);
+
 
         return catalog;
     }

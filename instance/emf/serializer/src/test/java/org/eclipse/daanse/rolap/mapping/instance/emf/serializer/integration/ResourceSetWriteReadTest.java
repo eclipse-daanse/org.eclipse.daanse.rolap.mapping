@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -277,11 +278,38 @@ public class ResourceSetWriteReadTest {
         // single shared instance per catalog before serialization.
         sortedList = deduplicateSqlTypes(sortedList);
 
+        // Ownership is explicit: the only legal resource roots are the Catalog
+        // itself and the relational Schemas it references — schemas are CWM
+        // Packages in their own right, referenced (not owned) through
+        // Catalog.dbschemas so several catalogs can share them. Every other
+        // reachable object must live in a containment.
+        Set<EObject> roots = new LinkedHashSet<>();
+        roots.add(c);
+        List<String> orphans = new ArrayList<>();
         for (EObject eObject : sortedList) {
-            if (eObject.eContainer() == null) {
-                resourceCatalog.getContents().add(eObject);
+            EObject root = org.eclipse.emf.ecore.util.EcoreUtil.getRootContainer(eObject);
+            if (root == c || root instanceof org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema
+                    || root instanceof org.eclipse.daanse.cwm.model.cwm.resource.relational.SQLDataType
+                    || root instanceof org.eclipse.daanse.rolap.mapping.model.catalog.Catalog) {
+                // Schemas and SQL data types are shared vocabulary across
+                // catalogs — legitimate roots of their own. A FOREIGN Catalog
+                // root appears when this catalog imports elements owned by
+                // another catalog (cross-catalog sharing): the single-file output
+                // embeds the owner to stay self-contained; the two-file form
+                // with hrefs is CrossCatalogImportTest territory.
+                roots.add(root);
+            } else {
+                orphans.add(root.eClass().getName() + " "
+                        + (root instanceof org.eclipse.daanse.cwm.model.cwm.objectmodel.core.ModelElement me
+                                ? me.getName()
+                                : root.toString()));
             }
         }
+        org.assertj.core.api.Assertions.assertThat(orphans)
+                .as("catalog %s: uncontained objects (must be owned by the Catalog or live in a Schema root)",
+                        c.getName())
+                .isEmpty();
+        resourceCatalog.getContents().addAll(roots);
         // Assign human-readable XMI IDs instead of EMF's default positional
         // fragment paths (e.g. /21/@ownedElement.18/@feature.0). IDs are derived
         // from the element type + name so cross-references render as
@@ -291,6 +319,10 @@ public class ResourceSetWriteReadTest {
         }
         Map<Object, Object> options = new HashMap<>();
         options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        // The importer opposite (non-transient in the frozen core) may point
+        // at foreign catalogs of other suppliers sharing static elements —
+        // session artifacts, not part of this catalog's file. Discard them.
+        options.put(XMLResource.OPTION_PROCESS_DANGLING_HREF, XMLResource.OPTION_PROCESS_DANGLING_HREF_DISCARD);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         resourceCatalog.save(baos, options);
 
@@ -937,10 +969,26 @@ public class ResourceSetWriteReadTest {
                 set = allRef(set, obj);
             }
 
-            for (EObject eObject2 : eObject.eCrossReferences()) {
-
-                set = allRef(set, eObject2);
-
+            for (org.eclipse.emf.ecore.EReference reference : eObject.eClass().getEAllReferences()) {
+                if (reference.isContainment() || !eObject.eIsSet(reference)) {
+                    continue;
+                }
+                if ("importer".equals(reference.getName())) {
+                    // The importer opposite points from a shared element to
+                    // every catalog that imports it; following it would pull
+                    // foreign catalogs into this catalog's closure.
+                    continue;
+                }
+                Object value = eObject.eGet(reference);
+                if (value instanceof java.util.List<?> list) {
+                    for (Object o : new java.util.ArrayList<>(list)) {
+                        if (o instanceof EObject ref) {
+                            set = allRef(set, ref);
+                        }
+                    }
+                } else if (value instanceof EObject ref) {
+                    set = allRef(set, ref);
+                }
             }
             EObject eContainer = eObject.eContainer();
 
@@ -962,7 +1010,6 @@ public class ResourceSetWriteReadTest {
 
         EObjectComparator() {
             add(CatalogPackage.Literals.CATALOG);
-            add(CatalogPackage.Literals.DATABASE_CATALOG);
 
             // CWM relational types
             add(org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalPackage.Literals.SCHEMA);

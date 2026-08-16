@@ -9,6 +9,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.intro;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -29,6 +31,8 @@ import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
 import org.osgi.service.component.annotations.Component;
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.01", source = Source.EMF, group = "Database")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -68,6 +72,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
         schema = RelationalFactory.eINSTANCE.createSchema();
@@ -84,8 +89,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Intro");
-        catalog.setDescription("Basic introduction to database schema configuration");
-        catalog.getDbschemas().add(schema);
+        catalog.getImportedElement().add(schema);
+
+
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Basic introduction to database schema configuration");
+
+        Naming.complete(catalog);
 
         return catalog;
     }

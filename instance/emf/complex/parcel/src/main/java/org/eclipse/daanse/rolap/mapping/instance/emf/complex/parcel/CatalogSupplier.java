@@ -13,6 +13,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.parcel;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -659,14 +660,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG_PARCEL = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_PARCEL.setName("Parcel Delivery Service");
-        CATALOG_PARCEL.getDbschemas().add(DATABASE_SCHEMA_PARCEL);
-        CATALOG_PARCEL.getCubes().add(CUBE_PARCELS);
+        CATALOG_PARCEL.getImportedElement().add(DATABASE_SCHEMA_PARCEL);
 
         // Add documentation
     }
 
     @Override
     public Catalog get() {
+        CATALOG_PARCEL.getOwnedElement().addAll(List.of(LEVEL_WIDTH, LEVEL_DEPTH, LEVEL_HEIGHT, LEVEL_PARCEL_TYPE, LEVEL_DEFECT, LEVEL_DELIVERABLE, LEVEL_CUSTOMS, LEVEL_RETURN));
+        CATALOG_PARCEL.getOwnedElement().addAll(List.of(LEVEL_CONTINENT, LEVEL_COUNTRY, LEVEL_CITY, LEVEL_POSTAL_CODE, LEVEL_STREET, TABLESOURCE_PARCELS, TABLESOURCE_PARCEL_TYPES, TABLESOURCE_DEFECTS));
+        CATALOG_PARCEL.getOwnedElement().addAll(List.of(TABLESOURCE_ADDRESSES, HIERARCHY_WIDTH, HIERARCHY_DEPTH, HIERARCHY_HEIGHT, HIERARCHY_PARCEL_TYPE, HIERARCHY_DEFECT, HIERARCHY_DELIVERABLE, HIERARCHY_CUSTOMS));
+        CATALOG_PARCEL.getOwnedElement().addAll(List.of(HIERARCHY_RETURN, HIERARCHY_ADDRESS, DIMENSION_WIDTH, DIMENSION_DEPTH, DIMENSION_HEIGHT, DIMENSION_PARCEL_TYPE, DIMENSION_DEFECT, DIMENSION_DELIVERABLE));
+        CATALOG_PARCEL.getOwnedElement().addAll(List.of(DIMENSION_CUSTOMS, DIMENSION_RETURN, DIMENSION_SENDER_ADDRESS, DIMENSION_RECEIVER_ADDRESS, DIMENSION_DROP_OFF_ADDRESS, DIMENSION_DELIVERY_ADDRESS, CUBE_PARCELS));
+
+        Naming.complete(CATALOG_PARCEL);
+
         return CATALOG_PARCEL;
     }
 

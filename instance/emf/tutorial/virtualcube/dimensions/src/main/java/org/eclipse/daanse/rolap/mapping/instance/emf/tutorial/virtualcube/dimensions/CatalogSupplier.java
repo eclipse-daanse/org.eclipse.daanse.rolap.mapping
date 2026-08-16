@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.dimensions;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -47,6 +49,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.02", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -169,14 +173,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube1.setSource(query);
         cube1.getDimensionConnectors().add(dimensionConnector1);
         cube1.getMeasureGroups().add(measureGroup1);
-        dimensionConnector1.setPhysicalCube(cube1);
 
         PhysicalCube cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
         cube2.setSource(query);
         cube2.getDimensionConnectors().add(dimensionConnector2);
         cube2.getMeasureGroups().add(measureGroup2);
-        dimensionConnector2.setPhysicalCube(cube2);
 
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName("Cube1Cube2");
@@ -186,9 +188,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Dimensions");
-        catalog.setDescription("Dimension configuration in virtual cubes");
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Dimension configuration in virtual cubes");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;
