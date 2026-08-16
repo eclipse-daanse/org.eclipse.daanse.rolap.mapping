@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tck.hierarchy.levelswithsamenames;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -39,6 +41,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Lev
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier {
 
@@ -198,10 +202,16 @@ public class CatalogSupplier implements CatalogMappingSupplier {
         cube.getDimensionConnectors().add(dimensionConnector2);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tck - Hierarchy with levels with same names of values");
-        catalog.setDescription(description);
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(queryFact, queryFact1, queryHier, queryHier1, levelTown, levelObject, levelObject1, levelId));
+        catalog.getOwnedElement().addAll(List.of(levelYear, hierarchy, hierarchyObject, hierarchyYear, dimension, dimensionYear, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, description);
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

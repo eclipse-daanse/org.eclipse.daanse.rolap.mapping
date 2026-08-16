@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.decimalandcommentandmultidim;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -56,6 +58,8 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.08", source = Source.EMF, group = "Writeback") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -183,6 +187,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
 
@@ -324,9 +329,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Writeback Multi-Dimension");
-        catalog.setDescription("Writeback example with two dimensions; the Region dimension has two levels.");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().add(cube);
+        catalog.getImportedElement().add(databaseSchema);
+
+        catalog.getOwnedElement().addAll(List.of(factSource, productSource, regionSource, productLevel, productHierarchy, productDimension, countryLevel, cityLevel));
+        catalog.getOwnedElement().addAll(List.of(regionHierarchy, regionDimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Writeback example with two dimensions; the Region dimension has two levels.");
+
+        Naming.complete(catalog);
 
         return catalog;
     }

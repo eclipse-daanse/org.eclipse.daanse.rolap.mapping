@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.database.expressioncolumn;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -35,6 +37,8 @@ import org.eclipse.daanse.rolap.mapping.instance.api.TutorialDescriptionSupplier
 
 import org.eclipse.daanse.rolap.mapping.model.catalog.CatalogFactory;
 import org.eclipse.daanse.rolap.mapping.model.database.source.SourceFactory;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "1.02.02", source = Source.EMF, group = "Database")
 
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
@@ -63,16 +67,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         column.setType(SQLSimpleTypes.Sql99.varcharType());
 
         SqlStatement sqlStatement1 = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement1.setSql("SUBSTRING(column1,1,3)");
+        sqlStatement1.setBody("SUBSTRING(column1,1,3)");
         sqlStatement1.getDialects().add("generic");
         sqlStatement1.getDialects().add("mysql");
 
         SqlStatement sqlStatement2 = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement2.setSql("SUBSTR(column1,1,3)");
+        sqlStatement2.setBody("SUBSTR(column1,1,3)");
         sqlStatement2.getDialects().add("oracle");
 
         SqlStatement sqlStatement3 = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement3.setSql("substring(column1, 1, 3)");
+        sqlStatement3.setBody("substring(column1, 1, 3)");
         sqlStatement3.getDialects().add("h2");
 
         columnSqlExp = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
@@ -80,7 +84,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         columnSqlExp.getSqls().add(sqlStatement1);
         columnSqlExp.getSqls().add(sqlStatement2);
         columnSqlExp.getSqls().add(sqlStatement3);
-
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName("TableWithExpressionColumn");
         table.getFeature().addAll(List.of(column));
@@ -88,8 +91,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Database Expression Column");
-        catalog.setDescription("SQL expression columns and computed fields");
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().add(columnSqlExp); // expression column: mapping artefact, not physical DDL
+
+
+
+
+
+
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "SQL expression columns and computed fields");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

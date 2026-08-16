@@ -22,6 +22,6 @@ public class TextAggDatabaseSupplier implements DatabaseSupplier {
 
     @Override
     public Schema schema() {
-        return new CatalogSupplier().get().getDbschemas().get(0);
+        return org.eclipse.daanse.cwm.model.cwm.objectmodel.core.util.Packages.available(new CatalogSupplier().get(), org.eclipse.daanse.cwm.model.cwm.resource.relational.Schema.class).get(0);
     }
 }

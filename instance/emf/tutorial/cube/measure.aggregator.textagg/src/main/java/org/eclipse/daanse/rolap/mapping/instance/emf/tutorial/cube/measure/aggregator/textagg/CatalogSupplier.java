@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.textagg;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -53,6 +55,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.08", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -134,7 +138,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
 
         SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
-        sqlStatement.setSql("CONCAT(\"Fact\".\"USER\", ' : ',  \"Fact\".\"COMMENT\")");
+        sqlStatement.setBody("CONCAT(\"Fact\".\"USER\", ' : ',  \"Fact\".\"COMMENT\")");
         sqlStatement.getDialects().add("generic");
         sqlStatement.getDialects().add("h2");
 
@@ -223,10 +227,18 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Text Agg");
-        catalog.setDescription("Text aggregation functions");
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(c)); // expression columns: mapping artefacts, not physical DDL
+        catalog.getOwnedElement().addAll(List.of(query, levelTown, levelCountry, levelContinent, hierarchy, dimension, levelYear, levelMonth));
+        catalog.getOwnedElement().addAll(List.of(hierarchy1, dimensionTime, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Text aggregation functions");
+
+
+
+            Naming.complete(catalog);
+
 
 
             return catalog;

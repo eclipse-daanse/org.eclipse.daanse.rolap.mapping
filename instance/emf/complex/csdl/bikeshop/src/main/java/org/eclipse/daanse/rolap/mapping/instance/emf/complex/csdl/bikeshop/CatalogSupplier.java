@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.csdl.bikeshop;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -925,8 +927,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         KPI = CubeFactory.eINSTANCE.createKpi();
         KPI.setName("Three Circles Colored");
-        KPI.setGoal("[Measures].[Sum of TotalProductCost]");
-        KPI.setStatus("[Measures].[Sum of TotalProductCost]");
+        KPI.setGoal(Expressions.mdx("[Measures].[Sum of TotalProductCost]"));
+        KPI.setStatus(Expressions.mdx("[Measures].[Sum of TotalProductCost]"));
 
         CUBE = CubeFactory.eINSTANCE.createPhysicalCube();
         CUBE.setName(CUBE_NAME);
@@ -943,14 +945,24 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG.setMeasuresDimensionName("BikeSales");
-        CATALOG.getDbschemas().add(DATABASE_SCHEMA);
+        CATALOG.getImportedElement().add(DATABASE_SCHEMA);
         CATALOG.setName(CATALOG_NAME);
-        CATALOG.getCubes().add(CUBE);
 
     }
 
     @Override
     public Catalog get() {
+        CATALOG.getOwnedElement().addAll(List.of(LEVEL_BIKE_ROW_NUMBER, LEVEL_BIKE_PRODUCT_KEY, LEVEL_BIKE_PRODUCT_ALTERNATE_KEY, LEVEL_BIKE_PRODUCT_SUBCATEGORY_KEY, LEVEL_BIKE_PRODUCT_NAME, LEVEL_BIKE_STARDART_COST, LEVEL_BIKE_FINISHED_GOODS_FLAG, LEVEL_BIKE_COLOR));
+        CATALOG.getOwnedElement().addAll(List.of(LEVEL_BIKE_LIST_PRICE, LEVEL_BIKE_SIZE, LEVEL_BIKE_SIZE_RANGE, LEVEL_BIKE_WIGHT, LEVEL_BIKE_DEALER_PRICE, LEVEL_BIKE_CLASS, LEVEL_BIKE_STYLE, LEVEL_BIKE_MODEL_NAME));
+        CATALOG.getOwnedElement().addAll(List.of(LEVEL_BIKE_DESCRIPTION, LEVEL_BIKE_WEIGHT_UNIT_MEASURE_CODE, LEVEL_BIKE_SIZE_UNIT_MEASURE_CODE, LEVEL_BIKE_SAFETY_STOCK_LEVEL, LEVEL_BIKE_REORDER_POINT, LEVEL_BIKE_DAYS_TO_MANUFACTURE, LEVEL_BIKE_PRODUCT_LINE, LEVEL_BIKE_SUBCATEGORY_ROW_NUMBER));
+        CATALOG.getOwnedElement().addAll(List.of(LEVEL_BIKE_SUBCATEGORY_PRODUCT_SUBCATEGORY_KEY, LEVEL_BIKE_SUBCATEGORY_SUBCATEGORY, LEVEL_CALENDAR_QUARTER_ROW_NUMBER, LEVEL_CALENDAR_QUARTER_CALENDAR_QUARTER2, LEVEL_COUNTRY_ROW_NUMBER, LEVEL_COUNTRY_COUNTRY_CODE, LEVEL_COUNTRY_COUNTRY_NAME, LEVEL_CURRENCY_ROW_NUMBER));
+        CATALOG.getOwnedElement().addAll(List.of(LEVEL_CURRENCY_CURRENCY_KEY, LEVEL_CURRENCY_CURRENCY_ALTERNATE_KEY, LEVEL_CURRENCY_CURRENCY_NAME, LEVEL_SALES_CHANNEL_ROW_NUMBER, LEVEL_SALES_CHANNEL_SALES_CHANNEL_CODE, LEVEL_SALES_CHANNEL_SALES_CHANNEL_NAME, TABLESOURCE_BIKE, TABLESOURCE_BIKE_SALES));
+        CATALOG.getOwnedElement().addAll(List.of(TABLESOURCE_BIKE_SUBCATEGORY, JOIN_SUBCATEGORY, TABLESOURCE_CALENDAR_QUARTER, TABLESOURCE_COUNTRY, TABLESOURCE_CURRENCY, TABLESOURCE_SALES_CHANNEL, HIERARCHY_BIKE, HIERARCHY_BIKE_SUBCATEGORY));
+        CATALOG.getOwnedElement().addAll(List.of(HIERARCHY_CALENDAR_QUARTER, HIERARCHY_COUNTRY, HIERARCHY_CURRENCY, HIERARCHY_SALES_CHANNEL, DIMENSION_BIKE, DIMENSION_BIKE_SUBCATEGORY, DIMENSION_CALENDAR_QUARTER, DIMENSION_COUNTRY));
+        CATALOG.getOwnedElement().addAll(List.of(DIMENSION_CURRENCY, DIMENSION_SALES_CHANNEL, CUBE));
+
+        Naming.complete(CATALOG);
+
         return CATALOG;
     }
 

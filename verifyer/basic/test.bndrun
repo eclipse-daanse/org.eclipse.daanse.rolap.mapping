@@ -67,6 +67,8 @@
 	org.eclipse.daanse.cwm.model.daanse.resource.relational.privilege;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.cwm.resource.relational.ddl;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.cwm.testkit;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.dmv.model.api;version='[0.0.1,0.0.2)',\
+	org.eclipse.daanse.dmv.parser.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.model.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.mdx.parser.api;version='[0.0.1,0.0.2)',\
 	org.eclipse.daanse.olap.api;version='[0.0.1,0.0.2)',\

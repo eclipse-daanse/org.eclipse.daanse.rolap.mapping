@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.namedset;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -48,6 +51,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.Hierarchy
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.08.01", source = Source.EMF, group = "Namedset") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -178,21 +183,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         namedSet1 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet1.setName("NsWithFolderDimension1");
-        namedSet1.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
+        namedSet1.setFormula(Expressions.mdx("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])"));
         namedSet1.setDisplayFolder("Folder1");
 
         namedSet2 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet2.setName("NsWithoutFolderDimension1");
-        namedSet2.setFormula("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])");
+        namedSet2.setFormula(Expressions.mdx("TopCount([Dimension1].[Level2].MEMBERS, 5, [Measures].[Measure1])"));
 
         namedSet3 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet3.setName("NSInCubeWithFolder");
-        namedSet3.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
+        namedSet3.setFormula(Expressions.mdx("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}"));
         namedSet3.setDisplayFolder("Folder2");
 
         namedSet4 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet4.setName("NSInCubeWithoutFolder");
-        namedSet4.setFormula("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}");
+        namedSet4.setFormula(Expressions.mdx("{([Dimension1].[Level2].[A], [Dimension2].[Level2].[A]), ([Dimension1].[Level2].[B], [Dimension2].[Level2].[B])}"));
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
         cube.setName(CUBE);
@@ -201,13 +206,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);
 
-        cube.getNamedSets().addAll(List.of(namedSet1, namedSet2, namedSet3, namedSet4));
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Namedset All");
-        catalog.setDescription("Named set configurations");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension1, dimension2, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Named set configurations");
+
+
+
+
+        Naming.complete(catalog);
+
 
 
 

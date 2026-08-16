@@ -13,6 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic;
 
+
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.NOT_SET;
 
 import java.util.ArrayList;
@@ -38,10 +39,10 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLe
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevelProperty;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.PatternAggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
-import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.TaggedValue;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.BaseMeasure;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
@@ -87,13 +88,13 @@ import org.eclipse.daanse.rolap.mapping.model.database.source.SqlStatement;
 import org.eclipse.daanse.rolap.mapping.model.database.relational.DialectSqlView;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableSource;
 import org.eclipse.daanse.rolap.mapping.model.database.source.TableQueryOptimizationHint;
-import org.eclipse.daanse.rolap.mapping.model.Translation;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackAttribute;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.WritebackMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.writeback.WritebackTable;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
 
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.util.Packages;
 public abstract class AbstractSchemaWalker {
 
     protected List<VerificationResult> results = new ArrayList<>();
@@ -101,11 +102,11 @@ public abstract class AbstractSchemaWalker {
     public List<VerificationResult> checkSchema(Catalog schema) {
 
         if (schema != null) {
-            checkAnnotationList(schema.getAnnotations());
+            checkAnnotationList(schema.getTaggedValue());
             checkParameterList(schema.getParameters());
-            checkCubeList(schema.getCubes(), schema);
-            checkNamedSetList(schema.getNamedSets());
-            checkRoleList(schema.getAccessRoles(), schema);
+            checkCubeList(Packages.available(schema, Cube.class), schema);
+            checkNamedSetList(Packages.available(schema, NamedSet.class));
+            checkRoleList(Packages.available(schema, AccessRole.class), schema);
         }
 
         return results;
@@ -113,7 +114,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkCube(Cube cube, Catalog schema) {
         if (cube != null) {
-            checkAnnotationList(cube.getAnnotations());
+            checkAnnotationList(cube.getTaggedValue());
             checkKpiList(cube.getKpis(), cube);
             checkCalculatedMemberList(cube.getCalculatedMembers());
             checkNamedSetList(cube.getNamedSets());
@@ -136,7 +137,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkAction(Action action) {
         if (action != null) {
-            checkAnnotationList(action.getAnnotations());
+            checkAnnotationList(action.getTaggedValue());
         }
         if (action instanceof DrillThroughAction drillThroughAction) {
             checkDrillThroughAction(drillThroughAction);
@@ -175,7 +176,7 @@ public abstract class AbstractSchemaWalker {
         if (measure != null) {
             checkMeasureColumn(measure, cube);
             checkMeasureAggregation(measure, cube);
-            checkAnnotationList(measure.getAnnotations());
+            checkAnnotationList(measure.getTaggedValue());
             checkCalculatedMemberPropertyList(measure.getCalculatedMemberProperties());
             if (measure instanceof SQLExpressionBaseMeasure semm) {
                 checkExpressionView(semm.getColumn());
@@ -186,8 +187,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkKpi(Kpi kpi, Cube cube) {
         if (kpi != null) {
-            checkAnnotationList(kpi.getAnnotations());
-            checkTranslationList(kpi.getTranslations());
+            checkAnnotationList(kpi.getTaggedValue());
         }
         if (cube instanceof PhysicalCube physicalCube) {
             checkKpiPhysicalCube(kpi, physicalCube);
@@ -243,7 +243,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkDimension(Dimension cubeDimension, Cube cube, Catalog schema) {
         if (cubeDimension != null) {
-            checkAnnotationList(cubeDimension.getAnnotations());
+            checkAnnotationList(cubeDimension.getTaggedValue());
             if (cubeDimension.getHierarchies() != null) {
                 cubeDimension.getHierarchies().forEach(h -> checkHierarchy(h, cubeDimension, cube));
             }
@@ -252,7 +252,7 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkHierarchy(Hierarchy hierarchy, Dimension cubeDimension, Cube cube) {
         if (hierarchy != null) {
-            checkAnnotationList(hierarchy.getAnnotations());
+            checkAnnotationList(hierarchy.getTaggedValue());
             checkMemberReaderParameterList(hierarchy.getMemberReaderParameters());
             checkQuery(hierarchy.getSource());
             if (hierarchy instanceof ExplicitHierarchy eh) {
@@ -412,22 +412,22 @@ public abstract class AbstractSchemaWalker {
             checkAggregationMeasureList(aggTable.getAggregationMeasures());
             checkAggregationLevelList(aggTable.getAggregationLevels());
             checkAggregationMeasureFactCountList(aggTable.getAggregationMeasureFactCounts());
-            if (aggTable instanceof AggregationName aggName) {
+            if (aggTable instanceof ExplicitAggregationTable aggName) {
                 checkAggregationName(aggName);
             }
-            if (aggTable instanceof AggregationPattern aggPattern) {
+            if (aggTable instanceof PatternAggregationTable aggPattern) {
                 checkAggregationPattern(aggPattern, schema);
             }
         }
     }
 
-    protected void checkAggregationPattern(AggregationPattern aggTable, Schema schema) {
+    protected void checkAggregationPattern(PatternAggregationTable aggTable, Schema schema) {
         if (aggTable != null) {
             checkAggregationExcludeList(aggTable.getExcludes(), schema);
         }
     }
 
-    protected void checkAggregationName(AggregationName aggTable) {
+    protected void checkAggregationName(ExplicitAggregationTable aggTable) {
         // empty
     }
 
@@ -466,7 +466,7 @@ public abstract class AbstractSchemaWalker {
     protected void checkLevel(Level level, Hierarchy hierarchy, Dimension parentDimension,
             Cube cube) {
         if (level != null) {
-            checkAnnotationList(level.getAnnotations());
+            checkAnnotationList(level.getTaggedValue());
 
             if (level.getColumn() instanceof ExpressionColumn sec) {
                 checkSqlExpression(sec);
@@ -573,17 +573,17 @@ public abstract class AbstractSchemaWalker {
     protected void checkVirtualCubeMeasure(BaseMeasure virtualCubeMeasure, VirtualCube vCube,
             Catalog schema) {
         if (virtualCubeMeasure != null) {
-            checkAnnotationList(virtualCubeMeasure.getAnnotations());
+            checkAnnotationList(virtualCubeMeasure.getTaggedValue());
         }
     }
 
     protected void checkCalculatedMember(CalculatedMember calculatedMember) {
         if (calculatedMember != null) {
-            checkAnnotationList(calculatedMember.getAnnotations());
+            checkAnnotationList(calculatedMember.getTaggedValue());
             checkCalculatedMemberPropertyList(calculatedMember.getCalculatedMemberProperties());
 
             if (calculatedMember.getFormula() != null) {
-                checkFormula(calculatedMember.getFormula());
+                checkFormula(calculatedMember.getFormula().getBody());
             }
 
             if (calculatedMember.getCellFormatter() != null) {
@@ -612,10 +612,10 @@ public abstract class AbstractSchemaWalker {
 
     protected void checkNamedSet(NamedSet namedSet) {
         if (namedSet != null) {
-            checkAnnotationList(namedSet.getAnnotations());
+            checkAnnotationList(namedSet.getTaggedValue());
 
             if (namedSet.getFormula() != null) {
-                checkFormula(namedSet.getFormula());
+                checkFormula(namedSet.getFormula().getBody());
             }
         }
     }
@@ -624,17 +624,12 @@ public abstract class AbstractSchemaWalker {
         // empty
     }
 
-    protected void checkAnnotation(Annotation annotation) {
+    protected void checkAnnotation(TaggedValue annotation) {
         // empty
     }
-
-    protected void checkTranslation(Translation annotation) {
-        // empty
-    }
-
     protected void checkRole(AccessRole role, Catalog schema) {
         if (role != null) {
-            checkAnnotationList(role.getAnnotations());
+            checkAnnotationList(role.getTaggedValue());
             checkSchemaGrantList(role.getAccessCatalogGrants(), schema);
             checkAccessRoleList(role.getReferencedAccessRoles());
         }
@@ -850,18 +845,11 @@ public abstract class AbstractSchemaWalker {
         }
     }
 
-    private void checkAnnotationList(List<? extends Annotation> list) {
+    private void checkAnnotationList(List<? extends TaggedValue> list) {
         if (list != null) {
             list.forEach(this::checkAnnotation);
         }
     }
-
-    private void checkTranslationList(List<? extends Translation> list) {
-        if (list != null) {
-            list.forEach(this::checkTranslation);
-        }
-    }
-
     private void checkParameterList(List<? extends Parameter> list) {
         if (list != null) {
             list.forEach(this::checkParameter);

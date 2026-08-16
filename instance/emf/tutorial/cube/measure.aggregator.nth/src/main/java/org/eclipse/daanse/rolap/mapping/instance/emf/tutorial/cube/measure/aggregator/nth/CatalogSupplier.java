@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.measure.aggregator.nth;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -48,6 +50,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.02.07", source = Source.EMF, group = "Measure")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -125,42 +129,54 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         measure2.setName("NthAgg2");
         measure2.setIgnoreNulls(true);
         measure2.setN(2);
-        measure2.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn2 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn2.setColumn(valueColumn);
+        measure2.getOrderByColumns().add(orderedColumn2);
         measure2.setColumn(valueColumn);
 
         NthAggMeasure measure3 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure3.setName("NthAgg3");
         measure3.setIgnoreNulls(true);
         measure3.setN(3);
-        measure3.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn3 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn3.setColumn(valueColumn);
+        measure3.getOrderByColumns().add(orderedColumn3);
         measure3.setColumn(valueColumn);
 
         NthAggMeasure measure4 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure4.setName("NthAgg4");
         measure4.setIgnoreNulls(true);
         measure4.setN(4);
-        measure4.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn4 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn4.setColumn(valueColumn);
+        measure4.getOrderByColumns().add(orderedColumn4);
         measure4.setColumn(valueColumn);
 
         NthAggMeasure measure5 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure5.setName("NthAgg5");
         measure5.setIgnoreNulls(true);
         measure5.setN(5);
-        measure5.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn5 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn5.setColumn(valueColumn);
+        measure5.getOrderByColumns().add(orderedColumn5);
         measure5.setColumn(valueColumn);
 
         NthAggMeasure measure6 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure6.setName("NthAgg6");
         measure6.setIgnoreNulls(true);
         measure6.setN(6);
-        measure6.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn6 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn6.setColumn(valueColumn);
+        measure6.getOrderByColumns().add(orderedColumn6);
         measure6.setColumn(valueColumn);
 
         NthAggMeasure measure7 = MeasureFactory.eINSTANCE.createNthAggMeasure();
         measure7.setName("NthAgg7");
         measure7.setIgnoreNulls(true);
         measure7.setN(7);
-        measure7.getOrderByColumns().add(orderedColumn);
+        OrderedColumn orderedColumn7 = RelationalFactory.eINSTANCE.createOrderedColumn();
+        orderedColumn7.setColumn(valueColumn);
+        measure7.getOrderByColumns().add(orderedColumn7);
         measure7.setColumn(valueColumn);
 
         MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
@@ -193,10 +209,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         catalog.setName("Daanse Tutorial - Measure Aggregator Nth");
-        catalog.setDescription("Nth value aggregation functions");
-        catalog.getCubes().add(cube);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Nth value aggregation functions");
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

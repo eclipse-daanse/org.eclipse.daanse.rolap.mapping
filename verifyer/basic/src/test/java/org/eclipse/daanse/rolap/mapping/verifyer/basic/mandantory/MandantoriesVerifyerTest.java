@@ -97,8 +97,9 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationFo
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.CoreFactory;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.TaggedValue;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
@@ -194,7 +195,7 @@ class MandantoriesVerifyerTest {
     private Catalog createBaseCatalog() {
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         // No name set - to test validation
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         return catalog;
     }
 
@@ -209,7 +210,7 @@ class MandantoriesVerifyerTest {
 
         AccessRole role = CommonFactory.eINSTANCE.createAccessRole();
         // No name set - to test validation
-        schema.getAccessRoles().add(role);
+        schema.getOwnedElement().add(role);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -275,10 +276,10 @@ class MandantoriesVerifyerTest {
         // No name set
         drillThroughAction.getDrillThroughMeasure().add(drillThroughMeasure);
 
-        // Create Annotation without name
-        Annotation annotation = RolapMappingFactory.eINSTANCE.createAnnotation();
-        // No name set
-        drillThroughAction.getAnnotations().add(annotation);
+        // Create TaggedValue without tag
+        TaggedValue annotation = CoreFactory.eINSTANCE.createTaggedValue();
+        // No tag set
+        drillThroughAction.getTaggedValue().add(annotation);
 
         cube.getAction().add(drillThroughAction);
 
@@ -296,7 +297,7 @@ class MandantoriesVerifyerTest {
 
         cube.setWritebackTable(writebackTable);
 
-        schema.getCubes().addAll(List.of(cube, virtualCube));
+        schema.getOwnedElement().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -359,7 +360,7 @@ class MandantoriesVerifyerTest {
         cube.getCalculatedMembers().add(calculatedMember);
         virtualCube.getCalculatedMembers().add(calculatedMember);
 
-        schema.getCubes().addAll(List.of(cube, virtualCube));
+        schema.getOwnedElement().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -408,7 +409,7 @@ class MandantoriesVerifyerTest {
         measureGroup.getMeasures().add(measure);
         cube.getMeasureGroups().add(measureGroup);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -486,7 +487,7 @@ class MandantoriesVerifyerTest {
         leftTableQuery.getOptimizationHints().add(hint);
 
         // Add aggregation table without aggFactCount
-        AggregationName aggTable = AggregationFactory.eINSTANCE.createAggregationName();
+        ExplicitAggregationTable aggTable = AggregationFactory.eINSTANCE.createExplicitAggregationTable();
         // No aggFactCount set
 
         AggregationColumnName aggColumnName = AggregationFactory.eINSTANCE.createAggregationColumnName();
@@ -525,7 +526,7 @@ class MandantoriesVerifyerTest {
         hierarchy.setSource(joinQuery);
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -615,7 +616,7 @@ class MandantoriesVerifyerTest {
 
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -671,7 +672,7 @@ class MandantoriesVerifyerTest {
 
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -735,7 +736,7 @@ class MandantoriesVerifyerTest {
         hierarchy.setSource(joinQuery);
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()

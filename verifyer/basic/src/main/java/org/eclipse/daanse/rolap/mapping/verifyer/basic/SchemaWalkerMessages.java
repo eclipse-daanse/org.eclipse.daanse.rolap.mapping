@@ -294,6 +294,16 @@ public class SchemaWalkerMessages {
     public static final String WRONG_MEASURE_AGGREGATOR_FOR_MEASURE_IN_CUBE =
         "Wrong measure aggregator %s  for measure with name %s in cube with name %s";
     public static final String KPIS_FROM_CUBE_WITH_NAME_HAS_RING_PARENT = "KPIs from cube with name %s has parent ring";
+    public static final String BUSINESS_INFORMATION = "BusinessInformation";
+    public static final String DESCRIPTION_LANGUAGE_NOT_BCP47 =
+        "Description '%s': language '%s' is not a canonical BCP-47 tag";
+    public static final String DESCRIPTION_DUPLICATE =
+        "Element '%s' carries more than one Description of type '%s' and language '%s'";
+    public static final String DESCRIPTION_ORPHAN = "Description '%s' describes no model element";
+    public static final String UNRESOLVED_PROXY =
+        "Reference to an unresolved element: %s (broken href or missing neighbour file)";
+    public static final String TAGGED_VALUE_TAG_UNCONVENTIONAL =
+        "Element '%s': tag '%s' is outside the daanse: namespace and no known convention";
     private SchemaWalkerMessages() {
         //private constructor
     }

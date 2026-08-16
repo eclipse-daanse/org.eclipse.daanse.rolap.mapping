@@ -12,6 +12,9 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.accounting;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -83,6 +86,8 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.8", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -566,6 +571,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
 
@@ -757,27 +763,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // budgetUtilizationKpi.setName("BudgetUtilization");
         // budgetUtilizationKpi.setDescription("Share of the plan that has already been consumed by actual postings, "
         //         + "evaluated per OrgUnit and Account cell.");
-        // budgetUtilizationKpi.setValue(
-        //         "iif([Measures].[AmountPlan] = 0, NULL," + " [Measures].[AmountIst] / [Measures].[AmountPlan])");
-        // budgetUtilizationKpi.setGoal("1.0");
-        // budgetUtilizationKpi.setStatus("iif([Measures].[AmountPlan] = 0, 0,"
+        // budgetUtilizationKpi.setValue(Expressions.mdx(
+        //         "iif([Measures].[AmountPlan] = 0, NULL," + " [Measures].[AmountIst] / [Measures].[AmountPlan])"));
+        // budgetUtilizationKpi.setGoal(Expressions.mdx("1.0"));
+        // budgetUtilizationKpi.setStatus(Expressions.mdx("iif([Measures].[AmountPlan] = 0, 0,"
         //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 0.9, 1,"
-        //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 1.0, 0, -1)))");
-        // budgetUtilizationKpi.setTrend("[Measures].[Variance]");
+        //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 1.0, 0, -1)))"));
+        // budgetUtilizationKpi.setTrend(Expressions.mdx("[Measures].[Variance]"));
         // budgetUtilizationKpi.setDisplayFolder("KPIs");
         // budgetUtilizationKpi.setStatusGraphic("Traffic Light");
         // budgetUtilizationKpi.setTrendGraphic("Standard Arrow");
         //
         // topExpenseAccountsSet = DimensionFactory.eINSTANCE.createNamedSet();
         // topExpenseAccountsSet.setName("Top5ExpenseAccounts");
-        // topExpenseAccountsSet.setFormula("TopCount("
-        //         + "Descendants([Account].[Account].[EXPENSES], [Account].[Account])," + " 5, [Measures].[AmountIst])");
+        // topExpenseAccountsSet.setFormula(Expressions.mdx("TopCount("
+        //         + "Descendants([Account].[Account].[EXPENSES], [Account].[Account])," + " 5, [Measures].[AmountIst])"));
         // topExpenseAccountsSet.setDisplayFolder("Analysis");
         //
         // planOverrunSet = DimensionFactory.eINSTANCE.createNamedSet();
         // planOverrunSet.setName("PlanOverrun");
-        // planOverrunSet.setFormula("Filter(" + "Descendants([Account].[Account].[All Accounts], [Account].[Account]),"
-        //         + " [Measures].[AmountIst] > [Measures].[AmountPlan])");
+        // planOverrunSet.setFormula(Expressions.mdx("Filter(" + "Descendants([Account].[Account].[All Accounts], [Account].[Account]),"
+        //         + " [Measures].[AmountIst] > [Measures].[AmountPlan])"));
         // planOverrunSet.setDisplayFolder("Analysis");
         //
         // accountsWithoutCommentSet = DimensionFactory.eINSTANCE.createNamedSet();
@@ -859,18 +865,21 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.setDescription("Accounting catalog split into three cubes: "
+        catalog.getImportedElement().add(databaseSchema);
+
+        catalog.getOwnedElement().addAll(List.of(bookingSource, accountSource, yearSource, orgUnitSource, yearLevel, yearHierarchy, yearDimension, accountLevelL1));
+        catalog.getOwnedElement().addAll(List.of(accountLevelL2, accountLevelL3, accountHierarchy, accountDimension, orgUnitLevelL1, orgUnitLevelL2, orgUnitLevelL3, orgUnitHierarchy));
+        catalog.getOwnedElement().addAll(List.of(orgUnitDimension, cubeIst, cubeWb, vCube, roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Accounting catalog split into three cubes: "
                 + "AccountingIst (read-only, holds AmountIst), "
                 + "AccountingWb (writeback-enabled, holds AmountPlan + Comments with the BOOKINGWB writeback table), "
                 + "and Accounting (VirtualCube combining both — the public-facing cube). "
                 + "All three share the same three dimensions (Year, Account, OrgUnit) "
                 + "and read from the same BOOKING fact table. Access roles ranging from single-department "
                 + "to division-wide grant on all three cubes.");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().addAll(List.of(cubeIst, cubeWb, vCube));
-        catalog.getAccessRoles()
-                .addAll(List.of(roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly));
 
+        Naming.complete(catalog);
         return catalog;
     }
 
@@ -951,7 +960,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     private AccessHierarchyGrant orgUnitHierarchyGrant(String memberName, Level topLevel, Level bottomLevel) {
         AccessMemberGrant memberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
         memberGrant.setMemberAccess(MemberAccess.ALL);
-        memberGrant.setMember(memberName);
+        memberGrant.setMember(Expressions.mdx(memberName));
 
         AccessHierarchyGrant hierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant.setHierarchy(orgUnitHierarchy);

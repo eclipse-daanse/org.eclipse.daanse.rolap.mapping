@@ -102,8 +102,8 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLe
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevelProperty;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasureFactCount;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationPattern;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.PatternAggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationTable;
 import org.eclipse.daanse.rolap.mapping.model.Annotation;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.AvgMeasure;
@@ -364,14 +364,14 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AggregationTableMapping createAggregationPattern(AggregationColumnNameMapping aggregationFactCount,
+    protected AggregationTableMapping createPatternAggregationTable(AggregationColumnNameMapping aggregationFactCount,
             List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
             List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
             List<? extends AggregationMeasureMapping> aggregationMeasures,
             List<? extends AggregationLevelMapping> aggregationLevels,
             List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
             String id, String pattern, List<? extends AggregationExcludeMapping> excludes) {
-        AggregationPattern aggregationPattern = AggregationFactory.eINSTANCE.createAggregationPattern();
+        PatternAggregationTable aggregationPattern = AggregationFactory.eINSTANCE.createPatternAggregationTable();
         aggregationPattern.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
         aggregationPattern.getAggregationIgnoreColumns()
                 .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);
@@ -390,14 +390,14 @@ public class EmfMappingModifier extends AbstractMappingModifier {
 
     @SuppressWarnings("unchecked")
     @Override
-    protected AggregationTableMapping createAggregationName(AggregationColumnNameMapping aggregationFactCount,
+    protected AggregationTableMapping createExplicitAggregationTable(AggregationColumnNameMapping aggregationFactCount,
             List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
             List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
             List<? extends AggregationMeasureMapping> aggregationMeasures,
             List<? extends AggregationLevelMapping> aggregationLevels,
             List<? extends AggregationMeasureFactCountMapping> aggregationMeasureFactCounts, boolean ignorecase,
             String id, String approxRowCount, TableMapping  name) {
-        AggregationName aggregationName = AggregationFactory.eINSTANCE.createAggregationName();
+        ExplicitAggregationTable aggregationName = AggregationFactory.eINSTANCE.createExplicitAggregationTable();
         aggregationName.setAggregationFactCount((AggregationColumnName) aggregationFactCount);
         aggregationName.getAggregationIgnoreColumns()
                 .addAll((Collection<? extends AggregationColumnName>) aggregationIgnoreColumns);

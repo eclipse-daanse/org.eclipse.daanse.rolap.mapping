@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.level.expressions;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -50,6 +52,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.14.01", source = Source.EMF, group = "Level") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -131,7 +135,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         SqlStatement nameSql = SourceFactory.eINSTANCE.createSqlStatement();
         nameSql.getDialects().addAll(List.of("generic", "h2"));
-        nameSql.setSql("\"KEY\" || ' ' || \"KEY1\"");
+        nameSql.setBody("\"KEY\" || ' ' || \"KEY1\"");
 
         ExpressionColumn nameExpressionColumn = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         nameExpressionColumn.setName("nameExpression");
@@ -139,10 +143,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         SqlStatement keySql1 = SourceFactory.eINSTANCE.createSqlStatement();
         keySql1.getDialects().addAll(List.of("generic"));
-        keySql1.setSql("KEY");
+        keySql1.setBody("KEY");
         SqlStatement keySql2 = SourceFactory.eINSTANCE.createSqlStatement();
         keySql2.getDialects().addAll(List.of("h2"));
-        keySql2.setSql("\"KEY1\" || ' ' || \"KEY\"");
+        keySql2.setBody("\"KEY1\" || ' ' || \"KEY\"");
 
         ExpressionColumn keyExpression = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         keyExpression.setName("keyExpression");
@@ -150,10 +154,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         SqlStatement captionSql1 = SourceFactory.eINSTANCE.createSqlStatement();
         captionSql1.getDialects().addAll(List.of("generic"));
-        captionSql1.setSql("KEY");
+        captionSql1.setBody("KEY");
         SqlStatement captionSql2 = SourceFactory.eINSTANCE.createSqlStatement();
         captionSql2.getDialects().addAll(List.of("h2"));
-        captionSql2.setSql("\"KEY1\" || '___' || \"KEY\"");
+        captionSql2.setBody("\"KEY1\" || '___' || \"KEY\"");
 
         ExpressionColumn captionExpression = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         captionExpression.setName("captionExpression");
@@ -161,7 +165,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         SqlStatement ordinalSql1 = SourceFactory.eINSTANCE.createSqlStatement();
         ordinalSql1.getDialects().addAll(List.of("generic", "h2"));
-        ordinalSql1.setSql("\"KEY\" || '___' || \"KEY1\"");
+        ordinalSql1.setBody("\"KEY\" || '___' || \"KEY1\"");
 
         ExpressionColumn ordinalExpression = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         ordinalExpression.setName("ordinalExpression");
@@ -219,9 +223,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Level Expressions");
-        catalog.setDescription("Level with expression-based definitions");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(nameExpressionColumn, keyExpression, captionExpression, ordinalExpression)); // expression columns: mapping artefacts, not physical DDL
+        catalog.getOwnedElement().addAll(List.of(query, level1, level2, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Level with expression-based definitions");
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

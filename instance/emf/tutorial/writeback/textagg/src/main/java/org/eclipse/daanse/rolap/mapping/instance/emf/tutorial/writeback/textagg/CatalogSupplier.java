@@ -12,6 +12,8 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.writeback.textagg;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -58,6 +60,8 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.05.05", source = Source.EMF, group = "Writeback") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -136,8 +140,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             ```
 
             **Where these classes live in the ecore.** `WritebackMeasure` is
-            no longer a sibling of the writeback *infrastructure*
-            (`WritebackTable`, `WritebackAttribute`). It now sits in the
+            not a sibling of the writeback *infrastructure*
+            (`WritebackTable`, `WritebackAttribute`). It sits in the
             `olap/cube/measure/` ecore package next to `SumMeasure`,
             `TextAggMeasure` and the other base measures, because a writeback
             measure is conceptually a measure — it names a cube measure by
@@ -179,6 +183,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
 
@@ -277,10 +282,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Writeback Text Aggregation");
-        catalog.setDescription("Minimal writeback example: numeric SumMeasure + text TextAggMeasure"
+        catalog.getImportedElement().add(databaseSchema);
+
+        catalog.getOwnedElement().addAll(List.of(factSource, categorySource, level, hierarchy, dimension, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Minimal writeback example: numeric SumMeasure + text TextAggMeasure"
                 + " in the same writeback table.");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().add(cube);
+
+        Naming.complete(catalog);
 
         return catalog;
     }

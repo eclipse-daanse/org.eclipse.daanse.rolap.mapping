@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.calculatedmember;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -48,6 +51,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.dimension.DimensionFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.HierarchyFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.03", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -173,7 +178,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         calculatedMember1 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("Sum_Cub1");
-        calculatedMember1.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube1]");
+        calculatedMember1.setFormula(Expressions.mdx("[Measures].[MeasureCube1] + [Measures].[MeasureCube1]"));
 
         cube1 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube1.setName(CUBE1);
@@ -184,7 +189,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CalculatedMember calculatedMember2 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("Sum_Cub2");
-        calculatedMember2.setFormula("[Measures].[MeasureCube2] + [Measures].[MeasureCube2]");
+        calculatedMember2.setFormula(Expressions.mdx("[Measures].[MeasureCube2] + [Measures].[MeasureCube2]"));
 
         PhysicalCube cube2 = CubeFactory.eINSTANCE.createPhysicalCube();
         cube2.setName(CUBE2);
@@ -196,7 +201,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CalculatedMember calculatedMemberVC = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMemberVC.setName("Sum_Cub");
         calculatedMemberVC.setHierarchy(hierarchy);
-        calculatedMemberVC.setFormula("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]");
+        calculatedMemberVC.setFormula(Expressions.mdx("[Measures].[MeasureCube1] + [Measures].[MeasureCube2]"));
 
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName("Cube1Cube2");
@@ -207,9 +212,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Calculated Member");
-        catalog.setDescription("Calculated members in virtual cubes");
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, level, hierarchy, dimension, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Calculated members in virtual cubes");
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

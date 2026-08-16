@@ -13,6 +13,7 @@
  */
 package org.eclipse.daanse.rolap.mapping.verifyer.basic.description.integration;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.ACTION;
 import static org.eclipse.daanse.rolap.mapping.verifyer.basic.SchemaWalkerMessages.ACTION_MUST_CONTAIN_DESCRIPTION;
@@ -145,7 +146,7 @@ public class DescriptionVerifyerTest {
     private Catalog createBaseCatalog() {
         Catalog catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("TestCatalog");
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
         return catalog;
     }
 
@@ -194,13 +195,13 @@ public class DescriptionVerifyerTest {
 
         NamedSet namedSet = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet.setName("TestNamedSet");
-        namedSet.setFormula("{}");
+        namedSet.setFormula(Expressions.mdx("{}"));
 
         Parameter parameter = RolapMappingFactory.eINSTANCE.createParameter();
         parameter.setName("TestParameter");
 
-        schema.getCubes().addAll(List.of(cube, virtualCube));
-        schema.getNamedSets().add(namedSet);
+        schema.getOwnedElement().addAll(List.of(cube, virtualCube));
+        schema.getOwnedElement().add(namedSet);
         schema.getParameters().add(parameter);
 
         List<VerificationResult> result = verifyer.verify(schema);
@@ -237,14 +238,14 @@ public class DescriptionVerifyerTest {
 
         CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.setName("TestCalculatedMember");
-        calculatedMember.setFormula("1");
+        calculatedMember.setFormula(Expressions.mdx("1"));
         cube.getCalculatedMembers().add(calculatedMember);
 
         Action action = ActionFactory.eINSTANCE.createAction();
         action.setName("TestAction");
         cube.getAction().add(action);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -282,7 +283,7 @@ public class DescriptionVerifyerTest {
         cube.getDimensionConnectors().add(dimensionConnector);
         virtualCube.getDimensionConnectors().add(dimensionConnector2);
 
-        schema.getCubes().addAll(List.of(cube, virtualCube));
+        schema.getOwnedElement().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -308,7 +309,7 @@ public class DescriptionVerifyerTest {
     void testMeasure() {
         Catalog schema = createBaseCatalog();
         PhysicalCube cube = createBaseCube();
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -348,7 +349,7 @@ public class DescriptionVerifyerTest {
         cube.setSource(query);
         cube.getMeasureGroups().add(measureGroup);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -377,16 +378,16 @@ public class DescriptionVerifyerTest {
 
         CalculatedMember calculatedMember1 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember1.setName("CalcMember1");
-        calculatedMember1.setFormula("1");
+        calculatedMember1.setFormula(Expressions.mdx("1"));
 
         CalculatedMember calculatedMember2 = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember2.setName("CalcMember2");
-        calculatedMember2.setFormula("2");
+        calculatedMember2.setFormula(Expressions.mdx("2"));
 
         cube.getCalculatedMembers().add(calculatedMember1);
         virtualCube.getCalculatedMembers().add(calculatedMember2);
 
-        schema.getCubes().addAll(List.of(cube, virtualCube));
+        schema.getOwnedElement().addAll(List.of(cube, virtualCube));
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -422,7 +423,7 @@ public class DescriptionVerifyerTest {
         hierarchy.setPrimaryKey(keyColumn);
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -463,7 +464,7 @@ public class DescriptionVerifyerTest {
         hierarchy.getLevels().add(level);
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -511,7 +512,7 @@ public class DescriptionVerifyerTest {
         hierarchy.getLevels().add(level);
         dimension.getHierarchies().add(hierarchy);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -544,15 +545,15 @@ public class DescriptionVerifyerTest {
 
         NamedSet namedSet1 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet1.setName("SchemaNamedSet");
-        namedSet1.setFormula("{}");
+        namedSet1.setFormula(Expressions.mdx("{}"));
 
         NamedSet namedSet2 = DimensionFactory.eINSTANCE.createNamedSet();
         namedSet2.setName("CubeNamedSet");
-        namedSet2.setFormula("{}");
+        namedSet2.setFormula(Expressions.mdx("{}"));
 
-        schema.getNamedSets().add(namedSet1);
+        schema.getOwnedElement().add(namedSet1);
         cube.getNamedSets().add(namedSet2);
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -603,7 +604,7 @@ public class DescriptionVerifyerTest {
         drillThroughAction.setName("TestDrillThrough");
         cube.getAction().add(drillThroughAction);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()
@@ -632,7 +633,7 @@ public class DescriptionVerifyerTest {
         action.setName("TestAction");
         cube.getAction().add(action);
 
-        schema.getCubes().add(cube);
+        schema.getOwnedElement().add(cube);
 
         List<VerificationResult> result = verifyer.verify(schema);
         assertThat(result).isNotNull()

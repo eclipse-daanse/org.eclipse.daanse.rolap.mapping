@@ -13,6 +13,8 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.foodmart;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -30,8 +32,9 @@ import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationEx
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationForeignKey;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationLevel;
 import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationMeasure;
-import org.eclipse.daanse.rolap.mapping.model.database.aggregation.AggregationName;
-import org.eclipse.daanse.rolap.mapping.model.Annotation;
+import org.eclipse.daanse.rolap.mapping.model.database.aggregation.ExplicitAggregationTable;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.CoreFactory;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.TaggedValue;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMember;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.CalculatedMemberProperty;
 import org.eclipse.daanse.rolap.mapping.model.catalog.Catalog;
@@ -570,8 +573,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     public static final OrderedColumn ORDERED_COLUMN_POSITION_ID_EMPLOYEE;
     public static final OrderedColumn ORDERED_SQL_EXPRESSION_COLUMN_NAME_ORDER;
 
-    // Static AggregationName
-    public static final AggregationName AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997;
+    // Static ExplicitAggregationTable
+    public static final ExplicitAggregationTable AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997;
 
     // Static AggregationExclude
     public static final AggregationExclude AGGREGATION_EXCLUDE_AGG_C_SPECIAL_SALES_FACT_1997;
@@ -901,11 +904,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     // field assignment only: CATALOG_FOODMART
 
     // Static annotation
-    public static final Annotation ANNOTATION_SALES1;
-    public static final Annotation ANNOTATION_SALES2;
-    public static final Annotation ANNOTATION_SALES3;
-    public static final Annotation ANNOTATION_SALES4;
-    public static final Annotation ANNOTATION_SALES5;
+    public static final TaggedValue ANNOTATION_SALES1;
+    public static final TaggedValue ANNOTATION_SALES2;
+    public static final TaggedValue ANNOTATION_SALES3;
+    public static final TaggedValue ANNOTATION_SALES4;
+    public static final TaggedValue ANNOTATION_SALES5;
 
     public static final AggregationColumnName AGGREGATION_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997;
 
@@ -2324,20 +2327,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1.getDialects().add("access");
-        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1.setSql("Iif(\"sales_fact_1997\".\"promotion_id\" = 0, 0, \"sales_fact_1997\".\"store_sales\")");
+        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1.setBody("Iif(\"sales_fact_1997\".\"promotion_id\" = 0, 0, \"sales_fact_1997\".\"store_sales\")");
 
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2.getDialects().addAll(List.of(
                 "oracle", "h2", "hsqldb", "postgres", "neoview", "derby", "luciddb", "db2", "nuodb", "snowflake"));
-        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2.setSql("(case when \"sales_fact_1997\".\"promotion_id\" = 0 then 0 else \"sales_fact_1997\".\"store_sales\" end)");
+        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2.setBody("(case when \"sales_fact_1997\".\"promotion_id\" = 0 then 0 else \"sales_fact_1997\".\"store_sales\" end)");
 
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT3 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT3.getDialects().add("infobright");
-        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT3.setSql("(case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`.`store_sales` end)");
+        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT3.setBody("(case when `sales_fact_1997`.`promotion_id` = 0 then 0 else `sales_fact_1997`.`store_sales` end)");
 
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT4 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT4.getDialects().add("generic");
-        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT4.setSql("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997.store_sales end)");
+        MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT4.setBody("(case when sales_fact_1997.promotion_id = 0 then 0 else sales_fact_1997.store_sales end)");
 
         MEASURE_PROMOTION_SALES_COL = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         MEASURE_PROMOTION_SALES_COL.getSqls().addAll(List.of(MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT1, MEASURE_PROMOTION_SALES_COL_SQL_STATEMENT2,
@@ -2346,11 +2349,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1.getDialects().addAll(List.of("mysql", "mariadb", "infobright"));
-        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1.setSql("`warehouse_sales` - `inventory_fact_1997`.`warehouse_cost`");
+        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT1.setBody("`warehouse_sales` - `inventory_fact_1997`.`warehouse_cost`");
 
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2 = SourceFactory.eINSTANCE.createSqlStatement();
         MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.getDialects().add("generic");
-        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.setSql("\"warehouse_sales\" - \"inventory_fact_1997\".\"" +
+        MEASURE_WAREHOUSE_PROFIT_COL_SQL_STATEMENT2.setBody("\"warehouse_sales\" - \"inventory_fact_1997\".\"" +
                 "warehouse_cost\"");
 
         MEASURE_WAREHOUSE_PROFIT_COL = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
@@ -2635,9 +2638,9 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         AGGREGATION_LEVEL_MONTH_AGG_C_SPECIAL_SALES_FACT_1997.setName("[Time].[Month]");
         AGGREGATION_LEVEL_MONTH_AGG_C_SPECIAL_SALES_FACT_1997.setColumn(COLUMN_TIME_MONTH_AGG_C_SPECIAL_SALES_FACT_1997);;
 
-        // Initialize AggregationName
-        AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997 = AggregationFactory.eINSTANCE.createAggregationName();
-        AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997.setName(TABLE_AGG_C_SPECIAL_SALES_FACT_1997);
+        // Initialize ExplicitAggregationTable
+        AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997 = AggregationFactory.eINSTANCE.createExplicitAggregationTable();
+        AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997.setTable(TABLE_AGG_C_SPECIAL_SALES_FACT_1997);
         AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997.setAggregationFactCount(AGGREGATION_FACT_COUNT_AGG_C_SPECIAL_SALES_FACT_1997);
         AGGREGATION_NAME_AGG_C_SPECIAL_SALES_FACT_1997.getAggregationForeignKeys().addAll(List.of(
                 AGGREGATION_FOREIGN_KEY_PRODUCT_ID_AGG_C_SPECIAL_SALES_FACT_1997,
@@ -3173,31 +3176,31 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         NAME_COL_SQL_STATEMENT1 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT1.getDialects().addAll(List.of("oracle", "h2", "hsqldb", "postgres", "luciddb", "teradata"));
-        NAME_COL_SQL_STATEMENT1.setSql("\"fname\" || ' ' || \"lname\"");
+        NAME_COL_SQL_STATEMENT1.setBody("\"fname\" || ' ' || \"lname\"");
 
         NAME_COL_SQL_STATEMENT2 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT2.getDialects().addAll(List.of("hive"));
-        NAME_COL_SQL_STATEMENT2.setSql("`customer`.`fullname`");
+        NAME_COL_SQL_STATEMENT2.setBody("`customer`.`fullname`");
 
         NAME_COL_SQL_STATEMENT3 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT3.getDialects().addAll(List.of("access", "mssql"));
-        NAME_COL_SQL_STATEMENT3.setSql("fname + ' ' + lname");
+        NAME_COL_SQL_STATEMENT3.setBody("fname + ' ' + lname");
 
         NAME_COL_SQL_STATEMENT4 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT4.getDialects().addAll(List.of("mysql", "mariadb"));
-        NAME_COL_SQL_STATEMENT4.setSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
+        NAME_COL_SQL_STATEMENT4.setBody("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
 
         NAME_COL_SQL_STATEMENT5 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT5.getDialects().addAll(List.of("derby", "neoview", "snowflake"));
-        NAME_COL_SQL_STATEMENT5.setSql("\"customer\".\"fullname\"");
+        NAME_COL_SQL_STATEMENT5.setBody("\"customer\".\"fullname\"");
 
         NAME_COL_SQL_STATEMENT6 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT6.getDialects().addAll(List.of("db2"));
-        NAME_COL_SQL_STATEMENT6.setSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
+        NAME_COL_SQL_STATEMENT6.setBody("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
 
         NAME_COL_SQL_STATEMENT7 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_COL_SQL_STATEMENT7.getDialects().addAll(List.of("generic"));
-        NAME_COL_SQL_STATEMENT7.setSql("fullname");
+        NAME_COL_SQL_STATEMENT7.setBody("fullname");
 
         SQL_EXPRESSION_COLUMN_NAME = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         SQL_EXPRESSION_COLUMN_NAME.getSqls().addAll(List.of(NAME_COL_SQL_STATEMENT1, NAME_COL_SQL_STATEMENT2, NAME_COL_SQL_STATEMENT3, NAME_COL_SQL_STATEMENT4,
@@ -3206,27 +3209,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         NAME_ORDER_COL_SQL_STATEMENT1 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT1.getDialects().addAll(List.of("oracle", "h2", "hsqldb", "postgres", "luciddb"));
-        NAME_ORDER_COL_SQL_STATEMENT1.setSql("\"fname\" || ' ' || \"lname\"");
+        NAME_ORDER_COL_SQL_STATEMENT1.setBody("\"fname\" || ' ' || \"lname\"");
 
         NAME_ORDER_COL_SQL_STATEMENT2 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT2.getDialects().addAll(List.of("access", "mssql"));
-        NAME_ORDER_COL_SQL_STATEMENT2.setSql("fname + ' ' + lname");
+        NAME_ORDER_COL_SQL_STATEMENT2.setBody("fname + ' ' + lname");
 
         NAME_ORDER_COL_SQL_STATEMENT3 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT3.getDialects().addAll(List.of("mysql", "mariadb"));
-        NAME_ORDER_COL_SQL_STATEMENT3.setSql("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
+        NAME_ORDER_COL_SQL_STATEMENT3.setBody("CONCAT(`customer`.`fname`, ' ', `customer`.`lname`)");
 
         NAME_ORDER_COL_SQL_STATEMENT4 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT4.getDialects().addAll(List.of("derby", "neoview", "snowflake"));
-        NAME_ORDER_COL_SQL_STATEMENT4.setSql("\"customer\".\"fullname\"");
+        NAME_ORDER_COL_SQL_STATEMENT4.setBody("\"customer\".\"fullname\"");
 
         NAME_ORDER_COL_SQL_STATEMENT5 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT5.getDialects().addAll(List.of("db2"));
-        NAME_ORDER_COL_SQL_STATEMENT5.setSql("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
+        NAME_ORDER_COL_SQL_STATEMENT5.setBody("CONCAT(CONCAT(\"customer\".\"fname\", ' '), \"customer\".\"lname\")");
 
         NAME_ORDER_COL_SQL_STATEMENT6 = SourceFactory.eINSTANCE.createSqlStatement();
         NAME_ORDER_COL_SQL_STATEMENT6.getDialects().addAll(List.of("generic"));
-        NAME_ORDER_COL_SQL_STATEMENT6.setSql("fullname");
+        NAME_ORDER_COL_SQL_STATEMENT6.setBody("fullname");
 
         SQL_EXPRESSION_COLUMN_NAME_ORDER = org.eclipse.daanse.rolap.mapping.model.database.relational.RelationalFactory.eINSTANCE.createExpressionColumn();
         SQL_EXPRESSION_COLUMN_NAME_ORDER.getSqls().addAll(List.of(NAME_ORDER_COL_SQL_STATEMENT1, NAME_ORDER_COL_SQL_STATEMENT2, NAME_ORDER_COL_SQL_STATEMENT3, NAME_ORDER_COL_SQL_STATEMENT4,
@@ -4002,7 +4005,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // Initialize calculated members
         CALCULATED_MEMBER_PROFIT = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT.setName("Profit");
-        CALCULATED_MEMBER_PROFIT.setFormula("[Measures].[Store Sales] - [Measures].[Store Cost]");
+        CALCULATED_MEMBER_PROFIT.setFormula(Expressions.mdx("[Measures].[Store Sales] - [Measures].[Store Cost]"));
         CALCULATED_MEMBER_PROFIT.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROP0));
 
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0 = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
@@ -4016,7 +4019,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setName("Profit last Period");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD
-                .setFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER), Measures.[Profit])");
+                .setFormula(Expressions.mdx("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER), Measures.[Profit])"));
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.setFormatString("$#,##0.00");
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP0,
                 CALCULATED_MEMBER_PROFIT_LAST_PERIOD_PROP1));
@@ -4028,7 +4031,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CALCULATED_MEMBER_PROFIT_GROWTH = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_GROWTH.setName("Profit Growth");
         CALCULATED_MEMBER_PROFIT_GROWTH.setFormula(
-                "([Measures].[Profit] - [Measures].[Profit last Period]) / [Measures].[Profit last Period]");
+                Expressions.mdx("([Measures].[Profit] - [Measures].[Profit last Period]) / [Measures].[Profit last Period]"));
         CALCULATED_MEMBER_PROFIT_GROWTH.getCalculatedMemberProperties().add(CALCULATED_MEMBER_PROFIT_GROWTH_PROP0);
         CALCULATED_MEMBER_PROFIT_GROWTH.setVisible(true);
 
@@ -4039,22 +4042,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.setName("Average Warehouse Sale");
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE
-                .setFormula("[Measures].[Warehouse Sales] / [Measures].[Warehouse Cost]");
+                .setFormula(Expressions.mdx("[Measures].[Warehouse Sales] / [Measures].[Warehouse Cost]"));
         CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE.getCalculatedMemberProperties().add(PROPERTY_CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE);
 
         CALCULATED_MEMBER_EMPLOYEE_SALARY = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_EMPLOYEE_SALARY.setName("Employee Salary");
         CALCULATED_MEMBER_EMPLOYEE_SALARY.setFormatString("Currency");
-        CALCULATED_MEMBER_EMPLOYEE_SALARY.setFormula("([Employees].currentmember.datamember, [Measures].[Org Salary])");
+        CALCULATED_MEMBER_EMPLOYEE_SALARY.setFormula(Expressions.mdx("([Employees].currentmember.datamember, [Measures].[Org Salary])"));
 
         CALCULATED_MEMBER_AVG_SALARY = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_AVG_SALARY.setName("Avg Salary");
-        CALCULATED_MEMBER_AVG_SALARY.setFormula("[Measures].[Org Salary]/[Measures].[Number of Employees]");
+        CALCULATED_MEMBER_AVG_SALARY.setFormula(Expressions.mdx("[Measures].[Org Salary]/[Measures].[Number of Employees]"));
         CALCULATED_MEMBER_AVG_SALARY.setFormatString("Currency");
 
         PROFIT_PER_UNIT_SHIPPED_CALCULATED_MEMBER = LevelFactory.eINSTANCE.createCalculatedMember();
         PROFIT_PER_UNIT_SHIPPED_CALCULATED_MEMBER.setName("Profit Per Unit Shipped");
-        PROFIT_PER_UNIT_SHIPPED_CALCULATED_MEMBER.setFormula("[Measures].[Profit] / [Measures].[Units Shipped]");
+        PROFIT_PER_UNIT_SHIPPED_CALCULATED_MEMBER.setFormula(Expressions.mdx("[Measures].[Profit] / [Measures].[Units Shipped]"));
         PROFIT_PER_UNIT_SHIPPED_CALCULATED_MEMBER.setFormatString("Currency");
 
         CALCULATED_MEMBER_PROP1 = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
@@ -4071,38 +4074,38 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CALCULATED_MEMBER_PROFIT_WITH_ORDER = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_WITH_ORDER.setName("Profit");
-        CALCULATED_MEMBER_PROFIT_WITH_ORDER.setFormula("[Measures].[Store Sales] - [Measures].[Store Cost]");
+        CALCULATED_MEMBER_PROFIT_WITH_ORDER.setFormula(Expressions.mdx("[Measures].[Store Sales] - [Measures].[Store Cost]"));
         CALCULATED_MEMBER_PROFIT_WITH_ORDER.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROP1, CALCULATED_MEMBER_PROP2));
 
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2 = LevelFactory.eINSTANCE.createCalculatedMember();
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.setName("Profit last Period");
-        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.setFormula("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER),    Measures.[Profit])");
+        CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.setFormula(Expressions.mdx("COALESCEEMPTY((Measures.[Profit], [Time].[Time].PREVMEMBER),    Measures.[Profit])"));
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.setVisible(false);
         CALCULATED_MEMBER_PROFIT_LAST_PERIOD_FOR_CUBE_SALES2.getCalculatedMemberProperties().addAll(List.of(CALCULATED_MEMBER_PROP3));
 
-        ANNOTATION_SALES1 = RolapMappingFactory.eINSTANCE.createAnnotation();
-        ANNOTATION_SALES1.setName("caption.de_DE");
+        ANNOTATION_SALES1 = CoreFactory.eINSTANCE.createTaggedValue();
+        ANNOTATION_SALES1.setTag("caption.de_DE");
         ANNOTATION_SALES1.setValue("Verkaufen");
 
-        ANNOTATION_SALES2 = RolapMappingFactory.eINSTANCE.createAnnotation();
-        ANNOTATION_SALES2.setName("caption.fr_FR");
+        ANNOTATION_SALES2 = CoreFactory.eINSTANCE.createTaggedValue();
+        ANNOTATION_SALES2.setTag("caption.fr_FR");
         ANNOTATION_SALES2.setValue("Ventes");
 
-        ANNOTATION_SALES3 = RolapMappingFactory.eINSTANCE.createAnnotation();
-        ANNOTATION_SALES3.setName("description.fr_FR");
+        ANNOTATION_SALES3 = CoreFactory.eINSTANCE.createTaggedValue();
+        ANNOTATION_SALES3.setTag("description.fr_FR");
         ANNOTATION_SALES3.setValue("Cube des ventes");
 
-        ANNOTATION_SALES4 = RolapMappingFactory.eINSTANCE.createAnnotation();
-        ANNOTATION_SALES4.setName("description.de");
+        ANNOTATION_SALES4 = CoreFactory.eINSTANCE.createTaggedValue();
+        ANNOTATION_SALES4.setTag("description.de");
         ANNOTATION_SALES4.setValue("Cube Verkaufen");
 
-        ANNOTATION_SALES5 = RolapMappingFactory.eINSTANCE.createAnnotation();
-        ANNOTATION_SALES5.setName("description.de_AT");
+        ANNOTATION_SALES5 = CoreFactory.eINSTANCE.createTaggedValue();
+        ANNOTATION_SALES5.setTag("description.de_AT");
         ANNOTATION_SALES5.setValue("Cube den Verkaufen");
 
         NAMED_SET_TOP_SELLERS = DimensionFactory.eINSTANCE.createNamedSet();
         NAMED_SET_TOP_SELLERS.setName("Top Sellers");
-        NAMED_SET_TOP_SELLERS.setFormula("TopCount([Warehouse].[Warehouse Name].MEMBERS, 5, [Measures].[Warehouse Sales])");
+        NAMED_SET_TOP_SELLERS.setFormula(Expressions.mdx("TopCount([Warehouse].[Warehouse Name].MEMBERS, 5, [Measures].[Warehouse Sales])"));
 
         // Initialize cubes
         CUBE_SALES = CubeFactory.eINSTANCE.createPhysicalCube();
@@ -4114,7 +4117,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         CONNECTOR_PRODUCT, CONNECTOR_PROMOTION_MEDIA, CONNECTOR_PROMOTIONS, CONNECTOR_CUSTOMER,
                         CONNECTOR_EDUCATION_LEVEL, CONNECTOR_GENDER, CONNECTOR_MARITAL_STATUS, CONNECTOR_YEARLY_INCOME ));
         CUBE_SALES.getMeasureGroups().add(MEASUREGROUP_SALES);
-        CUBE_SALES.getAnnotations().addAll(List.of(ANNOTATION_SALES1, ANNOTATION_SALES2, ANNOTATION_SALES3, ANNOTATION_SALES4, ANNOTATION_SALES5));
+        CUBE_SALES.getTaggedValue().addAll(List.of(ANNOTATION_SALES1, ANNOTATION_SALES2, ANNOTATION_SALES3, ANNOTATION_SALES4, ANNOTATION_SALES5));
         CUBE_SALES.getCalculatedMembers().addAll(List.of(CALCULATED_MEMBER_PROFIT, CALCULATED_MEMBER_PROFIT_LAST_PERIOD,
                 CALCULATED_MEMBER_PROFIT_GROWTH));
 
@@ -4126,7 +4129,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 CONNECTOR_WAREHOUSE_PRODUCT, CONNECTOR_WAREHOUSE_WAREHOUSE));
         CUBE_WAREHOUSE.getMeasureGroups().add(MEASUREGROUP_WAREHOUSE);
         CUBE_WAREHOUSE.getCalculatedMembers().add(CALCULATED_MEMBER_AVERAGE_WAREHOUSE_SALE);
-        CUBE_WAREHOUSE.getNamedSets().add(NAMED_SET_TOP_SELLERS);
 
 
         CUBE_STORE = CubeFactory.eINSTANCE.createPhysicalCube();
@@ -4226,11 +4228,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         GRANT_CALIFORNIA_MANAGER_CATALOG.getDatabaseSchemaGrants().add(GRANT_DATABASE_SCHEMA_MANAGER);
 
         MEMBER_GRANT_STORE1 = OlapFactory.eINSTANCE.createAccessMemberGrant();
-        MEMBER_GRANT_STORE1.setMember("[Store].[USA].[CA]");
+        MEMBER_GRANT_STORE1.setMember(Expressions.mdx("[Store].[USA].[CA]"));
         MEMBER_GRANT_STORE1.setMemberAccess(MemberAccess.ALL);
 
         MEMBER_GRANT_STORE2 = OlapFactory.eINSTANCE.createAccessMemberGrant();
-        MEMBER_GRANT_STORE2.setMember("[Store].[USA].[CA].[Los Angeles]");
+        MEMBER_GRANT_STORE2.setMember(Expressions.mdx("[Store].[USA].[CA].[Los Angeles]"));
         MEMBER_GRANT_STORE2.setMemberAccess(MemberAccess.NONE);
 
         GRANT_HIERARCHY_STORE = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
@@ -4240,11 +4242,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         GRANT_HIERARCHY_STORE.getMemberGrants().addAll(List.of(MEMBER_GRANT_STORE1, MEMBER_GRANT_STORE2));
 
         MEMBER_GRANT_CUSTOMERS1 = OlapFactory.eINSTANCE.createAccessMemberGrant();
-        MEMBER_GRANT_CUSTOMERS1.setMember("[Customers].[USA].[CA]");
+        MEMBER_GRANT_CUSTOMERS1.setMember(Expressions.mdx("[Customers].[USA].[CA]"));
         MEMBER_GRANT_CUSTOMERS1.setMemberAccess(MemberAccess.ALL);
 
         MEMBER_GRANT_CUSTOMERS2 = OlapFactory.eINSTANCE.createAccessMemberGrant();
-        MEMBER_GRANT_CUSTOMERS2.setMember("[Customers].[USA].[CA].[Los Angeles]");
+        MEMBER_GRANT_CUSTOMERS2.setMember(Expressions.mdx("[Customers].[USA].[CA].[Los Angeles]"));
         MEMBER_GRANT_CUSTOMERS2.setMemberAccess(MemberAccess.NONE);
 
         GRANT_HIERARCHY_CUSTOMERS = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
@@ -5072,9 +5074,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG_FOODMART = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_FOODMART.setName("FoodMart");
-        CATALOG_FOODMART.getDbschemas().add(DATABASE_SCHEMA_FOODMART);
-        CATALOG_FOODMART.getCubes().addAll(List.of(CUBE_SALES, CUBE_WAREHOUSE, CUBE_STORE, CUBE_HR, CUBE_SALES_RAGGED, CUBE_SALES_2, CUBE_VIRTIAL_WAREHOUSE_AND_SALES));
-        CATALOG_FOODMART.getAccessRoles().addAll(List.of(ROLE_CALIFORNIA_MANAGER, ROLE_NO_HR_CUBE, ROLE_ADMINISTRATOR));
+        CATALOG_FOODMART.getImportedElement().add(DATABASE_SCHEMA_FOODMART);
+
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(MEASURE_PROMOTION_SALES_COL, MEASURE_WAREHOUSE_PROFIT_COL, SQL_EXPRESSION_COLUMN_NAME, SQL_EXPRESSION_COLUMN_NAME_ORDER)); // expression columns: mapping artefacts, not physical DDL
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(SOURCE_STORE, SOURCE_CUSTOMER, SOURCE_PRODUCT, SOURCE_SALES_FACT, SOURCE_WAREHOUSE, SOURCE_INVENTORY_FACT, SOURCE_PROMOTION, SOURCE_EMPLOYEE));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(SOURCE_DEPARTMENT, SOURCE_POSITION, SOURCE_SALARY, SOURCE_PRODUCT_CLASS, SOURCE_TIME_BY_DAY, SOURCE_STORE_RAGGED, JOIN_PRODUCT_PRODUCT_CLASS));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(JOIN_EMPLOYEE_POSITION, JOIN_EMPLOYEE_STORE, LEVEL_YEAR, LEVEL_QUARTER, LEVEL_MONTH, LEVEL_MONTH_WITH_NAME_COLUMN_IN_CUBE_HR, LEVEL_WEEK, LEVEL_DAY));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_STORE_COUNTRY, LEVEL_STORE_STATE, LEVEL_STORE_CITY, LEVEL_STORE_NAME, LEVEL_STORE_HAS_COFFEE_BAR, LEVEL_CUSTOMER_COUNTRY, LEVEL_CUSTOMER_STATE, LEVEL_CUSTOMER_CITY));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_CUSTOMER_NAME, LEVEL_CUSTOMER_GENDER, LEVEL_PRODUCT_FAMILY, LEVEL_PRODUCT_DEPARTMENT, LEVEL_PRODUCT_CATEGORY, LEVEL_PRODUCT_SUBCATEGORY, LEVEL_PRODUCT_BRAND, LEVEL_PRODUCT_NAME));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_PROMOTION_NAME, LEVEL_STORE_SQFT, LEVEL_STORE_TYPE_WITHOUT_TABLE, LEVEL_EDUCATION, LEVEL_GENDER, LEVEL_MARITAL_STATUS, LEVEL_YEARLY_INCOME, LEVEL_PAY_TYPE));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_STORE_TYPE, LEVEL_STORE_COUNTRY_WITH_NEVER, LEVEL_STORE_CYTY_IF_PARENTS_NAME, LEVEL_STORE_CYTY_IF_BLANK_NAME, LEVEL_STORE_NAME_WITHOUT_TABLE_WITH_NEVER, LEVEL_COUNTRY_WITH_NEVER, LEVEL_STATE, LEVEL_CITY_TABLE_COLUMN_STORE_CITY));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_WAREHOUSE_COUNTRY, LEVEL_WAREHOUSE_STATE, LEVEL_WAREHOUSE_CITY, LEVEL_WAREHOUSE_NAME, LEVEL_PROMOTION_MEDIA, LEVEL_EMPLOYEE_MANAGEMENT_ROLE, LEVEL_EMPLOYEE_POSITION, LEVEL_EMPLOYEE_DEPARTMENT));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_EMPLOYEE_FULL_NAME, LEVEL_DEPARTMENT_DESCRIPTION, LEVEL_POSITION_TITLE, LEVEL_HR_POSITION_TITLE, LEVEL_MANAGEMENT_ROLE, LEVEL_CUSTOMER_EDUCATION, LEVEL_CUSTOMER_MARITAL_STATUS, LEVEL_EMPLOYEE_ID));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(LEVEL_COUNTRY_TABLE_COLUMN_COUNTRY, LEVEL_STATE_PROVINCE_TABLE_COLUMN_STATE_PROVINCE, LEVEL_CITY_TABLE_COLUMN_CITY, LEVEL_NAME, HIERARCHY_TIME, HIERARCHY_HR_TIME, HIERARCHY_TIME2, HIERARCHY_STORE));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(HIERARCHY_STORE_SALES_RAGGED, HIERARCHY_HR_STORE, HIERARCHY_PAY_TYPE, HIERARCHY_STORE_TYPE_WITH_SOURCE_EMPLOYEE, HIERARCHY_STORE_HAS_COFFEE_BAR, HIERARCHY_CUSTOMER, HIERARCHY_CUSTOMERS_GEO, HIERARCHY_CUSTOMERS_GENDER));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(HIERARCHY_PRODUCT, HIERARCHY_STORE_SIZE_IN_SQFT, HIERARCHY_PROMOTIONS, HIERARCHY_STORE_TYPE, HIERARCHY_STORE_TYPE_WITHOUT_TABLE, HIERARCHY_EDUCATION_LEVEL, HIERARCHY_GENDER, HIERARCHY_MARITAL_STATUS));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(HIERARCHY_YEARLY_INCOME, HIERARCHY_WAREHOUSE, HIERARCHY_PROMOTION_MEDIA, HIERARCHY_EMPLOYEE, HIERARCHY_DEPARTMENT, HIERARCHY_POSITION, HIERARCHY_HR_POSITION, HIERARCHY_CUSTOMERS_EDUCATION));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(HIERARCHY_CUSTOMERS_MARITAL, HIERARCHY_GEOGRAPHY, DIMENSION_TIME, DIMENSION_HR_TIME, DIMENSION_STORE, DIMENSION_STORE_SALES_RAGGED, DIMENSION_STORE_WITH_SOURCE_JOIN_EMPLOYEE_STORE, DIMENSION_PAY_TYPE));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(DIMENSION_STORE_TYPE_WITH_SOURCE_EMPLOYEE, DIMENSION_STORE_HAS_COFFEE_BAR, DIMENSION_CUSTOMERS, DIMENSION_PRODUCT, DIMENSION_STORE_SIZE_IN_SQFT, DIMENSION_PROMOTIONS, DIMENSION_STORE_TYPE_WITH_SOURCE_STORE, DIMENSION_STORE_TYPE_WITHOUT_SOURCE));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(DIMENSION_EDUCATION_LEVEL, DIMENSION_GENDER, DIMENSION_MARITAL_STATUS, DIMENSION_YEARLY_INCOME, DIMENSION_WAREHOUSE, DIMENSION_PROMOTION_MEDIA, DIMENSION_EMPLOYEE, DIMENSION_DEPARTMENT));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(DIMENSION_POSITION, DIMENSION_HR_POSITION, DIMENSION_STORE_TYPE, DIMENSION_GEOGRAPHY, CUBE_SALES, CUBE_WAREHOUSE, CUBE_STORE, CUBE_HR));
+        CATALOG_FOODMART.getOwnedElement().addAll(List.of(CUBE_SALES_RAGGED, CUBE_SALES_2, CUBE_VIRTIAL_WAREHOUSE_AND_SALES, ROLE_ADMINISTRATOR, ROLE_NO_HR_CUBE, ROLE_CALIFORNIA_MANAGER));
 
         // Add documentation
 
@@ -5087,6 +5107,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     @Override
     public Catalog get() {
+
+
+
+        Naming.complete(CATALOG_FOODMART);
+
+
+
         return CATALOG_FOODMART;
     }
 

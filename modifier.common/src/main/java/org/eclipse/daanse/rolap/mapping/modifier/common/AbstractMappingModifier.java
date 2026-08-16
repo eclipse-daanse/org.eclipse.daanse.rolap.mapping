@@ -977,7 +977,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 if (aggregationTable instanceof AggregationNameMapping an) {
                     String approxRowCount = aggregationNameApproxRowCount(an);
                     TableMapping name = aggregationNameName(an);
-                    AggregationTableMapping at = createAggregationName(aggregationFactCount, aggregationIgnoreColumns
+                    AggregationTableMapping at = createExplicitAggregationTable(aggregationFactCount, aggregationIgnoreColumns
                         , aggregationForeignKeys,
                         aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id,
                         approxRowCount, name);
@@ -987,7 +987,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
                 if (aggregationTable instanceof AggregationPatternMapping ap) {
                     String pattern = aggregationPatternPattern(ap);
                     List<? extends AggregationExcludeMapping> excludes = aggregationPatternExcludes(ap);
-                    AggregationTableMapping at = createAggregationPattern(aggregationFactCount,
+                    AggregationTableMapping at = createPatternAggregationTable(aggregationFactCount,
                         aggregationIgnoreColumns, aggregationForeignKeys,
                         aggregationMeasures, aggregationLevels, aggregationMeasureFactCounts, ignorecase, id, pattern,
                         excludes);
@@ -1002,7 +1002,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return null;
     }
 
-    protected abstract AggregationTableMapping createAggregationPattern(
+    protected abstract AggregationTableMapping createPatternAggregationTable(
         AggregationColumnNameMapping aggregationFactCount,
         List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
         List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,
@@ -1020,7 +1020,7 @@ public abstract class AbstractMappingModifier implements CatalogMappingSupplier 
         return ap.getPattern();
     }
 
-    protected abstract AggregationTableMapping createAggregationName(
+    protected abstract AggregationTableMapping createExplicitAggregationTable(
         AggregationColumnNameMapping aggregationFactCount,
         List<? extends AggregationColumnNameMapping> aggregationIgnoreColumns,
         List<? extends AggregationForeignKeyMapping> aggregationForeignKeys,

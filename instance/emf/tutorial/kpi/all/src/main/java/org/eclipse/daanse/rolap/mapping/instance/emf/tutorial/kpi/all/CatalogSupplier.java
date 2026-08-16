@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.all;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -44,6 +47,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.07.02", source = Source.EMF, group = "Kpi") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -123,22 +128,22 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         CalculatedMember calculatedValue = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedValue.setName("CalculatedValue");
         calculatedValue.setVisible(false);
-        calculatedValue.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        calculatedValue.setFormula(Expressions.mdx("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]"));
 
         CalculatedMember calculatedGoal = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedGoal.setName("CalculatedGoal");
         calculatedGoal.setVisible(false);
-        calculatedGoal.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        calculatedGoal.setFormula(Expressions.mdx("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]"));
 
         CalculatedMember calculatedStatus = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedStatus.setName("CalculatedStatus");
         calculatedStatus.setVisible(false);
-        calculatedStatus.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        calculatedStatus.setFormula(Expressions.mdx("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]"));
 
         CalculatedMember calculatedTrend = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedTrend.setName("CalculatedTrend");
         calculatedTrend.setVisible(false);
-        calculatedTrend.setFormula("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]");
+        calculatedTrend.setFormula(Expressions.mdx("[Measures].[Measure1-Sum] / [Measures].[Measure2-Count]"));
 
         MeasureGroup measureGroup = CubeFactory.eINSTANCE.createMeasureGroup();
         measureGroup.getMeasures().add(measure);
@@ -146,12 +151,12 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         kpi = CubeFactory.eINSTANCE.createKpi();
         kpi.setName("Kpi1");
         kpi.setAssociatedMeasureGroupID("Kpi1MeasureGroupID");
-        kpi.setValue("[Measures].[CalculatedValue]");
-        kpi.setGoal("[Measures].[CalculatedGoal]");
-        kpi.setStatus("[Measures].[CalculatedStatus]");
-        kpi.setTrend("[Measures].[CalculatedTrend]");
+        kpi.setValue(Expressions.mdx("[Measures].[CalculatedValue]"));
+        kpi.setGoal(Expressions.mdx("[Measures].[CalculatedGoal]"));
+        kpi.setStatus(Expressions.mdx("[Measures].[CalculatedStatus]"));
+        kpi.setTrend(Expressions.mdx("[Measures].[CalculatedTrend]"));
         kpi.setWeight("[Measures].[CalculatedValue]");
-        kpi.setCurrentTimeMember("[Measures].[CalculatedValue]");
+        kpi.setCurrentTimeMember(Expressions.mdx("[Measures].[CalculatedValue]"));
         kpi.setDisplayFolder("Kpi1Folder1\\Kpi1Folder2");
         kpi.setStatusGraphic("Cylinder");
         kpi.setTrendGraphic("Smiley Face");
@@ -164,9 +169,15 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getKpis().add(kpi);
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - KPI All");
-        catalog.setDescription("Complete KPI implementation examples");
-        catalog.getCubes().add(cube);
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Complete KPI implementation examples");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

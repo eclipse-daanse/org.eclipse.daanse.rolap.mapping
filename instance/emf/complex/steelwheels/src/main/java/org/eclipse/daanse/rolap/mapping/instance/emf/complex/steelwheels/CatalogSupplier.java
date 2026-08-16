@@ -13,6 +13,7 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.steelwheels;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -750,8 +751,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CATALOG_STEELWHEELS = CatalogFactory.eINSTANCE.createCatalog();
         CATALOG_STEELWHEELS.setName("SteelWheels");
-        CATALOG_STEELWHEELS.getDbschemas().add(DATABASE_SCHEMA_STEELWHEELS);
-        CATALOG_STEELWHEELS.getCubes().add(CUBE_STEELWHEELSSALES);
+        CATALOG_STEELWHEELS.getImportedElement().add(DATABASE_SCHEMA_STEELWHEELS);
 
         // Add documentation
 
@@ -764,6 +764,13 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
     @Override
     public Catalog get() {
+        CATALOG_STEELWHEELS.getOwnedElement().addAll(List.of(LEVEL_MARKETS_TERRITORY, LEVEL_MARKETS_COUNTRY, LEVEL_MARKETS_STATE, LEVEL_MARKETS_CITY, LEVEL_CUSTOMERS_CUSTOMER, LEVEL_PRODUCT_LINE, LEVEL_PRODUCT_VENDOR, LEVEL_PRODUCT_PRODUCT));
+        CATALOG_STEELWHEELS.getOwnedElement().addAll(List.of(LEVEL_TIME_YEARS, LEVEL_TIME_QUARTERS, LEVEL_TIME_MONTHS, LEVEL_ORDERSTATUS_TYPE, TABLESOURCE_CUSTOMER, TABLESOURCE_PRODUCTS, TABLESOURCE_TIME, TABLESOURCE_ORDERSTATUS));
+        CATALOG_STEELWHEELS.getOwnedElement().addAll(List.of(TABLESOURCE_FACT, HIERARCHY_MARKETS, HIERARCHY_CUSTOMERS, HIERARCHY_PRODUCT, HIERARCHY_TIME, HIERARCHY_ORDERSTATUS, DIMENSION_MARKETS, DIMENSION_CUSTOMERS));
+        CATALOG_STEELWHEELS.getOwnedElement().addAll(List.of(DIMENSION_PRODUCT, DIMENSION_TIME, DIMENSION_ORDERSTATUS, CUBE_STEELWHEELSSALES));
+
+        Naming.complete(CATALOG_STEELWHEELS);
+
         return CATALOG_STEELWHEELS;
     }
 

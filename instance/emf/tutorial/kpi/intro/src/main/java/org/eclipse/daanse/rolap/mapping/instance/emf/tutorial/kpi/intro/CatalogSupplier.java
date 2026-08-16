@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.kpi.intro;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -41,6 +44,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.07.01", source = Source.EMF, group = "Kpi") // NOSONAR
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -106,16 +111,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         kpi1 = CubeFactory.eINSTANCE.createKpi();
         kpi1.setName("Kpi1");
-        kpi1.setValue("[Measures].[Measure1-Sum]");
+        kpi1.setValue(Expressions.mdx("[Measures].[Measure1-Sum]"));
 
         kpi2 = CubeFactory.eINSTANCE.createKpi();
         kpi2.setName("Kpi2");
-        kpi2.setValue("[Measures].[Measure1-Sum]");
+        kpi2.setValue(Expressions.mdx("[Measures].[Measure1-Sum]"));
         kpi2.setParentKpi(kpi1);
 
         kpi3 = CubeFactory.eINSTANCE.createKpi();
         kpi3.setName("Kpi3");
-        kpi3.setValue("[Measures].[Measure1-Sum]");
+        kpi3.setValue(Expressions.mdx("[Measures].[Measure1-Sum]"));
         kpi3.setDisplayFolder("theDisplayFolder\\otherDisplayFolder");
 
         cube = CubeFactory.eINSTANCE.createPhysicalCube();
@@ -128,10 +133,16 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - KPI Intro");
-        catalog.setDescription("Introduction to Key Performance Indicators");
-        catalog.getCubes().add(cube);
 
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query, cube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Introduction to Key Performance Indicators");
+
+
+
+        Naming.complete(catalog);
+
 
 
         return catalog;

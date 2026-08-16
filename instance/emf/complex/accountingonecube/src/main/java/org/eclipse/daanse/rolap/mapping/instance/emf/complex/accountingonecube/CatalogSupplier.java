@@ -12,6 +12,9 @@
  */
 package org.eclipse.daanse.rolap.mapping.instance.emf.complex.accountingonecube;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.Column;
@@ -82,6 +85,8 @@ import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 
 import org.osgi.service.component.annotations.Component;
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @MappingInstance(kind = Kind.COMPLEX, source = Source.EMF, number = "99.1.8", group = "Full Examples")
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -199,7 +204,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             Re-enable them once the formulas resolve cleanly.
             - **`BOOKINGWB` writeback table** — actual, plan amounts and comments can be
               entered per org-unit, account and year.
-            - **Six access roles** — one per leaf org unit, one whole-division role, a
+            - **Six access roles** — one per leaf org unit, one whole-division roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly, a
               full-access accounting role, and a read-only role that explicitly hides
               the writeback table at the schema level.
             """;
@@ -542,6 +547,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
     @Override
     public Catalog get() {
         if (catalog != null) {
+
             return catalog;
         }
 
@@ -568,7 +574,6 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         Column wbAccountKeyColumn = createColumn("ACCOUNT_KEY", SQLSimpleTypes.Sql99.varcharType());
         Column wbOrgUnitKeyColumn = createColumn("ORG_UNIT_KEY", SQLSimpleTypes.Sql99.varcharType());
         Column wbBookingAmountIstColumn = createColumn("AMOUNT_IST", SQLSimpleTypes.Sql99.integerType());
-        Column wbAmountIstColumn = createColumn("AMOUNT_IST", SQLSimpleTypes.Sql99.integerType());
         Column wbAmountPlanColumn = createColumn("AMOUNT_PLAN", SQLSimpleTypes.Sql99.integerType());
         Column wbCommentColumn = createColumn("COMMENT", SQLSimpleTypes.Sql99.varcharType());
 
@@ -727,7 +732,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         varianceMember = LevelFactory.eINSTANCE.createCalculatedMember();
         varianceMember.setName("Variance");
-        varianceMember.setFormula("[Measures].[AmountIst] - [Measures].[AmountPlan]");
+        varianceMember.setFormula(Expressions.mdx("[Measures].[AmountIst] - [Measures].[AmountPlan]"));
         CalculatedMemberProperty varianceFormatProp = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         varianceFormatProp.setName("FORMAT_STRING");
         varianceFormatProp.setValue(VARIANCE_FORMAT);
@@ -735,8 +740,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         variancePctMember = LevelFactory.eINSTANCE.createCalculatedMember();
         variancePctMember.setName("VariancePct");
-        variancePctMember.setFormula("iif([Measures].[AmountPlan] = 0, NULL,"
-                + " ([Measures].[AmountIst] - [Measures].[AmountPlan]) / [Measures].[AmountPlan])");
+        variancePctMember.setFormula(Expressions.mdx("iif([Measures].[AmountPlan] = 0, NULL,"
+                + " ([Measures].[AmountIst] - [Measures].[AmountPlan]) / [Measures].[AmountPlan])"));
         CalculatedMemberProperty variancePctFormatProp = LevelFactory.eINSTANCE.createCalculatedMemberProperty();
         variancePctFormatProp.setName("FORMAT_STRING");
         variancePctFormatProp.setValue(VARIANCE_PCT_FORMAT);
@@ -749,27 +754,27 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         // budgetUtilizationKpi.setName("BudgetUtilization");
         // budgetUtilizationKpi.setDescription("Share of the plan that has already been consumed by actual postings, "
         //         + "evaluated per OrgUnit and Account cell.");
-        // budgetUtilizationKpi.setValue(
-        //         "iif([Measures].[AmountPlan] = 0, NULL," + " [Measures].[AmountIst] / [Measures].[AmountPlan])");
-        // budgetUtilizationKpi.setGoal("1.0");
-        // budgetUtilizationKpi.setStatus("iif([Measures].[AmountPlan] = 0, 0,"
+        // budgetUtilizationKpi.setValue(Expressions.mdx(
+        //         "iif([Measures].[AmountPlan] = 0, NULL," + " [Measures].[AmountIst] / [Measures].[AmountPlan])"));
+        // budgetUtilizationKpi.setGoal(Expressions.mdx("1.0"));
+        // budgetUtilizationKpi.setStatus(Expressions.mdx("iif([Measures].[AmountPlan] = 0, 0,"
         //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 0.9, 1,"
-        //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 1.0, 0, -1)))");
-        // budgetUtilizationKpi.setTrend("[Measures].[Variance]");
+        //         + " iif([Measures].[AmountIst] / [Measures].[AmountPlan] <= 1.0, 0, -1)))"));
+        // budgetUtilizationKpi.setTrend(Expressions.mdx("[Measures].[Variance]"));
         // budgetUtilizationKpi.setDisplayFolder("KPIs");
         // budgetUtilizationKpi.setStatusGraphic("Traffic Light");
         // budgetUtilizationKpi.setTrendGraphic("Standard Arrow");
         //
         // topExpenseAccountsSet = DimensionFactory.eINSTANCE.createNamedSet();
         // topExpenseAccountsSet.setName("Top5ExpenseAccounts");
-        // topExpenseAccountsSet.setFormula("TopCount("
-        //         + "Descendants([Account].[Account].[EXPENSES], [Account].[Account])," + " 5, [Measures].[AmountIst])");
+        // topExpenseAccountsSet.setFormula(Expressions.mdx("TopCount("
+        //         + "Descendants([Account].[Account].[EXPENSES], [Account].[Account])," + " 5, [Measures].[AmountIst])"));
         // topExpenseAccountsSet.setDisplayFolder("Analysis");
         //
         // planOverrunSet = DimensionFactory.eINSTANCE.createNamedSet();
         // planOverrunSet.setName("PlanOverrun");
-        // planOverrunSet.setFormula("Filter(" + "Descendants([Account].[Account].[All Accounts], [Account].[Account]),"
-        //         + " [Measures].[AmountIst] > [Measures].[AmountPlan])");
+        // planOverrunSet.setFormula(Expressions.mdx("Filter(" + "Descendants([Account].[Account].[All Accounts], [Account].[Account]),"
+        //         + " [Measures].[AmountIst] > [Measures].[AmountPlan])"));
         // planOverrunSet.setDisplayFolder("Analysis");
         //
         // accountsWithoutCommentSet = DimensionFactory.eINSTANCE.createNamedSet();
@@ -804,7 +809,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         WritebackMeasure wbAmountIstMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
         wbAmountIstMeasure.setName("AmountIst");
-        wbAmountIstMeasure.setColumn(wbAmountIstColumn);
+        wbAmountIstMeasure.setColumn(wbBookingAmountIstColumn);
         wbAmountIstMeasure.setEditable(false);
 
         WritebackMeasure wbCommentsMeasure = MeasureFactory.eINSTANCE.createWritebackMeasure();
@@ -843,15 +848,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName(CATALOG_NAME);
-        catalog.setDescription("Accounting catalog with IST/PLAN postings, three-level accounts and "
+        catalog.getImportedElement().add(databaseSchema);
+
+        catalog.getOwnedElement().addAll(List.of(bookingSource, accountSource, yearSource, orgUnitSource, yearLevel, yearHierarchy, yearDimension, accountLevelL1));
+        catalog.getOwnedElement().addAll(List.of(accountLevelL2, accountLevelL3, accountHierarchy, accountDimension, orgUnitLevelL1, orgUnitLevelL2, orgUnitLevelL3, orgUnitHierarchy));
+        catalog.getOwnedElement().addAll(List.of(orgUnitDimension, cube, roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Accounting catalog with IST/PLAN postings, three-level accounts and "
                 + "org units, writeback for actual, plan data and text-aggregated comments. "
                 + "Includes Variance/VariancePct calculated members and a set of access roles "
                 + "ranging from single-department to division-wide, an accounting all-access "
                 + "role and a read-only role.");
-        catalog.getDbschemas().add(databaseSchema);
-        catalog.getCubes().add(cube);
-        catalog.getAccessRoles()
-                .addAll(List.of(roleDeptA1, roleDeptA2, roleDeptB1, roleDivisionA, roleAccounting, roleReadonly));
+
+        Naming.complete(catalog);
 
         return catalog;
     }
@@ -911,7 +920,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         AccessMemberGrant memberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
         memberGrant.setMemberAccess(MemberAccess.ALL);
-        memberGrant.setMember(memberName);
+        memberGrant.setMember(Expressions.mdx(memberName));
 
         AccessHierarchyGrant hierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant.setHierarchy(orgUnitHierarchy);
@@ -964,7 +973,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         AccessMemberGrant memberGrant = OlapFactory.eINSTANCE.createAccessMemberGrant();
         memberGrant.setMemberAccess(MemberAccess.ALL);
-        memberGrant.setMember(memberName);
+        memberGrant.setMember(Expressions.mdx(memberName));
 
         AccessHierarchyGrant hierarchyGrant = OlapFactory.eINSTANCE.createAccessHierarchyGrant();
         hierarchyGrant.setHierarchy(orgUnitHierarchy);

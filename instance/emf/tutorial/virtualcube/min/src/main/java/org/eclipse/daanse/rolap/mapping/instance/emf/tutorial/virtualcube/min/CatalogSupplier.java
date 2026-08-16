@@ -13,6 +13,9 @@
 package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.virtualcube.min;
 
 
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Naming;
+
+import org.eclipse.daanse.rolap.mapping.model.provider.util.Expressions;
 import java.util.List;
 
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
@@ -43,6 +46,8 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.CubeFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.cube.measure.MeasureFactory;
 import org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.LevelFactory;
 import org.eclipse.daanse.cwm.model.cwm.resource.relational.util.SQLSimpleTypes;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
 @Component(service = { CatalogMappingSupplier.class, TutorialDescriptionSupplier.class })
 @MappingInstance(kind = Kind.TUTORIAL, number = "2.15.01", source = Source.EMF, group = "VirtualCube") // NOSONAR
 public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescriptionSupplier {
@@ -177,7 +182,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         CalculatedMember calculatedMember = LevelFactory.eINSTANCE.createCalculatedMember();
         calculatedMember.setName("Calculation1");
-        calculatedMember.setFormula("[Measures].[C1-Measure-Sum] + [Measures].[C2-Measure-Sum]");
+        calculatedMember.setFormula(Expressions.mdx("[Measures].[C1-Measure-Sum] + [Measures].[C2-Measure-Sum]"));
 
         vCube = CubeFactory.eINSTANCE.createVirtualCube();
         vCube.setName("VirtualCubeMeasureOnly");
@@ -187,9 +192,14 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Virtual Cube Minimal");
-        catalog.setDescription("Minimal virtual cube configuration");
-        catalog.getCubes().addAll(List.of(cube1, cube2, vCube));
-        catalog.getDbschemas().add(databaseSchema);
+        catalog.getImportedElement().add(databaseSchema);
+        catalog.getOwnedElement().addAll(List.of(query1, query2, cube1, cube2, vCube));
+
+        Descriptions.describe(catalog, CwmHelper.TYPE_DOCUMENTATION, null, "Minimal virtual cube configuration");
+
+
+            Naming.complete(catalog);
+
 
             return catalog;
     }

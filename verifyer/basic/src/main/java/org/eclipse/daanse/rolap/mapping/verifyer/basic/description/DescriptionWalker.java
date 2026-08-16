@@ -64,6 +64,10 @@ import org.eclipse.daanse.rolap.mapping.model.olap.cube.VirtualCube;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Cause;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.Level;
 import org.eclipse.daanse.rolap.mapping.verifyer.api.VerificationResult;
+import org.eclipse.daanse.cwm.model.cwm.foundation.businessinformation.util.Descriptions;
+import org.eclipse.daanse.cwm.model.cwm.objectmodel.core.ModelElement;
+import org.eclipse.daanse.rolap.mapping.model.provider.util.CwmHelper;
+
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.AbstractSchemaWalker;
 import org.eclipse.daanse.rolap.mapping.verifyer.basic.VerificationResultR;
 
@@ -75,12 +79,20 @@ public class DescriptionWalker extends AbstractSchemaWalker {
         this.config = config;
     }
 
+    /**
+     * The documentation duty is satisfied by a businessinformation
+     * Description of type 'documentation' owned by the element's nearest
+     * namespace; a detached element cannot carry one.
+     */
+    private static boolean undocumented(ModelElement element) {
+        return Descriptions.localizedBody(element, CwmHelper.TYPE_DOCUMENTATION, null).isEmpty();
+    }
+
     @Override
     public List<VerificationResult> checkSchema(Catalog schema) {
         super.checkSchema(schema);
         Level lavel = config.schema();
-        if (lavel != null && (schema.getDescription() == null || schema.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(schema)) {
             results.add(new VerificationResultR(SCHEMA, SCHEMA_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
 
@@ -91,8 +103,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkDimension(Dimension dimension, Cube cube, Catalog schema) {
         super.checkDimension(dimension, cube, schema);
         Level lavel = config.dimension();
-        if (lavel != null && (dimension.getDescription() == null || dimension.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(dimension)) {
             results.add(
                     new VerificationResultR(DIMENSIONS, DIMENSION_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
@@ -102,8 +113,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkVirtualCube(VirtualCube virtualCube, Catalog schema) {
         super.checkVirtualCube(virtualCube, schema);
         Level lavel = config.virtualCube();
-        if (lavel != null && (virtualCube.getDescription() == null || virtualCube.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(virtualCube)) {
             results.add(new VerificationResultR(VIRTUAL_CUBE, VIRTUAL_CUBE_MUST_CONTAIN_DESCRIPTION, lavel,
                     Cause.SCHEMA));
         }
@@ -113,8 +123,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkPhysicalCube(PhysicalCube cube, Catalog schema) {
         super.checkPhysicalCube(cube, schema);
         Level lavel = config.cube();
-        if (lavel != null && (cube.getDescription() == null || cube.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(cube)) {
             results.add(new VerificationResultR(CUBE, CUBE_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -123,8 +132,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkMeasure(BaseMeasure measure, Cube cube) {
         super.checkMeasure(measure, cube);
         Level lavel = config.measure();
-        if (lavel != null && (measure.getDescription() == null || measure.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(measure)) {
             results.add(new VerificationResultR(MEASURE, MEASURE_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -133,8 +141,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkKpi(Kpi kpi, Cube cube) {
         super.checkKpi(kpi, cube);
         Level lavel = config.kpi();
-        if (lavel != null && (kpi.getDescription() == null || kpi.getDescription()
-            .isEmpty())) {
+        if (lavel != null && undocumented(kpi)) {
             results.add(new VerificationResultR(KPI, KPI_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -143,8 +150,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkCalculatedMemberProperty(CalculatedMemberProperty calculatedMemberProperty) {
         super.checkCalculatedMemberProperty(calculatedMemberProperty);
         Level lavel = config.calculatedMemberProperty();
-        if (lavel != null && (calculatedMemberProperty.getDescription() == null || calculatedMemberProperty.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(calculatedMemberProperty)) {
             results.add(new VerificationResultR(CALCULATED_MEMBER_PROPERTY,
                 CALCULATED_MEMBER_PROPERTY_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
@@ -154,8 +160,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkCalculatedMember(CalculatedMember calculatedMember) {
         super.checkCalculatedMember(calculatedMember);
         Level lavel = config.calculatedMember();
-        if (lavel != null && (calculatedMember.getDescription() == null || calculatedMember.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(calculatedMember)) {
             results.add(new VerificationResultR(CALCULATED_MEMBER, CALCULATED_MEMBER_MUST_CONTAIN_DESCRIPTION, lavel,
                     Cause.SCHEMA));
         }
@@ -165,8 +170,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkHierarchy(Hierarchy hierarchy, Dimension cubeDimension, Cube cube) {
         super.checkHierarchy(hierarchy, cubeDimension, cube);
         Level lavel = config.hierarchy();
-        if (lavel != null && (hierarchy.getDescription() == null || hierarchy.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(hierarchy)) {
             results.add(
                     new VerificationResultR(HIERARCHY, HIERARCHY_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
@@ -176,8 +180,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkLevel(final org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level l, Hierarchy hierarchy, Dimension parentDimension, Cube cube) {
         super.checkLevel(l, hierarchy, parentDimension, cube);
         Level lavel = config.level();
-        if (lavel != null && (l.getDescription() == null || l.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(l)) {
             results.add(new VerificationResultR(LEVEL, LEVEL_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -186,8 +189,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkAction(final Action action) {
         super.checkAction(action);
         Level lavel = config.action();
-        if (lavel != null && (action.getDescription() == null || action.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(action)) {
             if (action instanceof DrillThroughAction) {
                 results.add(new VerificationResultR(DRILL_THROUGH_ACTION, DRILL_THROUGH_ACTION_MUST_CONTAIN_DESCRIPTION,
                         lavel, Cause.SCHEMA));
@@ -202,8 +204,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkMemberProperty(final MemberProperty property, org.eclipse.daanse.rolap.mapping.model.olap.dimension.hierarchy.level.Level level, Hierarchy hierarchy, Cube cube) {
         super.checkMemberProperty(property, level, hierarchy, cube);
         Level lavel = config.property();
-        if (lavel != null && (property.getDescription() == null || property.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(property)) {
             results.add(new VerificationResultR(PROPERTY, PROPERTY_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -212,8 +213,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkNamedSet(final NamedSet namedSet) {
         super.checkNamedSet(namedSet);
         Level lavel = config.namedSet();
-        if (lavel != null && (namedSet.getDescription() == null || namedSet.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(namedSet)) {
             results.add(new VerificationResultR(NAMED_SET, NAMED_SET_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
     }
@@ -222,8 +222,7 @@ public class DescriptionWalker extends AbstractSchemaWalker {
     protected void checkParameter(final Parameter parameter) {
         super.checkParameter(parameter);
         Level lavel = config.parameter();
-        if (lavel != null && (parameter.getDescription() == null || parameter.getDescription()
-                .isEmpty())) {
+        if (lavel != null && undocumented(parameter)) {
             results.add(
                     new VerificationResultR(PARAMETER, PARAMETER_MUST_CONTAIN_DESCRIPTION, lavel, Cause.SCHEMA));
         }
