@@ -50,10 +50,15 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureSumCheck.setMeasureName("Measure-Sum");
 
         MeasureAttributeCheck measureSumAttributeCheck = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
         measureSumAttributeCheck.setExpectedAggregator(AggregatorType.SUM);
 
-        measureSumCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        MeasureAttributeCheck measureSumAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureSumAttributeCheck1.setAttributeType(MeasureAttribute.NAME);
+        measureSumAttributeCheck1.setExpectedValue("Measure-Sum");
 
+        measureSumCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck);
+        measureSumCheck.getMeasureAttributeChecks().add(measureSumAttributeCheck1);
 
         MeasureCheck measureCountCheck = factory.createMeasureCheck();
         measureCountCheck.setName("MeasureCheck-Measure-Count");
@@ -61,9 +66,15 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
         measureCountCheck.setMeasureName("Measure-Count");
 
         MeasureAttributeCheck measureCountAttributeCheck = factory.createMeasureAttributeCheck();
+        measureCountAttributeCheck.setAttributeType(MeasureAttribute.AGGREGATOR);
         measureCountAttributeCheck.setExpectedAggregator(AggregatorType.COUNT);
 
+        MeasureAttributeCheck measureCountAttributeCheck1 = factory.createMeasureAttributeCheck();
+        measureCountAttributeCheck1.setAttributeType(MeasureAttribute.NAME);;
+        measureCountAttributeCheck1.setExpectedValue("Measure-Count");
+
         measureCountCheck.getMeasureAttributeChecks().add(measureCountAttributeCheck);
+        measureCountCheck.getMeasureAttributeChecks().add(measureCountAttributeCheck1);
 
         MeasureAttributeCheck calculatedMember1AttributeCheckFormat = factory.createMeasureAttributeCheck();
         calculatedMember1AttributeCheckFormat.setAttributeType(MeasureAttribute.FORMAT_STRING);
