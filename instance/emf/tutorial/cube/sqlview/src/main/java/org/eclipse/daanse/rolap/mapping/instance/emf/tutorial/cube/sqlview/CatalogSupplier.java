@@ -101,7 +101,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         SqlStatement sqlStatement = SourceFactory.eINSTANCE.createSqlStatement();
         sqlStatement.setBody("select \"FACT\".\"KEY\" as \"Key\", \"FACT\".\"VALUE\" as \"Value\" from FACT");
-        sqlStatement.getDialects().add("h2");
+        sqlStatement.getDialects().add("generic");
         sqlview.getDialectStatements().add(sqlStatement);
 
         sqlSelectSource = SourceFactory.eINSTANCE.createSqlSelectSource();
