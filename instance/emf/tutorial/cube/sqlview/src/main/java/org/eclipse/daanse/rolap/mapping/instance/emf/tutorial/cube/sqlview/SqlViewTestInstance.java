@@ -12,6 +12,7 @@ package org.eclipse.daanse.rolap.mapping.instance.emf.tutorial.cube.sqlview;
 import org.eclipse.daanse.olap.check.runtime.api.OlapCheckSuiteSupplier;
 import org.eclipse.daanse.rolap.mapping.model.provider.CatalogMappingSupplier;
 import org.eclipse.daanse.rolap.mapping.instance.api.CatalogTestInstance;
+import org.eclipse.daanse.cwm.testkit.api.DataSupplier;
 import org.eclipse.daanse.cwm.testkit.api.DatabaseSupplier;
 
 public class SqlViewTestInstance implements CatalogTestInstance {
@@ -35,6 +36,11 @@ public class SqlViewTestInstance implements CatalogTestInstance {
     @Override
     public DatabaseSupplier databaseSupplier() {
         return new SqlViewDatabaseSupplier();
+    }
+
+    @Override
+    public DataSupplier dataSupplier() {
+        return new SqlViewDataSupplier();
     }
 
 }
