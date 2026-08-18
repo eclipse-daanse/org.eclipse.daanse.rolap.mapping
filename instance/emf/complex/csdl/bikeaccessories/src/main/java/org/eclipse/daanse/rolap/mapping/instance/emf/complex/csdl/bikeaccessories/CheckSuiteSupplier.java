@@ -301,7 +301,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck102 = factory.createCellValueCheck();
         cellCheck102.setName("TOTAL_QUANTITY");
-        cellCheck102.setExpectedValue("78.0000");
+        cellCheck102.setExpectedValue("78");
         cellCheck102.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck1 = factory.createQueryCheck();
@@ -323,7 +323,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck202 = factory.createCellValueCheck();
         cellCheck202.setName("TOTAL_QUANTITY");
-        cellCheck202.setExpectedValue("348.0000");
+        cellCheck202.setExpectedValue("348");
         cellCheck202.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck2 = factory.createQueryCheck();
@@ -345,7 +345,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck302 = factory.createCellValueCheck();
         cellCheck302.setName("TOTAL_QUANTITY");
-        cellCheck302.setExpectedValue("470.0000");
+        cellCheck302.setExpectedValue("470");
         cellCheck302.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck3 = factory.createQueryCheck();
@@ -367,7 +367,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck cellCheck402 = factory.createCellValueCheck();
         cellCheck402.setName("TOTAL_QUANTITY");
-        cellCheck402.setExpectedValue("119.0000");
+        cellCheck402.setExpectedValue("119");
         cellCheck402.getCoordinates().addAll(List.of(0, 2));
 
         QueryCheck sqlQueryCheck4 = factory.createQueryCheck();

@@ -205,7 +205,10 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         cube.getMeasureGroups().add(measureGroup);
         cube.getDimensionConnectors().add(dimensionConnector1);
         cube.getDimensionConnectors().add(dimensionConnector2);
-
+        cube.getNamedSets().add(namedSet1);
+        cube.getNamedSets().add(namedSet2);
+        cube.getNamedSets().add(namedSet3);
+        cube.getNamedSets().add(namedSet4);
 
         catalog = CatalogFactory.eINSTANCE.createCatalog();
         catalog.setName("Daanse Tutorial - Namedset All");
