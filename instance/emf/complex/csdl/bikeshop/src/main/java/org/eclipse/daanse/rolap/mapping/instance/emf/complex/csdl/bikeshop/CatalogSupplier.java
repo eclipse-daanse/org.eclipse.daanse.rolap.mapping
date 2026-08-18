@@ -418,7 +418,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setName("SizeUnitMeasureCode");
-        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(SQLSimpleTypes.Sql99.integerType());
+        COLUMN_SIZE_UNIT_MEASURE_CODE_BIKE.setType(SQLSimpleTypes.Sql99.varcharType());
 
         COLUMN_SAFETY_STOCK_LEVEL_BIKE = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SAFETY_STOCK_LEVEL_BIKE.setName("SafetyStockLevel");
@@ -927,6 +927,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         KPI = CubeFactory.eINSTANCE.createKpi();
         KPI.setName("Three Circles Colored");
+        KPI.setValue(Expressions.mdx("[Measures].[Sum of TotalProductCost]"));
         KPI.setGoal(Expressions.mdx("[Measures].[Sum of TotalProductCost]"));
         KPI.setStatus(Expressions.mdx("[Measures].[Sum of TotalProductCost]"));
 

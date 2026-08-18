@@ -524,7 +524,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         COLUMN_SALES_TERITORY_KEY_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         COLUMN_SALES_TERITORY_KEY_FACT.setName("SalesTerritoryKey");
-        COLUMN_SALES_TERITORY_KEY_FACT.setType(SQLSimpleTypes.Sql99.integerType());
+        COLUMN_SALES_TERITORY_KEY_FACT.setType(SQLSimpleTypes.Sql99.varcharType());
         COLUMN_SALES_TERITORY_KEY_FACT.setIsNullable(NullableType.COLUMN_NULLABLE);
 
         COLUMN_SALES_ORDER_NUMBER_FACT = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();

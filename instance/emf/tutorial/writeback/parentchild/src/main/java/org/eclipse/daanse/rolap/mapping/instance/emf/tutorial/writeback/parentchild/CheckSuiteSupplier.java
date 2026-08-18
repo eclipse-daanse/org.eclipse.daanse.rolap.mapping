@@ -36,7 +36,7 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
     @Override
     public OlapCheckSuite get() {
         DimensionCheck dim = createDimensionCheck("Tree",
-                createHierarchyCheck("Tree", createLevelCheck("Node")));
+                createHierarchyCheck("Tree", createLevelCheck("Node1"), createLevelCheck("Node2"), createLevelCheck("Node3")));
 
         MeasureCheck value = createMeasureCheck("Value");
 
