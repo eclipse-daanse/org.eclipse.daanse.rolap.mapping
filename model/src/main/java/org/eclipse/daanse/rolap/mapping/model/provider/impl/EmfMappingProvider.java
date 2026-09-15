@@ -14,11 +14,17 @@ package org.eclipse.daanse.rolap.mapping.model.provider.impl;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
@@ -45,10 +51,15 @@ import org.osgi.service.metatype.annotations.Designate;
 @Designate(factory = true, ocd = EmfMappingProviderConfig.class)
 public class EmfMappingProvider implements CatalogMappingSupplier {
 
+    // identity space of the file-based hash; distinct from the canonical-XMI salt
+    private static final byte[] SALT = "daanse-fp-files-v1\0".getBytes(StandardCharsets.UTF_8);
+
     @Reference(target = "(" + EMFNamespaces.EMF_MODEL_NSURI + "=" + RolapMappingPackage.eNS_URI+ ")")
     private ResourceSet resourceSet;
 
     private Catalog catalogMapping;
+
+    private final List<Path> sourceFiles = new ArrayList<>();
 
     @Activate
     public void activate(EmfMappingProviderConfig config) throws IOException {
@@ -61,6 +72,7 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
         }
 
         String url = config.resource_url();
+        sourceFiles.add(Paths.get(url).toAbsolutePath());
 
         URI uri = URI.createFileURI(url);
         Resource resource = resourceSet.getResource(uri, true);
@@ -86,6 +98,7 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
             paths.filter(Files::isRegularFile)
                 .filter(matcher::matches)
                 .forEach(path -> {
+                    sourceFiles.add(path.toAbsolutePath());
                     URI fileUri = URI.createFileURI(path.toAbsolutePath().toString());
                     Resource res = resourceSet.getResource(fileUri, true);
                     try {
@@ -124,6 +137,26 @@ public class EmfMappingProvider implements CatalogMappingSupplier {
     @Override
     public Catalog get() {
         return catalogMapping;
+    }
+
+    /** Combined SHA-256 over all source files of this provider, path-sorted. */
+    @Override
+    public byte[] sha256() {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.update(SALT);
+            List<Path> sorted = new ArrayList<>(sourceFiles);
+            sorted.sort(Comparator.comparing(Path::toString));
+            for (Path file : sorted) {
+                digest.update(file.toString().getBytes(StandardCharsets.UTF_8));
+                digest.update(Files.readAllBytes(file));
+            }
+            return digest.digest();
+        } catch (NoSuchAlgorithmException e) {
+            throw new IllegalStateException("SHA-256 unavailable", e);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
+        }
     }
 
     private void cleanAllResources() {
