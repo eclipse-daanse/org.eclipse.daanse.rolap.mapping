@@ -101,9 +101,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck2CellValueCheck = factory.createCellValueCheck();
         queryCheck2CellValueCheck.setName("[Measures].[NthAgg2]");
-        queryCheck2CellValueCheck.setCheckFormattedValue(true);
-        queryCheck2CellValueCheck.setExpectedValue("");
+        queryCheck2CellValueCheck.setExpectedValue("2");
         queryCheck2CellValueCheck.getCoordinates().add(0);
+        queryCheck2CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck2 = factory.createQueryCheck();
         queryCheck2.setName("Measure Query Check NthAgg2");
@@ -115,9 +115,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck3CellValueCheck = factory.createCellValueCheck();
         queryCheck3CellValueCheck.setName("[Measures].[NthAgg3]");
-        queryCheck3CellValueCheck.setCheckFormattedValue(true);
-        queryCheck3CellValueCheck.setExpectedValue("");
+        queryCheck3CellValueCheck.setExpectedValue("2");
         queryCheck3CellValueCheck.getCoordinates().add(0);
+        queryCheck3CellValueCheck.setTolerance(0.001);
 
 
         QueryCheck queryCheck3 = factory.createQueryCheck();
@@ -130,9 +130,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck4CellValueCheck = factory.createCellValueCheck();
         queryCheck4CellValueCheck.setName("[Measures].[NthAgg4]");
-        queryCheck4CellValueCheck.setCheckFormattedValue(true);
-        queryCheck4CellValueCheck.setExpectedValue("");
+        queryCheck4CellValueCheck.setExpectedValue("3");
         queryCheck4CellValueCheck.getCoordinates().add(0);
+        queryCheck4CellValueCheck.setTolerance(0.001);
 
 
         QueryCheck queryCheck4 = factory.createQueryCheck();
@@ -145,9 +145,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck5CellValueCheck = factory.createCellValueCheck();
         queryCheck5CellValueCheck.setName("[Measures].[NthAgg5]");
-        queryCheck5CellValueCheck.setCheckFormattedValue(true);
-        queryCheck5CellValueCheck.setExpectedValue("");
+        queryCheck5CellValueCheck.setExpectedValue("3");
         queryCheck5CellValueCheck.getCoordinates().add(0);
+        queryCheck5CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck5 = factory.createQueryCheck();
         queryCheck5.setName("Measure Query Check NthAgg5");
@@ -159,9 +159,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck6CellValueCheck = factory.createCellValueCheck();
         queryCheck6CellValueCheck.setName("[Measures].[NthAgg6]");
-        queryCheck6CellValueCheck.setCheckFormattedValue(true);
-        queryCheck6CellValueCheck.setExpectedValue("");
+        queryCheck6CellValueCheck.setExpectedValue("3");
         queryCheck6CellValueCheck.getCoordinates().add(0);
+        queryCheck6CellValueCheck.setTolerance(0.001);
 
         QueryCheck queryCheck6 = factory.createQueryCheck();
         queryCheck6.setName("Measure Query Check NthAgg6");
@@ -173,9 +173,9 @@ public class CheckSuiteSupplier implements OlapCheckSuiteSupplier {
 
         CellValueCheck queryCheck7CellValueCheck = factory.createCellValueCheck();
         queryCheck7CellValueCheck.setName("[Measures].[NthAgg7]");
-        queryCheck7CellValueCheck.setCheckFormattedValue(true);
-        queryCheck7CellValueCheck.setExpectedValue("");
+        queryCheck7CellValueCheck.setExpectedValue("4");
         queryCheck7CellValueCheck.getCoordinates().add(0);
+        queryCheck7CellValueCheck.setTolerance(0.001);
 
 
         QueryCheck queryCheck7 = factory.createQueryCheck();
