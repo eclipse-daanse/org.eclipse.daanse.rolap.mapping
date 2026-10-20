@@ -7,13 +7,20 @@ group: Class
 # {{ class.name }}
 <a name="class-{{ class.name | lower }}"></a>
 
+Package: [{{ packageName }}](./{{ packagePage }}.md)
+
 {{ doc(class) }}
 
 {% if class.eSuperTypes.size > 0 %}
 ## Extends
 {% for s in class.eSuperTypes %}
 {% if not isEClassInterface(s) %}
-- {{ s.name }}{% if s.EPackage == package %} [🔗](./class-{{ s.name }}){% endif %}
+{% if allClasses contains s %}
+- {{ s.name }} [🔗](./class-{{ s.name }})
+{% else %}
+- {{ s.name }}
+
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

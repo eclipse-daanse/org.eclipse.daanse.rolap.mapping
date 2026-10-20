@@ -1,9 +1,22 @@
-## Package: {{ package.name }}
+## Package: {{ packageName }}
 
 URI: `{{ package.nsURI }}`
 Prefix: `{{ package.nsPrefix }}`
 
 {{ doc(package) }}
+
+{% if parentName != null %}
+
+Parent package: [{{ parentName }}](./{{ parentPage }}.md)
+{% endif %}
+
+{% if subpackages.size > 0 %}
+### Subpackages
+
+{% for sub in subpackages %}
+- [Package {{ sub.name }}](./{{ sub.page }}.md)
+{% endfor %}
+{% endif %}
 
 
 ## PackageDiagram

@@ -76,12 +76,47 @@ public class GetDocumentationTest {
 
     @Test
     public void resourceSetExistsTest() throws SQLException, InterruptedException, IOException {
-        List<EPackage> packages = readPackages();
-        for (EPackage ePackage : packages) {
-        	LOGGER.debug("EPackage: " + ePackage.getName());
-//            ePackage.getEClassifiers().get(0).mgetName();
-            createDoc(ePackage);
+        Path path = Path.of("modelOutput");
+        deleteRecursively(path);
+        Files.createDirectories(path);
+
+        ClasspathLoader loader = new ClasspathLoader(GetDocumentationTest.class.getClassLoader());
+        loader.setPrefix("templates");
+
+        // Pebble Engine erstellen
+        PebbleEngine engine = new PebbleEngine.Builder().autoEscaping(false).loader(loader)
+                .extension(new EcoreExtension()).build();
+
+        // Alle Packages des Baums (inkl. Subpackages) einsammeln
+        List<EPackage> packages = new ArrayList<>();
+        for (EPackage ePackage : readPackages()) {
+            collectPackages(ePackage, packages);
         }
+
+        // Alle Klassen des gesamten Baums, damit "Used by" paketuebergreifend funktioniert
+        List<EClass> allClasses = packages.stream().flatMap(p -> p.getEClassifiers().stream())
+                .filter(EClass.class::isInstance).map(EClass.class::cast).toList();
+
+        for (EPackage ePackage : packages) {
+            LOGGER.debug("EPackage: " + qualifiedName(ePackage));
+            createDoc(ePackage, engine, allClasses, path);
+        }
+    }
+
+    private static void collectPackages(EPackage ePackage, List<EPackage> packages) {
+        packages.add(ePackage);
+        for (EPackage sub : ePackage.getESubpackages()) {
+            collectPackages(sub, packages);
+        }
+    }
+
+    private static String qualifiedName(EPackage ePackage) {
+        EPackage parent = ePackage.getESuperPackage();
+        return parent == null ? ePackage.getName() : qualifiedName(parent) + "." + ePackage.getName();
+    }
+
+    private static String pageName(EPackage ePackage) {
+        return ePackage.getESuperPackage() == null ? "index" : "package-" + qualifiedName(ePackage);
     }
 
     private List<EPackage> readPackages() throws IOException {
@@ -112,66 +147,67 @@ public class GetDocumentationTest {
         return packages;
     }
 
-    private void createDoc(EPackage ePackage) throws IOException {
+    private void createDoc(EPackage ePackage, PebbleEngine engine, List<EClass> allClasses, Path path)
+            throws IOException {
 
-        ClasspathLoader loader = new ClasspathLoader(GetDocumentationTest.class.getClassLoader());
-        loader.setPrefix("templates");
-
-        // Pebble Engine erstellen
-        PebbleEngine engine = new PebbleEngine.Builder().autoEscaping(false).loader(loader)
-                .extension(new EcoreExtension()).build();
-
-        // Kontextdaten definieren
-        // Alle Klassen extrahieren
-        List<EClass> allClasses = ePackage.getEClassifiers().stream().filter(EClass.class::isInstance)
+        List<EClass> packageClasses = ePackage.getEClassifiers().stream().filter(EClass.class::isInstance)
                 .map(EClass.class::cast).toList();
 
-        List<EEnum> allEnum = ePackage.getEClassifiers().stream().filter(EEnum.class::isInstance).map(EEnum.class::cast)
-                .toList();
+        List<EEnum> packageEnums = ePackage.getEClassifiers().stream().filter(EEnum.class::isInstance)
+                .map(EEnum.class::cast).toList();
 
-        Path path = Path.of("modelOutput");
-        deleteRecursively(path);
-        Files.deleteIfExists(path);
-        Files.createDirectory(path);
+        createPackagePage(ePackage, engine, path);
 
-        createIndexPage(ePackage, engine, allClasses, path);
-
-        for (EClass eClass : allClasses) {
+        for (EClass eClass : packageClasses) {
             if (!eClass.isInterface()) {
 
                 createClassPage(ePackage, eClass, engine, allClasses, path);
             }
         }
 
-        for (EEnum eEnum : allEnum) {
-            createEnumPage(eEnum, engine, path);
+        for (EEnum eEnum : packageEnums) {
+            createEnumPage(ePackage, eEnum, engine, path);
         }
 
     }
 
-    private void createIndexPage(EPackage ePackage, PebbleEngine engine, List<EClass> allClasses, Path path)
-            throws IOException {
+    private void createPackagePage(EPackage ePackage, PebbleEngine engine, Path path) throws IOException {
 
         PebbleTemplate template = engine.getTemplate("package.peb");
-        Map<String, Object> context = new HashMap<>();
-        context.put("package", ePackage);
-        context.put("allClasses", allClasses);
+        Map<String, Object> context = packageContext(ePackage);
+        List<Map<String, String>> subpackages = ePackage.getESubpackages().stream()
+                .map(sub -> Map.of("name", qualifiedName(sub), "page", pageName(sub))).toList();
+        context.put("subpackages", subpackages);
+        EPackage parent = ePackage.getESuperPackage();
+        if (parent != null) {
+            context.put("parentName", qualifiedName(parent));
+            context.put("parentPage", pageName(parent));
+        }
 
         // In Datei schreiben
-        try (Writer writer = new FileWriter(path.resolve("index.md").toFile())) {
+        try (Writer writer = new FileWriter(path.resolve(pageName(ePackage) + ".md").toFile())) {
 
-            writer.append(TEXT);
-            writer.append("\n");
+            if (ePackage.getESuperPackage() == null) {
+                writer.append(TEXT);
+                writer.append("\n");
+            }
             template.evaluate(writer, context);
         }
+    }
+
+    private static Map<String, Object> packageContext(EPackage ePackage) {
+        Map<String, Object> context = new HashMap<>();
+        context.put("package", ePackage);
+        context.put("packageName", qualifiedName(ePackage));
+        context.put("packagePage", pageName(ePackage));
+        return context;
     }
 
     private void createClassPage(EPackage ePackage, EClass eClass, PebbleEngine engine, List<EClass> allClasses,
             Path path) throws IOException {
 
         PebbleTemplate template = engine.getTemplate("class.peb");
-        Map<String, Object> context = new HashMap<>();
-        context.put("package", ePackage);
+        Map<String, Object> context = packageContext(ePackage);
         context.put("class", eClass);
         context.put("allClasses", allClasses);
 
@@ -182,10 +218,10 @@ public class GetDocumentationTest {
         }
     }
 
-    private void createEnumPage(EEnum eEnum, PebbleEngine engine, Path path) throws IOException {
+    private void createEnumPage(EPackage ePackage, EEnum eEnum, PebbleEngine engine, Path path) throws IOException {
 
         PebbleTemplate template = engine.getTemplate("enum.peb");
-        Map<String, Object> context = new HashMap<>();
+        Map<String, Object> context = packageContext(ePackage);
         context.put("enum", eEnum);
 
         String className = eEnum.getName();
