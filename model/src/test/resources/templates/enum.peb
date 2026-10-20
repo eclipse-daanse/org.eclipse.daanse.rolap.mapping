@@ -7,6 +7,8 @@ group: Enum
 # {{ enum.name }}
 <a name="enum-{{ enum.name | lower }}"></a>
 
+Package: [{{ packageName }}](./{{ packagePage }}.md)
+
 {{ doc(enum) }}
 
 ## Enumeration Literals
