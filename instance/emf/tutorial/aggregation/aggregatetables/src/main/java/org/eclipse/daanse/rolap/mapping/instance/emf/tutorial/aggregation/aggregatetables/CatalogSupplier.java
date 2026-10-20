@@ -214,14 +214,20 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                 aggCSpecialSalesFact1997StoreCostSumColumn, aggCSpecialSalesFact1997FactCountColumn));
         databaseSchema.getOwnedElement().add(aggCSpecialSalesFact1997Table);
 
+        // an excluded table is still a table of the database: its columns are those of its CSV (a table without a column
+        // cannot be created, "Table must have at least one column")
         Table aggC14SalesFact1997Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggC14SalesFact1997Table.setName("AGG_C_14_SALES_FACT_1997");
-        aggC14SalesFact1997Table.getFeature().addAll(List.of());
+        aggC14SalesFact1997Table.getFeature().addAll(List.of(integerColumn("PRODUCT_ID"), decimalColumn("STORE_COST"),
+                integerColumn("FACT_COUNT")));
         databaseSchema.getOwnedElement().add(aggC14SalesFact1997Table);
 
+        // an excluded table is still a table of the database: its columns are those of its CSV (a table without a column
+        // cannot be created, "Table must have at least one column")
         Table aggLc100SalesFact1997Table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         aggLc100SalesFact1997Table.setName("AGG_LC_100_SALES_FACT_1997");
-        aggLc100SalesFact1997Table.getFeature().addAll(List.of());
+        aggLc100SalesFact1997Table.getFeature().addAll(List.of(integerColumn("PRODUCT_ID"), decimalColumn("STORE_COST"),
+                integerColumn("FACT_COUNT")));
         databaseSchema.getOwnedElement().add(aggLc100SalesFact1997Table);
 
         AggregationColumnName aggregationColumnName = AggregationFactory.eINSTANCE.createAggregationColumnName();
@@ -333,5 +339,19 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
                         new DocSection("Hierarchy", hierarchyBody, 1, 7, 0, hierarchy, 0),
                         new DocSection("Dimension", dimensionBody, 1, 8, 0, dimension, 0)),
                 List.of(new CatalogRef("catalog", this::get)));
+    }
+
+    private static Column integerColumn(String name) {
+        Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        column.setName(name);
+        column.setType(SQLSimpleTypes.Sql99.integerType());
+        return column;
+    }
+
+    private static Column decimalColumn(String name) {
+        Column column = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
+        column.setName(name);
+        column.setType(SQLSimpleTypes.decimalType(18, 4));
+        return column;
     }
 }

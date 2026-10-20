@@ -96,7 +96,8 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
 
         Column valueColumn = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createColumn();
         valueColumn.setName("VALUE");
-        valueColumn.setType(SQLSimpleTypes.Sql99.integerType());
+        // the data holds 42.42 and 21.21 and the check expects 63.63: an INTEGER column does not take them
+        valueColumn.setType(SQLSimpleTypes.decimalType(18, 4));
 
         Table table = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
         table.setName(FACT);
