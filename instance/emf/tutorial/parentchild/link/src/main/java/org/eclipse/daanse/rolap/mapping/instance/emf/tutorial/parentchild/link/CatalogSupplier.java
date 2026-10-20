@@ -85,6 +85,7 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
             The Database Schema contains the `Parent` table with 3 columns: `NAME`, `PARENT` and `VALUE`.
             The `NAME` column is used as the discriminator in the Hierarchy definitions.
             The Database Schema also contains the Closure  table with 3 columns: `NAME`, `PARENT` and `DISTANCE`.
+            It holds a row for every member and each of its ancestors, the member itself at distance 0.
             """;
 
     private static final String queryBody = """

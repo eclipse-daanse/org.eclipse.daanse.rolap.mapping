@@ -90,8 +90,11 @@ public class CatalogSupplier implements CatalogMappingSupplier, TutorialDescript
         column3.setName("ColumnOne");
         column3.setType(SQLSimpleTypes.Sql99.varcharType());
 
+        // once a SystemTable named like the physical one; CWM has no system table kind, so it is a table of the schema
+        // and needs its own name: two "TableOne" were created side by side (PostgreSQL, SQL Server, Oracle: a race,
+        // Derby: "already exists")
         table3 = org.eclipse.daanse.cwm.model.cwm.resource.relational.RelationalFactory.eINSTANCE.createTable();
-        table3.setName("TableOne");
+        table3.setName("SystemTableOne");
         table3.getFeature().addAll(List.of(column3));
         databaseSchema.getOwnedElement().add(table3);
 
