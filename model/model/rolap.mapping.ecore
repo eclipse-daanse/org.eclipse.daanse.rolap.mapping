@@ -13,6 +13,9 @@
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="model" nsURI="https://www.daanse.org/spec/org.eclipse.daanse.rolap.mapping"
     nsPrefix="roma">
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL"/>
+  </eAnnotations>
   <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
     <details key="qualified" value="true"/>
   </eAnnotations>
@@ -27,6 +30,15 @@
     <details key="literalsInterface" value="true"/>
   </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractElement" abstract="true" eSuperTypes="http://www.omg.org/spec/CWM/1.1/objectmodel/core#//ModelElement">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="NameNotBlank NameNoEdgeBlank NameNoControlChar"/>
+      <details key="http://www.daanse.org/name-rules" value="name-rules.csv"/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL">
+      <details key="NameNotBlank" value="not ((self.oclIsKindOf(model::catalog::Catalog) or self.oclIsKindOf(model::cube::Cube) or self.oclIsKindOf(model::dimension::Dimension) or self.oclIsKindOf(model::dimension::hierarchy::Hierarchy) or self.oclIsKindOf(model::dimension::hierarchy::level::Level) or self.oclIsKindOf(model::cube::measure::BaseMeasure) or self.oclIsKindOf(model::cube::Kpi) or self.oclIsKindOf(model::common::AccessRole) or self.oclIsKindOf(model::cube::action::Action)) or (self.oclIsKindOf(model::dimension::hierarchy::level::CalculatedMember) or self.oclIsKindOf(model::dimension::NamedSet))) or (not self.name.oclIsUndefined() and self.name.trim().size() &gt; 0)"/>
+      <details key="NameNoEdgeBlank" value="not (self.oclIsKindOf(model::catalog::Catalog) or self.oclIsKindOf(model::cube::Cube) or self.oclIsKindOf(model::dimension::Dimension) or self.oclIsKindOf(model::dimension::hierarchy::Hierarchy) or self.oclIsKindOf(model::dimension::hierarchy::level::Level) or self.oclIsKindOf(model::cube::measure::BaseMeasure) or self.oclIsKindOf(model::cube::Kpi) or self.oclIsKindOf(model::common::AccessRole) or self.oclIsKindOf(model::cube::action::Action)) or self.name.oclIsUndefined() or self.name = self.name.trim()"/>
+      <details key="NameNoControlChar" value="not ((self.oclIsKindOf(model::catalog::Catalog) or self.oclIsKindOf(model::cube::Cube) or self.oclIsKindOf(model::dimension::Dimension) or self.oclIsKindOf(model::dimension::hierarchy::Hierarchy) or self.oclIsKindOf(model::dimension::hierarchy::level::Level) or self.oclIsKindOf(model::cube::measure::BaseMeasure) or self.oclIsKindOf(model::cube::Kpi) or self.oclIsKindOf(model::common::AccessRole) or self.oclIsKindOf(model::cube::action::Action)) or (self.oclIsKindOf(model::dimension::hierarchy::level::CalculatedMember) or self.oclIsKindOf(model::dimension::NamedSet))) or self.name.oclIsUndefined() or not self.name.matches('.*[\\x00-\\x08\\x0B\\x0C\\x0E-\\x1F].*')"/>
+    </eAnnotations>
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="The base class of the ROLAP mapping model, itself a CWM objectmodel/core ModelElement. Identity (name), visibility, tagged values, dependencies, constraints and namespace ownership are inherited from ModelElement; documentation lives in businessinformation Descriptions owned by the element's nearest namespace (type 'documentation'); this class adds no own features. Every major schema component (Catalog, Cube, Dimension, Hierarchy, Level, Measure, etc.) inherits from this class, so all of them are CWM ModelElements and can be traversed, tagged and owned with the generic CWM tooling."/>
     </eAnnotations>
